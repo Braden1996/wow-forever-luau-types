@@ -21,7 +21,7 @@
 
 .api-kind {
   margin-inline-start: auto;
-  font-family: var(--font-display);
+  font-family: var(--wc-font-display);
   font-size: var(--sl-text-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -217,7 +217,7 @@ a.lt-ref {
   border-radius: 0.25rem;
   text-align: center;
   text-decoration: none;
-  font-family: var(--font-display);
+  font-family: var(--wc-font-display);
 }
 
 .api-letters a[aria-current="page"] {
@@ -275,7 +275,7 @@ a.lt-ref {
   max-width: calc(100vw - 16px);
   padding: 0.75rem 0.9rem;
   border-radius: 0.25rem;
-  color: var(--color-amber-50);
+  color: var(--wc-gold-50);
   pointer-events: auto;
 }
 
@@ -289,13 +289,13 @@ a.lt-ref {
 
 .hover-card-title {
   font-weight: 700;
-  color: var(--color-amber-300);
+  color: var(--wc-gold-300);
 }
 
 .hover-card-kind {
   font-family: var(--sl-font-system);
   font-size: 0.72rem;
-  color: var(--color-stone-400);
+  color: var(--wc-stone-400);
 }
 
 .hover-card-snippet {
@@ -306,7 +306,7 @@ a.lt-ref {
   font-size: 0.75rem;
   line-height: 1.5;
   white-space: pre;
-  color: var(--color-stone-200);
+  color: var(--wc-stone-200);
 }
 
 /* A type error from a checked Luau code block (src/lib/luau/ec-plugin.ts): red title, wrapped message. */
@@ -328,7 +328,7 @@ a.lt-ref {
 .hover-card-luau .luau-popup-declared {
   margin-top: 0.4rem;
   padding-top: 0.4rem;
-  border-top: 1px solid var(--color-stone-600);
+  border-top: 1px solid var(--wc-stone-600);
 }
 
 .hover-card-luau .luau-t-keyword {
@@ -336,7 +336,7 @@ a.lt-ref {
 }
 
 .hover-card-luau .luau-t-type {
-  color: var(--color-amber-300);
+  color: var(--wc-gold-300);
 }
 
 .hover-card-luau .luau-t-builtin {
@@ -352,5 +352,5 @@ a.lt-ref {
 }
 
 .hover-card-luau .luau-t-punctuation {
-  color: var(--color-stone-300);
+  color: var(--wc-stone-300);
 }
