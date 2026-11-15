@@ -122,9 +122,11 @@ function Globals.collect(ctx: Context): Tree
 		if found.kind == "typed" then
 			local sigs = Signatures.applyOverrides(ctx, qualified, found.sigs)
 			parent.children[leaf] = { kind = "func", children = {}, sigs = sigs }
+			ctx.apis.functions[qualified] = { sigs = sigs, doc = ctx.docs.functions[qualified] }
 			ctx.cover("functions", qualified, "typed", found.source)
 		elseif found.kind == "value" then
 			parent.children[leaf] = { kind = "value", children = {}, sigs = {}, valueType = found.valueType }
+			ctx.apis.functions[qualified] = { sigs = {}, opaque = "declared as " .. found.valueType }
 			ctx.cover("functions", qualified, "typed", found.source)
 		elseif found.kind == "untyped" then
 			parent.children[leaf] = { kind = "func", children = {}, sigs = { Common.UNTYPED_SIGNATURE } }
@@ -265,6 +267,7 @@ function Globals.emit(ctx: Context, tree: Tree): Counts
 		)
 		counts.functions += 1
 		ctx.cover("functions", Common.CREATE_FRAME, "typed", "generator", "generic over FrameTypeMap")
+		ctx.apis.functions[Common.CREATE_FRAME] = { sigs = {}, opaque = "generic over FrameTypeMap" }
 	end
 	for _, key in Common.sortedKeys(root.children) do
 		local node = root.children[key]

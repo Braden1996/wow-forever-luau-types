@@ -16,9 +16,12 @@ export type Field = {
 	visibility: string?,
 }
 
+-- `returnNames`: each result's name where the source gives one ("" where it does not); absent for call
+-- shapes with no names (`---@overload`, generated signatures).
 export type Signature = {
 	params: { Param },
 	returns: { Type },
+	returnNames: { string }?,
 	generics: { string },
 }
 
@@ -72,6 +75,7 @@ export type FileDecls = {
 export type Pending = {
 	params: { Param },
 	returns: { Type },
+	returnNames: { string },
 	generics: { string },
 	overloads: { Type },
 	class: Class?,
@@ -94,7 +98,7 @@ export type Reader = {
 local Decls = {}
 
 function Decls.newPending(): Pending
-	return { params = {}, returns = {}, generics = {}, overloads = {}, class = nil, enum = nil }
+	return { params = {}, returns = {}, returnNames = {}, generics = {}, overloads = {}, class = nil, enum = nil }
 end
 
 return Decls

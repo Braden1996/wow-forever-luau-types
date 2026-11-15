@@ -7,6 +7,10 @@ All notable changes to this project are documented here. The format follows
 
 ### Added
 
+- `definitions/api-shapes.json`: the result shape of every function and widget method (`maybe`, `record` with named
+  results, `value`, `void`, `variadic`, `protected`, ...), with `absent` reasons, callback parameters and a
+  boolean-first marker, for libraries that wrap the API. `generator:coverage` checks it lists exactly what
+  `coverage.json` lists; it ships with each release.
 - A documentation site at [braden1996.github.io/wow-forever-luau-types](https://braden1996.github.io/wow-forever-luau-types/):
   guides, plus an API reference generated from the definitions, with cross-linked types, hover cards and symbol
   search.

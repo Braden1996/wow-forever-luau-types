@@ -11,6 +11,7 @@ local suites: { [string]: { Case.Case } } = {
 	annotations = require("../tests/unit/annotations"),
 	luatable = require("../tests/unit/luatable"),
 	resources = require("../tests/unit/resources"),
+	shapes = require("../tests/unit/shapes"),
 	typeexpr = require("../tests/unit/typeexpr"),
 }
 

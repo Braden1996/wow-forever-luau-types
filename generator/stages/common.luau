@@ -58,6 +58,8 @@ export type Report = {
 	},
 	-- Every `any` in the definitions by form; `other` should stay 0 (COVERAGE.md shows it).
 	anyByForm: { anyTable: number, anyFunction: number, handlerArgs: number, other: number },
+	-- How many functions and widget methods have each result shape (definitions/api-shapes.json), per category.
+	shapes: { [string]: { [string]: number } },
 	unusedOverrides: { string }, -- config.paramTypeOverrides keys that matched no function or method
 	parseErrors: { string },
 	unresolvedTypes: { { name: string, uses: number } },
@@ -124,8 +126,14 @@ export type Node = {
 export type PrintedParam = { name: string, type: string, vararg: boolean }
 export type Printed = { generics: string, params: { PrintedParam }, returns: string }
 
+-- A declared function or method as the shapes stage reads it: its final signatures and the documentation
+-- entry they came from. `opaque` says why its declaration is not one of those signatures.
+export type ApiRecord = { sigs: { Signature }, doc: ApiDocs.DocFunction?, selfName: string?, opaque: string? }
+export type ApiRecords = { functions: { [string]: ApiRecord }, widgetMethods: { [string]: ApiRecord } }
+
 export type Context = {
 	config: Config,
+	apis: ApiRecords,
 	res: Resources.Resources,
 	docs: ApiDocs.DocSet,
 	reserved: { [string]: boolean },

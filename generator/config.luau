@@ -25,6 +25,9 @@ local config = {
 	coverage = "definitions/coverage.json",
 	coverageSummary = "definitions/COVERAGE.md",
 
+	-- The result shape of every function and widget method (generator/stages/shapes.luau), for wrapping libraries.
+	shapes = "definitions/api-shapes.json",
+
 	-- The client's own API documentation inside the docs repository (Gethe/wow-ui-source, `forever`).
 	docsPath = "Interface/AddOns/Blizzard_APIDocumentationGenerated",
 

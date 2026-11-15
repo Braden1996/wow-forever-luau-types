@@ -36,6 +36,7 @@ local cases: { Case.Case } = {
 				path = f.path,
 				params = params,
 				returns = TypeExpr.printReturns(f.signature.returns, resolve),
+				returnNames = f.signature.returnNames,
 				errors = decls.errors,
 			}
 			return actual,
@@ -43,6 +44,7 @@ local cases: { Case.Case } = {
 					path = { "X", "f" },
 					params = { "a: string", "b: number?", "c: any" },
 					returns = "(boolean, ...any)",
+					returnNames = { "ok", "" },
 					errors = {},
 				}
 		end,

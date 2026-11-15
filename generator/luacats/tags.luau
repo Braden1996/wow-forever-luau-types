@@ -59,6 +59,7 @@ handlers["return"] = function(r: Reader, rest: string, lineNo: number)
 	if string.match(rest, "^%.%.%.%s") or rest == "..." then
 		local variadic: Type = { kind = "variadic", inner = { kind = "name", name = "any", args = {} } }
 		table.insert(r.pending.returns, variadic)
+		table.insert(r.pending.returnNames, "")
 		return
 	end
 	local t, after = r.typeOrAny(rest, lineNo)
@@ -66,8 +67,10 @@ handlers["return"] = function(r: Reader, rest: string, lineNo: number)
 	if returnName == "..." then
 		local variadic: Type = { kind = "variadic", inner = t }
 		table.insert(r.pending.returns, variadic)
+		table.insert(r.pending.returnNames, "")
 	else
 		table.insert(r.pending.returns, t)
+		table.insert(r.pending.returnNames, returnName or "")
 	end
 end
 

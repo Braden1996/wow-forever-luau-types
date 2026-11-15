@@ -223,24 +223,30 @@ function Widgets.emit(ctx: Context)
 
 	-- Where widget `w`'s method `m` gets its type: documentation (its own, then its ancestors'),
 	-- reconciled with the annotations; then the annotations alone.
-	local function sourceOf(w: string, m: string): ({ Signature }?, string)
-		local d = (model.docMethods[w] or {})[m]
-		if d == nil then
+	local function sourceOf(w: string, m: string): ({ Signature }?, string, ApiDocs.DocFunction?)
+		local function documented(): ApiDocs.DocFunction?
+			local own = (model.docMethods[w] or {})[m]
+			if own then
+				return own
+			end
 			for _, a in model.ancestors(w) do
-				d = (model.docMethods[a] or {})[m]
-				if d then
-					break
+				local inherited = (model.docMethods[a] or {})[m]
+				if inherited then
+					return inherited
 				end
 			end
+			return nil
 		end
+		local d = documented()
 		if d then
-			return Signatures.reconcile(ctx, d.signature, model.annotatedMethod(w, m))
+			local sigs, source = Signatures.reconcile(ctx, d.signature, model.annotatedMethod(w, m))
+			return sigs, source, d
 		end
 		local a = model.annotatedMethod(w, m)
 		if a then
-			return a, "annotations"
+			return a, "annotations", nil
 		end
-		return nil, ""
+		return nil, "", nil
 	end
 
 	local emitted: { [string]: boolean } = {}
@@ -280,14 +286,17 @@ function Widgets.emit(ctx: Context)
 		end
 		for _, m in Common.sortedKeys(names) do
 			local key = w .. ":" .. m
-			local sigs, source = sourceOf(w, m)
+			local sigs, source, doc = sourceOf(w, m)
 			local printed: { Printed }
 			if sigs then
-				printed = Signatures.printAll(ctx, Signatures.applyOverrides(ctx, key, sigs), typeName, true)
+				local final = Signatures.applyOverrides(ctx, key, sigs)
+				printed = Signatures.printAll(ctx, final, typeName, true)
+				ctx.apis.widgetMethods[key] = { sigs = final, doc = doc, selfName = typeName }
 			else
 				printed = { Signatures.print(ctx, Common.UNTYPED_SIGNATURE, typeName, true) }
 			end
 			if config.scriptMethods[m] and scriptType then
+				ctx.apis.widgetMethods[key] = { sigs = {}, opaque = "a script method, typed per widget" }
 				if sigs == nil then
 					printed = { scriptMethod(m, typeName, scriptType, nil) }
 					source = "generator"
@@ -324,6 +333,7 @@ function Widgets.emit(ctx: Context)
 		for _, m in Common.sortedKeys(methods) do
 			local annotated = if annClass then annClass.methods[m] else nil
 			local sigs, source = Signatures.reconcile(ctx, methods[m].signature, annotated)
+			ctx.apis.widgetMethods[name .. ":" .. m] = { sigs = sigs, doc = methods[m], selfName = typeNames[name] }
 			for _, p in Signatures.printAll(ctx, sigs, typeNames[name], true) do
 				emit("\tfunction " .. m .. Signatures.renderParams(p, "self", true) .. ": " .. p.returns)
 			end

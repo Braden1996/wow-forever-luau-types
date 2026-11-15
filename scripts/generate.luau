@@ -1,7 +1,7 @@
 --!strict
 -- Regenerates every generated file from the pinned upstream commits in upstream.toml:
 --   definitions/wow-forever.d.luau, definitions/report.json, definitions/coverage.json,
---   definitions/COVERAGE.md and .github/banner.svg.
+--   definitions/api-shapes.json, definitions/COVERAGE.md and .github/banner.svg.
 --   lune run scripts/generate              fetch upstream (cached in .upstream/) and write the files
 --   lune run scripts/generate -- --check   fail if any committed file is stale
 
