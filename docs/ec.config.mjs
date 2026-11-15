@@ -3,11 +3,11 @@
 import { defineEcConfig } from "@astrojs/starlight/expressive-code";
 
 import { BASE } from "./src/lib/base.ts";
-import { pluginLuauTypes } from "./src/lib/luau/ec-plugin.ts";
+import { pluginLuauTypesForSite } from "./src/lib/luau/ec-plugin.ts";
 
 export default defineEcConfig({
   themes: ["github-dark-default", "github-light-default"],
   styleOverrides: { borderRadius: "0.25rem" },
   // Every ```luau block is type-checked at build time, with hover types (src/lib/luau/ec-plugin.ts).
-  plugins: [pluginLuauTypes(BASE.slice(0, -1))],
+  plugins: [pluginLuauTypesForSite(BASE.slice(0, -1))],
 });

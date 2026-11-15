@@ -45,6 +45,11 @@ function cardFor(anchor: HTMLElement): Promise<CardData | undefined> {
       source: undefined,
     });
   }
+  // A linked API symbol in a code block carries both; its reference card says more than its inferred type.
+  const symbol = anchor.dataset["sym"];
+  if (symbol !== undefined) {
+    return loadCard(symbol);
+  }
   const type = anchor.dataset["luauType"];
   if (type !== undefined) {
     return Promise.resolve({
@@ -56,8 +61,7 @@ function cardFor(anchor: HTMLElement): Promise<CardData | undefined> {
       source: undefined,
     });
   }
-  const symbol = anchor.dataset["sym"];
-  return symbol === undefined ? Promise.resolve(undefined) : loadCard(symbol);
+  return Promise.resolve(undefined);
 }
 
 function place(anchor: HTMLElement, card: CardData): Shown {
