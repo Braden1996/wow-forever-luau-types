@@ -317,3 +317,40 @@ a.lt-ref {
 .hover-card-error .hover-card-snippet {
   white-space: pre-wrap;
 }
+
+/* An inferred type from a checked code block: luau-web-checker's pre-rendered view (expanded type, then the declared
+   form under a rule), with its highlighting classes in this site's colours. */
+.hover-card-luau .luau-popup-main,
+.hover-card-luau .luau-popup-declared {
+  display: block;
+}
+
+.hover-card-luau .luau-popup-declared {
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--color-stone-600);
+}
+
+.hover-card-luau .luau-t-keyword {
+  color: #ff7b72;
+}
+
+.hover-card-luau .luau-t-type {
+  color: var(--color-amber-300);
+}
+
+.hover-card-luau .luau-t-builtin {
+  color: #79c0ff;
+}
+
+.hover-card-luau .luau-t-property {
+  color: #a5d6ff;
+}
+
+.hover-card-luau .luau-t-string {
+  color: #a5f3a5;
+}
+
+.hover-card-luau .luau-t-punctuation {
+  color: var(--color-stone-300);
+}

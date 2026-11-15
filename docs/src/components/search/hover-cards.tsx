@@ -11,6 +11,8 @@ import { loadCard } from "./load-index.ts";
 
 interface Shown {
   readonly card: CardData;
+  /** For an inferred type: the code block's pre-rendered, highlighted view (luau-web-checker's `.luau-popup`). */
+  readonly popup: Element | undefined;
   readonly top: number;
   readonly left: number;
   readonly below: boolean;
@@ -68,7 +70,16 @@ function place(anchor: HTMLElement, card: CardData): Shown {
   const rect = anchor.getBoundingClientRect();
   const below = rect.top < window.innerHeight / 2;
   const left = Math.max(8, Math.min(rect.left, window.innerWidth - CARD_WIDTH - 8));
-  return { card, left, below, top: below ? rect.bottom + 6 : window.innerHeight - rect.top + 6 };
+  const inferred = anchor.dataset["sym"] === undefined && anchor.dataset["luauError"] === undefined;
+  const popup = inferred ? (anchor.querySelector(":scope > .luau-popup") ?? undefined) : undefined;
+  return { card, popup, left, below, top: below ? rect.bottom + 6 : window.innerHeight - rect.top + 6 };
+}
+
+// Shows a copy of the pre-rendered view (its spans carry the `luau-t-<kind>` highlighting classes).
+function showPopup(popup: Element): (code: HTMLElement | null) => void {
+  return (code) => {
+    code?.replaceChildren(...[...popup.childNodes].map((node) => node.cloneNode(true)));
+  };
 }
 
 export const HoverCards = (): ReactElement | null => {
@@ -175,9 +186,15 @@ export const HoverCards = (): ReactElement | null => {
             ` · ${card.status}${card.source === undefined ? "" : ` (${card.source})`}`}
         </span>
       </div>
-      <pre className="hover-card-snippet">
-        <code>{card.snippet}</code>
-      </pre>
+      {shown.popup === undefined ? (
+        <pre className="hover-card-snippet">
+          <code>{card.snippet}</code>
+        </pre>
+      ) : (
+        <pre className="hover-card-snippet hover-card-luau">
+          <code ref={showPopup(shown.popup)} />
+        </pre>
+      )}
     </div>
   );
 };
