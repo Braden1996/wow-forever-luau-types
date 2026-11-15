@@ -1,0 +1,43 @@
+---
+title: Credits and licences
+description: The sources the definitions are derived from, the software this site is built with, and their licences.
+---
+
+wow-forever-luau-types is released under the
+[MIT licence](https://github.com/Braden1996/wow-forever-luau-types/blob/main/LICENSE). It stands on the work of
+others. Thanks to Ketho, Gethe and their contributors in particular.
+
+## Sources of the definitions
+
+| Source | Licence | Used for |
+| --- | --- | --- |
+| [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api), © Ketho | MIT | LuaCATS annotations: types for globals the documentation omits, FrameXML mixins and Lua extensions |
+| [warcraft.wiki.gg](https://warcraft.wiki.gg) | via the annotations above | Much of the annotations' content is sourced from the wiki |
+| [Gethe/wow-ui-source](https://github.com/Gethe/wow-ui-source) (`forever` branch) | no licence file | Blizzard's `Blizzard_APIDocumentationGenerated`: argument and result types, structures, event payloads |
+| [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources) (`forever` branch) | no licence file | Dumps from the live client: which APIs, widgets, events and enums exist |
+
+From the two sources without a licence file, only API names and documented types reach the output.
+
+## This site
+
+| Software | Licence | Used for |
+| --- | --- | --- |
+| [Astro](https://astro.build) and [Starlight](https://starlight.astro.build) | MIT | Static site generator and documentation theme |
+| [React](https://react.dev) | MIT | Interactive components: search, hover cards, the playground |
+| [warcraftcn/ui](https://github.com/TheOrcDev/warcraftcn-ui) by TheOrcDev | MIT | Fantasy-styled UI components and frame textures, forked into `docs/src/components/warcraftcn` with the changes listed there |
+| [Cinzel](https://fonts.google.com/specimen/Cinzel) by Natanael Gama, via Fontsource | OFL-1.1 | Display typeface |
+| [@luau-rs/luau](https://github.com/luau-rs/luau) | MIT | Luau's analyser compiled to WebAssembly: the playground's in-browser type checker |
+| [CodeMirror](https://codemirror.net) | MIT | The playground's editor |
+| [Tailwind CSS](https://tailwindcss.com) and [Radix UI](https://www.radix-ui.com) | MIT | Styling and accessible primitives |
+| [Luau](https://luau.org) | MIT | The language, and the analyser the playground runs |
+
+Each forked file keeps a header naming its origin and licence, and the fork's own
+[README](https://github.com/Braden1996/wow-forever-luau-types/blob/main/docs/src/components/warcraftcn/README.md)
+lists what changed.
+
+## Trademarks
+
+World of Warcraft, Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard
+Entertainment, Inc. This is an unofficial community project. It is not affiliated with, sponsored by or endorsed by
+Blizzard Entertainment. The site uses no Blizzard artwork or logos; game names are used only to say which client
+the definitions describe.

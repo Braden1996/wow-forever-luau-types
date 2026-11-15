@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Site source (DOM + React)",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "types": ["astro/client"],
+    "rootDir": ".",
+    "outDir": "./out-tsc/src"
+  },
+  "include": [".astro/types.d.ts", "src"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
+}

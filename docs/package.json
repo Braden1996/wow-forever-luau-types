@@ -1,0 +1,62 @@
+{
+  "private": true,
+  "name": "wow-forever-luau-types-docs",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "The documentation site for wow-forever-luau-types (Astro + Starlight, static for GitHub Pages).",
+  "engines": {
+    "bun": ">=1.4.4",
+    "node": ">=26.13.1"
+  },
+  "packageManager": "bun@1.4.4",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "bun run typecheck:ts && bun run typecheck:astro",
+    "typecheck:ts": "node node_modules/@typescript/native/bin/tsc --build",
+    "typecheck:astro": "astro check --tsconfig tsconfig.src.json",
+    "lint": "oxlint --type-aware --deny-warnings",
+    "fmt": "oxfmt --write",
+    "fmt:check": "oxfmt --check",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@astrojs/react": "7.1.9",
+    "@astrojs/starlight": "0.43.1",
+    "@astrojs/starlight-tailwind": "5.0.0",
+    "@codemirror/autocomplete": "6.20.4",
+    "@codemirror/commands": "6.11.1",
+    "@codemirror/language": "6.13.1",
+    "@codemirror/legacy-modes": "6.5.5",
+    "@codemirror/lint": "6.9.8",
+    "@codemirror/state": "6.7.6",
+    "@codemirror/view": "6.43.15",
+    "@fontsource/cinzel": "5.3.0",
+    "@luau-rs/luau": "0.739.0",
+    "@radix-ui/react-slot": "1.5.0",
+    "@radix-ui/react-tabs": "1.2.1",
+    "@radix-ui/react-tooltip": "1.4.1",
+    "@tailwindcss/vite": "4.3.5",
+    "astro": "7.4.12",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "0.35.5",
+    "tailwind-merge": "3.7.0",
+    "tailwindcss": "4.3.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@types/bun": "1.4.4",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@typescript/native": "npm:typescript@7.0.2",
+    "oxfmt": "0.78.0",
+    "oxlint": "1.93.0",
+    "oxlint-tsgolint": "7.0.2007",
+    "typescript": "6.0.3"
+  }
+}

@@ -1,0 +1,88 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import type { ApiEvent } from "../../../lib/api/model.ts";
+
+import { Code } from "@astrojs/starlight/components";
+
+import ApiPage from "../../../components/api/api-page.astro";
+import CodeBlock from "../../../components/api/code-block.astro";
+import { renderContext } from "../../../components/api/context.ts";
+import CoverageChip from "../../../components/api/coverage-chip.astro";
+import { lookupCoverage } from "../../../lib/api/coverage.ts";
+import { loadCatalog } from "../../../lib/api/load.ts";
+import { apiPaths } from "../../../lib/api/paths.ts";
+import { escapeHtml, typeHtml } from "../../../lib/api/render.ts";
+import { parseFunctionType } from "../../../lib/api/type-expr.ts";
+
+export const getStaticPaths = (() =>
+  loadCatalog().parsed.events.map((event) => ({ params: { name: event.name }, props: { event } }))) satisfies GetStaticPaths;
+
+interface Props {
+  readonly event: ApiEvent;
+}
+
+const { event } = Astro.props;
+const catalog = loadCatalog();
+const ctx = renderContext(catalog);
+const shape = parseFunctionType(event.payload);
+const params = shape?.params ?? [];
+const declaration = `<span class="lt-kw">type</span> <span class="lt-fn">EventHandler</span>&lt;<span class="lt-string">"${escapeHtml(event.name)}"</span>&gt; = ${typeHtml(event.payload, ctx)}`;
+const handlerParams = params.map((param, index) => `${param.name ?? `arg${index + 1}`}: ${param.type}`).join(", ");
+const example = [
+  `local frame = CreateFrame("Frame")`,
+  `frame:RegisterEvent("${event.name}")`,
+  ``,
+  `local on${event.name.split("_").map((part) => part.charAt(0) + part.slice(1).toLowerCase()).join("")}: EventHandler<"${event.name}"> = function(${handlerParams})`,
+  `end`,
+].join("\n");
+---
+
+<ApiPage
+  title={event.name}
+  description={`The ${event.name} event: ${params.length === 0 ? "no payload" : `${params.length} payload values`}, typed for EventHandler<"${event.name}">.`}
+  kind="Event"
+  crumbs={[{ label: "Events", path: apiPaths.events }]}
+  headings={[
+    { depth: 2, slug: "payload", text: "Payload" },
+    { depth: 2, slug: "example", text: "Example" },
+  ]}
+>
+  <p>
+    <CoverageChip coverage={lookupCoverage(catalog.coverage, "events", event.name)} />
+    {` Registered with frame:RegisterEvent("${event.name}"); the handler type is EventHandler<"${event.name}">.`}
+  </p>
+  <CodeBlock html={declaration} />
+  <h2 id="payload">Payload</h2>
+  {
+    params.length === 0 ? (
+      <p>This event has no payload.</p>
+    ) : (
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {params.map((param, index) => (
+            <tr>
+              <td>{index + 1}</td>
+              <td>
+                <code>{param.variadic ? "..." : (param.name ?? "")}</code>
+              </td>
+              <td>
+                <code set:html={typeHtml(param.type, ctx)} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )
+  }
+  <h2 id="example">Example</h2>
+  <p>Annotate the handler's parameters: Luau does not infer them through <code>index&lt;&gt;</code>.</p>
+  <Code code={example} lang="luau" />
+</ApiPage>

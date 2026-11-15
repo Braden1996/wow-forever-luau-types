@@ -1,0 +1,22 @@
+---
+import ApiPage from "../../../components/api/api-page.astro";
+import { renderContext } from "../../../components/api/context.ts";
+import Member from "../../../components/api/member.astro";
+import { loadCatalog } from "../../../lib/api/load.ts";
+
+const catalog = loadCatalog();
+const ctx = renderContext(catalog);
+const aliases = catalog.parsed.aliases.toSorted((a, b) => a.name.localeCompare(b.name, "en"));
+---
+
+<ApiPage
+  title="Type aliases"
+  description="Named types the WoW: Forever definitions use: string unions, number and string aliases, and handler types."
+  kind="Index"
+>
+  <p>
+    {aliases.length} aliases. Most name a primitive the documentation gives a meaning to (<code>uiUnit</code>,
+    <code>fileID</code>), or a union of string literals the API accepts.
+  </p>
+  {aliases.map((alias) => <Member id={alias.name} display={alias.name} type={alias.type} ctx={ctx} />)}
+</ApiPage>

@@ -1,0 +1,41 @@
+---
+import type { ListGroup } from "../../../components/api/grouped-list.astro";
+
+import ApiPage from "../../../components/api/api-page.astro";
+import GroupedList from "../../../components/api/grouped-list.astro";
+import { loadCatalog } from "../../../lib/api/load.ts";
+import { apiPaths } from "../../../lib/api/paths.ts";
+import { withBase } from "../../../lib/site.ts";
+
+const catalog = loadCatalog();
+const sorted = catalog.parsed.structures.toSorted((a, b) => a.name.localeCompare(b.name, "en"));
+const item = (name: string, fields: number) => ({
+  name,
+  href: withBase(apiPaths.structure(name)),
+  sym: `structure:${name}`,
+  note: `${fields}`,
+});
+const groups: ListGroup[] = [
+  {
+    title: "Structures",
+    items: sorted.filter((s) => !s.name.endsWith("Mixin")).map((s) => item(s.name, s.fields.length)),
+  },
+  {
+    title: "Mixins",
+    items: sorted.filter((s) => s.name.endsWith("Mixin")).map((s) => item(s.name, s.fields.length)),
+  },
+];
+const derived = sorted.filter((s) => s.bases.length > 0).length;
+---
+
+<ApiPage
+  title="Structures and mixins"
+  description="The table types WoW: Forever APIs take and return, and the FrameXML mixins, with their fields."
+  kind="Index"
+>
+  <p>
+    {catalog.parsed.structures.length} table types. {derived} of them are derived from a base as
+    <code>{"Base & { ... }"}</code>, so they share the base's fields. The number after each name is its own field count.
+  </p>
+  <GroupedList id="structure-list" label="Filter structures" groups={groups} />
+</ApiPage>

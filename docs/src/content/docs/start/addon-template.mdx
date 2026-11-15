@@ -1,0 +1,138 @@
+---
+title: Addon template
+description: A ready strict-Luau addon for WoW Forever, with pinned tools, editor settings, a Lua 5.1 build and CI.
+---
+
+import { Aside, FileTree, Steps } from "@astrojs/starlight/components";
+
+The [addon template](https://github.com/Braden1996/wow-forever-luau-types/tree/main/templates/addon) is the fastest
+way to start. CI in this repository type-checks it and builds it to Lua 5.1 on every change, so it always works with
+the current definitions.
+
+## What it contains
+
+<FileTree>
+- MyAddon/
+  - .github/workflows/check.yml CI: types, check and build on every push
+  - .lune/types.luau downloads and verifies the definitions
+  - .vscode/settings.json luau-lsp settings for VS Code
+  - .zed/settings.json the same settings for Zed
+  - src/
+    - Core.luau shared namespace and SavedVariables
+    - Events.luau typed event handlers
+  - types/
+    - addon.d.luau your own globals and types
+    - wow-forever.d.luau downloaded, not committed
+  - .darklua.json Luau to Lua 5.1 rules
+  - .luaurc strict mode, lint warnings are errors
+  - mise.toml pinned tools and tasks
+  - mise.lock tool checksums
+  - MyAddon.toc loads build/\*.lua
+  - stylua.toml
+</FileTree>
+
+The tools are pinned in `mise.toml`, with checksums in `mise.lock`: luau-lsp (type checker), darklua (compiler),
+StyLua (formatter) and Lune (runs the download script).
+
+## Use it
+
+<Steps>
+
+1. **Copy the folder.** With Node.js installed:
+
+   ```sh
+   npx degit Braden1996/wow-forever-luau-types/templates/addon MyAddon
+   ```
+
+   Without Node.js, sparse-clone the repository (`git clone --depth 1 --filter=blob:none --sparse`), run
+   `git sparse-checkout set templates/addon` inside it, and copy `templates/addon` out.
+
+2. **Rename `MyAddon`.** A find-and-replace of `MyAddon` across the folder covers every occurrence: the folder and
+   the `.toc` (WoW requires them to match), the `## Title:` and `## SavedVariables:` lines, `MyAddonDB`,
+   `MyAddonNamespace`, and the comments that mention the `.toc`.
+
+3. **Install the tools.** Install [mise](https://mise.jdx.dev), then in the folder run `mise trust` and
+   `mise install`.
+
+4. **Download the definitions** with `mise run types`. It fetches `wow-forever.d.luau` from the release pinned in
+   `mise.toml` and fails unless its SHA-256 matches both the pinned hash and the release's `SHA256SUMS`.
+
+5. **Open the folder in your editor.** Install the recommended extensions (VS Code: Luau Language Server and StyLua;
+   Zed: the "Luau" extension). See [editor setup](/wow-forever-luau-types/start/editor-setup/).
+
+</Steps>
+
+## Tasks
+
+| Command          | What it does                                                                            |
+| ---------------- | --------------------------------------------------------------------------------------- |
+| `mise run types` | Downloads and verifies the pinned definitions release into `types/`                     |
+| `mise run check` | Type-checks and lints `src/` (any diagnostic fails), then checks formatting             |
+| `mise run fmt`   | Formats `src/` with StyLua                                                              |
+| `mise run build` | Compiles each `src/*.luau` to `build/*.lua` (Lua 5.1), the files the `.toc` loads       |
+
+To add a source file: create `src/Name.luau`, add `build/Name.lua` to the `.toc`, and add its line to the `build`
+task in `mise.toml`. To play, copy `build/` and the `.toc` into `Interface/AddOns/MyAddon`.
+
+To upgrade the definitions, set `WOW_TYPES_VERSION` and `WOW_TYPES_SHA256` in `mise.toml` from a newer
+[release](https://github.com/Braden1996/wow-forever-luau-types/releases).
+
+## The code
+
+`types/addon.d.luau` declares the addon's SavedVariables and the namespace type every file shares:
+
+```luau
+export type MyAddonDB = {
+	enabled: boolean,
+	logins: number,
+}
+
+declare MyAddonDB: MyAddonDB?
+
+export type MyAddonNamespace = {
+	version: string,
+	-- nil until ADDON_LOADED runs ns.load(): check it before use.
+	db: MyAddonDB?,
+	print: (message: string) -> (),
+	load: () -> (),
+}
+```
+
+`src/Events.luau` registers typed handlers. Each is checked against its event's documented payload:
+
+```luau
+--!strict
+local ADDON: string, ns: MyAddonNamespace = ...
+
+local onAddonLoaded: EventHandler<"ADDON_LOADED"> = function(addOnName: string)
+	if addOnName == ADDON then
+		ns.load()
+	end
+end
+
+local handlers: { [FrameEvent]: (...any) -> () } = {
+	ADDON_LOADED = onAddonLoaded,
+}
+
+local frame = CreateFrame("Frame")
+for event in pairs(handlers) do
+	frame:RegisterEvent(event)
+end
+frame:SetScript("OnEvent", function(_self: Frame, event: FrameEvent, ...: any)
+	local handler = handlers[event]
+	if handler then
+		handler(...)
+	end
+end)
+```
+
+<Aside type="caution" title="Lua 5.1 at run time">
+  darklua removes Luau syntax, not Luau semantics. Iterate tables with `pairs` or `ipairs`, never
+  `for k, v in t do`. Do not call Luau-only library functions such as `table.clone`, `table.find` or `string.split`:
+  WoW runs Lua 5.1 and has none of them.
+</Aside>
+
+## Editors and the pinned checker
+
+Editor extensions download and run their own luau-lsp, not the version pinned in `mise.toml`. After a luau-lsp
+release the two can disagree. `mise run check`, which CI runs, is the reference.

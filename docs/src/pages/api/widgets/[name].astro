@@ -1,0 +1,147 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import type { WidgetType } from "../../../lib/api/model.ts";
+
+import { Code } from "@astrojs/starlight/components";
+
+import ApiPage from "../../../components/api/api-page.astro";
+import { renderContext } from "../../../components/api/context.ts";
+import CoverageChip from "../../../components/api/coverage-chip.astro";
+import Member from "../../../components/api/member.astro";
+import UsedBy from "../../../components/api/used-by.astro";
+import { lookupCoverage } from "../../../lib/api/coverage.ts";
+import { loadCatalog } from "../../../lib/api/load.ts";
+import { apiPaths } from "../../../lib/api/paths.ts";
+import { withBase } from "../../../lib/site.ts";
+
+export const getStaticPaths = (() =>
+  loadCatalog().parsed.widgets.map((widget) => ({ params: { name: widget.name }, props: { widget } }))) satisfies GetStaticPaths;
+
+interface Props {
+  readonly widget: WidgetType;
+}
+
+const { widget } = Astro.props;
+const catalog = loadCatalog();
+const ctx = renderContext(catalog);
+const chain = catalog.widgetChain(widget.name);
+const ancestors = chain.slice(1);
+const children = catalog.widgetChildren(widget.name);
+const isWidget = widget.section === "widget";
+const methods = widget.methods.toSorted((a, b) => a.name.localeCompare(b.name, "en"));
+const inheritedCount = ancestors.reduce((total, ancestor) => total + ancestor.methods.length, 0);
+const local = widget.name.charAt(0).toLowerCase() + widget.name.slice(1);
+const createSnippet = `local ${local} = CreateFrame("${widget.name}", nil, UIParent)\n-- ${local}: ${widget.name}`;
+---
+
+<ApiPage
+  title={widget.name}
+  description={`The ${widget.name} ${isWidget ? "widget" : "script object"} type: ${methods.length} methods, ${inheritedCount} inherited.`}
+  kind={isWidget ? "Widget" : "Script object"}
+  crumbs={[{ label: "Widgets", path: apiPaths.widgets }]}
+  headings={[
+    { depth: 2, slug: "hierarchy", text: "Hierarchy" },
+    ...(widget.scripts.length > 0 ? [{ depth: 2, slug: "scripts", text: "Script handlers" }] : []),
+    { depth: 2, slug: "methods", text: `Methods (${methods.length})` },
+    ...(ancestors.length > 0 ? [{ depth: 2, slug: "inherited", text: `Inherited (${inheritedCount})` }] : []),
+    { depth: 2, slug: "used-by", text: "Used by" },
+  ]}
+>
+  <p>
+    <CoverageChip coverage={lookupCoverage(catalog.coverage, "widgets", widget.name)} />
+    {` Declared as an extern type${widget.parent === undefined ? "" : ` that extends ${widget.parent}`}, in the client's own hierarchy.`}
+  </p>
+  {widget.creatable && <Code code={createSnippet} lang="luau" title="CreateFrame returns this type" />}
+
+  <h2 id="hierarchy">Hierarchy</h2>
+  <ol class="api-chain not-content">
+    {
+      chain.map((link, index) => (
+        <li>
+          {index === 0 ? (
+            <strong>{link.name}</strong>
+          ) : (
+            <a href={withBase(apiPaths.widget(link.name))} data-sym={`widget:${link.name}`}>
+              {link.name}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+  {
+    children.length > 0 && (
+      <p>
+        Subtypes:{" "}
+        {children.map((child, index) => (
+          <>
+            {index > 0 && ", "}
+            <a href={withBase(apiPaths.widget(child.name))} data-sym={`widget:${child.name}`}>
+              <code>{child.name}</code>
+            </a>
+          </>
+        ))}
+      </p>
+    )
+  }
+
+  {
+    widget.scripts.length > 0 && (
+      <>
+        <h2 id="scripts">Script handlers</h2>
+        <p>
+          <code>SetScript</code>, <code>HookScript</code> and <code>GetScript</code> accept only these names (the{" "}
+          <code>{`${widget.name}ScriptType`}</code> union):
+        </p>
+        <ul class="api-tags not-content">
+          {widget.scripts.map((script) => (
+            <li>
+              <code>{script}</code>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+
+  <h2 id="methods">Methods</h2>
+  {methods.length === 0 && <p>This type declares no methods of its own.</p>}
+  {
+    methods.map((method) => (
+      <Member
+        id={method.name}
+        display={`${widget.name}:${method.name}`}
+        type={method.type}
+        ctx={ctx}
+        coverage={lookupCoverage(catalog.coverage, "widgetMethods", `${widget.name}:${method.name}`)}
+      />
+    ))
+  }
+
+  {
+    ancestors.length > 0 && (
+      <>
+        <h2 id="inherited">Inherited methods</h2>
+        {ancestors.map((ancestor) => (
+          <details class="api-inherited">
+            <summary>
+              From <code>{ancestor.name}</code> ({ancestor.methods.length})
+            </summary>
+            <ul class="api-columns not-content">
+              {ancestor.methods.map((method) => (
+                <li>
+                  <a href={`${withBase(apiPaths.widget(ancestor.name))}#${method.name}`}>
+                    <code>{method.name}</code>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        ))}
+      </>
+    )
+  }
+
+  <UsedBy referrers={catalog.usedBy({ path: apiPaths.widget(widget.name), card: "widget", name: widget.name })} />
+</ApiPage>

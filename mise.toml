@@ -13,3 +13,5 @@ experimental = true
 "aqua:Kampfkarren/selene" = "0.32.0"
 "aqua:crate-ci/typos" = "1.52.2"
 "aqua:rhysd/actionlint" = "1.7.12"
+"bun" = "1.4.4" # docs site package manager and script runner (site/)
+"node" = "26.13.1" # runs Astro for the docs site (active LTS)

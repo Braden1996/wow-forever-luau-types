@@ -1,0 +1,119 @@
+---
+title: Getting started
+description: Add the WoW Forever definitions to an addon, check it in your editor and in CI.
+---
+
+import { Aside, LinkCard, Steps } from "@astrojs/starlight/components";
+import Sym from "../../../components/api/sym.astro";
+
+The project publishes one file, `wow-forever.d.luau`, with each [release](https://github.com/Braden1996/wow-forever-luau-types/releases).
+[luau-lsp](https://github.com/JohnnyMorganz/luau-lsp) loads it as a definitions file. Your addon's source stays
+ordinary Luau.
+
+<LinkCard
+  title="Starting a new addon?"
+  description="Copy the addon template instead. It has all of the setup below already done, plus a build to Lua 5.1."
+  href="/wow-forever-luau-types/start/addon-template/"
+/>
+
+## Requirements
+
+- **luau-lsp** (the VS Code extension, the Zed extension, or the `luau-lsp` command-line tool). Plain
+  `luau-analyze` cannot load definitions files.
+- **Luau's new type solver.** The definitions use `keyof`, `index` and generic lookups, which only the new solver
+  supports. v0.1.0 was the last release that loaded under the old solver.
+- **A build step to Lua 5.1** if you use Luau syntax such as type annotations: WoW runs Lua 5.1. The
+  [addon template](/wow-forever-luau-types/start/addon-template/) uses [darklua](https://github.com/seaofvoices/darklua).
+
+## Set up an existing addon
+
+<Steps>
+
+1. **Download** `wow-forever.d.luau` from the [latest release](https://github.com/Braden1996/wow-forever-luau-types/releases/latest)
+   into your addon, for example as `types/wow-forever.d.luau`. Check it against the release's `SHA256SUMS`.
+
+   Pin a version and upgrade on purpose: an upstream update can change types.
+
+2. **Declare your own globals** (SavedVariables and the shared namespace type) in a second file,
+   `types/addon.d.luau`. The [SavedVariables guide](/wow-forever-luau-types/guides/saved-variables/) explains why.
+
+   ```luau
+   -- types/addon.d.luau
+   export type MyAddonDB = { enabled: boolean, logins: number }
+   declare MyAddonDB: MyAddonDB?
+   ```
+
+3. **Configure your editor.** For VS Code, install the
+   [Luau Language Server](https://marketplace.visualstudio.com/items?itemName=JohnnyMorganz.luau-lsp) extension and
+   add to `.vscode/settings.json`:
+
+   ```jsonc
+   {
+     "luau-lsp.platform.type": "standard", // not Roblox
+     "luau-lsp.sourcemap.enabled": false,
+     "luau-lsp.fflags.enableNewSolver": true, // required: the definitions use the new type solver
+     "luau-lsp.types.definitionFiles": {
+       "@wow": "types/wow-forever.d.luau",
+       "@addon": "types/addon.d.luau",
+     },
+   }
+   ```
+
+   [Editor setup](/wow-forever-luau-types/start/editor-setup/) covers Zed and other editors.
+
+4. **Mark each file strict** with `--!strict` on the first line, or set `"languageMode": "strict"` in a `.luaurc`
+   at the addon's root.
+
+5. **Check from the command line and in CI.** `luau-lsp analyze` exits non-zero on any error, so it can gate a
+   pull request:
+
+   ```sh
+   luau-lsp analyze --platform=standard --flag:LuauSolverV2=true \
+     --definitions=@wow=types/wow-forever.d.luau \
+     --definitions=@addon=types/addon.d.luau \
+     src/
+   ```
+
+</Steps>
+
+## Check that it works
+
+Open a source file and type a deliberate mistake:
+
+```luau
+--!strict
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_LOGN") -- should be reported: not an event the client sends
+```
+
+If nothing is reported, the new solver is probably off, or the definitions path is wrong. If `CreateFrame` is an
+unknown global, luau-lsp did not load the definitions file.
+
+<Sym fn="CreateFrame" /> is generic: `CreateFrame("Button")` returns a <Sym type="Button" />, not a plain frame.
+The [widgets guide](/wow-forever-luau-types/guides/widgets/) shows what that gives you.
+
+<Aside type="tip" title="Try it without installing anything">
+  The [playground](/wow-forever-luau-types/playground/) type-checks a snippet against the same definitions in your
+  browser.
+</Aside>
+
+## WoW: Forever is a modern client
+
+Forever runs the modern game client with Classic content. Several Classic Era globals do not exist there, and the
+definitions report them as unknown:
+
+| Classic Era                     | WoW: Forever                                                                                  |
+| ------------------------------- | --------------------------------------------------------------------------------------------- |
+| `GetQuestLogTitle(i)`           | [`C_QuestLog.GetInfo(i)`](/wow-forever-luau-types/api/namespaces/C_QuestLog/#GetInfo)          |
+| `GetNumQuestLogEntries()`       | [`C_QuestLog.GetNumQuestLogEntries()`](/wow-forever-luau-types/api/namespaces/C_QuestLog/#GetNumQuestLogEntries) |
+| `GetItemInfo(item)`             | [`C_Item.GetItemInfo(item)`](/wow-forever-luau-types/api/namespaces/C_Item/#GetItemInfo)       |
+| `ChatFrame_AddMessageEventFilter` | [`ChatFrameUtil.AddMessageEventFilter`](/wow-forever-luau-types/api/namespaces/ChatFrameUtil/#AddMessageEventFilter) |
+
+Classic-only events such as `CRAFT_SHOW`, `UNIT_HEALTH_FREQUENT` and `LEARNED_SPELL_IN_TAB` are not in the event
+list either.
+
+## Next
+
+- [Strict patterns](/wow-forever-luau-types/guides/strict-patterns/): the shared namespace, nil checks and casts.
+- [Events](/wow-forever-luau-types/guides/events/): typed handlers checked against each event's payload.
+- [API reference](/wow-forever-luau-types/api/): every namespace, widget, event, enum and structure.

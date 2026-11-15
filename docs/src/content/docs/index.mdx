@@ -1,0 +1,97 @@
+---
+title: wow-forever-luau-types
+description: Strict Luau type definitions for the World of Warcraft Forever addon API, with a cross-linked API reference and an in-browser type checker.
+template: splash
+hero:
+  tagline: Write World of Warcraft Forever addons in strict Luau and have every API call checked before the game loads them.
+  actions:
+    - text: Get started
+      link: /wow-forever-luau-types/start/getting-started/
+      icon: right-arrow
+    - text: API reference
+      link: /wow-forever-luau-types/api/
+      variant: secondary
+    - text: Try it in the browser
+      link: /wow-forever-luau-types/playground/
+      variant: minimal
+      icon: external
+---
+
+import { Card, CardGrid, LinkCard } from "@astrojs/starlight/components";
+import Sym from "../../components/api/sym.astro";
+
+## Why
+
+The game reports a typo in an event name, a missing nil check or a removed global only when the code runs, often in
+the middle of play. `wow-forever.d.luau` is one definitions file for the
+[luau-lsp](https://github.com/JohnnyMorganz/luau-lsp) language server and type checker. With it, your editor and
+your CI report those mistakes as you type:
+
+```luau
+--!strict
+local frame = CreateFrame("Frame")            -- a Frame; CreateFrame("Button") is a Button
+frame:RegisterEvent("PLAYER_LOGN")             -- error: not an event the client sends
+frame:SetScript("OnClick", onClick)            -- error: a plain Frame has no OnClick script
+frame:SetPoint("CENTRE")                       -- error: not an anchor point
+local info = C_QuestLog.GetInfo(1)
+print(info.title)                              -- error: info may be nil
+GetQuestLogTitle(1)                            -- error: Forever replaced it with C_QuestLog
+```
+
+The definitions follow the WoW: Forever client (1.60.1, interface 16001). Forever runs the modern client with
+Classic content, so neither the retail nor the Classic Era API is right for it: <Sym fn="C_QuestLog.GetInfo" />
+exists there, `GetQuestLogTitle` does not.
+
+## What is inside
+
+<CardGrid>
+  <Card title="C API, 99.8% typed" icon="approve-check">
+    6,892 of the client's 6,904 native functions (global and `C_*`) have argument and result types, mostly from
+    Blizzard's own API documentation.
+  </Card>
+  <Card title="Widgets in their real hierarchy" icon="puzzle">
+    57 widget types as extern types, from <Sym type="FrameScriptObject" /> down to <Sym type="CheckButton" />. 1,660
+    methods, all typed. Script names are per widget.
+  </Card>
+  <Card title="Every event, with its payload" icon="rocket">
+    1,816 events form a closed union, and `EventHandler<E>` gives each handler its documented payload, such as
+    <Sym event="PLAYER_LEVEL_UP" />.
+  </Card>
+  <Card title="Structures and enums" icon="list-format">
+    821 structures and mixins (some derived as `Base & { ... }`) and 954 enums from the client, with nil-safety on
+    every optional field.
+  </Card>
+</CardGrid>
+
+Every API the client has is listed as typed, untyped or excluded, with a reason. CI fails if a typed API loses its
+types. See [Coverage](/wow-forever-luau-types/coverage/) for the full tables.
+
+## Next steps
+
+<CardGrid>
+  <LinkCard
+    title="Getting started"
+    description="Download the definitions and configure luau-lsp in your editor and CI."
+    href="/wow-forever-luau-types/start/getting-started/"
+  />
+  <LinkCard
+    title="Addon template"
+    description="A ready project: editor settings, pinned tools, a Lua 5.1 build and CI."
+    href="/wow-forever-luau-types/start/addon-template/"
+  />
+  <LinkCard
+    title="Guides"
+    description="Strict patterns for events, widgets, SavedVariables and untyped APIs."
+    href="/wow-forever-luau-types/guides/strict-patterns/"
+  />
+  <LinkCard
+    title="Playground"
+    description="Type-check a snippet against the definitions in your browser. No server is involved."
+    href="/wow-forever-luau-types/playground/"
+  />
+</CardGrid>
+
+---
+
+World of Warcraft and Blizzard Entertainment are trademarks of Blizzard Entertainment, Inc. This is an unofficial
+community project. It is not affiliated with or endorsed by Blizzard Entertainment.

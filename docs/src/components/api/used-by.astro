@@ -1,0 +1,37 @@
+---
+// "Used by": the APIs whose signatures mention this type (computed in src/lib/api/catalog.ts).
+import type { Referrer } from "../../lib/api/catalog.ts";
+
+import { withBase } from "../../lib/site.ts";
+
+interface Props {
+  readonly referrers: readonly Referrer[];
+}
+
+const LIMIT = 150;
+const { referrers } = Astro.props;
+const shown = referrers.slice(0, LIMIT);
+---
+
+<h2 id="used-by">Used by</h2>
+{
+  referrers.length === 0 ? (
+    <p>No API in the definitions mentions this type.</p>
+  ) : (
+    <>
+      <p>
+        {referrers.length} {referrers.length === 1 ? "API mentions" : "APIs mention"} this type
+        {referrers.length > LIMIT && ` (the first ${LIMIT} are listed)`}.
+      </p>
+      <ul class="api-columns not-content">
+        {shown.map((referrer) => (
+          <li>
+            <a href={withBase(referrer.path)}>
+              <code>{referrer.label}</code>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}

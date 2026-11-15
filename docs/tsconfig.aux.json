@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Aux (config files and scripts, Node)",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "rootDir": ".",
+    "outDir": "./out-tsc/aux"
+  },
+  "include": ["*.config.ts", "*.config.js", "scripts/**/*.ts"],
+  "references": [{ "path": "./tsconfig.src.json" }]
+}

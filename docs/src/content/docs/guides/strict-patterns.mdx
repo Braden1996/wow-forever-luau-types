@@ -1,0 +1,119 @@
+---
+title: Strict patterns
+description: How to write a WoW Forever addon in strict Luau, file by file, with the definitions catching mistakes.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Sym from "../../../components/api/sym.astro";
+
+These patterns come from the sample addon in
+[`tests/pass/sample-addon`](https://github.com/Braden1996/wow-forever-luau-types/tree/main/tests/pass/sample-addon),
+which CI type-checks with zero diagnostics on every change.
+
+## What "strict" means here
+
+- **No `any` in results.** A value is typed, or it is `unknown`. `any` appears only where an API genuinely accepts
+  anything of a kind: `{ [any]: any }` for "any table", `(...any) -> ...any` for "any function", and the arguments
+  of script handlers, which differ per script.
+- **Nil-safety.** Results the documentation marks nilable are optional. You must check them before use.
+- **Closed string unions.** Event names, anchor points (<Sym type="FramePoint" />), strata
+  (<Sym type="FrameStrata" />), draw layers and script names are finite unions. A typo is an error.
+- **Real inheritance.** A <Sym type="Button" /> is a <Sym type="Frame" />; a `Frame` is never a `Button`.
+
+## The shared namespace
+
+WoW passes every file of an addon the same two values as `...`: the addon's name and a table the files share.
+Annotate both. Declare the namespace type once, in `types/addon.d.luau` or in the first file the `.toc` loads:
+
+```luau
+--!strict
+export type Namespace = {
+	name: string,
+	version: string,
+	db: SampleDB,
+	print: (message: string) -> (),
+	onPlayerLevel: (level: number) -> (),
+}
+
+local ADDON: string, ns: Namespace = ...
+```
+
+Declaring it in a definitions file lets every file use the type without a `require`, which WoW addons do not have.
+
+## Check what may be nil
+
+Many APIs return an optional value: the index may be out of range, or the item may not be cached yet.
+
+```luau
+local info = C_QuestLog.GetInfo(index)
+print(info.title) -- error: Value of type 'QuestInfo?' could be nil
+
+if info and not info.isHeader then
+	print(info.title) -- fine: info is a QuestInfo here
+end
+```
+
+<Sym fn="C_QuestLog.GetInfo" /> returns <Sym type="QuestInfo" />`?`. Narrow with `if`, `and`, or an early return.
+
+Multiple results are typed one by one. `C_Item.GetItemInfo` returns `nil` for an item the client has not cached:
+
+```luau
+local name, _, quality, itemLevel = C_Item.GetItemInfo(link)
+if name == nil then
+	return "(not cached)"
+end
+```
+
+## Structures and enums are closed
+
+Fields of documented structures and members of `Enum` tables are checked by name and type:
+
+```luau
+local item = C_Container.GetContainerItemInfo(0, 1)
+if item then
+	local count: number = item.stackCount
+	local typo = item.stackCuont          -- error: Key 'stackCuont' not found
+	local link: number = item.hyperlink   -- error: expected number, got string
+end
+
+local quality = Enum.ItemQuality.Legendaryy -- error: Key 'Legendaryy' not found
+```
+
+Enum values are typed `number`: Luau has no numeric literal types. A parameter that takes an enum is declared with
+an alias such as `Enum_ItemQuality`, which links to the enum in the [API reference](/wow-forever-luau-types/api/enums/).
+
+## Annotate function parameters
+
+Luau infers less than you might expect. Annotate the parameters of every function you write, including callbacks
+passed to `SetScript` and handlers typed with `EventHandler<...>`:
+
+```luau
+button:SetScript("OnEnter", function(self: Button)
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+	GameTooltip:AddLine("Close the panel", 1, 1, 1)
+	GameTooltip:Show()
+end)
+```
+
+## Casts are for untyped APIs only
+
+`::` tells the checker what you know. Use it for the results of
+[untyped APIs](/wow-forever-luau-types/guides/untyped-apis/), which are `unknown`:
+
+```luau
+local key = GetBindingKeyForAction("JUMP") :: string?
+```
+
+Do not cast a typed result to silence an error. If a typed API's type is wrong, report it: see
+[contributing](/wow-forever-luau-types/project/contributing/).
+
+<Aside type="caution" title="Lua 5.1 at run time">
+  Type annotations are compiled away, but Luau-only behaviour is not. In code that ships to the game, iterate with
+  `pairs` or `ipairs` and avoid `table.clone`, `table.find` and `string.split`. The definitions declare what the
+  game provides, such as `wipe`, `tinsert` and `strsplit`.
+</Aside>
+
+## Write declared globals through `_G`
+
+Luau treats globals from a definitions file as read-only. Write SavedVariables and `SLASH_*` globals through `_G`.
+The [SavedVariables guide](/wow-forever-luau-types/guides/saved-variables/) covers this in full.

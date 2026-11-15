@@ -1,0 +1,40 @@
+---
+// Layout for every API reference page: a Starlight page with a kind label and breadcrumbs.
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+
+import { withBase } from "../../lib/site.ts";
+
+interface Crumb {
+  readonly label: string;
+  readonly path: string;
+}
+
+interface Props {
+  readonly title: string;
+  readonly description: string;
+  readonly kind: string;
+  readonly crumbs?: readonly Crumb[];
+  readonly headings?: ReadonlyArray<{ readonly depth: number; readonly slug: string; readonly text: string }>;
+}
+
+const { title, description, kind, crumbs = [], headings = [] } = Astro.props;
+---
+
+<StarlightPage
+  frontmatter={{ title, description, editUrl: false, lastUpdated: false, prev: false, next: false }}
+  headings={[...headings]}
+>
+  <nav class="api-crumbs not-content" aria-label="Breadcrumbs">
+    <a href={withBase("/api/")}>API reference</a>
+    {
+      crumbs.map((crumb) => (
+        <>
+          <span aria-hidden="true">/</span>
+          <a href={withBase(crumb.path)}>{crumb.label}</a>
+        </>
+      ))
+    }
+    <span class="api-kind">{kind}</span>
+  </nav>
+  <slot />
+</StarlightPage>

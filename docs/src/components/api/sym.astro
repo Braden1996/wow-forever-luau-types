@@ -1,0 +1,59 @@
+---
+// An inline, hover-carded link to an API symbol for use in MDX:
+// <Sym type="Frame" />, <Sym type="Enum_ItemQuality" />, <Sym event="PLAYER_LEVEL_UP" />, <Sym fn="C_QuestLog.GetInfo" />.
+import { loadCatalog } from "../../lib/api/load.ts";
+import { apiPaths } from "../../lib/api/paths.ts";
+import { withBase } from "../../lib/site.ts";
+
+interface Props {
+  readonly type?: string;
+  readonly event?: string;
+  readonly fn?: string;
+}
+
+const { type, event, fn } = Astro.props;
+const catalog = loadCatalog();
+
+interface Link {
+  readonly text: string;
+  readonly path: string;
+  readonly sym: string | undefined;
+}
+
+function resolveLink(): Link {
+  if (type !== undefined) {
+    const target = catalog.resolve(type);
+    if (target === undefined) {
+      throw new Error(`<Sym type="${type}">: no such type in the definitions`);
+    }
+    const text = type.startsWith("Enum_") ? `Enum.${type.slice(5)}` : type;
+    return { text, path: target.path, sym: `${target.card}:${target.name}` };
+  }
+  if (event !== undefined) {
+    if (!catalog.events.has(event)) {
+      throw new Error(`<Sym event="${event}">: no such event`);
+    }
+    return { text: event, path: apiPaths.event(event), sym: `event:${event}` };
+  }
+  if (fn !== undefined) {
+    const dot = fn.indexOf(".");
+    if (dot > 0) {
+      const ns = fn.slice(0, dot);
+      const member = fn.slice(dot + 1);
+      if (catalog.namespaces.get(ns)?.members.some((entry) => entry.name === member) !== true) {
+        throw new Error(`<Sym fn="${fn}">: no such namespace member`);
+      }
+      return { text: `${fn}()`, path: `${apiPaths.namespace(ns)}#${member}`, sym: `namespace:${ns}` };
+    }
+    if (!catalog.parsed.functions.some((entry) => entry.name === fn)) {
+      throw new Error(`<Sym fn="${fn}">: no such global function`);
+    }
+    return { text: `${fn}()`, path: apiPaths.global(fn), sym: `global:${fn}` };
+  }
+  throw new Error("<Sym>: pass one of type, event or fn");
+}
+
+const link = resolveLink();
+---
+
+<a class="api-sym" href={withBase(link.path)} data-sym={link.sym}><code>{link.text}</code></a>

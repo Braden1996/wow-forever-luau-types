@@ -1,0 +1,37 @@
+---
+import type { WidgetType } from "../../../lib/api/model.ts";
+
+import ApiPage from "../../../components/api/api-page.astro";
+import WidgetTree from "../../../components/api/widget-tree.astro";
+import { loadCatalog } from "../../../lib/api/load.ts";
+
+const catalog = loadCatalog();
+const roots = (section: WidgetType["section"]): WidgetType[] =>
+  catalog.parsed.widgets
+    .filter((widget) => widget.section === section)
+    .filter((widget) => widget.parent === undefined || !catalog.widgets.has(widget.parent))
+    .toSorted((a, b) => a.name.localeCompare(b.name, "en"));
+const creatable = catalog.parsed.frameTypes.length;
+---
+
+<ApiPage
+  title="Widgets and script objects"
+  description="The widget hierarchy of the WoW: Forever client as Luau extern types, and the script objects the API returns."
+  kind="Index"
+  headings={[
+    { depth: 2, slug: "widgets", text: "Widgets" },
+    { depth: 2, slug: "script-objects", text: "Script objects" },
+  ]}
+>
+  <p>
+    Widgets are declared as Luau extern types in the client's own hierarchy, so a <code>Button</code> is a
+    <code>Frame</code>, a <code>ScriptRegion</code> and an <code>Object</code>. <code>CreateFrame</code> is generic over
+    the {creatable} frame types marked <span class="api-chip api-chip-typed">CreateFrame</span>: it returns the matching
+    type.
+  </p>
+  <h2 id="widgets">Widgets</h2>
+  <WidgetTree roots={roots("widget")} />
+  <h2 id="script-objects">Script objects</h2>
+  <p>Objects the API returns that are not widgets: formatters, curves, duration objects and the like.</p>
+  <WidgetTree roots={roots("scriptObject")} />
+</ApiPage>
