@@ -35,8 +35,11 @@ export type FrameTypeMap = {
 
 -- Globals ------------------------------------------------------------------------------------
 declare function AnnotatedOnly(id: number): string?
+declare function CheckDemoSlot(slot: number): boolean
 declare function DemoPrint(text: string, r: (number | DemoColor)?, g: number?, b: number?): ()
 declare function DocumentedOnly(): boolean
+declare function FindDemo(name: string): (number?, string?)
+declare GetDemoSlot: ((slot: number) -> (string?, number?)) & ((name: string) -> string?)
 declare function NewDemoTimer(seconds: number, callback: DemoTimerCallback): DemoTimerHandle
 declare function NoSourceAtAll(...: unknown): (...unknown)
 declare tinsert: typeof(table.insert)

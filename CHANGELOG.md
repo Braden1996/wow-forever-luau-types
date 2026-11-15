@@ -5,6 +5,16 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking:** every result of a call that may return nothing at all is optional (`T?`). Blizzard's documentation
+  marks such calls with `MayReturnNothing` (already optional) or with a precondition whose FailureMode is ReturnNothing,
+  such as `RequiresValidActionSlot`, `HasRestrictions` or `RequiresClubsInitialized`: about 150 functions and widget
+  methods (`C_ActionBar.GetActionCharges`, `C_ActionBar.HasAction`, `C_CVar.SetCVar`, ...) that returned `T` now return
+  `T?`, so strict code must check for nil before using the result. It applies to every call shape, including the
+  annotations' overloads and callback results. These are the APIs `api-shapes.json` already marked `absent`; its
+  shapes are unchanged. `report.json` (`absentResults`) and `COVERAGE.md` count them by reason.
+
 ## [0.3.0] - 2026-11-15
 
 ### Added

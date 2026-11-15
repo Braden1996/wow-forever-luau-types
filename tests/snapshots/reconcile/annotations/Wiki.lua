@@ -12,6 +12,12 @@ function DemoPrint(text, r, g, b) end
 ---@return DemoTimerHandle handle
 function NewDemoTimer(seconds, callback) end
 
+---@param slot number
+---@return string name
+---@return number count
+---@overload fun(name: string): string
+function GetDemoSlot(slot) end
+
 ---@param id number
 ---@return string? name
 function AnnotatedOnly(id) end

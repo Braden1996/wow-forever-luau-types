@@ -16,6 +16,8 @@ type Table = LuaTable.Table
 -- A documented result as written: its name, and whether the docs mark it nilable (MayReturnNothing aside).
 export type DocReturn = { name: string, nilable: boolean }
 
+-- `signature`: the call as documented, each result nilable only where the docs say so; whether the whole call
+-- may return nothing (`MayReturnNothing`, a ReturnNothing precondition) is ApiDocs.absentReasons.
 -- `predicates`: the documented preconditions the function declares (`IsProtectedFunction`,
 -- `RequiresValidActionSlot`); DocSet.predicates says what each does when it fails.
 export type DocFunction = {
@@ -41,6 +43,25 @@ export type DocSet = {
 }
 
 local ApiDocs = {}
+
+-- The precondition of a protected function: it fails by doing nothing, but wrapping libraries treat it as its own
+-- shape (never wrapped), so it is not a reason the call returns nothing.
+ApiDocs.PROTECTED = "IsProtectedFunction"
+
+-- Why a documented call may return nothing at all: `MayReturnNothing`, then each precondition whose FailureMode is
+-- ReturnNothing, in the order the function lists them. nil when the call always returns its results.
+function ApiDocs.absentReasons(doc: DocFunction, failureModes: { [string]: string }): { string }?
+	local reasons: { string } = {}
+	if doc.mayReturnNothing then
+		table.insert(reasons, "MayReturnNothing")
+	end
+	for _, p in doc.predicates do
+		if failureModes[p] == "ReturnNothing" and p ~= ApiDocs.PROTECTED then
+			table.insert(reasons, p)
+		end
+	end
+	return if #reasons > 0 then reasons else nil
+end
 
 local EMPTY: Table = { kind = "table", array = {}, map = {} }
 
@@ -102,7 +123,7 @@ local function params(list: Table?, enums: { [string]: boolean }, isArgument: bo
 	return out
 end
 
-local function returns(list: Table?, enums: { [string]: boolean }, mayReturnNothing: boolean): { Type }
+local function returns(list: Table?, enums: { [string]: boolean }): { Type }
 	local out: { Type } = {}
 	for _, v in (list or EMPTY).array do
 		local f = LuaTable.tbl(v)
@@ -112,7 +133,7 @@ local function returns(list: Table?, enums: { [string]: boolean }, mayReturnNoth
 				table.insert(out, { kind = "variadic", inner = t } :: Type)
 				break
 			end
-			if nilable or mayReturnNothing then
+			if nilable then
 				table.insert(out, { kind = "optional", inner = t } :: Type)
 			else
 				table.insert(out, t)
@@ -158,7 +179,7 @@ local function docFunction(qualified: string, fn: Table, set: DocSet): DocFuncti
 		qualified = qualified,
 		signature = {
 			params = params(LuaTable.tbl(m.Arguments), set.enumerations, true),
-			returns = returns(LuaTable.tbl(m.Returns), set.enumerations, mayReturnNothing),
+			returns = returns(LuaTable.tbl(m.Returns), set.enumerations),
 			returnNames = returnNames,
 			generics = {},
 		},

@@ -1,7 +1,10 @@
 local GlobalAPI = {
 	"AnnotatedOnly",
+	"CheckDemoSlot",
 	"DemoPrint",
 	"DocumentedOnly",
+	"FindDemo",
+	"GetDemoSlot",
 	"NewDemoTimer",
 	"NoSourceAtAll",
 }

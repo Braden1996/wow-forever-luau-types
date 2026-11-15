@@ -2,9 +2,11 @@
 -- Prints signatures as Luau, merges overloads, and reconciles Blizzard's documentation with the
 -- annotations for an API both describe.
 
+local ApiDocs = require("../apidocs")
 local Common = require("./common")
 local Names = require("./names")
 local Decls = require("../luacats/decls")
+local Json = require("../json")
 local TypeExpr = require("../typeexpr")
 
 type Context = Common.Context
@@ -166,16 +168,8 @@ function Signatures.overloadSet(ctx: Context, sigs: { Signature }, selfType: str
 	return Signatures.renderOverloadSet(Signatures.printAll(ctx, sigs, selfName, false), selfType)
 end
 
--- Reconciling Blizzard's documentation with the annotations, for an API both describe:
---   1. Types come from the documentation.
---   2. An argument is optional if either source says so: the documentation marks some arguments
---      required that the game treats as optional (MessageFrame:AddMessage's colours).
---   3. The annotations' extra call shapes (`---@overload`) are kept: the documentation lists one
---      signature per function (ScriptRegion:SetPoint(point, x, y) is real).
---   4. A documented result typed as a callback (C_Timer.NewTicker's ticker handle) takes the
---      annotation's type, which describes the object actually returned.
--- The source is "docs+annotations" whenever rule 2, 3 or 4 changed anything, else "docs".
-function Signatures.reconcile(ctx: Context, doc: Signature, ann: { Signature }?): ({ Signature }, string)
+-- Rules 1 to 4 of Signatures.reconcile.
+local function reconcileSources(ctx: Context, doc: Signature, ann: { Signature }?): ({ Signature }, string)
 	if ann == nil or #ann == 0 then
 		return { doc }, "docs"
 	end
@@ -211,6 +205,53 @@ function Signatures.reconcile(ctx: Context, doc: Signature, ann: { Signature }?)
 	return out, if usedAnnotations then "docs+annotations" else "docs"
 end
 
+-- A result type that admits nil: optional results, variadic results (they may be empty) and the types that
+-- already include nil are kept as they are.
+local function optionalResult(t: Type): Type
+	if t.kind == "variadic" or Common.acceptsNil(t) then
+		return t
+	end
+	return { kind = "optional", inner = t }
+end
+
+-- Each signature with every result optional.
+local function withOptionalResults(sigs: { Signature }): { Signature }
+	local out: { Signature } = {}
+	for _, sig in sigs do
+		local returns: { Type } = {}
+		for _, r in sig.returns do
+			table.insert(returns, optionalResult(r))
+		end
+		table.insert(out, {
+			params = sig.params,
+			returns = returns,
+			returnNames = sig.returnNames,
+			generics = sig.generics,
+		})
+	end
+	return out
+end
+
+-- Reconciling Blizzard's documentation with the annotations, for an API both describe:
+--   1. Types come from the documentation.
+--   2. An argument is optional if either source says so: the documentation marks some arguments
+--      required that the game treats as optional (MessageFrame:AddMessage's colours).
+--   3. The annotations' extra call shapes (`---@overload`) are kept: the documentation lists one
+--      signature per function (ScriptRegion:SetPoint(point, x, y) is real).
+--   4. A documented result typed as a callback (C_Timer.NewTicker's ticker handle) takes the
+--      annotation's type, which describes the object actually returned.
+--   5. A call the documentation says may return nothing at all (ApiDocs.absentReasons: `MayReturnNothing`, or a
+--      precondition such as RequiresValidActionSlot that fails by returning nothing) has every result optional,
+--      in every call shape, including the results rules 3 and 4 take from the annotations.
+-- The source is "docs+annotations" whenever rule 2, 3 or 4 changed anything, else "docs".
+function Signatures.reconcile(ctx: Context, docFn: ApiDocs.DocFunction, ann: { Signature }?): ({ Signature }, string)
+	local sigs, source = reconcileSources(ctx, docFn.signature, ann)
+	if ApiDocs.absentReasons(docFn, ctx.docs.predicates) then
+		return withOptionalResults(sigs), source
+	end
+	return sigs, source
+end
+
 -- Parameter types that neither source states precisely enough (config.paramTypeOverrides), keyed
 -- "Widget:Method" or a qualified function name. The override replaces the parameter's type in the source
 -- signature, so optionality still comes from the source. Each key used is recorded; build.luau rejects
@@ -241,6 +282,36 @@ function Signatures.applyOverrides(ctx: Context, key: string, sigs: { Signature 
 		})
 	end
 	return out
+end
+
+-- Whether some call shape has a result rule 5 can make optional (a variadic result list may already be empty).
+local function hasFixedResults(sigs: { Signature }): boolean
+	for _, sig in sigs do
+		for _, r in sig.returns do
+			if r.kind ~= "variadic" then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+-- How many declared functions and widget methods rule 5 of Signatures.reconcile applies to, by reason, per category
+-- (report.json's `absentResults`; api-shapes.json lists each API's reasons).
+function Signatures.absentSummary(ctx: Context): { [string]: { [string]: number } }
+	local function count(records: { [string]: Common.ApiRecord }): { [string]: number }
+		local counts: { [string]: number } = Json.object({})
+		for _, record in records do
+			local reasons = if record.doc then ApiDocs.absentReasons(record.doc, ctx.docs.predicates) else nil
+			if reasons and hasFixedResults(record.sigs) then
+				for _, reason in reasons do
+					counts[reason] = (counts[reason] or 0) + 1
+				end
+			end
+		end
+		return counts
+	end
+	return Json.object({ functions = count(ctx.apis.functions), widgetMethods = count(ctx.apis.widgetMethods) })
 end
 
 return Signatures

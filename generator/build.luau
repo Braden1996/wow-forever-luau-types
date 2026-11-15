@@ -12,6 +12,7 @@ local Globals = require("./stages/globals")
 local Json = require("./json")
 local Names = require("./stages/names")
 local Shapes = require("./stages/shapes")
+local Signatures = require("./stages/signatures")
 local Structs = require("./stages/structs")
 local Types = require("./stages/types")
 local Widgets = require("./stages/widgets")
@@ -199,6 +200,7 @@ function Build.run(input: Input): (string, Report, Coverage, ShapeSet)
 			other = anyCount - 2 * anyTable - 2 * anyFunction - handlerArgs,
 		},
 		shapes = Shapes.summary(shapes),
+		absentResults = Signatures.absentSummary(ctx),
 		unusedOverrides = unusedOverrides,
 		parseErrors = parseErrors,
 		unresolvedTypes = unresolved,

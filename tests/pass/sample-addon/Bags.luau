@@ -1,5 +1,5 @@
 --!strict
--- Container, item and quest APIs, plus the Lua 5.1 globals WoW adds (strsplit, wipe, tinsert).
+-- Container, item, quest and action bar APIs, plus the Lua 5.1 globals WoW adds (strsplit, wipe, tinsert).
 
 local _, ns: Namespace = ...
 
@@ -44,6 +44,16 @@ local function bindingFor(action: string): string?
 	return key
 end
 
+-- Action slot queries return nothing for an empty or invalid slot (the RequiresValidActionSlot precondition),
+-- so every result is optional.
+local function actionCharges(slot: number): string
+	local charges = C_ActionBar.GetActionCharges(slot)
+	if charges == nil then
+		return "(no action)"
+	end
+	return format("%d of %d charges", charges.currentCharges, charges.maxCharges)
+end
+
 local recent: { string } = {}
 
 local function remember(text: string)
@@ -63,4 +73,5 @@ ns.bags = {
 	questTitles = questTitles,
 	remember = remember,
 	bindingFor = bindingFor,
+	actionCharges = actionCharges,
 }

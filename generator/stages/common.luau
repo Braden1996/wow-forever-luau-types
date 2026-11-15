@@ -60,6 +60,9 @@ export type Report = {
 	anyByForm: { anyTable: number, anyFunction: number, handlerArgs: number, other: number },
 	-- How many functions and widget methods have each result shape (definitions/api-shapes.json), per category.
 	shapes: { [string]: { [string]: number } },
+	-- How many functions and widget methods have every result optional because the call may return nothing
+	-- (rule 5 of Signatures.reconcile), by reason (`MayReturnNothing`, a ReturnNothing precondition), per category.
+	absentResults: { [string]: { [string]: number } },
 	unusedOverrides: { string }, -- config.paramTypeOverrides keys that matched no function or method
 	parseErrors: { string },
 	unresolvedTypes: { { name: string, uses: number } },
