@@ -7,6 +7,9 @@ updates:
     schedule:
       interval: weekly
       day: monday
+    # Wait a week after a release before proposing it: time for a compromised or broken version to be pulled.
+    cooldown:
+      default-days: 7
     groups:
       astro:
         patterns: ["astro", "@astrojs/*"]
