@@ -11,18 +11,18 @@ authoritative version.
 
 ## Where does the fix belong?
 
-| Problem | Where to fix it |
-| --- | --- |
-| A wrong type for a documented C API (most `C_*` functions, widget methods, event payloads) | Blizzard's documentation is authoritative. If it is wrong, add a narrow rule in `generator/` |
-| A wrong or missing type for an undocumented global, FrameXML mixin or Lua extension | Upstream annotations: [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api) |
-| An API Forever has but the definitions lack, or the reverse | The client dump: [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources) (`forever` branch) |
-| A construct converted wrongly, or invalid Luau | This repository: `generator/`, with a snapshot case |
-| A FrameXML table or frame global that no source declares | This repository: `supplements/framexml.d.luau` |
-| A false or missed error in real addon code | This repository: a sample under `tests/`, then fix the cause |
+| Problem                                                                                    | Where to fix it                                                                                                             |
+| ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| A wrong type for a documented C API (most `C_*` functions, widget methods, event payloads) | Blizzard's documentation is authoritative. If it is wrong, add a narrow rule in `generator/`                                |
+| A wrong or missing type for an undocumented global, FrameXML mixin or Lua extension        | Upstream annotations: [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api)                                       |
+| An API Forever has but the definitions lack, or the reverse                                | The client dump: [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources) (`forever` branch) |
+| A construct converted wrongly, or invalid Luau                                             | This repository: `generator/`, with a snapshot case                                                                         |
+| A FrameXML table or frame global that no source declares                                   | This repository: `supplements/framexml.d.luau`                                                                              |
+| A false or missed error in real addon code                                                 | This repository: a sample under `tests/`, then fix the cause                                                                |
 
 <Aside type="caution">
-  Never edit generated files by hand. `definitions/` and `.github/banner.svg` come from `lune run scripts/generate`,
-  and CI fails if they differ from a fresh generation.
+  Never edit generated files by hand. `definitions/` and `.github/banner.svg` come from `lune run scripts/generate`, and
+  CI fails if they differ from a fresh generation.
 </Aside>
 
 ## Setup

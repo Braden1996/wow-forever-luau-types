@@ -21,7 +21,10 @@ export const Card = ({ className, ...props }: ComponentProps<"div">): ReactEleme
 export const CardHeader = ({ className, ...props }: ComponentProps<"div">): ReactElement => (
   <div
     data-slot="card-header"
-    className={cn("gap-1 pt-4 rounded-t-xl px-4 group-data-[size=sm]/card:px-3 grid auto-rows-min items-start", className)}
+    className={cn(
+      "gap-1 pt-4 rounded-t-xl px-4 group-data-[size=sm]/card:px-3 grid auto-rows-min items-start",
+      className,
+    )}
     {...props}
   />
 );

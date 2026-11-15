@@ -45,11 +45,8 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
 
-    // Emit (declarations only - Astro and Vite handle JS compilation)
-    "composite": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "noEmitOnError": true,
+    // Emit: none. Astro and Vite compile; tsc only type-checks each project (`tsc -p`).
+    "noEmit": true,
 
     // Type Checking
     "types": [],

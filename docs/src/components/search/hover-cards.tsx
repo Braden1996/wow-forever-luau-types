@@ -2,11 +2,9 @@
 // /api/cards/<kind>.json shards. Mounted once per page from the footer override; renders nothing until a hover.
 
 import type { ReactElement } from "react";
-
-import type { CardData } from "./load-index.ts";
-
 import { useEffect, useRef, useState } from "react";
 
+import type { CardData } from "./load-index.ts";
 import { loadCard } from "./load-index.ts";
 
 interface Shown {
@@ -113,7 +111,8 @@ export const HoverCards = (): ReactElement | null => {
   }
   const { card } = shown;
   const position = shown.below ? { top: shown.top } : { bottom: shown.top };
-  const quality = card.status === "untyped" ? "wc-tooltip-uncommon" : card.status === "typed" ? "wc-tooltip-rare" : "wc-tooltip";
+  const quality =
+    card.status === "untyped" ? "wc-tooltip-uncommon" : card.status === "typed" ? "wc-tooltip-rare" : "wc-tooltip";
   return (
     <div
       role="tooltip"

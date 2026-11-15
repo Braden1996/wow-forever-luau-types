@@ -53,7 +53,8 @@ if info and not info.isHeader then
 end
 ```
 
-<Sym fn="C_QuestLog.GetInfo" /> returns <Sym type="QuestInfo" />`?`. Narrow with `if`, `and`, or an early return.
+<Sym fn="C_QuestLog.GetInfo" /> returns <Sym type="QuestInfo" />
+`?`. Narrow with `if`, `and`, or an early return.
 
 Multiple results are typed one by one. `C_Item.GetItemInfo` returns `nil` for an item the client has not cached:
 
@@ -109,8 +110,8 @@ Do not cast a typed result to silence an error. If a typed API's type is wrong, 
 
 <Aside type="caution" title="Lua 5.1 at run time">
   Type annotations are compiled away, but Luau-only behaviour is not. In code that ships to the game, iterate with
-  `pairs` or `ipairs` and avoid `table.clone`, `table.find` and `string.split`. The definitions declare what the
-  game provides, such as `wipe`, `tinsert` and `strsplit`.
+  `pairs` or `ipairs` and avoid `table.clone`, `table.find` and `string.split`. The definitions declare what the game
+  provides, such as `wipe`, `tinsert` and `strsplit`.
 </Aside>
 
 ## Write declared globals through `_G`

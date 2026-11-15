@@ -15,5 +15,5 @@ A subset of [warcraftcn/ui](https://github.com/TheOrcDev/warcraftcn-ui) by TheOr
 | `assets/*.webp`          | `assets/`                              | unchanged (frame textures drawn for warcraftcn, not game art) |
 | `assets/spinner-path.ts` | `assets/`                              | unchanged                                                     |
 
-The site's other components (`../api`, `../playground`, `../search`, `../starlight`) are this project's own. To update
+The site's other components (`../api`, `../search`, `../starlight`) are this project's own. To update
 the fork, copy the files from a newer upstream commit and re-apply the changes listed above.

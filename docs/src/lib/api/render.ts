@@ -3,7 +3,6 @@
 
 import type { TypeTarget } from "./catalog.ts";
 import type { FunctionShape, Parameter } from "./type-expr.ts";
-
 import { tokenize } from "./type-expr.ts";
 
 export interface RenderContext {

@@ -3,11 +3,10 @@
 import type { Catalog } from "../../lib/api/catalog.ts";
 import type { Coverage } from "../../lib/api/model.ts";
 import type { RenderContext } from "../../lib/api/render.ts";
-
 import { withBase } from "../../lib/site.ts";
 
 export function renderContext(catalog: Catalog): RenderContext {
-  return { resolve: catalog.resolve, href: withBase };
+  return { resolve: (typeName) => catalog.resolve(typeName), href: withBase };
 }
 
 /** "typed (docs)", "untyped: no type source (FrameXML)", ... for a coverage entry. */

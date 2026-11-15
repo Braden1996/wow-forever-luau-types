@@ -1,12 +1,11 @@
 // Symbol search over every API name: a header button that opens a dialog (Ctrl+. or Cmd+.), or an inline box.
-// The index (~20k names) is fetched on first use from /api/search.json; ranking lives in search-core.ts.
+// The index (~20k names) is fetched on first focus from /api/search.json; ranking lives in search-core.ts.
+// Results are plain links: Tab reaches them, arrow keys move the highlight, Enter opens the highlighted one.
 
 import type { KeyboardEvent, ReactElement } from "react";
-
-import type { SearchEntry, SearchKind } from "../../lib/api/indexes.ts";
-
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 
+import type { SearchEntry, SearchKind } from "../../lib/api/indexes.ts";
 import { withBase } from "../../lib/site.ts";
 import { Input } from "../warcraftcn/input.tsx";
 import { Spinner } from "../warcraftcn/spinner.tsx";
@@ -23,11 +22,7 @@ const FILTERS: ReadonlyArray<readonly [string, ReadonlySet<SearchKind> | undefin
   ["Namespaces", new Set<SearchKind>(["namespace"])],
 ];
 
-interface ResultsProps {
-  readonly mode: "inline" | "dialog";
-}
-
-const SearchPanel = ({ mode }: ResultsProps): ReactElement => {
+const SearchPanel = (): ReactElement => {
   const id = useId();
   const [entries, setEntries] = useState<readonly SearchEntry[]>([]);
   const [state, setState] = useState<LoadState>("idle");
@@ -52,18 +47,8 @@ const SearchPanel = ({ mode }: ResultsProps): ReactElement => {
     );
   }, [state]);
 
-  useEffect(() => {
-    if (mode === "dialog") {
-      ensureLoaded();
-    }
-  }, [mode, ensureLoaded]);
-
   const kinds = FILTERS[filter]?.[1];
   const hits = useMemo(() => searchSymbols(entries, query, kinds), [entries, query, kinds]);
-
-  useEffect(() => {
-    setActive(0);
-  }, [query, filter]);
 
   useEffect(() => {
     listRef.current?.querySelector(`[data-index="${active}"]`)?.scrollIntoView({ block: "nearest" });
@@ -92,23 +77,21 @@ const SearchPanel = ({ mode }: ResultsProps): ReactElement => {
       <Input
         id={id}
         type="search"
-        role="combobox"
-        aria-expanded={hits.length > 0}
-        aria-controls={`${id}-results`}
-        aria-activedescendant={hits.length > 0 ? `${id}-hit-${active}` : undefined}
+        aria-describedby={`${id}-status`}
         placeholder="C_QuestLog.GetInfo, Button:SetText, PLAYER_LEVEL_UP..."
         value={query}
         onFocus={ensureLoaded}
         onChange={(event) => {
           setQuery(event.target.value);
+          setActive(0);
         }}
         onKeyDown={onKeyDown}
         autoComplete="off"
         spellCheck={false}
-        autoFocus={mode === "dialog"}
-        className="w-full"
+        className="w-full font-mono"
       />
-      <div className="sym-filters" role="group" aria-label="Kinds">
+      <fieldset className="sym-filters">
+        <legend className="sr-only">Kinds</legend>
         {FILTERS.map(([label], index) => (
           <button
             key={label}
@@ -117,28 +100,27 @@ const SearchPanel = ({ mode }: ResultsProps): ReactElement => {
             aria-pressed={filter === index}
             onClick={() => {
               setFilter(index);
+              setActive(0);
             }}
           >
             {label}
           </button>
         ))}
-        {state === "loading" && <Spinner className="size-5" />}
-        {state === "error" && <span className="sym-error">The search index failed to load.</span>}
-        {state === "ready" && query.length > 0 && <span className="sym-count">{hits.length} shown</span>}
-      </div>
-      <ul ref={listRef} id={`${id}-results`} role="listbox" className="sym-results" aria-label="Results">
+        <span id={`${id}-status`} className="sym-count" aria-live="polite">
+          {state === "loading" && <Spinner className="size-5" />}
+          {state === "error" && "The search index failed to load."}
+          {state === "ready" && query.length > 0 && `${hits.length} shown`}
+        </span>
+      </fieldset>
+      <ul ref={listRef} className="sym-results" aria-label="Results">
         {hits.map((hit, index) => (
-          <li
-            key={`${hit.entry[1]}:${hit.entry[0]}`}
-            id={`${id}-hit-${index}`}
-            role="option"
-            aria-selected={index === active}
-            data-index={index}
-            onMouseEnter={() => {
-              setActive(index);
-            }}
-          >
-            <a href={withBase(hit.entry[2])}>
+          <li key={`${hit.entry[1]}:${hit.entry[0]}`} data-index={index} data-active={index === active}>
+            <a
+              href={withBase(hit.entry[2])}
+              onMouseEnter={() => {
+                setActive(index);
+              }}
+            >
               <code>{hit.entry[0]}</code>
               <span className="sym-kind">{KIND_LABELS[hit.entry[1]]}</span>
               {hit.entry[3] === 1 && <span className="api-chip api-chip-untyped">untyped</span>}
@@ -150,20 +132,19 @@ const SearchPanel = ({ mode }: ResultsProps): ReactElement => {
   );
 };
 
-interface SymbolSearchProps {
-  readonly mode: "inline" | "dialog";
-}
-
 function isShortcut(event: globalThis.KeyboardEvent): boolean {
   return event.key === "." && (event.ctrlKey || event.metaKey) && !event.altKey;
 }
 
+interface SymbolSearchProps {
+  readonly mode: "inline" | "dialog";
+}
+
 export const SymbolSearch = ({ mode }: SymbolSearchProps): ReactElement => {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [open, setOpen] = useState(false);
 
   const show = useCallback(() => {
-    setOpen(true);
+    // showModal() focuses the first focusable element: the search box, which loads the index on focus.
     dialogRef.current?.showModal();
   }, []);
 
@@ -184,7 +165,7 @@ export const SymbolSearch = ({ mode }: SymbolSearchProps): ReactElement => {
   }, [mode, show]);
 
   if (mode === "inline") {
-    return <SearchPanel mode="inline" />;
+    return <SearchPanel />;
   }
   return (
     <>
@@ -192,20 +173,13 @@ export const SymbolSearch = ({ mode }: SymbolSearchProps): ReactElement => {
         <span>API</span>
         <kbd className="sym-kbd">Ctrl .</kbd>
       </button>
-      <dialog
-        ref={dialogRef}
-        className="sym-dialog"
-        aria-label="Search API symbols"
-        onClose={() => {
-          setOpen(false);
-        }}
-        onClick={(event) => {
-          if (event.target === dialogRef.current) {
-            dialogRef.current.close();
-          }
-        }}
-      >
-        {open && <SearchPanel mode="dialog" />}
+      <dialog ref={dialogRef} className="sym-dialog" aria-label="Search API symbols">
+        <SearchPanel />
+        <form method="dialog" className="sym-close">
+          <button type="submit" className="sym-filter">
+            Close (Esc)
+          </button>
+        </form>
       </dialog>
     </>
   );

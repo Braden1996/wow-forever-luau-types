@@ -3,9 +3,8 @@
 
 import type { CardKind, Catalog } from "./catalog.ts";
 import type { CoverageGroup } from "./coverage.ts";
-import type { Member } from "./model.ts";
-
 import { lookupCoverage } from "./coverage.ts";
+import type { Member } from "./model.ts";
 import { apiPaths } from "./paths.ts";
 import { isUntypedFunction } from "./type-expr.ts";
 
@@ -24,14 +23,22 @@ export type SearchKind =
 /** `[name, kind, path, untyped]`; untyped is 1 for APIs declared as `(...unknown) -> ...unknown`. */
 export type SearchEntry = readonly [string, SearchKind, string, 0 | 1];
 
+function untyped(type: string): 0 | 1 {
+  return isUntypedFunction(type) ? 1 : 0;
+}
+
 export function buildSearchIndex(catalog: Catalog): SearchEntry[] {
   const { parsed } = catalog;
   const entries: SearchEntry[] = [];
-  const untyped = (type: string): 0 | 1 => (isUntypedFunction(type) ? 1 : 0);
   for (const ns of parsed.namespaces) {
     entries.push([ns.name, "namespace", apiPaths.namespace(ns.name), 0]);
     for (const member of ns.members) {
-      entries.push([`${ns.name}.${member.name}`, "function", `${apiPaths.namespace(ns.name)}#${member.name}`, untyped(member.type)]);
+      entries.push([
+        `${ns.name}.${member.name}`,
+        "function",
+        `${apiPaths.namespace(ns.name)}#${member.name}`,
+        untyped(member.type),
+      ]);
     }
   }
   for (const fn of parsed.functions) {

@@ -2,7 +2,6 @@
 // The list stays plain HTML (indexable, works without JavaScript); this island only toggles `hidden`.
 
 import type { ChangeEvent, ReactElement } from "react";
-
 import { useCallback, useId, useState } from "react";
 
 import { Input } from "../warcraftcn/input.tsx";

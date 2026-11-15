@@ -1,7 +1,6 @@
 // Fetches and validates the static JSON indexes (search list and hover-card shards) once per page.
 
 import type { SearchEntry, SearchKind } from "../../lib/api/indexes.ts";
-
 import { withBase } from "../../lib/site.ts";
 
 const KINDS: ReadonlySet<string> = new Set<SearchKind>([
@@ -74,10 +73,22 @@ function toCard(value: unknown): CardData | undefined {
     return undefined;
   }
   const { title, kind, snippet, path } = value;
-  if (typeof title !== "string" || typeof kind !== "string" || typeof snippet !== "string" || typeof path !== "string") {
+  if (
+    typeof title !== "string" ||
+    typeof kind !== "string" ||
+    typeof snippet !== "string" ||
+    typeof path !== "string"
+  ) {
     return undefined;
   }
-  return { title, kind, snippet, path, status: optionalString(value["status"]), source: optionalString(value["source"]) };
+  return {
+    title,
+    kind,
+    snippet,
+    path,
+    status: optionalString(value["status"]),
+    source: optionalString(value["source"]),
+  };
 }
 
 const shards = new Map<string, Promise<ReadonlyMap<string, CardData>>>();

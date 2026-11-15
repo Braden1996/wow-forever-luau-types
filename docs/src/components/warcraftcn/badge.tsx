@@ -3,7 +3,6 @@
 
 import type { VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactElement } from "react";
-
 import { cva } from "class-variance-authority";
 
 import { cn } from "../../lib/cn.ts";

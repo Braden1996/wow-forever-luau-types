@@ -4,7 +4,6 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 
 import type { Catalog } from "./catalog.ts";
-
 import { buildCatalog } from "./catalog.ts";
 import { parseCoverage } from "./coverage.ts";
 import { parseDefinitions } from "./parse-definitions.ts";

@@ -16,7 +16,7 @@ export default defineConfig({
     starlight({
       title: "wow-forever-luau-types",
       description:
-        "Strict Luau type definitions for the World of Warcraft: Forever addon API, with a searchable, cross-linked API reference and an in-browser type checker.",
+        "Strict Luau type definitions for the World of Warcraft: Forever addon API, with a searchable, cross-linked API reference.",
       logo: { src: "./src/assets/logo.svg", alt: "" },
       favicon: "/favicon.svg",
       social: [{ icon: "github", label: "GitHub", href: repository }],
@@ -64,12 +64,6 @@ export default defineConfig({
             { label: "Enums", link: "/api/enums/" },
             { label: "Structures and mixins", link: "/api/structures/" },
             { label: "Type aliases", link: "/api/aliases/" },
-          ],
-        },
-        {
-          label: "Tools",
-          items: [
-            { label: "Playground", link: "/playground/", badge: { text: "WASM", variant: "tip" } },
             { label: "Coverage", link: "/coverage/" },
           ],
         },
@@ -77,6 +71,7 @@ export default defineConfig({
           label: "Project",
           items: [
             { slug: "project/how-it-works" },
+            { slug: "project/in-browser-checking" },
             { slug: "project/contributing" },
             { slug: "project/credits" },
           ],
@@ -87,7 +82,5 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
-    worker: { format: "es" },
-    optimizeDeps: { exclude: ["@luau-rs/luau"] },
   },
 });

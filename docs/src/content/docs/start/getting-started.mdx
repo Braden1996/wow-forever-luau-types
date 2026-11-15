@@ -89,24 +89,19 @@ frame:RegisterEvent("PLAYER_LOGN") -- should be reported: not an event the clien
 If nothing is reported, the new solver is probably off, or the definitions path is wrong. If `CreateFrame` is an
 unknown global, luau-lsp did not load the definitions file.
 
-<Sym fn="CreateFrame" /> is generic: `CreateFrame("Button")` returns a <Sym type="Button" />, not a plain frame.
-The [widgets guide](/wow-forever-luau-types/guides/widgets/) shows what that gives you.
-
-<Aside type="tip" title="Try it without installing anything">
-  The [playground](/wow-forever-luau-types/playground/) type-checks a snippet against the same definitions in your
-  browser.
-</Aside>
+<Sym fn="CreateFrame" /> is generic: `CreateFrame("Button")` returns a <Sym type="Button" />, not a plain frame. The
+[widgets guide](/wow-forever-luau-types/guides/widgets/) shows what that gives you.
 
 ## WoW: Forever is a modern client
 
 Forever runs the modern game client with Classic content. Several Classic Era globals do not exist there, and the
 definitions report them as unknown:
 
-| Classic Era                     | WoW: Forever                                                                                  |
-| ------------------------------- | --------------------------------------------------------------------------------------------- |
-| `GetQuestLogTitle(i)`           | [`C_QuestLog.GetInfo(i)`](/wow-forever-luau-types/api/namespaces/C_QuestLog/#GetInfo)          |
-| `GetNumQuestLogEntries()`       | [`C_QuestLog.GetNumQuestLogEntries()`](/wow-forever-luau-types/api/namespaces/C_QuestLog/#GetNumQuestLogEntries) |
-| `GetItemInfo(item)`             | [`C_Item.GetItemInfo(item)`](/wow-forever-luau-types/api/namespaces/C_Item/#GetItemInfo)       |
+| Classic Era                       | WoW: Forever                                                                                                         |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `GetQuestLogTitle(i)`             | [`C_QuestLog.GetInfo(i)`](/wow-forever-luau-types/api/namespaces/C_QuestLog/#GetInfo)                                |
+| `GetNumQuestLogEntries()`         | [`C_QuestLog.GetNumQuestLogEntries()`](/wow-forever-luau-types/api/namespaces/C_QuestLog/#GetNumQuestLogEntries)     |
+| `GetItemInfo(item)`               | [`C_Item.GetItemInfo(item)`](/wow-forever-luau-types/api/namespaces/C_Item/#GetItemInfo)                             |
 | `ChatFrame_AddMessageEventFilter` | [`ChatFrameUtil.AddMessageEventFilter`](/wow-forever-luau-types/api/namespaces/ChatFrameUtil/#AddMessageEventFilter) |
 
 Classic-only events such as `CRAFT_SHOW`, `UNIT_HEALTH_FREQUENT` and `LEARNED_SPELL_IN_TAB` are not in the event

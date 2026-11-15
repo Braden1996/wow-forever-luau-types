@@ -17,7 +17,10 @@ const groups: ReadonlyArray<readonly [CoverageGroup, string]> = [
   ["enums", "Enums"],
   ["widgets", "Widget types"],
 ];
-const rows = groups.map(([group, label]) => ({ group, label, ...coverageTotals(catalog.coverage, group) }));
+const rows = groups.map(([group, label]) => {
+  const totals = coverageTotals(catalog.coverage, group);
+  return { group, label, typed: totals.typed, untyped: totals.untyped, excluded: totals.excluded };
+});
 const percent = (typed: number, untyped: number): string =>
   typed + untyped === 0 ? "-" : `${((typed / (typed + untyped)) * 100).toFixed(1)}%`;
 

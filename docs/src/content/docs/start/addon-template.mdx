@@ -12,23 +12,12 @@ the current definitions.
 ## What it contains
 
 <FileTree>
-- MyAddon/
-  - .github/workflows/check.yml CI: types, check and build on every push
-  - .lune/types.luau downloads and verifies the definitions
-  - .vscode/settings.json luau-lsp settings for VS Code
-  - .zed/settings.json the same settings for Zed
-  - src/
-    - Core.luau shared namespace and SavedVariables
-    - Events.luau typed event handlers
-  - types/
-    - addon.d.luau your own globals and types
-    - wow-forever.d.luau downloaded, not committed
-  - .darklua.json Luau to Lua 5.1 rules
-  - .luaurc strict mode, lint warnings are errors
-  - mise.toml pinned tools and tasks
-  - mise.lock tool checksums
-  - MyAddon.toc loads build/\*.lua
-  - stylua.toml
+  - MyAddon/ - .github/workflows/check.yml CI: types, check and build on every push - .lune/types.luau downloads and
+  verifies the definitions - .vscode/settings.json luau-lsp settings for VS Code - .zed/settings.json the same settings
+  for Zed - src/ - Core.luau shared namespace and SavedVariables - Events.luau typed event handlers - types/ -
+  addon.d.luau your own globals and types - wow-forever.d.luau downloaded, not committed - .darklua.json Luau to Lua 5.1
+  rules - .luaurc strict mode, lint warnings are errors - mise.toml pinned tools and tasks - mise.lock tool checksums -
+  MyAddon.toc loads build/\*.lua - stylua.toml
 </FileTree>
 
 The tools are pinned in `mise.toml`, with checksums in `mise.lock`: luau-lsp (type checker), darklua (compiler),
@@ -64,12 +53,12 @@ StyLua (formatter) and Lune (runs the download script).
 
 ## Tasks
 
-| Command          | What it does                                                                            |
-| ---------------- | --------------------------------------------------------------------------------------- |
-| `mise run types` | Downloads and verifies the pinned definitions release into `types/`                     |
-| `mise run check` | Type-checks and lints `src/` (any diagnostic fails), then checks formatting             |
-| `mise run fmt`   | Formats `src/` with StyLua                                                              |
-| `mise run build` | Compiles each `src/*.luau` to `build/*.lua` (Lua 5.1), the files the `.toc` loads       |
+| Command          | What it does                                                                      |
+| ---------------- | --------------------------------------------------------------------------------- |
+| `mise run types` | Downloads and verifies the pinned definitions release into `types/`               |
+| `mise run check` | Type-checks and lints `src/` (any diagnostic fails), then checks formatting       |
+| `mise run fmt`   | Formats `src/` with StyLua                                                        |
+| `mise run build` | Compiles each `src/*.luau` to `build/*.lua` (Lua 5.1), the files the `.toc` loads |
 
 To add a source file: create `src/Name.luau`, add `build/Name.lua` to the `.toc`, and add its line to the `build`
 task in `mise.toml`. To play, copy `build/` and the `.toc` into `Interface/AddOns/MyAddon`.
@@ -127,9 +116,9 @@ end)
 ```
 
 <Aside type="caution" title="Lua 5.1 at run time">
-  darklua removes Luau syntax, not Luau semantics. Iterate tables with `pairs` or `ipairs`, never
-  `for k, v in t do`. Do not call Luau-only library functions such as `table.clone`, `table.find` or `string.split`:
-  WoW runs Lua 5.1 and has none of them.
+  darklua removes Luau syntax, not Luau semantics. Iterate tables with `pairs` or `ipairs`, never `for k, v in t do`. Do
+  not call Luau-only library functions such as `table.clone`, `table.find` or `string.split`: WoW runs Lua 5.1 and has
+  none of them.
 </Aside>
 
 ## Editors and the pinned checker

@@ -12,7 +12,6 @@ import type {
   Structure,
   WidgetType,
 } from "./model.ts";
-
 import { apiPaths, globalLetter } from "./paths.ts";
 import { referencedTypes } from "./type-expr.ts";
 
@@ -128,7 +127,10 @@ function collectUsage(
   };
   for (const ns of parsed.namespaces) {
     for (const member of ns.members) {
-      record(member.type, { label: `${ns.name}.${member.name}`, path: `${apiPaths.namespace(ns.name)}#${member.name}` });
+      record(member.type, {
+        label: `${ns.name}.${member.name}`,
+        path: `${apiPaths.namespace(ns.name)}#${member.name}`,
+      });
     }
   }
   for (const decl of [...parsed.functions, ...parsed.values]) {
@@ -136,7 +138,10 @@ function collectUsage(
   }
   for (const widget of parsed.widgets) {
     for (const method of widget.methods) {
-      record(method.type, { label: `${widget.name}:${method.name}`, path: `${apiPaths.widget(widget.name)}#${method.name}` });
+      record(method.type, {
+        label: `${widget.name}:${method.name}`,
+        path: `${apiPaths.widget(widget.name)}#${method.name}`,
+      });
     }
   }
   for (const event of parsed.events) {
@@ -156,6 +161,10 @@ function collectUsage(
   return usage;
 }
 
+function compareByName(a: GlobalDeclaration, b: GlobalDeclaration): number {
+  return a.name.localeCompare(b.name, "en");
+}
+
 function groupGlobals(parsed: ParsedDefinitions): GlobalsPage[] {
   const pages = new Map<string, { functions: GlobalDeclaration[]; values: GlobalDeclaration[] }>();
   const page = (name: string): { functions: GlobalDeclaration[]; values: GlobalDeclaration[] } => {
@@ -168,7 +177,6 @@ function groupGlobals(parsed: ParsedDefinitions): GlobalsPage[] {
     pages.set(letter, created);
     return created;
   };
-  const compare = (a: GlobalDeclaration, b: GlobalDeclaration): number => a.name.localeCompare(b.name, "en");
   for (const fn of parsed.functions) {
     page(fn.name).functions.push(fn);
   }
@@ -178,8 +186,8 @@ function groupGlobals(parsed: ParsedDefinitions): GlobalsPage[] {
   return [...pages.entries()]
     .map(([letter, entries]) => ({
       letter,
-      functions: entries.functions.toSorted(compare),
-      values: entries.values.toSorted(compare),
+      functions: entries.functions.toSorted(compareByName),
+      values: entries.values.toSorted(compareByName),
     }))
     .toSorted((a, b) => a.letter.localeCompare(b.letter, "en"));
 }

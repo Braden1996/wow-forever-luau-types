@@ -68,6 +68,9 @@
 }
 
 .sym-filters {
+  margin: 0;
+  padding: 0;
+  border: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -118,7 +121,7 @@
   text-decoration: none;
 }
 
-.sym-results [aria-selected="true"] a {
+.sym-results [data-active="true"] a {
   background: var(--sl-color-accent-low);
 }
 
@@ -203,4 +206,10 @@
   font-size: var(--sl-text-xs);
   color: var(--sl-color-gray-3);
   text-align: center;
+}
+
+.sym-close {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
 }

@@ -50,7 +50,7 @@
   --sl-font-heading: var(--font-display);
 }
 
-.sl-markdown-content :is(h1, h2, h3),
+.sl-markdown-content :is(h1, h2, h3):not(.api-member-name),
 h1#_top,
 .site-title {
   font-family: var(--font-display);

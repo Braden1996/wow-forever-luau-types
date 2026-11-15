@@ -12,7 +12,6 @@ import type {
   Structure,
   WidgetType,
 } from "./model.ts";
-
 import { functionOverloads, splitTopLevel } from "./type-expr.ts";
 
 type Section =

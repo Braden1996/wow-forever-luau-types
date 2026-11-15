@@ -96,9 +96,8 @@ command-line version (the [addon template](/wow-forever-luau-types/start/addon-t
 treat its result as the reference.
 
 <Aside type="note" title="Common problems">
-  - **`CreateFrame` is an unknown global**: the definitions file was not loaded. Check the path in
-    `definitionFiles`; it is relative to the workspace root.
-  - **Errors about `keyof`, `index` or a type being too complex, or `CreateFrame` returning the wrong widget**: the
-    old solver is running. Enable `luau-lsp.fflags.enableNewSolver` and reload the window.
-  - **Roblox globals such as `game` or `Instance` appear**: the platform is still `roblox`.
+  - **`CreateFrame` is an unknown global**: the definitions file was not loaded. Check the path in `definitionFiles`; it
+  is relative to the workspace root. - **Errors about `keyof`, `index` or a type being too complex, or `CreateFrame`
+  returning the wrong widget**: the old solver is running. Enable `luau-lsp.fflags.enableNewSolver` and reload the
+  window. - **Roblox globals such as `game` or `Instance` appear**: the platform is still `roblox`.
 </Aside>

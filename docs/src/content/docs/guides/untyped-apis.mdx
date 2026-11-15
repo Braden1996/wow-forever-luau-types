@@ -18,11 +18,11 @@ you use what it returns.
 
 ## Which APIs are untyped
 
-| Kind                                   | Typed | Untyped |
-| -------------------------------------- | ----: | ------: |
-| C API (the game's native functions)    | 6,892 |      12 |
-| Lua library and WoW's Lua extensions   |    59 |      17 |
-| FrameXML (Blizzard's own UI code)      |   102 |   5,690 |
+| Kind                                 | Typed | Untyped |
+| ------------------------------------ | ----: | ------: |
+| C API (the game's native functions)  | 6,892 |      12 |
+| Lua library and WoW's Lua extensions |    59 |      17 |
+| FrameXML (Blizzard's own UI code)    |   102 |   5,690 |
 
 Almost all untyped functions are **FrameXML**: Blizzard's user interface, written in Lua. No source types it.
 Blizzard documents only the native C API, and the community annotations cover a small part of FrameXML. Widget
@@ -58,8 +58,8 @@ end
 ```
 
 <Aside type="caution">
-  A cast is a promise the checker cannot verify. Keep casts next to the call, use the narrowest type, and prefer
-  `T?` when you are not sure a result is always present.
+  A cast is a promise the checker cannot verify. Keep casts next to the call, use the narrowest type, and prefer `T?`
+  when you are not sure a result is always present.
 </Aside>
 
 ## Untyped functions in typed namespaces

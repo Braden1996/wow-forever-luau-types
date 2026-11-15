@@ -18,6 +18,7 @@ CheckButton → Button → Frame → ScriptRegion → Object → FrameScriptObje
 ```
 
 Textures and font strings sit on a separate branch: <Sym type="Texture" /> extends `TextureBase`, which extends
+
 <Sym type="Region" />; <Sym type="FontString" /> extends `Region` directly; and `Region` extends `ScriptRegion`.
 
 Inheritance runs one way. A `Button` can be used where a `Frame` is expected; a `Frame` cannot be used as a
@@ -70,8 +71,8 @@ title:SetPoint("TOP", 0, -12)
 ```
 
 <Aside type="note">
-  The template argument is a plain `string`. A template can add methods and fields through a mixin, which the
-  checker cannot see. Cast when you rely on them, and keep such casts in one place.
+  The template argument is a plain `string`. A template can add methods and fields through a mixin, which the checker
+  cannot see. Cast when you rely on them, and keep such casts in one place.
 </Aside>
 
 ## Script names are per widget
@@ -97,6 +98,7 @@ end)
 ## Anchors, strata and layers
 
 Points, strata and draw layers are closed string unions: <Sym type="FramePoint" />, <Sym type="FrameStrata" /> and
+
 <Sym type="DrawLayer" />.
 
 ```luau

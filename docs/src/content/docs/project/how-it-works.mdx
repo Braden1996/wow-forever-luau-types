@@ -18,11 +18,11 @@ supplements/ (FrameXML tables) ─┘
 
 ## The sources
 
-| Source | Pinned in `upstream.toml` | Decides |
-| --- | --- | --- |
-| [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources/tree/forever), `forever` branch: dumps from the live Forever client | `[resources]` | **What exists**: every function, widget type and method, script handler, event and enum value |
-| [Gethe/wow-ui-source](https://github.com/Gethe/wow-ui-source/tree/forever), `forever` branch: Blizzard's own `Blizzard_APIDocumentationGenerated` | `[docs]` | **Types first**: arguments, results, nilability, structures, callback types, event payloads |
-| [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api) (MIT): the LuaCATS annotations behind the WoW VS Code extension, sourced from [warcraft.wiki.gg](https://warcraft.wiki.gg) | `[annotations]` | **Types for the rest**: globals the documentation omits, FrameXML mixins, WoW's Lua extensions, extra call shapes |
+| Source                                                                                                                                                                                     | Pinned in `upstream.toml` | Decides                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources/tree/forever), `forever` branch: dumps from the live Forever client                                 | `[resources]`             | **What exists**: every function, widget type and method, script handler, event and enum value                     |
+| [Gethe/wow-ui-source](https://github.com/Gethe/wow-ui-source/tree/forever), `forever` branch: Blizzard's own `Blizzard_APIDocumentationGenerated`                                          | `[docs]`                  | **Types first**: arguments, results, nilability, structures, callback types, event payloads                       |
+| [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api) (MIT): the LuaCATS annotations behind the WoW VS Code extension, sourced from [warcraft.wiki.gg](https://warcraft.wiki.gg) | `[annotations]`           | **Types for the rest**: globals the documentation omits, FrameXML mixins, WoW's Lua extensions, extra call shapes |
 
 Each source is pinned to a commit. An upstream change reaches the definitions only through a reviewed pull request
 that bumps the commit and commits the regenerated output.
@@ -64,20 +64,20 @@ Every API the client has is recorded in `definitions/coverage.json` as **typed**
 **excluded** (with the reason). [Coverage](/wow-forever-luau-types/coverage/) shows the totals and the full lists.
 
 <Aside type="note" title="Coverage only grows">
-  CI compares `coverage.json` with the base branch and fails if an API that was typed becomes untyped. An upstream
-  bump that would lose types has to be fixed before it can merge.
+  CI compares `coverage.json` with the base branch and fails if an API that was typed becomes untyped. An upstream bump
+  that would lose types has to be fixed before it can merge.
 </Aside>
 
 ## Checks
 
-| Check | What it proves |
-| --- | --- |
-| `fresh` | Every generated file matches a regeneration from the pinned commits |
+| Check       | What it proves                                                                                                                                                                      |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fresh`     | Every generated file matches a regeneration from the pinned commits                                                                                                                 |
 | `typecheck` | The sample addon has zero diagnostics; each negative fixture produces exactly its expected errors; the converter reproduces every snapshot case; the generator is `--!strict` clean |
-| `coverage` | No API that was typed lost its types |
-| `lint` | StyLua, selene and typos |
-| `workflows` | actionlint and zizmor; every action pinned by commit SHA |
-| `pr-title` | Conventional Commit titles |
+| `coverage`  | No API that was typed lost its types                                                                                                                                                |
+| `lint`      | StyLua, selene and typos                                                                                                                                                            |
+| `workflows` | actionlint and zizmor; every action pinned by commit SHA                                                                                                                            |
+| `pr-title`  | Conventional Commit titles                                                                                                                                                          |
 
 The negative fixtures in [`tests/fail`](https://github.com/Braden1996/wow-forever-luau-types/tree/main/tests/fail)
 pin the strictness: each file must produce exactly the diagnostics in its `.expected` file, so a change that stops
