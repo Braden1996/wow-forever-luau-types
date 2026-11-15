@@ -73,6 +73,28 @@ libraries that wrap the API (`maybe`: one nilable result; `record`: several name
 | `variadic` | 39 | 8 |
 | `void` | 2545 | 678 |
 
+Calls the documentation says may return nothing at all have every result optional (`T?`), by reason:
+
+| Reason | Functions | Widget methods |
+| --- | ---: | ---: |
+| `HasRestrictions` | 46 | 1 |
+| `MayReturnNothing` | 625 | 41 |
+| `RequiresActiveCommentator` | 32 | 0 |
+| `RequiresClubsInitialized` | 41 | 0 |
+| `RequiresCommentator` | 4 | 0 |
+| `RequiresComparableUnitTokens` | 1 | 0 |
+| `RequiresFontStringTextAccess` | 0 | 2 |
+| `RequiresFriendList` | 20 | 0 |
+| `RequiresNonReadOnlyCVar` | 2 | 0 |
+| `RequiresNonSecureCVar` | 2 | 0 |
+| `RequiresRecentAllies` | 9 | 0 |
+| `RequiresSpellDiminishUI` | 3 | 0 |
+| `RequiresValidActionSlot` | 24 | 0 |
+| `RequiresValidAndPublicCVar` | 3 | 0 |
+| `RequiresValidTimelineEvent` | 7 | 0 |
+| `RequiresValidUnitAuraInstance` | 8 | 0 |
+| `TransliteratorAllowed` | 1 | 0 |
+
 ## Strictness
 
 `any` in the definitions, by form:

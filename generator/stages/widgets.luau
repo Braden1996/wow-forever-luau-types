@@ -239,7 +239,7 @@ function Widgets.emit(ctx: Context)
 		end
 		local d = documented()
 		if d then
-			local sigs, source = Signatures.reconcile(ctx, d.signature, model.annotatedMethod(w, m))
+			local sigs, source = Signatures.reconcile(ctx, d, model.annotatedMethod(w, m))
 			return sigs, source, d
 		end
 		local a = model.annotatedMethod(w, m)
@@ -332,7 +332,7 @@ function Widgets.emit(ctx: Context)
 		local annClass = ctx.ann.classes[name]
 		for _, m in Common.sortedKeys(methods) do
 			local annotated = if annClass then annClass.methods[m] else nil
-			local sigs, source = Signatures.reconcile(ctx, methods[m].signature, annotated)
+			local sigs, source = Signatures.reconcile(ctx, methods[m], annotated)
 			ctx.apis.widgetMethods[name .. ":" .. m] = { sigs = sigs, doc = methods[m], selfName = typeNames[name] }
 			for _, p in Signatures.printAll(ctx, sigs, typeNames[name], true) do
 				emit("\tfunction " .. m .. Signatures.renderParams(p, "self", true) .. ": " .. p.returns)

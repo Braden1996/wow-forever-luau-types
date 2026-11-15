@@ -66,7 +66,7 @@ local function functionSource(ctx: Context, qualified: string, path: { string },
 	local doc = ctx.docs.functions[qualified]
 	local f = ann.functions[qualified]
 	if doc then
-		local sigs, source = Signatures.reconcile(ctx, doc.signature, if f then Common.withOverloads(f) else nil)
+		local sigs, source = Signatures.reconcile(ctx, doc, if f then Common.withOverloads(f) else nil)
 		return { kind = "typed", sigs = sigs, source = source }
 	elseif f then
 		return { kind = "typed", sigs = Common.withOverloads(f), source = "annotations" }

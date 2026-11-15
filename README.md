@@ -97,7 +97,8 @@ source), untyped, or excluded (with the reason). CI fails if an API that was typ
 libraries that wrap the API: `maybe` (one nilable result), `record` (several results, each with its documented name
 and nilability), `value`, `void` or `variadic`; `protected` for what Blizzard flags `IsProtectedFunction`, which must
 never be wrapped. It also records whether the call may return nothing at all (`absent`, from `MayReturnNothing` or a
-precondition that fails by returning nothing), which parameters take a callback, and whether the first of several
+precondition that fails by returning nothing; the definitions type every result of such a call as optional), which
+parameters take a callback, and whether the first of several
 results is a boolean. It states facts only: whether a boolean means success, or a nil means "not cached yet", is the
 wrapping library's decision.
 

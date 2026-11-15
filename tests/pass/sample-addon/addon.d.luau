@@ -27,5 +27,6 @@ export type Namespace = {
 		questTitles: () -> { string },
 		remember: (text: string) -> (),
 		bindingFor: (action: string) -> string?,
+		actionCharges: (slot: number) -> string,
 	},
 }

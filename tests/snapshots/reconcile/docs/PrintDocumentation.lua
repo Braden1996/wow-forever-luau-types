@@ -43,8 +43,69 @@ local Print =
 			},
 		},
 		{
+			Name = "GetDemoSlot",
+			Type = "Function",
+			RequiresDemoSlot = true,
+
+			Arguments =
+			{
+				{ Name = "slot", Type = "number", Nilable = false },
+			},
+
+			Returns =
+			{
+				{ Name = "name", Type = "cstring", Nilable = false },
+				{ Name = "count", Type = "number", Nilable = false },
+			},
+		},
+		{
+			Name = "CheckDemoSlot",
+			Type = "Function",
+			RequiresDemoArguments = true,
+
+			Arguments =
+			{
+				{ Name = "slot", Type = "number", Nilable = false },
+			},
+
+			Returns =
+			{
+				{ Name = "valid", Type = "bool", Nilable = false },
+			},
+		},
+		{
+			Name = "FindDemo",
+			Type = "Function",
+			MayReturnNothing = true,
+
+			Arguments =
+			{
+				{ Name = "name", Type = "cstring", Nilable = false },
+			},
+
+			Returns =
+			{
+				{ Name = "demoID", Type = "number", Nilable = false },
+				{ Name = "owner", Type = "cstring", Nilable = true },
+			},
+		},
+		{
 			Name = "NotInClient",
 			Type = "Function",
+		},
+	},
+
+	Predicates =
+	{
+		{
+			Name = "RequiresDemoSlot",
+			Type = "Precondition",
+			FailureMode = "ReturnNothing",
+		},
+		{
+			Name = "RequiresDemoArguments",
+			Type = "Precondition",
+			FailureMode = "Error",
 		},
 	},
 

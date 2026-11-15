@@ -62,7 +62,7 @@ export type Lens = {
 
 local Shapes = {}
 
-Shapes.PROTECTED = "IsProtectedFunction"
+Shapes.PROTECTED = ApiDocs.PROTECTED
 Shapes.WRAPPABLE = { maybe = true, record = true } :: { [Kind]: boolean }
 
 local function strip(t: Type): Type
@@ -106,22 +106,6 @@ local function printedReturns(sig: Signature, lens: Lens): string
 	return table.concat(parts, ", ")
 end
 
-local function absentReasons(doc: ApiDocs.DocFunction?, lens: Lens): { string }?
-	if doc == nil then
-		return nil
-	end
-	local reasons: { string } = {}
-	if doc.mayReturnNothing then
-		table.insert(reasons, "MayReturnNothing")
-	end
-	for _, p in doc.predicates do
-		if lens.failureModes[p] == "ReturnNothing" and p ~= Shapes.PROTECTED then
-			table.insert(reasons, p)
-		end
-	end
-	return if #reasons > 0 then reasons else nil
-end
-
 -- A result's field name: the source's, when it is a usable identifier not taken by an earlier result.
 local function fieldName(raw: string?, index: number, taken: { [string]: boolean }): string
 	local name = raw or ""
@@ -148,7 +132,7 @@ function Shapes.classify(sigs: { Signature }, doc: ApiDocs.DocFunction?, lens: L
 			return { kind = "overloaded", callbacks = callbacks, predicates = predicates }
 		end
 	end
-	local absent = absentReasons(doc, lens)
+	local absent = if doc then ApiDocs.absentReasons(doc, lens.failureModes) else nil
 	local base: Shape = {
 		kind = "void",
 		parameters = lens.parameters(sigs),

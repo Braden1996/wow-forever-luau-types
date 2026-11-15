@@ -6,12 +6,24 @@
       "source": "annotations",
       "status": "typed"
     },
+    "CheckDemoSlot": {
+      "source": "docs",
+      "status": "typed"
+    },
     "DemoPrint": {
       "source": "docs+annotations",
       "status": "typed"
     },
     "DocumentedOnly": {
       "source": "docs",
+      "status": "typed"
+    },
+    "FindDemo": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "GetDemoSlot": {
+      "source": "docs+annotations",
       "status": "typed"
     },
     "NewDemoTimer": {

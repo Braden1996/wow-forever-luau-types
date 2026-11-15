@@ -1,4 +1,29 @@
 {
+  "absentResults": {
+    "functions": {
+      "HasRestrictions": 46,
+      "MayReturnNothing": 625,
+      "RequiresActiveCommentator": 32,
+      "RequiresClubsInitialized": 41,
+      "RequiresCommentator": 4,
+      "RequiresComparableUnitTokens": 1,
+      "RequiresFriendList": 20,
+      "RequiresNonReadOnlyCVar": 2,
+      "RequiresNonSecureCVar": 2,
+      "RequiresRecentAllies": 9,
+      "RequiresSpellDiminishUI": 3,
+      "RequiresValidActionSlot": 24,
+      "RequiresValidAndPublicCVar": 3,
+      "RequiresValidTimelineEvent": 7,
+      "RequiresValidUnitAuraInstance": 8,
+      "TransliteratorAllowed": 1
+    },
+    "widgetMethods": {
+      "HasRestrictions": 1,
+      "MayReturnNothing": 41,
+      "RequiresFontStringTextAccess": 2
+    }
+  },
   "anyByForm": {
     "anyFunction": 44,
     "anyTable": 73,

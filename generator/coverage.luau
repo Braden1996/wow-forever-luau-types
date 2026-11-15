@@ -145,6 +145,27 @@ function Coverage.markdown(report: Build.Report, coverage: Build.Coverage): stri
 		table.insert(lines, row({ "`" .. kind .. "`", functions[kind] or 0, methods[kind] or 0 }))
 	end
 
+	table.insert(lines, "")
+	table.insert(
+		lines,
+		"Calls the documentation says may return nothing at all have every result optional (`T?`), by reason:"
+	)
+	table.insert(lines, "")
+	table.insert(lines, "| Reason | Functions | Widget methods |")
+	table.insert(lines, "| --- | ---: | ---: |")
+	local absentFunctions = report.absentResults.functions or {}
+	local absentMethods = report.absentResults.widgetMethods or {}
+	local reasons: { [string]: boolean } = {}
+	for reason in absentFunctions do
+		reasons[reason] = true
+	end
+	for reason in absentMethods do
+		reasons[reason] = true
+	end
+	for _, reason in sortedKeys(reasons) do
+		table.insert(lines, row({ "`" .. reason .. "`", absentFunctions[reason] or 0, absentMethods[reason] or 0 }))
+	end
+
 	local any = report.anyByForm
 	table.insert(lines, "")
 	table.insert(lines, "## Strictness")
