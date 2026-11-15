@@ -19,8 +19,8 @@ and CI fails if they differ from a fresh generation.
 ## Setup
 
 1. Install [mise](https://mise.jdx.dev).
-2. `mise install` installs the pinned tools: Lune, luau-lsp, StyLua, selene, typos and actionlint (versions in
-   `mise.toml`, checksums in `mise.lock`).
+2. `mise install` installs the pinned tools: Lune, luau-lsp, StyLua, selene, typos, actionlint, and Bun and Node
+   for the docs site (versions in `mise.toml`, checksums in `mise.lock`).
 3. `mise exec -- lune setup` writes Lune's type definitions, which `.luaurc` points at, so the generator type-checks
    in your editor. Enable luau-lsp's new solver (`luau-lsp.fflags.enableNewSolver`).
 
@@ -45,6 +45,25 @@ The `coverage` job also compares `definitions/coverage.json` with the base branc
 git show origin/main:definitions/coverage.json > base.json
 mise exec -- lune run scripts/coverage-diff -- base.json
 ```
+
+### The documentation site
+
+`docs/` is the site at [braden1996.github.io/wow-forever-luau-types](https://braden1996.github.io/wow-forever-luau-types/):
+Astro and Starlight, with Bun and Node from `mise.toml`. Its API reference is generated from `definitions/` at build
+time, so a change to the definitions needs no docs change. The `docs` CI job runs:
+
+```bash
+cd docs
+mise exec -- bun install --frozen-lockfile
+mise exec -- bun run typecheck   # TypeScript 7 (tsgo), strictest settings, and astro check
+mise exec -- bun run lint        # oxlint, type-aware
+mise exec -- bun run fmt:check   # oxfmt (fix with `bun run fmt`)
+mise exec -- bun run test        # parser, cross-references, search ranking
+mise exec -- bun run build       # every page into docs/dist
+mise exec -- bun run links       # every internal link and anchor resolves
+```
+
+`mise exec -- bun run dev` serves the site locally. The `pages` workflow deploys `main` to GitHub Pages.
 
 ## Tests
 

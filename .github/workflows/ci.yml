@@ -114,9 +114,40 @@ jobs:
           advanced-security: false
           annotations: true
 
+  # The documentation site (docs/): strict TypeScript (tsgo and astro check), oxlint, oxfmt, unit tests, the
+  # static build of every API page from definitions/, and an offline check of every internal link.
+  docs:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: docs
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+        with:
+          install_args: bun node
+          cache: true
+      - name: install
+        run: mise exec -- bun install --frozen-lockfile
+      - name: typecheck
+        run: mise exec -- bun run typecheck
+      - name: lint
+        run: mise exec -- bun run lint
+      - name: format
+        run: mise exec -- bun run fmt:check
+      - name: test
+        run: mise exec -- bun run test
+      - name: build
+        run: mise exec -- bun run build
+      - name: links
+        run: mise exec -- bun run links
+
   ci-ok:
     if: always()
-    needs: [fresh, typecheck, coverage, lint, workflows]
+    needs: [fresh, typecheck, coverage, lint, workflows, docs]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
@@ -124,4 +155,4 @@ jobs:
         if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
         run: exit 1
       - name: ok
-        run: echo "fresh, typecheck, coverage, lint and workflows passed"
+        run: echo "fresh, typecheck, coverage, lint, workflows and docs passed"

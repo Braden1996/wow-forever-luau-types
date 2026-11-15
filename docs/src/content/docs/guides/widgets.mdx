@@ -82,7 +82,7 @@ union named after it, such as `ButtonScriptType`:
 
 ```luau
 frame:SetScript("OnClick", function() end)  -- error: a plain Frame has no OnClick
-frame:SetScript("OnUpdte", function() end)  -- error: not a script name
+frame:SetScript("OnTick", function() end)   -- error: not a script name
 button:SetScript("OnClick", function() end) -- fine: Button has OnClick
 ```
 

@@ -59,12 +59,12 @@ mise exec -- actionlint
 The site lives in [`docs/`](https://github.com/Braden1996/wow-forever-luau-types/tree/main/docs). It is an
 [Astro](https://astro.build) and [Starlight](https://starlight.astro.build) project, built to static files for
 GitHub Pages. The API reference, search index and hover cards are generated at build time from
-`definitions/wow-forever.d.luau` and `definitions/coverage.json`, so they never drift from a release.
+`definitions/wow-forever.d.luau` and `definitions/coverage.json`, so they always match the definitions on `main`.
 
 - Guides like this page are MDX files in `docs/src/content/docs/`.
 - Bun is the package manager, pinned through mise like the other tools.
 - Its checks run in CI on every pull request: a strict TypeScript type check, oxlint, an oxfmt format check, the
-  unit tests and a full build. Pushes to `main` deploy the site.
+  unit tests, a full build and an internal link check. Pushes to `main` deploy the site.
 
 To work on it locally:
 

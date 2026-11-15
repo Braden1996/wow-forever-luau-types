@@ -1,0 +1,67 @@
+$schema: "../.moon/cache/schemas/project.json"
+
+# Project `docs`: the documentation site (Astro + Starlight, Bun). Registered in .moon/workspace.yml once the moon
+# workspace lands on main; until then CI runs the same commands directly (.github/workflows/ci.yml, job `docs`).
+layer: "application"
+tags: ["typescript"]
+
+taskOptions:
+  shell: false
+  runFromWorkspaceRoot: false
+
+tasks:
+  install:
+    description: "bun install from bun.lock"
+    command: "bun"
+    args: ["install", "--frozen-lockfile"]
+    options:
+      cache: false
+  typecheck:
+    description: "TypeScript 7 (tsgo) over src, tests and config; astro check over .astro files"
+    command: "bun"
+    args: ["run", "typecheck"]
+    deps: ["~:install"]
+  lint:
+    description: "oxlint, type-aware (oxlint.config.ts)"
+    command: "bun"
+    args: ["run", "lint"]
+    deps: ["~:install"]
+  fmt:
+    description: "Format with oxfmt"
+    command: "bun"
+    args: ["run", "fmt"]
+    deps: ["~:install"]
+    options:
+      cache: false
+  fmt-check:
+    description: "oxfmt check (run `moon run docs:fmt` to fix)"
+    command: "bun"
+    args: ["run", "fmt:check"]
+    deps: ["~:install"]
+  test:
+    description: "bun test: the definitions parser, cross-references and search ranking"
+    command: "bun"
+    args: ["run", "test"]
+    deps: ["~:install"]
+    inputs: ["src/**/*", "/definitions/**/*"]
+  build:
+    description: "Static build of the site into dist/ (every API page from definitions/)"
+    command: "bun"
+    args: ["run", "build"]
+    deps: ["~:install"]
+    inputs: ["src/**/*", "public/**/*", "astro.config.ts", "/definitions/**/*"]
+    outputs: ["dist"]
+  links:
+    description: "Every internal link and anchor in dist/ resolves"
+    command: "bun"
+    args: ["run", "links"]
+    deps: ["~:build"]
+  dev:
+    description: "Local dev server"
+    command: "bun"
+    args: ["run", "dev"]
+    deps: ["~:install"]
+    preset: "server"
+  check:
+    description: "Aggregator: every docs check"
+    deps: ["~:typecheck", "~:lint", "~:fmt-check", "~:test", "~:links"]

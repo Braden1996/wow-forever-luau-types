@@ -3,6 +3,7 @@
 </p>
 
 <p align="center">
+  <a href="https://braden1996.github.io/wow-forever-luau-types/"><img alt="Documentation" src="https://img.shields.io/badge/docs-API%20reference-d9a441"></a>
   <a href="https://github.com/Braden1996/wow-forever-luau-types/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Braden1996/wow-forever-luau-types/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/Braden1996/wow-forever-luau-types/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/Braden1996/wow-forever-luau-types?sort=semver"></a>
   <a href="definitions/COVERAGE.md"><img alt="C API typed" src="https://img.shields.io/badge/C%20API%20typed-99.8%25-2f6bff"></a>
@@ -15,6 +16,9 @@ This repository publishes one definitions file, `wow-forever.d.luau`, for the
 [luau-lsp](https://github.com/JohnnyMorganz/luau-lsp) language server and type checker. It covers everything the
 **WoW: Forever** client (1.60.1, interface 16001) offers addons: global functions, `C_*` namespaces, widgets with
 their real inheritance, events with their payloads, structures and enums.
+
+**Documentation: [braden1996.github.io/wow-forever-luau-types](https://braden1996.github.io/wow-forever-luau-types/)**.
+It has guides and a searchable API reference generated from the definitions, with every type cross-linked.
 
 ```luau
 --!strict
