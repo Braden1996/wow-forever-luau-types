@@ -15,6 +15,7 @@ experimental = true
 "aqua:crate-ci/typos" = "1.52.2"
 "aqua:rhysd/actionlint" = "1.7.12"
 "aqua:zizmorcore/zizmor" = "1.32.0" # GitHub Actions security lint
+"aqua:koalaman/shellcheck" = "0.11.0" # used by actionlint for run: scripts (pinned, so local runs check what CI does)
 "aqua:dprint/dprint" = "0.64.3" # Markdown, JSON, YAML and TOML formatting
 "aqua:lycheeverse/lychee" = "0.24.2" # offline link check of the docs
 "github:seaofvoices/darklua" = "0.19.0" # builds the addon template (Luau -> Lua 5.1), as users will

@@ -70,6 +70,7 @@ jobs:
           git add -A
           git commit -m "$TITLE" -m "$SUMMARY"
           git push --force "https://github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$BRANCH"
+          # shellcheck disable=SC2016 # the backticks are literal Markdown in the pull request body
           body="$(printf 'Moves the pins in `upstream.toml` and regenerates.\n\n%s\n\nReview `definitions/COVERAGE.md` and `definitions/report.json` first. If `tests` fails, update the fixtures (`lune run scripts/test -- --update`) or fix the generator on this branch; this workflow will not overwrite your commits.' "$SUMMARY")"
           if [ -n "$NUMBER" ]; then
             gh pr edit "$NUMBER" --repo "$GITHUB_REPOSITORY" --body "$body"
