@@ -1,0 +1,155 @@
+---
+import type { CoverageGroup } from "../lib/api/coverage.ts";
+
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+
+import { coverageTotals, excludedEntries } from "../lib/api/coverage.ts";
+import { loadCatalog, readReport } from "../lib/api/load.ts";
+import { apiPaths } from "../lib/api/paths.ts";
+import { REPOSITORY, withBase } from "../lib/site.ts";
+
+const catalog = loadCatalog();
+const groups: ReadonlyArray<readonly [CoverageGroup, string]> = [
+  ["functions", "Functions (global and namespaced)"],
+  ["widgetMethods", "Widget and script-object methods"],
+  ["events", "Events, with payload types"],
+  ["structures", "Structures and mixins"],
+  ["enums", "Enums"],
+  ["widgets", "Widget types"],
+];
+const rows = groups.map(([group, label]) => {
+  const totals = coverageTotals(catalog.coverage, group);
+  return { group, label, typed: totals.typed, untyped: totals.untyped, excluded: totals.excluded };
+});
+const percent = (typed: number, untyped: number): string =>
+  typed + untyped === 0 ? "-" : `${((typed / (typed + untyped)) * 100).toFixed(1)}%`;
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+const count = (value: unknown, key: string): number => (isRecord(value) && typeof value[key] === "number" ? value[key] : 0);
+const report = readReport();
+const byList = isRecord(report) && isRecord(report["functionsByClientList"]) ? report["functionsByClientList"] : {};
+const clientLists = Object.entries(byList).map(([name, value]) => ({
+  name,
+  typed: count(value, "typed"),
+  untyped: count(value, "untyped"),
+  excluded: count(value, "excluded"),
+}));
+
+const untypedCApi = [...(catalog.coverage.get("functions")?.entries() ?? [])].filter(
+  ([, entry]) => entry.status === "untyped" && entry.reason !== "no type source (FrameXML)",
+);
+const excludedByReason = new Map<string, string[]>();
+for (const [name, entry] of excludedEntries(catalog.coverage, "functions")) {
+  const reason = entry.reason ?? "no reason recorded";
+  excludedByReason.set(reason, [...(excludedByReason.get(reason) ?? []), name]);
+}
+const functionHref = (name: string): string => {
+  const dot = name.indexOf(".");
+  return withBase(dot > 0 ? `${apiPaths.namespace(name.slice(0, dot))}#${name.slice(dot + 1)}` : apiPaths.global(name));
+};
+---
+
+<StarlightPage
+  frontmatter={{
+    title: "Coverage",
+    description: "How much of the WoW: Forever API the definitions type, by category and by source, with every gap listed.",
+    editUrl: false,
+    prev: false,
+    next: false,
+  }}
+  headings={[
+    { depth: 2, slug: "summary", text: "Summary" },
+    { depth: 2, slug: "by-client-list", text: "Functions by client list" },
+    { depth: 2, slug: "untyped-c-api", text: "Untyped C API functions" },
+    { depth: 2, slug: "excluded", text: "Excluded" },
+  ]}
+>
+  <p>
+    Every API the client has is listed in <a href={`${REPOSITORY}/blob/main/definitions/coverage.json`}><code
+      >definitions/coverage.json</code
+    ></a> as typed (with its source), untyped or excluded (with the reason). CI fails if an API that was typed becomes
+    untyped. This page is generated from that file at build time.
+  </p>
+
+  <h2 id="summary">Summary</h2>
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Typed</th><th>Untyped</th><th>Excluded</th><th>Typed share</th></tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row) => (
+          <tr>
+            <td>{row.label}</td>
+            <td>{row.typed.toLocaleString("en-GB")}</td>
+            <td>{row.untyped.toLocaleString("en-GB")}</td>
+            <td>{row.excluded.toLocaleString("en-GB")}</td>
+            <td>{percent(row.typed, row.untyped)}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+
+  <h2 id="by-client-list">Functions by client list</h2>
+  <p>
+    The client dump sorts global functions into the C API (the game's native functions), FrameXML (Blizzard's UI code in
+    Lua, which no source types) and the Lua standard library.
+  </p>
+  <table>
+    <thead>
+      <tr><th>List</th><th>Typed</th><th>Untyped</th><th>Excluded</th><th>Typed share</th></tr>
+    </thead>
+    <tbody>
+      {
+        clientLists.map((list) => (
+          <tr>
+            <td>{list.name}</td>
+            <td>{list.typed.toLocaleString("en-GB")}</td>
+            <td>{list.untyped.toLocaleString("en-GB")}</td>
+            <td>{list.excluded.toLocaleString("en-GB")}</td>
+            <td>{percent(list.typed, list.untyped)}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+
+  <h2 id="untyped-c-api">Untyped C API functions</h2>
+  <p>
+    Functions that exist in the client and are not FrameXML, but that no source types. They are declared as
+    <code>(...unknown) -&gt; ...unknown</code>; see <a href={withBase("/guides/untyped-apis/")}>untyped APIs</a>.
+  </p>
+  <ul class="api-columns not-content">
+    {
+      untypedCApi.map(([name, entry]) => (
+        <li title={entry.reason}>
+          <a href={functionHref(name)}>
+            <code>{name}</code>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2 id="excluded">Excluded</h2>
+  <p>APIs a source describes that the definitions leave out, grouped by reason.</p>
+  {
+    [...excludedByReason.entries()].map(([reason, names]) => (
+      <details class="api-inherited">
+        <summary>
+          {reason} ({names.length})
+        </summary>
+        <ul class="api-columns not-content">
+          {names.map((name) => (
+            <li>
+              <code>{name}</code>
+            </li>
+          ))}
+        </ul>
+      </details>
+    ))
+  }
+</StarlightPage>

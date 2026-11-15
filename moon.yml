@@ -20,6 +20,7 @@ tasks:
     command: "actionlint"
     args: [
       ".github/workflows/ci.yml",
+      ".github/workflows/pages.yml",
       ".github/workflows/pr-title.yml",
       ".github/workflows/release.yml",
       ".github/workflows/upstream.yml",
@@ -42,6 +43,7 @@ tasks:
       "./.github/**/*.md",
       "./definitions/*.md",
       "./templates/**/*.md",
+      "./docs/src/**/*.md",
     ]
     inputs: ["/**/*.md"]
   fmt:

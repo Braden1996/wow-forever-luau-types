@@ -1,0 +1,20 @@
+---
+// A small status chip: typed (with its source), untyped or excluded (with the reason on hover).
+import type { Coverage } from "../../lib/api/model.ts";
+
+import { coverageLabel, SOURCE_NAMES } from "./context.ts";
+
+interface Props {
+  readonly coverage: Coverage | undefined;
+}
+
+const { coverage } = Astro.props;
+const status = coverage?.status ?? "declared";
+const text = coverage?.status === "typed" ? (coverage.source ?? "typed") : status;
+const title =
+  coverage?.status === "typed" && coverage.source !== undefined
+    ? `Typed from ${SOURCE_NAMES[coverage.source] ?? coverage.source}`
+    : coverageLabel(coverage);
+---
+
+<span class:list={["api-chip", `api-chip-${status}`]} title={title}>{text}</span>

@@ -1,0 +1,102 @@
+---
+title: SavedVariables and slash commands
+description: Declare an addon's own globals in a second definitions file and write them through _G.
+---
+
+import { Aside, Steps } from "@astrojs/starlight/components";
+
+The WoW definitions declare the game's globals. Your addon has its own: the SavedVariables listed in its `.toc`,
+and the `SLASH_*` globals of its slash commands. Declare those in a second definitions file, and write them
+through `_G`.
+
+## Why a second definitions file
+
+The checker has to know a global exists and what type it has. A definitions file is the only place Luau accepts a
+global declaration. Keep the addon's declarations in their own file, `types/addon.d.luau`, so that
+`wow-forever.d.luau` can be replaced by a newer release without edits.
+
+Load both files in luau-lsp, as `@wow` and `@addon`:
+
+```jsonc
+"luau-lsp.types.definitionFiles": {
+  "@wow": "types/wow-forever.d.luau",
+  "@addon": "types/addon.d.luau",
+}
+```
+
+On the command line, pass `--definitions=@addon=types/addon.d.luau` as well.
+
+## SavedVariables
+
+<Steps>
+
+1. **List the variable in the `.toc`:**
+
+   ```text
+   ## SavedVariables: MyAddonDB
+   ```
+
+2. **Declare its type and the global in `types/addon.d.luau`.** It is optional (`?`): WoW sets it just before the
+   addon's `ADDON_LOADED` event, so it is `nil` until then, and on the first login:
+
+   ```luau
+   export type MyAddonDB = {
+   	enabled: boolean,
+   	logins: number,
+   }
+
+   declare MyAddonDB: MyAddonDB?
+   ```
+
+3. **Read it directly, and write it through `_G`** once the addon has loaded:
+
+   ```luau
+   local onAddonLoaded: EventHandler<"ADDON_LOADED"> = function(addOnName: string)
+   	if addOnName ~= ADDON then
+   		return
+   	end
+   	local db = MyAddonDB or { enabled = true, logins = 0 }
+   	db.logins += 1
+   	_G.MyAddonDB = db -- declared globals are read-only in Luau
+   	ns.db = db
+   end
+   ```
+
+</Steps>
+
+<Aside type="caution" title="Why `_G`">
+  Luau treats globals from a definitions file as read-only, so `MyAddonDB = db` is an error. Assigning through
+  `_G.MyAddonDB` sets the same global at run time and is accepted by the checker.
+</Aside>
+
+Keep a typed reference in your namespace (`ns.db`) and use that afterwards. If the namespace field is typed
+`MyAddonDB?`, check it before use; if your code only runs after `ADDON_LOADED`, you can type it `MyAddonDB` and set
+it there.
+
+## Slash commands
+
+`SlashCmdList` is declared as `{ [string]: (msg: string, editBox: EditBox?) -> () }`, so adding a handler needs no
+declaration. The `SLASH_*` aliases are new globals: assign them through `_G`.
+
+```luau
+_G.SLASH_MYADDON1 = "/myaddon"
+_G.SLASH_MYADDON2 = "/ma"
+SlashCmdList.MYADDON = function(msg: string)
+	local command = strlower(strtrim(msg))
+	if command == "reset" then
+		_G.MyAddonDB = nil
+	end
+end
+```
+
+## Other declarations that belong in addon.d.luau
+
+- The shared namespace type (`export type MyAddonNamespace = { ... }`), so every file can annotate
+  `local ADDON: string, ns: MyAddonNamespace = ...` without a `require`.
+- Frames your XML creates by name, for example `declare MyAddonPanel: Frame`.
+- Globals from libraries you embed. The definitions do not include Ace3, LibStub or other libraries.
+
+Hand-written FrameXML tables that many addons need (`SlashCmdList`, `UISpecialFrames`, `StaticPopupDialogs`,
+`RAID_CLASS_COLORS` and similar) are already declared by the project's
+[supplements](https://github.com/Braden1996/wow-forever-luau-types/blob/main/supplements/framexml.d.luau). If one is
+missing, propose it there rather than in your own file.

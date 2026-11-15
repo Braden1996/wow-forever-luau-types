@@ -1,0 +1,111 @@
+---
+title: Events
+description: Register only events the WoW Forever client sends, and check each handler against its documented payload.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Sym from "../../../components/api/sym.astro";
+
+The definitions describe events in three parts:
+
+- <Sym type="FrameEvent" />: a closed union of every event name the client sends (1,816 of them).
+- `EventPayloads`: a table type that maps each name to its handler's function type, from Blizzard's documentation.
+- `EventHandler<E>`: the handler type for one event. It is defined as `index<EventPayloads, E>`.
+
+Each event has a page in the [API reference](/wow-forever-luau-types/api/events/) with its payload.
+
+## Only real events
+
+`RegisterEvent`, `UnregisterEvent` and similar methods take a `FrameEvent`, so a misspelt or missing event is an
+error:
+
+```luau
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_LOGN")          -- error: not in FrameEvent
+frame:RegisterEvent("UNIT_HEALTH_FREQUENT") -- error: a Classic Era event Forever does not send
+frame:RegisterEvent("PLAYER_LEVEL_UP")      -- fine
+```
+
+## Typed handlers
+
+Give a handler its event's type, and the checker compares its parameters with the documented payload. For
+
+<Sym event="PLAYER_LEVEL_UP" /> the first argument is the new level:
+
+```luau
+local onLevel: EventHandler<"PLAYER_LEVEL_UP"> = function(level: number)
+	print("Reached level", level)
+end
+
+local onLoaded: EventHandler<"ADDON_LOADED"> = function(addOnName: number) -- error
+	-- ADDON_LOADED passes (addOnName: string, containsBindings: boolean)
+end
+```
+
+A handler may take fewer parameters than the event passes, as Lua allows.
+
+<Aside type="caution" title="Annotate the parameters">
+  Luau does not infer a function's parameters through `EventHandler<...>`. Without annotations they are not checked
+  against the payload. Write `function(level: number)`, not `function(level)`.
+</Aside>
+
+## A dispatch table
+
+Most addons route `OnEvent` through a table. Key it by `FrameEvent` so that only real events can be added, and
+register exactly the events it handles:
+
+```luau
+local onMoney: EventHandler<"PLAYER_MONEY"> = function()
+	ns.money = GetMoney()
+end
+
+local onBag: EventHandler<"BAG_UPDATE"> = function(bagID: number)
+	ns.dirtyBags[bagID] = true
+end
+
+local dispatch: { [FrameEvent]: (...any) -> () } = {
+	PLAYER_MONEY = onMoney,
+	PLAYER_LEVEL_UP = onLevel,
+	BAG_UPDATE = onBag,
+}
+
+local frame = CreateFrame("Frame")
+for event in pairs(dispatch) do
+	frame:RegisterEvent(event)
+end
+frame:SetScript("OnEvent", function(_self: Frame, event: FrameEvent, ...: any)
+	local handler = dispatch[event]
+	if handler then
+		handler(...)
+	end
+end)
+```
+
+The table's values are `(...any) -> ()` because one table holds handlers of different shapes. Each handler was
+checked when it was defined, with its `EventHandler<...>` type.
+
+`BAG_UPDATE` documents its argument as `Enum_BagIndex`, which is `number`, so `bagID: number` matches.
+
+## A single `OnEvent` function
+
+If you prefer one function with an `if` chain, annotate the varargs as you unpack them:
+
+```luau
+events:SetScript("OnEvent", function(_self: Frame, event: string, ...: any)
+	if event == "ADDON_LOADED" then
+		local loaded: string = ...
+		-- ...
+	elseif event == "PLAYER_LEVEL_UP" then
+		local level: number = ...
+		ns.onPlayerLevel(level)
+	end
+end)
+```
+
+This form is not checked against the payloads. Prefer typed handlers where you can.
+
+## Events that do not exist in Forever
+
+Forever runs the modern client. Classic-only events such as `CRAFT_SHOW`, `UNIT_HEALTH_FREQUENT` and
+`LEARNED_SPELL_IN_TAB` are not in `FrameEvent`. Search the [API reference](/wow-forever-luau-types/api/events/) for
+the modern equivalent, for example `UNIT_HEALTH`.

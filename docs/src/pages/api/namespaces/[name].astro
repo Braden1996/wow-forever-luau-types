@@ -1,0 +1,81 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import type { Namespace } from "../../../lib/api/model.ts";
+
+import ApiPage from "../../../components/api/api-page.astro";
+import { renderContext } from "../../../components/api/context.ts";
+import Member from "../../../components/api/member.astro";
+import { lookupCoverage } from "../../../lib/api/coverage.ts";
+import { loadCatalog } from "../../../lib/api/load.ts";
+import { apiPaths } from "../../../lib/api/paths.ts";
+import { isUntypedFunction } from "../../../lib/api/type-expr.ts";
+
+export const getStaticPaths = (() =>
+  loadCatalog().parsed.namespaces.map((ns) => ({ params: { name: ns.name }, props: { ns } }))) satisfies GetStaticPaths;
+
+interface Props {
+  readonly ns: Namespace;
+}
+
+const { ns } = Astro.props;
+const catalog = loadCatalog();
+const ctx = renderContext(catalog);
+const members = ns.members.toSorted((a, b) => a.name.localeCompare(b.name, "en"));
+const untyped = members.filter((member) => isUntypedFunction(member.type)).length;
+const isCApi = ns.name.startsWith("C_");
+const description = isCApi
+  ? `The ${ns.name} namespace of the WoW: Forever C API: ${members.length} functions with their Luau types.`
+  : `The ${ns.name} global table: ${members.length} members with their Luau types.`;
+---
+
+<ApiPage
+  title={ns.name}
+  description={description}
+  kind={isCApi ? "C API namespace" : "Global table"}
+  crumbs={[{ label: "Namespaces", path: apiPaths.namespaces }]}
+  headings={[
+    ...(members.length > 0 ? [{ depth: 2, slug: "members", text: "Members" }] : []),
+    ...ns.tables.map((table) => ({ depth: 2, slug: table.name, text: table.name })),
+  ]}
+>
+  <p>
+    {
+      isCApi
+        ? "A namespace of the game's native API."
+        : "A global table defined by Blizzard's UI code (FrameXML) or the Lua environment."
+    }
+    {members.length} members{untyped > 0 && `, ${untyped} declared but untyped (they return unknown)`}.
+  </p>
+  {
+    members.length > 0 && (
+      <>
+        <h2 id="members">Members</h2>
+        {members.map((member) => (
+          <Member
+            id={member.name}
+            display={`${ns.name}.${member.name}`}
+            type={member.type}
+            ctx={ctx}
+            coverage={lookupCoverage(catalog.coverage, "functions", `${ns.name}.${member.name}`)}
+          />
+        ))}
+      </>
+    )
+  }
+  {
+    ns.tables.map((table) => (
+      <>
+        <h2 id={table.name}>{`${ns.name}.${table.name}`}</h2>
+        {table.members.map((member) => (
+          <Member
+            id={`${table.name}.${member.name}`}
+            display={`${ns.name}.${table.name}.${member.name}`}
+            type={member.type}
+            ctx={ctx}
+          />
+        ))}
+      </>
+    ))
+  }
+</ApiPage>

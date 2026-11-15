@@ -1,0 +1,92 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import type { Structure } from "../../../lib/api/model.ts";
+
+import ApiPage from "../../../components/api/api-page.astro";
+import CodeBlock from "../../../components/api/code-block.astro";
+import { renderContext } from "../../../components/api/context.ts";
+import CoverageChip from "../../../components/api/coverage-chip.astro";
+import UsedBy from "../../../components/api/used-by.astro";
+import { lookupCoverage } from "../../../lib/api/coverage.ts";
+import { loadCatalog } from "../../../lib/api/load.ts";
+import { apiPaths } from "../../../lib/api/paths.ts";
+import { escapeHtml, fieldHtml, typeHtml } from "../../../lib/api/render.ts";
+import { withBase } from "../../../lib/site.ts";
+
+export const getStaticPaths = (() =>
+  loadCatalog().parsed.structures.map((structure) => ({ params: { name: structure.name }, props: { structure } }))) satisfies GetStaticPaths;
+
+interface Props {
+  readonly structure: Structure;
+}
+
+const { structure } = Astro.props;
+const catalog = loadCatalog();
+const ctx = renderContext(catalog);
+const isMixin = structure.name.endsWith("Mixin");
+const bases = structure.bases.map((base) => typeHtml(base, ctx)).join(" &amp; ");
+const head = `<span class="lt-kw">export type</span> <span class="lt-fn">${escapeHtml(structure.name)}</span> = ${bases.length > 0 ? `${bases} &amp; ` : ""}{`;
+const body = structure.fields.map((field) => `  ${fieldHtml(field.name, field.type, ctx)},`);
+const declaration = [head, ...body, "}"].join("\n");
+const chain = catalog.structureChain(structure.name);
+const derived = catalog.structureChildren(structure.name);
+const inheritedFields = chain.reduce((total, base) => total + base.fields.length, 0);
+---
+
+<ApiPage
+  title={structure.name}
+  description={`The ${structure.name} ${isMixin ? "mixin" : "structure"} type: ${structure.fields.length} fields${inheritedFields > 0 ? `, ${inheritedFields} inherited` : ""}.`}
+  kind={isMixin ? "Mixin" : "Structure"}
+  crumbs={[{ label: "Structures", path: apiPaths.structures }]}
+  headings={[
+    { depth: 2, slug: "declaration", text: "Declaration" },
+    ...(chain.length > 0 || derived.length > 0 ? [{ depth: 2, slug: "related", text: "Related types" }] : []),
+    { depth: 2, slug: "used-by", text: "Used by" },
+  ]}
+>
+  <p>
+    <CoverageChip coverage={lookupCoverage(catalog.coverage, "structures", structure.name)} />
+    {
+      structure.bases.length > 0
+        ? " Derived from its base with an intersection: it has every field of the base plus its own."
+        : ` A table type${isMixin ? " for a FrameXML mixin" : " that APIs take or return"}.`
+    }
+  </p>
+  <h2 id="declaration">Declaration</h2>
+  <CodeBlock html={declaration} />
+  {
+    (chain.length > 0 || derived.length > 0) && (
+      <>
+        <h2 id="related">Related types</h2>
+        {chain.length > 0 && (
+          <p>
+            Bases:{" "}
+            {chain.map((base, index) => (
+              <>
+                {index > 0 && " < "}
+                <a href={withBase(apiPaths.structure(base.name))} data-sym={`structure:${base.name}`}>
+                  <code>{base.name}</code>
+                </a>
+              </>
+            ))}
+          </p>
+        )}
+        {derived.length > 0 && (
+          <p>
+            Extended by:{" "}
+            {derived.map((child, index) => (
+              <>
+                {index > 0 && ", "}
+                <a href={withBase(apiPaths.structure(child.name))} data-sym={`structure:${child.name}`}>
+                  <code>{child.name}</code>
+                </a>
+              </>
+            ))}
+          </p>
+        )}
+      </>
+    )
+  }
+  <UsedBy referrers={catalog.usedBy({ path: apiPaths.structure(structure.name), card: "structure", name: structure.name })} />
+</ApiPage>

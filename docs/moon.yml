@@ -1,0 +1,82 @@
+$schema: "../.moon/cache/schemas/project.json"
+
+# Project `docs`: the documentation site (Astro + Starlight on Bun, both pinned in mise.toml). The API reference is
+# generated from definitions/ at build time, so a definitions change rebuilds and re-checks the site. Tasks run from
+# the workspace root like every other project; `bun run --cwd docs` runs the package scripts in docs/package.json.
+layer: "application"
+tags: ["typescript"]
+
+taskOptions:
+  shell: false
+  runFromWorkspaceRoot: true
+
+fileGroups:
+  sources: ["src/**/*", "public/**/*", "scripts/**/*", "*.config.ts", "tsconfig*.json", "package.json", "bun.lock"]
+
+tasks:
+  install:
+    description: "bun install from docs/bun.lock (frozen)"
+    command: "bun"
+    args: ["install", "--cwd", "docs", "--frozen-lockfile"]
+    inputs: ["package.json", "bun.lock"]
+    options:
+      cache: false
+  lint:
+    description: "oxlint, type-aware, with the strict TypeScript type check in the same pass (tsrs)"
+    command: "bun"
+    args: ["run", "--cwd", "docs", "lint"]
+    deps: ["~:install"]
+    inputs: ["@group(sources)", "oxlint.config.ts"]
+  typecheck-astro:
+    description: "astro check over the .astro files"
+    command: "bun"
+    args: ["run", "--cwd", "docs", "typecheck:astro"]
+    deps: ["~:install"]
+    inputs: ["@group(sources)", "/definitions/**/*"]
+  typecheck:
+    description: "The type check on its own: tsrs --fast over src, tests and config, then astro check"
+    command: "bun"
+    args: ["run", "--cwd", "docs", "typecheck"]
+    deps: ["~:install"]
+    inputs: ["@group(sources)", "/definitions/**/*"]
+  fmt:
+    description: "Format TypeScript, TSX and MDX with oxfmt"
+    command: "bun"
+    args: ["run", "--cwd", "docs", "fmt"]
+    deps: ["~:install"]
+    options:
+      cache: false
+  fmt-check:
+    description: "oxfmt check (run `moon run docs:fmt` to fix)"
+    command: "bun"
+    args: ["run", "--cwd", "docs", "fmt:check"]
+    deps: ["~:install"]
+    inputs: ["@group(sources)", "oxfmt.config.ts"]
+  test:
+    description: "bun test: the definitions parser, cross-references and search ranking"
+    command: "bun"
+    args: ["run", "--cwd", "docs", "test"]
+    deps: ["~:install"]
+    inputs: ["@group(sources)", "/definitions/**/*"]
+  build:
+    description: "Static build of the site into docs/dist (every API page from definitions/)"
+    command: "bun"
+    args: ["run", "--cwd", "docs", "build"]
+    deps: ["~:install"]
+    inputs: ["@group(sources)", "/definitions/**/*"]
+    outputs: ["dist"]
+  links:
+    description: "Every internal link and anchor in docs/dist resolves"
+    command: "bun"
+    args: ["run", "--cwd", "docs", "links"]
+    deps: ["~:build"]
+    inputs: ["scripts/check-links.ts"]
+  dev:
+    description: "Local dev server"
+    command: "bun"
+    args: ["run", "--cwd", "docs", "dev"]
+    deps: ["~:install"]
+    preset: "server"
+  check:
+    description: "Aggregator: every docs check"
+    deps: ["~:lint", "~:typecheck-astro", "~:fmt-check", "~:test", "~:links"]

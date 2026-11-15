@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import type { ApiEnum } from "../../../lib/api/model.ts";
+
+import ApiPage from "../../../components/api/api-page.astro";
+import CoverageChip from "../../../components/api/coverage-chip.astro";
+import UsedBy from "../../../components/api/used-by.astro";
+import { lookupCoverage } from "../../../lib/api/coverage.ts";
+import { loadCatalog } from "../../../lib/api/load.ts";
+import { apiPaths } from "../../../lib/api/paths.ts";
+
+export const getStaticPaths = (() =>
+  loadCatalog().parsed.enums.map((apiEnum) => ({ params: { name: apiEnum.name }, props: { apiEnum } }))) satisfies GetStaticPaths;
+
+interface Props {
+  readonly apiEnum: ApiEnum;
+}
+
+const { apiEnum } = Astro.props;
+const catalog = loadCatalog();
+---
+
+<ApiPage
+  title={`Enum.${apiEnum.name}`}
+  description={`The Enum.${apiEnum.name} table: ${apiEnum.values.length} values; parameters take the Enum_${apiEnum.name} type.`}
+  kind="Enum"
+  crumbs={[{ label: "Enums", path: apiPaths.enums }]}
+  headings={[
+    { depth: 2, slug: "values", text: `Values (${apiEnum.values.length})` },
+    { depth: 2, slug: "used-by", text: "Used by" },
+  ]}
+>
+  <p>
+    <CoverageChip coverage={lookupCoverage(catalog.coverage, "enums", `Enum.${apiEnum.name}`)} />
+    {` APIs that take or return this enum use the type `}<code>{`Enum_${apiEnum.name}`}</code>{`. It is `}<code>number</code>{`: Luau has no numeric literal types, so any number type-checks.`}
+  </p>
+  <h2 id="values">Values</h2>
+  <ul class="api-columns not-content">
+    {
+      apiEnum.values.map((value) => (
+        <li id={value}>
+          <code>{`Enum.${apiEnum.name}.${value}`}</code>
+        </li>
+      ))
+    }
+  </ul>
+  <UsedBy referrers={catalog.usedBy({ path: apiPaths.enumPage(apiEnum.name), card: "enum", name: apiEnum.name })} />
+</ApiPage>

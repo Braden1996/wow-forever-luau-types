@@ -1,0 +1,113 @@
+---
+title: Editor setup
+description: Configure luau-lsp for the WoW Forever definitions in VS Code, Zed and other editors.
+---
+
+import { Aside, TabItem, Tabs } from "@astrojs/starlight/components";
+
+Every editor needs the same four settings:
+
+- the **standard** platform (luau-lsp defaults to Roblox);
+- no Rojo **sourcemap**;
+- the **new type solver**, which the definitions require;
+- two **definitions files**: `@wow` for `wow-forever.d.luau` and `@addon` for your own globals.
+
+## Only what WoW has
+
+Luau's standard library has names that WoW's Lua 5.1 lacks, such as `table.clone`, `table.find`, `typeof` and
+`buffer`. [`definitions/luau-lsp.settings.json`](https://github.com/Braden1996/wow-forever-luau-types/blob/main/definitions/luau-lsp.settings.json)
+disables them, so code that type-checks also runs in the game. Download it next to the definitions and copy its
+`luau-lsp.types.disabledGlobals` list into your editor settings, or pass it to `luau-lsp analyze --settings`. The
+[addon template](/wow-forever-luau-types/start/addon-template/) already does both.
+
+## Editor settings
+
+<Tabs>
+  <TabItem label="VS Code">
+
+Install the [Luau Language Server](https://marketplace.visualstudio.com/items?itemName=JohnnyMorganz.luau-lsp)
+extension (and [StyLua](https://marketplace.visualstudio.com/items?itemName=JohnnyMorganz.stylua) to format), then
+add to `.vscode/settings.json`:
+
+```jsonc
+{
+  "luau-lsp.platform.type": "standard",
+  "luau-lsp.sourcemap.enabled": false,
+  "luau-lsp.fflags.enableNewSolver": true,
+  // Match `luau-lsp analyze` on the command line: every FFlag on, none synced from Roblox.
+  "luau-lsp.fflags.enableByDefault": true,
+  "luau-lsp.fflags.sync": false,
+  "luau-lsp.types.definitionFiles": {
+    "@wow": "types/wow-forever.d.luau",
+    "@addon": "types/addon.d.luau",
+  },
+  "[luau]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua",
+    "editor.formatOnSave": true,
+  },
+}
+```
+
+  </TabItem>
+  <TabItem label="Zed">
+
+Install the "Luau" extension, then add to `.zed/settings.json`. The extension takes definitions files as its own
+`definitions` array:
+
+```jsonc
+{
+  "lsp": {
+    "luau-lsp": {
+      "settings": {
+        "roblox": { "enabled": false },
+        "fflags": { "enable_new_solver": true, "enable_by_default": true, "sync": false },
+        "definitions": ["types/wow-forever.d.luau", "types/addon.d.luau"],
+        "luau-lsp": {
+          "platform": { "type": "standard" },
+          "sourcemap": { "enabled": false },
+        },
+      },
+    },
+  },
+}
+```
+
+  </TabItem>
+  <TabItem label="Other editors">
+
+Run `luau-lsp lsp` as the language server with the same settings: standard platform, new type solver, all FFlags
+enabled and none synced, and both definitions files. The command-line equivalents are:
+
+```sh
+luau-lsp lsp \
+  --definitions=@wow=types/wow-forever.d.luau \
+  --definitions=@addon=types/addon.d.luau \
+  --flag:LuauSolverV2=true
+```
+
+  </TabItem>
+</Tabs>
+
+## Strict mode
+
+Put `--!strict` at the top of each file, or make it the default with a `.luaurc` at the addon's root:
+
+```jsonc
+{
+  "languageMode": "strict",
+  "lintErrors": true, // lint warnings fail `luau-lsp analyze` too
+}
+```
+
+## When the editor and CI disagree
+
+Editor extensions download their own luau-lsp release; the command line uses whatever you installed. Pin the
+command-line version (the [addon template](/wow-forever-luau-types/start/addon-template/) pins it with mise) and
+treat its result as the reference.
+
+<Aside type="note" title="Common problems">
+  - **`CreateFrame` is an unknown global**: the definitions file was not loaded. Check the path in `definitionFiles`; it
+  is relative to the workspace root. - **Errors about `keyof`, `index` or a type being too complex, or `CreateFrame`
+  returning the wrong widget**: the old solver is running. Enable `luau-lsp.fflags.enableNewSolver` and reload the
+  window. - **Roblox globals such as `game` or `Instance` appear**: the platform is still `roblox`.
+</Aside>

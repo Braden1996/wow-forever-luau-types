@@ -20,7 +20,7 @@ and CI fails if they differ from a fresh generation.
 ## Setup
 
 1. Install [mise](https://mise.jdx.dev). `mise install` installs every pinned tool: moon, Lune, luau-lsp, StyLua,
-   selene, darklua, typos, actionlint, dprint, lychee and lefthook (versions in `mise.toml`, checksums in
+   selene, darklua, typos, actionlint, dprint, lychee, lefthook, and Bun and Node for the docs site (versions in `mise.toml`, checksums in
    `mise.lock`).
 2. `mise exec -- lefthook install` installs the git hooks: formatting and spelling on commit, `moon run :check` for
    the changed projects on push. Never bypass them with `--no-verify`.
@@ -40,11 +40,26 @@ and CI fails if they differ from a fresh generation.
 | `mise exec -- moon run tests:samples`                    | Type-check the samples, the template and the negative fixtures                   |
 | `mise exec -- moon run tests:snapshots`                  | Run the converter snapshot cases                                                 |
 | `mise exec -- moon run repo:fmt generator:fmt tests:fmt` | Format Markdown/JSON/YAML/TOML (dprint) and Luau (StyLua)                        |
+| `mise exec -- moon run docs:check`                       | The docs site: lint and type check, astro check, format, tests, build and links  |
+| `mise exec -- moon run docs:dev`                         | Serve the docs site locally                                                      |
 | `mise exec -- lune run scripts/test -- --update`         | Rewrite the negative fixtures' `.expected` files after an intended change        |
 | `mise exec -- lune run scripts/snapshot -- --update`     | Rewrite the snapshot cases' expected files after an intended change              |
 
 `generator:coverage` compares `definitions/coverage.json` with the same file at `$COVERAGE_BASE` (default
 `origin/main`) and fails if an API that was typed there is untyped now.
+
+### The documentation site
+
+`docs/` is the site at [braden1996.github.io/wow-forever-luau-types](https://braden1996.github.io/wow-forever-luau-types/):
+Astro and Starlight on Bun. Its API reference is generated from `definitions/` at build time, so a change to the
+definitions needs no docs change, but it does rebuild and re-check the site. `docs:check` runs:
+
+- oxlint, type-aware, with the strict TypeScript type check in the same pass (tsrs, the Rust port of TypeScript 7);
+- `astro check` over the `.astro` files, and oxfmt;
+- the unit tests (the definitions parser, cross-references, search ranking);
+- the static build of every page, then a check that every internal link and anchor resolves.
+
+The `pages` workflow deploys `main` to GitHub Pages.
 
 ## Tests
 
@@ -74,6 +89,7 @@ closed string unions, parameter overrides). Every rule needs a comment saying wh
   the workflow will not overwrite a branch that has your commits.
   To bump by hand: `mise exec -- lune run scripts/bump-upstream`, then `mise exec -- moon run generator:generate`.
 - **GitHub Actions:** Dependabot opens grouped pull requests for the SHA-pinned actions.
+- **The docs site's npm packages:** Dependabot (Bun ecosystem, `docs/`), grouped, after a seven-day cooldown.
 - **Tools:** edit the version in `mise.toml`, then `mise lock` and `moon run :check`.
 
 ## Pull requests

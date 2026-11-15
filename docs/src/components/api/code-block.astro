@@ -1,0 +1,11 @@
+---
+// A Luau signature or declaration rendered from pre-escaped, cross-linked HTML (src/lib/api/render.ts).
+interface Props {
+  readonly html: string;
+  readonly label?: string;
+}
+
+const { html, label } = Astro.props;
+---
+
+<pre class="api-code not-content" aria-label={label}><code set:html={html} /></pre>

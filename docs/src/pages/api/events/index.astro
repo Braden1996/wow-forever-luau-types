@@ -1,0 +1,35 @@
+---
+import type { ListGroup } from "../../../components/api/grouped-list.astro";
+
+import ApiPage from "../../../components/api/api-page.astro";
+import GroupedList from "../../../components/api/grouped-list.astro";
+import { loadCatalog } from "../../../lib/api/load.ts";
+import { apiPaths } from "../../../lib/api/paths.ts";
+import { withBase } from "../../../lib/site.ts";
+
+const catalog = loadCatalog();
+const byPrefix = new Map<string, string[]>();
+for (const event of catalog.parsed.events) {
+  const prefix = event.name.split("_")[0] ?? event.name;
+  byPrefix.set(prefix, [...(byPrefix.get(prefix) ?? []), event.name]);
+}
+const groups: ListGroup[] = [...byPrefix.entries()]
+  .toSorted(([a], [b]) => a.localeCompare(b, "en"))
+  .map(([prefix, names]) => ({
+    title: prefix,
+    items: names.map((name) => ({ name, href: withBase(apiPaths.event(name)), sym: `event:${name}` })),
+  }));
+---
+
+<ApiPage
+  title="Events"
+  description="Every event the WoW: Forever client fires, with its payload types, grouped by prefix."
+  kind="Index"
+>
+  <p>
+    {catalog.parsed.events.length} events, every one with payload types. The <code>FrameEvent</code> union lists the names
+    <code>RegisterEvent</code> accepts, and <code>EventHandler&lt;"NAME"&gt;</code> is the type of a handler for one event;
+    see the <a href={withBase("/guides/events/")}>events guide</a>.
+  </p>
+  <GroupedList id="event-list" label="Filter events" groups={groups} />
+</ApiPage>

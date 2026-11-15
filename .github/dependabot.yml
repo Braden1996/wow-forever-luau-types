@@ -15,6 +15,24 @@ updates:
     commit-message:
       prefix: build
       include: scope
+  # The docs site's npm packages (docs/, Bun).
+  - package-ecosystem: bun
+    directory: /docs
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7 # let a release age a week before adopting it
+    groups:
+      astro:
+        patterns: ["astro", "@astrojs/*"]
+      react:
+        patterns: ["react", "react-dom", "@types/react", "@types/react-dom"]
+      tooling:
+        patterns: ["oxlint", "oxfmt", "tsrs", "typescript", "@types/*"]
+    commit-message:
+      prefix: build
+      include: scope
   # The addon template's own workflow, which users copy.
   - package-ecosystem: github-actions
     directory: /templates/addon
