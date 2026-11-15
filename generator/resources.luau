@@ -2,7 +2,7 @@
 -- Reads Ketho/BlizzardInterfaceResources dumps (Lua table literals) as data. They are parsed with
 -- patterns, never executed.
 
-export type Widget = { inherits: { string }, methods: { [string]: boolean } }
+export type Widget = { inherits: { string }, methods: { [string]: boolean }, handlers: { string } }
 
 export type EnumTable = { name: string, entries: { { key: string, value: string } } }
 
@@ -60,7 +60,13 @@ local function nestedTables(source: string, outer: string): { EnumTable }
 	return out
 end
 
-function Resources.parse(files: { [string]: string }): Resources
+function Resources.parse(given: { [string]: string }): Resources
+	-- A missing file reads as empty (the snapshot tests supply only what each case needs).
+	local files = setmetatable({}, {
+		__index = function(_, name: string): string
+			return given[name] or ""
+		end,
+	}) :: { [string]: string }
 	local r: Resources = {
 		globalApi = {},
 		luaApi = {},
@@ -75,7 +81,7 @@ function Resources.parse(files: { [string]: string }): Resources
 	}
 
 	local api = splitSections(files["GlobalAPI.lua"])
-	strings(api[1], r.globalApi)
+	strings(api[1] or "", r.globalApi)
 	strings(api[2] or "", r.luaApi)
 	for _, section in splitSections(files["FrameXML.lua"]) do
 		strings(section, r.frameXml)
@@ -106,7 +112,14 @@ function Resources.parse(files: { [string]: string }): Resources
 		if methodList then
 			strings(methodList, methods)
 		end
-		r.widgets[name :: string] = { inherits = inherits, methods = methods }
+		local handlers = {}
+		local handlerList = string.match(body :: string, "handlers = (%b{})")
+		if handlerList then
+			for handler in string.gmatch(handlerList, '"([^"]+)"') do
+				table.insert(handlers, handler)
+			end
+		end
+		r.widgets[name :: string] = { inherits = inherits, methods = methods, handlers = handlers }
 	end
 
 	local enumSource = "\n" .. files["LuaEnum.lua"]

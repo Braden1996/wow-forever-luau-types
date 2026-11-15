@@ -21,20 +21,20 @@ export type StaticPopupInfo = {
 	button3: string?,
 	hasEditBox: boolean?,
 	maxLetters: number?,
-	OnAccept: ((self: Frame, data: any, data2: any) -> ())?,
-	OnCancel: ((self: Frame, data: any, data2: any) -> ())?,
-	OnShow: ((self: Frame, data: any) -> ())?,
-	OnHide: ((self: Frame, data: any) -> ())?,
+	OnAccept: ((self: Frame, data: unknown, data2: unknown) -> ())?,
+	OnCancel: ((self: Frame, data: unknown, data2: unknown) -> ())?,
+	OnShow: ((self: Frame, data: unknown) -> ())?,
+	OnHide: ((self: Frame, data: unknown) -> ())?,
 	timeout: number?,
 	whileDead: boolean?,
 	hideOnEscape: boolean?,
 	exclusive: boolean?,
 	preferredIndex: number?,
-	[string]: any,
+	[string]: unknown,
 }
 declare StaticPopupDialogs: { [string]: StaticPopupInfo }
-declare function StaticPopup_Show(which: string, text_arg1: any?, text_arg2: any?, data: any?): Frame?
-declare function StaticPopup_Hide(which: string, data: any?): ()
+declare function StaticPopup_Show(which: string, text_arg1: unknown, text_arg2: unknown, data: unknown): Frame?
+declare function StaticPopup_Hide(which: string, data: unknown): ()
 
 -- Colours.
 declare RAID_CLASS_COLORS: { [string]: ColorMixin }

@@ -1,0 +1,53 @@
+{
+  "enums": {
+    "Enum.DemoKind": {
+      "source": "client",
+      "status": "typed"
+    }
+  },
+  "events": {
+    "DEMO_RETIRED": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "DEMO_UNDOCUMENTED": {
+      "reason": "no documented payload",
+      "status": "untyped"
+    },
+    "DEMO_UPDATED": {
+      "source": "docs",
+      "status": "typed"
+    }
+  },
+  "functions": {
+    "C_Demo.GetInfo": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "C_Demo.GetNames": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "C_Demo.ListIDs": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "C_Demo.Undocumented": {
+      "reason": "no type source (C API)",
+      "status": "untyped"
+    }
+  },
+  "structures": {
+    "DemoInfo": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "DemoInfoExtended": {
+      "reason": "derived: DemoInfo & { 1 more fields }",
+      "source": "docs",
+      "status": "typed"
+    }
+  },
+  "widgetMethods": [],
+  "widgets": []
+}

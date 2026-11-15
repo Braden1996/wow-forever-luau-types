@@ -1,7 +1,7 @@
 [files]
-# Generated from the game client: Blizzard's identifiers keep their own spelling.
-extend-exclude = ["definitions/"]
-
-[default.extend-identifiers]
-# A deliberate typo the negative sample expects luau-lsp to reject.
-Afterr = "Afterr"
+extend-exclude = [
+  # Generated from the game client: Blizzard's identifiers keep their own spelling.
+  "definitions/",
+  # Negative fixtures misspell API names on purpose; luau-lsp must reject each one.
+  "tests/fail/",
+]

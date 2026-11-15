@@ -1,4 +1,4 @@
-# The two upstream inputs, pinned. Renovate bumps each `commit`; CI fails until the regenerated
+# The three upstream inputs, pinned. Renovate bumps each `commit`; CI fails until the regenerated
 # definitions are committed with the bump.
 
 # Types: LuaCATS annotations for the WoW API (MIT licence).
@@ -12,3 +12,11 @@ commit = "d0b5b51fac4c52c493371b9b18e66ce604ea4326"
 repository = "Ketho/BlizzardInterfaceResources"
 # renovate: datasource=git-refs depName=https://github.com/Ketho/BlizzardInterfaceResources currentValue=forever
 commit = "e230342a476eb4ef484ba7b34adc0da6ecc6acc1"
+
+# The client's own API documentation (Blizzard_APIDocumentationGenerated) for WoW: Forever. Only the
+# documentation folder is fetched.
+[docs]
+repository = "Gethe/wow-ui-source"
+# renovate: datasource=git-refs depName=https://github.com/Gethe/wow-ui-source currentValue=forever
+commit = "bebcb6bf309cf41b41bd74f8ca651e6a105b2676"
+sparse = "Interface/AddOns/Blizzard_APIDocumentationGenerated"

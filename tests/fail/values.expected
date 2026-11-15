@@ -1,0 +1,5 @@
+6:16: TypeError: Value of type 'ContainerItemInfo?' could be nil
+9:13: TypeError: Key 'stackCuont' not found in table 'ContainerItemInfo'
+10:21: TypeError: Expected this to be 'number', but got 'string'
+14:18: TypeError: Key 'Legendaryy' not found in table '{ Artifact: number, Common: number, Epic: number, Heirloom: number, Legendary: number, Poor: number, Rare: number, Uncommon: number, WoWToken: number }'
+18:16: TypeError: Value of type 'QuestInfo?' could be nil

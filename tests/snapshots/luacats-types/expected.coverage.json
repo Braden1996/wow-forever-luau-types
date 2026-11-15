@@ -1,0 +1,38 @@
+{
+  "enums": [],
+  "events": [],
+  "functions": {
+    "DemoClasses": {
+      "source": "annotations",
+      "status": "typed"
+    },
+    "DemoFirst": {
+      "source": "annotations",
+      "status": "typed"
+    },
+    "DemoReserved": {
+      "source": "annotations",
+      "status": "typed"
+    },
+    "DemoUnions": {
+      "source": "annotations",
+      "status": "typed"
+    },
+    "DemoVarargs": {
+      "source": "annotations",
+      "status": "typed"
+    }
+  },
+  "structures": {
+    "BaseInfo": {
+      "source": "annotations",
+      "status": "typed"
+    },
+    "RichInfo": {
+      "source": "annotations",
+      "status": "typed"
+    }
+  },
+  "widgetMethods": [],
+  "widgets": []
+}

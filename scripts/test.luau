@@ -1,17 +1,20 @@
 --!strict
--- Type-checks the samples against the generated definitions with luau-lsp.
---   tests/pass/<addon>/   every .luau file must have zero diagnostics (a .d.luau there is loaded as
+-- Type-checks the samples against the generated definitions with luau-lsp and Luau's new solver.
+--   tests/pass/<addon>/   every .luau file must get zero diagnostics (a .d.luau there is loaded as
 --                         that addon's own definitions file)
---   tests/fail/*.luau     every line ending in `-- expect-error: <text>` must get a diagnostic that
---                         contains <text>, and no other line may get one
--- Run with `lune run scripts/test`; luau-lsp must be on PATH (`mise exec -- lune run scripts/test`).
+--   tests/fail/*.luau     the diagnostics must equal tests/fail/<name>.expected exactly (line,
+--                         column and full message), and every line marked `-- expect-error: <text>`
+--                         must be among them
+-- `lune run scripts/test -- --update` rewrites the .expected files; review the diff.
 
 local fs = require("@lune/fs")
 local process = require("@lune/process")
 
 local config = require("../generator/config")
 
-type Diagnostic = { file: string, line: number, text: string }
+local update = table.find(process.args, "--update") ~= nil
+
+type Diagnostic = { file: string, line: number, column: number, text: string }
 
 local function listFiles(dir: string, suffix: string): { string }
 	local out = {}
@@ -30,9 +33,14 @@ local function isDefinitions(path: string): boolean
 	return string.sub(path, -7) == ".d.luau"
 end
 
--- Runs luau-lsp analyze and returns its diagnostics, grouped from its multi-line output.
+-- Runs luau-lsp analyze and returns its diagnostics, multi-line messages joined.
 local function analyze(definitions: { string }, files: { string }): { Diagnostic }
-	local args = { "analyze", "--platform=standard", "--definitions=@wow=" .. config.output }
+	local args = {
+		"analyze",
+		"--platform=standard",
+		"--flag:LuauSolverV2=true",
+		"--definitions=@wow=" .. config.output,
+	}
 	for i, def in definitions do
 		table.insert(args, "--definitions=@addon" .. i .. "=" .. def)
 	end
@@ -40,22 +48,36 @@ local function analyze(definitions: { string }, files: { string }): { Diagnostic
 		table.insert(args, f)
 	end
 	local result = process.exec("luau-lsp", args)
-	local output = result.stdout .. "\n" .. result.stderr
+	local output = string.gsub(result.stdout .. "\n" .. result.stderr, "\r", "")
 	if string.find(output, "Failed to read definitions file", 1, true) then
 		print(output)
 		error("luau-lsp could not load the definitions")
 	end
 	local diagnostics: { Diagnostic } = {}
 	local current: Diagnostic? = nil
-	for line in string.gmatch(string.gsub(output, "\r", ""), "[^\n]+") do
-		local file, lineNo, text = string.match(line, "^(.-)%((%d+),%d+%): (.*)$")
-		if file and lineNo then
-			current = { file = string.gsub(file, "\\", "/"), line = tonumber(lineNo) :: number, text = text :: string }
+	for line in string.gmatch(output, "[^\n]+") do
+		local file, lineNo, column, text = string.match(line, "^(.-)%((%d+),(%d+)%): (.*)$")
+		if file and lineNo and column and text then
+			current = {
+				file = (string.gsub(file, "\\", "/")),
+				line = tonumber(lineNo) :: number,
+				column = tonumber(column) :: number,
+				text = text,
+			}
 			table.insert(diagnostics, current :: Diagnostic)
 		elseif current and not string.match(line, "^%[") then
 			current.text ..= "\n" .. line
 		end
 	end
+	table.sort(diagnostics, function(a: Diagnostic, b: Diagnostic): boolean
+		if a.line ~= b.line then
+			return a.line < b.line
+		end
+		if a.column ~= b.column then
+			return a.column < b.column
+		end
+		return a.text < b.text
+	end)
 	return diagnostics
 end
 
@@ -76,48 +98,70 @@ for _, name in passDirs do
 	end
 	local diagnostics = analyze(definitions, sources)
 	for _, d in diagnostics do
-		fail(string.format("%s:%d: unexpected diagnostic: %s", d.file, d.line, d.text))
+		fail(string.format("%s:%d:%d: unexpected diagnostic: %s", d.file, d.line, d.column, d.text))
 	end
 	print(string.format("%s %s (%d files)", if #diagnostics == 0 then "ok  " else "FAIL", dir, #sources))
 end
 
--- Failing samples: every expected error, and nothing else.
+-- Failing samples: exactly the expected diagnostics.
 for _, file in listFiles("tests/fail", ".luau") do
-	local expected: { [number]: string } = {}
-	local lineNo = 0
-	for line in string.gmatch(string.gsub(fs.readFile(file), "\r", "") .. "\n", "([^\n]*)\n") do
-		lineNo += 1
-		local phrase = string.match(line, "%-%- expect%-error: (.-)%s*$")
-		if phrase then
-			expected[lineNo] = phrase
+	local diagnostics = analyze({}, { file })
+	local lines = {}
+	for _, d in diagnostics do
+		table.insert(lines, string.format("%d:%d: %s", d.line, d.column, d.text))
+	end
+	local actual = table.concat(lines, "\n") .. "\n"
+	local expectedPath = string.gsub(file, "%.luau$", ".expected")
+	local ok = true
+	if update then
+		fs.writeFile(expectedPath, actual)
+	else
+		local expected = if fs.isFile(expectedPath) then string.gsub(fs.readFile(expectedPath), "\r\n", "\n") else nil
+		if expected ~= actual then
+			ok = false
+			fail(file .. ": diagnostics differ from " .. expectedPath .. ". Actual:\n" .. actual)
 		end
 	end
+	-- Every marked line must produce an error containing its phrase, and only marked lines may.
+	local sourceLines = string.split(string.gsub(fs.readFile(file), "\r", ""), "\n")
 	local byLine: { [number]: { string } } = {}
-	for _, d in analyze({}, { file }) do
+	for _, d in diagnostics do
 		byLine[d.line] = byLine[d.line] or {}
 		table.insert(byLine[d.line], d.text)
 	end
-	local count, ok = 0, true
-	for line, phrase in expected do
-		count += 1
-		local found = false
-		for _, text in (byLine[line] or {}) :: { string } do
-			if string.find(text, phrase, 1, true) then
-				found = true
+	local marked = 0
+	for lineNo, line in sourceLines do
+		local phrase = string.match(line, "%-%- expect%-error: (.-)%s*$")
+		if phrase then
+			marked += 1
+			local found = false
+			for _, text in (byLine[lineNo] or {}) :: { string } do
+				if string.find(text, phrase, 1, true) then
+					found = true
+				end
+			end
+			if not found then
+				ok = false
+				fail(string.format("%s:%d: expected an error containing %q", file, lineNo, phrase))
 			end
 		end
-		if not found then
+	end
+	for lineNo in byLine do
+		local text = sourceLines[lineNo] or ""
+		if not string.find(text, "expect-error:", 1, true) then
 			ok = false
-			fail(string.format("%s:%d: expected an error containing %q", file, line, phrase))
+			fail(string.format("%s:%d: a diagnostic on a line not marked expect-error", file, lineNo))
 		end
 	end
-	for line, texts in byLine do
-		if expected[line] == nil then
-			ok = false
-			fail(string.format("%s:%d: unexpected diagnostic: %s", file, line, texts[1]))
-		end
-	end
-	print(string.format("%s %s (%d expected errors)", if ok then "ok  " else "FAIL", file, count))
+	print(
+		string.format(
+			"%s %s (%d diagnostics, %d marked lines)",
+			if ok then "ok  " else "FAIL",
+			file,
+			#diagnostics,
+			marked
+		)
+	)
 end
 
 if failures > 0 then

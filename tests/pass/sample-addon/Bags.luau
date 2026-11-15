@@ -38,9 +38,9 @@ local function questTitles(): { string }
 end
 
 local function bindingFor(action: string): string?
-	-- GetBindingKeyForAction is a real client function with no upstream annotation yet, so it is
-	-- declared untyped (`(...any) -> ...any`): annotate what it returns.
-	local key: string? = GetBindingKeyForAction(action)
+	-- GetBindingKeyForAction is a real client function with no type source yet, so it is declared
+	-- `(...unknown) -> ...unknown`: its result must be cast before use.
+	local key = GetBindingKeyForAction(action) :: string?
 	return key
 end
 
