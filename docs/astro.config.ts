@@ -3,12 +3,15 @@ import starlight from "@astrojs/starlight";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
+import { BASE } from "./src/lib/base.ts";
+
 const repository = "https://github.com/Braden1996/wow-forever-luau-types";
 
 // https://astro.build/config: fully static output for GitHub Pages (project site under /wow-forever-luau-types/).
+// Expressive Code's options (themes and the Luau checking plugin) are in ec.config.mjs.
 export default defineConfig({
   site: "https://braden1996.github.io",
-  base: "/wow-forever-luau-types/",
+  base: BASE,
   trailingSlash: "always",
   output: "static",
   compressHTML: true,
@@ -27,10 +30,6 @@ export default defineConfig({
       components: {
         Footer: "./src/components/starlight/footer.astro",
         Search: "./src/components/starlight/search.astro",
-      },
-      expressiveCode: {
-        themes: ["github-dark-default", "github-light-default"],
-        styleOverrides: { borderRadius: "0.25rem" },
       },
       head: [{ tag: "meta", attrs: { name: "color-scheme", content: "dark light" } }],
       sidebar: [
@@ -71,7 +70,7 @@ export default defineConfig({
           label: "Project",
           items: [
             { slug: "project/how-it-works" },
-            { slug: "project/in-browser-checking" },
+            { slug: "project/checked-examples" },
             { slug: "project/contributing" },
             { slug: "project/credits" },
           ],

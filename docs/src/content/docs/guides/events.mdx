@@ -55,6 +55,10 @@ Most addons route `OnEvent` through a table. Key it by `FrameEvent` so that only
 register exactly the events it handles:
 
 ```luau
+type Namespace = { money: number, dirtyBags: { [number]: boolean } }
+local ns: Namespace = { money = 0, dirtyBags = {} }
+local onLevel: EventHandler<"PLAYER_LEVEL_UP"> = function(_level: number) end
+-- ---cut---
 local onMoney: EventHandler<"PLAYER_MONEY"> = function()
 	ns.money = GetMoney()
 end
@@ -91,6 +95,10 @@ checked when it was defined, with its `EventHandler<...>` type.
 If you prefer one function with an `if` chain, annotate the varargs as you unpack them:
 
 ```luau
+type Namespace = { onPlayerLevel: (level: number) -> () }
+local ns: Namespace = { onPlayerLevel = function(_level: number) end }
+local events = CreateFrame("Frame")
+-- ---cut---
 events:SetScript("OnEvent", function(_self: Frame, event: string, ...: any)
 	if event == "ADDON_LOADED" then
 		local loaded: string = ...

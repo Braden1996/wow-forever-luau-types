@@ -10,6 +10,9 @@ All notable changes to this project are documented here. The format follows
 - A documentation site at [braden1996.github.io/wow-forever-luau-types](https://braden1996.github.io/wow-forever-luau-types/):
   guides, plus an API reference generated from the definitions, with cross-linked types, hover cards and symbol
   search.
+- Every Luau example on the site is type-checked at build time by Luau's own checker (luau-web-checker, the new
+  solver), and its identifiers show their types on hover; API symbols open their reference cards. A test keeps that
+  checker in agreement with luau-lsp on `tests/pass`, `templates/` and `tests/fail`.
 - `templates/addon`: a ready-to-copy addon with VS Code and Zed settings, a pinned type checker and darklua build
   (Luau to Lua 5.1), a typed shared namespace, SavedVariables and typed event handlers. CI type-checks and builds it.
 - Contributor setup: moon task orchestration (`moon run :check` is the gate), lefthook git hooks, dprint and lychee,

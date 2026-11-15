@@ -9,5 +9,5 @@
     "skipLibCheck": true,
     "rootDir": "."
   },
-  "include": ["*.config.ts", "*.config.js", "scripts/**/*.ts"]
+  "include": ["*.config.ts", "*.config.js", "*.config.mjs", "scripts/**/*.ts"]
 }
