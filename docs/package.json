@@ -13,11 +13,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "bun run lint && bun run typecheck:astro",
+    "lint": "TSRS_FAST=1 oxlint --type-aware --type-check --deny-warnings",
     "typecheck": "bun run typecheck:ts && bun run typecheck:astro",
-    "typecheck:ts": "bun run tsgo -p tsconfig.src.json && bun run tsgo -p tsconfig.test.json && bun run tsgo -p tsconfig.aux.json",
-    "tsgo": "node node_modules/@typescript/native/bin/tsc",
+    "typecheck:ts": "tsrs --fast -p tsconfig.src.json && tsrs --fast -p tsconfig.test.json && tsrs --fast -p tsconfig.aux.json",
     "typecheck:astro": "astro check --tsconfig tsconfig.src.json",
-    "lint": "oxlint --type-aware --deny-warnings",
     "fmt": "oxfmt --write",
     "fmt:check": "oxfmt --check",
     "test": "bun test",
@@ -47,10 +47,9 @@
     "@types/node": "26.6.6",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
-    "@typescript/native": "npm:typescript@7.0.2",
     "oxfmt": "0.78.0",
     "oxlint": "1.93.0",
-    "oxlint-tsgolint": "7.0.2007",
+    "tsrs": "0.25.0-ts7.1.0-beta",
     "typescript": "6.0.3"
   }
 }

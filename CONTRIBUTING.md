@@ -55,14 +55,15 @@ time, so a change to the definitions needs no docs change. The `docs` CI job run
 ```bash
 cd docs
 mise exec -- bun install --frozen-lockfile
-mise exec -- bun run typecheck   # TypeScript 7 (tsgo), strictest settings, and astro check
-mise exec -- bun run lint        # oxlint, type-aware
+mise exec -- bun run lint        # oxlint, type-aware, and the strict type check in the same pass (tsrs)
+mise exec -- bun run typecheck:astro  # astro check over the .astro files
 mise exec -- bun run fmt:check   # oxfmt (fix with `bun run fmt`)
 mise exec -- bun run test        # parser, cross-references, search ranking
 mise exec -- bun run build       # every page into docs/dist
 mise exec -- bun run links       # every internal link and anchor resolves
 ```
 
+`mise exec -- bun run typecheck` runs the type check on its own (`tsrs --fast`) plus astro check, and
 `mise exec -- bun run dev` serves the site locally. The `pages` workflow deploys `main` to GitHub Pages.
 
 ## Tests

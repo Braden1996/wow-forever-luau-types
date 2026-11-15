@@ -1,5 +1,6 @@
 // oxlint for the docs site: the rule set of the owner's Higher monorepo (@higher/oxlint-config), minus its
-// monorepo plugin and test-runner rules, which have no counterpart here. Type-aware rules run through tsgolint.
+// monorepo plugin and test-runner rules, which have no counterpart here. Type-aware rules and the type check run
+// through tsrs-lint (tsrs, the Rust port of TypeScript 7): each tsconfig is parsed and checked once for both.
 
 import { defineConfig } from "oxlint";
 
@@ -27,7 +28,8 @@ export default defineConfig({
     reportUnusedDisableDirectives: "error",
     respectEslintDisableDirectives: false,
     typeAware: true,
-    typeCheck: false,
+    // Report the TypeScript errors of every tsconfig program as part of the lint run (`--type-check`).
+    typeCheck: true,
   },
   plugins: ["eslint", "import", "jsx-a11y", "oxc", "promise", "react", "react-perf", "typescript", "unicorn"],
   overrides: [

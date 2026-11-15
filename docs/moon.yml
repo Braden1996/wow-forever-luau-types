@@ -17,12 +17,17 @@ tasks:
     options:
       cache: false
   typecheck:
-    description: "TypeScript 7 (tsgo) over src, tests and config; astro check over .astro files"
+    description: "The type check on its own: tsrs --fast over src, tests and config, then astro check"
     command: "bun"
     args: ["run", "typecheck"]
     deps: ["~:install"]
+  typecheck-astro:
+    description: "astro check over the .astro files"
+    command: "bun"
+    args: ["run", "typecheck:astro"]
+    deps: ["~:install"]
   lint:
-    description: "oxlint, type-aware (oxlint.config.ts)"
+    description: "oxlint, type-aware, with the TypeScript type check in the same pass (tsrs-lint)"
     command: "bun"
     args: ["run", "lint"]
     deps: ["~:install"]
@@ -64,4 +69,4 @@ tasks:
     preset: "server"
   check:
     description: "Aggregator: every docs check"
-    deps: ["~:typecheck", "~:lint", "~:fmt-check", "~:test", "~:links"]
+    deps: ["~:lint", "~:typecheck-astro", "~:fmt-check", "~:test", "~:links"]

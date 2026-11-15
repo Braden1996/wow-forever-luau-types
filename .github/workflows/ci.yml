@@ -114,8 +114,9 @@ jobs:
           advanced-security: false
           annotations: true
 
-  # The documentation site (docs/): strict TypeScript (tsgo and astro check), oxlint, oxfmt, unit tests, the
-  # static build of every API page from definitions/, and an offline check of every internal link.
+  # The documentation site (docs/): oxlint with the type check in the same pass (tsrs, the Rust port of TypeScript
+  # 7), astro check, oxfmt, unit tests, the static build of every API page from definitions/, and an offline check
+  # of every internal link.
   docs:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
@@ -132,10 +133,10 @@ jobs:
           cache: true
       - name: install
         run: mise exec -- bun install --frozen-lockfile
-      - name: typecheck
-        run: mise exec -- bun run typecheck
-      - name: lint
+      - name: lint and type-check
         run: mise exec -- bun run lint
+      - name: astro check
+        run: mise exec -- bun run typecheck:astro
       - name: format
         run: mise exec -- bun run fmt:check
       - name: test

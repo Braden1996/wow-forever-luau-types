@@ -16,7 +16,7 @@ updates:
       react:
         patterns: ["react", "react-dom", "@types/react", "@types/react-dom"]
       tooling:
-        patterns: ["oxlint", "oxlint-tsgolint", "oxfmt", "typescript", "@typescript/native", "@types/*"]
+        patterns: ["oxlint", "oxfmt", "tsrs", "typescript", "@types/*"]
     commit-message:
       prefix: build
       include: scope
