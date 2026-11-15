@@ -1,0 +1,57 @@
+# Publishes a release when a `v*.*.*` tag is pushed. The tagged commit is re-verified from a cold start
+# (no tool cache, so nothing a pull request wrote can reach a release), then the definitions file and
+# its report are attached to a GitHub release with checksums.
+name: release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write # create the release
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+        with:
+          cache: false
+      - name: definitions match upstream.toml
+        run: mise exec -- lune run scripts/generate -- --check
+      - name: samples
+        run: mise exec -- lune run scripts/test
+      - name: release notes
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          # The CHANGELOG.md section for this version, without its heading.
+          awk -v v="${TAG#v}" 'index($0, "## [" v "]") == 1 {on=1; next} /^## / && on {exit} on && !/^\[.*\]: http/' CHANGELOG.md > notes.md
+          if ! grep -q '[^[:space:]]' notes.md; then echo "::error file=CHANGELOG.md::no section for ${TAG#v}"; exit 1; fi
+          {
+            echo
+            echo "Generated from (see \`upstream.toml\`):"
+            echo
+            grep -E '^(repository|commit) = ' upstream.toml | paste - - \
+              | sed -E 's|repository = "([^"]+)"\tcommit = "([0-9a-f]{12})[0-9a-f]*"|- [\1@\2](https://github.com/\1/tree/\2)|'
+          } >> notes.md
+          cat notes.md
+      - name: publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          cp definitions/wow-forever.d.luau definitions/report.json .
+          sha256sum wow-forever.d.luau report.json > SHA256SUMS
+          gh release create "$TAG" wow-forever.d.luau report.json SHA256SUMS \
+            --repo "$GITHUB_REPOSITORY" --title "$TAG" --notes-file notes.md --verify-tag

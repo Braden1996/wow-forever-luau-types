@@ -1,0 +1,26 @@
+name: False or missed error
+description: Real addon code gets a type error it should not, or misses one it should get.
+labels: [bug]
+body:
+  - type: textarea
+    id: code
+    attributes:
+      label: Smallest code that shows it
+      description: A --!strict snippet that runs fine in WoW: Forever.
+      render: luau
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: luau-lsp output
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Definitions version
+      placeholder: v0.1.0
+    validations:
+      required: true

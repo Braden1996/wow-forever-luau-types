@@ -1,0 +1,14 @@
+# The two upstream inputs, pinned. Renovate bumps each `commit`; CI fails until the regenerated
+# definitions are committed with the bump.
+
+# Types: LuaCATS annotations for the WoW API (MIT licence).
+[annotations]
+repository = "Ketho/vscode-wow-api"
+# renovate: datasource=git-refs depName=https://github.com/Ketho/vscode-wow-api currentValue=master
+commit = "d0b5b51fac4c52c493371b9b18e66ce604ea4326"
+
+# What exists in WoW: Forever: the API, widget, event and enum dumps of the live client.
+[resources]
+repository = "Ketho/BlizzardInterfaceResources"
+# renovate: datasource=git-refs depName=https://github.com/Ketho/BlizzardInterfaceResources currentValue=forever
+commit = "e230342a476eb4ef484ba7b34adc0da6ecc6acc1"

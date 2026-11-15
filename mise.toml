@@ -1,0 +1,15 @@
+# Pinned tools. `mise install` installs exactly these versions; mise.lock records their checksums.
+# Renovate proposes bumps; CI runs every check on each one.
+min_version = "2026.11.2"
+
+[settings]
+lockfile = true
+experimental = true
+
+[tools]
+"github:lune-org/lune" = "0.11.1" # runs the generator and the tests (keep .luaurc's typedefs alias in step)
+"github:JohnnyMorganz/luau-lsp" = "1.70.1" # type-checks the samples against the definitions
+"aqua:JohnnyMorganz/StyLua" = "2.6.0"
+"aqua:Kampfkarren/selene" = "0.32.0"
+"aqua:crate-ci/typos" = "1.52.2"
+"aqua:rhysd/actionlint" = "1.7.12"

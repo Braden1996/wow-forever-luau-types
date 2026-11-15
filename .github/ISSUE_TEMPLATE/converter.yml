@@ -1,0 +1,19 @@
+name: Converter problem
+description: The generator converts a LuaCATS annotation wrongly, or emits Luau that luau-lsp rejects.
+labels: [generator]
+body:
+  - type: textarea
+    id: annotation
+    attributes:
+      label: The upstream annotation
+      description: The LuaCATS lines from Ketho/vscode-wow-api, with a link.
+      render: lua
+    validations:
+      required: true
+  - type: textarea
+    id: emitted
+    attributes:
+      label: What wow-forever.d.luau contains, and what it should contain
+      render: luau
+    validations:
+      required: true

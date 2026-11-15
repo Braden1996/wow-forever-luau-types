@@ -1,0 +1,3 @@
+* text=auto eol=lf
+definitions/** linguist-generated=true
+*.luau linguist-language=Luau

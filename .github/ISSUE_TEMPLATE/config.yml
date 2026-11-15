@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: A wrong type for an API
+    url: https://github.com/Ketho/vscode-wow-api/issues
+    about: Parameter, return and field types come from Ketho/vscode-wow-api; please report them there.
