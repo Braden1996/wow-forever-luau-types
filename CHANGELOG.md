@@ -5,6 +5,12 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- A documentation site at [braden1996.github.io/wow-forever-luau-types](https://braden1996.github.io/wow-forever-luau-types/):
+  guides, plus an API reference generated from the definitions, with cross-linked types, hover cards and symbol
+  search.
+
 ## [0.2.0] - 2026-11-15
 
 ### Changed (breaking)
