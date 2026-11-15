@@ -1,0 +1,60 @@
+{
+  "enums": [],
+  "events": [],
+  "functions": {
+    "AnnotatedOnly": {
+      "source": "annotations",
+      "status": "typed"
+    },
+    "DemoPrint": {
+      "source": "docs+annotations",
+      "status": "typed"
+    },
+    "DocumentedOnly": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "NewDemoTimer": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "NoSourceAtAll": {
+      "reason": "no type source (C API)",
+      "status": "untyped"
+    },
+    "NotInClient": {
+      "reason": "documented, but absent from the client's API dump",
+      "source": "docs",
+      "status": "excluded"
+    },
+    "RetailOnly": {
+      "reason": "not in the WoW: Forever client",
+      "source": "annotations",
+      "status": "excluded"
+    },
+    "table.insert": {
+      "reason": "provided by Luau's standard library",
+      "status": "excluded"
+    },
+    "tinsert": {
+      "source": "luau-stdlib",
+      "status": "typed"
+    },
+    "wipe": {
+      "source": "annotations",
+      "status": "typed"
+    }
+  },
+  "structures": {
+    "DemoColor": {
+      "source": "annotations",
+      "status": "typed"
+    },
+    "DemoTimerHandle": {
+      "source": "annotations",
+      "status": "typed"
+    }
+  },
+  "widgetMethods": [],
+  "widgets": []
+}

@@ -27,10 +27,12 @@ jobs:
       - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
         with:
           cache: false
-      - name: definitions match upstream.toml
+      - name: generated files match upstream.toml
         run: mise exec -- lune run scripts/generate -- --check
       - name: samples
         run: mise exec -- lune run scripts/test
+      - name: converter snapshots
+        run: mise exec -- lune run scripts/snapshot
       - name: release notes
         env:
           TAG: ${{ github.ref_name }}
@@ -51,7 +53,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         run: |
-          cp definitions/wow-forever.d.luau definitions/report.json .
-          sha256sum wow-forever.d.luau report.json > SHA256SUMS
-          gh release create "$TAG" wow-forever.d.luau report.json SHA256SUMS \
+          cp definitions/wow-forever.d.luau definitions/report.json definitions/coverage.json definitions/COVERAGE.md .
+          sha256sum wow-forever.d.luau report.json coverage.json COVERAGE.md > SHA256SUMS
+          gh release create "$TAG" wow-forever.d.luau report.json coverage.json COVERAGE.md SHA256SUMS \
             --repo "$GITHUB_REPOSITORY" --title "$TAG" --notes-file notes.md --verify-tag

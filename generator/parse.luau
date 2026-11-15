@@ -166,7 +166,8 @@ function Parse.file(file: string, source: string): FileDecls
 				local returnName = string.match(after, "^%s*([%w_%.]+)")
 				if returnName == "..." then
 					-- `---@return string ...` is a variadic tail of strings.
-					table.insert(pending.returns, { kind = "name", name = "...", args = { t } })
+					local variadic: Type = { kind = "name", name = "...", args = { t } }
+					table.insert(pending.returns, variadic)
 				else
 					table.insert(pending.returns, t)
 				end
@@ -285,10 +286,8 @@ function Parse.file(file: string, source: string): FileDecls
 					if p then
 						table.insert(params, p)
 					else
-						table.insert(
-							params,
-							{ name = argName, type = { kind = "name", name = "any", args = {} }, optional = true }
-						)
+						local anyType: Type = { kind = "name", name = "any", args = {} }
+						table.insert(params, { name = argName, type = anyType, optional = true })
 					end
 				end
 				local signature: Signature = {

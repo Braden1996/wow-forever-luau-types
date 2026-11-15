@@ -1,6 +1,7 @@
 {
   "luau-lsp.platform.type": "standard",
   "luau-lsp.sourcemap.enabled": false,
+  "luau-lsp.fflags.enableNewSolver": true,
   "luau-lsp.types.definitionFiles": {
     "@wow": "definitions/wow-forever.d.luau",
     "@addon": "tests/pass/sample-addon/addon.d.luau"

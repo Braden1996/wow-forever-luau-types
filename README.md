@@ -5,93 +5,110 @@
 <p align="center">
   <a href="https://github.com/Braden1996/wow-forever-luau-types/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Braden1996/wow-forever-luau-types/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/Braden1996/wow-forever-luau-types/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/Braden1996/wow-forever-luau-types?sort=semver"></a>
+  <a href="definitions/COVERAGE.md"><img alt="C API typed" src="https://img.shields.io/badge/C%20API%20typed-99.8%25-2f6bff"></a>
   <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-blue"></a>
-  <img alt="Interface 16001" src="https://img.shields.io/badge/WoW%3A%20Forever-1.60.1%20(16001)-d9a441">
+  <img alt="WoW: Forever 1.60.1" src="https://img.shields.io/badge/WoW%3A%20Forever-1.60.1%20(16001)-d9a441">
 </p>
 
-Write World of Warcraft addons in **strict [Luau](https://luau.org)** and have every API call checked. This repository
-publishes one definitions file, `wow-forever.d.luau`, for [luau-lsp](https://github.com/JohnnyMorganz/luau-lsp): the
-globals, `C_*` namespaces, widgets with their inheritance, enums and event names of the **WoW: Forever** client
-(`WOW_PROJECT_CAMELOT`, interface 16001).
+**Write World of Warcraft addons in strict [Luau](https://luau.org) and have every API call checked.**
+This repository publishes one definitions file, `wow-forever.d.luau`, for the
+[luau-lsp](https://github.com/JohnnyMorganz/luau-lsp) language server and type checker. It covers everything the
+**WoW: Forever** client (1.60.1, interface 16001) offers addons: global functions, `C_*` namespaces, widgets with
+their real inheritance, events with their payloads, structures and enums.
 
 ```luau
 --!strict
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("PLAYER_LOGN")        -- TypeError: '"PLAYER_LOGN"' is not a FrameEvent
-frame:SetPoint("CENTRE")                  -- TypeError: '"CENTRE"' is not a FramePoint
-frame:SetText("hello")                    -- TypeError: Key 'SetText' not found in external type 'Frame'
-local name: number = UnitName("player")   -- TypeError: Expected 'number', got 'string'
-GetQuestLogTitle(1)                       -- TypeError: Unknown global (Forever uses C_QuestLog)
+local frame = CreateFrame("Frame")            -- a Frame; CreateFrame("Button") is a Button
+frame:RegisterEvent("PLAYER_LOGN")             -- error: not an event the client sends
+frame:SetScript("OnClick", onClick)            -- error: a plain Frame has no OnClick script
+frame:SetPoint("CENTRE")                       -- error: not an anchor point
+local info = C_QuestLog.GetInfo(1)
+print(info.title)                              -- error: info may be nil
+GetQuestLogTitle(1)                            -- error: Forever replaced it with C_QuestLog
 ```
 
-## Why this exists
+## Quick start
 
-- **No WoW typings for Luau existed.** WoW addon tooling targets LuaLS annotations; Luau's type checker cannot read
-  them.
-- **Converted, not hand-written.** A generator turns [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api)'s
-  LuaCATS annotations (the types behind the popular VS Code extension) into Luau declarations.
-- **Exactly what the Forever client has.** WoW: Forever runs a modern client with Classic content, so neither the
-  retail nor the Classic Era API is right. The output is filtered against
-  [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources/tree/forever)'s dump of the live
-  Forever client: an API the client lacks is dropped, and a client API with no annotation is still declared (untyped),
-  so a real API is never an "unknown global".
-- **Reproducible.** Both inputs are pinned by commit in [`upstream.toml`](upstream.toml). CI regenerates the file
-  from those commits and fails if the committed copy differs.
+1. **Download** `wow-forever.d.luau` from the [latest release](https://github.com/Braden1996/wow-forever-luau-types/releases/latest)
+   (checksums in `SHA256SUMS`) into your addon, for example as `types/wow-forever.d.luau`. Pin a version: an
+   upstream update can change types.
+2. **VS Code:** install the [Luau Language Server](https://marketplace.visualstudio.com/items?itemName=JohnnyMorganz.luau-lsp)
+   extension and add to `.vscode/settings.json`:
 
-| In `wow-forever.d.luau`                                             | Count |
-| ------------------------------------------------------------------- | ----: |
-| Typed functions (global and namespaced)                             | 6,610 |
-| Client C API functions that are typed                               |   94% |
-| Widget types (`declare extern type`, with inheritance)              |   152 |
-| Structures and mixins (table types)                                 |   764 |
-| `Enum.*` tables (from the client) and enum value types              |   954 |
-| Annotated retail APIs dropped because the Forever client lacks them |   266 |
+   ```jsonc
+   {
+     "luau-lsp.platform.type": "standard",       // not Roblox
+     "luau-lsp.sourcemap.enabled": false,
+     "luau-lsp.fflags.enableNewSolver": true,    // required: the definitions use the new type solver
+     "luau-lsp.types.definitionFiles": {
+       "@wow": "types/wow-forever.d.luau",
+       "@addon": "types/addon.d.luau"            // your own SavedVariables (see below)
+     }
+   }
+   ```
 
-[`definitions/report.json`](definitions/report.json) lists every number above, plus each dropped API, each untyped
-API and every annotation type name that could not be resolved.
+3. **Command line and CI:** `luau-lsp analyze` is the Luau analyzer with definitions-file support (plain
+   `luau-analyze` cannot load definitions files). It exits non-zero on any error, so it can gate a pull request:
 
-## Install
+   ```bash
+   luau-lsp analyze --platform=standard --flag:LuauSolverV2=true --definitions=@wow=types/wow-forever.d.luau --definitions=@addon=types/addon.d.luau src/
+   ```
 
-Download `wow-forever.d.luau` from the [latest release](https://github.com/Braden1996/wow-forever-luau-types/releases/latest)
-(a `SHA256SUMS` file is attached), or vendor this repository at a tag. Pin a version: a new upstream commit can
-change the types.
+## What it is
 
-```bash
-curl -fsSLO https://github.com/Braden1996/wow-forever-luau-types/releases/download/v0.1.0/wow-forever.d.luau
-```
+A generator converts three pinned upstream sources into one definitions file and checks the result:
 
-## Use it with luau-lsp
+| Source | Decides |
+| --- | --- |
+| [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources/tree/forever) (`forever` branch): dumps from the live Forever client | **What exists**: every function, widget type and method, script handler, event and enum value |
+| [Gethe/wow-ui-source](https://github.com/Gethe/wow-ui-source/tree/forever) (`forever` branch): Blizzard's own `Blizzard_APIDocumentationGenerated` | **Types first**: arguments, results, nilability, structures, callback types, event payloads |
+| [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api) (MIT): LuaCATS annotations behind the WoW VS Code extension, sourced from [warcraft.wiki.gg](https://warcraft.wiki.gg) | **Types for the rest**: globals the documentation omits, FrameXML mixins, WoW's Lua extensions, extra call shapes |
 
-### VS Code
+When the documentation and the annotations disagree: types come from the documentation; an argument is optional if
+either source says so; the annotations' extra call shapes are kept; a result the documentation types as a callback
+takes the annotation's type. A client API with no type source at all is declared `(...unknown) -> ...unknown`, so it
+is never an "unknown global" but its results must be checked or cast before use.
 
-Install the [Luau Language Server](https://marketplace.visualstudio.com/items?itemName=JohnnyMorganz.luau-lsp)
-extension, then in `.vscode/settings.json`:
+WoW: Forever runs the **modern** client with Classic content, so neither the retail nor the Classic Era API is right
+for it. `GetItemInfo`, `GetQuestLogTitle` and `CRAFT_SHOW` do not exist there; `C_Item.GetItemInfo`,
+`C_QuestLog.GetInfo` and the modern event set do. Everything here follows the Forever client.
 
-```jsonc
-{
-  "luau-lsp.platform.type": "standard", // not Roblox
-  "luau-lsp.sourcemap.enabled": false,
-  "luau-lsp.types.definitionFiles": {
-    "@wow": "types/wow-forever.d.luau",
-    "@addon": "types/addon.d.luau" // your SavedVariables; see below
-  }
-}
-```
+## Coverage
 
-### Command line and CI
+Every API the client has is listed in [`definitions/coverage.json`](definitions/coverage.json) as typed (with its
+source), untyped, or excluded (with the reason). CI fails if an API that was typed becomes untyped.
+[`definitions/COVERAGE.md`](definitions/COVERAGE.md) has the full tables.
 
-`luau-lsp analyze` is `luau-analyze` with support for definitions files (plain `luau-analyze` cannot load them):
+| | Typed | Share |
+| --- | ---: | ---: |
+| C API functions (the game's native API, global and `C_*`) | 6,892 of 6,904 | 99.8% |
+| Widget and script-object methods | 1,660 | 100% |
+| Events, with payload types | 1,816 | 100% |
+| Structures and mixins | 821 | 100% |
+| Enums (from the client) | 954 | 100% |
+| Widget types, in the client's own hierarchy | 57 | 100% |
 
-```bash
-luau-lsp analyze --platform=standard --definitions=@wow=types/wow-forever.d.luau --definitions=@addon=types/addon.d.luau src/
-```
+The remaining untyped functions are FrameXML: Blizzard's own UI code in Lua, which no source types. They are
+declared, so calling one is not an error, and they return `unknown`.
 
-It exits non-zero on any type error or lint, so it can gate a pull request as-is.
+## How strict
+
+- **No `any` in results.** A value is typed or `unknown`. `any` appears only where an API genuinely takes anything of
+  a kind: `{ [any]: any }` for "any table" (the only table type every table is assignable to), `(...any) -> ...any` for
+  "any function", and the arguments of script handlers, which differ per script.
+- **Nil-safety.** Results the documentation marks nilable are optional, so `C_QuestLog.GetInfo(i).title` is an error
+  until you check the result.
+- **Closed string unions** for event names (the client's full list), anchor points, strata, draw layers and script
+  names. Script names are per widget: `Button` has `OnClick`, `Frame` does not.
+- **Real inheritance.** Widgets are `declare extern type`s in the client's hierarchy (`CheckButton → Button → Frame →
+  ScriptRegion → Object → FrameScriptObject`); a `Button` is a `Frame`, never the reverse.
+- **Derived, not duplicated.** A documented structure that contains another's fields is declared as
+  `Base & { extra }` (35 of them), `CreateFrame` is generic over `FrameTypeMap`, and an event handler's type is
+  derived from the payload table: `EventHandler<"PLAYER_LEVEL_UP">` is `index<EventPayloads, "PLAYER_LEVEL_UP">`.
 
 ## Writing an addon in strict Luau
 
-The [sample addon](tests/pass/sample-addon) type-checks with zero diagnostics under `--!strict`; it is the reference
-for the patterns below.
+The [sample addon](tests/pass/sample-addon) type-checks with zero diagnostics; it shows each pattern below.
 
 **The shared namespace.** Annotate what WoW passes to each file:
 
@@ -99,6 +116,19 @@ for the patterns below.
 --!strict
 export type Namespace = { db: SampleDB, print: (message: string) -> () }
 local ADDON: string, ns: Namespace = ...
+```
+
+**Events with typed payloads.** Annotate the handler's parameters; the checker compares them with the documented
+payload:
+
+```luau
+local onLevel: EventHandler<"PLAYER_LEVEL_UP"> = function(level: number)
+	print("Reached level", level)
+end
+local dispatch: { [FrameEvent]: (...any) -> () } = { PLAYER_LEVEL_UP = onLevel }
+for event in dispatch do
+	frame:RegisterEvent(event)
+end
 ```
 
 **SavedVariables and slash commands.** Declare your own globals in a second definitions file, and write them through
@@ -116,62 +146,59 @@ _G.SLASH_SAMPLEADDON1 = "/sample"
 SlashCmdList.SAMPLEADDON = function(msg: string) end
 ```
 
-**Closed string unions.** Event names (`FrameEvent`, the client's full list), anchor points, strata, draw layers,
-frame types and script handler names are unions of string literals, so a typo is a type error. `CreateFrame("Button")`
-returns a `Button`.
+**Untyped APIs.** Cast what you take from one: `local key = GetBindingKeyForAction("JUMP") :: string?`.
 
-**Untyped APIs.** A client function with no upstream annotation is declared `(...any) -> ...any`. Annotate what you
-take from it (`local key: string? = GetBindingKeyForAction(action)`), and consider typing it upstream.
-
-## How it is built
+## How it is built and tested
 
 ```mermaid
 flowchart LR
-  A["Ketho/vscode-wow-api<br/>LuaCATS annotations"] --> G["generator/<br/>(Luau, run by Lune)"]
-  R["Ketho/BlizzardInterfaceResources<br/>forever branch: client dump"] --> G
-  S["supplements/<br/>hand-written FrameXML tables"] --> G
-  G --> D["definitions/wow-forever.d.luau"]
-  G --> J["definitions/report.json"]
+  R["Client dump<br/>(what exists)"] --> G["generator/<br/>strict Luau, run by Lune"]
+  D["Blizzard API docs<br/>(types first)"] --> G
+  A["LuaCATS annotations<br/>(types for the rest)"] --> G
+  S["supplements/<br/>(hand-written FrameXML tables)"] --> G
+  G --> O["wow-forever.d.luau"]
+  G --> C["coverage.json · COVERAGE.md · report.json · banner.svg"]
 ```
 
-1. `generator/parse.luau` reads each annotation file: `---@class`, `---@field`, `---@param`, `---@return`, `---@alias`,
-   `---@enum`, `---@overload` and `---@generic`.
-2. `generator/typeexpr.luau` parses LuaCATS type expressions (`fun(...)`, `T[]`, `table<K, V>`, unions, literals) and
-   prints Luau types.
-3. `generator/build.luau` decides the shape: widget classes become `declare extern type` with `extends`; other classes
-   become table types; `C_*` tables and `Enum` become declared globals. It keeps only what the client has.
-4. A few Luau constraints shape the output: overloads that return the same thing are merged so string literals still
-   infer (`SetPoint("CENTER")`); `CreateFrame` gets one overload per frame type; very long unions are declared in
-   chunks.
+| Check (CI) | What it proves |
+| --- | --- |
+| `fresh` | Every generated file, including the banner, matches a regeneration from the pinned commits |
+| `typecheck` | The sample addon has zero diagnostics; each negative fixture produces exactly its expected errors; the converter reproduces every snapshot case; the generator is `--!strict` clean |
+| `coverage` | No API that was typed lost its types |
+| `lint` | StyLua, selene and typos |
+| `workflows` | actionlint and zizmor; every action pinned by SHA |
+| `pr-title` | Conventional Commit titles |
 
-Regenerate with:
+Regenerate and test locally (tools pinned in `mise.toml`, checksums in `mise.lock`):
 
 ```bash
 mise install
 mise exec -- lune run scripts/generate
 mise exec -- lune run scripts/test
+mise exec -- lune run scripts/snapshot
 ```
 
 ## Limitations
 
-- Upstream annotations follow the retail client. Where Forever's signature differs from retail's, the retail one
-  wins until someone fixes it upstream.
-- Optional-looking parameters follow LuaCATS: `x?` means "may be nil", not "may be omitted before a later argument".
-- Events have names but not payload types yet: an `OnEvent` handler receives `...: any`.
+- **New solver only.** The definitions use `keyof`, `index` and generic lookups, which need Luau's new type solver
+  (`luau-lsp.fflags.enableNewSolver`, `--flag:LuauSolverV2=true`; the default in `luau-analyze`).
+- Luau does not infer a lambda's parameters through `EventHandler<...>`; annotate them.
+- Numeric enums are `number`: Luau has no numeric literal types.
 - Libraries (Ace3, LibStub and others) are not included.
 
 ## Contributing
 
-Most fixes belong upstream: types in [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api), client data in
-[Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources). This repository owns the
-converter, the samples and the small supplements. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Most type fixes belong upstream: [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api) for annotations.
+This repository owns the converter, its rules, the tests and the small supplements. See
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licence and credits
 
-MIT, see [LICENSE](LICENSE). The definitions are derived from
-[Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api) (MIT, © Ketho) and filtered with data from
-[Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources). Thanks to Ketho and that
-project's contributors, whose work makes this one possible.
+MIT, see [LICENSE](LICENSE). The definitions are derived from [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api)
+(MIT, © Ketho), Blizzard's API documentation as published in [Gethe/wow-ui-source](https://github.com/Gethe/wow-ui-source),
+and client data from [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources). The last
+two carry no licence file; only API names and documented types from them reach the output. Thanks to Ketho, Gethe
+and their contributors.
 
 World of Warcraft is a trademark of Blizzard Entertainment, Inc. This project is not affiliated with or endorsed by
 Blizzard Entertainment.

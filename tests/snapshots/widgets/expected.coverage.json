@@ -1,0 +1,166 @@
+{
+  "enums": [],
+  "events": {
+    "PLAYER_LOGIN": {
+      "reason": "no documented payload",
+      "status": "untyped"
+    }
+  },
+  "functions": {
+    "CreateFrame": {
+      "reason": "generic over FrameTypeMap",
+      "source": "generator",
+      "status": "typed"
+    }
+  },
+  "structures": [],
+  "widgetMethods": {
+    "Button:GetScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "Button:HasScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "Button:HookScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "Button:SetScript": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "Button:SetText": {
+      "source": "annotations",
+      "status": "typed"
+    },
+    "Frame:GetScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "Frame:HasScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "Frame:HookScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "Frame:RegisterEvent": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "Frame:SetScript": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "Frame:Undocumented": {
+      "reason": "no type source",
+      "status": "untyped"
+    },
+    "FrameScriptObject:GetName": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "Object:GetParent": {
+      "reason": "no type source",
+      "status": "untyped"
+    },
+    "Region:GetScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "Region:HasScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "Region:HookScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "Region:SetDrawLayer": {
+      "source": "annotations",
+      "status": "typed"
+    },
+    "Region:SetScript": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "ScriptObject:GetScript": {
+      "reason": "no type source",
+      "status": "untyped"
+    },
+    "ScriptObject:HasScript": {
+      "reason": "no type source",
+      "status": "untyped"
+    },
+    "ScriptObject:HookScript": {
+      "reason": "no type source",
+      "status": "untyped"
+    },
+    "ScriptObject:SetScript": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "ScriptRegion:GetScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "ScriptRegion:HasScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "ScriptRegion:HookScript": {
+      "source": "generator",
+      "status": "typed"
+    },
+    "ScriptRegion:SetPoint": {
+      "source": "docs+annotations",
+      "status": "typed"
+    },
+    "ScriptRegion:SetScript": {
+      "source": "docs",
+      "status": "typed"
+    },
+    "ScriptRegion:Show": {
+      "reason": "no type source",
+      "status": "untyped"
+    }
+  },
+  "widgets": {
+    "Button": {
+      "reason": "extends Frame",
+      "source": "client",
+      "status": "typed"
+    },
+    "Frame": {
+      "reason": "extends ScriptRegion",
+      "source": "client",
+      "status": "typed"
+    },
+    "FrameScriptObject": {
+      "source": "client",
+      "status": "typed"
+    },
+    "Object": {
+      "reason": "extends FrameScriptObject",
+      "source": "client",
+      "status": "typed"
+    },
+    "Region": {
+      "reason": "extends ScriptRegion",
+      "source": "client",
+      "status": "typed"
+    },
+    "ScriptObject": {
+      "source": "client",
+      "status": "typed"
+    },
+    "ScriptRegion": {
+      "reason": "extends Object",
+      "source": "client",
+      "status": "typed"
+    }
+  }
+}

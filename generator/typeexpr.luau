@@ -31,7 +31,7 @@ local function skipSpace(s: State)
 end
 
 local function peek(s: State, pattern: string): string?
-	return string.match(s.src, "^" .. pattern, s.pos)
+	return (string.match(s.src, "^" .. pattern, s.pos))
 end
 
 local function take(s: State, literal: string): boolean
@@ -402,11 +402,14 @@ local function unionOf(parts: { string }): string
 	local out: { string } = {}
 	local optional = false
 	local hasAny = false
+	local hasUnknown = false
 	for _, p in parts do
 		if p == "nil" then
 			optional = true
 		elseif p == "any" then
 			hasAny = true
+		elseif p == "unknown" then
+			hasUnknown = true
 		elseif not seen[p] then
 			seen[p] = true
 			table.insert(out, p)
@@ -414,6 +417,9 @@ local function unionOf(parts: { string }): string
 	end
 	if hasAny then
 		return "any"
+	end
+	if hasUnknown then
+		return "unknown" -- unknown already includes nil and every other member
 	end
 	-- Literal string members are absorbed by a plain `string`, `true`/`false` by `boolean`.
 	if seen["string"] then
@@ -503,7 +509,7 @@ function TypeExpr.printParam(p: Param, resolve: Resolver, labelled: boolean, dec
 		end
 		return "..." .. wrap(t)
 	end
-	if p.optional and t ~= "any" and string.sub(t, -1) ~= "?" then
+	if p.optional and t ~= "any" and t ~= "unknown" and string.sub(t, -1) ~= "?" then
 		t = wrap(t) .. "?"
 	end
 	if labelled then
@@ -551,7 +557,7 @@ function print_(t: Type, resolve: Resolver): string
 				hasIndexer = true
 			end
 			local ft = print_(f.type, resolve)
-			if f.optional and string.sub(ft, -1) ~= "?" and ft ~= "any" then
+			if f.optional and string.sub(ft, -1) ~= "?" and ft ~= "any" and ft ~= "unknown" then
 				ft = wrap(ft) .. "?"
 			end
 			local key = f.key

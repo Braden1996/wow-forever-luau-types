@@ -1,7 +1,7 @@
 // Renovate: one PR per dependency, weekly, never automerged. Each PR runs the full CI gate.
 // - Tools in mise.toml (mise.lock is refreshed with the bump).
 // - GitHub Actions, pinned by digest.
-// - The two upstream commits in upstream.toml. A bump fails the `fresh` job until someone runs
+// - The three upstream commits in upstream.toml. A bump fails the `fresh` job until someone runs
 //   `lune run scripts/generate` and commits the regenerated definitions, so every upstream change is
 //   reviewed as a diff of definitions/.
 {

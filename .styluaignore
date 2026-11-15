@@ -1,3 +1,5 @@
 definitions/
 .upstream/
 **/*.d.luau
+# Upstream-format inputs for the converter snapshot tests: kept byte-for-byte in upstream style.
+tests/snapshots/

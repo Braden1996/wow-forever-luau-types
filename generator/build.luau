@@ -1,6 +1,11 @@
 --!strict
--- Turns parsed LuaCATS declarations into one luau-lsp definitions file.
+-- Merges the three inputs into one luau-lsp definitions file plus a coverage record:
+--   the client dump      decides what EXISTS (functions, widgets and their methods, events, enums)
+--   Blizzard's API docs  give types first (functions, widget methods, event payloads, structures)
+--   LuaCATS annotations  give types for the rest (wiki-documented globals, FrameXML, Lua extensions)
+-- Anything the client has but no source types is declared `(...unknown) -> ...unknown`.
 
+local ApiDocs = require("./apidocs")
 local Parse = require("./parse")
 local Resources = require("./resources")
 local TypeExpr = require("./typeexpr")
@@ -9,61 +14,61 @@ type Type = TypeExpr.Type
 type Param = TypeExpr.Param
 type Signature = Parse.Signature
 type Func = Parse.Func
-type FileDecls = Parse.FileDecls
 
 export type Config = {
 	sources: { string },
-	externSources: { string },
 	gameName: string,
 	closedAliases: { [string]: boolean },
 	closedAliasPattern: string,
 	luauGlobals: { string },
 	stdlibAliases: { [string]: string },
+	luauStdlib: { [string]: boolean },
+	basicTypes: { [string]: string },
+	scriptObjectWidgets: { [string]: { string } },
+	ignoredScriptObjects: { [string]: string },
+	docWidgetAliases: { [string]: string },
+	widgetParentOverrides: { [string]: { string } },
+	scriptMethods: { [string]: boolean },
+	paramTypeOverrides: { [string]: { [string]: string } },
+	derivedMinFields: number,
 }
 
 type Pin = { repository: string, commit: string }
 
 export type Input = {
-	files: { { path: string, source: string } }, -- in priority order
+	files: { { path: string, source: string } }, -- annotation files, in priority order
+	docs: ApiDocs.DocSet,
 	resources: Resources.Resources,
 	reserved: { [string]: boolean }, -- names the hand-written supplements declare
-	upstream: { annotations: Pin, resources: Pin },
+	upstream: { annotations: Pin, docs: Pin, resources: Pin },
 	config: Config,
 }
 
-type Member =
-	{ name: string, kind: "field", type: Type, optional: boolean }
-	| {
-		name: string,
-		kind: "method",
-		sigs: { Signature },
-	}
-	| { name: string, kind: "static", sigs: { Signature } }
+export type CoverageEntry = { status: string, source: string?, reason: string? }
+export type Coverage = { [string]: { [string]: CoverageEntry } }
 
-type ClassInfo = {
+type AnnClass = {
 	name: string,
 	parents: { string },
-	members: { [string]: Member },
-	order: { string },
-	extern: boolean,
+	fields: { Parse.Field },
+	methods: { [string]: { Signature } },
+	statics: { [string]: { Signature } },
 	file: string,
-	doc: string?,
-	isGlobal: boolean,
 }
 
 type Node = {
-	kind: "ns" | "func" | "enum" | "value" | "instance",
+	kind: "ns" | "func" | "enum" | "value",
 	children: { [string]: Node },
 	sigs: { Signature },
-	enum: Parse.EnumDecl?,
+	entries: { { key: string, value: string } }?,
 	valueType: string?,
-	class: string?,
 	doc: string?,
 }
 
 local BUILTIN_TYPES: { [string]: string } = {
-	any = "any",
-	unknown = "any",
+	-- `any` in an annotation becomes `unknown`: accepted as an argument, refined before use as a result.
+	any = "unknown",
+	unknown = "unknown",
 	number = "number",
 	integer = "number",
 	float = "number",
@@ -72,14 +77,15 @@ local BUILTIN_TYPES: { [string]: string } = {
 	bool = "boolean",
 	["nil"] = "nil",
 	void = "nil",
+	-- Documented exceptions: `{ [any]: any }` is the only table type every table (array, map or record)
+	-- is assignable to, and `(...any) -> ...any` the only function type every function is.
 	table = "{ [any]: any }",
 	["function"] = "(...any) -> ...any",
-	userdata = "any",
-	lightuserdata = "any",
+	userdata = "unknown",
+	lightuserdata = "unknown",
 	thread = "thread",
 }
 
--- Names that cannot be used for a declared type.
 local RESERVED_TYPE_NAMES: { [string]: boolean } = {
 	any = true,
 	boolean = true,
@@ -92,13 +98,19 @@ local RESERVED_TYPE_NAMES: { [string]: boolean } = {
 	typeof = true,
 	unknown = true,
 	vector = true,
+	table = true,
+	self = true,
+}
+
+local UNTYPED_SIGNATURE: Signature = {
+	params = { { name = "...", type = { kind = "name", name = "unknown", args = {} }, optional = false } },
+	returns = { { kind = "name", name = "...", args = { { kind = "name", name = "unknown", args = {} } } } },
+	generics = {},
+	deprecated = false,
+	doc = nil,
 }
 
 local Build = {}
-
-local function startsWith(s: string, prefix: string): boolean
-	return string.sub(s, 1, #prefix) == prefix
-end
 
 local function sortedKeys<V>(t: { [string]: V }): { string }
 	local keys = {}
@@ -116,147 +128,54 @@ local function identifierKey(name: string): string
 	return '["' .. name .. '"]'
 end
 
-function Build.run(input: Input): (string, { [string]: any })
+local function isIdentifierPath(qualified: string): boolean
+	for _, part in string.split(qualified, ".") do
+		if not string.match(part, "^[%a_][%w_]*$") then
+			return false
+		end
+	end
+	return true
+end
+
+function Build.run(input: Input): (string, { [string]: any }, Coverage)
 	local config = input.config
-	local stats = {
-		parseErrors = {} :: { string },
-		droppedNotInClient = 0,
-		droppedApis = {} :: { string },
-		droppedWidgetMethods = 0,
-		duplicateFunctions = 0,
-		unresolvedTypes = {} :: { [string]: number },
+	local res = input.resources
+	local docs = input.docs
+	local unresolvedTypes: { [string]: number } = {}
+	local parseErrors: { string } = table.clone(docs.errors)
+
+	local coverage: Coverage = {
+		functions = {},
+		widgetMethods = {},
+		events = {},
+		structures = {},
+		enums = {},
+		widgets = {},
 	}
+	local function cover(category: string, name: string, status: string, source: string?, reason: string?)
+		coverage[category][name] = { status = status, source = source, reason = reason }
+	end
 
 	local luauGlobals: { [string]: boolean } = {}
 	for _, name in config.luauGlobals do
 		luauGlobals[name] = true
 	end
 
-	local parsed: { FileDecls } = {}
-	for _, f in input.files do
-		local decls = Parse.file(f.path, f.source)
-		for _, e in decls.errors do
-			table.insert(stats.parseErrors, e)
-		end
-		table.insert(parsed, decls)
-	end
+	-- 1. Annotations ---------------------------------------------------------------------------------
+	local annClasses: { [string]: AnnClass } = {}
+	local annAliases: { [string]: Parse.Alias } = {}
+	local annFunctions: { [string]: Func } = {}
+	local annValues: { [string]: string } = {} -- "tinsert" -> "tab.insert"
+	local annGlobalClass: { [string]: string } = {} -- global table name -> its ---@class
+	local stdlib: { [string]: Func } = {} -- "string.split" -> signature
 
-	local function isExternFile(path: string): boolean
-		for _, prefix in config.externSources do
-			if startsWith(path, prefix) then
-				return true
-			end
-		end
-		return false
-	end
-
-	-- Symbols ---------------------------------------------------------------------------------------
-	local classes: { [string]: ClassInfo } = {}
-	local aliases: { [string]: Parse.Alias } = {}
-	local enumTypes: { [string]: Parse.EnumDecl } = {}
-	local stdlib: { [string]: Func } = {} -- "string.split" -> annotated signature
-	local root: Node = { kind = "ns", children = {}, sigs = {} }
-
-	local function getClass(name: string, file: string): ClassInfo
-		local c = classes[name]
+	local function annClass(name: string, file: string): AnnClass
+		local c = annClasses[name]
 		if c == nil then
-			local created: ClassInfo = {
-				name = name,
-				parents = {},
-				members = {},
-				order = {},
-				extern = isExternFile(file),
-				file = file,
-				doc = nil,
-				isGlobal = false,
-			}
-			classes[name] = created
-			return created
+			c = { name = name, parents = {}, fields = {}, methods = {}, statics = {}, file = file }
+			annClasses[name] = c
 		end
-		return c
-	end
-
-	local function addMember(c: ClassInfo, m: Member)
-		local existing = c.members[m.name]
-		if existing == nil then
-			c.members[m.name] = m
-			table.insert(c.order, m.name)
-		elseif m.kind ~= "field" and existing.kind == m.kind then
-			-- Two definitions of one method are overloads.
-			for _, sig in (m :: any).sigs do
-				table.insert((existing :: any).sigs, sig)
-			end
-		elseif m.kind ~= "field" and existing.kind == "field" then
-			c.members[m.name] = m
-		end
-	end
-
-	for _, decls in parsed do
-		for _, cls in decls.classes do
-			local c = getClass(cls.name, decls.file)
-			if c.doc == nil then
-				c.doc = cls.doc
-			end
-			for _, p in cls.parents do
-				if not table.find(c.parents, p) and p ~= cls.name then
-					table.insert(c.parents, p)
-				end
-			end
-			for _, f in cls.fields do
-				if f.visibility ~= "private" and f.visibility ~= "protected" then
-					addMember(c, { name = f.name, kind = "field", type = f.type, optional = f.optional })
-				end
-			end
-		end
-		for _, a in decls.aliases do
-			if aliases[a.name] == nil then
-				aliases[a.name] = a
-			end
-		end
-	end
-
-	-- Namespace tree helpers.
-	local function nodeAt(path: { string }, upto: number): Node
-		local node = root
-		for i = 1, upto do
-			local key = path[i]
-			local child = node.children[key]
-			if child == nil then
-				child = { kind = "ns", children = {}, sigs = {} }
-				node.children[key] = child
-			end
-			node = child :: Node
-		end
-		return node
-	end
-
-	local res = input.resources
-	-- Whether the client has a function, by its qualified name ("UnitLevel", "C_Timer.After").
-	local function clientHas(qualified: string): boolean
-		return res.globalApi[qualified] == true or res.luaApi[qualified] == true or res.frameXml[qualified] == true
-	end
-	-- Whether a global table, frame or mixin of this name exists in the client.
-	local function clientHasGlobal(name: string): boolean
-		return res.frames[name] == true or res.mixins[name] == true or clientHas(name)
-	end
-	-- Every method name any client widget type has. The client's widget hierarchy differs from the
-	-- annotations' (in the client, Frame inherits ScriptRegion directly, not Region), so filtering per
-	-- class would strip methods subclasses need. A widget method is dropped only when no client widget
-	-- has a method of that name at all, which removes retail-only API safely.
-	local anyWidgetMethod: { [string]: boolean } = {}
-	for _, widget in res.widgets do
-		for method in widget.methods do
-			anyWidgetMethod[method] = true
-		end
-	end
-	local function clientWidgetMethods(name: string): { [string]: boolean }?
-		if res.widgets[name] == nil then
-			return nil -- not a client widget type (an annotation-only base or mixin): trust it
-		end
-		return anyWidgetMethod
-	end
-	local function isLuaEnumGlobal(name: string): boolean
-		return string.match(name, "^LE_") ~= nil or string.match(name, "^NUM_LE_") ~= nil
+		return c :: AnnClass
 	end
 
 	local function withOverloads(f: Func): { Signature }
@@ -267,297 +186,231 @@ function Build.run(input: Input): (string, { [string]: any })
 		return sigs
 	end
 
-	for _, decls in parsed do
-		-- Globals first, so functions defined on a global class table attach to the class.
-		for _, g in decls.globals do
-			if g.path[1] == "_G" and #g.path > 1 then
-				-- `_G.Foo = ...` declares the global `Foo`; `_G` itself stays Luau's open table.
-				g.path = table.move(g.path, 2, #g.path, 1, {})
+	for _, file in input.files do
+		local decls = Parse.file(file.path, file.source)
+		for _, e in decls.errors do
+			table.insert(parseErrors, e)
+		end
+		for _, cls in decls.classes do
+			local c = annClass(cls.name, decls.file)
+			for _, p in cls.parents do
+				if not table.find(c.parents, p) and p ~= cls.name then
+					table.insert(c.parents, p)
+				end
 			end
-			local head = g.path[1]
-			if
-				luauGlobals[head]
-				or input.reserved[head]
-				or head == "Enum"
-				or head == "Constants"
-				or isLuaEnumGlobal(head)
-			then
-				-- Enum, Constants and LE_* come from the client's own dump instead.
-				continue
+			local seen = {}
+			for _, f in c.fields do
+				seen[f.name] = true
 			end
-			if g.class then
-				local c = getClass(g.class, decls.file)
-				if #g.path == 1 then
-					c.isGlobal = true
-				end
-				decls.locals[table.concat(g.path, ".")] = g.class
-				if #g.path == 1 and not clientHasGlobal(head) then
-					-- A retail-only mixin or frame: its type stays, the global does not exist.
-					stats.droppedNotInClient += 1
-					continue
-				end
-				local parent = nodeAt(g.path, #g.path - 1)
-				local leaf = g.path[#g.path]
-				if parent.children[leaf] == nil or parent.children[leaf].kind == "ns" then
-					parent.children[leaf] = { kind = "instance", children = {}, sigs = {}, class = g.class }
-				end
-			elseif g.value == "{}" then
-				nodeAt(g.path, #g.path)
-			else
-				local parent = nodeAt(g.path, #g.path - 1)
-				local leaf = g.path[#g.path]
-				if parent.children[leaf] == nil then
-					local value = g.value
-					local stdTable, stdName = string.match(value, "^([%w_]+)%.([%w_]+)$")
-					local node: Node
-					if stdTable and config.stdlibAliases[stdTable] then
-						local target = config.stdlibAliases[stdTable] .. "." .. (stdName :: string)
-						node = { kind = "value", children = {}, sigs = {}, valueType = "@stdlib:" .. target }
-					elseif startsWith(value, "function") then
-						local args = string.match(value, "^function%s*%(([^%)]*)%)") or ""
-						local params = {}
-						for _ in string.gmatch(args, "[%w_]+") do
-							table.insert(params, "number")
-						end
-						node = {
-							kind = "value",
-							children = {},
-							sigs = {},
-							valueType = "(" .. table.concat(params, ", ") .. ") -> number",
-						}
-					elseif string.match(value, "^[\"']") then
-						node = { kind = "value", children = {}, sigs = {}, valueType = "string" }
-					elseif string.match(value, "^%-?[%d%.]+$") then
-						node = { kind = "value", children = {}, sigs = {}, valueType = "number" }
-					elseif value == "true" or value == "false" then
-						node = { kind = "value", children = {}, sigs = {}, valueType = "boolean" }
-					else
-						node = { kind = "value", children = {}, sigs = {}, valueType = "any" }
-					end
-					local isFunction = startsWith(node.valueType :: string, "@stdlib:")
-						or startsWith(node.valueType :: string, "(")
-					if isFunction and not clientHas(table.concat(g.path, ".")) then
-						stats.droppedNotInClient += 1
-					else
-						parent.children[leaf] = node
-					end
+			for _, f in cls.fields do
+				if f.visibility ~= "private" and f.visibility ~= "protected" and not seen[f.name] then
+					seen[f.name] = true
+					table.insert(c.fields, f)
 				end
 			end
 		end
-
+		for _, a in decls.aliases do
+			if annAliases[a.name] == nil then
+				annAliases[a.name] = a
+			end
+		end
+		for _, g in decls.globals do
+			local path = g.path
+			if path[1] == "_G" and #path > 1 then
+				path = table.move(path, 2, #path, 1, {})
+			end
+			local qualified = table.concat(path, ".")
+			if g.class then
+				decls.locals[qualified] = g.class
+				if #path == 1 then
+					annGlobalClass[qualified] = g.class
+				end
+			elseif g.value ~= "{}" and annValues[qualified] == nil then
+				annValues[qualified] = g.value
+			end
+		end
 		for _, f in decls.funcs do
 			local head = f.path[1]
 			local qualified = table.concat(f.path, ".")
 			local ownerPath = table.concat(f.path, ".", 1, #f.path - 1)
-			local ownerClass = if #f.path > 1 then decls.locals[ownerPath] else nil
-			if ownerClass == nil and #f.path > 1 and classes[ownerPath] and not decls.locals[head] then
-				-- `function Frame:SetPoint()` where `Frame` is a class name used directly.
-				local node = root.children[head]
-				if f.method or (node == nil or node.kind ~= "ns") then
-					ownerClass = ownerPath
-				end
-			end
-			if ownerClass then
-				local c = classes[ownerClass] or getClass(ownerClass, decls.file)
-				addMember(
-					c,
-					{
-						name = f.path[#f.path],
-						kind = if f.method then "method" else "static",
-						sigs = withOverloads(f),
-					} :: any
-				)
-				continue
-			end
+			local owner = if #f.path > 1 then decls.locals[ownerPath] else nil
 			if #f.path == 2 and config.stdlibAliases[head] == head then
-				-- string.split, table.wipe: indexed for the compat aliases, never declared.
-				if stdlib[qualified] == nil then
-					stdlib[qualified] = f
+				owner = nil -- string.split, table.wipe: WoW's extensions of the standard tables
+			end
+			if owner == nil and #f.path > 1 and annClasses[ownerPath] and f.method then
+				owner = ownerPath -- `function Frame:SetPoint()` with the class name used directly
+			end
+			if owner then
+				local c = annClass(owner, decls.file)
+				local bucket = if f.method then c.methods else c.statics
+				local name = f.path[#f.path]
+				bucket[name] = bucket[name] or {}
+				for _, sig in withOverloads(f) do
+					table.insert(bucket[name], sig)
 				end
-				continue
+			elseif #f.path == 2 and config.stdlibAliases[head] == head then
+				stdlib[qualified] = stdlib[qualified] or f
+			elseif annFunctions[qualified] == nil then
+				annFunctions[qualified] = f
 			end
-			if luauGlobals[head] or input.reserved[head] then
-				continue
-			end
-			if not clientHas(qualified) then
-				stats.droppedNotInClient += 1
-				table.insert(stats.droppedApis, qualified)
-				continue
-			end
-			local parent = nodeAt(f.path, #f.path - 1)
-			local leaf = f.path[#f.path]
-			local existing = parent.children[leaf]
-			if existing and existing.kind == "func" then
-				stats.duplicateFunctions += 1
-				continue
-			end
-			parent.children[leaf] = {
-				kind = "func",
-				children = {},
-				sigs = withOverloads(f),
-				doc = f.signature.doc,
-			}
-		end
-
-		for _, e in decls.enums do
-			if e.path[1] == "Enum" or e.path[1] == "Constants" then
-				continue -- the client dump has the authoritative tables
-			end
-			local parent = nodeAt(e.path, #e.path - 1)
-			parent.children[e.path[#e.path]] = { kind = "enum", children = {}, sigs = {}, enum = e }
-			enumTypes[table.concat(e.path, ".")] = e
 		end
 	end
 
-	-- Enum, Constants and the LE_* globals, straight from the client.
-	local function addClientTables(outer: string, tables: { Resources.EnumTable })
-		for _, t in tables do
-			local path = { outer, t.name }
-			local decl: Parse.EnumDecl = { path = path, entries = t.entries, file = "resources:LuaEnum.lua" }
-			nodeAt(path, 1).children[t.name] = { kind = "enum", children = {}, sigs = {}, enum = decl }
-			if outer == "Enum" then
-				enumTypes["Enum." .. t.name] = decl
+	-- 2. Widgets: the client's own hierarchy --------------------------------------------------------
+	local widgetParents: { [string]: { string } } = {}
+	for name, w in res.widgets do
+		local parents = {}
+		for _, p in config.widgetParentOverrides[name] or w.inherits do
+			if p ~= name and res.widgets[p] then
+				table.insert(parents, p)
 			end
 		end
+		widgetParents[name] = parents
 	end
-	addClientTables("Enum", res.enums)
-	addClientTables("Constants", res.constants)
-	for _, c in res.globalConstants do
-		if root.children[c.key] == nil and not input.reserved[c.key] then
-			local isNumber = string.match(c.value, "^%-?[%dx%.a-fA-F]+$") ~= nil
-			root.children[c.key] =
-				{ kind = "value", children = {}, sigs = {}, valueType = if isNumber then "number" else "any" }
-		end
-	end
-
-	-- The client's event list is the closed set of FrameEvent names.
-	if aliases.FrameEvent then
-		local variants: { Type } = {}
-		for _, event in res.events do
-			table.insert(variants, { kind = "string", value = event })
-		end
-		aliases.FrameEvent = { name = "FrameEvent", base = nil, variants = variants, file = "resources:Events.lua" }
-	end
-	-- CreateFrame accepts only the widget types the client has.
-	if aliases.FrameType then
-		local kept: { Type } = {}
-		for _, v in aliases.FrameType.variants do
-			if v.kind == "string" and res.widgets[v.value] then
-				table.insert(kept, v)
-			end
-		end
-		aliases.FrameType = { name = "FrameType", base = nil, variants = kept, file = aliases.FrameType.file }
-	end
-
-	-- Drop namespaces the client filter emptied.
-	local function prune(node: Node): boolean
-		for _, key in sortedKeys(node.children) do
-			local child = node.children[key]
-			if child.kind == "ns" and not prune(child) then
-				node.children[key] = nil
-			end
-		end
-		return next(node.children) ~= nil
-	end
-	prune(root)
-
-	-- Client APIs that upstream never annotates (Forever keeps old functions retail removed) get an
-	-- untyped declaration, so calling a real API is never an "unknown global" error. The report lists
-	-- them; each is a good first contribution upstream.
-	local untyped: { string } = {}
-	local clientFunctions: { [string]: boolean } = {}
-	for name in res.globalApi do
-		clientFunctions[name] = true
-	end
-	for name in res.frameXml do
-		clientFunctions[name] = true
-	end
-	for _, qualified in sortedKeys(clientFunctions) do
-		local path = string.split(qualified, ".")
-		if input.reserved[path[1]] then
-			continue
-		end
-		local valid = #path <= 2
-		for _, part in path do
-			if not string.match(part, "^[%a_][%w_]*$") then
-				valid = false
-			end
-		end
-		if not valid or luauGlobals[path[1]] or classes[path[1]] or config.stdlibAliases[path[1]] then
-			continue
-		end
-		local parent = root
-		local missing = false
-		for i = 1, #path - 1 do
-			local child = parent.children[path[i]]
-			if child == nil then
-				child = { kind = "ns", children = {}, sigs = {} }
-				parent.children[path[i]] = child
-			elseif child.kind ~= "ns" then
-				missing = true -- e.g. a function and a namespace with one name; leave it alone
-				break
-			end
-			parent = child :: Node
-		end
-		local leaf = path[#path]
-		if not missing and parent.children[leaf] == nil then
-			parent.children[leaf] = {
-				kind = "func",
-				children = {},
-				sigs = {
-					{
-						params = {
-							{ name = "...", type = { kind = "name", name = "any", args = {} }, optional = false },
-						},
-						returns = {
-							{ kind = "name", name = "...", args = { { kind = "name", name = "any", args = {} } } },
-						},
-						generics = {},
-						deprecated = false,
-						doc = nil,
-					},
-				},
-				doc = "Untyped: no upstream annotation for this " .. config.gameName .. " API.",
-			}
-			table.insert(untyped, qualified)
-		end
-	end
-
-	-- Extern (widget) classes: a class is extern if any ancestor is.
-	local externMemo: { [string]: boolean } = {}
-	local function isExtern(name: string, depth: number): boolean
-		if externMemo[name] ~= nil then
-			return externMemo[name]
-		end
-		local c = classes[name]
-		if c == nil or depth > 32 then
-			return false
-		end
-		local result = c.extern
-		if not result then
-			for _, p in c.parents do
-				if isExtern(p, depth + 1) then
-					result = true
-					break
+	local function ancestors(name: string): { string }
+		local out, seen, queue = {}, { [name] = true }, table.clone(widgetParents[name] or {})
+		while #queue > 0 do
+			local p = table.remove(queue, 1) :: string
+			if not seen[p] then
+				seen[p] = true
+				table.insert(out, p)
+				for _, pp in widgetParents[p] or {} do
+					table.insert(queue, pp)
 				end
 			end
 		end
-		externMemo[name] = result
-		return result
+		return out
 	end
-	for name, c in classes do
-		c.extern = isExtern(name, 0)
+	-- Every method a widget has, own and inherited.
+	local function allMethods(name: string): { [string]: boolean }
+		local out = table.clone(res.widgets[name].methods)
+		for _, a in ancestors(name) do
+			for m in res.widgets[a].methods do
+				out[m] = true
+			end
+		end
+		return out
+	end
+	local function allHandlers(name: string): { string }
+		local set: { [string]: boolean } = {}
+		for _, h in res.widgets[name].handlers do
+			set[h] = true
+		end
+		for _, a in ancestors(name) do
+			for _, h in res.widgets[a].handlers do
+				set[h] = true
+			end
+		end
+		return sortedKeys(set)
 	end
 
-	-- Type names ------------------------------------------------------------------------------------
+	-- Blizzard's documented methods per widget, and the documented non-widget script objects.
+	local docWidgetMethods: { [string]: { [string]: ApiDocs.DocFunction } } = {}
+	local objectTypes: { [string]: { [string]: ApiDocs.DocFunction } } = {}
+	for _, system in sortedKeys(docs.scriptObjects) do
+		local methods = docs.scriptObjects[system]
+		local targets = config.scriptObjectWidgets[system]
+		if targets then
+			for _, w in targets do
+				docWidgetMethods[w] = docWidgetMethods[w] or {}
+				for m, fn in methods do
+					if docWidgetMethods[w][m] == nil then
+						docWidgetMethods[w][m] = fn
+					end
+				end
+			end
+		elseif not config.ignoredScriptObjects[system] then
+			local typeName = string.gsub(system, "API$", "")
+			objectTypes[typeName] = methods
+		end
+	end
+
+	-- An annotation widget class that is not a client widget resolves to its nearest client ancestor.
+	local function clientWidgetFor(name: string, depth: number): string?
+		if res.widgets[name] then
+			return name
+		end
+		local c = annClasses[name]
+		if c == nil or depth > 16 then
+			return nil
+		end
+		for _, p in c.parents do
+			local w = clientWidgetFor(p, depth + 1)
+			if w then
+				return w
+			end
+		end
+		return nil
+	end
+
+	-- Annotation methods for a widget: its annotation class and that class's annotation ancestors.
+	-- The annotations hang some methods on helper classes (SetPoint on ScriptRegionResizing, which only
+	-- their Region and Frame inherit), so the search covers the widget, its ancestors, then its
+	-- descendants, each with its annotation ancestors.
+	local function annotatedMethod(widget: string, method: string): { Signature }?
+		local seen: { [string]: boolean } = {}
+		local queue = { widget }
+		for _, a in ancestors(widget) do
+			table.insert(queue, a)
+		end
+		for _, d in sortedKeys(res.widgets) do
+			if table.find(ancestors(d), widget) then
+				table.insert(queue, d)
+			end
+		end
+		while #queue > 0 do
+			local name = table.remove(queue, 1) :: string
+			if not seen[name] then
+				seen[name] = true
+				local c = annClasses[name]
+				if c then
+					if c.methods[method] then
+						return c.methods[method]
+					end
+					for _, p in c.parents do
+						table.insert(queue, p)
+					end
+				end
+			end
+		end
+		return nil
+	end
+
+	-- 3. Structures ----------------------------------------------------------------------------------
+	type Struct = {
+		name: string,
+		fields: { Parse.Field },
+		parents: { string },
+		source: string,
+		methods: { [string]: { Signature } },
+	}
+	local structs: { [string]: Struct } = {}
+	for name, s in docs.structures do
+		structs[name] = { name = name, fields = s.fields, parents = {}, source = "docs", methods = {} }
+	end
+	for name, c in annClasses do
+		local isObject = objectTypes[name] ~= nil or objectTypes[name .. "Object"] ~= nil
+		if structs[name] == nil and res.widgets[name] == nil and not isObject and clientWidgetFor(name, 0) == nil then
+			local methods = table.clone(c.methods)
+			for m, sigs in c.statics do
+				if methods[m] == nil then
+					methods[m] = sigs
+				end
+			end
+			structs[name] =
+				{ name = name, fields = c.fields, parents = c.parents, source = "annotations", methods = methods }
+		end
+	end
+
+	-- 4. Type names ----------------------------------------------------------------------------------
 	local typeNames: { [string]: string } = {}
 	local usedNames: { [string]: boolean } = {}
-	local function claim(sourceName: string)
+	local function claim(sourceName: string, preferred: string?)
 		if typeNames[sourceName] then
 			return
 		end
-		local name: string = (string.gsub(sourceName, "[^%w_]", "_"))
-		local reserved = RESERVED_TYPE_NAMES[name] or TypeExpr.RESERVED[name] or name == "table" or name == "self"
+		local name: string = preferred or (string.gsub(sourceName, "[^%w_]", "_"))
+		local reserved = RESERVED_TYPE_NAMES[name] or TypeExpr.RESERVED[name]
 		if reserved then
 			name ..= "_"
 		end
@@ -570,17 +423,37 @@ function Build.run(input: Input): (string, { [string]: any })
 		usedNames[unique] = true
 		typeNames[sourceName] = unique
 	end
-	for _, name in sortedKeys(classes) do
+	for _, name in sortedKeys(res.widgets) do
 		claim(name)
 	end
-	for _, name in sortedKeys(aliases) do
-		if classes[name] == nil then
-			claim(name)
+	for _, name in sortedKeys(objectTypes) do
+		claim(name)
+	end
+	for _, e in res.enums do
+		claim("Enum." .. e.name)
+	end
+	for _, name in sortedKeys(structs) do
+		claim(name)
+	end
+	local callbacks = docs.callbacks
+	for _, name in sortedKeys(callbacks) do
+		claim(name)
+	end
+	for _, name in sortedKeys(annAliases) do
+		claim(name)
+	end
+	-- Names that refer to a widget: Blizzard's `SimpleFrame`, annotation-only bases like
+	-- `ScriptRegionResizing`.
+	local widgetAliases: { [string]: string } = {}
+	for alias, target in config.docWidgetAliases do
+		if res.widgets[target] then
+			widgetAliases[alias] = target
 		end
 	end
-	for _, name in sortedKeys(enumTypes) do
-		if classes[name] == nil and aliases[name] == nil then
-			claim(name)
+	for name in annClasses do
+		local w = clientWidgetFor(name, 0)
+		if w and w ~= name and res.widgets[name] == nil then
+			widgetAliases[name] = w
 		end
 	end
 
@@ -605,12 +478,19 @@ function Build.run(input: Input): (string, { [string]: any })
 			if builtin then
 				return builtin
 			end
-			local declared = typeNames[name]
+			if widgetAliases[name] then
+				return typeNames[widgetAliases[name]]
+			end
+			local declared = typeNames[name] or typeNames["Enum." .. name]
 			if declared then
 				return declared
 			end
-			stats.unresolvedTypes[name] = (stats.unresolvedTypes[name] or 0) + 1
-			return "any"
+			local basic = config.basicTypes[name]
+			if basic then
+				return basic
+			end
+			unresolvedTypes[name] = (unresolvedTypes[name] or 0) + 1
+			return "unknown"
 		end
 		return resolve
 	end
@@ -622,8 +502,7 @@ function Build.run(input: Input): (string, { [string]: any })
 		local scope = {}
 		local names = {}
 		for _, g in sig.generics do
-			-- Declarations (`declare function`, extern methods) cannot be generic: erase to `any`.
-			scope[g] = if erase then "any" else g
+			scope[g] = if erase then "unknown" else g
 			table.insert(names, g)
 		end
 		if erase then
@@ -632,62 +511,7 @@ function Build.run(input: Input): (string, { [string]: any })
 		return scope, "<" .. table.concat(names, ", ") .. ">"
 	end
 
-	-- LuaCATS lets a backtick generic bind a string argument to the class of that name. Luau cannot,
-	-- so `CreateFrame(frameType: `T` | FrameType, ...): T` becomes one overload per FrameType value.
-	local function expandBacktick(sig: Signature): { Signature }
-		for index, p in sig.params do
-			local t = p.type
-			if t.kind == "union" then
-				local tick: string? = nil
-				local aliasName: string? = nil
-				for _, member in t.types do
-					if member.kind == "backtick" then
-						tick = member.name
-					elseif member.kind == "name" and aliases[member.name] then
-						aliasName = member.name
-					end
-				end
-				if tick and aliasName then
-					local out: { Signature } = {}
-					for _, variant in (aliases[aliasName] :: Parse.Alias).variants do
-						if variant.kind == "string" then
-							local className = if classes[variant.value] then variant.value else "Frame"
-							local params = table.clone(sig.params)
-							params[index] = { name = p.name, type = variant, optional = false }
-							for j, other in params do
-								if other.type.kind == "union" then
-									-- Drop the remaining backtick generics (`Tp` | Template -> Template).
-									local kept = {}
-									for _, member in other.type.types do
-										if member.kind ~= "backtick" then
-											table.insert(kept, member)
-										end
-									end
-									params[j] = {
-										name = other.name,
-										type = { kind = "union", types = kept },
-										optional = other.optional,
-									}
-								end
-							end
-							local returnType: Type = { kind = "name", name = className, args = {} }
-							table.insert(out, {
-								params = params,
-								returns = { returnType },
-								generics = {},
-								deprecated = sig.deprecated,
-								doc = sig.doc,
-							})
-						end
-					end
-					return out
-				end
-			end
-		end
-		return { sig }
-	end
-
-	-- A signature with its types already printed; overloads are merged at this level.
+	-- Printed signatures; overloads with one result are merged (see mergeOverloads).
 	type PrintedParam = { name: string, type: string, vararg: boolean }
 	type Printed = { generics: string, params: { PrintedParam }, returns: string }
 
@@ -697,10 +521,10 @@ function Build.run(input: Input): (string, { [string]: any })
 		local params = {}
 		for _, p in sig.params do
 			if p.name == "..." then
-				local text = TypeExpr.printParam(p, resolve, false, false) -- "...T"
+				local text = TypeExpr.printParam(p, resolve, false, false)
 				table.insert(params, { name = "...", type = string.sub(text, 4), vararg = true })
 			else
-				local text = TypeExpr.printParam(p, resolve, true, false) -- "name: T"
+				local text = TypeExpr.printParam(p, resolve, true, false)
 				local colon = string.find(text, ": ", 1, true) :: number
 				table.insert(params, {
 					name = string.sub(text, 1, colon - 1),
@@ -712,7 +536,6 @@ function Build.run(input: Input): (string, { [string]: any })
 		return { generics = genericText, params = params, returns = TypeExpr.printReturns(sig.returns, resolve) }
 	end
 
-	-- The members of a printed union, plus whether it includes nil.
 	local function unionMembers(t: string): ({ string }, boolean)
 		local optional = false
 		if string.sub(t, -1) == "?" then
@@ -728,10 +551,9 @@ function Build.run(input: Input): (string, { [string]: any })
 		return TypeExpr.splitUnion(t), optional
 	end
 
-	-- Luau cannot infer a string literal argument as a singleton when the parameter is overloaded, so
-	-- `SetPoint("CENTER")` against two `point: FramePoint` overloads fails. Overloads that return the
-	-- same thing are therefore merged into one signature, with each position's types unioned (and
-	-- optional when some overload lacks it). Overloads with different results stay overloads.
+	-- Overloads that return the same thing are merged into one signature (each position's types
+	-- unioned, optional when some overload lacks it): Luau infers string literals against a single
+	-- signature, and the new solver rejects large overload sets as too complex.
 	local function mergeOverloads(sigs: { Printed }): { Printed }
 		local groups: { { Printed } } = {}
 		local byKey: { [string]: { Printed } } = {}
@@ -791,23 +613,20 @@ function Build.run(input: Input): (string, { [string]: any })
 		local printed = {}
 		local seen: { [string]: boolean } = {}
 		for _, sig in sigs do
-			for _, e in expandBacktick(sig) do
-				local p = printSig(e, selfName, erase)
-				local parts = {}
-				for _, param in p.params do
-					table.insert(parts, param.name .. ":" .. param.type)
-				end
-				local key = p.generics .. "(" .. table.concat(parts, ",") .. ")" .. p.returns
-				if not seen[key] then
-					seen[key] = true
-					table.insert(printed, p)
-				end
+			local p = printSig(sig, selfName, erase)
+			local parts = {}
+			for _, param in p.params do
+				table.insert(parts, param.name .. ":" .. param.type)
+			end
+			local key = p.generics .. "(" .. table.concat(parts, ",") .. ")" .. p.returns
+			if not seen[key] then
+				seen[key] = true
+				table.insert(printed, p)
 			end
 		end
 		return mergeOverloads(printed)
 	end
 
-	-- `(a: T, ...: V)` for declarations, `(a: T, ...V)` for function types.
 	local function renderParams(p: Printed, selfParam: string?, declaration: boolean): string
 		local parts = {}
 		if selfParam then
@@ -838,60 +657,232 @@ function Build.run(input: Input): (string, { [string]: any })
 		return table.concat(wrapped, " & ")
 	end
 
-	-- Emission --------------------------------------------------------------------------------------
+	-- Reconciling Blizzard's documentation with the annotations, for an API both describe:
+	--   1. Types come from the documentation.
+	--   2. An argument is optional if either source says so: the documentation marks some arguments
+	--      required that the game treats as optional (MessageFrame:AddMessage's colours).
+	--   3. The annotations' extra call shapes (`---@overload`) are kept: the documentation lists one
+	--      signature per function (ScriptRegion:SetPoint(point, x, y) is real).
+	--   4. A documented result typed as a callback (C_Timer.NewTicker's ticker handle) takes the
+	--      annotation's type, which describes the object actually returned.
+	local function reconcile(doc: Signature, ann: { Signature }?): ({ Signature }, string)
+		if ann == nil or #ann == 0 then
+			return { doc }, "docs"
+		end
+		local a = ann[1]
+		local params = {}
+		for i, p in doc.params do
+			local ap = a.params[i]
+			local sameSlot = ap ~= nil and (ap.name == p.name or #a.params == #doc.params)
+			if sameSlot and (ap :: Param).optional and not p.optional then
+				table.insert(params, { name = p.name, type = p.type, optional = true })
+			else
+				table.insert(params, p)
+			end
+		end
+		local returns = {}
+		for i, r in doc.returns do
+			local base: Type = if r.kind == "optional" then r.inner else r
+			if base.kind == "name" and callbacks[base.name] and a.returns[i] then
+				table.insert(returns, a.returns[i])
+			else
+				table.insert(returns, r)
+			end
+		end
+		local out: { Signature } = {
+			{ params = params, returns = returns, generics = {}, deprecated = doc.deprecated, doc = doc.doc },
+		}
+		for i = 2, #ann do
+			table.insert(out, ann[i])
+		end
+		return out, if #ann > 1 then "docs+annotations" else "docs"
+	end
+
+	-- Parameter types that neither source states precisely enough, keyed "Widget:Method" or a function.
+	local function applyOverrides(key: string, p: Printed)
+		local overrides = config.paramTypeOverrides[key]
+		if overrides then
+			for _, param in p.params do
+				local t = overrides[param.name]
+				if t then
+					param.type = if string.sub(param.type, -1) == "?" then TypeExpr.wrap(t) .. "?" else t
+				end
+			end
+		end
+	end
+
+	-- 5. Global functions and values: everything the client has -------------------------------------
+	local root: Node = { kind = "ns", children = {}, sigs = {} }
+	local function nodeAt(path: { string }, upto: number): Node?
+		local node: Node = root
+		for i = 1, upto do
+			local child = node.children[path[i]]
+			if child == nil then
+				child = { kind = "ns", children = {}, sigs = {} } :: Node
+				node.children[path[i]] = child :: Node
+			elseif (child :: Node).kind ~= "ns" then
+				return nil
+			end
+			node = child :: Node
+		end
+		return node
+	end
+
+	local clientFunctions: { [string]: string } = {} -- qualified -> which client list
+	for name in res.frameXml do
+		clientFunctions[name] = "FrameXML"
+	end
+	for name in res.luaApi do
+		clientFunctions[name] = "Lua"
+	end
+	for name in res.globalApi do
+		clientFunctions[name] = "C API"
+	end
+
+	local declaredGlobals: { [string]: boolean } = {}
+	for _, qualified in sortedKeys(clientFunctions) do
+		local path = string.split(qualified, ".")
+		local head = path[1]
+		if not isIdentifierPath(qualified) then
+			cover("functions", qualified, "excluded", nil, "not a Luau identifier path")
+			continue
+		elseif luauGlobals[head] or (#path == 2 and config.stdlibAliases[head] == head) then
+			cover("functions", qualified, "excluded", nil, "provided by Luau's standard library")
+			continue
+		elseif input.reserved[head] then
+			cover("functions", qualified, "typed", "supplements")
+			continue
+		elseif annGlobalClass[head] and #path > 1 then
+			cover("functions", qualified, "excluded", nil, "a method of the mixin " .. head .. " (typed with it)")
+			continue
+		end
+		local sigs: { Signature }
+		local source: string
+		local doc = docs.functions[qualified]
+		local ann = annFunctions[qualified]
+		local alias = annValues[qualified]
+		if doc then
+			sigs, source = reconcile(doc.signature, if ann then withOverloads(ann) else nil)
+		elseif ann then
+			sigs, source = withOverloads(ann), "annotations"
+		elseif alias and string.match(alias, "^[%w_]+%.[%w_]+$") then
+			local tbl, fn = string.match(alias, "^([%w_]+)%.([%w_]+)$")
+			local target = (config.stdlibAliases[tbl :: string] or (tbl :: string)) .. "." .. (fn :: string)
+			local s = stdlib[target]
+			if s then
+				sigs, source = withOverloads(s), "annotations"
+			else
+				-- `tinsert = table.insert`: Luau's own signature is the right one, when Luau has it.
+				if not config.luauStdlib[target] then
+					sigs, source = { UNTYPED_SIGNATURE }, ""
+					local parent = nodeAt(path, #path - 1)
+					if parent and parent.children[path[#path]] == nil then
+						parent.children[path[#path]] = { kind = "func", children = {}, sigs = sigs }
+						declaredGlobals[head] = true
+					end
+					cover("functions", qualified, "untyped", nil, "aliases " .. target .. ", which has no annotation")
+					continue
+				end
+				local parent = nodeAt(path, #path - 1)
+				if parent then
+					parent.children[path[#path]] =
+						{ kind = "value", children = {}, sigs = {}, valueType = "typeof(" .. target .. ")" }
+					cover("functions", qualified, "typed", "luau-stdlib")
+					declaredGlobals[head] = true
+				end
+				continue
+			end
+		else
+			sigs, source = { UNTYPED_SIGNATURE }, ""
+		end
+		local parent = nodeAt(path, #path - 1)
+		if parent == nil or parent.children[path[#path]] ~= nil then
+			cover("functions", qualified, "excluded", nil, "its name clashes with another global")
+			continue
+		end
+		parent.children[path[#path]] = { kind = "func", children = {}, sigs = sigs, doc = nil }
+		declaredGlobals[head] = true
+		if source == "" then
+			cover("functions", qualified, "untyped", nil, "no type source (" .. clientFunctions[qualified] .. ")")
+		else
+			cover("functions", qualified, "typed", source)
+		end
+	end
+	for qualified in annFunctions do
+		if clientFunctions[qualified] == nil and coverage.functions[qualified] == nil then
+			cover("functions", qualified, "excluded", "annotations", "not in the " .. config.gameName .. " client")
+		end
+	end
+	for qualified in docs.functions do
+		if clientFunctions[qualified] == nil and coverage.functions[qualified] == nil then
+			cover("functions", qualified, "excluded", "docs", "documented, but absent from the client's API dump")
+		end
+	end
+
+	-- Named frames, mixins and LuaEnum constants.
+	for _, name in sortedKeys(res.frames) do
+		if
+			root.children[name] == nil
+			and not input.reserved[name]
+			and not luauGlobals[name]
+			and isIdentifierPath(name)
+		then
+			local class = annGlobalClass[name]
+			local typeName = if class then (typeNames[class] or typeNames[widgetAliases[class] or ""]) else nil
+			root.children[name] = { kind = "value", children = {}, sigs = {}, valueType = typeName or "Frame" }
+		end
+	end
+	for _, name in sortedKeys(annGlobalClass) do
+		local class = annGlobalClass[name]
+		if root.children[name] == nil and res.mixins[name] and structs[class] and not input.reserved[name] then
+			root.children[name] = { kind = "value", children = {}, sigs = {}, valueType = typeNames[class] }
+		end
+	end
+	for _, e in res.enums do
+		local enumNode = nodeAt({ "Enum" }, 1) :: Node
+		enumNode.children[e.name] = { kind = "enum", children = {}, sigs = {}, entries = e.entries }
+		cover("enums", "Enum." .. e.name, "typed", "client")
+	end
+	for _, c in res.constants do
+		local constNode = nodeAt({ "Constants" }, 1) :: Node
+		constNode.children[c.name] = { kind = "enum", children = {}, sigs = {}, entries = c.entries }
+	end
+	for _, c in res.globalConstants do
+		if root.children[c.key] == nil and not input.reserved[c.key] then
+			local isNumber = string.match(c.value, "^%-?[%dx%.a-fA-F]+$") ~= nil
+			root.children[c.key] =
+				{ kind = "value", children = {}, sigs = {}, valueType = if isNumber then "number" else "unknown" }
+		end
+	end
+	for qualified, value in annValues do
+		local path = string.split(qualified, ".")
+		if #path == 1 and root.children[qualified] == nil and not luauGlobals[qualified] then
+			if string.match(value, "^%-?[%d%.]+$") or string.match(value, "^math%.pi$") then
+				root.children[qualified] = { kind = "value", children = {}, sigs = {}, valueType = "number" }
+			end
+		end
+	end
+
+	-- 6. Emission ------------------------------------------------------------------------------------
 	local out: { string } = {}
 	local function emit(line: string)
 		table.insert(out, line)
 	end
-
-	emit("-- World of Warcraft: Forever API definitions for luau-lsp.")
+	local up = input.upstream
+	emit("-- World of Warcraft: Forever API definitions for luau-lsp (requires Luau's new type solver).")
 	emit("-- GENERATED FILE: do not edit. Regenerate with `lune run scripts/generate`.")
-	emit("-- Types: the LuaCATS annotations of " .. input.upstream.annotations.repository .. " (MIT licence),")
-	emit("--   commit " .. input.upstream.annotations.commit .. ".")
-	emit("-- Filtered to what the client has: " .. input.upstream.resources.repository .. ",")
-	emit("--   commit " .. input.upstream.resources.commit .. ".")
+	emit("-- Existence: " .. up.resources.repository .. "@" .. up.resources.commit)
+	emit("-- Types:     " .. up.docs.repository .. "@" .. up.docs.commit .. " (Blizzard_APIDocumentationGenerated)")
+	emit("--            " .. up.annotations.repository .. "@" .. up.annotations.commit .. " (MIT licence)")
 	emit("")
-
-	-- Aliases and enum types.
-	local aliasStack: { [string]: boolean } = {}
-	local function aliasType(a: Parse.Alias): string
-		local resolve = makeResolver(nil, nil)
-		local closed = config.closedAliases[a.name] == true or string.match(a.name, config.closedAliasPattern) ~= nil
-		local parts: { string } = {}
-		if a.base then
-			local base = a.base :: Type
-			local isPlainString = base.kind == "name" and base.name == "string"
-			if not (closed and isPlainString and #a.variants > 0) then
-				table.insert(parts, TypeExpr.print(base, resolve))
-			end
-		end
-		for _, v in a.variants do
-			-- An open alias keeps its listed strings as hints only: they widen to `string`.
-			if v.kind == "string" and not closed then
-				table.insert(parts, "string")
-			else
-				table.insert(parts, TypeExpr.print(v, resolve))
-			end
-		end
-		if #parts == 0 then
-			return "any"
-		end
-		local flat = {}
-		for _, p in parts do
-			for _, piece in TypeExpr.splitUnion(p) do
-				table.insert(flat, piece)
-			end
-		end
-		local result = TypeExpr.unionOf(flat)
-		if result == typeNames[a.name] then
-			return "any"
-		end
-		return result
-	end
 
 	-- Luau rejects very long type annotations, so a big union is declared in chunks.
 	local CHUNK = 250
-	local function emitAlias(typeName: string, text: string)
+	local function emitUnion(typeName: string, text: string)
+		if text == "" then
+			emit("export type " .. typeName .. " = never")
+			return
+		end
 		local members = TypeExpr.splitUnion(text)
 		if #members <= CHUNK then
 			emit("export type " .. typeName .. " = " .. text)
@@ -911,225 +902,426 @@ function Build.run(input: Input): (string, { [string]: any })
 		emit("export type " .. typeName .. " = " .. table.concat(chunkNames, " | "))
 	end
 
-	emit("-- Aliases ----------------------------------------------------------------------------------")
-	for _, name in sortedKeys(aliases) do
-		if classes[name] == nil and not aliasStack[name] then
-			emitAlias(typeNames[name], aliasType(aliases[name]))
+	-- Events: the client's names, closed; payloads from Blizzard's documentation.
+	emit("-- Events -------------------------------------------------------------------------------------")
+	local eventLiterals = {}
+	for _, e in res.events do
+		table.insert(eventLiterals, '"' .. e .. '"')
+	end
+	emitUnion("FrameEvent", table.concat(eventLiterals, " | "))
+	emit("-- Each event's payload as a handler type: `EventPayloads.PLAYER_LEVEL_UP` is `(level: number, ...) -> ()`.")
+	emit("export type EventPayloads = {")
+	for _, e in res.events do
+		local d = docs.events[e]
+		local sig: Signature = if d
+			then { params = d.payload, returns = {}, generics = {}, deprecated = false, doc = nil }
+			else {
+				params = { UNTYPED_SIGNATURE.params[1] },
+				returns = {},
+				generics = {},
+				deprecated = false,
+				doc = nil,
+			}
+		local p = printSig(sig, nil, true)
+		emit("\t" .. identifierKey(e) .. ": " .. renderParams(p, nil, false) .. " -> (),")
+		if d then
+			cover("events", e, "typed", "docs")
+		else
+			cover("events", e, "untyped", nil, "no documented payload")
+		end
+	end
+	emit("}")
+	emit('-- The handler type for one event: `local onLevel: EventHandler<"PLAYER_LEVEL_UP"> = function(level) end`.')
+	emit("export type EventHandler<E> = index<EventPayloads, E>")
+	for e in docs.events do
+		if coverage.events[e] == nil then
+			cover("events", e, "excluded", "docs", "documented, but absent from the client's event list")
 		end
 	end
 	emit("")
+
+	-- Aliases.
+	emit("-- Aliases ------------------------------------------------------------------------------------")
+	local function aliasText(a: Parse.Alias): string
+		local resolve = makeResolver(nil, nil)
+		local closed = config.closedAliases[a.name] == true or string.match(a.name, config.closedAliasPattern) ~= nil
+		local parts: { string } = {}
+		if a.base then
+			local base = a.base :: Type
+			local isPlainString = base.kind == "name" and base.name == "string"
+			if not (closed and isPlainString and #a.variants > 0) then
+				table.insert(parts, TypeExpr.print(base, resolve))
+			end
+		end
+		for _, v in a.variants do
+			if v.kind == "string" and not closed then
+				table.insert(parts, "string") -- an open alias's listed strings are hints only
+			else
+				table.insert(parts, TypeExpr.print(v, resolve))
+			end
+		end
+		local flat = {}
+		for _, p in parts do
+			for _, piece in TypeExpr.splitUnion(p) do
+				table.insert(flat, piece)
+			end
+		end
+		local result = if #flat == 0 then "unknown" else TypeExpr.unionOf(flat)
+		if result == typeNames[a.name] then
+			return "unknown"
+		end
+		return result
+	end
+	for _, name in sortedKeys(annAliases) do
+		local shadowed = structs[name]
+			or res.widgets[name]
+			or callbacks[name]
+			or objectTypes[name]
+			or widgetAliases[name]
+		if name ~= "FrameEvent" and typeNames[name] and not shadowed then
+			local a = annAliases[name]
+			if name == "FrameType" then
+				local kept: { Type } = {}
+				for _, v in a.variants do
+					if v.kind == "string" and res.widgets[v.value] then
+						table.insert(kept, v)
+					end
+				end
+				local filtered: Parse.Alias = { name = a.name, base = nil, variants = kept, file = a.file }
+				a = filtered
+			end
+			emitUnion(typeNames[name], aliasText(a))
+		end
+	end
+	for _, alias in sortedKeys(widgetAliases) do
+		if typeNames[alias] == nil then
+			emit("export type " .. alias .. " = " .. typeNames[widgetAliases[alias]])
+		end
+	end
+	for _, name in sortedKeys(callbacks) do
+		if structs[name] or objectTypes[name] then
+			continue
+		end
+		emit("export type " .. typeNames[name] .. " = " .. TypeExpr.print(callbacks[name].type, makeResolver(nil, nil)))
+	end
+	emit("")
+
+	-- Enum value types: the client's enums are numbers.
 	emit("-- Enum value types ---------------------------------------------------------------------------")
-	for _, name in sortedKeys(enumTypes) do
-		if classes[name] == nil and aliases[name] == nil then
-			local e = enumTypes[name]
-			local allStrings = #e.entries > 0
-			local literals = {}
-			for _, entry in e.entries do
-				if string.match(entry.value, "^[\"']") then
-					table.insert(literals, '"' .. string.sub(entry.value, 2, -2) .. '"')
-				else
-					allStrings = false
+	for _, e in res.enums do
+		emit("export type " .. typeNames["Enum." .. e.name] .. " = number")
+	end
+	emit("")
+
+	-- Structures and mixins, derived from one another where one's fields are a subset of another's.
+	emit("-- Structures and mixins ----------------------------------------------------------------------")
+	type FieldText = { key: string, text: string }
+	local function fieldTexts(s: Struct): { FieldText }
+		local resolve = makeResolver(nil, typeNames[s.name])
+		local list: { FieldText } = {}
+		local seen: { [string]: boolean } = {}
+		local indexer = false
+		for _, f in s.fields do
+			if seen[f.name] then
+				continue
+			end
+			seen[f.name] = true
+			local t = TypeExpr.print(f.type, resolve)
+			if f.optional and string.sub(t, -1) ~= "?" and t ~= "unknown" and t ~= "any" then
+				t = TypeExpr.wrap(t) .. "?"
+			end
+			if string.sub(f.name, 1, 1) == "[" then
+				if not indexer then
+					indexer = true
+					local keyType = TypeExpr.parse(string.sub(f.name, 2, -2))
+					local key = if keyType then TypeExpr.print(keyType, resolve) else "unknown"
+					table.insert(list, { key = "[" .. key .. "]", text = "[" .. key .. "]: " .. t })
+				end
+			else
+				table.insert(list, { key = f.name, text = identifierKey(f.name) .. ": " .. t })
+			end
+		end
+		for _, m in sortedKeys(s.methods) do
+			if not seen[m] then
+				seen[m] = true
+				local selfType = "self: " .. typeNames[s.name]
+				table.insert(list, {
+					key = m,
+					text = identifierKey(m) .. ": " .. overloadSet(s.methods[m], selfType, typeNames[s.name]),
+				})
+			end
+		end
+		table.sort(list, function(a: FieldText, b: FieldText): boolean
+			return a.key < b.key
+		end)
+		return list
+	end
+	local structFields: { [string]: { FieldText } } = {}
+	for name, s in structs do
+		structFields[name] = fieldTexts(s)
+	end
+	-- For each documented structure, the largest other documented structure whose fields it contains.
+	local function subsetOf(small: { FieldText }, big: { FieldText }): boolean
+		local set: { [string]: boolean } = {}
+		for _, f in big do
+			set[f.text] = true
+		end
+		for _, f in small do
+			if not set[f.text] then
+				return false
+			end
+		end
+		return true
+	end
+	local derivedFrom: { [string]: string } = {}
+	local docNames = {}
+	for _, name in sortedKeys(structs) do
+		if structs[name].source == "docs" and #structFields[name] >= config.derivedMinFields then
+			table.insert(docNames, name)
+		end
+	end
+	for _, b in docNames do
+		local best: string? = nil
+		for _, a in docNames do
+			if a ~= b and #structFields[a] <= #structFields[b] and subsetOf(structFields[a], structFields[b]) then
+				-- Equal shapes: the alphabetically first is the base; never derive from a later twin.
+				local equal = #structFields[a] == #structFields[b]
+				if not (equal and a > b) and derivedFrom[a] ~= b then
+					if best == nil or #structFields[a] > #structFields[best :: string] then
+						best = a
+					end
 				end
 			end
-			emitAlias(typeNames[name], if allStrings then TypeExpr.unionOf(literals) else "number")
 		end
+		if best then
+			derivedFrom[b] = best
+		end
+	end
+	for _, name in sortedKeys(structs) do
+		local s = structs[name]
+		local typeName = typeNames[name]
+		local fields = structFields[name]
+		local base = derivedFrom[name]
+		local parents: { string } = {}
+		if base then
+			table.insert(parents, typeNames[base])
+		else
+			for _, p in s.parents do
+				local resolved = if structs[p]
+					then typeNames[p]
+					elseif widgetAliases[p] or res.widgets[p] then typeNames[widgetAliases[p] or p]
+					else nil
+				if resolved then
+					table.insert(parents, resolved)
+				end
+			end
+		end
+		local own = fields
+		if base then
+			own = {}
+			local inherited: { [string]: boolean } = {}
+			for _, f in structFields[base] do
+				inherited[f.text] = true
+			end
+			for _, f in fields do
+				if not inherited[f.text] then
+					table.insert(own, f)
+				end
+			end
+		end
+		local body: string
+		if #own == 0 then
+			body = if #parents > 0 then "" else "{}"
+		else
+			local lines = {}
+			for _, f in own do
+				table.insert(lines, "\t" .. f.text .. ",")
+			end
+			body = "{\n" .. table.concat(lines, "\n") .. "\n}"
+		end
+		local parts = table.clone(parents)
+		if body ~= "" then
+			table.insert(parts, body)
+		end
+		emit("export type " .. typeName .. " = " .. table.concat(parts, " & "))
+		cover(
+			"structures",
+			name,
+			"typed",
+			s.source,
+			if base then "derived: " .. base .. " & { " .. #own .. " more fields }" else nil
+		)
 	end
 	emit("")
 
-	-- Collect every member of a class, own members first, then ancestors (stopping at `stopAt`).
-	local function collectMembers(
-		name: string,
-		stopAt: { [string]: boolean },
-		into: { Member },
-		seen: { [string]: boolean },
-		visited: { [string]: boolean }
-	)
-		if visited[name] or stopAt[name] then
-			return
-		end
-		visited[name] = true
-		local c = classes[name]
-		if c == nil then
-			return
-		end
-		for _, memberName in c.order do
-			if not seen[memberName] then
-				seen[memberName] = true
-				table.insert(into, c.members[memberName])
+	-- Widgets, parents first.
+	emit("-- Widgets (the client's own hierarchy) ---------------------------------------------------------")
+	local scriptTypes: { [string]: string } = {}
+	for _, w in sortedKeys(res.widgets) do
+		local handlers = allHandlers(w)
+		if #handlers > 0 then
+			local literals = {}
+			for _, h in handlers do
+				table.insert(literals, '"' .. h .. '"')
 			end
-		end
-		for _, p in c.parents do
-			collectMembers(p, stopAt, into, seen, visited)
+			scriptTypes[w] = typeNames[w] .. "ScriptType"
+			emit("export type " .. scriptTypes[w] .. " = " .. table.concat(literals, " | "))
 		end
 	end
-
-	local function chainOf(name: string): { [string]: boolean }
-		local chain = {}
-		local cursor: string? = name
-		while cursor and not chain[cursor] do
-			chain[cursor] = true
-			local c = classes[cursor]
-			local nextName: string? = nil
-			if c then
-				for _, p in c.parents do
-					if classes[p] and classes[p].extern then
-						nextName = p
+	local emitted: { [string]: boolean } = {}
+	local function emitWidget(w: string)
+		if emitted[w] then
+			return
+		end
+		emitted[w] = true
+		local parents = widgetParents[w]
+		local primary = parents[1]
+		if primary then
+			emitWidget(primary)
+		end
+		local typeName = typeNames[w]
+		emit(
+			"declare extern type " .. typeName .. (if primary then " extends " .. typeNames[primary] else "") .. " with"
+		)
+		-- Own methods, plus those of secondary parents (ScriptObject, FontInstance) the extends chain lacks.
+		local inherited = if primary then allMethods(primary) else {}
+		local names: { [string]: boolean } = table.clone(res.widgets[w].methods)
+		for i = 2, #parents do
+			for m in allMethods(parents[i]) do
+				if not inherited[m] then
+					names[m] = true
+				end
+			end
+		end
+		-- Script methods are re-declared on every widget so the script names are that widget's own.
+		if scriptTypes[w] then
+			for m in config.scriptMethods do
+				if allMethods(w)[m] then
+					names[m] = true
+				end
+			end
+		end
+		for _, m in sortedKeys(names) do
+			local sigs: { Signature }?
+			local source = ""
+			local d = (docWidgetMethods[w] or {})[m]
+			if d == nil then
+				for _, a in ancestors(w) do
+					d = (docWidgetMethods[a] or {})[m]
+					if d then
 						break
 					end
 				end
 			end
-			cursor = nextName
-		end
-		return chain
-	end
-
-	local function externParent(c: ClassInfo): string?
-		for _, p in c.parents do
-			if classes[p] and classes[p].extern then
-				return p
-			end
-		end
-		return nil
-	end
-
-	-- Table classes.
-	emit("-- Structures and mixins ---------------------------------------------------------------------")
-	for _, name in sortedKeys(classes) do
-		local c = classes[name]
-		if not c.extern then
-			local typeName = typeNames[name]
-			local members: { Member } = {}
-			collectMembers(name, {}, members, {}, {})
-			if #members == 0 then
-				emit("export type " .. typeName .. " = { [any]: any }")
+			if d then
+				sigs, source = reconcile(d.signature, annotatedMethod(w, m))
 			else
-				emit("export type " .. typeName .. " = {")
-				table.sort(members, function(a, b)
-					return a.name < b.name
-				end)
-				local indexer: string? = nil
-				for _, m in members do
-					if m.kind == "field" then
-						local resolve = makeResolver(nil, typeName)
-						local t = TypeExpr.print(m.type, resolve)
-						if m.optional and t ~= "any" and string.sub(t, -1) ~= "?" then
-							t = TypeExpr.wrap(t) .. "?"
-						end
-						if string.sub(m.name, 1, 1) == "[" then
-							local keyType = TypeExpr.parse(string.sub(m.name, 2, -2))
-							if indexer == nil and keyType then
-								indexer = "\t[" .. TypeExpr.print(keyType, resolve) .. "]: " .. t .. ","
-							end
-						else
-							emit("\t" .. identifierKey(m.name) .. ": " .. t .. ",")
-						end
-					else
-						local selfType = if m.kind == "method" then "self: " .. typeName else nil
-						emit(
-							"\t"
-								.. identifierKey(m.name)
-								.. ": "
-								.. overloadSet((m :: any).sigs, selfType, typeName)
-								.. ","
-						)
+				local a = annotatedMethod(w, m)
+				if a then
+					sigs, source = a, "annotations"
+				end
+			end
+			local printed = if sigs
+				then printSigs(sigs, typeName, true)
+				else { printSig(UNTYPED_SIGNATURE, typeName, true) }
+			if config.scriptMethods[m] and scriptTypes[w] and sigs == nil then
+				-- No source types this script method: its shape is known, so it is written out.
+				local handler = "((self: " .. typeName .. ", ...any) -> ())?"
+				local scriptParam = { name = "scriptType", type = scriptTypes[w], vararg = false }
+				local shapes: { [string]: Printed } = {
+					GetScript = { generics = "", params = { scriptParam }, returns = handler },
+					HasScript = { generics = "", params = { scriptParam }, returns = "boolean" },
+					HookScript = {
+						generics = "",
+						params = { scriptParam, { name = "handler", type = handler, vararg = false } },
+						returns = "()",
+					},
+					SetScript = {
+						generics = "",
+						params = { scriptParam, { name = "handler", type = handler, vararg = false } },
+						returns = "()",
+					},
+				}
+				printed = { shapes[m] }
+				source = "generator"
+			end
+			for _, p in printed do
+				applyOverrides(w .. ":" .. m, p)
+				if config.scriptMethods[m] and scriptTypes[w] then
+					-- The script name is this widget's closed set; handlers receive the widget.
+					local handler = "((self: " .. typeName .. ", ...any) -> ())?"
+					if p.params[1] then
+						p.params[1].type = scriptTypes[w]
+					end
+					if p.params[2] and (m == "SetScript" or m == "HookScript") then
+						p.params[2].type = handler
+					end
+					if m == "GetScript" then
+						p.returns = handler
 					end
 				end
-				if indexer then
-					emit(indexer)
-				end
-				emit("}")
+				emit("\tfunction " .. m .. renderParams(p, "self", true) .. ": " .. p.returns)
 			end
-		end
-	end
-	emit("")
-
-	-- Extern (widget) classes, parents before children.
-	emit("-- Widgets ------------------------------------------------------------------------------------")
-	local emitted: { [string]: boolean } = {}
-	local function emitExtern(name: string)
-		if emitted[name] then
-			return
-		end
-		emitted[name] = true
-		local c = classes[name]
-		local parent = externParent(c)
-		if parent then
-			emitExtern(parent)
-		end
-		local typeName = typeNames[name]
-		if c.doc then
-			emit("-- " .. c.doc)
-		end
-		if parent then
-			emit("declare extern type " .. typeName .. " extends " .. typeNames[parent] .. " with")
-		else
-			emit("declare extern type " .. typeName .. " with")
-		end
-		local members: { Member } = {}
-		local stop = if parent then chainOf(parent) else {}
-		collectMembers(name, stop, members, {}, {})
-		local allowed = clientWidgetMethods(name)
-		if allowed then
-			local kept = {}
-			for _, m in members do
-				if m.kind == "field" or (allowed :: { [string]: boolean })[m.name] then
-					table.insert(kept, m)
+			do
+				local key = w .. ":" .. m
+				if source == "" then
+					cover("widgetMethods", key, "untyped", nil, "no type source")
 				else
-					stats.droppedWidgetMethods += 1
+					cover("widgetMethods", key, "typed", source)
 				end
-			end
-			members = kept
-		end
-		table.sort(members, function(a, b)
-			return a.name < b.name
-		end)
-		for _, m in members do
-			if m.kind == "field" then
-				if string.sub(m.name, 1, 1) ~= "[" then
-					local t = TypeExpr.print(m.type, makeResolver(nil, typeName))
-					if m.optional and t ~= "any" and string.sub(t, -1) ~= "?" then
-						t = TypeExpr.wrap(t) .. "?"
-					end
-					emit("\t" .. identifierKey(m.name) .. ": " .. t)
-				end
-			elseif m.kind == "method" then
-				for _, p in printSigs((m :: any).sigs, typeName, true) do
-					emit("\tfunction " .. m.name .. renderParams(p, "self", true) .. ": " .. p.returns)
-				end
-			else
-				emit("\t" .. identifierKey(m.name) .. ": " .. overloadSet((m :: any).sigs, nil, typeName))
 			end
 		end
 		emit("end")
 		emit("")
+		cover("widgets", w, "typed", "client", if primary then "extends " .. primary else nil)
 	end
-	for _, name in sortedKeys(classes) do
-		if classes[name].extern then
-			emitExtern(name)
-		end
+	for _, w in sortedKeys(res.widgets) do
+		emitWidget(w)
 	end
 
+	-- Documented script objects that are not widgets (curves, durations, formatters).
+	emit("-- Script objects -----------------------------------------------------------------------------")
+	for _, name in sortedKeys(objectTypes) do
+		emit("declare extern type " .. typeNames[name] .. " with")
+		local methods = objectTypes[name]
+		for _, m in sortedKeys(methods) do
+			for _, p in printSigs({ methods[m].signature }, typeNames[name], true) do
+				emit("\tfunction " .. m .. renderParams(p, "self", true) .. ": " .. p.returns)
+			end
+			cover("widgetMethods", name .. ":" .. m, "typed", "docs")
+		end
+		emit("end")
+		emit("")
+	end
+
+	-- CreateFrame: the frame type picks the returned widget.
+	local frameTypes = {}
+	local frameTypeAlias = annAliases.FrameType
+	if frameTypeAlias then
+		for _, v in frameTypeAlias.variants do
+			if v.kind == "string" and res.widgets[v.value] then
+				table.insert(frameTypes, "\t" .. v.value .. ": " .. typeNames[v.value] .. ",")
+			end
+		end
+	end
+	table.sort(frameTypes)
+	emit("-- The widget CreateFrame returns for each frame type.")
+	emit("export type FrameTypeMap = {")
+	for _, line in frameTypes do
+		emit(line)
+	end
+	emit("}")
+	emit("")
+
 	-- Globals.
+	emit("-- Globals ------------------------------------------------------------------------------------")
+	local counts = { functions = 0, tables = 0, values = 0 }
 	local function valueType(node: Node): string
 		if node.kind == "func" then
 			return overloadSet(node.sigs, nil, nil)
-		elseif node.kind == "instance" then
-			return typeNames[node.class :: string] or "any"
-		elseif node.kind == "value" then
-			local v = node.valueType :: string
-			if startsWith(v, "@stdlib:") then
-				local target = string.sub(v, 9)
-				local f = stdlib[target]
-				if f then
-					return overloadSet(withOverloads(f), nil, nil)
-				end
-				return "typeof(" .. target .. ")"
-			end
-			return v
 		end
-		return "any"
+		return node.valueType or "unknown"
 	end
-
 	local function emitTable(node: Node, indent: string)
 		for _, key in sortedKeys(node.children) do
 			local child = node.children[key]
@@ -1138,13 +1330,16 @@ function Build.run(input: Input): (string, { [string]: any })
 				emitTable(child, indent .. "\t")
 				emit(indent .. "},")
 			elseif child.kind == "enum" then
-				local e = child.enum :: Parse.EnumDecl
 				emit(indent .. identifierKey(key) .. ": {")
 				local seen = {}
-				for _, entry in e.entries do
+				for _, entry in child.entries or {} do
 					if not seen[entry.key] then
 						seen[entry.key] = true
-						local t = if string.match(entry.value, "^[\"']") then "string" else "number"
+						local v = entry.value
+						local t = if string.match(v, "^[\"']")
+							then "string"
+							elseif v == "true" or v == "false" then "boolean"
+							else "number"
 						emit(indent .. "\t" .. identifierKey(entry.key) .. ": " .. t .. ",")
 					end
 				end
@@ -1154,16 +1349,19 @@ function Build.run(input: Input): (string, { [string]: any })
 			end
 		end
 	end
-
-	emit("-- Globals ------------------------------------------------------------------------------------")
-	local counts = { functions = 0, namespaces = 0, values = 0 }
+	if root.children.CreateFrame then
+		root.children.CreateFrame = nil
+		emit(
+			"declare function CreateFrame<K>(frameType: K & keyof<FrameTypeMap>, name: string?, parent: Frame?, "
+				.. "template: string?, id: number?): index<FrameTypeMap, K>"
+		)
+		counts.functions += 1
+		cover("functions", "CreateFrame", "typed", "generator", "generic over FrameTypeMap")
+	end
 	for _, key in sortedKeys(root.children) do
 		local node = root.children[key]
 		if node.kind == "func" then
 			counts.functions += 1
-			if node.doc then
-				emit("-- " .. node.doc)
-			end
 			local printed = printSigs(node.sigs, nil, false)
 			if #printed == 1 and printed[1].generics == "" then
 				emit("declare function " .. key .. renderParams(printed[1], nil, true) .. ": " .. printed[1].returns)
@@ -1171,13 +1369,9 @@ function Build.run(input: Input): (string, { [string]: any })
 				emit("declare " .. key .. ": " .. overloadSet(node.sigs, nil, nil))
 			end
 		elseif node.kind == "ns" or node.kind == "enum" then
-			counts.namespaces += 1
+			counts.tables += 1
 			emit("declare " .. key .. ": {")
-			if node.kind == "enum" then
-				emitTable({ kind = "ns", children = { [key] = node }, sigs = {} }, "\t")
-			else
-				emitTable(node, "\t")
-			end
+			emitTable(node, "\t")
 			emit("}")
 		else
 			counts.values += 1
@@ -1186,61 +1380,51 @@ function Build.run(input: Input): (string, { [string]: any })
 	end
 	emit("")
 
-	local externCount, tableCount = 0, 0
-	for _, c in classes do
-		if c.extern then
-			externCount += 1
-		else
-			tableCount += 1
+	-- Report ----------------------------------------------------------------------------------------
+	local summary: { [string]: { [string]: number } } = {}
+	for category, entries in coverage do
+		local s = { typed = 0, untyped = 0, excluded = 0 }
+		for _, e in entries do
+			s[e.status] = (s[e.status] or 0) + 1
+		end
+		summary[category] = s
+	end
+	-- Functions by the client list they come from (C API, Lua library, FrameXML).
+	local byList: { [string]: { [string]: number } } = {}
+	for qualified, list in clientFunctions do
+		local e = coverage.functions[qualified]
+		if e then
+			local s = byList[list] or { typed = 0, untyped = 0, excluded = 0 }
+			s[e.status] = (s[e.status] or 0) + 1
+			byList[list] = s
 		end
 	end
-
 	local unresolved = {}
-	for _, name in sortedKeys(stats.unresolvedTypes) do
-		table.insert(unresolved, { name = name, uses = stats.unresolvedTypes[name] })
+	for _, name in sortedKeys(unresolvedTypes) do
+		table.insert(unresolved, { name = name, uses = unresolvedTypes[name] })
 	end
-
-	-- Every function in the global tree, top-level and namespaced (C_Timer.After).
-	local function countFunctions(node: Node): number
-		local n = 0
-		for _, child in node.children do
-			if child.kind == "func" then
-				n += 1
-			elseif child.kind == "ns" then
-				n += countFunctions(child)
-			end
-		end
-		return n
-	end
-	local allFunctions = countFunctions(root)
-
+	local text = table.concat(out, "\n")
+	local _, anyCount = string.gsub(text, "%f[%w_]any%f[^%w_]", "")
 	local report = {
 		upstream = input.upstream,
 		game = config.gameName,
+		summary = summary,
+		functionsByClientList = byList,
 		counts = {
-			files = #input.files,
-			widgets = externCount,
-			structures = tableCount,
-			aliases = #sortedKeys(aliases),
-			enums = #sortedKeys(enumTypes),
-			functionsTyped = allFunctions - #untyped,
-			functionsUntyped = #untyped,
+			annotationFiles = #input.files,
 			globalFunctions = counts.functions,
-			globalTables = counts.namespaces,
+			globalTables = counts.tables,
 			globalValues = counts.values,
-			droppedNotInClient = stats.droppedNotInClient,
-			droppedWidgetMethods = stats.droppedWidgetMethods,
-			duplicateFunctions = stats.duplicateFunctions,
+			structures = #sortedKeys(structs),
+			derivedStructures = #sortedKeys(derivedFrom),
+			widgets = #sortedKeys(res.widgets),
+			scriptObjects = #sortedKeys(objectTypes),
+			anyOccurrences = anyCount,
 		},
-		droppedApis = (function()
-			table.sort(stats.droppedApis)
-			return stats.droppedApis
-		end)(),
-		parseErrors = stats.parseErrors,
+		parseErrors = parseErrors,
 		unresolvedTypes = unresolved,
-		untypedApis = untyped,
 	}
-	return table.concat(out, "\n"), report
+	return text, report, coverage
 end
 
 return Build
