@@ -1,0 +1,6 @@
+$schema: "../cache/schemas/tasks.json"
+
+# Inherited by every project: a tool bump (mise.toml / mise.lock) invalidates every cached task result.
+implicitInputs:
+  - "/mise.toml"
+  - "/mise.lock"

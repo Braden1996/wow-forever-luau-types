@@ -1,19 +1,19 @@
 {
-  "enums": [],
+  "enums": {},
   "events": {
     "PLAYER_LOGIN": {
-      "reason": "no documented payload",
+      "note": "no documented payload",
       "status": "untyped"
     }
   },
   "functions": {
     "CreateFrame": {
-      "reason": "generic over FrameTypeMap",
+      "note": "generic over FrameTypeMap",
       "source": "generator",
       "status": "typed"
     }
   },
-  "structures": [],
+  "structures": {},
   "widgetMethods": {
     "Button:GetScript": {
       "source": "generator",
@@ -56,7 +56,7 @@
       "status": "typed"
     },
     "Frame:Undocumented": {
-      "reason": "no type source",
+      "note": "no type source",
       "status": "untyped"
     },
     "FrameScriptObject:GetName": {
@@ -64,7 +64,7 @@
       "status": "typed"
     },
     "Object:GetParent": {
-      "reason": "no type source",
+      "note": "no type source",
       "status": "untyped"
     },
     "Region:GetScript": {
@@ -88,15 +88,15 @@
       "status": "typed"
     },
     "ScriptObject:GetScript": {
-      "reason": "no type source",
+      "note": "no type source",
       "status": "untyped"
     },
     "ScriptObject:HasScript": {
-      "reason": "no type source",
+      "note": "no type source",
       "status": "untyped"
     },
     "ScriptObject:HookScript": {
-      "reason": "no type source",
+      "note": "no type source",
       "status": "untyped"
     },
     "ScriptObject:SetScript": {
@@ -124,18 +124,18 @@
       "status": "typed"
     },
     "ScriptRegion:Show": {
-      "reason": "no type source",
+      "note": "no type source",
       "status": "untyped"
     }
   },
   "widgets": {
     "Button": {
-      "reason": "extends Frame",
+      "note": "extends Frame",
       "source": "client",
       "status": "typed"
     },
     "Frame": {
-      "reason": "extends ScriptRegion",
+      "note": "extends ScriptRegion",
       "source": "client",
       "status": "typed"
     },
@@ -144,12 +144,12 @@
       "status": "typed"
     },
     "Object": {
-      "reason": "extends FrameScriptObject",
+      "note": "extends FrameScriptObject",
       "source": "client",
       "status": "typed"
     },
     "Region": {
-      "reason": "extends ScriptRegion",
+      "note": "extends ScriptRegion",
       "source": "client",
       "status": "typed"
     },
@@ -158,7 +158,7 @@
       "status": "typed"
     },
     "ScriptRegion": {
-      "reason": "extends Object",
+      "note": "extends Object",
       "source": "client",
       "status": "typed"
     }

@@ -11,7 +11,7 @@
       "status": "typed"
     },
     "DEMO_UNDOCUMENTED": {
-      "reason": "no documented payload",
+      "note": "no documented payload",
       "status": "untyped"
     },
     "DEMO_UPDATED": {
@@ -33,7 +33,7 @@
       "status": "typed"
     },
     "C_Demo.Undocumented": {
-      "reason": "no type source (C API)",
+      "note": "no type source (C API)",
       "status": "untyped"
     }
   },
@@ -43,11 +43,11 @@
       "status": "typed"
     },
     "DemoInfoExtended": {
-      "reason": "derived: DemoInfo & { 1 more fields }",
+      "note": "derived: DemoInfo & { 1 more fields }",
       "source": "docs",
       "status": "typed"
     }
   },
-  "widgetMethods": [],
-  "widgets": []
+  "widgetMethods": {},
+  "widgets": {}
 }

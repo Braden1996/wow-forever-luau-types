@@ -1,0 +1,29 @@
+# Type-checks and builds the addon on every push and pull request, with the tools pinned in mise.toml (checksums
+# in mise.lock). Actions are pinned by commit SHA.
+name: check
+
+on:
+  pull_request: {}
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+        with:
+          cache: true
+      - name: download the definitions
+        run: mise run types
+      - name: type-check, lint and format check
+        run: mise run check
+      - name: build to Lua 5.1
+        run: mise run build

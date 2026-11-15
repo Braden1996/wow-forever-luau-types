@@ -13,25 +13,19 @@ local process = require("@lune/process")
 local ApiDocs = require("../generator/apidocs")
 local Build = require("../generator/build")
 local Resources = require("../generator/resources")
+local TextFile = require("../generator/textfile")
 local config = require("../generator/config")
 local json = require("../generator/json")
 
 local update = table.find(process.args, "--update") ~= nil
 local ROOT = "tests/snapshots"
+local PROBE_DIR = ".upstream/snapshot-probes" -- ignored by git, like the upstream cache
 
 local function readDir(dir: string): { { name: string, source: string } }
-	local out = {}
 	if not fs.isDir(dir) then
-		return out
+		return {}
 	end
-	local entries = fs.readDir(dir)
-	table.sort(entries)
-	for _, entry in entries do
-		if string.match(entry, "%.lua$") then
-			table.insert(out, { name = entry, source = (string.gsub(fs.readFile(dir .. "/" .. entry), "\r\n", "\n")) })
-		end
-	end
-	return out
+	return TextFile.readAll(dir, "%.lua$")
 end
 
 local PIN = { repository = "example/snapshot", commit = string.rep("0", 40) }
@@ -58,7 +52,7 @@ for _, case in cases do
 		resources = Resources.parse(client),
 		reserved = {},
 		upstream = { annotations = PIN, docs = PIN, resources = PIN },
-		config = config :: any,
+		config = config,
 	})
 	local outputs: { [string]: string } = {
 		["expected.d.luau"] = definitions .. "\n",
@@ -70,15 +64,17 @@ for _, case in cases do
 		if update then
 			fs.writeFile(path, actual)
 		else
-			local expected = if fs.isFile(path) then string.gsub(fs.readFile(path), "\r\n", "\n") else nil
+			local expected = if fs.isFile(path) then TextFile.read(path) else nil
 			if expected ~= actual then
 				ok = false
 				print("FAIL " .. path .. " differs. Actual:\n" .. actual)
 			end
 		end
 	end
-	-- The expected definitions must be valid for luau-lsp.
-	local probe = dir .. "/probe.luau"
+	-- The expected definitions must be valid for luau-lsp. The probe lives in the ignored .upstream/ cache,
+	-- never in the tracked case folders; stdin is empty so luau-lsp cannot wait on the caller's console.
+	fs.writeDir(PROBE_DIR)
+	local probe = PROBE_DIR .. "/" .. case .. ".luau"
 	fs.writeFile(probe, "--!strict\nlocal _ = 1\n")
 	local result = process.exec("luau-lsp", {
 		"analyze",
@@ -86,7 +82,7 @@ for _, case in cases do
 		"--flag:LuauSolverV2=true",
 		"--definitions=@case=" .. dir .. "/expected.d.luau",
 		probe,
-	})
+	}, { stdin = "" })
 	fs.removeFile(probe)
 	local output = result.stdout .. result.stderr
 	if string.find(output, "Failed to read definitions file", 1, true) or not result.ok then

@@ -1,0 +1,7 @@
+5:13: TypeError: Unknown global 'os'; consider assigning to it first
+6:17: TypeError: Unknown global 'buffer'; consider assigning to it first
+7:15: TypeError: Unknown global 'utf8'; consider assigning to it first
+10:17: TypeError: Unknown global 'typeof'; consider assigning to it first
+11:15: TypeError: Key 'pack' not found in table 'typeof(string)'
+12:15: TypeError: Key 'find' not found in table 'typeof(table)'
+13:14: TypeError: Key 'tau' not found in table 'typeof(math)'

@@ -1,0 +1,32 @@
+name: Wrong type
+description: A documented API (a C_ function, widget method, event payload or structure) has the wrong type.
+labels: [types]
+body:
+  - type: input
+    id: api
+    attributes:
+      label: API
+      placeholder: C_QuestLog.GetInfo
+    validations:
+      required: true
+  - type: textarea
+    id: declared
+    attributes:
+      label: What wow-forever.d.luau declares
+      render: luau
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What the game actually does
+      description: "Evidence: a /dump from the game, a warcraft.wiki.gg page, or FrameXML code that uses it."
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Definitions version
+      placeholder: vX.Y.Z
+    validations:
+      required: true

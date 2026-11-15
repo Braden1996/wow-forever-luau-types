@@ -1,6 +1,8 @@
 --!strict
 -- Compares definitions/coverage.json against a base version of it:
---   lune run scripts/coverage-diff -- <base coverage.json> [current coverage.json]
+--   lune run scripts/coverage-diff                         base: definitions/coverage.json at the git ref
+--                                                           $COVERAGE_BASE (default origin/main)
+--   lune run scripts/coverage-diff -- <base.json> [current.json]
 -- Fails if an API that the base typed is untyped now (a coverage regression). APIs that left the
 -- client, newly typed APIs and new untyped APIs are reported, not failed. Writes a Markdown summary
 -- to $GITHUB_STEP_SUMMARY when set.
@@ -11,7 +13,7 @@ local serde = require("@lune/serde")
 
 local config = require("../generator/config")
 
-type Entry = { status: string, source: string?, reason: string? }
+type Entry = { status: string, source: string?, note: string? }
 type Coverage = { [string]: { [string]: Entry } }
 
 local args: { string } = {}
@@ -20,19 +22,48 @@ for _, a in process.args do
 		table.insert(args, a)
 	end
 end
-local basePath = args[1]
 local currentPath = args[2] or config.coverage
-if basePath == nil then
-	print("usage: lune run scripts/coverage-diff -- <base coverage.json>")
-	process.exit(2)
+local current = serde.decode("json", fs.readFile(currentPath)) :: Coverage
+
+local function fail(message: string): never
+	print("coverage-diff: " .. message)
+	process.exit(1)
+	error(message) -- unreachable: process.exit does not return
 end
 
-local current = serde.decode("json", fs.readFile(currentPath)) :: Coverage
-if not fs.isFile(basePath :: string) then
-	print("No base coverage at " .. (basePath :: string) .. "; nothing to compare.")
-	process.exit(0)
+local function git(gitArgs: { string }): (boolean, string)
+	local result = process.exec("git", gitArgs, { stdin = "" })
+	return result.ok, result.stdout
 end
-local base = serde.decode("json", fs.readFile(basePath :: string)) :: Coverage
+
+-- The base coverage: a file given on the command line (it must exist), or the committed file at a git ref.
+-- A ref that does not resolve is an error when the base was asked for ($COVERAGE_BASE) or in CI, where a
+-- shallow clone would otherwise skip the comparison silently; locally, without origin/main, it is skipped.
+-- A ref that resolves but predates the coverage file is the one case with nothing to compare.
+local baseText: string
+if args[1] then
+	if not fs.isFile(args[1]) then
+		fail("base file " .. args[1] .. " does not exist")
+	end
+	baseText = fs.readFile(args[1])
+else
+	local ref = process.env.COVERAGE_BASE or "origin/main"
+	local required = process.env.COVERAGE_BASE ~= nil or process.env.CI ~= nil
+	if not git({ "rev-parse", "--verify", "--quiet", ref .. "^{commit}" }) then
+		if required then
+			fail("base ref " .. ref .. " does not resolve to a commit (fetch it, or set COVERAGE_BASE)")
+		end
+		print("No base ref " .. ref .. " here; nothing to compare.")
+		process.exit(0)
+	end
+	local ok, shown = git({ "show", ref .. ":" .. config.coverage })
+	if not ok then
+		print(ref .. " has no " .. config.coverage .. "; nothing to compare.")
+		process.exit(0)
+	end
+	baseText = shown
+end
+local base = serde.decode("json", baseText) :: Coverage
 
 local function sortedKeys<V>(t: { [string]: V }): { string }
 	local keys = {}

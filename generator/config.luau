@@ -1,18 +1,27 @@
 --!strict
--- What the generator reads from upstream and how it maps it. Changing this file changes the output:
--- run `lune run scripts/generate` and commit the regenerated definitions with it.
+-- What the generator reads from upstream and how it maps it. Changing this file (or generator/rules/)
+-- changes the output: run `moon run generator:generate` and commit the regenerated files with it.
 
-return {
-	-- Output file, relative to the repository root.
+local stdlib = require("./rules/stdlib")
+local types = require("./rules/types")
+local widgets = require("./rules/widgets")
+
+local config = {
+	-- Output files, relative to the repository root.
 	output = "definitions/wow-forever.d.luau",
 	report = "definitions/report.json",
+	-- luau-lsp settings that disable the Luau standard-library globals and members the client lacks
+	-- (`luau-lsp.types.disabledGlobals`); editors and `luau-lsp analyze --settings` load it with the definitions.
+	settings = "definitions/luau-lsp.settings.json",
+	-- The same settings, copied into the addon template (its `check` task passes them to luau-lsp).
+	templateSettings = "templates/addon/luau-lsp.settings.json",
 
 	-- Hand-written declarations appended to the output, for globals neither upstream types nor lists
 	-- (FrameXML tables such as SlashCmdList). Keep them small and say why each exists.
-	supplements = { "supplements/framexml.d.luau" },
+	supplements = { "supplements/framexml.d.luau" } :: { string },
 
 	-- Per-API coverage (every function, widget method, event, structure, enum and widget: typed,
-	-- untyped or excluded with a reason) and its human summary.
+	-- untyped or excluded with a note) and its human summary.
 	coverage = "definitions/coverage.json",
 	coverageSummary = "definitions/COVERAGE.md",
 
@@ -30,144 +39,7 @@ return {
 		"Annotations/Core/Widget",
 		"Annotations/Core/ScriptObject",
 		"Annotations/Core/FrameXML",
-	},
-
-	-- Blizzard documents widget methods per "script object" API. Each maps onto the client widget
-	-- type(s) whose methods it describes.
-	scriptObjectWidgets = {
-		FrameAPIArchaeologyDigsite = { "ArchaeologyDigSiteFrame" },
-		FrameAPIBlob = { "Blob" },
-		FrameAPICharacterModelBase = { "PlayerModel" },
-		FrameAPICinematicModel = { "CinematicModel" },
-		FrameAPICooldown = { "Cooldown" },
-		FrameAPIDressUpModel = { "DressUpModel" },
-		FrameAPIFogOfWarFrame = { "FogOfWarFrame" },
-		FrameAPIModelSceneFrame = { "ModelScene" },
-		FrameAPIModelSceneFrameActor = { "ModelSceneActor" },
-		FrameAPIModelSceneFrameActorBase = { "ModelSceneActor" },
-		FrameAPIQuestPOI = { "QuestPOIFrame" },
-		FrameAPIScenarioPOI = { "ScenarioPOIFrame" },
-		FrameAPISimpleCheckout = { "Checkout" },
-		FrameAPITabardModel = { "TabardModel" },
-		FrameAPITabardModelBase = { "TabardModel" },
-		FrameAPITooltip = { "GameTooltip" },
-		FrameAPIUnitPositionFrame = { "UnitPositionFrame" },
-		MinimapFrameAPI = { "Minimap" },
-		SimpleAnimAPI = { "Animation" },
-		SimpleAnimAlphaAPI = { "Alpha" },
-		SimpleAnimFlipBookAPI = { "FlipBook" },
-		SimpleAnimGroupAPI = { "AnimationGroup" },
-		SimpleAnimPathAPI = { "Path" },
-		SimpleAnimRadialProgressAPI = { "RadialProgress" },
-		SimpleAnimRotationAPI = { "Rotation" },
-		SimpleAnimScaleAPI = { "Scale" },
-		SimpleAnimScaleLineAPI = { "LineScale" },
-		SimpleAnimTextureCoordTranslationAPI = { "TextureCoordTranslation" },
-		SimpleAnimTranslationAPI = { "Translation" },
-		SimpleAnimTranslationLineAPI = { "LineTranslation" },
-		SimpleAnimVertexColorAPI = { "VertexColor" },
-		SimpleAnimatableObjectAPI = { "ScriptRegion" },
-		SimpleBrowserAPI = { "Browser" },
-		SimpleButtonAPI = { "Button" },
-		SimpleCheckboxAPI = { "CheckButton" },
-		SimpleColorSelectAPI = { "ColorSelect" },
-		SimpleControlPointAPI = { "ControlPoint" },
-		SimpleEditBoxAPI = { "EditBox" },
-		SimpleFontAPI = { "Font", "FontInstance" },
-		SimpleFontStringAPI = { "FontString" },
-		SimpleFrameAPI = { "Frame" },
-		SimpleFrameScriptObjectAPI = { "FrameScriptObject", "ScriptObject" },
-		SimpleHTMLAPI = { "SimpleHTML" },
-		SimpleLineAPI = { "Line" },
-		SimpleMaskTextureAPI = { "MaskTexture" },
-		SimpleMessageFrameAPI = { "MessageFrame" },
-		SimpleModelAPI = { "Model" },
-		SimpleModelFFXAPI = { "Model" },
-		SimpleMovieAPI = { "MovieFrame" },
-		SimpleObjectAPI = { "Object" },
-		SimpleOffScreenFrameAPI = { "OffScreenFrame" },
-		SimpleRegionAPI = { "Region" },
-		SimpleScriptRegionAPI = { "ScriptRegion" },
-		SimpleScriptRegionResizingAPI = { "ScriptRegion" },
-		SimpleScrollFrameAPI = { "ScrollFrame" },
-		SimpleSliderAPI = { "Slider" },
-		SimpleStatusBarAPI = { "StatusBar" },
-		SimpleTextureAPI = { "Texture" },
-		SimpleTextureBaseAPI = { "TextureBase" },
-		SimpleVectorGraphicsAPI = { "VectorGraphics" },
-	},
-	-- Documented script objects that belong to no client widget type (the Forever client has no such
-	-- frame type); the rest become `declare extern type`s named without the `API` suffix.
-	ignoredScriptObjects = {
-		FrameAPINamePlate = "no NamePlate widget type in the client",
-		HousingFixturePointFrameAPI = "no housing frame types in the client",
-		HousingLayoutPinFrameAPI = "no housing frame types in the client",
-		PingPinFrameAPI = "no ping pin frame type in the client",
-		SimpleMapSceneAPI = "no MapScene widget type in the client",
-	},
-	-- Blizzard's documentation names some widgets differently.
-	docWidgetAliases = {
-		SimpleAnim = "Animation",
-		SimpleAnimGroup = "AnimationGroup",
-		SimpleButton = "Button",
-		SimpleCheckbox = "CheckButton",
-		SimpleControlPoint = "ControlPoint",
-		SimpleEditBox = "EditBox",
-		SimpleFont = "Font",
-		SimpleFontString = "FontString",
-		SimpleFrame = "Frame",
-		SimpleLine = "Line",
-		SimpleMaskTexture = "MaskTexture",
-		SimpleTexture = "Texture",
-		SimpleVectorGraphics = "VectorGraphics",
-		SimpleWindow = "Frame",
-	},
-	-- The client dump lists Region as its own parent; Region is a ScriptRegion with draw layers.
-	widgetParentOverrides = {
-		Region = { "ScriptRegion" },
-	},
-	-- Parameters both sources type too loosely (Blizzard documents event names as plain strings).
-	paramTypeOverrides = {
-		["Frame:IsEventRegistered"] = { eventName = "FrameEvent" },
-		["Frame:RegisterEvent"] = { eventName = "FrameEvent" },
-		["Frame:RegisterUnitEvent"] = { eventName = "FrameEvent" },
-		["Frame:UnregisterEvent"] = { eventName = "FrameEvent" },
-	},
-	-- Methods whose first argument is a script name: typed per widget with that widget's handlers.
-	scriptMethods = { GetScript = true, HasScript = true, HookScript = true, SetScript = true },
-	-- A documented structure is declared as `Base & { ... }` when it contains every field of another
-	-- documented structure with at least this many fields.
-	derivedMinFields = 3,
-	-- Basic types Blizzard's documentation uses without defining (after annotation aliases are tried).
-	basicTypes = {
-		cstring = "string",
-		stringView = "string",
-		luaIndex = "number",
-		uiUnit = "number",
-		size = "number",
-		time_t = "number",
-		BigInteger = "number",
-		BigUInteger = "number",
-		WOWGUID = "string",
-		WOWMONEY = "number",
-		fileID = "number",
-		textureKit = "string",
-		textureAtlas = "string",
-		FileAsset = "string",
-		normalizedValue = "number",
-		SingleColorValue = "number",
-		LuaValueVariant = "unknown",
-		LuaValueReference = "unknown",
-		LuaFunctionReference = "(...any) -> ...any",
-		Milliseconds = "number",
-		Seconds = "number",
-		kstringAuroraName = "string",
-		kstringLfgListChat = "string",
-		KStringDiscordUserName = "string",
-		UnitTokenVariant = "string",
-		ScriptTypeName = "string",
-		FontAsset = "string",
-	},
+	} :: { string },
 
 	-- Files read from the resources repository's `Resources/` folder (see generator/resources.luau).
 	-- An annotated function, widget method, event or enum is emitted only if the WoW: Forever client
@@ -180,126 +52,32 @@ return {
 		"LuaEnum.lua",
 		"Mixins.lua",
 		"WidgetAPI.lua",
-	},
+	} :: { string },
 	gameName = "WoW: Forever",
 
-	-- String-literal aliases emitted as closed unions (a typo is a type error). Other aliases that list
-	-- suggested values but are based on `string` stay `string`, because their lists are retail-only
-	-- and incomplete for Classic.
-	closedAliases = {
-		AnimationType = true,
-		DrawLayer = true,
-		FrameEvent = true,
-		FramePoint = true,
-		FrameStrata = true,
-		FrameType = true,
-		JustifyHorizontal = true,
-		JustifyVertical = true,
-	},
-	-- Every widget script-handler alias (`ScriptFrame`, `ScriptButton`, ...) is closed too.
-	closedAliasPattern = "^Script",
+	-- Widgets and script objects (generator/rules/widgets.luau).
+	scriptObjectWidgets = widgets.scriptObjectWidgets,
+	ignoredScriptObjects = widgets.ignoredScriptObjects,
+	docWidgetAliases = widgets.docWidgetAliases,
+	widgetParentOverrides = widgets.widgetParentOverrides,
+	paramTypeOverrides = widgets.paramTypeOverrides,
+	scriptMethods = widgets.scriptMethods,
 
-	-- Globals the Luau standard platform already declares; upstream's Lua 5.1 annotations for them are
-	-- skipped. Functions on these tables (`string.split`, `table.wipe`) are still indexed so the WoW
-	-- aliases that point at them (`strsplit`, `wipe`) get their signatures.
-	luauGlobals = {
-		"_G",
-		"_VERSION",
-		"assert",
-		"bit32",
-		"buffer",
-		"coroutine",
-		"debug",
-		"error",
-		"gcinfo",
-		"getfenv",
-		"getmetatable",
-		"ipairs",
-		"loadstring",
-		"math",
-		"newproxy",
-		"next",
-		"os",
-		"pairs",
-		"pcall",
-		"print",
-		"rawequal",
-		"rawget",
-		"rawlen",
-		"rawset",
-		"require",
-		"select",
-		"setfenv",
-		"setmetatable",
-		"string",
-		"table",
-		"tonumber",
-		"tostring",
-		"type",
-		"typeof",
-		"unpack",
-		"utf8",
-		"vector",
-		"xpcall",
-	},
+	-- Type names (generator/rules/types.luau).
+	derivedMinFields = types.derivedMinFields,
+	basicTypes = types.basicTypes,
+	closedAliases = types.closedAliases,
+	closedAliasPattern = types.closedAliasPattern,
 
-	-- Functions Luau's standard library has: a WoW alias of one (`tinsert = table.insert`) takes Luau's
-	-- own signature. WoW-only extensions (`table.wipe`, `string.split`) come from the annotations.
-	luauStdlib = {
-		["table.insert"] = true,
-		["table.remove"] = true,
-		["table.sort"] = true,
-		["table.concat"] = true,
-		["table.unpack"] = true,
-		["table.pack"] = true,
-		["table.find"] = true,
-		["table.clear"] = true,
-		["table.clone"] = true,
-		["table.maxn"] = true,
-		["table.move"] = true,
-		["table.foreach"] = true,
-		["table.foreachi"] = true,
-		["table.getn"] = true,
-		["string.byte"] = true,
-		["string.char"] = true,
-		["string.find"] = true,
-		["string.format"] = true,
-		["string.gmatch"] = true,
-		["string.gsub"] = true,
-		["string.len"] = true,
-		["string.lower"] = true,
-		["string.match"] = true,
-		["string.rep"] = true,
-		["string.reverse"] = true,
-		["string.sub"] = true,
-		["string.upper"] = true,
-		["math.abs"] = true,
-		["math.acos"] = true,
-		["math.asin"] = true,
-		["math.atan"] = true,
-		["math.atan2"] = true,
-		["math.ceil"] = true,
-		["math.cos"] = true,
-		["math.deg"] = true,
-		["math.exp"] = true,
-		["math.floor"] = true,
-		["math.fmod"] = true,
-		["math.frexp"] = true,
-		["math.ldexp"] = true,
-		["math.log"] = true,
-		["math.log10"] = true,
-		["math.max"] = true,
-		["math.min"] = true,
-		["math.modf"] = true,
-		["math.pow"] = true,
-		["math.rad"] = true,
-		["math.random"] = true,
-		["math.randomseed"] = true,
-		["math.sin"] = true,
-		["math.sqrt"] = true,
-		["math.tan"] = true,
-	},
-
-	-- Local names upstream's compat.lua uses for the standard tables.
-	stdlibAliases = { tab = "table", str = "string", math = "math", string = "string", table = "table" },
+	-- The standard library (generator/rules/stdlib.luau).
+	luauGlobals = stdlib.luauGlobals,
+	luauStdlib = stdlib.luauStdlib,
+	luauLibraryMembers = stdlib.luauLibraryMembers,
+	clientValues = stdlib.clientValues,
+	luauConflicts = stdlib.luauConflicts,
+	stdlibAliases = stdlib.stdlibAliases,
 }
+
+export type Config = typeof(config)
+
+return config

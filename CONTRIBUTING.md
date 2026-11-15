@@ -4,92 +4,89 @@ Thanks for helping. Issues and pull requests are welcome, from one-line fixes to
 
 ## Where does the fix belong?
 
-| Problem | Where to fix it |
-| --- | --- |
-| A wrong type for a documented C API (most `C_*` functions, widget methods, event payloads) | Blizzard's documentation is authoritative; if it is wrong, add a narrow rule in `generator/` (see "Merge rules") |
-| A wrong or missing type for an undocumented global, FrameXML mixin or Lua extension | Upstream annotations: [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api) |
-| An API Forever has but the definitions lack (or the reverse) | Client dump: [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources) (`forever` branch) |
-| A construct converted wrongly, or invalid Luau | Here: `generator/`, with a snapshot case |
-| A FrameXML table or frame global no source declares | Here: `supplements/framexml.d.luau` |
-| A false or missed error in real addon code | Here: a sample under `tests/`, then fix the cause |
+| Problem                                                                                    | Where to fix it                                                                                                         |
+| ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| A wrong type for a documented C API (most `C_*` functions, widget methods, event payloads) | Blizzard's documentation is authoritative; if it is wrong, add a narrow rule in `generator/` (see "Merge rules")        |
+| A wrong or missing type for an undocumented global, FrameXML mixin or Lua extension        | Upstream annotations: [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api)                                   |
+| An API Forever has but the definitions lack (or the reverse)                               | Client dump: [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources) (`forever` branch) |
+| A construct converted wrongly, or invalid Luau                                             | Here: `generator/`, with a snapshot case                                                                                |
+| A FrameXML table or frame global no source declares                                        | Here: `supplements/framexml.d.luau`                                                                                     |
+| A false or missed error in real addon code                                                 | Here: a sample under `tests/`, then fix the cause                                                                       |
+| The addon template                                                                         | Here: `templates/addon/` (CI type-checks and builds it)                                                                 |
 
-Never edit generated files by hand: `definitions/` and `.github/banner.svg` come from `lune run scripts/generate`,
+Never edit generated files by hand: `definitions/` and `.github/banner.svg` come from `moon run generator:generate`,
 and CI fails if they differ from a fresh generation.
 
 ## Setup
 
-1. Install [mise](https://mise.jdx.dev).
-2. `mise install` installs the pinned tools: Lune, luau-lsp, StyLua, selene, typos and actionlint (versions in
-   `mise.toml`, checksums in `mise.lock`).
-3. `mise exec -- lune setup` writes Lune's type definitions, which `.luaurc` points at, so the generator type-checks
-   in your editor. Enable luau-lsp's new solver (`luau-lsp.fflags.enableNewSolver`).
+1. Install [mise](https://mise.jdx.dev). `mise install` installs every pinned tool: moon, Lune, luau-lsp, StyLua,
+   selene, darklua, typos, actionlint, dprint, lychee and lefthook (versions in `mise.toml`, checksums in
+   `mise.lock`).
+2. `mise exec -- lefthook install` installs the git hooks: formatting and spelling on commit, `moon run :check` for
+   the changed projects on push. Never bypass them with `--no-verify`.
+3. Open the folder in **VS Code** (install the recommended extensions; `.vscode/tasks.json` runs the moon targets)
+   or **Zed** (install the "Luau" extension). Both are set up for luau-lsp with the new type solver and the
+   generated definitions, so `tests/` and `templates/` show the diagnostics CI does. Run
+   `mise exec -- moon run generator:lune-types` once so the generator's `@lune/*` requires resolve.
 
-## The checks
+## Tasks
 
-CI runs all of these; run them before you push.
+[moon](https://moonrepo.dev) runs every task; `moon run :check` is what CI runs (CI also checks the pull request title).
 
-```bash
-mise exec -- lune run scripts/generate -- --check     # generated files match upstream.toml
-mise exec -- lune run scripts/test                    # samples: zero errors in tests/pass, exact errors in tests/fail
-mise exec -- lune run scripts/snapshot                # converter snapshot cases
-mise exec -- luau-lsp analyze --platform=standard --flag:LuauSolverV2=true --base-luaurc=.luaurc generator/ scripts/
-mise exec -- stylua --check .
-mise exec -- selene .
-mise exec -- typos
-mise exec -- actionlint
-```
+| Command                                                  | What it does                                                                     |
+| -------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `mise exec -- moon run :check`                           | Every check CI runs on the code                                                  |
+| `mise exec -- moon run generator:generate`               | Fetch the pinned upstreams into `.upstream/` and regenerate every generated file |
+| `mise exec -- moon run tests:samples`                    | Type-check the samples, the template and the negative fixtures                   |
+| `mise exec -- moon run tests:snapshots`                  | Run the converter snapshot cases                                                 |
+| `mise exec -- moon run repo:fmt generator:fmt tests:fmt` | Format Markdown/JSON/YAML/TOML (dprint) and Luau (StyLua)                        |
+| `mise exec -- lune run scripts/test -- --update`         | Rewrite the negative fixtures' `.expected` files after an intended change        |
+| `mise exec -- lune run scripts/snapshot -- --update`     | Rewrite the snapshot cases' expected files after an intended change              |
 
-The `coverage` job also compares `definitions/coverage.json` with the base branch:
-
-```bash
-git show origin/main:definitions/coverage.json > base.json
-mise exec -- lune run scripts/coverage-diff -- base.json
-```
+`generator:coverage` compares `definitions/coverage.json` with the same file at `$COVERAGE_BASE` (default
+`origin/main`) and fails if an API that was typed there is untyped now.
 
 ## Tests
 
-- **`tests/pass/<addon>/`** is a sample addon. Every `.luau` file must type-check with zero diagnostics; a `.d.luau`
-  there is loaded as that addon's own definitions (its SavedVariables).
+- **`tests/pass/<addon>/`** and **`templates/<name>/`** must type-check with zero diagnostics; a `.d.luau` there
+  (other than the downloaded definitions) is loaded as that addon's own definitions.
 - **`tests/fail/*.luau`** are negative fixtures. Each must produce exactly the diagnostics in its `.expected` file
-  (line, column, full message), and every line marked `-- expect-error: <text>` must be among them. After an
-  intended change, run `lune run scripts/test -- --update` and review the `.expected` diff.
+  (line, column, full message), and every line marked `-- expect-error: <text>` must be among them.
 - **`tests/snapshots/<case>/`** are converter cases: small inputs in upstream formats (`annotations/`, `docs/`,
-  `client/`) and the expected `expected.d.luau` and `expected.coverage.json`. Each expected file must also load in
-  luau-lsp. Refresh with `lune run scripts/snapshot -- --update`. Keep inputs byte-for-byte in upstream style (they
-  are excluded from StyLua).
+  `client/`) with `expected.d.luau` and `expected.coverage.json`. Keep the inputs byte-for-byte in upstream style
+  (they are excluded from StyLua and dprint).
+- **`templates/<name>/`** must also build: darklua compiles each file its `.toc` loads to valid Lua 5.1.
 
 ## Merge rules
 
-`generator/build.luau` merges the sources; the rules are listed at `reconcile`. In short: the client decides what
+[`generator/build.luau`](generator/build.luau) runs the stages in [`generator/stages/`](generator/stages); the merge rules are
+documented at `Signatures.reconcile` in [`generator/stages/signatures.luau`](generator/stages/signatures.luau). In short: the client decides what
 exists; Blizzard's documentation gives types first; an argument is optional if either source says so; the
 annotations' extra call shapes are kept; a documented result typed as a callback takes the annotation's type.
-`generator/config.luau` holds the data-only rules (which documented script object describes which widget, basic
-types, closed string unions, parameter overrides). Every rule needs a comment saying why, and a snapshot case.
+[`generator/config.luau`](generator/config.luau) and [`generator/rules/`](generator/rules) hold the data-only rules (which documented script object describes which widget, basic types,
+closed string unions, parameter overrides). Every rule needs a comment saying why, and a snapshot case.
 
-## Bumping upstream
+## Dependencies
 
-Renovate opens a pull request when any of the three upstream commits moves. The `fresh` job then fails until
-someone regenerates:
-
-```bash
-mise exec -- lune run scripts/generate
-mise exec -- lune run scripts/test -- --update   # only if diagnostics legitimately changed
-```
-
-Read the diffs of `definitions/COVERAGE.md` and `definitions/report.json` first. Commit everything together as
-`feat(upstream): …`.
+- **Upstream sources:** the weekly `upstream` workflow moves the three pins in `upstream.toml` to their branch
+  heads, regenerates, and opens a pull request (`feat(upstream): …`). Review `definitions/COVERAGE.md` and
+  `definitions/report.json` in its diff. If `tests` fails, update the fixtures or fix the generator on that branch;
+  the workflow will not overwrite a branch that has your commits.
+  To bump by hand: `mise exec -- lune run scripts/bump-upstream`, then `mise exec -- moon run generator:generate`.
+- **GitHub Actions:** Dependabot opens grouped pull requests for the SHA-pinned actions.
+- **Tools:** edit the version in `mise.toml`, then `mise lock` and `moon run :check`.
 
 ## Pull requests
 
 - One concern per pull request.
 - Title: `type(scope): summary`, checked by CI. Types: feat fix perf refactor test docs build ci chore style revert.
-  Scopes: generator definitions upstream supplements tests ci docs deps repo.
+  Scopes: generator definitions upstream supplements template tests ci docs deps repo.
 - Note user-visible changes in `CHANGELOG.md` under "Unreleased".
 
 ## Releases
 
 Maintainers move the "Unreleased" notes in `CHANGELOG.md` under a version heading, then tag `vX.Y.Z` on `main`. The
-release workflow re-verifies the tagged commit from a cold start and publishes `wow-forever.d.luau`, `report.json`,
+release workflow re-runs `moon run :check` from a cold start and publishes `wow-forever.d.luau`, `report.json`,
 `coverage.json`, `COVERAGE.md` and `SHA256SUMS`. Versioning: a minor version for an upstream bump or any change that
 can break existing code (types only get stricter or move), a patch for fixes that only remove false errors.
 

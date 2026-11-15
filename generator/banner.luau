@@ -2,9 +2,18 @@
 -- Draws .github/banner.svg: the emblem, the wordmark, a typed line of addon code and live coverage
 -- numbers. Regenerated with the definitions, so the numbers always match the release.
 
+local Build = require("./build")
+
 local Banner = {}
 
-local function attrs(t: { [string]: string | number }): string
+type Attrs = { [string]: string | number }
+
+-- Escapes text for XML: attribute values and element text both go through it.
+local function escapeXml(text: string): string
+	return (string.gsub(text, '[&<>"]', { ["&"] = "&amp;", ["<"] = "&lt;", [">"] = "&gt;", ['"'] = "&quot;" }))
+end
+
+local function attrs(t: Attrs): string
 	local keys = {}
 	for k in t do
 		table.insert(keys, k)
@@ -12,29 +21,32 @@ local function attrs(t: { [string]: string | number }): string
 	table.sort(keys)
 	local parts = {}
 	for _, k in keys do
-		table.insert(parts, string.format('%s="%s"', k, tostring(t[k])))
+		table.insert(parts, string.format('%s="%s"', k, escapeXml(tostring(t[k]))))
 	end
 	return table.concat(parts, " ")
 end
 
-local function el(name: string, a: { [string]: string | number }, body: string?): string
-	if body then
-		return "<" .. name .. " " .. attrs(a) .. ">" .. body .. "</" .. name .. ">"
+-- An element with escaped text content, or empty (`<name .../>`) without `text`.
+local function el(name: string, a: Attrs, text: string?): string
+	if text then
+		return "<" .. name .. " " .. attrs(a) .. ">" .. escapeXml(text) .. "</" .. name .. ">"
 	end
 	return "<" .. name .. " " .. attrs(a) .. "/>"
 end
 
-local function gradient(
-	id: string,
-	kind: string,
-	stops: { { number | string } },
-	extra: { [string]: string | number }
-): string
+-- An element whose content is already markup (child elements).
+local function parent(name: string, a: Attrs, children: string): string
+	return "<" .. name .. " " .. attrs(a) .. ">" .. children .. "</" .. name .. ">"
+end
+
+type Stop = { offset: number, color: string, opacity: number? }
+
+local function gradient(id: string, kind: string, stops: { Stop }, extra: Attrs): string
 	local body = {}
 	for _, s in stops do
-		local stop: { [string]: string | number } = { offset = s[1], ["stop-color"] = s[2] }
-		if s[3] then
-			stop["stop-opacity"] = s[3]
+		local stop: Attrs = { offset = s.offset, ["stop-color"] = s.color }
+		if s.opacity then
+			stop["stop-opacity"] = s.opacity
 		end
 		table.insert(body, "      " .. el("stop", stop))
 	end
@@ -53,26 +65,35 @@ local MONO = "'JetBrains Mono','Cascadia Code',Consolas,monospace"
 local SANS = "'Segoe UI','Inter','Helvetica Neue',Arial,sans-serif"
 
 -- summary: report.summary (category -> { typed, untyped, excluded }).
-function Banner.svg(summary: { [string]: { [string]: number } }): string
+function Banner.svg(summary: { [Build.Category]: Build.StatusCounts }): string
 	local lines = {
 		'<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-labelledby="title desc">',
 		'  <title id="title">wow-forever-luau-types</title>',
 		'  <desc id="desc">Strict Luau type definitions for the World of Warcraft: Forever API</desc>',
 		"  <defs>",
-		gradient(
-			"bg",
-			"linearGradient",
-			{ { 0, "#0b1022" }, { 0.55, "#121a3a" }, { 1, "#1d1440" } },
-			{ x1 = 0, y1 = 0, x2 = 1, y2 = 1 }
-		),
+		gradient("bg", "linearGradient", {
+			{ offset = 0, color = "#0b1022" },
+			{ offset = 0.55, color = "#121a3a" },
+			{ offset = 1, color = "#1d1440" },
+		}, { x1 = 0, y1 = 0, x2 = 1, y2 = 1 }),
 		gradient(
 			"glow",
 			"radialGradient",
-			{ { 0, "#00a2ff", 0.55 }, { 1, "#00a2ff", 0 } },
+			{ { offset = 0, color = "#00a2ff", opacity = 0.55 }, { offset = 1, color = "#00a2ff", opacity = 0 } },
 			{ cx = 0.5, cy = 0.5, r = 0.5 }
 		),
-		gradient("gold", "linearGradient", { { 0, "#ffe7a3" }, { 1, "#d9a441" } }, { x1 = 0, y1 = 0, x2 = 0, y2 = 1 }),
-		gradient("blue", "linearGradient", { { 0, "#5ec8ff" }, { 1, "#2f6bff" } }, { x1 = 0, y1 = 0, x2 = 1, y2 = 1 }),
+		gradient(
+			"gold",
+			"linearGradient",
+			{ { offset = 0, color = "#ffe7a3" }, { offset = 1, color = "#d9a441" } },
+			{ x1 = 0, y1 = 0, x2 = 0, y2 = 1 }
+		),
+		gradient(
+			"blue",
+			"linearGradient",
+			{ { offset = 0, color = "#5ec8ff" }, { offset = 1, color = "#2f6bff" } },
+			{ x1 = 0, y1 = 0, x2 = 1, y2 = 1 }
+		),
 		'    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">',
 		"      " .. el("path", { d = "M32 0H0V32", fill = "none", stroke = "#ffffff", ["stroke-opacity"] = 0.04 }),
 		"    </pattern>",
@@ -160,7 +181,7 @@ function Banner.svg(summary: { [string]: { [string]: number } }): string
 	}
 	local spans = {}
 	for _, t in tokens do
-		table.insert(spans, el("tspan", { fill = t[2] }, (string.gsub(t[1], '"', "&quot;"))))
+		table.insert(spans, el("tspan", { fill = t[2] }, t[1]))
 	end
 	table.insert(lines, "  " .. el("rect", {
 		x = 470,
@@ -175,18 +196,18 @@ function Banner.svg(summary: { [string]: { [string]: number } }): string
 	}))
 	table.insert(
 		lines,
-		"  " .. el("text", { x = 494, y = 266, ["font-family"] = MONO, ["font-size"] = 22 }, table.concat(spans))
+		"  " .. parent("text", { x = 494, y = 266, ["font-family"] = MONO, ["font-size"] = 22 }, table.concat(spans))
 	)
 
 	-- Live numbers.
-	local f = summary.functions or { typed = 0, untyped = 0 }
-	local m = summary.widgetMethods or { typed = 0 }
-	local e = summary.events or { typed = 0 }
+	local f = summary.functions
+	local m = summary.widgetMethods
+	local e = summary.events
 	local stats = string.format(
 		"%s typed functions  ·  %s typed widget methods  ·  %s events with payload types",
-		thousands(f.typed or 0),
-		thousands(m.typed or 0),
-		thousands(e.typed or 0)
+		thousands(f.typed),
+		thousands(m.typed),
+		thousands(e.typed)
 	)
 	table.insert(
 		lines,

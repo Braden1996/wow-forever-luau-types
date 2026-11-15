@@ -1,0 +1,52 @@
+{
+  // Zed with the "Luau" extension (4teapo/zed-luau): the same setup as .vscode/settings.json. The extension takes
+  // definitions files as its own `definitions` array; FFlags match `mise run check` (all on, none synced).
+  "lsp": {
+    "luau-lsp": {
+      "settings": {
+        "roblox": { "enabled": false },
+        "fflags": { "enable_new_solver": true, "enable_by_default": true, "sync": false },
+        "definitions": ["types/wow-forever.d.luau", "types/addon.d.luau"],
+        "luau-lsp": {
+          "platform": { "type": "standard" },
+          "types": {
+            "disabledGlobals": [
+              "bit32",
+              "buffer",
+              "coroutine.close",
+              "coroutine.isyieldable",
+              "debug",
+              "math.e",
+              "math.map",
+              "math.nan",
+              "math.noise",
+              "math.phi",
+              "math.randomseed",
+              "math.sqrt2",
+              "math.tau",
+              "os",
+              "rawlen",
+              "require",
+              "string.pack",
+              "string.packsize",
+              "string.unpack",
+              "table.clear",
+              "table.clone",
+              "table.find",
+              "table.move",
+              "table.pack",
+              "table.unpack",
+              "typeof",
+              "utf8",
+              "vector"
+            ]
+          },
+          "sourcemap": { "enabled": false }
+        }
+      }
+    }
+  },
+  "languages": {
+    "Luau": { "hard_tabs": true, "tab_size": 4, "preferred_line_length": 120 }
+  }
+}

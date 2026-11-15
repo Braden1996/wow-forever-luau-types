@@ -1,6 +1,7 @@
 -- Hand-written supplement: FrameXML globals that addons use every day but that upstream does not
--- annotate (mostly tables and frames). Keep this file small; every entry must exist in the
--- WoW: Forever client (the generator rejects a `declare function` the client does not have).
+-- annotate (mostly tables and frames). Keep this file small and add only what the WoW: Forever client has.
+-- The generator appends the file verbatim and checks one thing: each `declare function` name must be a function
+-- in the client. Nothing checks the tables, frames and types, so verify those against the client by hand.
 
 -- Chat.
 declare DEFAULT_CHAT_FRAME: MessageFrame
@@ -30,14 +31,14 @@ export type StaticPopupInfo = {
 	hideOnEscape: boolean?,
 	exclusive: boolean?,
 	preferredIndex: number?,
-	[string]: unknown,
 }
 declare StaticPopupDialogs: { [string]: StaticPopupInfo }
 declare function StaticPopup_Show(which: string, text_arg1: unknown, text_arg2: unknown, data: unknown): Frame?
 declare function StaticPopup_Hide(which: string, data: unknown): ()
 
 -- Colours.
-declare RAID_CLASS_COLORS: { [string]: ColorMixin }
+-- Keyed by class file ("WARRIOR"); each entry is a ColorMixin that also carries its components and "ffrrggbb".
+declare RAID_CLASS_COLORS: { [ClassFile]: ColorMixin & { r: number, g: number, b: number, colorStr: string } }
 declare ITEM_QUALITY_COLORS: { [number]: { r: number, g: number, b: number, hex: string, color: ColorMixin } }
 
 -- The 3D world frame.

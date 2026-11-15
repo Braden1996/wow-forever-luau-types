@@ -1,6 +1,8 @@
-# Publishes a release when a `v*.*.*` tag is pushed. The tagged commit is re-verified from a cold start
-# (no tool cache, so nothing a pull request wrote can reach a release), then the definitions file and
-# its report are attached to a GitHub release with checksums.
+# Publishes a release when a `v*.*.*` tag is pushed on a commit of main. `verify` re-runs the full
+# `moon run :check` from a cold start with read-only permissions (no tool or moon cache, so nothing a pull request
+# wrote can reach a release); `publish` holds the write permission, rebuilds nothing, and attaches the committed
+# definitions, report and coverage with checksums. A tag with a pre-release suffix (`v1.2.0-rc.1`) publishes a
+# pre-release.
 name: release
 
 on:
@@ -15,24 +17,38 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  publish:
+  verify:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 30
+    env:
+      CI: "true"
+      MOON_CACHE: write
+      COVERAGE_BASE: origin/main
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # the main-ancestry and coverage checks need history
+          persist-credentials: false
+      - name: the tag is on main
+        run: |
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main \
+            || { echo "::error::$GITHUB_REF_NAME is not on main; tag a commit of main."; exit 1; }
+      - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+        with:
+          cache: false
+      - name: gate
+        run: mise exec -- moon run :check
+
+  publish:
+    needs: [verify]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     permissions:
       contents: write # create the release
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
-        with:
-          cache: false
-      - name: generated files match upstream.toml
-        run: mise exec -- lune run scripts/generate -- --check
-      - name: samples
-        run: mise exec -- lune run scripts/test
-      - name: converter snapshots
-        run: mise exec -- lune run scripts/snapshot
       - name: release notes
         env:
           TAG: ${{ github.ref_name }}
@@ -53,7 +69,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         run: |
-          cp definitions/wow-forever.d.luau definitions/report.json definitions/coverage.json definitions/COVERAGE.md .
-          sha256sum wow-forever.d.luau report.json coverage.json COVERAGE.md > SHA256SUMS
-          gh release create "$TAG" wow-forever.d.luau report.json coverage.json COVERAGE.md SHA256SUMS \
+          files="wow-forever.d.luau report.json coverage.json COVERAGE.md"
+          [ -f definitions/luau-lsp.settings.json ] && files="$files luau-lsp.settings.json"
+          for f in $files; do cp "definitions/$f" .; done
+          # shellcheck disable=SC2086 # $files is a space-separated list of known names
+          sha256sum $files > SHA256SUMS
+          prerelease=""
+          case "$TAG" in *-*) prerelease="--prerelease" ;; esac
+          # shellcheck disable=SC2086
+          gh release create "$TAG" $files SHA256SUMS $prerelease \
             --repo "$GITHUB_REPOSITORY" --title "$TAG" --notes-file notes.md --verify-tag

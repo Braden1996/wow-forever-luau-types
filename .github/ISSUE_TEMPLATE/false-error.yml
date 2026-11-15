@@ -6,7 +6,7 @@ body:
     id: code
     attributes:
       label: Smallest code that shows it
-      description: A --!strict snippet that runs fine in WoW: Forever.
+      description: "A --!strict snippet that runs fine in WoW: Forever."
       render: luau
     validations:
       required: true
@@ -21,6 +21,6 @@ body:
     id: version
     attributes:
       label: Definitions version
-      placeholder: v0.1.0
+      placeholder: vX.Y.Z
     validations:
       required: true

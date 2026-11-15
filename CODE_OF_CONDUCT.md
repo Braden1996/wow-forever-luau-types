@@ -35,10 +35,9 @@ individual is officially representing the project in public spaces.
 
 ## Enforcement
 
-Report unacceptable behaviour privately to the maintainer through GitHub: open a
-[private security advisory](https://github.com/Braden1996/wow-forever-luau-types/security/advisories/new) with
-"Conduct" in the title, or contact the maintainer ([@Braden1996](https://github.com/Braden1996)) directly. Every
-report will be reviewed promptly and fairly, and the reporter's privacy will be respected.
+Report unacceptable behaviour privately to the maintainer, [@Braden1996](https://github.com/Braden1996), using the
+contact details on their GitHub profile. Every report will be reviewed promptly and fairly, and the reporter's
+privacy will be respected.
 
 The maintainer may remove, edit or reject comments, commits, code, issues and other contributions that do not align
 with this Code of Conduct, and will explain moderation decisions when appropriate. Responses follow the Contributor

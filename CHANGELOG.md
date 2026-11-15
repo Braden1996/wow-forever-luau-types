@@ -5,6 +5,25 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- `templates/addon`: a ready-to-copy addon with VS Code and Zed settings, a pinned type checker and darklua build
+  (Luau to Lua 5.1), a typed shared namespace, SavedVariables and typed event handlers. CI type-checks and builds it.
+- Contributor setup: moon task orchestration (`moon run :check` is the gate), lefthook git hooks, dprint and lychee,
+  VS Code tasks and extensions, Zed settings.
+- A weekly `upstream` workflow that moves the upstream pins and opens a pull request; Dependabot for actions.
+
+### Changed
+
+- CI is one cold `moon run :check` job (zizmor now part of the gate, pinned by mise); the coverage base falls back to
+  main on dispatches and new branches; the release verifies on a read-only job, publishes from a separate one, and
+  only from tags on main (pre-release tags publish as pre-releases).
+- `SECURITY.md`, and an issue form for wrong types of documented APIs.
+
+### Removed
+
+- Renovate.
+
 ## [0.2.0] - 2026-11-15
 
 ### Changed (breaking)

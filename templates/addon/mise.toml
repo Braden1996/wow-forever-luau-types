@@ -1,0 +1,38 @@
+# Pinned tools. `mise trust`, `mise install`, then `mise run types` (download the definitions), `mise run check`
+# (type-check, lint and format check) and `mise run build` (Luau -> Lua 5.1 for WoW). mise.lock records the tools'
+# checksums: after changing a version here, run `mise lock`.
+min_version = "2026.11.2"
+
+[settings]
+lockfile = true
+
+[tools]
+"github:JohnnyMorganz/luau-lsp" = "1.70.1" # type checker
+"github:seaofvoices/darklua" = "0.19.0" # Luau -> Lua 5.1 compiler
+"aqua:JohnnyMorganz/StyLua" = "2.6.0" # formatter
+"github:lune-org/lune" = "0.11.1" # runs .lune/types.luau
+
+[tasks.types]
+description = "Download the pinned WoW: Forever definitions release into types/ and verify its SHA-256"
+# To upgrade, set the release tag and the sha256 of its wow-forever.d.luau (listed in that release's SHA256SUMS).
+env = { WOW_TYPES_VERSION = "v0.2.0", WOW_TYPES_SHA256 = "69a19ac8ab41d9cc08a40de5b4c760f8e417bcfcaf233b8fac69d5fb8ad8a4fa" }
+run = "lune run types"
+
+[tasks.check]
+description = "Type-check and lint src/ against the definitions (any diagnostic fails), and check formatting"
+depends = ["types"]
+run = [
+  "luau-lsp analyze --platform=standard --flag:LuauSolverV2=true --settings=luau-lsp.settings.json --definitions=@wow=types/wow-forever.d.luau --definitions=@addon=types/addon.d.luau src/",
+  "stylua --check src",
+]
+
+[tasks.fmt]
+description = "Format src/ with StyLua"
+run = "stylua src"
+
+[tasks.build]
+description = "Compile each src/*.luau to Lua 5.1 as build/*.lua, the files MyAddon.toc loads (add a line per file)"
+run = [
+  "darklua process src/Core.luau build/Core.lua",
+  "darklua process src/Events.luau build/Events.lua",
+]

@@ -1,6 +1,7 @@
 --!strict
--- Reads Ketho/BlizzardInterfaceResources dumps (Lua table literals) as data. They are parsed with
--- patterns, never executed.
+-- Reads the Ketho/BlizzardInterfaceResources dumps of the live client (Lua files of table literals) as data:
+-- each is matched with patterns, never executed. A file that is present but lacks the table it should hold is
+-- reported in `errors`; an absent file reads as empty (the snapshot cases supply only what they need).
 
 export type Widget = { inherits: { string }, methods: { [string]: boolean }, handlers: { string } }
 
@@ -17,6 +18,7 @@ export type Resources = {
 	enums: { EnumTable }, -- Enum.*
 	constants: { EnumTable }, -- Constants.*
 	globalConstants: { { key: string, value: string } }, -- LE_* and NUM_LE_*
+	errors: { string },
 }
 
 local Resources = {}
@@ -61,7 +63,6 @@ local function nestedTables(source: string, outer: string): { EnumTable }
 end
 
 function Resources.parse(given: { [string]: string }): Resources
-	-- A missing file reads as empty (the snapshot tests supply only what each case needs).
 	local files = setmetatable({}, {
 		__index = function(_, name: string): string
 			return given[name] or ""
@@ -78,14 +79,23 @@ function Resources.parse(given: { [string]: string }): Resources
 		enums = {},
 		constants = {},
 		globalConstants = {},
+		errors = {},
 	}
+	local function expect(file: string, found: boolean, what: string)
+		if not found and files[file] ~= "" then
+			table.insert(r.errors, "resources " .. file .. ": no " .. what)
+		end
+	end
 
 	local api = splitSections(files["GlobalAPI.lua"])
+	expect("GlobalAPI.lua", #api >= 2, "GlobalAPI and LuaAPI tables")
 	strings(api[1] or "", r.globalApi)
 	strings(api[2] or "", r.luaApi)
+	expect("FrameXML.lua", #splitSections(files["FrameXML.lua"]) > 0, "FrameXML table")
 	for _, section in splitSections(files["FrameXML.lua"]) do
 		strings(section, r.frameXml)
 	end
+	expect("Frames.lua", #splitSections(files["Frames.lua"]) > 0, "Frames table")
 	for _, section in splitSections(files["Frames.lua"]) do
 		strings(section, r.frames)
 	end
@@ -97,6 +107,7 @@ function Resources.parse(given: { [string]: string }): Resources
 		table.insert(r.events, name)
 	end
 	table.sort(r.events)
+	expect("Events.lua", #r.events > 0, "event names")
 
 	-- WidgetAPI: `\tName = {\n\t\tinherits = {"A"},\n\t\tmethods = {\n\t\t\t"M",`
 	for name, body in string.gmatch(files["WidgetAPI.lua"], "\n\t([%w_]+) = (%b{})") do
@@ -122,9 +133,12 @@ function Resources.parse(given: { [string]: string }): Resources
 		r.widgets[name :: string] = { inherits = inherits, methods = methods, handlers = handlers }
 	end
 
+	expect("WidgetAPI.lua", next(r.widgets) ~= nil, "widget tables")
+
 	local enumSource = "\n" .. files["LuaEnum.lua"]
 	r.enums = nestedTables(enumSource, "Enum")
 	r.constants = nestedTables(enumSource, "Constants")
+	expect("LuaEnum.lua", #r.enums > 0, "Enum table")
 	for key, value in string.gmatch(enumSource, "\n([%u_][%u%d_]*) = ([^\n]+)") do
 		table.insert(r.globalConstants, { key = key :: string, value = value :: string })
 	end

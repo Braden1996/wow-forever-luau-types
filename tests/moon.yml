@@ -1,0 +1,65 @@
+$schema: "../.moon/cache/schemas/project.json"
+
+# Project `tests`: type-checks the samples and the addon template against the generated definitions, and runs the
+# converter snapshot cases.
+layer: "automation"
+tags: ["luau"]
+
+taskOptions:
+  shell: false
+  runFromWorkspaceRoot: true
+
+tasks:
+  editors:
+    description: "Each editor config's disabledGlobals list equals definitions/luau-lsp.settings.json"
+    command: "lune"
+    args: ["run", "scripts/editor-settings"]
+    inputs: [
+      "/definitions/luau-lsp.settings.json",
+      "/.vscode/settings.json",
+      "/.zed/settings.json",
+      "/templates/addon/.vscode/settings.json",
+      "/templates/addon/.zed/settings.json",
+      "/scripts/editor-settings.luau",
+    ]
+  samples:
+    description: "tests/pass and templates/ get zero diagnostics; tests/fail gets exactly its .expected diagnostics"
+    command: "lune"
+    args: ["run", "scripts/test"]
+    inputs: [
+      "/tests/pass/**/*",
+      "/tests/fail/**/*",
+      "/templates/**/*",
+      "/definitions/wow-forever.d.luau",
+      "/definitions/luau-lsp.settings.json",
+      "/scripts/test.luau",
+    ]
+  snapshots:
+    description: "The converter reproduces every tests/snapshots case, and each expected file loads in luau-lsp"
+    command: "lune"
+    args: ["run", "scripts/snapshot"]
+    inputs: ["/tests/snapshots/**/*", "/generator/**/*.luau", "/scripts/snapshot.luau"]
+  unit:
+    description: "Unit cases of the generator's parsers (tests/unit, run by scripts/unit)"
+    command: "lune"
+    args: ["run", "scripts/unit"]
+    inputs: ["/tests/unit/**/*.luau", "/generator/**/*.luau", "/scripts/unit.luau"]
+  template-build:
+    description: "Each template compiles with darklua to valid Lua 5.1 that covers every file its .toc loads"
+    command: "lune"
+    args: ["run", "scripts/template-build"]
+    inputs: ["/templates/**/*", "/scripts/template-build.luau"]
+  fmt:
+    description: "Format the samples and the template with StyLua"
+    command: "stylua"
+    args: ["tests/pass", "tests/fail", "templates"]
+    options:
+      cache: false
+  fmt-check:
+    description: "StyLua check of the samples and the template (run `moon run tests:fmt` to fix)"
+    command: "stylua"
+    args: ["--check", "tests/pass", "tests/fail", "templates"]
+    inputs: ["/tests/pass/**/*.luau", "/tests/fail/**/*.luau", "/templates/**/*.luau", "/stylua.toml"]
+  check:
+    description: "Aggregator: every test"
+    deps: ["~:editors", "~:unit", "~:samples", "~:snapshots", "~:template-build", "~:fmt-check"]

@@ -5,6 +5,14 @@ name: pr-title
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
+  # The scheduled `upstream` workflow opens its pull request with GITHUB_TOKEN, which fires no `pull_request`
+  # events; it dispatches this on its branch with the title it used, so the check reports on the head commit.
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "The pull request title to check"
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -16,14 +24,14 @@ jobs:
     steps:
       - name: conventional commit title
         env:
-          TITLE: ${{ github.event.pull_request.title }}
+          TITLE: ${{ github.event.pull_request.title || inputs.title }}
         run: |
-          pattern='^(feat|fix|perf|refactor|test|docs|build|ci|chore|style|revert)(\((generator|definitions|upstream|supplements|tests|ci|docs|deps|repo)\))?!?: [a-z0-9`].{0,98}[^.]$'
+          pattern='^(feat|fix|perf|refactor|test|docs|build|ci|chore|style|revert)(\((generator|definitions|upstream|supplements|template|tests|ci|docs|deps|repo)\))?!?: [a-z0-9`].{0,98}[^.]$'
           if printf '%s' "$TITLE" | grep -Eq "$pattern"; then
             echo "ok: $TITLE"
           else
             echo "::error::Title must look like 'type(scope): summary' (lower-case start, no trailing period)."
             echo "Types: feat fix perf refactor test docs build ci chore style revert."
-            echo "Scopes: generator definitions upstream supplements tests ci docs deps repo."
+            echo "Scopes: generator definitions upstream supplements template tests ci docs deps repo."
             exit 1
           fi

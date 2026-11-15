@@ -1,0 +1,81 @@
+# Weekly: move the three upstream pins in upstream.toml to their branch heads, regenerate, and open (or update) a
+# pull request for review. The pull request is the review step: read the diff of definitions/COVERAGE.md first.
+# Pull requests opened with GITHUB_TOKEN fire no `pull_request` events, so this dispatches the two required checks,
+# `ci` and `pr-title`, on the branch; they report on the pull request's head commit.
+name: upstream
+
+on:
+  schedule:
+    - cron: "23 5 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: upstream
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write # push the bump branch
+      pull-requests: write # open the pull request
+      actions: write # dispatch `ci` and `pr-title` on the branch
+    env:
+      BRANCH: upstream/bump
+      TITLE: "feat(upstream): move upstream pins to their branch heads"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+        with:
+          cache: false
+      - name: an open bump pull request a maintainer has worked on is left alone
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          number="$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$BRANCH" --state open --json number --jq '.[0].number // empty')"
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+          if [ -n "$number" ]; then
+            humans="$(gh pr view "$number" --repo "$GITHUB_REPOSITORY" --json commits \
+              --jq '[.commits[].authors[].login | select(. != "github-actions[bot]" and . != "github-actions")] | length')"
+            if [ "$humans" != "0" ]; then
+              echo "::notice::#$number has maintainer commits; not overwriting it. Merge or close it to resume bumps."
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+      - name: bump pins
+        id: bump
+        if: steps.existing.outputs.skip != 'true'
+        run: mise exec -- lune run scripts/bump-upstream
+      - name: regenerate
+        if: steps.bump.outputs.changed == 'true'
+        run: mise exec -- moon run generator:generate
+      - name: push and open the pull request
+        if: steps.bump.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUMMARY: ${{ steps.bump.outputs.summary }}
+          NUMBER: ${{ steps.existing.outputs.number }}
+        run: |
+          gh auth setup-git
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git add -A
+          git commit -m "$TITLE" -m "$SUMMARY"
+          git push --force "https://github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$BRANCH"
+          # shellcheck disable=SC2016 # the backticks are literal Markdown in the pull request body
+          body="$(printf 'Moves the pins in `upstream.toml` and regenerates.\n\n%s\n\nReview `definitions/COVERAGE.md` and `definitions/report.json` first. If `tests` fails, update the fixtures (`lune run scripts/test -- --update`) or fix the generator on this branch; this workflow will not overwrite your commits.' "$SUMMARY")"
+          if [ -n "$NUMBER" ]; then
+            gh pr edit "$NUMBER" --repo "$GITHUB_REPOSITORY" --body "$body"
+          else
+            gh pr create --repo "$GITHUB_REPOSITORY" --base main --head "$BRANCH" --title "$TITLE" --body "$body"
+          fi
+          gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH"
+          gh workflow run pr-title.yml --repo "$GITHUB_REPOSITORY" --ref "$BRANCH" -f title="$TITLE"

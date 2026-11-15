@@ -1,5 +1,5 @@
 # Pinned tools. `mise install` installs exactly these versions; mise.lock records their checksums.
-# Renovate proposes bumps; CI runs every check on each one.
+# Bump a tool by editing its version here, then `mise lock` and `moon run :check`.
 min_version = "2026.11.2"
 
 [settings]
@@ -7,9 +7,16 @@ lockfile = true
 experimental = true
 
 [tools]
+"aqua:moonrepo/moon" = "2.6.5" # task runner: `moon run :check` is the gate
 "github:lune-org/lune" = "0.11.1" # runs the generator and the tests (keep .luaurc's typedefs alias in step)
-"github:JohnnyMorganz/luau-lsp" = "1.70.1" # type-checks the samples against the definitions
+"github:JohnnyMorganz/luau-lsp" = "1.70.1" # type-checks the samples, the template and the generator
 "aqua:JohnnyMorganz/StyLua" = "2.6.0"
 "aqua:Kampfkarren/selene" = "0.32.0"
 "aqua:crate-ci/typos" = "1.52.2"
 "aqua:rhysd/actionlint" = "1.7.12"
+"aqua:zizmorcore/zizmor" = "1.32.0" # GitHub Actions security lint
+"aqua:koalaman/shellcheck" = "0.11.0" # used by actionlint for run: scripts (pinned, so local runs check what CI does)
+"aqua:dprint/dprint" = "0.64.3" # Markdown, JSON, YAML and TOML formatting
+"aqua:lycheeverse/lychee" = "0.24.2" # offline link check of the docs
+"github:seaofvoices/darklua" = "0.19.0" # builds the addon template (Luau -> Lua 5.1), as users will
+"aqua:evilmartians/lefthook" = "2.2.2" # git hooks

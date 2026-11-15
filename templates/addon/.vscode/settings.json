@@ -1,0 +1,50 @@
+{
+  // luau-lsp: the standard (non-Roblox) platform and the new type solver, which the definitions require. FFlags match
+  // `mise run check` (`luau-lsp analyze` enables all of them and syncs none from Roblox), so the editor shows what
+  // the check shows.
+  "luau-lsp.platform.type": "standard",
+  "luau-lsp.sourcemap.enabled": false,
+  "luau-lsp.fflags.enableNewSolver": true,
+  "luau-lsp.fflags.enableByDefault": true,
+  "luau-lsp.fflags.sync": false,
+  // Luau standard-library names WoW (Lua 5.1) lacks; kept equal to definitions/luau-lsp.settings.json by
+  // `moon run tests:editors` (rewrite with `lune run scripts/editor-settings -- --write`).
+  "luau-lsp.types.disabledGlobals": [
+    "bit32",
+    "buffer",
+    "coroutine.close",
+    "coroutine.isyieldable",
+    "debug",
+    "math.e",
+    "math.map",
+    "math.nan",
+    "math.noise",
+    "math.phi",
+    "math.randomseed",
+    "math.sqrt2",
+    "math.tau",
+    "os",
+    "rawlen",
+    "require",
+    "string.pack",
+    "string.packsize",
+    "string.unpack",
+    "table.clear",
+    "table.clone",
+    "table.find",
+    "table.move",
+    "table.pack",
+    "table.unpack",
+    "typeof",
+    "utf8",
+    "vector"
+  ],
+  "luau-lsp.types.definitionFiles": {
+    "@wow": "types/wow-forever.d.luau",
+    "@addon": "types/addon.d.luau"
+  },
+  "[luau]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua",
+    "editor.formatOnSave": true
+  }
+}

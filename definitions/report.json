@@ -1,4 +1,10 @@
 {
+  "anyByForm": {
+    "anyFunction": 44,
+    "anyTable": 73,
+    "handlerArgs": 150,
+    "other": 0
+  },
   "counts": {
     "annotationFiles": 467,
     "anyOccurrences": 384,
@@ -159,6 +165,7 @@
       "uses": 2
     }
   ],
+  "unusedOverrides": [],
   "upstream": {
     "annotations": {
       "commit": "d0b5b51fac4c52c493371b9b18e66ce604ea4326",
