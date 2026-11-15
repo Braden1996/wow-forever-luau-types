@@ -1,0 +1,46 @@
+---
+// A filterable, grouped list of links for the API index pages (works without JavaScript; ListFilter hides items).
+import { ListFilter } from "../search/list-filter.tsx";
+
+export interface ListItem {
+  readonly name: string;
+  readonly href: string;
+  readonly sym?: string;
+  readonly note?: string;
+}
+
+export interface ListGroup {
+  readonly title: string;
+  readonly items: readonly ListItem[];
+}
+
+interface Props {
+  readonly id: string;
+  readonly label: string;
+  readonly groups: readonly ListGroup[];
+}
+
+const { id, label, groups } = Astro.props;
+const total = groups.reduce((count, group) => count + group.items.length, 0);
+---
+
+<ListFilter client:idle target={id} label={label} total={total} />
+<div id={id} class="api-groups">
+  {
+    groups.map((group) => (
+      <section data-filter-group class="api-group">
+        {group.title.length > 0 && <h2 id={`group-${group.title.toLowerCase().replaceAll(/[^a-z0-9]+/g, "-")}`}>{group.title}</h2>}
+        <ul class="api-columns not-content">
+          {group.items.map((item) => (
+            <li data-filter-name={item.name}>
+              <a href={item.href} data-sym={item.sym}>
+                <code>{item.name}</code>
+              </a>
+              {item.note !== undefined && <span class="api-note">{item.note}</span>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</div>

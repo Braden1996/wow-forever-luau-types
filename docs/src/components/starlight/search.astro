@@ -1,0 +1,11 @@
+---
+// Starlight's full-text search (Pagefind) plus the API symbol search, side by side in the header.
+import Default from "@astrojs/starlight/components/Search.astro";
+
+import { SymbolSearch } from "../search/symbol-search.tsx";
+---
+
+<div class="header-search">
+  <Default />
+  <SymbolSearch client:idle mode="dialog" />
+</div>

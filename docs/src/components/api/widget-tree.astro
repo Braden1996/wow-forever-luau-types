@@ -1,0 +1,33 @@
+---
+// The widget inheritance tree, rendered recursively from the given roots.
+import type { WidgetType } from "../../lib/api/model.ts";
+
+import { loadCatalog } from "../../lib/api/load.ts";
+import { apiPaths } from "../../lib/api/paths.ts";
+import { withBase } from "../../lib/site.ts";
+
+interface Props {
+  readonly roots: readonly WidgetType[];
+}
+
+const { roots } = Astro.props;
+const catalog = loadCatalog();
+---
+
+<ul class="api-tree not-content">
+  {
+    roots.map((widget) => {
+      const children = catalog.widgetChildren(widget.name).toSorted((a, b) => a.name.localeCompare(b.name, "en"));
+      return (
+        <li>
+          <a href={withBase(apiPaths.widget(widget.name))} data-sym={`widget:${widget.name}`}>
+            <code>{widget.name}</code>
+          </a>
+          <span class="api-note">{widget.methods.length}</span>
+          {widget.creatable && <span class="api-chip api-chip-typed">CreateFrame</span>}
+          {children.length > 0 && <Astro.self roots={children} />}
+        </li>
+      );
+    })
+  }
+</ul>

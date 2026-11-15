@@ -1,0 +1,87 @@
+---
+import ApiPage from "../../components/api/api-page.astro";
+import { SymbolSearch } from "../../components/search/symbol-search.tsx";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/warcraftcn/card.tsx";
+import { loadCatalog } from "../../lib/api/load.ts";
+import { apiPaths } from "../../lib/api/paths.ts";
+import { withBase } from "../../lib/site.ts";
+
+const catalog = loadCatalog();
+const { parsed } = catalog;
+const cApi = parsed.namespaces.filter((ns) => ns.name.startsWith("C_"));
+const cApiFunctions = cApi.reduce((total, ns) => total + ns.members.length, 0);
+const sections = [
+  {
+    title: "Namespaces",
+    path: apiPaths.namespaces,
+    count: parsed.namespaces.length,
+    text: `${cApi.length} C API namespaces (${cApiFunctions} functions) and the FrameXML helper tables.`,
+  },
+  {
+    title: "Globals",
+    path: apiPaths.globals,
+    count: parsed.functions.length + parsed.values.length,
+    text: "Global functions (CreateFrame, GetTime, ...) and global frames, tables and constants.",
+  },
+  {
+    title: "Widgets",
+    path: apiPaths.widgets,
+    count: parsed.widgets.length,
+    text: "Frame, Button, Texture and the rest, as extern types in the client's own hierarchy.",
+  },
+  {
+    title: "Events",
+    path: apiPaths.events,
+    count: parsed.events.length,
+    text: "Every event with its payload types, ready for EventHandler<\"NAME\">.",
+  },
+  {
+    title: "Enums",
+    path: apiPaths.enums,
+    count: parsed.enums.length,
+    text: "The Enum tables and the Enum_Name types APIs take and return.",
+  },
+  {
+    title: "Structures",
+    path: apiPaths.structures,
+    count: parsed.structures.length,
+    text: "Table types such as QuestInfo, and FrameXML mixins, with their fields.",
+  },
+  {
+    title: "Aliases",
+    path: apiPaths.aliases,
+    count: parsed.aliases.length,
+    text: "Named primitives and string-literal unions: uiUnit, FramePoint, DrawLayer, ...",
+  },
+];
+---
+
+<ApiPage
+  title="API reference"
+  description="The WoW: Forever addon API as typed by wow-forever-luau-types: namespaces, globals, widgets, events, enums and structures, cross-linked."
+  kind="Overview"
+>
+  <p>
+    Generated from <code>definitions/wow-forever.d.luau</code> and <code>definitions/coverage.json</code> at build time.
+    Every type name in a signature links to its page; hover it for a summary. Search every symbol by name:
+  </p>
+  <SymbolSearch client:idle mode="inline" />
+  <div class="api-cards not-content">
+    {
+      sections.map((section) => (
+        <a href={withBase(section.path)} class="api-card-link">
+          <Card data-size="sm">
+            <CardHeader>
+              <CardTitle>
+                {section.title} <span class="api-note">{section.count.toLocaleString("en-GB")}</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CardDescription>{section.text}</CardDescription>
+            </CardContent>
+          </Card>
+        </a>
+      ))
+    }
+  </div>
+</ApiPage>

@@ -11,6 +11,7 @@ projects:
   repo: "."
   generator: "generator"
   tests: "tests"
+  docs: "docs"
 
 vcs:
   client: "git"

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Editor entry point; oxlint --type-check (tsrs) checks every project (package.json lint, typecheck:ts)",
+  "files": [],
+  "include": [],
+  "references": [
+    { "path": "./tsconfig.src.json" },
+    { "path": "./tsconfig.test.json" },
+    { "path": "./tsconfig.aux.json" }
+  ]
+}

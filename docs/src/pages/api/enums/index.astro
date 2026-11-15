@@ -1,0 +1,32 @@
+---
+import type { ListGroup } from "../../../components/api/grouped-list.astro";
+
+import ApiPage from "../../../components/api/api-page.astro";
+import GroupedList from "../../../components/api/grouped-list.astro";
+import { loadCatalog } from "../../../lib/api/load.ts";
+import { apiPaths } from "../../../lib/api/paths.ts";
+import { withBase } from "../../../lib/site.ts";
+
+const catalog = loadCatalog();
+const groups: ListGroup[] = [
+  {
+    title: "",
+    items: catalog.parsed.enums
+      .toSorted((a, b) => a.name.localeCompare(b.name, "en"))
+      .map((apiEnum) => ({
+        name: `Enum.${apiEnum.name}`,
+        href: withBase(apiPaths.enumPage(apiEnum.name)),
+        sym: `enum:${apiEnum.name}`,
+        note: `${apiEnum.values.length}`,
+      })),
+  },
+];
+---
+
+<ApiPage title="Enums" description="Every Enum table in the WoW: Forever client, with its value names." kind="Index">
+  <p>
+    {catalog.parsed.enums.length} enums from the client. Each is a table of numbers under <code>Enum</code>, and APIs use
+    the matching <code>Enum_Name</code> type. The number after each name is its value count.
+  </p>
+  <GroupedList id="enum-list" label="Filter enums" groups={groups} />
+</ApiPage>

@@ -1,0 +1,115 @@
+---
+title: Widgets and CreateFrame
+description: The widget hierarchy, the generic CreateFrame, and per-widget script names in the WoW Forever definitions.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Sym from "../../../components/api/sym.astro";
+
+Widgets are declared as Luau `declare extern type`s in the client's own hierarchy. Methods exist only where the
+client has them, script names are per widget, and <Sym fn="CreateFrame" /> returns the widget its frame type names.
+
+## The hierarchy
+
+Each widget extends one parent. For a check button the chain is:
+
+```
+CheckButton → Button → Frame → ScriptRegion → Object → FrameScriptObject
+```
+
+Textures and font strings sit on a separate branch: <Sym type="Texture" /> extends `TextureBase`, which extends
+
+<Sym type="Region" />; <Sym type="FontString" /> extends `Region` directly; and `Region` extends `ScriptRegion`.
+
+Inheritance runs one way. A `Button` can be used where a `Frame` is expected; a `Frame` cannot be used as a
+`Button`:
+
+```luau
+local frame = CreateFrame("Frame")
+local button = CreateFrame("Button")
+
+local asFrame: Frame = button  -- fine
+local asButton: Button = frame -- error: expected Button, got Frame
+frame:SetText("hi")            -- error: Key 'SetText' not found in external type 'Frame'
+```
+
+Each widget's page in the [API reference](/wow-forever-luau-types/api/widgets/) lists its own methods, its
+inherited methods grouped by ancestor, its script handlers and its direct subtypes.
+
+## CreateFrame is generic
+
+`CreateFrame` is declared over a type map from frame-type names to widgets, `FrameTypeMap`:
+
+```luau
+declare function CreateFrame<K>(
+	frameType: K & keyof<FrameTypeMap>,
+	name: string?,
+	parent: Frame?,
+	template: string?,
+	id: number?
+): index<FrameTypeMap, K>
+```
+
+So the frame type you pass decides the type you get back, and an unknown frame type is an error:
+
+```luau
+local bar = CreateFrame("StatusBar", nil, panel)    -- StatusBar
+bar:SetMinMaxValues(0, 1)
+
+local check: CheckButton = CreateFrame("CheckButton", nil, UIParent, "UICheckButtonTemplate")
+check:SetChecked(true)
+
+local bad = CreateFrame("Fraem") -- error: "Fraem" is not a key of FrameTypeMap
+```
+
+`FrameTypeMap` has 27 entries: the frame types the client accepts in `CreateFrame`. Regions such as textures and
+font strings are created from a frame instead, with `CreateTexture` and `CreateFontString`:
+
+```luau
+local title = panel:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge") -- FontString
+title:SetPoint("TOP", 0, -12)
+```
+
+<Aside type="note">
+  The template argument is a plain `string`. A template can add methods and fields through a mixin, which the checker
+  cannot see. Cast when you rely on them, and keep such casts in one place.
+</Aside>
+
+## Script names are per widget
+
+`SetScript`, `HookScript`, `GetScript` and `HasScript` take only the widget's own script names. Each widget has a
+union named after it, such as `ButtonScriptType`:
+
+```luau
+frame:SetScript("OnClick", function() end)  -- error: a plain Frame has no OnClick
+frame:SetScript("OnTick", function() end)   -- error: not a script name
+button:SetScript("OnClick", function() end) -- fine: Button has OnClick
+```
+
+The handler's first parameter is the widget itself. Annotate it; the remaining arguments differ per script, so
+they are `any`:
+
+```luau
+panel:SetScript("OnDragStart", function(self: Frame)
+	self:StartMoving()
+end)
+```
+
+## Anchors, strata and layers
+
+Points, strata and draw layers are closed string unions: <Sym type="FramePoint" />, <Sym type="FrameStrata" /> and
+
+<Sym type="DrawLayer" />.
+
+```luau
+frame:SetPoint("CENTRE")         -- error: not a FramePoint
+frame:SetFrameStrata("HIGHEST")  -- error: not a FrameStrata
+frame:SetPoint("CENTER", UIParent, "CENTER", 0, 80)
+frame:SetFrameStrata("DIALOG")
+```
+
+## Global frames
+
+The client creates many named frames. Frequently used ones are declared with their widget type, for example
+`UIParent`, `GameTooltip` (a <Sym type="GameTooltip" />), `WorldFrame` and `DEFAULT_CHAT_FRAME` (a `MessageFrame`).
+Look them up on the [globals pages](/wow-forever-luau-types/api/globals/).

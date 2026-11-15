@@ -1,0 +1,93 @@
+---
+title: Untyped APIs
+description: Why some WoW Forever functions return unknown, how to use them safely, and how to get them typed.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+import Sym from "../../../components/api/sym.astro";
+
+Every function the client has is declared, so none is an "unknown global". A function that no source types is
+declared as:
+
+```luau
+declare function GetBindingKeyForAction(...: unknown): (...unknown)
+```
+
+It accepts any arguments, and its results are `unknown`. You can call it, but you must say what you expect before
+you use what it returns.
+
+## Which APIs are untyped
+
+| Kind                                 | Typed | Untyped |
+| ------------------------------------ | ----: | ------: |
+| C API (the game's native functions)  | 6,892 |      12 |
+| Lua library and WoW's Lua extensions |    59 |      17 |
+| FrameXML (Blizzard's own UI code)    |   102 |   5,690 |
+
+Almost all untyped functions are **FrameXML**: Blizzard's user interface, written in Lua. No source types it.
+Blizzard documents only the native C API, and the community annotations cover a small part of FrameXML. Widget
+methods, events, structures and enums are all typed.
+
+The [coverage page](/wow-forever-luau-types/coverage/) lists every untyped API, with the reason, and each one is
+marked untyped in the [API reference](/wow-forever-luau-types/api/).
+
+## Using an untyped result
+
+Cast the result with `::` to the type you expect. Include `nil` when it can be missing:
+
+```luau
+local key = GetBindingKeyForAction("JUMP") :: string?
+if key then
+	print("Jump is bound to", key)
+end
+```
+
+Without the cast, assigning it to a typed variable is an error:
+
+```luau
+local key: string = GetBindingKeyForAction("JUMP") -- error: expected string, got unknown
+```
+
+For results you only test or pass on, refining with `type()` also works and checks at run time:
+
+```luau
+local value = GetBindingKeyForAction("JUMP")
+if type(value) == "string" then
+	-- value is a string here
+end
+```
+
+<Aside type="caution">
+  A cast is a promise the checker cannot verify. Keep casts next to the call, use the narrowest type, and prefer `T?`
+  when you are not sure a result is always present.
+</Aside>
+
+## Untyped functions in typed namespaces
+
+Some namespaces mix typed and untyped members. <Sym fn="ChatFrameUtil.AddMessageEventFilter" />, the Forever
+replacement for `ChatFrame_AddMessageEventFilter`, is FrameXML and untyped, so its arguments are not checked:
+
+```luau
+local function hideSpam(_self: Frame, _event: string, msg: string): boolean
+	return string.find(msg, "WTS", 1, true) ~= nil
+end
+ChatFrameUtil.AddMessageEventFilter("CHAT_MSG_CHANNEL", hideSpam)
+```
+
+Annotate your own callback fully: the checker then verifies your code, even though it cannot verify the call.
+
+## Getting an API typed
+
+Types come from three pinned sources (see [how it works](/wow-forever-luau-types/project/how-it-works/)). Where to
+add a missing type depends on the API:
+
+- **A FrameXML function, an undocumented global or a Lua extension:** add a LuaCATS annotation upstream, in
+  [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api). The next upstream bump here picks it up.
+- **A FrameXML table or frame** that no source declares, and that addons use widely: add it to
+  [`supplements/framexml.d.luau`](https://github.com/Braden1996/wow-forever-luau-types/blob/main/supplements/framexml.d.luau)
+  in this repository.
+- **A documented C API with a wrong type:** Blizzard's documentation is authoritative. If it is wrong, a narrow rule
+  in the generator can correct it, with a test.
+
+[Contributing](/wow-forever-luau-types/project/contributing/) has the details. CI fails if a typed API ever becomes
+untyped, so coverage only grows.

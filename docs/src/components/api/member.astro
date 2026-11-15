@@ -1,0 +1,36 @@
+---
+// One documented member (function, method, field or value): an anchored heading, its chip and signatures.
+import type { Coverage } from "../../lib/api/model.ts";
+import type { RenderContext } from "../../lib/api/render.ts";
+
+import { fieldHtml, signatureHtml } from "../../lib/api/render.ts";
+import { functionOverloads } from "../../lib/api/type-expr.ts";
+import CodeBlock from "./code-block.astro";
+import CoverageChip from "./coverage-chip.astro";
+
+interface Props {
+  /** The anchor and heading text. */
+  readonly id: string;
+  /** The name shown in the signature: `C_QuestLog.GetInfo`, `Button:SetText`, `UIParent`. */
+  readonly display: string;
+  readonly type: string;
+  readonly ctx: RenderContext;
+  readonly coverage?: Coverage | undefined;
+}
+
+const { id, display, type, ctx, coverage } = Astro.props;
+const overloads = functionOverloads(type);
+const blocks =
+  overloads.length > 0
+    ? overloads.map((shape) => signatureHtml(display, shape, ctx))
+    : [fieldHtml(display, type, ctx)];
+---
+
+<section class="api-member" id={id}>
+  <h3 class="api-member-name">
+    <a href={`#${id}`}>{id}</a>
+    {coverage !== undefined && <CoverageChip coverage={coverage} />}
+    {blocks.length > 1 && <span class="api-chip api-chip-overloads">{blocks.length} overloads</span>}
+  </h3>
+  {blocks.map((html) => <CodeBlock html={html} />)}
+</section>

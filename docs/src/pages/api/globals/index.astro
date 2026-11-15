@@ -1,0 +1,43 @@
+---
+import ApiPage from "../../../components/api/api-page.astro";
+import { loadCatalog } from "../../../lib/api/load.ts";
+import { apiPaths } from "../../../lib/api/paths.ts";
+import { isUntypedFunction } from "../../../lib/api/type-expr.ts";
+import { withBase } from "../../../lib/site.ts";
+
+const catalog = loadCatalog();
+const functions = catalog.parsed.functions.length;
+const untyped = catalog.parsed.functions.filter((fn) => isUntypedFunction(fn.type)).length;
+---
+
+<ApiPage
+  title="Global functions and values"
+  description="Every global function and value in the WoW: Forever definitions, grouped by first letter."
+  kind="Index"
+>
+  <p>
+    {functions} global functions ({functions - untyped} typed; {untyped} FrameXML functions are declared but untyped) and
+    {catalog.parsed.values.length} global values (frames, tables and constants). Pick a letter, or use the symbol search
+    in the header.
+  </p>
+  <table>
+    <thead>
+      <tr><th>Letter</th><th>Functions</th><th>Values</th></tr>
+    </thead>
+    <tbody>
+      {
+        catalog.globals.map((page) => (
+          <tr>
+            <td>
+              <a href={withBase(apiPaths.globalLetter(page.letter))}>
+                {page.letter === "_" ? "Other" : page.letter.toUpperCase()}
+              </a>
+            </td>
+            <td>{page.functions.length}</td>
+            <td>{page.values.length}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</ApiPage>

@@ -1,0 +1,42 @@
+---
+import type { ListGroup } from "../../../components/api/grouped-list.astro";
+
+import ApiPage from "../../../components/api/api-page.astro";
+import GroupedList from "../../../components/api/grouped-list.astro";
+import { loadCatalog } from "../../../lib/api/load.ts";
+import { apiPaths } from "../../../lib/api/paths.ts";
+import { withBase } from "../../../lib/site.ts";
+
+const catalog = loadCatalog();
+const sorted = catalog.parsed.namespaces.toSorted((a, b) => a.name.localeCompare(b.name, "en"));
+const item = (name: string, count: number) => ({
+  name,
+  href: withBase(apiPaths.namespace(name)),
+  sym: `namespace:${name}`,
+  note: `${count}`,
+});
+const groups: ListGroup[] = [
+  {
+    title: "C API namespaces",
+    items: sorted.filter((ns) => ns.name.startsWith("C_")).map((ns) => item(ns.name, ns.members.length)),
+  },
+  {
+    title: "Global tables",
+    items: sorted
+      .filter((ns) => !ns.name.startsWith("C_"))
+      .map((ns) => item(ns.name, ns.members.length + ns.tables.length)),
+  },
+];
+---
+
+<ApiPage
+  title="Namespaces"
+  description="Every C API namespace (C_*) and global table in the WoW: Forever definitions, with member counts."
+  kind="Index"
+>
+  <p>
+    The game's native API is grouped into <code>C_*</code> namespaces; Blizzard's UI code adds global tables of helpers
+    (<code>*Util</code>) and constants. The number after each name is its member count.
+  </p>
+  <GroupedList id="namespace-list" label="Filter namespaces" groups={groups} />
+</ApiPage>

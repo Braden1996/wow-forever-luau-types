@@ -1,0 +1,62 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import type { GlobalsPage } from "../../../lib/api/catalog.ts";
+
+import ApiPage from "../../../components/api/api-page.astro";
+import { renderContext } from "../../../components/api/context.ts";
+import Member from "../../../components/api/member.astro";
+import { lookupCoverage } from "../../../lib/api/coverage.ts";
+import { loadCatalog } from "../../../lib/api/load.ts";
+import { apiPaths } from "../../../lib/api/paths.ts";
+import { withBase } from "../../../lib/site.ts";
+
+export const getStaticPaths = (() =>
+  loadCatalog().globals.map((page) => ({ params: { letter: page.letter }, props: { page } }))) satisfies GetStaticPaths;
+
+interface Props {
+  readonly page: GlobalsPage;
+}
+
+const { page } = Astro.props;
+const catalog = loadCatalog();
+const ctx = renderContext(catalog);
+const label = page.letter === "_" ? "Other" : page.letter.toUpperCase();
+---
+
+<ApiPage
+  title={`Globals: ${label}`}
+  description={`Global functions and values starting with ${label}: ${page.functions.length} functions and ${page.values.length} values.`}
+  kind="Global functions and values"
+  crumbs={[{ label: "Globals", path: apiPaths.globals }]}
+  headings={[
+    { depth: 2, slug: "functions", text: `Functions (${page.functions.length})` },
+    ...(page.values.length > 0 ? [{ depth: 2, slug: "values", text: `Values (${page.values.length})` }] : []),
+  ]}
+>
+  <nav class="api-letters not-content" aria-label="Letters">
+    {
+      catalog.globals.map((other) => (
+        <a href={withBase(apiPaths.globalLetter(other.letter))} aria-current={other.letter === page.letter ? "page" : undefined}>
+          {other.letter === "_" ? "#" : other.letter.toUpperCase()}
+        </a>
+      ))
+    }
+  </nav>
+  <h2 id="functions">Functions</h2>
+  {
+    page.functions.map((fn) => (
+      <Member id={fn.name} display={fn.name} type={fn.type} ctx={ctx} coverage={lookupCoverage(catalog.coverage, "functions", fn.name)} />
+    ))
+  }
+  {
+    page.values.length > 0 && (
+      <>
+        <h2 id="values">Values</h2>
+        {page.values.map((value) => (
+          <Member id={value.name} display={value.name} type={value.type} ctx={ctx} />
+        ))}
+      </>
+    )
+  }
+</ApiPage>
