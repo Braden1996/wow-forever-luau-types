@@ -26,6 +26,8 @@ WoW passes every file of an addon the same two values as `...`: the addon's name
 Annotate both. Declare the namespace type once, in `types/addon.d.luau` or in the first file the `.toc` loads:
 
 ```luau
+type SampleDB = { enabled: boolean, runs: number }
+-- ---cut---
 --!strict
 export type Namespace = {
 	name: string,
@@ -45,6 +47,8 @@ Declaring it in a definitions file lets every file use the type without a `requi
 Many APIs return an optional value: the index may be out of range, or the item may not be cached yet.
 
 ```luau
+local index = 1
+-- ---cut---
 local info = C_QuestLog.GetInfo(index)
 print(info.title) -- error: Value of type 'QuestInfo?' could be nil
 
@@ -59,6 +63,8 @@ end
 Multiple results are typed one by one. `C_Item.GetItemInfo` returns `nil` for an item the client has not cached:
 
 ```luau
+local link = "item:6948"
+-- ---cut---
 local name, _, quality, itemLevel = C_Item.GetItemInfo(link)
 if name == nil then
 	return "(not cached)"
@@ -89,6 +95,8 @@ Luau infers less than you might expect. Annotate the parameters of every functio
 passed to `SetScript` and handlers typed with `EventHandler<...>`:
 
 ```luau
+local button = CreateFrame("Button")
+-- ---cut---
 button:SetScript("OnEnter", function(self: Button)
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 	GameTooltip:AddLine("Close the panel", 1, 1, 1)

@@ -308,3 +308,12 @@ a.lt-ref {
   white-space: pre;
   color: var(--color-stone-200);
 }
+
+/* A type error from a checked Luau code block (src/lib/luau/ec-plugin.ts): red title, wrapped message. */
+.hover-card-error .hover-card-title {
+  color: #f85149;
+}
+
+.hover-card-error .hover-card-snippet {
+  white-space: pre-wrap;
+}

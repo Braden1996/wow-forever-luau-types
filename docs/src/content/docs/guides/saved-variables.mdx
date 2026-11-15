@@ -51,6 +51,8 @@ On the command line, pass `--definitions=@addon=types/addon.d.luau` as well.
 3. **Read it directly, and write it through `_G`** once the addon has loaded:
 
    ```luau
+   local ADDON: string, ns: MyAddonNamespace = ...
+   -- ---cut---
    local onAddonLoaded: EventHandler<"ADDON_LOADED"> = function(addOnName: string)
    	if addOnName ~= ADDON then
    		return

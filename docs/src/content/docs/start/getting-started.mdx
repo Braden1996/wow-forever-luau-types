@@ -84,7 +84,7 @@ Open a source file and type a deliberate mistake:
 ```luau
 --!strict
 local frame = CreateFrame("Frame")
-frame:RegisterEvent("PLAYER_LOGN") -- should be reported: not an event the client sends
+frame:RegisterEvent("PLAYER_LOGN") -- error: not an event the client sends
 ```
 
 If nothing is reported, the new solver is probably off, or the definitions path is wrong. If `CreateFrame` is an
