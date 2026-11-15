@@ -150,7 +150,7 @@ function Pipeline.run(): Result
 		supplementText ..= "\n-- " .. string.rep("=", 97) .. "\n-- Appended from " .. supplement .. "\n" .. text
 	end
 
-	local definitions, report, coverage = Build.run({
+	local definitions, report, coverage, shapes = Build.run({
 		files = files,
 		docs = docs,
 		resources = resources,
@@ -171,6 +171,7 @@ function Pipeline.run(): Result
 		[config.output] = definitions,
 		[config.report] = json.encode(report) .. "\n",
 		[config.coverage] = json.encode(coverage) .. "\n",
+		[config.shapes] = json.encode(shapes) .. "\n",
 		[config.coverageSummary] = CoverageReport.markdown(report, coverage),
 		[config.settings] = Settings.json(resources, config),
 		[config.templateSettings] = Settings.json(resources, config),

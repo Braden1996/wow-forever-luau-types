@@ -69,7 +69,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         run: |
-          files="wow-forever.d.luau report.json coverage.json COVERAGE.md"
+          files="wow-forever.d.luau report.json coverage.json api-shapes.json COVERAGE.md"
           [ -f definitions/luau-lsp.settings.json ] && files="$files luau-lsp.settings.json"
           for f in $files; do cp "definitions/$f" .; done
           # shellcheck disable=SC2086 # $files is a space-separated list of known names

@@ -3,7 +3,8 @@
 --   lune run scripts/coverage-diff                         base: definitions/coverage.json at the git ref
 --                                                           $COVERAGE_BASE (default origin/main)
 --   lune run scripts/coverage-diff -- <base.json> [current.json]
--- Fails if an API that the base typed is untyped now (a coverage regression). APIs that left the
+-- Fails if definitions/api-shapes.json does not shape exactly the functions and widget methods listed, or if
+-- an API that the base typed is untyped now (a coverage regression). APIs that left the
 -- client, newly typed APIs and new untyped APIs are reported, not failed. Writes a Markdown summary
 -- to $GITHUB_STEP_SUMMARY when set.
 
@@ -29,6 +30,32 @@ local function fail(message: string): never
 	print("coverage-diff: " .. message)
 	process.exit(1)
 	error(message) -- unreachable: process.exit does not return
+end
+
+-- api-shapes.json classifies exactly the functions and widget methods coverage.json lists.
+local function shapeMismatches(): { string }
+	local shapes = serde.decode("json", fs.readFile(config.shapes)) :: { [string]: { [string]: unknown } }
+	local out: { string } = {}
+	for _, category in { "functions", "widgetMethods" } do
+		local listed = current[category] or {}
+		local shaped = shapes[category] or {}
+		for name in listed do
+			if shaped[name] == nil then
+				table.insert(out, category .. ": " .. name .. " has no shape")
+			end
+		end
+		for name in shaped do
+			if listed[name] == nil then
+				table.insert(out, category .. ": " .. name .. " has a shape but no coverage entry")
+			end
+		end
+	end
+	table.sort(out)
+	return out
+end
+local mismatches = if args[2] then {} :: { string } else shapeMismatches() -- a given current.json has no shapes beside it
+if #mismatches > 0 then
+	fail(config.shapes .. " and " .. currentPath .. " disagree:\n" .. table.concat(mismatches, "\n"))
 end
 
 local function git(gitArgs: { string }): (boolean, string)

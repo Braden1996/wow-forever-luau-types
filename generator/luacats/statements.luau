@@ -45,7 +45,8 @@ local function readFunction(r: Reader, fname: string, args: string, lineNo: numb
 	for _, argName in argNames do
 		table.insert(params, annotated[argName] or { name = argName, type = ANY, optional = true })
 	end
-	local signature: Signature = { params = params, returns = pending.returns, generics = pending.generics }
+	local signature: Signature =
+		{ params = params, returns = pending.returns, returnNames = pending.returnNames, generics = pending.generics }
 	local overloads: { Signature } = {}
 	for _, o in pending.overloads do
 		if o.kind == "fun" then

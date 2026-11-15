@@ -46,7 +46,8 @@ and CI fails if they differ from a fresh generation.
 | `mise exec -- lune run scripts/snapshot -- --update`     | Rewrite the snapshot cases' expected files after an intended change              |
 
 `generator:coverage` compares `definitions/coverage.json` with the same file at `$COVERAGE_BASE` (default
-`origin/main`) and fails if an API that was typed there is untyped now.
+`origin/main`) and fails if an API that was typed there is untyped now. It also fails unless
+`definitions/api-shapes.json` shapes exactly the functions and widget methods `coverage.json` lists.
 
 ### The documentation site
 
@@ -103,7 +104,7 @@ closed string unions, parameter overrides). Every rule needs a comment saying wh
 
 Maintainers move the "Unreleased" notes in `CHANGELOG.md` under a version heading, then tag `vX.Y.Z` on `main`. The
 release workflow re-runs `moon run :check` from a cold start and publishes `wow-forever.d.luau`, `report.json`,
-`coverage.json`, `COVERAGE.md` and `SHA256SUMS`. Versioning: a minor version for an upstream bump or any change that
+`coverage.json`, `api-shapes.json`, `COVERAGE.md` and `SHA256SUMS`. Versioning: a minor version for an upstream bump or any change that
 can break existing code (types only get stricter or move), a patch for fixes that only remove false errors.
 
 ## Conduct

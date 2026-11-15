@@ -203,7 +203,7 @@ function Signatures.reconcile(ctx: Context, doc: Signature, ann: { Signature }?)
 		end
 	end
 	local out: { Signature } = {
-		{ params = params, returns = returns, generics = {} },
+		{ params = params, returns = returns, returnNames = doc.returnNames, generics = {} },
 	}
 	for i = 2, #ann do
 		table.insert(out, ann[i])
@@ -236,6 +236,7 @@ function Signatures.applyOverrides(ctx: Context, key: string, sigs: { Signature 
 		table.insert(out, {
 			params = params,
 			returns = sig.returns,
+			returnNames = sig.returnNames,
 			generics = sig.generics,
 		})
 	end

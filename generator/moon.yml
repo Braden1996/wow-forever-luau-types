@@ -32,7 +32,7 @@ tasks:
     description: "Fail if an API typed on the base ref is untyped now (base: $COVERAGE_BASE, default origin/main)"
     command: "lune"
     args: ["run", "scripts/coverage-diff"]
-    inputs: ["/definitions/coverage.json", "/scripts/coverage-diff.luau"]
+    inputs: ["/definitions/coverage.json", "/definitions/api-shapes.json", "/scripts/coverage-diff.luau"]
     options:
       cache: false
   luaurc:

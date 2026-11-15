@@ -13,7 +13,18 @@ type Param = TypeExpr.Param
 type Signature = Decls.Signature
 type Table = LuaTable.Table
 
-export type DocFunction = { qualified: string, signature: Signature }
+-- A documented result as written: its name, and whether the docs mark it nilable (MayReturnNothing aside).
+export type DocReturn = { name: string, nilable: boolean }
+
+-- `predicates`: the documented preconditions the function declares (`IsProtectedFunction`,
+-- `RequiresValidActionSlot`); DocSet.predicates says what each does when it fails.
+export type DocFunction = {
+	qualified: string,
+	signature: Signature,
+	returns: { DocReturn },
+	mayReturnNothing: boolean,
+	predicates: { string },
+}
 export type DocEvent = { name: string, payload: { Param } }
 export type DocStruct = { name: string, fields: { Decls.Field } }
 export type DocCallback = { name: string, type: Type }
@@ -25,6 +36,7 @@ export type DocSet = {
 	structures: { [string]: DocStruct },
 	callbacks: { [string]: DocCallback },
 	enumerations: { [string]: boolean },
+	predicates: { [string]: string }, -- precondition name -> FailureMode ("ReturnNothing", "Error", ...)
 	errors: { string },
 }
 
@@ -110,12 +122,49 @@ local function returns(list: Table?, enums: { [string]: boolean }, mayReturnNoth
 	return out
 end
 
-local function signatureOf(fn: Table, enums: { [string]: boolean }): Signature
+local function returnInfo(list: Table?): { DocReturn }
+	local out: { DocReturn } = {}
+	for i, v in (list or EMPTY).array do
+		local f = LuaTable.tbl(v)
+		if f then
+			local name = LuaTable.str(f.map.Name) or ("result" .. i)
+			table.insert(out, { name = name, nilable = LuaTable.bool(f.map.Nilable) })
+		end
+	end
+	return out
+end
+
+-- The predicates a function sets (`IsProtectedFunction = true`), sorted.
+local function predicatesOf(fn: Table, known: { [string]: string }): { string }
+	local out: { string } = {}
+	for key, value in fn.map do
+		if known[key] and value == true then
+			table.insert(out, key)
+		end
+	end
+	table.sort(out)
+	return out
+end
+
+local function docFunction(qualified: string, fn: Table, set: DocSet): DocFunction
 	local m = fn.map
+	local mayReturnNothing = LuaTable.bool(m.MayReturnNothing)
+	local info = returnInfo(LuaTable.tbl(m.Returns))
+	local returnNames: { string } = {}
+	for _, r in info do
+		table.insert(returnNames, r.name)
+	end
 	return {
-		params = params(LuaTable.tbl(m.Arguments), enums, true),
-		returns = returns(LuaTable.tbl(m.Returns), enums, LuaTable.bool(m.MayReturnNothing)),
-		generics = {},
+		qualified = qualified,
+		signature = {
+			params = params(LuaTable.tbl(m.Arguments), set.enumerations, true),
+			returns = returns(LuaTable.tbl(m.Returns), set.enumerations, mayReturnNothing),
+			returnNames = returnNames,
+			generics = {},
+		},
+		returns = info,
+		mayReturnNothing = mayReturnNothing,
+		predicates = predicatesOf(fn, set.predicates),
 	}
 end
 
@@ -128,13 +177,14 @@ function ApiDocs.parse(files: { { name: string, source: string } }): DocSet
 		structures = {},
 		callbacks = {},
 		enumerations = {},
+		predicates = {},
 		errors = {},
 	}
 	local function report(where: string, message: string)
 		table.insert(set.errors, where .. ": " .. message)
 	end
 
-	-- Pass 1: the documents, and every enumeration name (types refer to enums by bare name).
+	-- Pass 1: the documents, every enumeration name (types refer to enums by bare name) and every predicate.
 	type Doc = { file: string, table: Table }
 	local docs: { Doc } = {}
 	for _, file in files do
@@ -144,6 +194,16 @@ function ApiDocs.parse(files: { { name: string, source: string } }): DocSet
 			continue
 		end
 		for _, doc in result :: { Table } do
+			-- Predicates are often declared in a nameless shared file (UISharedDocumentation's IsProtectedFunction).
+			for _, entry in (LuaTable.tbl(doc.map.Predicates) or EMPTY).array do
+				local p = LuaTable.tbl(entry)
+				local name = p and LuaTable.str(p.map.Name)
+				if p and name then
+					set.predicates[name] = LuaTable.str(p.map.FailureMode) or "unknown"
+				else
+					report(file.name, "a predicate has no Name")
+				end
+			end
 			if LuaTable.str(doc.map.Name) == nil then
 				-- A system with functions or events needs a Name. Shared and constants files hold only Tables and have
 				-- none; they are skipped as before (their enums come from the client's LuaEnum dump). Taking their
@@ -169,7 +229,7 @@ function ApiDocs.parse(files: { { name: string, source: string } }): DocSet
 	end
 	local enums = set.enumerations
 
-	-- Pass 2: everything else. A name seen twice is reported and the first definition kept.
+	-- Pass 2 (functions read set.predicates, complete after pass 1): everything else. A name seen twice is reported and the first definition kept.
 	for _, doc in docs do
 		local m = doc.table.map
 		local system = LuaTable.str(m.Name) :: string
@@ -188,14 +248,14 @@ function ApiDocs.parse(files: { { name: string, source: string } }): DocSet
 				if methods[name] then
 					report(doc.file, "duplicate method " .. system .. ":" .. name)
 				else
-					methods[name] = { qualified = name, signature = signatureOf(fn, enums) }
+					methods[name] = docFunction(name, fn :: Table, set)
 				end
 			else
 				local qualified = if namespace then namespace .. "." .. name else name
 				if set.functions[qualified] then
 					report(doc.file, "duplicate function " .. qualified)
 				else
-					set.functions[qualified] = { qualified = qualified, signature = signatureOf(fn, enums) }
+					set.functions[qualified] = docFunction(qualified, fn :: Table, set)
 				end
 			end
 		end

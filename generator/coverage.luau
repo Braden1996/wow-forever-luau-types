@@ -120,6 +120,31 @@ function Coverage.markdown(report: Build.Report, coverage: Build.Coverage): stri
 		end
 	end
 
+	-- How the results of functions and widget methods are shaped (api-shapes.json).
+	table.insert(lines, "")
+	table.insert(lines, "## Result shapes")
+	table.insert(lines, "")
+	table.insert(
+		lines,
+		"Every function and widget method has a result shape in [`api-shapes.json`](api-shapes.json), for"
+	)
+	table.insert(lines, "libraries that wrap the API (`maybe`: one nilable result; `record`: several named results).")
+	table.insert(lines, "")
+	table.insert(lines, "| Shape | Functions | Widget methods |")
+	table.insert(lines, "| --- | ---: | ---: |")
+	local functions = report.shapes.functions or {}
+	local methods = report.shapes.widgetMethods or {}
+	local kinds: { [string]: boolean } = {}
+	for kind in functions do
+		kinds[kind] = true
+	end
+	for kind in methods do
+		kinds[kind] = true
+	end
+	for _, kind in sortedKeys(kinds) do
+		table.insert(lines, row({ "`" .. kind .. "`", functions[kind] or 0, methods[kind] or 0 }))
+	end
+
 	local any = report.anyByForm
 	table.insert(lines, "")
 	table.insert(lines, "## Strictness")

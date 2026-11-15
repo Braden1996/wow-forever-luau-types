@@ -35,6 +35,30 @@
   },
   "game": "WoW: Forever",
   "parseErrors": [],
+  "shapes": {
+    "functions": {
+      "excluded": 393,
+      "generic": 13,
+      "maybe": 1155,
+      "opaque": 3,
+      "overloaded": 5,
+      "protected": 1,
+      "record": 572,
+      "untyped": 5719,
+      "value": 2720,
+      "variadic": 39,
+      "void": 2545
+    },
+    "widgetMethods": {
+      "maybe": 64,
+      "opaque": 200,
+      "protected": 65,
+      "record": 103,
+      "value": 542,
+      "variadic": 8,
+      "void": 678
+    }
+  },
   "summary": {
     "enums": {
       "excluded": 0,

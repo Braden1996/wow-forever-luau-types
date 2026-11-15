@@ -11,6 +11,7 @@ local Common = require("./stages/common")
 local Globals = require("./stages/globals")
 local Json = require("./json")
 local Names = require("./stages/names")
+local Shapes = require("./stages/shapes")
 local Structs = require("./stages/structs")
 local Types = require("./stages/types")
 local Widgets = require("./stages/widgets")
@@ -23,6 +24,7 @@ export type Category = Common.Category
 export type Status = Common.Status
 export type StatusCounts = Common.StatusCounts
 export type Report = Common.Report
+export type ShapeSet = Shapes.Shapes
 
 local Build = {}
 
@@ -54,7 +56,7 @@ local function bump(counts: Common.StatusCounts, status: Common.Status)
 	end
 end
 
-function Build.run(input: Input): (string, Report, Coverage)
+function Build.run(input: Input): (string, Report, Coverage, ShapeSet)
 	local config = input.config
 	local parseErrors: { string } = table.clone(input.docs.errors)
 	table.move(input.resources.errors, 1, #input.resources.errors, #parseErrors + 1, parseErrors)
@@ -87,6 +89,7 @@ function Build.run(input: Input): (string, Report, Coverage)
 	local out: { string } = {}
 	local ctx: Common.Context = {
 		config = config,
+		apis = { functions = {}, widgetMethods = {} },
 		res = input.resources,
 		docs = input.docs,
 		reserved = input.reserved,
@@ -125,6 +128,7 @@ function Build.run(input: Input): (string, Report, Coverage)
 	local derivedCount = Structs.emit(ctx)
 	Widgets.emit(ctx)
 	local counts = Globals.emit(ctx, tree)
+	local shapes = Shapes.collect(ctx)
 
 	-- Parameter overrides that matched nothing: stale rules. The pipeline rejects them for the real inputs
 	-- (the snapshot cases use only a few APIs, so most rules match nothing there).
@@ -194,11 +198,12 @@ function Build.run(input: Input): (string, Report, Coverage)
 			handlerArgs = handlerArgs,
 			other = anyCount - 2 * anyTable - 2 * anyFunction - handlerArgs,
 		},
+		shapes = Shapes.summary(shapes),
 		unusedOverrides = unusedOverrides,
 		parseErrors = parseErrors,
 		unresolvedTypes = unresolved,
 	}
-	return text, report, coverage
+	return text, report, coverage, shapes
 end
 
 return Build

@@ -54,6 +54,25 @@ CI fails if an API that was typed becomes untyped.
 | functions | excluded | not in the WoW: Forever client | 262 |
 | functions | excluded | provided by Luau's standard library | 87 |
 
+## Result shapes
+
+Every function and widget method has a result shape in [`api-shapes.json`](api-shapes.json), for
+libraries that wrap the API (`maybe`: one nilable result; `record`: several named results).
+
+| Shape | Functions | Widget methods |
+| --- | ---: | ---: |
+| `excluded` | 393 | 0 |
+| `generic` | 13 | 0 |
+| `maybe` | 1155 | 64 |
+| `opaque` | 3 | 200 |
+| `overloaded` | 5 | 0 |
+| `protected` | 1 | 65 |
+| `record` | 572 | 103 |
+| `untyped` | 5719 | 0 |
+| `value` | 2720 | 542 |
+| `variadic` | 39 | 8 |
+| `void` | 2545 | 678 |
+
 ## Strictness
 
 `any` in the definitions, by form:
