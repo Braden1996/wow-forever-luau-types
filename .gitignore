@@ -1,1 +1,3 @@
 .upstream/
+.moon/cache/
+.moon/docker/

@@ -1,20 +1,18 @@
 --!strict
--- The first file in the .toc: creates the shared namespace other files extend.
-
-export type Namespace = {
-	name: string,
-	version: string,
-	db: SampleDB,
-	print: (message: string) -> (),
-	onPlayerLevel: (level: number) -> (),
-}
+-- The first file in the .toc: fills in the shared namespace (its type is in addon.d.luau) that other files extend.
 
 local ADDON: string, ns: Namespace = ...
 
 ns.name = ADDON
 ns.version = "0.1.0"
+ns.money = 0
+ns.dirtyBags = {}
+ns.enabled = true
 
-local DEFAULTS: SampleDB = { enabled = true, runs = 0, lastZone = nil }
+-- A fresh table each call: Lua 5.1 has no table.clone (a Luau addition WoW lacks).
+local function defaults(): SampleDB
+	return { enabled = true, runs = 0, lastZone = nil }
+end
 
 function ns.print(message: string)
 	DEFAULT_CHAT_FRAME:AddMessage(format("|cff33ff99%s|r: %s", ADDON, message))
@@ -36,7 +34,7 @@ events:SetScript("OnEvent", function(_self: Frame, event: string, ...: any)
 		if loaded ~= ADDON then
 			return
 		end
-		local saved = SampleAddonDB or table.clone(DEFAULTS)
+		local saved = SampleAddonDB or defaults()
 		saved.runs += 1
 		_G.SampleAddonDB = saved -- declared globals are read-only in Luau; write through _G
 		ns.db = saved
@@ -45,6 +43,9 @@ events:SetScript("OnEvent", function(_self: Frame, event: string, ...: any)
 		local level: number = ...
 		ns.onPlayerLevel(level)
 	elseif event == "ZONE_CHANGED_NEW_AREA" then
-		ns.db.lastZone = GetRealZoneText()
+		local db = ns.db
+		if db then
+			db.lastZone = GetRealZoneText()
+		end
 	end
 end)

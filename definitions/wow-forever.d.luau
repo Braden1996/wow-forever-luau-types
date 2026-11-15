@@ -1,5 +1,5 @@
 -- World of Warcraft: Forever API definitions for luau-lsp (requires Luau's new type solver).
--- GENERATED FILE: do not edit. Regenerate with `lune run scripts/generate`.
+-- GENERATED FILE: do not edit. Regenerate with `moon run generator:generate`.
 -- Existence: Ketho/BlizzardInterfaceResources@e230342a476eb4ef484ba7b34adc0da6ecc6acc1
 -- Types:     Gethe/wow-ui-source@bebcb6bf309cf41b41bd74f8ca651e6a105b2676 (Blizzard_APIDocumentationGenerated)
 --            Ketho/vscode-wow-api@d0b5b51fac4c52c493371b9b18e66ce604ea4326 (MIT licence)
@@ -1858,8 +1858,8 @@ export type ClubInvitationId = string
 export type ClubStreamId = string
 export type ConnectionIptype = number
 export type CooldownFrame = Cooldown
-export type CraftingOrderRequestCallback = FunctionContainer | (((result: Enum_CraftingOrderResult, orderType: Enum_CraftingOrderType, displayBuckets: boolean, expectMoreRows: boolean, offset: number, isSorted: boolean) -> ()))
-export type CraftingOrderRequestMyOrdersCallback = FunctionContainer | (((result: Enum_CraftingOrderResult, expectMoreRows: boolean, offset: number, isSorted: boolean) -> ()))
+export type CraftingOrderRequestCallback = FunctionContainer | ((result: Enum_CraftingOrderResult, orderType: Enum_CraftingOrderType, displayBuckets: boolean, expectMoreRows: boolean, offset: number, isSorted: boolean) -> ())
+export type CraftingOrderRequestMyOrdersCallback = FunctionContainer | ((result: Enum_CraftingOrderResult, expectMoreRows: boolean, offset: number, isSorted: boolean) -> ())
 export type CurveType = string
 export type DrawLayer = "BACKGROUND" | "BORDER" | "ARTWORK" | "OVERLAY" | "HIGHLIGHT"
 export type DurationSeconds = number
@@ -1903,7 +1903,7 @@ export type MouseButton = mouseButton
 export type Nameplate = Frame
 export type NotificationDbId = string
 export type Orientation = string
-export type PinUpdatedCallback = FunctionContainer | ((() -> ()))
+export type PinUpdatedCallback = FunctionContainer | (() -> ())
 export type PlayerLocation = PlayerLocationMixin
 export type QuestObjectiveType = number
 export type RecruitAcceptanceID = string
@@ -2028,9 +2028,20 @@ export type SIMPLEHTML = SimpleHTML
 export type SLIDER = Slider
 export type STATUSBAR = StatusBar
 export type ScriptRegionResizing = Object
+export type SimpleAnim = Animation
+export type SimpleAnimGroup = AnimationGroup
 export type SimpleButton = Button
+export type SimpleCheckbox = CheckButton
+export type SimpleControlPoint = ControlPoint
 export type SimpleEditBox = EditBox
+export type SimpleFont = Font
+export type SimpleFontString = FontString
+export type SimpleFrame = Frame
+export type SimpleLine = Line
+export type SimpleMaskTexture = MaskTexture
+export type SimpleTexture = Texture
 export type SimpleVectorGraphics = VectorGraphics
+export type SimpleWindow = Frame
 export type TABARDMODEL = TabardModel
 export type TEXTURE = Texture
 export type TEXTURECOORDTRANSLATION = TextureCoordTranslation
@@ -3407,7 +3418,7 @@ export type AuraContainerTooltipTextureSliceOptions = {
 	color: ColorMixin?,
 	drawLayer: DrawLayer?,
 	drawLayerSublevel: number,
-	sliceMargins: unknown,
+	sliceMargins: unknown?,
 	sliceMode: Enum_UITextureSliceMode?,
 }
 export type AuraData = {
@@ -4280,7 +4291,7 @@ export type ClubMemberInfo = {
 	bnetAccountId: number?,
 	classID: number?,
 	clubType: Enum_ClubType?,
-	discordInfo: unknown,
+	discordInfo: unknown?,
 	faction: Enum_PvPFaction?,
 	guid: WOWGUID?,
 	guildRank: string?,
@@ -5173,9 +5184,9 @@ export type CustomAuraButtonDurationBarOptions = {
 	interpolation: Enum_StatusBarInterpolation?,
 }
 export type CustomAuraButtonDurationTextOptions = {
-	binding: unknown,
-	textColor: unknown,
-	textFormat: unknown,
+	binding: unknown?,
+	textColor: unknown?,
+	textFormat: unknown?,
 	textFormatter: NumericFormatter?,
 }
 export type DBColorExport = {
@@ -5433,8 +5444,8 @@ export type ElementMenuDescriptionProxy = SharedMenuDescriptionProxy & {
 	ForceOpenSubmenu: (self: ElementMenuDescriptionProxy) -> (),
 	GetData: (self: ElementMenuDescriptionProxy) -> unknown,
 	GetDefaultResponse: (self: ElementMenuDescriptionProxy, menuInputContext: MenuInputContext, menuInputButtonName: mouseButton) -> MenuResponse,
-	GetOnEnter: (self: ElementMenuDescriptionProxy) -> (((frame: Frame, elementDescription: ElementMenuDescriptionProxy) -> ())?),
-	GetOnLeave: (self: ElementMenuDescriptionProxy) -> (((frame: Frame, elementDescription: ElementMenuDescriptionProxy) -> ())?),
+	GetOnEnter: (self: ElementMenuDescriptionProxy) -> ((frame: Frame, elementDescription: ElementMenuDescriptionProxy) -> ())?,
+	GetOnLeave: (self: ElementMenuDescriptionProxy) -> ((frame: Frame, elementDescription: ElementMenuDescriptionProxy) -> ())?,
 	GetSoundKit: (self: ElementMenuDescriptionProxy) -> number,
 	HandleOnEnter: (self: ElementMenuDescriptionProxy, frame: Frame) -> (),
 	HandleOnLeave: (self: ElementMenuDescriptionProxy, frame: Frame) -> (),
@@ -9828,7 +9839,7 @@ export type UnitAuraUpdateInfo = {
 	updatedAuraInstanceIDs: { number }?,
 }
 export type UnitCastingInfoResult = {
-	castBarID: unknown,
+	castBarID: unknown?,
 	castID: WOWGUID,
 	castingSpellID: number,
 	delayTimeMs: number,
@@ -9841,7 +9852,7 @@ export type UnitCastingInfoResult = {
 	textureID: fileID,
 }
 export type UnitChannelInfoResult = {
-	castBarID: unknown,
+	castBarID: unknown?,
 	displayName: string,
 	endTimeMs: number,
 	isEmpowered: boolean,
@@ -10239,7 +10250,7 @@ export type mathlib = {
 }
 export type metatable = {
 	__add: ((t1: unknown, t2: unknown) -> unknown)?,
-	__call: ((t: unknown, ...unknown) -> unknown)?,
+	__call: ((t: unknown, ...unknown) -> (...unknown))?,
 	__concat: ((t1: unknown, t2: unknown) -> unknown)?,
 	__div: ((t1: unknown, t2: unknown) -> unknown)?,
 	__eq: ((t1: unknown, t2: unknown) -> boolean)?,
@@ -12727,8 +12738,8 @@ declare AuraUtil: {
 	ExpirationAuraCompare: (...unknown) -> (...unknown),
 	ExpirationOnlyAuraCompare: (...unknown) -> (...unknown),
 	FindAura: (...unknown) -> (...unknown),
-	FindAuraByName: (auraName: string, unit: string, filter: string?) -> (string, number, number, string?, number, number, string, boolean, boolean, number, boolean, boolean, boolean, boolean, number, unknown),
-	ForEachAura: (unit: string, filter: string, maxCount: unknown, func: (...any) -> ...any, usePackedAura: boolean?) -> (string, number, number, string?, number, number, string, boolean, boolean, number, boolean, boolean, boolean, boolean, number, unknown),
+	FindAuraByName: (auraName: string, unit: string, filter: string?) -> (string, number, number, string?, number, number, string, boolean, boolean, number, boolean, boolean, boolean, boolean, number, ...unknown),
+	ForEachAura: (unit: string, filter: string, maxCount: unknown, func: (...any) -> ...any, usePackedAura: boolean?) -> (string, number, number, string?, number, number, string, boolean, boolean, number, boolean, boolean, boolean, boolean, number, ...unknown),
 	GetAuraBorderColor: (...unknown) -> (...unknown),
 	GetAuraDataByAuraInstanceID: (...unknown) -> (...unknown),
 	GetAuraDispelTypeIcon: (...unknown) -> (...unknown),
@@ -31114,7 +31125,7 @@ declare function GetCategoryList(): { number }
 declare function GetCategoryNumAchievements(categoryId: number, includeAll: boolean?): (number, number, number)
 declare function GetCemeteryPreference(): number
 declare function GetChannelDisplayInfo(index: number): (string, boolean, boolean?, number?, number?, boolean?, string, number)
-declare function GetChannelList(): (number, string, boolean, unknown)
+declare function GetChannelList(): (number, string, boolean, ...unknown)
 declare function GetChannelName(name: string | number): (number, string, number, boolean)
 declare function GetChannelTypeFromPartyCategory(...: unknown): (...unknown)
 declare function GetChatAdditionalColor(...: unknown): (...unknown)
@@ -33076,11 +33087,11 @@ declare function MatchCelebrationPartyPose_LoadUI(...: unknown): (...unknown)
 declare function MaximizeUIPanel(...: unknown): (...unknown)
 declare MenuUtil: {
 	CreateButton: (text: string, callback: MenuResponder, data: unknown) -> ElementMenuDescriptionProxy,
-	CreateButtonContextMenu: (ownerRegion: Region?, ...{ [number]: string }) -> Frame?,
-	CreateButtonMenu: (dropdown: Button, ...{ [number]: string }) -> (),
+	CreateButtonContextMenu: (ownerRegion: Region?, ...{ unknown }) -> Frame?,
+	CreateButtonMenu: (dropdown: Button, ...{ unknown }) -> (),
 	CreateCheckbox: (text: string, isSelected: (data: unknown) -> boolean, setSelected: MenuResponder, data: unknown) -> ElementMenuDescriptionProxy,
-	CreateCheckboxContextMenu: (ownerRegion: Region?, isSelected: (data: unknown) -> boolean, setSelected: MenuResponder, ...{ [number]: string }) -> Frame?,
-	CreateCheckboxMenu: (dropdown: Button, isSelected: (data: unknown) -> boolean, setSelected: MenuResponder, ...{ [number]: string }) -> (),
+	CreateCheckboxContextMenu: (ownerRegion: Region?, isSelected: (data: unknown) -> boolean, setSelected: MenuResponder, ...{ unknown }) -> Frame?,
+	CreateCheckboxMenu: (dropdown: Button, isSelected: (data: unknown) -> boolean, setSelected: MenuResponder, ...{ unknown }) -> (),
 	CreateColorSwatch: (text: string, callback: MenuResponder, colorInfo: colorRGBA) -> ElementMenuDescriptionProxy,
 	CreateContextMenu: (ownerRegion: Region?, generator: (ownerRegion: Region, description: RootMenuDescriptionProxy, ...unknown) -> (), ...unknown) -> Frame?,
 	CreateDivider: () -> ElementMenuDescriptionProxy,
@@ -33090,8 +33101,8 @@ declare MenuUtil: {
 	CreateHighlightButton: (...unknown) -> (...unknown),
 	CreateHighlightRadio: (...unknown) -> (...unknown),
 	CreateRadio: (text: string, isSelected: (data: unknown) -> boolean, setSelected: MenuResponder, data: unknown) -> ElementMenuDescriptionProxy,
-	CreateRadioContextMenu: (ownerRegion: Region?, isSelected: (data: unknown) -> boolean, setSelected: MenuResponder, ...{ [number]: string }) -> Frame?,
-	CreateRadioMenu: (dropdown: Button, isSelected: (data: unknown) -> boolean, setSelected: MenuResponder, ...{ [number]: string }) -> (),
+	CreateRadioContextMenu: (ownerRegion: Region?, isSelected: (data: unknown) -> boolean, setSelected: MenuResponder, ...{ unknown }) -> Frame?,
+	CreateRadioMenu: (dropdown: Button, isSelected: (data: unknown) -> boolean, setSelected: MenuResponder, ...{ unknown }) -> (),
 	CreateRedHighlightButton: (...unknown) -> (...unknown),
 	CreateRootMenuDescription: <M>(menuMixin: M) -> (RootMenuDescriptionProxy | M),
 	CreateSearchEntry: (...unknown) -> (...unknown),
@@ -34655,7 +34666,7 @@ declare RuneforgeUtil: {
 }
 declare function SafeLength(...: unknown): (...unknown)
 declare function SafePack(...: unknown): { [any]: any }
-declare function SafeUnpack(tbl: { [any]: any }): unknown
+declare function SafeUnpack(tbl: { [any]: any }): (...unknown)
 declare function Saturate(...: unknown): (...unknown)
 declare function SaveAllCustomBindings(...: unknown): (...unknown)
 declare function SaveBindings(which: number): ()
@@ -35995,7 +36006,7 @@ declare function UIPanelScrollFrame_OnLoad(...: unknown): (...unknown)
 declare function UIPanelStaticPopupSpecialCloseButton_OnClick(...: unknown): (...unknown)
 declare function UIPanelUpdateScaleForFit(...: unknown): (...unknown)
 declare function UIPanelWindows_Initialize(...: unknown): (...unknown)
-declare UIParent: Frame
+declare UIParent: UIParent
 declare function UIReload(): ()
 declare function UIWidgetBaseCurrencyPoolOnReset(...: unknown): (...unknown)
 declare function UIWidgetBaseSpellPoolOnReset(...: unknown): (...unknown)
@@ -36536,7 +36547,7 @@ declare function frexp(x: number): (number, number)
 declare function geterrorhandler(): ((...any) -> ...any)
 declare getn: <T>(list: { T }) -> number
 declare function getprinthandler(...: unknown): (...unknown)
-declare function gmatch(s: string | number, pattern: string | number): (() -> (string, unknown))
+declare function gmatch(s: string | number, pattern: string | number): (() -> (string, ...unknown))
 declare function gsub(s: string | number, pattern: string | number, repl: string | number | { [any]: any } | ((...any) -> ...any), n: number?): (string, number)
 declare function hasanysecretvalues(...: LuaValueReference): boolean
 declare function hooksecurefunc(tbl: { [any]: any } | string, name: string | ((...any) -> ...any), hook: ((...any) -> ...any)?): ()
@@ -36564,8 +36575,8 @@ declare function random(m: number?, n: number?): number
 declare function scrub(...: LuaValueReference): (...LuaValueReference)
 declare function scrubsecretvalues(...: LuaValueReference): (...LuaValueReference)
 declare function secretwrap(...: LuaValueReference): (...LuaValueReference)
-declare securecall: <A, R, S>(funcOrKey: S | ((...A) -> unknown), ...A) -> (...R)
-declare securecallfunction: <A, R>(func: (...A) -> unknown, ...A) -> (...R)
+declare securecall: <A, R, S>(funcOrKey: S | ((...A) -> (...unknown)), ...A) -> (...R)
+declare securecallfunction: <A, R>(func: (...A) -> (...unknown), ...A) -> (...R)
 declare function securecallmethod(object: LuaValueReference, method: string, ...: LuaValueReference): (...LuaValueReference)
 declare function securecopy(value: LuaValueReference?, options: SecureCopyOptions?): LuaValueReference
 declare function secureexecuterange(tbl: { [any]: any }, func: (...any) -> ...any, ...: unknown): ()
@@ -36615,8 +36626,9 @@ declare function wipe(tbl: { [any]: any }): { [any]: any }
 -- =================================================================================================
 -- Appended from supplements/framexml.d.luau
 -- Hand-written supplement: FrameXML globals that addons use every day but that upstream does not
--- annotate (mostly tables and frames). Keep this file small; every entry must exist in the
--- WoW: Forever client (the generator rejects a `declare function` the client does not have).
+-- annotate (mostly tables and frames). Keep this file small and add only what the WoW: Forever client has.
+-- The generator appends the file verbatim and checks one thing: each `declare function` name must be a function
+-- in the client. Nothing checks the tables, frames and types, so verify those against the client by hand.
 
 -- Chat.
 declare DEFAULT_CHAT_FRAME: MessageFrame
@@ -36646,14 +36658,14 @@ export type StaticPopupInfo = {
 	hideOnEscape: boolean?,
 	exclusive: boolean?,
 	preferredIndex: number?,
-	[string]: unknown,
 }
 declare StaticPopupDialogs: { [string]: StaticPopupInfo }
 declare function StaticPopup_Show(which: string, text_arg1: unknown, text_arg2: unknown, data: unknown): Frame?
 declare function StaticPopup_Hide(which: string, data: unknown): ()
 
 -- Colours.
-declare RAID_CLASS_COLORS: { [string]: ColorMixin }
+-- Keyed by class file ("WARRIOR"); each entry is a ColorMixin that also carries its components and "ffrrggbb".
+declare RAID_CLASS_COLORS: { [ClassFile]: ColorMixin & { r: number, g: number, b: number, colorStr: string } }
 declare ITEM_QUALITY_COLORS: { [number]: { r: number, g: number, b: number, hex: string, color: ColorMixin } }
 
 -- The 3D world frame.

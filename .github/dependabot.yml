@@ -1,0 +1,31 @@
+# Dependabot keeps the SHA-pinned GitHub Actions current. Tools are pinned in mise.toml (bump by hand, then
+# `mise lock`); the three upstream sources are bumped by the scheduled `upstream` workflow.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7 # let a release age a week before adopting it
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: build
+      include: scope
+  # The addon template's own workflow, which users copy.
+  - package-ecosystem: github-actions
+    directory: /templates/addon
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7 # let a release age a week before adopting it
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: build
+      include: scope

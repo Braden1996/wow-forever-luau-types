@@ -1,5 +1,5 @@
 -- World of Warcraft: Forever API definitions for luau-lsp (requires Luau's new type solver).
--- GENERATED FILE: do not edit. Regenerate with `lune run scripts/generate`.
+-- GENERATED FILE: do not edit. Regenerate with `moon run generator:generate`.
 -- Existence: example/snapshot@0000000000000000000000000000000000000000
 -- Types:     example/snapshot@0000000000000000000000000000000000000000 (Blizzard_APIDocumentationGenerated)
 --            example/snapshot@0000000000000000000000000000000000000000 (MIT licence)

@@ -1,5 +1,9 @@
 <p align="center">
-  <img src=".github/banner.svg" alt="wow-forever-luau-types: strict Luau type definitions for the World of Warcraft: Forever API" width="100%">
+  <img
+    src=".github/banner.svg"
+    alt="wow-forever-luau-types: strict Luau type definitions for the World of Warcraft: Forever API"
+    width="100%"
+  >
 </p>
 
 <p align="center">
@@ -29,6 +33,12 @@ GetQuestLogTitle(1)                            -- error: Forever replaced it wit
 
 ## Quick start
 
+**Fastest:** copy the [addon template](templates/addon). It has the editor settings (VS Code and Zed), a pinned type
+checker and Luau-to-Lua-5.1 build (mise, luau-lsp, darklua), a typed shared namespace, SavedVariables and typed event
+handlers. CI type-checks and builds it on every change here.
+
+**By hand:**
+
 1. **Download** `wow-forever.d.luau` from the [latest release](https://github.com/Braden1996/wow-forever-luau-types/releases/latest)
    (checksums in `SHA256SUMS`) into your addon, for example as `types/wow-forever.d.luau`. Pin a version: an
    upstream update can change types.
@@ -37,12 +47,12 @@ GetQuestLogTitle(1)                            -- error: Forever replaced it wit
 
    ```jsonc
    {
-     "luau-lsp.platform.type": "standard",       // not Roblox
+     "luau-lsp.platform.type": "standard", // not Roblox
      "luau-lsp.sourcemap.enabled": false,
-     "luau-lsp.fflags.enableNewSolver": true,    // required: the definitions use the new type solver
+     "luau-lsp.fflags.enableNewSolver": true, // required: the definitions use the new type solver
      "luau-lsp.types.definitionFiles": {
        "@wow": "types/wow-forever.d.luau",
-       "@addon": "types/addon.d.luau"            // your own SavedVariables (see below)
+       "@addon": "types/addon.d.luau" // your own SavedVariables (see below)
      }
    }
    ```
@@ -58,10 +68,10 @@ GetQuestLogTitle(1)                            -- error: Forever replaced it wit
 
 A generator converts three pinned upstream sources into one definitions file and checks the result:
 
-| Source | Decides |
-| --- | --- |
-| [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources/tree/forever) (`forever` branch): dumps from the live Forever client | **What exists**: every function, widget type and method, script handler, event and enum value |
-| [Gethe/wow-ui-source](https://github.com/Gethe/wow-ui-source/tree/forever) (`forever` branch): Blizzard's own `Blizzard_APIDocumentationGenerated` | **Types first**: arguments, results, nilability, structures, callback types, event payloads |
+| Source                                                                                                                                                                                 | Decides                                                                                                           |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources/tree/forever) (`forever` branch): dumps from the live Forever client                            | **What exists**: every function, widget type and method, script handler, event and enum value                     |
+| [Gethe/wow-ui-source](https://github.com/Gethe/wow-ui-source/tree/forever) (`forever` branch): Blizzard's own `Blizzard_APIDocumentationGenerated`                                     | **Types first**: arguments, results, nilability, structures, callback types, event payloads                       |
 | [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api) (MIT): LuaCATS annotations behind the WoW VS Code extension, sourced from [warcraft.wiki.gg](https://warcraft.wiki.gg) | **Types for the rest**: globals the documentation omits, FrameXML mixins, WoW's Lua extensions, extra call shapes |
 
 When the documentation and the annotations disagree: types come from the documentation; an argument is optional if
@@ -79,23 +89,27 @@ Every API the client has is listed in [`definitions/coverage.json`](definitions/
 source), untyped, or excluded (with the reason). CI fails if an API that was typed becomes untyped.
 [`definitions/COVERAGE.md`](definitions/COVERAGE.md) has the full tables.
 
-| | Typed | Share |
-| --- | ---: | ---: |
+|                                                           |          Typed | Share |
+| --------------------------------------------------------- | -------------: | ----: |
 | C API functions (the game's native API, global and `C_*`) | 6,892 of 6,904 | 99.8% |
-| Widget and script-object methods | 1,660 | 100% |
-| Events, with payload types | 1,816 | 100% |
-| Structures and mixins | 821 | 100% |
-| Enums (from the client) | 954 | 100% |
-| Widget types, in the client's own hierarchy | 57 | 100% |
+| Widget and script-object methods                          |          1,660 |  100% |
+| Events, with payload types                                |          1,816 |  100% |
+| Structures and mixins                                     |            821 |  100% |
+| Enums (from the client)                                   |            954 |  100% |
+| Widget types, in the client's own hierarchy               |             57 |  100% |
 
-The remaining untyped functions are FrameXML: Blizzard's own UI code in Lua, which no source types. They are
-declared, so calling one is not an error, and they return `unknown`.
+Nearly all remaining untyped functions (5,690) are FrameXML: Blizzard's own UI code in Lua, which no source types;
+12 C API and 17 Lua-extension functions also lack a type source. They are declared, so calling one is not an error,
+and they return `unknown`.
 
 ## How strict
 
 - **No `any` in results.** A value is typed or `unknown`. `any` appears only where an API genuinely takes anything of
   a kind: `{ [any]: any }` for "any table" (the only table type every table is assignable to), `(...any) -> ...any` for
   "any function", and the arguments of script handlers, which differ per script.
+- **Only what WoW has.** Luau standard-library names that WoW's Lua 5.1 lacks (`table.clone`, `table.find`, `typeof`,
+  `buffer`, ...) are disabled through [`definitions/luau-lsp.settings.json`](definitions/luau-lsp.settings.json)
+  (pass it with `--settings`; the template and the editor configs include it), so code that type-checks also runs.
 - **Nil-safety.** Results the documentation marks nilable are optional, so `C_QuestLog.GetInfo(i).title` is an error
   until you check the result.
 - **Closed string unions** for event names (the client's full list), anchor points, strata, draw layers and script
@@ -160,23 +174,37 @@ flowchart LR
   G --> C["coverage.json · COVERAGE.md · report.json · banner.svg"]
 ```
 
-| Check (CI) | What it proves |
-| --- | --- |
-| `fresh` | Every generated file, including the banner, matches a regeneration from the pinned commits |
-| `typecheck` | The sample addon has zero diagnostics; each negative fixture produces exactly its expected errors; the converter reproduces every snapshot case; the generator is `--!strict` clean |
-| `coverage` | No API that was typed lost its types |
-| `lint` | StyLua, selene and typos |
-| `workflows` | actionlint and zizmor; every action pinned by SHA |
-| `pr-title` | Conventional Commit titles |
+[moon](https://moonrepo.dev) orchestrates every task and [mise](https://mise.jdx.dev) pins every tool (versions in
+`mise.toml`, checksums in `mise.lock`). `moon run :check` is the gate; CI runs it cold on every pull request, and
+the pre-push hook runs it for what changed.
 
-Regenerate and test locally (tools pinned in `mise.toml`, checksums in `mise.lock`):
+| Task                                       | What it proves                                                                                                      |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `generator:fresh`                          | Every generated file, including the banner, matches a regeneration from the pinned commits                          |
+| `generator:coverage`                       | No API that was typed on the base branch lost its types                                                             |
+| `generator:typecheck`, `lint`, `fmt-check` | The generator is `--!strict` clean, selene-clean and StyLua-formatted                                               |
+| `tests:samples`                            | The sample addon and the template have zero diagnostics; each negative fixture produces exactly its expected errors |
+| `tests:snapshots`                          | The converter reproduces every snapshot case, and each expected file loads in luau-lsp                              |
+| `tests:template-build`                     | The template compiles with darklua to valid Lua 5.1 covering every file its `.toc` loads                            |
+| `repo:check`                               | typos, actionlint, zizmor, offline link check, dprint formatting                                                    |
+
+CI also checks Conventional Commit pull request titles. Dependabot bumps the SHA-pinned actions; a weekly workflow
+moves the upstream pins and opens a pull request with the regenerated files.
 
 ```bash
-mise install
-mise exec -- lune run scripts/generate
-mise exec -- lune run scripts/test
-mise exec -- lune run scripts/snapshot
+mise install                        # the pinned tools
+mise exec -- lefthook install       # git hooks
+mise exec -- moon run :check        # everything CI runs
+mise exec -- moon run generator:generate
 ```
+
+## Editors
+
+| Editor  | Using the definitions in an addon                                                            | Working on this repository                                                                        |
+| ------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| VS Code | [`templates/addon/.vscode/`](templates/addon/.vscode/settings.json)                          | [`.vscode/`](.vscode/settings.json): settings, recommended extensions, tasks for the moon targets |
+| Zed     | [`templates/addon/.zed/`](templates/addon/.zed/settings.json) (install the "Luau" extension) | [`.zed/settings.json`](.zed/settings.json)                                                        |
+| Others  | Run `luau-lsp lsp` with: standard platform, new type solver, definitions `@wow` and `@addon` | Same, plus `.editorconfig`                                                                        |
 
 ## Limitations
 
@@ -188,9 +216,10 @@ mise exec -- lune run scripts/snapshot
 
 ## Contributing
 
-Most type fixes belong upstream: [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api) for annotations.
-This repository owns the converter, its rules, the tests and the small supplements. See
-[CONTRIBUTING.md](CONTRIBUTING.md).
+A wrong type for a documented C API is fixed here, as a converter rule; one for an undocumented global, FrameXML
+mixin or Lua extension belongs upstream in [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api). This
+repository owns the converter, its rules, the tests, the template and the small supplements. See
+[CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 ## Licence and credits
 

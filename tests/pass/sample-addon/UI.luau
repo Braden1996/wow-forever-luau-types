@@ -1,7 +1,7 @@
 --!strict
 -- Widgets: frames, buttons, font strings, tooltips, timers, hooks and slash commands.
 
-local ADDON: string, ns = ...
+local ADDON: string, ns: Namespace = ...
 
 local panel = CreateFrame("Frame", "SampleAddonPanel", UIParent, "BackdropTemplate")
 panel:SetSize(240, 120)

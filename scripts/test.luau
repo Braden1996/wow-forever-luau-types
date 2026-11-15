@@ -1,7 +1,8 @@
 --!strict
 -- Type-checks the samples against the generated definitions with luau-lsp and Luau's new solver.
---   tests/pass/<addon>/   every .luau file must get zero diagnostics (a .d.luau there is loaded as
+--   tests/pass/<addon>/, templates/<name>/   every .luau file must get zero diagnostics (a .d.luau there is loaded as
 --                         that addon's own definitions file)
+-- luau-lsp gets the generated definitions and settings (definitions/luau-lsp.settings.json), as an editor would.
 --   tests/fail/*.luau     the diagnostics must equal tests/fail/<name>.expected exactly (line,
 --                         column and full message), and every line marked `-- expect-error: <text>`
 --                         must be among them
@@ -16,7 +17,8 @@ local update = table.find(process.args, "--update") ~= nil
 
 type Diagnostic = { file: string, line: number, column: number, text: string }
 
-local function listFiles(dir: string, suffix: string): { string }
+-- Files under `dir` ending in `suffix`, sorted; with `recursive`, subfolders too (not hidden ones).
+local function listFiles(dir: string, suffix: string, recursive: boolean?): { string }
 	local out = {}
 	local entries = fs.readDir(dir)
 	table.sort(entries)
@@ -24,6 +26,10 @@ local function listFiles(dir: string, suffix: string): { string }
 		local path = dir .. "/" .. entry
 		if fs.isFile(path) and string.sub(entry, -#suffix) == suffix then
 			table.insert(out, path)
+		elseif recursive and fs.isDir(path) and string.sub(entry, 1, 1) ~= "." then
+			for _, nested in listFiles(path, suffix, true) do
+				table.insert(out, nested)
+			end
 		end
 	end
 	return out
@@ -33,6 +39,12 @@ local function isDefinitions(path: string): boolean
 	return string.sub(path, -7) == ".d.luau"
 end
 
+-- A template's types/wow-forever.d.luau is this repository's generated file (users download it into their addon); the
+-- tests load definitions/ instead, so a stale copy there is never read.
+local function isGeneratedCopy(path: string): boolean
+	return string.sub(path, -#"/types/wow-forever.d.luau") == "/types/wow-forever.d.luau"
+end
+
 -- Runs luau-lsp analyze and returns its diagnostics, multi-line messages joined.
 local function analyze(definitions: { string }, files: { string }): { Diagnostic }
 	local args = {
@@ -40,6 +52,7 @@ local function analyze(definitions: { string }, files: { string }): { Diagnostic
 		"--platform=standard",
 		"--flag:LuauSolverV2=true",
 		"--definitions=@wow=" .. config.output,
+		"--settings=" .. config.settings,
 	}
 	for i, def in definitions do
 		table.insert(args, "--definitions=@addon" .. i .. "=" .. def)
@@ -47,11 +60,11 @@ local function analyze(definitions: { string }, files: { string }): { Diagnostic
 	for _, f in files do
 		table.insert(args, f)
 	end
-	local result = process.exec("luau-lsp", args)
+	local result = process.exec("luau-lsp", args, { stdin = "" })
 	local output = string.gsub(result.stdout .. "\n" .. result.stderr, "\r", "")
-	if string.find(output, "Failed to read definitions file", 1, true) then
+	local function broken(why: string): never
 		print(output)
-		error("luau-lsp could not load the definitions")
+		error("luau-lsp " .. why)
 	end
 	local diagnostics: { Diagnostic } = {}
 	local current: Diagnostic? = nil
@@ -65,9 +78,20 @@ local function analyze(definitions: { string }, files: { string }): { Diagnostic
 				text = text,
 			}
 			table.insert(diagnostics, current :: Diagnostic)
-		elseif current and not string.match(line, "^%[") then
-			current.text ..= "\n" .. line
+		elseif string.match(line, "^%[ERROR%]") then
+			broken("failed: " .. line) -- e.g. a definitions file it could not read
+		elseif string.match(line, "^%[") then
+			continue -- [INFO] and [WARN] lines
+		elseif current == nil or string.match(line, "^%S+: %a*Error: ") or string.match(line, "^Cannot get ") then
+			-- Not the continuation of a message: a diagnostic without a position (a syntax error in a
+			-- definitions file prints `file: SyntaxError: ...`), or a file luau-lsp could not open.
+			broken("printed a line this script cannot parse: " .. line)
+		else
+			(current :: Diagnostic).text ..= "\n" .. line
 		end
+	end
+	if not result.ok and #diagnostics == 0 then
+		broken("exited with code " .. result.code .. " but reported no diagnostics")
 	end
 	table.sort(diagnostics, function(a: Diagnostic, b: Diagnostic): boolean
 		if a.line ~= b.line then
@@ -87,13 +111,24 @@ local function fail(message: string)
 	print("FAIL " .. message)
 end
 
--- Passing samples: each folder is one addon.
-local passDirs = fs.readDir("tests/pass")
-table.sort(passDirs)
-for _, name in passDirs do
-	local dir = "tests/pass/" .. name
-	local definitions, sources = {}, {}
-	for _, f in listFiles(dir, ".luau") do
+-- Passing samples and templates: each folder is one addon; its own definitions files are loaded with the generated
+-- ones (not its copy of types/wow-forever.d.luau, see isGeneratedCopy).
+local passDirs: { string } = {}
+for _, root in { "tests/pass", "templates" } do
+	local names = fs.readDir(root)
+	table.sort(names)
+	for _, name in names do
+		if fs.isDir(root .. "/" .. name) then
+			table.insert(passDirs, root .. "/" .. name)
+		end
+	end
+end
+for _, dir in passDirs do
+	local definitions: { string }, sources: { string } = {}, {}
+	for _, f in listFiles(dir, ".luau", true) do
+		if isGeneratedCopy(f) then
+			continue
+		end
 		table.insert(if isDefinitions(f) then definitions else sources, f)
 	end
 	local diagnostics = analyze(definitions, sources)

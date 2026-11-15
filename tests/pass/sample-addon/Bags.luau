@@ -1,7 +1,7 @@
 --!strict
 -- Container, item and quest APIs, plus the Lua 5.1 globals WoW adds (strsplit, wipe, tinsert).
 
-local _, ns = ...
+local _, ns: Namespace = ...
 
 local function countFreeSlots(): number
 	local free = 0

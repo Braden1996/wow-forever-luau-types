@@ -1,6 +1,6 @@
 {
-  "enums": [],
-  "events": [],
+  "enums": {},
+  "events": {},
   "functions": {
     "DemoClasses": {
       "source": "annotations",
@@ -33,6 +33,6 @@
       "status": "typed"
     }
   },
-  "widgetMethods": [],
-  "widgets": []
+  "widgetMethods": {},
+  "widgets": {}
 }

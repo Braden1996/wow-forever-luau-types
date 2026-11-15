@@ -1,0 +1,8 @@
+## Interface: 16001
+## Title: MyAddon
+## Notes: A strict-Luau addon for WoW: Forever.
+## Version: 0.1.0
+## SavedVariables: MyAddonDB
+
+build/Core.lua
+build/Events.lua

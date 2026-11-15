@@ -1,22 +1,22 @@
-# The three upstream inputs, pinned. Renovate bumps each `commit`; CI fails until the regenerated
-# definitions are committed with the bump.
+# The three upstream inputs, pinned by commit. The scheduled `upstream` workflow (scripts/bump-upstream.luau)
+# moves each `commit` to the head of its `branch`, regenerates, and opens a pull request.
 
 # Types: LuaCATS annotations for the WoW API (MIT licence).
 [annotations]
 repository = "Ketho/vscode-wow-api"
-# renovate: datasource=git-refs depName=https://github.com/Ketho/vscode-wow-api currentValue=master
+branch = "master"
 commit = "d0b5b51fac4c52c493371b9b18e66ce604ea4326"
 
 # What exists in WoW: Forever: the API, widget, event and enum dumps of the live client.
 [resources]
 repository = "Ketho/BlizzardInterfaceResources"
-# renovate: datasource=git-refs depName=https://github.com/Ketho/BlizzardInterfaceResources currentValue=forever
+branch = "forever"
 commit = "e230342a476eb4ef484ba7b34adc0da6ecc6acc1"
 
 # The client's own API documentation (Blizzard_APIDocumentationGenerated) for WoW: Forever. Only the
 # documentation folder is fetched.
 [docs]
 repository = "Gethe/wow-ui-source"
-# renovate: datasource=git-refs depName=https://github.com/Gethe/wow-ui-source currentValue=forever
+branch = "forever"
 commit = "bebcb6bf309cf41b41bd74f8ca651e6a105b2676"
 sparse = "Interface/AddOns/Blizzard_APIDocumentationGenerated"

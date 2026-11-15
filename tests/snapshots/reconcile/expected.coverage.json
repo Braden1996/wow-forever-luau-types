@@ -1,6 +1,6 @@
 {
-  "enums": [],
-  "events": [],
+  "enums": {},
+  "events": {},
   "functions": {
     "AnnotatedOnly": {
       "source": "annotations",
@@ -15,25 +15,25 @@
       "status": "typed"
     },
     "NewDemoTimer": {
-      "source": "docs",
+      "source": "docs+annotations",
       "status": "typed"
     },
     "NoSourceAtAll": {
-      "reason": "no type source (C API)",
+      "note": "no type source (C API)",
       "status": "untyped"
     },
     "NotInClient": {
-      "reason": "documented, but absent from the client's API dump",
+      "note": "documented, but absent from the client's API dump",
       "source": "docs",
       "status": "excluded"
     },
     "RetailOnly": {
-      "reason": "not in the WoW: Forever client",
+      "note": "not in the WoW: Forever client",
       "source": "annotations",
       "status": "excluded"
     },
     "table.insert": {
-      "reason": "provided by Luau's standard library",
+      "note": "provided by Luau's standard library",
       "status": "excluded"
     },
     "tinsert": {
@@ -55,6 +55,6 @@
       "status": "typed"
     }
   },
-  "widgetMethods": [],
-  "widgets": []
+  "widgetMethods": {},
+  "widgets": {}
 }
