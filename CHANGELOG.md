@@ -5,6 +5,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-16
+
 ### Added
 
 - A step-by-step tutorial on the documentation site, "Your first addon": saved data, typed events, a draggable window
@@ -129,7 +131,8 @@ All notable changes to this project are documented here. The format follows
 - CI (freshness, samples, strict generator, StyLua, selene, typos, actionlint, zizmor), a tag-triggered release, and
   Renovate for tools, actions and both upstream pins.
 
-[Unreleased]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.4.1...v0.5.0
 [0.4.1]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.2.0...v0.3.0
