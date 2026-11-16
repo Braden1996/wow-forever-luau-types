@@ -151,6 +151,26 @@ local resultTypeOverrides: { [string]: { [number]: string } } = {
 local factoryMethods: { [string]: { param: string, alias: string } } = {
 	["AnimationGroup:CreateAnimation"] = { param = "animationType", alias = "AnimationType" },
 }
+-- Lua mixins that a template adds to a widget, declared as a widget type that extends it. GameTooltipTemplate
+-- mixes GameTooltipDataMixin into GameTooltip and ItemRefTooltip: one `Set<X>` method per C API accessor
+-- `C_TooltipInfo.Get<X>`, called with the accessor's arguments. A method is declared only where the annotations
+-- name `GameTooltip:Set<X>` and the client has the accessor; its parameters are the accessor's, and its result is
+-- untyped, because no source documents it. `untyped` lists the mixin's other methods that the annotations name
+-- without types. `globals` are the named frames built from the template.
+export type WidgetMixin = {
+	widget: string,
+	accessors: { prefix: string, namespace: string, getter: string },
+	untyped: { string },
+	globals: { string },
+}
+local widgetMixins: { [string]: WidgetMixin } = {
+	GameTooltipDataMixin = {
+		widget = "GameTooltip",
+		accessors = { prefix = "Set", namespace = "C_TooltipInfo", getter = "Get" },
+		untyped = { "GetItem", "GetSpell", "GetUnit" },
+		globals = { "GameTooltip", "ItemRefTooltip" },
+	},
+}
 -- Methods whose first argument is a script name: typed per widget with that widget's handlers.
 local scriptMethods: { [string]: boolean } = { GetScript = true, HasScript = true, HookScript = true, SetScript = true }
 
@@ -164,4 +184,5 @@ return {
 	resultTypeOverrides = resultTypeOverrides,
 	factoryMethods = factoryMethods,
 	scriptMethods = scriptMethods,
+	widgetMixins = widgetMixins,
 }

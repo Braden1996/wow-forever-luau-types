@@ -68,6 +68,7 @@ local config = {
 	resultTypeOverrides = widgets.resultTypeOverrides,
 	factoryMethods = widgets.factoryMethods,
 	scriptMethods = widgets.scriptMethods,
+	widgetMixins = widgets.widgetMixins,
 
 	-- Type names (generator/rules/types.luau).
 	structBases = types.structBases,

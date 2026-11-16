@@ -70301,6 +70301,368 @@
       "source": "docs+annotations",
       "status": "typed"
     },
+    "GameTooltipDataMixin:GetItem": {
+      "note": "no type source",
+      "status": "untyped"
+    },
+    "GameTooltipDataMixin:GetSpell": {
+      "note": "no type source",
+      "status": "untyped"
+    },
+    "GameTooltipDataMixin:GetUnit": {
+      "note": "no type source",
+      "status": "untyped"
+    },
+    "GameTooltipDataMixin:SetAchievementByID": {
+      "note": "the parameters of C_TooltipInfo.GetAchievementByID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetAction": {
+      "note": "the parameters of C_TooltipInfo.GetAction; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetArtifactItem": {
+      "note": "the parameters of C_TooltipInfo.GetArtifactItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetArtifactPowerByID": {
+      "note": "the parameters of C_TooltipInfo.GetArtifactPowerByID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetAzeriteEssence": {
+      "note": "the parameters of C_TooltipInfo.GetAzeriteEssence; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetAzeriteEssenceSlot": {
+      "note": "the parameters of C_TooltipInfo.GetAzeriteEssenceSlot; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetAzeritePower": {
+      "note": "the parameters of C_TooltipInfo.GetAzeritePower; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetBackpackToken": {
+      "note": "the parameters of C_TooltipInfo.GetBackpackToken; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetBagItem": {
+      "note": "the parameters of C_TooltipInfo.GetBagItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetBagItemChild": {
+      "note": "the parameters of C_TooltipInfo.GetBagItemChild; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetBuybackItem": {
+      "note": "the parameters of C_TooltipInfo.GetBuybackItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetCompanionPet": {
+      "note": "the parameters of C_TooltipInfo.GetCompanionPet; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetConduit": {
+      "note": "the parameters of C_TooltipInfo.GetConduit; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetCurrencyByID": {
+      "note": "the parameters of C_TooltipInfo.GetCurrencyByID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetCurrencyToken": {
+      "note": "the parameters of C_TooltipInfo.GetCurrencyToken; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetEquipmentSet": {
+      "note": "the parameters of C_TooltipInfo.GetEquipmentSet; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetExistingSocketGem": {
+      "note": "the parameters of C_TooltipInfo.GetExistingSocketGem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetGuildBankItem": {
+      "note": "the parameters of C_TooltipInfo.GetGuildBankItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetHeirloomByItemID": {
+      "note": "the parameters of C_TooltipInfo.GetHeirloomByItemID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetHyperlink": {
+      "note": "the parameters of C_TooltipInfo.GetHyperlink; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetInboxItem": {
+      "note": "the parameters of C_TooltipInfo.GetInboxItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetInstanceLockEncountersComplete": {
+      "note": "the parameters of C_TooltipInfo.GetInstanceLockEncountersComplete; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetInventoryItem": {
+      "note": "the parameters of C_TooltipInfo.GetInventoryItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetInventoryItemByID": {
+      "note": "the parameters of C_TooltipInfo.GetInventoryItemByID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetItemByID": {
+      "note": "the parameters of C_TooltipInfo.GetItemByID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetItemKey": {
+      "note": "the parameters of C_TooltipInfo.GetItemKey; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetLFGDungeonReward": {
+      "note": "the parameters of C_TooltipInfo.GetLFGDungeonReward; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetLFGDungeonShortageReward": {
+      "note": "the parameters of C_TooltipInfo.GetLFGDungeonShortageReward; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetLootCurrency": {
+      "note": "the parameters of C_TooltipInfo.GetLootCurrency; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetLootItem": {
+      "note": "the parameters of C_TooltipInfo.GetLootItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetLootRollItem": {
+      "note": "the parameters of C_TooltipInfo.GetLootRollItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetMerchantCostItem": {
+      "note": "the parameters of C_TooltipInfo.GetMerchantCostItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetMerchantItem": {
+      "note": "the parameters of C_TooltipInfo.GetMerchantItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetMountBySpellID": {
+      "note": "the parameters of C_TooltipInfo.GetMountBySpellID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetOwnedItemByID": {
+      "note": "the parameters of C_TooltipInfo.GetOwnedItemByID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetPetAction": {
+      "note": "the parameters of C_TooltipInfo.GetPetAction; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetPossession": {
+      "note": "the parameters of C_TooltipInfo.GetPossession; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetPvpBrawl": {
+      "note": "the parameters of C_TooltipInfo.GetPvpBrawl; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetPvpTalent": {
+      "note": "the parameters of C_TooltipInfo.GetPvpTalent; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetQuestCurrency": {
+      "note": "the parameters of C_TooltipInfo.GetQuestCurrency; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetQuestItem": {
+      "note": "the parameters of C_TooltipInfo.GetQuestItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetQuestLogCurrency": {
+      "note": "the parameters of C_TooltipInfo.GetQuestLogCurrency; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetQuestLogItem": {
+      "note": "the parameters of C_TooltipInfo.GetQuestLogItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetQuestLogSpecialItem": {
+      "note": "the parameters of C_TooltipInfo.GetQuestLogSpecialItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetQuestPartyProgress": {
+      "note": "the parameters of C_TooltipInfo.GetQuestPartyProgress; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetRecipeRankInfo": {
+      "note": "the parameters of C_TooltipInfo.GetRecipeRankInfo; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetRecipeReagentItem": {
+      "note": "the parameters of C_TooltipInfo.GetRecipeReagentItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetRecipeResultItem": {
+      "note": "the parameters of C_TooltipInfo.GetRecipeResultItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetRuneforgeResultItem": {
+      "note": "the parameters of C_TooltipInfo.GetRuneforgeResultItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetSendMailItem": {
+      "note": "the parameters of C_TooltipInfo.GetSendMailItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetShapeshift": {
+      "note": "the parameters of C_TooltipInfo.GetShapeshift; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetSocketGem": {
+      "note": "the parameters of C_TooltipInfo.GetSocketGem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetSocketedItem": {
+      "note": "the parameters of C_TooltipInfo.GetSocketedItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetSocketedRelic": {
+      "note": "the parameters of C_TooltipInfo.GetSocketedRelic; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetSpellBookItem": {
+      "note": "the parameters of C_TooltipInfo.GetSpellBookItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetSpellByID": {
+      "note": "the parameters of C_TooltipInfo.GetSpellByID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetTalent": {
+      "note": "the parameters of C_TooltipInfo.GetTalent; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetTotem": {
+      "note": "the parameters of C_TooltipInfo.GetTotem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetToyByItemID": {
+      "note": "the parameters of C_TooltipInfo.GetToyByItemID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetTradePlayerItem": {
+      "note": "the parameters of C_TooltipInfo.GetTradePlayerItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetTradeTargetItem": {
+      "note": "the parameters of C_TooltipInfo.GetTradeTargetItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetTrainerService": {
+      "note": "the parameters of C_TooltipInfo.GetTrainerService; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetUnit": {
+      "note": "the parameters of C_TooltipInfo.GetUnit; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetUnitAura": {
+      "note": "the parameters of C_TooltipInfo.GetUnitAura; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetUnitBuff": {
+      "note": "the parameters of C_TooltipInfo.GetUnitBuff; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetUnitBuffByAuraInstanceID": {
+      "note": "the parameters of C_TooltipInfo.GetUnitBuffByAuraInstanceID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetUnitDebuff": {
+      "note": "the parameters of C_TooltipInfo.GetUnitDebuff; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetUnitDebuffByAuraInstanceID": {
+      "note": "the parameters of C_TooltipInfo.GetUnitDebuffByAuraInstanceID; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetUpgradeItem": {
+      "note": "the parameters of C_TooltipInfo.GetUpgradeItem; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin:SetWeeklyReward": {
+      "note": "the parameters of C_TooltipInfo.GetWeeklyReward; result untyped",
+      "source": "docs",
+      "status": "typed"
+    },
     "HousingCatalogSearcher:GetAllSearchItems": {
       "source": "docs",
       "status": "typed"
@@ -74174,6 +74536,11 @@
     "GameTooltip": {
       "note": "extends Frame",
       "source": "client",
+      "status": "typed"
+    },
+    "GameTooltipDataMixin": {
+      "note": "extends GameTooltip",
+      "source": "generator",
       "status": "typed"
     },
     "Line": {

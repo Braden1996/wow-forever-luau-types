@@ -137823,6 +137823,1046 @@
         ]
       ]
     },
+    "GameTooltipDataMixin:GetItem": {
+      "kind": "untyped"
+    },
+    "GameTooltipDataMixin:GetSpell": {
+      "kind": "untyped"
+    },
+    "GameTooltipDataMixin:GetUnit": {
+      "kind": "untyped"
+    },
+    "GameTooltipDataMixin:SetAchievementByID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "achievementID",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetAction": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "actionID",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetArtifactItem": {
+      "kind": "variadic",
+      "parameters": [
+        []
+      ]
+    },
+    "GameTooltipDataMixin:SetArtifactPowerByID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "powerID",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetAzeriteEssence": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "essenceID",
+            "type": "number"
+          },
+          {
+            "name": "rank",
+            "type": "number?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetAzeriteEssenceSlot": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slot",
+            "type": "Enum_AzeriteEssenceSlot"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetAzeritePower": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "itemID",
+            "type": "number"
+          },
+          {
+            "name": "itemLevel",
+            "type": "number"
+          },
+          {
+            "name": "powerID",
+            "type": "number"
+          },
+          {
+            "name": "owningItemLink",
+            "type": "string?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetBackpackToken": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "index",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetBagItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "bagIndex",
+            "type": "Enum_BagIndex"
+          },
+          {
+            "name": "slotIndex",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetBagItemChild": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "bagIndex",
+            "type": "Enum_BagIndex"
+          },
+          {
+            "name": "slotIndex",
+            "type": "number"
+          },
+          {
+            "name": "equipSlotIndex",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetBuybackItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "index",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetCompanionPet": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "petGUID",
+            "type": "WOWGUID"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetConduit": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "conduitID",
+            "type": "number"
+          },
+          {
+            "name": "conduitRank",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetCurrencyByID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "currencyID",
+            "type": "number"
+          },
+          {
+            "name": "amount",
+            "type": "number?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetCurrencyToken": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "tokenIndex",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetEquipmentSet": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "setID",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetExistingSocketGem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "index",
+            "type": "number"
+          },
+          {
+            "name": "toDestroy",
+            "type": "boolean?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetGuildBankItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "tab",
+            "type": "number"
+          },
+          {
+            "name": "slot",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetHeirloomByItemID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "itemID",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetHyperlink": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "hyperlink",
+            "type": "string"
+          },
+          {
+            "name": "optionalArg1",
+            "type": "number?"
+          },
+          {
+            "name": "optionalArg2",
+            "type": "number?"
+          },
+          {
+            "name": "hideVendorPrice",
+            "type": "boolean?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetInboxItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "messageIndex",
+            "type": "number"
+          },
+          {
+            "name": "attachmentIndex",
+            "type": "number?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetInstanceLockEncountersComplete": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "index",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetInventoryItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "unit",
+            "type": "UnitToken"
+          },
+          {
+            "name": "slot",
+            "type": "number"
+          },
+          {
+            "name": "hideUselessStats",
+            "type": "boolean?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetInventoryItemByID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "itemID",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetItemByID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "itemID",
+            "type": "number"
+          },
+          {
+            "name": "quality",
+            "type": "number?"
+          },
+          {
+            "name": "itemContext",
+            "type": "number?"
+          },
+          {
+            "name": "treasureContextLevel",
+            "type": "number?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetItemKey": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "itemID",
+            "type": "number"
+          },
+          {
+            "name": "itemLevel",
+            "type": "number"
+          },
+          {
+            "name": "itemSuffix",
+            "type": "number"
+          },
+          {
+            "name": "requiredLevel",
+            "type": "number?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetLFGDungeonReward": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "dungeonID",
+            "type": "number"
+          },
+          {
+            "name": "lootIndex",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetLFGDungeonShortageReward": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "dungeonID",
+            "type": "number"
+          },
+          {
+            "name": "shortageSeverity",
+            "type": "number"
+          },
+          {
+            "name": "lootIndex",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetLootCurrency": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slot",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetLootItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slot",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetLootRollItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "id",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetMerchantCostItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slot",
+            "type": "number"
+          },
+          {
+            "name": "costIndex",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetMerchantItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slot",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetMountBySpellID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "spellID",
+            "type": "SpellIdentifier"
+          },
+          {
+            "name": "checkIndoors",
+            "type": "boolean?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetOwnedItemByID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "itemID",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetPetAction": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slot",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetPossession": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slot",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetPvpBrawl": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "isSpecial",
+            "type": "boolean?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetPvpTalent": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "talentID",
+            "type": "number"
+          },
+          {
+            "name": "isInspect",
+            "type": "boolean?"
+          },
+          {
+            "name": "groupIndex",
+            "type": "number?"
+          },
+          {
+            "name": "talentIndex",
+            "type": "number?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetQuestCurrency": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "type",
+            "type": "string"
+          },
+          {
+            "name": "currencyIndex",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetQuestItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "type",
+            "type": "string"
+          },
+          {
+            "name": "itemIndex",
+            "type": "number"
+          },
+          {
+            "name": "allowCollectionText",
+            "type": "boolean?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetQuestLogCurrency": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "type",
+            "type": "string"
+          },
+          {
+            "name": "currencyIndex",
+            "type": "number"
+          },
+          {
+            "name": "questID",
+            "type": "number?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetQuestLogItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "type",
+            "type": "string"
+          },
+          {
+            "name": "itemIndex",
+            "type": "number"
+          },
+          {
+            "name": "questID",
+            "type": "number?"
+          },
+          {
+            "name": "allowCollectionText",
+            "type": "boolean?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetQuestLogSpecialItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "questIndex",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetQuestPartyProgress": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "questID",
+            "type": "number"
+          },
+          {
+            "name": "omitTitle",
+            "type": "boolean?"
+          },
+          {
+            "name": "ignoreActivePlayer",
+            "type": "boolean?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetRecipeRankInfo": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "recipeID",
+            "type": "number"
+          },
+          {
+            "name": "rank",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetRecipeReagentItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "recipeSpellID",
+            "type": "number"
+          },
+          {
+            "name": "dataSlotIndex",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetRecipeResultItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "recipeID",
+            "type": "number"
+          },
+          {
+            "name": "reagentInfos",
+            "type": "{ CraftingReagentInfo }?"
+          },
+          {
+            "name": "recraftItemGUID",
+            "type": "WOWGUID?"
+          },
+          {
+            "name": "recipeLevel",
+            "type": "number?"
+          },
+          {
+            "name": "overrideQualityID",
+            "type": "number?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetRuneforgeResultItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "itemGUID",
+            "type": "WOWGUID"
+          },
+          {
+            "name": "itemLevel",
+            "type": "number"
+          },
+          {
+            "name": "powerID",
+            "type": "number?"
+          },
+          {
+            "name": "modifiers",
+            "type": "{ number }?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetSendMailItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "attachmentIndex",
+            "type": "number?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetShapeshift": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slot",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetSocketGem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "index",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetSocketedItem": {
+      "kind": "variadic",
+      "parameters": [
+        []
+      ]
+    },
+    "GameTooltipDataMixin:SetSocketedRelic": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slotIndex",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetSpellBookItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "spellBookItemSlotIndex",
+            "type": "number"
+          },
+          {
+            "name": "spellBookItemSpellBank",
+            "type": "Enum_SpellBookSpellBank"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetSpellByID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "spellID",
+            "type": "SpellIdentifier"
+          },
+          {
+            "name": "isPet",
+            "type": "boolean?"
+          },
+          {
+            "name": "showSubtext",
+            "type": "boolean?"
+          },
+          {
+            "name": "dontOverride",
+            "type": "boolean?"
+          },
+          {
+            "name": "difficultyID",
+            "type": "number?"
+          },
+          {
+            "name": "isLink",
+            "type": "boolean?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetTalent": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "talentID",
+            "type": "number"
+          },
+          {
+            "name": "isInspect",
+            "type": "boolean?"
+          },
+          {
+            "name": "groupIndex",
+            "type": "number?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetTotem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slot",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetToyByItemID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "itemID",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetTradePlayerItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slot",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetTradeTargetItem": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "slot",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetTrainerService": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "serviceIndex",
+            "type": "number"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetUnit": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "unit",
+            "type": "UnitTokenPvPRestrictedForAddOns"
+          },
+          {
+            "name": "hideStatus",
+            "type": "boolean?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetUnitAura": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "unitToken",
+            "type": "UnitTokenRestrictedForAddOns"
+          },
+          {
+            "name": "index",
+            "type": "number"
+          },
+          {
+            "name": "filter",
+            "type": "AuraFilters?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetUnitBuff": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "unitToken",
+            "type": "UnitTokenRestrictedForAddOns"
+          },
+          {
+            "name": "index",
+            "type": "number"
+          },
+          {
+            "name": "filter",
+            "type": "AuraFilters?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetUnitBuffByAuraInstanceID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "unitToken",
+            "type": "UnitTokenRestrictedForAddOns"
+          },
+          {
+            "name": "auraInstanceID",
+            "type": "number"
+          },
+          {
+            "name": "filter",
+            "type": "AuraFilters?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetUnitDebuff": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "unitToken",
+            "type": "UnitTokenRestrictedForAddOns"
+          },
+          {
+            "name": "index",
+            "type": "number"
+          },
+          {
+            "name": "filter",
+            "type": "AuraFilters?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetUnitDebuffByAuraInstanceID": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "unitToken",
+            "type": "UnitTokenRestrictedForAddOns"
+          },
+          {
+            "name": "auraInstanceID",
+            "type": "number"
+          },
+          {
+            "name": "filter",
+            "type": "AuraFilters?"
+          }
+        ]
+      ]
+    },
+    "GameTooltipDataMixin:SetUpgradeItem": {
+      "kind": "variadic",
+      "parameters": [
+        []
+      ]
+    },
+    "GameTooltipDataMixin:SetWeeklyReward": {
+      "kind": "variadic",
+      "parameters": [
+        [
+          {
+            "name": "itemDBID",
+            "type": "WeeklyRewardItemDBID"
+          }
+        ]
+      ]
+    },
     "HousingCatalogSearcher:GetAllSearchItems": {
       "kind": "value",
       "parameters": [

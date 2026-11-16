@@ -12003,6 +12003,87 @@ declare extern type VertexColor extends Animation with
 	function SetStartColor(self, color: ColorMixin): ()
 end
 
+-- GameTooltipDataMixin: mixed into GameTooltip by its template; see generator/rules/widgets.luau.
+declare extern type GameTooltipDataMixin extends GameTooltip with
+	function GetScript(self, scriptTypeName: GameTooltipScriptType, bindingType: Enum_ScriptBindingType?): ((self: GameTooltipDataMixin, ...any) -> ())?
+	function HasScript(self, scriptName: GameTooltipScriptType): boolean
+	function HookScript(self, scriptTypeName: GameTooltipScriptType, script: (self: GameTooltipDataMixin, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
+	function SetScript(self, scriptTypeName: GameTooltipScriptType, script: ((self: GameTooltipDataMixin, ...any) -> ())?): ()
+	function GetItem(self, ...: unknown): (...unknown)
+	function GetSpell(self, ...: unknown): (...unknown)
+	function GetUnit(self, ...: unknown): (...unknown)
+	function SetAchievementByID(self, achievementID: number): (...unknown)
+	function SetAction(self, actionID: number): (...unknown)
+	function SetArtifactItem(self): (...unknown)
+	function SetArtifactPowerByID(self, powerID: number): (...unknown)
+	function SetAzeriteEssence(self, essenceID: number, rank: number?): (...unknown)
+	function SetAzeriteEssenceSlot(self, slot: Enum_AzeriteEssenceSlot): (...unknown)
+	function SetAzeritePower(self, itemID: number, itemLevel: number, powerID: number, owningItemLink: string?): (...unknown)
+	function SetBackpackToken(self, index: number): (...unknown)
+	function SetBagItem(self, bagIndex: Enum_BagIndex, slotIndex: number): (...unknown)
+	function SetBagItemChild(self, bagIndex: Enum_BagIndex, slotIndex: number, equipSlotIndex: number): (...unknown)
+	function SetBuybackItem(self, index: number): (...unknown)
+	function SetCompanionPet(self, petGUID: WOWGUID): (...unknown)
+	function SetConduit(self, conduitID: number, conduitRank: number): (...unknown)
+	function SetCurrencyByID(self, currencyID: number, amount: number?): (...unknown)
+	function SetCurrencyToken(self, tokenIndex: number): (...unknown)
+	function SetEquipmentSet(self, setID: number): (...unknown)
+	function SetExistingSocketGem(self, index: number, toDestroy: boolean?): (...unknown)
+	function SetGuildBankItem(self, tab: number, slot: number): (...unknown)
+	function SetHeirloomByItemID(self, itemID: number): (...unknown)
+	function SetHyperlink(self, hyperlink: string, optionalArg1: number?, optionalArg2: number?, hideVendorPrice: boolean?): (...unknown)
+	function SetInboxItem(self, messageIndex: number, attachmentIndex: number?): (...unknown)
+	function SetInstanceLockEncountersComplete(self, index: number): (...unknown)
+	function SetInventoryItem(self, unit: UnitToken, slot: number, hideUselessStats: boolean?): (...unknown)
+	function SetInventoryItemByID(self, itemID: number): (...unknown)
+	function SetItemByID(self, itemID: number, quality: number?, itemContext: number?, treasureContextLevel: number?): (...unknown)
+	function SetItemKey(self, itemID: number, itemLevel: number, itemSuffix: number, requiredLevel: number?): (...unknown)
+	function SetLFGDungeonReward(self, dungeonID: number, lootIndex: number): (...unknown)
+	function SetLFGDungeonShortageReward(self, dungeonID: number, shortageSeverity: number, lootIndex: number): (...unknown)
+	function SetLootCurrency(self, slot: number): (...unknown)
+	function SetLootItem(self, slot: number): (...unknown)
+	function SetLootRollItem(self, id: number): (...unknown)
+	function SetMerchantCostItem(self, slot: number, costIndex: number): (...unknown)
+	function SetMerchantItem(self, slot: number): (...unknown)
+	function SetMountBySpellID(self, spellID: SpellIdentifier, checkIndoors: boolean?): (...unknown)
+	function SetOwnedItemByID(self, itemID: number): (...unknown)
+	function SetPetAction(self, slot: number): (...unknown)
+	function SetPossession(self, slot: number): (...unknown)
+	function SetPvpBrawl(self, isSpecial: boolean?): (...unknown)
+	function SetPvpTalent(self, talentID: number, isInspect: boolean?, groupIndex: number?, talentIndex: number?): (...unknown)
+	function SetQuestCurrency(self, type: string, currencyIndex: number): (...unknown)
+	function SetQuestItem(self, type: string, itemIndex: number, allowCollectionText: boolean?): (...unknown)
+	function SetQuestLogCurrency(self, type: string, currencyIndex: number, questID: number?): (...unknown)
+	function SetQuestLogItem(self, type: string, itemIndex: number, questID: number?, allowCollectionText: boolean?): (...unknown)
+	function SetQuestLogSpecialItem(self, questIndex: number): (...unknown)
+	function SetQuestPartyProgress(self, questID: number, omitTitle: boolean?, ignoreActivePlayer: boolean?): (...unknown)
+	function SetRecipeRankInfo(self, recipeID: number, rank: number): (...unknown)
+	function SetRecipeReagentItem(self, recipeSpellID: number, dataSlotIndex: number): (...unknown)
+	function SetRecipeResultItem(self, recipeID: number, reagentInfos: { CraftingReagentInfo }?, recraftItemGUID: WOWGUID?, recipeLevel: number?, overrideQualityID: number?): (...unknown)
+	function SetRuneforgeResultItem(self, itemGUID: WOWGUID, itemLevel: number, powerID: number?, modifiers: { number }?): (...unknown)
+	function SetSendMailItem(self, attachmentIndex: number?): (...unknown)
+	function SetShapeshift(self, slot: number): (...unknown)
+	function SetSocketGem(self, index: number): (...unknown)
+	function SetSocketedItem(self): (...unknown)
+	function SetSocketedRelic(self, slotIndex: number): (...unknown)
+	function SetSpellBookItem(self, spellBookItemSlotIndex: number, spellBookItemSpellBank: Enum_SpellBookSpellBank): (...unknown)
+	function SetSpellByID(self, spellID: SpellIdentifier, isPet: boolean?, showSubtext: boolean?, dontOverride: boolean?, difficultyID: number?, isLink: boolean?): (...unknown)
+	function SetTalent(self, talentID: number, isInspect: boolean?, groupIndex: number?): (...unknown)
+	function SetTotem(self, slot: number): (...unknown)
+	function SetToyByItemID(self, itemID: number): (...unknown)
+	function SetTradePlayerItem(self, slot: number): (...unknown)
+	function SetTradeTargetItem(self, slot: number): (...unknown)
+	function SetTrainerService(self, serviceIndex: number): (...unknown)
+	function SetUnit(self, unit: UnitTokenPvPRestrictedForAddOns, hideStatus: boolean?): (...unknown)
+	function SetUnitAura(self, unitToken: UnitTokenRestrictedForAddOns, index: number, filter: AuraFilters?): (...unknown)
+	function SetUnitBuff(self, unitToken: UnitTokenRestrictedForAddOns, index: number, filter: AuraFilters?): (...unknown)
+	function SetUnitBuffByAuraInstanceID(self, unitToken: UnitTokenRestrictedForAddOns, auraInstanceID: number, filter: AuraFilters?): (...unknown)
+	function SetUnitDebuff(self, unitToken: UnitTokenRestrictedForAddOns, index: number, filter: AuraFilters?): (...unknown)
+	function SetUnitDebuffByAuraInstanceID(self, unitToken: UnitTokenRestrictedForAddOns, auraInstanceID: number, filter: AuraFilters?): (...unknown)
+	function SetUpgradeItem(self): (...unknown)
+	function SetWeeklyReward(self, itemDBID: WeeklyRewardItemDBID): (...unknown)
+end
+
 -- Script objects -----------------------------------------------------------------------------
 declare extern type AbbreviateConfig with
 	function GetAbbreviateNumberData(self): { NumberAbbreviationBreakpoint }
@@ -30811,7 +30892,7 @@ declare function GameTime_GetGameTime(...: unknown): (...unknown)
 declare function GameTime_GetLocalTime(...: unknown): (...unknown)
 declare function GameTime_GetTime(...: unknown): (...unknown)
 declare function GameTime_UpdateTooltip(...: unknown): (...unknown)
-declare GameTooltip: GameTooltip
+declare GameTooltip: GameTooltipDataMixin
 declare GameTooltipDefaultContainer: Frame
 declare function GameTooltip_AddBlankLineToTooltip(...: unknown): (...unknown)
 declare function GameTooltip_AddBlankLinesToTooltip(...: unknown): (...unknown)
@@ -32515,7 +32596,7 @@ declare ItemLocationMixin: ItemLocationMixin
 declare ItemMixin: ItemMixin
 declare ItemRefShoppingTooltip1: Frame
 declare ItemRefShoppingTooltip2: Frame
-declare ItemRefTooltip: Frame
+declare ItemRefTooltip: GameTooltipDataMixin
 declare ItemSocketingFrame: Frame
 declare function ItemSocketingFrame_LoadUI(...: unknown): (...unknown)
 declare function ItemSocketingFrame_OnEvent(...: unknown): (...unknown)
