@@ -166,7 +166,14 @@ function Globals.collect(ctx: Context): Tree
 	for _, e in res.enums do
 		local enumNode = nodeAt(root, { "Enum" }, 1)
 		assert(enumNode, "a client function or value is named Enum")
-		enumNode.children[e.name] = { kind = "enum", children = {}, sigs = {}, entries = e.entries }
+		local opaque = not Common.isNumericEnum(config, e)
+		enumNode.children[e.name] = {
+			kind = "enum",
+			children = {},
+			sigs = {},
+			entries = e.entries,
+			enumType = if opaque then ctx.typeNames["Enum." .. e.name] else nil,
+		}
 		ctx.cover("enums", "Enum." .. e.name, "typed", "client")
 	end
 	for _, c in res.constants do
@@ -264,7 +271,8 @@ function Globals.emit(ctx: Context, tree: Tree): Counts
 				for _, entry in child.entries or {} do
 					if not seen[entry.key] then
 						seen[entry.key] = true
-						emit(indent .. "\t" .. Common.identifierKey(entry.key) .. ": " .. entryType(entry.value) .. ",")
+						local t = child.enumType or entryType(entry.value)
+						emit(indent .. "\t" .. Common.identifierKey(entry.key) .. ": " .. t .. ",")
 					end
 				end
 				emit(indent .. "},")

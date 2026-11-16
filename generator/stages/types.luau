@@ -51,6 +51,8 @@ function Types.emitEvents(ctx: Context)
 		local d = docs.events[e]
 		local params = if d then d.payload else { Common.UNTYPED_SIGNATURE.params[1] }
 		local sig: Signature = { params = params, returns = {}, generics = {} }
+		-- Payload rules use the key `event:<NAME>` in config.paramTypeOverrides.
+		sig = Signatures.applyOverrides(ctx, "event:" .. e, { sig })[1]
 		local p = Signatures.print(ctx, sig, nil, true)
 		emit("\t" .. Common.identifierKey(e) .. ": " .. Signatures.renderParams(p, nil, false) .. " -> (),")
 		if d then
@@ -140,11 +142,21 @@ function Types.emitAliases(ctx: Context)
 	emit("")
 end
 
--- Enum value types: the client's enums are numbers (Luau has no numeric literal types).
+-- Enum value types. Luau has no numeric literal types, so each enum is an opaque type of its own: only its own
+-- values (`Enum.ItemQuality.Epic`) are accepted where the client takes it, a bare number is not, and two of its
+-- values compare with `<` and `<=`. Flag enums (config.flagEnumPatterns) stay numbers for bit operations.
 function Types.emitEnumValueTypes(ctx: Context)
 	ctx.emit("-- Enum value types ---------------------------------------------------------------------------")
 	for _, e in ctx.res.enums do
-		ctx.emit("export type " .. ctx.typeNames["Enum." .. e.name] .. " = number")
+		local typeName = ctx.typeNames["Enum." .. e.name]
+		if Common.isNumericEnum(ctx.config, e) then
+			ctx.emit("export type " .. typeName .. " = number")
+		else
+			ctx.emit("declare extern type " .. typeName .. " with")
+			ctx.emit("\tfunction __lt(self, other: " .. typeName .. "): boolean")
+			ctx.emit("\tfunction __le(self, other: " .. typeName .. "): boolean")
+			ctx.emit("end")
+		end
 	end
 	ctx.emit("")
 end

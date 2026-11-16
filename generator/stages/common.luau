@@ -124,6 +124,7 @@ export type Node = {
 	sigs: { Signature },
 	entries: { { key: string, value: string } }?,
 	valueType: string?,
+	enumType: string?, -- an enum table's value type, when the enum is opaque
 }
 
 -- A signature with its types already printed; overloads are merged at this level.
@@ -218,6 +219,28 @@ Common.UNTYPED_SIGNATURE = {
 	returns = { { kind = "variadic", inner = { kind = "name", name = "unknown", args = {} } } },
 	generics = {},
 } :: Signature
+
+-- Whether a client enum stays a plain number: a set of bit flags (config.flagEnumPatterns) or one listed in
+-- config.numericEnums. Every other enum is an opaque type.
+function Common.isNumericEnum(
+	config: { flagEnumPatterns: { string }, numericEnums: { [string]: boolean } },
+	e: { name: string, entries: { { key: string, value: string } } }
+): boolean
+	if config.numericEnums[e.name] then
+		return true
+	end
+	for _, entry in e.entries do
+		if string.find(entry.value, "^%-?0[xX]") then
+			return true
+		end
+	end
+	for _, pattern in config.flagEnumPatterns do
+		if string.find(e.name, pattern) then
+			return true
+		end
+	end
+	return false
+end
 
 -- One category's entries (a typed accessor: the solver cannot index the record with a `Category` union).
 function Common.entries(coverage: Coverage, category: Category): { [string]: CoverageEntry }

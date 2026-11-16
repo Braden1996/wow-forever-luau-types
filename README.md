@@ -126,6 +126,8 @@ return `unknown`. A function is counted as typed only when a source gives its ty
   (pass it with `--settings`; the template and the editor configs include it), so code that type-checks also runs.
 - **Nil-safety.** Results the documentation marks nilable are optional, so `C_QuestLog.GetInfo(i).title` is an error
   until you check the result.
+- **Enums are their own types.** `C_Item.GetItemQualityColor(4)` is an error; it takes `Enum.ItemQuality` values,
+  which compare with `<` and `<=`. Flag sets, bag indices and expansion levels stay numbers.
 - **Closed string unions** for event names (the client's full list), anchor points, strata, draw layers and script
   names. Script names are per widget: `Button` has `OnClick`, `Frame` does not.
 - **Real inheritance.** Widgets are `declare extern type`s in the client's hierarchy (`CheckButton → Button → Frame →

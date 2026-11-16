@@ -159,7 +159,10 @@ function Pipeline.run(): Result
 		config = config,
 	})
 	if #report.unusedOverrides > 0 then
-		error("generator/rules: these rules match nothing: " .. table.concat(report.unusedOverrides, ", "))
+		error(
+			"generator/rules: rules that match nothing, or enum slots without a rule (rules/enums.luau): "
+				.. table.concat(report.unusedOverrides, ", ")
+		)
 	end
 	definitions ..= "\n" .. supplementText
 

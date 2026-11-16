@@ -18,7 +18,10 @@ export type EventHandler<E> = index<EventPayloads, E>
 -- Aliases ------------------------------------------------------------------------------------
 
 -- Enum value types ---------------------------------------------------------------------------
-export type Enum_DemoKind = number
+declare extern type Enum_DemoKind with
+	function __lt(self, other: Enum_DemoKind): boolean
+	function __le(self, other: Enum_DemoKind): boolean
+end
 
 -- Structures and mixins ----------------------------------------------------------------------
 -- The fields every structure matching `VisualizationInfo$` has in common.
@@ -65,8 +68,8 @@ declare Constants: {
 }
 declare Enum: {
 	DemoKind: {
-		Small: number,
-		Large: number,
+		Small: Enum_DemoKind,
+		Large: Enum_DemoKind,
 	},
 }
 declare LE_DEMO_MODE: number
