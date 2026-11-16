@@ -10,6 +10,21 @@ All notable changes to this project are documented here. The format follows
 - A step-by-step tutorial on the documentation site, "Your first addon": saved data, typed events, a draggable window
   and a slash command, from the TOC file to playing it in game.
 
+### Fixed
+
+- 1,135 C API functions and 10 GameTooltip methods that the annotations declare without a single type (the wiki
+  stubs) are untyped (`...unknown`) instead of typed as returning nothing: `local link = GetTalentLink(...)` no
+  longer types as `nil`. The C API coverage figure drops from 99.8% to 83.4% accordingly.
+- A parameter the annotations name but do not type no longer makes a documented required argument optional
+  (`Minimap:PingLocation`, `Minimap:SetZoom`, the blob setters, `GameTooltip:AddFontStrings`).
+- `HookScript` requires a handler, as documented; only `SetScript` takes `nil`.
+- `LuaCurveObject` and `LuaColorCurveObject` extend `LuaCurveObjectBase`: `C_CurveUtil.CreateCurve():SetType(...)`
+  and passing a curve to `LuaDurationObject:EvaluateRemainingPercent` type-check.
+- The structures and callback types in Blizzard's shared documentation files are read (`DiscordInfo`,
+  `TimedSignalMap`'s callback and 17 more), and `VoiceChatID`, `ClubMemberOpaqueId`, `UnitCastBarID`,
+  `DurationTextBinding` and `LuaValueVariant` resolve to real types instead of `unknown` or an any-table:
+  `C_AddOnProfiler.MeasureCall` takes a function and `SerializeJSON` a number.
+
 ## [0.4.1] - 2026-11-16
 
 ### Fixed

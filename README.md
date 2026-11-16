@@ -10,7 +10,7 @@
   <a href="https://braden1996.github.io/wow-forever-luau-types/"><img alt="Documentation" src="https://img.shields.io/badge/docs-API%20reference-d9a441"></a>
   <a href="https://github.com/Braden1996/wow-forever-luau-types/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Braden1996/wow-forever-luau-types/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/Braden1996/wow-forever-luau-types/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/Braden1996/wow-forever-luau-types?sort=semver"></a>
-  <a href="definitions/COVERAGE.md"><img alt="C API typed" src="https://img.shields.io/badge/C%20API%20typed-99.8%25-2f6bff"></a>
+  <a href="definitions/COVERAGE.md"><img alt="C API typed" src="https://img.shields.io/badge/C%20API%20typed-83.4%25-2f6bff"></a>
   <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-blue"></a>
   <img alt="WoW: Forever 1.60.1" src="https://img.shields.io/badge/WoW%3A%20Forever-1.60.1%20(16001)-d9a441">
 </p>
@@ -104,16 +104,17 @@ wrapping library's decision.
 
 |                                                           |          Typed | Share |
 | --------------------------------------------------------- | -------------: | ----: |
-| C API functions (the game's native API, global and `C_*`) | 6,892 of 6,904 | 99.8% |
-| Widget and script-object methods                          |          1,660 |  100% |
+| C API functions (the game's native API, global and `C_*`) | 5,757 of 6,904 | 83.4% |
+| Widget and script-object methods                          | 1,650 of 1,660 | 99.4% |
 | Events, with payload types                                |          1,816 |  100% |
-| Structures and mixins                                     |            821 |  100% |
+| Structures and mixins                                     |            840 |  100% |
 | Enums (from the client)                                   |            954 |  100% |
 | Widget types, in the client's own hierarchy               |             57 |  100% |
 
-Nearly all remaining untyped functions (5,690) are FrameXML: Blizzard's own UI code in Lua, which no source types;
-12 C API and 17 Lua-extension functions also lack a type source. They are declared, so calling one is not an error,
-and they return `unknown`.
+Most untyped functions (5,691) are FrameXML: Blizzard's own UI code in Lua, which no source types. 1,147 C API
+functions are untyped too: 1,135 of them the annotations list only as wiki stubs without a single type, and 12 have
+no source at all; so are 17 Lua-extension functions. They are declared, so calling one is not an error, and they
+return `unknown`. A function is counted as typed only when a source gives its types.
 
 ## How strict
 
