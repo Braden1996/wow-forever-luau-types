@@ -65,6 +65,8 @@ local config = {
 	widgetParentOverrides = widgets.widgetParentOverrides,
 	scriptObjectParents = widgets.scriptObjectParents,
 	paramTypeOverrides = widgets.paramTypeOverrides,
+	resultTypeOverrides = widgets.resultTypeOverrides,
+	factoryMethods = widgets.factoryMethods,
 	scriptMethods = widgets.scriptMethods,
 
 	-- Type names (generator/rules/types.luau).

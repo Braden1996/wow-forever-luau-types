@@ -31,8 +31,8 @@ CI fails if an API that was typed becomes untyped.
 | functions | generator | 1 |
 | functions | supplements | 2 |
 | widgetMethods | annotations | 38 |
-| widgetMethods | docs | 1605 |
-| widgetMethods | docs+annotations | 7 |
+| widgetMethods | docs | 1603 |
+| widgetMethods | docs+annotations | 9 |
 | events | docs | 1816 |
 | structures | annotations | 69 |
 | structures | docs | 771 |

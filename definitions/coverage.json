@@ -68033,7 +68033,7 @@
       "status": "typed"
     },
     "Button:SetFormattedText": {
-      "source": "docs",
+      "source": "docs+annotations",
       "status": "typed"
     },
     "Button:SetHighlightAtlas": {
@@ -69561,7 +69561,7 @@
       "status": "typed"
     },
     "FontString:SetFormattedText": {
-      "source": "docs",
+      "source": "docs+annotations",
       "status": "typed"
     },
     "FontString:SetIndentedWordWrap": {

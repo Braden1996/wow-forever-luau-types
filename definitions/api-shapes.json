@@ -115578,7 +115578,7 @@
         [
           {
             "name": "eventName",
-            "type": "string"
+            "type": "FrameEvent"
           },
           {
             "name": "callback",
@@ -115617,7 +115617,7 @@
         [
           {
             "name": "eventName",
-            "type": "string"
+            "type": "FrameEvent"
           },
           {
             "name": "callback",
@@ -126438,7 +126438,7 @@
         [
           {
             "name": "eventName",
-            "type": "string"
+            "type": "FrameEvent"
           },
           {
             "name": "callback",
@@ -126459,7 +126459,7 @@
         [
           {
             "name": "eventName",
-            "type": "string"
+            "type": "FrameEvent"
           },
           {
             "name": "callback",
@@ -130613,7 +130613,7 @@
         [
           {
             "name": "font",
-            "type": "Font"
+            "type": "FontObject"
           }
         ]
       ]
@@ -130653,6 +130653,11 @@
           {
             "name": "text",
             "type": "string"
+          },
+          {
+            "name": "...",
+            "type": "(string | number)",
+            "variadic": true
           }
         ]
       ]
@@ -130678,7 +130683,7 @@
         [
           {
             "name": "font",
-            "type": "Font"
+            "type": "FontObject"
           }
         ]
       ]
@@ -130726,7 +130731,7 @@
         [
           {
             "name": "font",
-            "type": "Font"
+            "type": "FontObject"
           }
         ]
       ]
@@ -133541,7 +133546,7 @@
         [
           {
             "name": "font",
-            "type": "Font"
+            "type": "FontObject"
           }
         ]
       ]
@@ -134408,7 +134413,7 @@
         [
           {
             "name": "font",
-            "type": "Font"
+            "type": "FontObject"
           }
         ]
       ]
@@ -134705,7 +134710,7 @@
         [
           {
             "name": "font",
-            "type": "Font"
+            "type": "FontObject"
           }
         ]
       ]
@@ -135431,7 +135436,7 @@
         [
           {
             "name": "font",
-            "type": "Font"
+            "type": "FontObject"
           }
         ]
       ]
@@ -135443,6 +135448,11 @@
           {
             "name": "text",
             "type": "string"
+          },
+          {
+            "name": "...",
+            "type": "(string | number)",
+            "variadic": true
           }
         ]
       ]
@@ -135955,7 +135965,7 @@
         {
           "name": "value",
           "nilable": false,
-          "type": "string"
+          "type": "unknown"
         }
       ]
     },
@@ -136617,7 +136627,7 @@
         [
           {
             "name": "eventName",
-            "type": "string"
+            "type": "FrameEvent"
           },
           {
             "name": "cb",
@@ -136677,7 +136687,7 @@
         [
           {
             "name": "eventName",
-            "type": "string"
+            "type": "FrameEvent"
           },
           {
             "name": "cb",
@@ -136754,7 +136764,7 @@
           },
           {
             "name": "value",
-            "type": "string"
+            "type": "unknown"
           }
         ]
       ]
@@ -136769,7 +136779,7 @@
           },
           {
             "name": "value",
-            "type": "string"
+            "type": "unknown"
           }
         ]
       ]
@@ -140523,7 +140533,7 @@
         [
           {
             "name": "font",
-            "type": "Font"
+            "type": "FontObject"
           }
         ]
       ]
@@ -147346,7 +147356,7 @@
           },
           {
             "name": "font",
-            "type": "Font"
+            "type": "FontObject"
           }
         ]
       ]
@@ -149113,19 +149123,19 @@
         [
           {
             "name": "textureAsset",
-            "type": "string?"
+            "type": "TextureAssetDisk?"
           },
           {
             "name": "wrapModeHorizontal",
-            "type": "string?"
+            "type": "WrapMode?"
           },
           {
             "name": "wrapModeVertical",
-            "type": "string?"
+            "type": "WrapMode?"
           },
           {
             "name": "filterMode",
-            "type": "string?"
+            "type": "FilterMode?"
           }
         ]
       ],

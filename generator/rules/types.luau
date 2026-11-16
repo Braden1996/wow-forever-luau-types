@@ -58,9 +58,23 @@ local docTypeOverrides: { [string]: string } = {
 -- suggested values but are based on `string` stay `string`, because their lists are retail-only
 -- and incomplete for the Forever client. (FrameEvent is not listed: the generator builds it from the
 -- client's own event list.)
+--
+-- The widget constants below are closed too: the client's own C code defines them and the annotations list
+-- them in full (Annotations/Core/Widget/UIType/UIType.lua). TBFFlags (combinable flags), MouseButton and
+-- ClickButton (Button6 and up, modifier prefixes) and UnitToken (numbered tokens) stay open.
 local closedAliases: { [string]: boolean } = {
 	AnimationType = true,
+	BlendMode = true,
+	CurveType = true,
 	DrawLayer = true,
+	FilterMode = true,
+	FontAlphabet = true,
+	InsertMode = true,
+	LoopType = true,
+	Orientation = true,
+	SimpleButtonStateToken = true,
+	SmoothingType = true,
+	WrapMode = true,
 	FramePoint = true,
 	FrameStrata = true,
 	FrameType = true,

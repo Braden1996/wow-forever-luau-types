@@ -1845,7 +1845,7 @@ export type AzeriteEmpoweredItemLocation = ItemLocation
 export type AzeriteItemLocation = ItemLocation
 export type BigInteger = number
 export type BigUInteger = number
-export type BlendMode = string
+export type BlendMode = "DISABLE" | "BLEND" | "ALPHAKEY" | "ADD" | "MOD"
 export type CScriptObject = Object
 export type CVar = string
 export type CalendarEventID = number
@@ -1858,15 +1858,15 @@ export type ClubInvitationId = string
 export type ClubStreamId = string
 export type ConnectionIptype = number
 export type CooldownFrame = Cooldown
-export type CurveType = string
+export type CurveType = "NONE" | "SMOOTH"
 export type DrawLayer = "BACKGROUND" | "BORDER" | "ARTWORK" | "OVERLAY" | "HIGHLIGHT"
 export type DurationSeconds = number
 export type EmoteToken = string
 export type EmptiableItemLocation = ItemLocation
 export type EncounterTimelineEventID = number
 export type FileAsset = string
-export type FilterMode = string
-export type FontAlphabet = string
+export type FilterMode = "LINEAR" | "TRILINEAR" | "NEAREST"
+export type FontAlphabet = "roman" | "korean" | "simplifiedchinese" | "traditionalchinese" | "russian"
 export type FontFile = string
 export type FontObject = string | Font
 export type FramePoint = "TOPLEFT" | "TOPRIGHT" | "BOTTOMLEFT" | "BOTTOMRIGHT" | "TOP" | "BOTTOM" | "LEFT" | "RIGHT" | "CENTER"
@@ -1877,7 +1877,7 @@ export type GarrisonFollower = string
 export type HTMLTextType = string
 export type HyperlinkType = string
 export type IDOrLink = number | string
-export type InsertMode = string
+export type InsertMode = "TOP" | "BOTTOM"
 export type InventorySlotName = string
 export type InventorySlots = number
 export type ItemInfo = number | string
@@ -1885,7 +1885,7 @@ export type ItemTransmogInfo = ItemTransmogInfoMixin
 export type JustifyHorizontal = "LEFT" | "RIGHT" | "CENTER"
 export type JustifyVertical = "TOP" | "BOTTOM" | "MIDDLE"
 export type LE_SCRIPT_BINDING_TYPE = string
-export type LoopType = string
+export type LoopType = "NONE" | "REPEAT" | "BOUNCE"
 export type LuaCurveEvaluatedResult = number | colorRGBA
 export type LuaValueReference = unknown
 export type LuaValueVariant = { [any]: any }
@@ -1900,7 +1900,7 @@ export type ModelSceneFrameActor = ModelSceneActor
 export type MouseButton = mouseButton
 export type Nameplate = Frame
 export type NotificationDbId = string
-export type Orientation = string
+export type Orientation = "HORIZONTAL" | "VERTICAL"
 export type PlayerLocation = PlayerLocationMixin
 export type QuestObjectiveType = number
 export type RecruitAcceptanceID = string
@@ -1936,11 +1936,11 @@ export type SimpleAnimTextureCoordTranslation = TextureCoordTranslation
 export type SimpleAnimTranslation = Translation
 export type SimpleAnimTranslationLine = LineTranslation
 export type SimpleAnimVertexColor = VertexColor
-export type SimpleButtonStateToken = string
+export type SimpleButtonStateToken = "DISABLED" | "NORMAL" | "PUSHED"
 export type SimplePathAnim = Path
 export type SimpleRegion = Region
 export type SingleColorValue = number
-export type SmoothingType = string
+export type SmoothingType = "NONE" | "IN" | "OUT" | "IN_OUT" | "OUT_IN"
 export type SoundHandle = number
 export type SpellIdentifier = number | string
 export type StatusBarFillStyle = string
@@ -1963,7 +1963,7 @@ export type WOWGUID = string
 export type WOWMONEY = number
 export type WeeklyRewardItemDBID = string
 export type WowEvent = FrameEvent
-export type WrapMode = string
+export type WrapMode = "CLAMP" | "REPEAT" | "CLAMPTOBLACK" | "CLAMPTOBLACKADDITIVE" | "CLAMPTOWHITE" | "MIRROR"
 export type fileID = number
 export type gcoptions = string
 export type kstringClubMessage = string
@@ -10540,7 +10540,17 @@ declare extern type Alpha extends Animation with
 end
 
 declare extern type AnimationGroup extends Object with
-	function CreateAnimation(self, animationType: string?, name: string?, templateName: string?): Animation
+	function CreateAnimation(self, animationType: "Alpha", name: string?, templateName: string?): Alpha
+	function CreateAnimation(self, animationType: "Animation", name: string?, templateName: string?): Animation
+	function CreateAnimation(self, animationType: "FlipBook", name: string?, templateName: string?): FlipBook
+	function CreateAnimation(self, animationType: "LineScale", name: string?, templateName: string?): LineScale
+	function CreateAnimation(self, animationType: "LineTranslation", name: string?, templateName: string?): LineTranslation
+	function CreateAnimation(self, animationType: "Path", name: string?, templateName: string?): Path
+	function CreateAnimation(self, animationType: "Rotation", name: string?, templateName: string?): Rotation
+	function CreateAnimation(self, animationType: "Scale", name: string?, templateName: string?): Scale
+	function CreateAnimation(self, animationType: "Translation", name: string?, templateName: string?): Translation
+	function CreateAnimation(self, animationType: "VertexColor", name: string?, templateName: string?): VertexColor
+	function CreateAnimation(self, animationType: nil, name: string?, templateName: string?): Animation
 	function Finish(self): ()
 	function GetAnimationSpeedMultiplier(self): number
 	function GetAnimations(self): (...Animation)
@@ -10676,7 +10686,7 @@ declare extern type Frame extends ScriptRegion with
 	function EnableGamePadStick(self, enable: boolean?): ()
 	function EnableKeyboard(self, enable: boolean?): ()
 	function ExecuteAttribute(self, attributeName: string, ...: string): (boolean, ...string)
-	function GetAttribute(self, attributeName: string): string
+	function GetAttribute(self, attributeName: string): unknown
 	function GetBoundsRect(self): (uiUnit, uiUnit, uiUnit, uiUnit)
 	function GetChildren(self): (...Frame)
 	function GetClampRectInsets(self): (uiUnit, uiUnit, uiUnit, uiUnit)
@@ -10726,16 +10736,16 @@ declare extern type Frame extends ScriptRegion with
 	function Raise(self): ()
 	function RegisterAllEvents(self): ()
 	function RegisterEvent(self, eventName: FrameEvent): boolean
-	function RegisterEventCallback(self, eventName: string, cb: FrameEventCallbackType): boolean
+	function RegisterEventCallback(self, eventName: FrameEvent, cb: FrameEventCallbackType): boolean
 	function RegisterForDrag(self, ...: MouseButton): ()
 	function RegisterUnitEvent(self, eventName: FrameEvent, ...: UnitToken): boolean
-	function RegisterUnitEventCallback(self, eventName: string, cb: FrameEventCallbackType, ...: UnitToken): boolean
+	function RegisterUnitEventCallback(self, eventName: FrameEvent, cb: FrameEventCallbackType, ...: UnitToken): boolean
 	function RemoveRoleset(self, roleset: string): ()
 	function ResizeToBoundsRect(self): ()
 	function RotateTextures(self, radians: number, x: number?, y: number?): ()
 	function SetAlphaGradient(self, index: number, gradient: Vector2DMixin): ()
-	function SetAttribute(self, attributeName: string, value: string): ()
-	function SetAttributeNoHandler(self, attributeName: string, value: string): ()
+	function SetAttribute(self, attributeName: string, value: unknown): ()
+	function SetAttributeNoHandler(self, attributeName: string, value: unknown): ()
 	function SetClampRectInsets(self, left: uiUnit, right: uiUnit, top: uiUnit, bottom: uiUnit): ()
 	function SetClampedToScreen(self, clampedToScreen: boolean): ()
 	function SetClipsChildren(self, clipsChildren: boolean): ()
@@ -10849,17 +10859,17 @@ declare extern type Button extends Frame with
 	function RegisterForMouse(self, ...: ClickButton): ()
 	function SetButtonState(self, buttonState: SimpleButtonStateToken, lock: boolean?): ()
 	function SetDisabledAtlas(self, atlas: textureAtlas): ()
-	function SetDisabledFontObject(self, font: Font): ()
+	function SetDisabledFontObject(self, font: FontObject): ()
 	function SetDisabledTexture(self, asset: TextureAsset): ()
 	function SetEnabled(self, enabled: boolean?): ()
 	function SetFontString(self, fontString: FontString): ()
-	function SetFormattedText(self, text: string): ()
+	function SetFormattedText(self, text: string, ...: (string | number)): ()
 	function SetHighlightAtlas(self, atlas: textureAtlas, blendMode: BlendMode?): ()
-	function SetHighlightFontObject(self, font: Font): ()
+	function SetHighlightFontObject(self, font: FontObject): ()
 	function SetHighlightTexture(self, asset: TextureAsset, blendMode: BlendMode?): ()
 	function SetMotionScriptsWhileDisabled(self, motionScriptsWhileDisabled: boolean): ()
 	function SetNormalAtlas(self, atlas: textureAtlas): ()
-	function SetNormalFontObject(self, font: Font): ()
+	function SetNormalFontObject(self, font: FontObject): ()
 	function SetNormalTexture(self, asset: TextureAsset): ()
 	function SetPushedAtlas(self, atlas: textureAtlas): ()
 	function SetPushedTextOffset(self, offsetX: uiUnit, offsetY: uiUnit): ()
@@ -11194,7 +11204,7 @@ declare extern type EditBox extends Frame with
 	function SetEnabled(self, enabled: boolean?): ()
 	function SetFocus(self): ()
 	function SetFont(self, fontFile: string, height: uiFontHeight, flags: TBFFlags): boolean
-	function SetFontObject(self, font: Font): ()
+	function SetFontObject(self, font: FontObject): ()
 	function SetHighlightColor(self, colorR: number, colorG: number, colorB: number, a: SingleColorValue?): ()
 	function SetHistoryLines(self, numHistoryLines: number): ()
 	function SetIndentedWordWrap(self, isIndented: boolean?): ()
@@ -11274,7 +11284,7 @@ declare extern type Font extends FrameScriptObject with
 	function SetAlpha(self, alpha: SingleColorValue): ()
 	function SetFont(self, fontFile: string, height: uiFontHeight, flags: TBFFlags): ()
 	function SetFontHeight(self, height: number): ()
-	function SetFontObject(self, font: Font): ()
+	function SetFontObject(self, font: FontObject): ()
 	function SetIndentedWordWrap(self, wordWrap: boolean): ()
 	function SetJustifyH(self, justifyH: JustifyHorizontal): ()
 	function SetJustifyV(self, justifyV: JustifyVertical): ()
@@ -11295,7 +11305,7 @@ declare extern type FontInstance with
 	function GetSpacing(self): uiUnit
 	function GetTextColor(self): (number, number, number, number)
 	function SetFont(self, fontFile: string, height: uiFontHeight, flags: TBFFlags): ()
-	function SetFontObject(self, font: Font): ()
+	function SetFontObject(self, font: FontObject): ()
 	function SetIndentedWordWrap(self, wordWrap: boolean?): ()
 	function SetJustifyH(self, justifyH: JustifyHorizontal): ()
 	function SetJustifyV(self, justifyV: JustifyVertical): ()
@@ -11360,8 +11370,8 @@ declare extern type FontString extends Region with
 	function SetFixedColor(self, fixedColor: boolean): ()
 	function SetFont(self, fontFile: string, fontHeight: uiFontHeight, flags: TBFFlags?): boolean
 	function SetFontHeight(self, height: uiUnit): ()
-	function SetFontObject(self, font: Font): ()
-	function SetFormattedText(self, text: string): ()
+	function SetFontObject(self, font: FontObject): ()
+	function SetFormattedText(self, text: string, ...: (string | number)): ()
 	function SetIndentedWordWrap(self, wrap: boolean): ()
 	function SetJustifyH(self, justifyH: JustifyHorizontal): ()
 	function SetJustifyV(self, justifyV: JustifyVertical): ()
@@ -11468,7 +11478,7 @@ declare extern type TextureBase extends Region with
 	function SetSpriteSheetCell(self, cell: number, numRows: number, numColumns: number, cellWidth: number?, cellHeight: number?): ()
 	function SetTexCoord(self, left: number, right: number, bottom: number, top: number, urX: number?, urY: number?, lrX: number?, lrY: number?): ()
 	function SetTexelSnappingBias(self, bias: normalizedValue): ()
-	function SetTexture(self, textureAsset: string?, wrapModeHorizontal: string?, wrapModeVertical: string?, filterMode: string?): boolean
+	function SetTexture(self, textureAsset: TextureAssetDisk?, wrapModeHorizontal: WrapMode?, wrapModeVertical: WrapMode?, filterMode: FilterMode?): boolean
 	function SetTextureSliceMargins(self, left: number, top: number, right: number, bottom: number): ()
 	function SetTextureSliceMode(self, sliceMode: Enum_UITextureSliceMode): ()
 	function SetVertTile(self, tiling: boolean?): ()
@@ -11548,7 +11558,7 @@ declare extern type MessageFrame extends Frame with
 	function SetFadePower(self, fadePower: number): ()
 	function SetFading(self, fading: boolean): ()
 	function SetFont(self, fontFile: string, height: uiFontHeight, flags: TBFFlags): ()
-	function SetFontObject(self, font: Font): ()
+	function SetFontObject(self, font: FontObject): ()
 	function SetIndentedWordWrap(self, wordWrap: boolean): ()
 	function SetInsertMode(self, mode: InsertMode): ()
 	function SetJustifyH(self, justifyH: JustifyHorizontal): ()
@@ -11873,7 +11883,7 @@ declare extern type SimpleHTML extends Frame with
 	function HasScript(self, scriptName: SimpleHTMLScriptType): boolean
 	function HookScript(self, scriptTypeName: SimpleHTMLScriptType, script: (self: SimpleHTML, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetFont(self, textType: HTMLTextType, fontFile: string, height: uiFontHeight, flags: TBFFlags): ()
-	function SetFontObject(self, textType: HTMLTextType, font: Font): ()
+	function SetFontObject(self, textType: HTMLTextType, font: FontObject): ()
 	function SetHyperlinkFormat(self, format: string): ()
 	function SetIndentedWordWrap(self, textType: HTMLTextType, wordWrap: boolean): ()
 	function SetJustifyH(self, textType: HTMLTextType, justifyH: JustifyHorizontal): ()
@@ -34645,7 +34655,7 @@ declare function RegionalUniqueNamesEnabled(): boolean
 declare function RegisterAttributeDriver(...: unknown): (...unknown)
 declare function RegisterAutoHide(...: unknown): (...unknown)
 declare function RegisterCVar(name: CVar, value: string?): ()
-declare function RegisterEventCallback(eventName: string, callback: EventCallbackType): ()
+declare function RegisterEventCallback(eventName: FrameEvent, callback: EventCallbackType): ()
 declare function RegisterGameMenuEscHandler(...: unknown): (...unknown)
 declare function RegisterMacSettings(...: unknown): (...unknown)
 declare function RegisterNewSlashCommand(...: unknown): (...unknown)
@@ -34653,7 +34663,7 @@ declare function RegisterPlayerInteraction(...: unknown): (...unknown)
 declare function RegisterStateDriver(...: unknown): (...unknown)
 declare function RegisterStaticConstants(...: unknown): (...unknown)
 declare function RegisterUIPanel(...: unknown): (...unknown)
-declare function RegisterUnitEventCallback(eventName: string, callback: EventCallbackType, unit: UnitToken): ()
+declare function RegisterUnitEventCallback(eventName: FrameEvent, callback: EventCallbackType, unit: UnitToken): ()
 declare function RegisterUnitWatch(...: unknown): (...unknown)
 declare function RejectProposal(...: unknown): (...unknown)
 declare function ReleaseAction(...: unknown): (...unknown)
@@ -36411,9 +36421,9 @@ declare function UnlearnSpecialization(...: unknown): (...unknown)
 declare function UnmuteSoundFile(sound: number | string): ()
 declare function UnregisterAttributeDriver(...: unknown): (...unknown)
 declare function UnregisterAutoHide(...: unknown): (...unknown)
-declare function UnregisterEventCallback(eventName: string, callback: EventCallbackType): ()
+declare function UnregisterEventCallback(eventName: FrameEvent, callback: EventCallbackType): ()
 declare function UnregisterStateDriver(...: unknown): (...unknown)
-declare function UnregisterUnitEventCallback(eventName: string, callback: EventCallbackType, unit: UnitToken): ()
+declare function UnregisterUnitEventCallback(eventName: FrameEvent, callback: EventCallbackType, unit: UnitToken): ()
 declare function UnregisterUnitWatch(...: unknown): (...unknown)
 declare function UpdateAddOnCPUUsage(): ()
 declare function UpdateAddOnMemoryUsage(): ()

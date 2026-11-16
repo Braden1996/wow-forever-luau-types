@@ -12,6 +12,16 @@ All notable changes to this project are documented here. The format follows
 
 ### Fixed
 
+- Widget constants the client defines in full are closed unions: `BlendMode`, `WrapMode`, `FilterMode`,
+  `Orientation`, `LoopType`, `SmoothingType`, `CurveType`, `InsertMode`, `FontAlphabet` and
+  `SimpleButtonStateToken`, so a misspelt blend mode is an error.
+- `AnimationGroup:CreateAnimation("Alpha")` returns an `Alpha` (one overload per animation type), and a misspelt
+  type is an error.
+- `TextureBase:SetTexture` takes a file ID (`SetTexture(134400)`) and closed wrap and filter modes;
+  `SetFontObject` and the button font setters take a font object's name; `SetFormattedText` takes its format
+  arguments; `SetAttribute` takes and `GetAttribute` returns any value.
+- `Frame:RegisterEventCallback`, `RegisterUnitEventCallback` and the global (un)register callback functions take
+  only real event names.
 - 1,135 C API functions and 10 GameTooltip methods that the annotations declare without a single type (the wiki
   stubs) are untyped (`...unknown`) instead of typed as returning nothing: `local link = GetTalentLink(...)` no
   longer types as `nil`. The C API coverage figure drops from 99.8% to 83.4% accordingly.

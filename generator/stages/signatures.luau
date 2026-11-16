@@ -186,6 +186,14 @@ local function reconcileSources(ctx: Context, doc: Signature, ann: { Signature }
 			table.insert(params, p)
 		end
 	end
+	-- The documentation drops a trailing vararg the call takes (`SetFormattedText(format, ...)`): keep the
+	-- annotations' when the documented parameters have none.
+	local last = a.params[#a.params]
+	local docLast = doc.params[#doc.params]
+	if last and last.name == "..." and not (docLast and docLast.name == "...") and #a.params == #doc.params + 1 then
+		table.insert(params, last)
+		usedAnnotations = true
+	end
 	local returns = {}
 	for i, r in doc.returns do
 		local base: Type = if r.kind == "optional" then r.inner else r
@@ -237,6 +245,7 @@ end
 --   2. An argument is optional if either source says so: the documentation marks some arguments
 --      required that the game treats as optional (MessageFrame:AddMessage's colours). Only an
 --      annotated parameter counts: a parameter the annotations name but do not annotate says nothing.
+--      A trailing vararg only the annotations declare is kept (`SetFormattedText(format, ...)`).
 --   3. The annotations' extra call shapes (`---@overload`) are kept: the documentation lists one
 --      signature per function (ScriptRegion:SetPoint(point, x, y) is real).
 --   4. A documented result typed as a callback (C_Timer.NewTicker's ticker handle) takes the
@@ -258,8 +267,9 @@ end
 -- signature, so optionality still comes from the source. Each key used is recorded; build.luau rejects
 -- keys that matched nothing.
 function Signatures.applyOverrides(ctx: Context, key: string, sigs: { Signature }): { Signature }
-	local overrides = ctx.config.paramTypeOverrides[key]
-	if overrides == nil then
+	local overrides = ctx.config.paramTypeOverrides[key] or {}
+	local resultOverrides = ctx.config.resultTypeOverrides[key] or {}
+	if ctx.config.paramTypeOverrides[key] == nil and ctx.config.resultTypeOverrides[key] == nil then
 		return sigs
 	end
 	ctx.overridesUsed[key] = true
@@ -275,9 +285,14 @@ function Signatures.applyOverrides(ctx: Context, key: string, sigs: { Signature 
 				table.insert(params, p)
 			end
 		end
+		local returns: { Type } = {}
+		for i, r in sig.returns do
+			local t = resultOverrides[i]
+			table.insert(returns, if t then { kind = "name", name = t, args = {} } :: Type else r)
+		end
 		table.insert(out, {
 			params = params,
-			returns = sig.returns,
+			returns = returns,
 			returnNames = sig.returnNames,
 			generics = sig.generics,
 		})
