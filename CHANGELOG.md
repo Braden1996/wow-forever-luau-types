@@ -5,6 +5,10 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- The addon template pins the v0.6.0 definitions.
+
 ## [0.6.0] - 2026-11-16
 
 ### Changed
