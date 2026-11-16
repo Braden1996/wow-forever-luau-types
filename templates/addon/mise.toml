@@ -15,7 +15,7 @@ lockfile = true
 [tasks.types]
 description = "Download the pinned WoW: Forever definitions release into types/ and verify its SHA-256"
 # To upgrade, set the release tag and the sha256 of its wow-forever.d.luau (listed in that release's SHA256SUMS).
-env = { WOW_TYPES_VERSION = "v0.2.0", WOW_TYPES_SHA256 = "69a19ac8ab41d9cc08a40de5b4c760f8e417bcfcaf233b8fac69d5fb8ad8a4fa" }
+env = { WOW_TYPES_VERSION = "v0.5.0", WOW_TYPES_SHA256 = "021782e63feb9ce1d045506c5af9be24caba890c54b66aa43a117773148eb990" }
 run = "lune run types"
 
 [tasks.check]

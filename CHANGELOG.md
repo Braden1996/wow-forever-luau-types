@@ -11,6 +11,7 @@ All notable changes to this project are documented here. The format follows
   contain its fields: `SpecializationInfoResult` was `AlliedRaceRacialAbility & { ... }`. They are written out in
   full. The 32 UI widget visualization infos instead share a new `UIWidgetVisualizationInfoBase` with the 12 layout
   and animation fields they all carry.
+- The addon template pins the v0.5.0 definitions (it was still on v0.2.0).
 
 ### Fixed
 
