@@ -5,6 +5,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- A step-by-step tutorial on the documentation site, "Your first addon": saved data, typed events, a draggable window
+  and a slash command, from the TOC file to playing it in game.
+
 ## [0.4.1] - 2026-11-16
 
 ### Fixed
