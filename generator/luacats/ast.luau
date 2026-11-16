@@ -6,6 +6,9 @@ export type Param = {
 	name: string, -- "..." for a variadic parameter
 	type: Type,
 	optional: boolean,
+	-- True for a parameter the Lua signature names but no `---@param` annotates: its `any` and optionality are
+	-- the converter's defaults, not a claim of the annotations (Signatures.reconcile rule 2 ignores it).
+	implicit: boolean?,
 }
 
 -- A key in a table type literal: a named property (`name` or `["name"]`), an indexer over a key type

@@ -63,6 +63,7 @@ local config = {
 	ignoredScriptObjects = widgets.ignoredScriptObjects,
 	docWidgetAliases = widgets.docWidgetAliases,
 	widgetParentOverrides = widgets.widgetParentOverrides,
+	scriptObjectParents = widgets.scriptObjectParents,
 	paramTypeOverrides = widgets.paramTypeOverrides,
 	scriptMethods = widgets.scriptMethods,
 

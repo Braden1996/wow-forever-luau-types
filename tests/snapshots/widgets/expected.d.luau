@@ -41,7 +41,7 @@ end
 declare extern type ScriptRegion extends Object with
 	function GetScript(self, scriptType: ScriptRegionScriptType): ((self: ScriptRegion, ...any) -> ())?
 	function HasScript(self, scriptType: ScriptRegionScriptType): boolean
-	function HookScript(self, scriptType: ScriptRegionScriptType, handler: ((self: ScriptRegion, ...any) -> ())?): ()
+	function HookScript(self, scriptType: ScriptRegionScriptType, handler: (self: ScriptRegion, ...any) -> ()): ()
 	function SetPoint(self, point: FramePoint, relativeTo: (ScriptRegion | number)?, relativePoint: (FramePoint | number)?, offsetX: number?, offsetY: number?): ()
 	function SetScript(self, scriptTypeName: ScriptRegionScriptType, script: ((self: ScriptRegion, ...any) -> ())?): ()
 	function Show(self, ...: unknown): (...unknown)
@@ -50,7 +50,7 @@ end
 declare extern type Frame extends ScriptRegion with
 	function GetScript(self, scriptType: FrameScriptType): ((self: Frame, ...any) -> ())?
 	function HasScript(self, scriptType: FrameScriptType): boolean
-	function HookScript(self, scriptType: FrameScriptType, handler: ((self: Frame, ...any) -> ())?): ()
+	function HookScript(self, scriptType: FrameScriptType, handler: (self: Frame, ...any) -> ()): ()
 	function RegisterEvent(self, eventName: FrameEvent): boolean
 	function SetScript(self, scriptTypeName: FrameScriptType, script: ((self: Frame, ...any) -> ())?): ()
 	function Undocumented(self, ...: unknown): (...unknown)
@@ -59,7 +59,7 @@ end
 declare extern type Button extends Frame with
 	function GetScript(self, scriptType: ButtonScriptType): ((self: Button, ...any) -> ())?
 	function HasScript(self, scriptType: ButtonScriptType): boolean
-	function HookScript(self, scriptType: ButtonScriptType, handler: ((self: Button, ...any) -> ())?): ()
+	function HookScript(self, scriptType: ButtonScriptType, handler: (self: Button, ...any) -> ()): ()
 	function SetScript(self, scriptTypeName: ButtonScriptType, script: ((self: Button, ...any) -> ())?): ()
 	function SetText(self, text: string?): ()
 end
@@ -67,7 +67,7 @@ end
 declare extern type Region extends ScriptRegion with
 	function GetScript(self, scriptType: RegionScriptType): ((self: Region, ...any) -> ())?
 	function HasScript(self, scriptType: RegionScriptType): boolean
-	function HookScript(self, scriptType: RegionScriptType, handler: ((self: Region, ...any) -> ())?): ()
+	function HookScript(self, scriptType: RegionScriptType, handler: (self: Region, ...any) -> ()): ()
 	function SetDrawLayer(self, layer: string): ()
 	function SetScript(self, scriptTypeName: RegionScriptType, script: ((self: Region, ...any) -> ())?): ()
 end

@@ -173,18 +173,25 @@ local function handlerType(typeName: string): string
 	return "((self: " .. typeName .. ", ...any) -> ())?"
 end
 
+-- The handler HookScript takes: the documentation requires one (unhooking is not a thing), so it is not optional.
+local function hookHandlerType(typeName: string): string
+	return "(self: " .. typeName .. ", ...any) -> ()"
+end
+
 -- A script method's printed signature, typed for one widget: the script name is that widget's closed set of
 -- script names, and the handler receives the widget. `p` is the documented or annotated signature; nil when
 -- no source types the method, in which case its known shape is written out.
 local function scriptMethod(m: string, typeName: string, scriptType: string, p: Printed?): Printed
 	local handler = handlerType(typeName)
+	local hookHandler = hookHandlerType(typeName)
 	if p == nil then
 		local scriptParam = { name = "scriptType", type = scriptType, vararg = false }
 		local handlerParam = { name = "handler", type = handler, vararg = false }
+		local hookParam = { name = "handler", type = hookHandler, vararg = false }
 		local shapes: { [string]: Printed } = {
 			GetScript = { generics = "", params = { scriptParam }, returns = handler },
 			HasScript = { generics = "", params = { scriptParam }, returns = "boolean" },
-			HookScript = { generics = "", params = { scriptParam, handlerParam }, returns = "()" },
+			HookScript = { generics = "", params = { scriptParam, hookParam }, returns = "()" },
 			SetScript = { generics = "", params = { scriptParam, handlerParam }, returns = "()" },
 		}
 		local shape = shapes[m]
@@ -195,8 +202,12 @@ local function scriptMethod(m: string, typeName: string, scriptType: string, p: 
 	if typed.params[1] then
 		typed.params[1].type = scriptType
 	end
-	if typed.params[2] and (m == "SetScript" or m == "HookScript") then
+	if typed.params[2] and m == "SetScript" then
 		typed.params[2].type = handler
+	elseif typed.params[2] and m == "HookScript" then
+		-- Keep the documented optionality: SetScript's handler is nilable (it clears the script), HookScript's is not.
+		local documented = typed.params[2].type
+		typed.params[2].type = if string.sub(documented, -1) == "?" then handler else hookHandler
 	end
 	if m == "GetScript" then
 		typed.returns = handler
@@ -243,9 +254,10 @@ function Widgets.emit(ctx: Context)
 			return sigs, source, d
 		end
 		local a = model.annotatedMethod(w, m)
-		if a then
+		if a and not (#a == 1 and a[1].untagged) then
 			return a, "annotations", nil
 		end
+		-- Annotated without a single tag (GameTooltip:SetAnchorType): no source types it.
 		return nil, "", nil
 	end
 
@@ -326,8 +338,25 @@ function Widgets.emit(ctx: Context)
 	-- Documented script objects that are not widgets (curves, durations, formatters), reconciled with the
 	-- annotation class of the same name where there is one (AbbreviateConfig, UnitHealPredictionCalculator).
 	emit("-- Script objects -----------------------------------------------------------------------------")
-	for _, name in Common.sortedKeys(model.objectTypes) do
-		emit("declare extern type " .. typeNames[name] .. " with")
+	local emittedObjects: { [string]: boolean } = {}
+	local function emitObject(name: string)
+		if emittedObjects[name] then
+			return
+		end
+		emittedObjects[name] = true
+		local parent = config.scriptObjectParents[name]
+		if parent and model.objectTypes[parent] == nil then
+			parent = nil -- the base is not documented (a snapshot case's small input); the rule is checked below
+		end
+		if parent then
+			emitObject(parent)
+		end
+		emit(
+			"declare extern type "
+				.. typeNames[name]
+				.. (if parent then " extends " .. typeNames[parent] else "")
+				.. " with"
+		)
 		local methods = model.objectTypes[name]
 		local annClass = ctx.ann.classes[name]
 		for _, m in Common.sortedKeys(methods) do
@@ -341,6 +370,9 @@ function Widgets.emit(ctx: Context)
 		end
 		emit("end")
 		emit("")
+	end
+	for _, name in Common.sortedKeys(model.objectTypes) do
+		emitObject(name)
 	end
 end
 

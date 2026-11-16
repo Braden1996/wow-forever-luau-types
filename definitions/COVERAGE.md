@@ -6,10 +6,10 @@ CI fails if an API that was typed becomes untyped.
 
 | Category | Typed | Untyped | Excluded | Typed share |
 | --- | ---: | ---: | ---: | ---: |
-| Functions (global and `C_*` namespaces) | 7053 | 5719 | 393 | 55.2% |
-| Widget and script-object methods | 1660 | 0 | 0 | 100.0% |
+| Functions (global and `C_*` namespaces) | 5917 | 6855 | 393 | 46.3% |
+| Widget and script-object methods | 1650 | 10 | 0 | 99.4% |
 | Events (payload types) | 1816 | 0 | 0 | 100.0% |
-| Structures and mixins | 821 | 0 | 0 | 100.0% |
+| Structures and mixins | 840 | 0 | 0 | 100.0% |
 | Enums | 954 | 0 | 0 | 100.0% |
 | Widget types | 57 | 0 | 0 | 100.0% |
 
@@ -17,25 +17,25 @@ CI fails if an API that was typed becomes untyped.
 
 | Kind | Typed | Untyped | Excluded | Typed share |
 | --- | ---: | ---: | ---: | ---: |
-| C API (the game's native functions) | 6892 | 12 | 0 | 99.8% |
+| C API (the game's native functions) | 5757 | 1147 | 0 | 83.4% |
 | Lua library and WoW's Lua extensions | 59 | 17 | 112 | 77.6% |
-| FrameXML (Blizzard's own UI code) | 102 | 5690 | 1 | 1.8% |
+| FrameXML (Blizzard's own UI code) | 101 | 5691 | 1 | 1.7% |
 
 ## Sources of typed APIs
 
 | Category | Source | Count |
 | --- | --- | ---: |
-| functions | annotations | 2012 |
+| functions | annotations | 876 |
 | functions | docs | 5036 |
 | functions | docs+annotations | 2 |
 | functions | generator | 1 |
 | functions | supplements | 2 |
-| widgetMethods | annotations | 48 |
-| widgetMethods | docs | 1580 |
-| widgetMethods | docs+annotations | 32 |
+| widgetMethods | annotations | 38 |
+| widgetMethods | docs | 1605 |
+| widgetMethods | docs+annotations | 7 |
 | events | docs | 1816 |
-| structures | annotations | 207 |
-| structures | docs | 614 |
+| structures | annotations | 69 |
+| structures | docs | 771 |
 | enums | client | 954 |
 | widgets | client | 57 |
 
@@ -46,6 +46,8 @@ CI fails if an API that was typed becomes untyped.
 | functions | untyped | no type source (C API) | 12 |
 | functions | untyped | no type source (FrameXML) | 5690 |
 | functions | untyped | no type source (Lua) | 17 |
+| functions | untyped | the annotations declare it without types (C API) | 1135 |
+| functions | untyped | the annotations declare it without types (FrameXML) | 1 |
 | functions | excluded | Luau's string.split(s, separator) returns a table; WoW's string.split(delimiter, s) returns the pieces, and a definitions file cannot override Luau's. Use strsplit | 1 |
 | functions | excluded | a WoW extension of Luau's math library; a definitions file cannot add to it | 4 |
 | functions | excluded | a WoW extension of Luau's string library; a definitions file cannot add to it | 9 |
@@ -53,6 +55,7 @@ CI fails if an API that was typed becomes untyped.
 | functions | excluded | documented, but absent from the client's API dump | 18 |
 | functions | excluded | not in the WoW: Forever client | 262 |
 | functions | excluded | provided by Luau's standard library | 87 |
+| widgetMethods | untyped | no type source | 10 |
 
 ## Result shapes
 
@@ -68,10 +71,10 @@ libraries that wrap the API (`maybe`: one nilable result; `record`: several name
 | `overloaded` | 5 | 0 |
 | `protected` | 1 | 65 |
 | `record` | 572 | 103 |
-| `untyped` | 5719 | 0 |
+| `untyped` | 6855 | 10 |
 | `value` | 2720 | 542 |
 | `variadic` | 39 | 8 |
-| `void` | 2545 | 678 |
+| `void` | 1409 | 668 |
 
 Calls the documentation says may return nothing at all have every result optional (`T?`), by reason:
 
@@ -106,4 +109,4 @@ Calls the documentation says may return nothing at all have every result optiona
 | `...any` in a handler | script handler and event payload arguments | 150 |
 | anything else | should be 0 | 0 |
 
-35 documented structures are derived from another (`Base & { ... }`). 24 type names used by upstream could not be resolved and are `unknown`; see `report.json`.
+39 documented structures are derived from another (`Base & { ... }`). 7 type names used by upstream could not be resolved and are `unknown`; see `report.json`.

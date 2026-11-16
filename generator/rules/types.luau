@@ -24,7 +24,6 @@ local basicTypes: { [string]: string } = {
 	FileAsset = "string",
 	normalizedValue = "number",
 	SingleColorValue = "number",
-	LuaValueVariant = "unknown",
 	LuaValueReference = "unknown",
 	LuaFunctionReference = "(...any) -> ...any",
 	Milliseconds = "number",
@@ -41,8 +40,18 @@ local basicTypes: { [string]: string } = {
 -- the name. The Forever documentation types unit tokens (`RegisterUnitEvent`'s units, the
 -- NAME_PLATE_UNIT_ADDED payload) as the `UnitTokenType` enumeration, but the client passes and takes the
 -- token strings ("player", "nameplate1"), as the annotations and Blizzard's own UI code do.
+--
+-- The rest are opaque in the documentation, which declares no type for them: the annotations type the
+-- same positions `number` (voice channel and member IDs, cast bar IDs); a DurationTextBinding is the
+-- DurationTextBindingObject its own `Assign` and `Copy` take and return; a LuaValueVariant is any Lua
+-- value (the annotations' `table` alias would reject numbers and functions).
 local docTypeOverrides: { [string]: string } = {
 	UnitTokenType = "UnitToken",
+	VoiceChatID = "number",
+	ClubMemberOpaqueId = "number",
+	UnitCastBarID = "number",
+	DurationTextBinding = "DurationTextBindingObject",
+	LuaValueVariant = "unknown",
 }
 
 -- String-literal aliases emitted as closed unions (a typo is a type error). Other aliases that list

@@ -23,6 +23,9 @@ export type Signature = {
 	returns: { Type },
 	returnNames: { string }?,
 	generics: { string },
+	-- True when the function has no `---@param`, `---@return` or `---@overload` at all (the wiki stubs marked
+	-- `---#nopage`): its parameter and result types are the converter's defaults, not a claim of the annotations.
+	untagged: boolean?,
 }
 
 export type Func = {

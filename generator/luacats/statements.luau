@@ -40,13 +40,19 @@ local function readFunction(r: Reader, fname: string, args: string, lineNo: numb
 			r.fail(lineNo, "@param " .. p.name .. " is not a parameter of " .. fname)
 		end
 	end
-	-- Parameters named in the Lua signature but not annotated are `any`.
+	-- Parameters named in the Lua signature but not annotated are `any`, and marked implicit.
 	local params: { Param } = {}
 	for _, argName in argNames do
-		table.insert(params, annotated[argName] or { name = argName, type = ANY, optional = true })
+		table.insert(params, annotated[argName] or { name = argName, type = ANY, optional = true, implicit = true })
 	end
-	local signature: Signature =
-		{ params = params, returns = pending.returns, returnNames = pending.returnNames, generics = pending.generics }
+	local untagged = #pending.params == 0 and #pending.returns == 0 and #pending.overloads == 0
+	local signature: Signature = {
+		params = params,
+		returns = pending.returns,
+		returnNames = pending.returnNames,
+		generics = pending.generics,
+		untagged = if untagged then true else nil,
+	}
 	local overloads: { Signature } = {}
 	for _, o in pending.overloads do
 		if o.kind == "fun" then

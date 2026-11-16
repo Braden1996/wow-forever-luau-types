@@ -68,6 +68,9 @@ local function functionSource(ctx: Context, qualified: string, path: { string },
 	if doc then
 		local sigs, source = Signatures.reconcile(ctx, doc, if f then Common.withOverloads(f) else nil)
 		return { kind = "typed", sigs = sigs, source = source }
+	elseif f and f.signature.untagged and #f.overloads == 0 then
+		-- Declared without a single tag: its `()` result would claim the function returns nothing.
+		return { kind = "untyped", note = "the annotations declare it without types (" .. list .. ")" }
 	elseif f then
 		return { kind = "typed", sigs = Common.withOverloads(f), source = "annotations" }
 	end

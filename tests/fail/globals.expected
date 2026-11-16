@@ -6,5 +6,5 @@
 15:23: TypeError: Expected this to be 'number', but got 'string'
 16:8: TypeError: Expected this to be 'string', but got 'number'
 19:1: TypeError: Argument count mismatch. Function expects 2 arguments, but only 1 is specified
-20:1: TypeError: Key 'Afterr' not found in table '{ After: (number, () -> ()) -> (), NewTicker: (number, (() -> ()) -> (), number?) -> FunctionContainer, NewTimedSignalMap: (unknown) -> TimedSignalMap, NewTimer: (number, (() -> ()) -> ()) -> FunctionContainer }'
+20:1: TypeError: Key 'Afterr' not found in table '{ After: (number, () -> ()) -> (), NewTicker: (number, (() -> ()) -> (), number?) -> FunctionContainer, NewTimedSignalMap: ((number) -> ()) -> TimedSignalMap, NewTimer: (number, (() -> ()) -> ()) -> FunctionContainer }'
 23:22: TypeError: Expected this to be 'string', but got 'unknown'

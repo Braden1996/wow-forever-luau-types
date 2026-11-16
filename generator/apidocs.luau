@@ -208,6 +208,7 @@ function ApiDocs.parse(files: { { name: string, source: string } }): DocSet
 	-- Pass 1: the documents, every enumeration name (types refer to enums by bare name) and every predicate.
 	type Doc = { file: string, table: Table }
 	local docs: { Doc } = {}
+	local nameless: { Doc } = {}
 	for _, file in files do
 		local ok, result = pcall(LuaTable.parseFile, file.source)
 		if not ok then
@@ -232,6 +233,7 @@ function ApiDocs.parse(files: { { name: string, source: string } }): DocSet
 				if doc.map.Functions ~= nil or doc.map.Events ~= nil then
 					report(file.name, "a documentation system has no Name")
 				end
+				table.insert(nameless, { file = file.name, table = doc })
 				continue
 			end
 			table.insert(docs, { file = file.name, table = doc })
@@ -250,6 +252,30 @@ function ApiDocs.parse(files: { { name: string, source: string } }): DocSet
 	end
 	local enums = set.enumerations
 
+	-- Shared and constants files have no Name of their own, but their structures and callback types are
+	-- documented like any other (DiscordConstantsDocumentation's DiscordInfo, the chat events' payload).
+	-- ScriptObject is skipped: it is the widget of that name.
+	for _, doc in nameless do
+		for _, entry in (LuaTable.tbl(doc.table.map.Tables) or EMPTY).array do
+			local t = LuaTable.tbl(entry)
+			local name = t and LuaTable.str(t.map.Name)
+			if t == nil or name == nil or name == "ScriptObject" then
+				continue
+			end
+			if t.map.Type == "Structure" and set.structures[name] == nil then
+				local fields: { Decls.Field } = {}
+				for _, p in params(LuaTable.tbl(t.map.Fields), set.enumerations, false) do
+					if p.name ~= "..." then
+						table.insert(fields, { name = p.name, type = p.type, optional = p.optional })
+					end
+				end
+				set.structures[name] = { name = name, fields = fields }
+			elseif t.map.Type == "CallbackType" and set.callbacks[name] == nil then
+				local args = params(LuaTable.tbl(t.map.Arguments), set.enumerations, false)
+				set.callbacks[name] = { name = name, type = { kind = "fun", params = args, returns = {} } :: Type }
+			end
+		end
+	end
 	-- Pass 2 (functions read set.predicates, complete after pass 1): everything else. A name seen twice is reported and the first definition kept.
 	for _, doc in docs do
 		local m = doc.table.map
