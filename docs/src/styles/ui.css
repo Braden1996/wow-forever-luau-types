@@ -26,6 +26,7 @@
   color: var(--sl-color-gray-2);
   font-family: var(--wc-font-display);
   font-size: var(--sl-text-sm);
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -199,13 +200,6 @@
   font-family: var(--sl-font-mono);
   font-size: var(--sl-text-xs);
   white-space: pre-wrap;
-}
-
-.site-disclaimer {
-  margin-top: 1rem;
-  font-size: var(--sl-text-xs);
-  color: var(--sl-color-gray-3);
-  text-align: center;
 }
 
 .sym-close {

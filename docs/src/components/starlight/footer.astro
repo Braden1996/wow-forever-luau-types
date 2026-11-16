@@ -1,13 +1,11 @@
 ---
-// Starlight's footer plus the hover-card island (once per page) and the trademark notice.
+// Starlight's footer plus the theme's trademark notice and the hover-card island (once per page).
 import Default from "@astrojs/starlight/components/Footer.astro";
+import { Disclaimer } from "starlight-warcraft/react";
 
-import { HoverCards } from "../search/hover-cards.tsx";
+import { SiteHoverCards } from "../search/hover-cards.tsx";
 ---
 
 <Default />
-<p class="site-disclaimer">
-  An unofficial community project. World of Warcraft and Blizzard Entertainment are trademarks of Blizzard
-  Entertainment, Inc.; this site is not affiliated with or endorsed by Blizzard. Code under the MIT licence.
-</p>
-<HoverCards client:idle />
+<Disclaimer licence="Code under the MIT licence." />
+<SiteHoverCards client:idle />
