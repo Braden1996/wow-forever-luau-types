@@ -5,6 +5,13 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- A structure the addon only passes in leaves out the fields the documentation gives a default:
+  `C_SpecializationInfo.GetTalentInfo({ tier = 1, column = 2 })`, `PlaySoundWithOptions({ soundKitID = id })`,
+  `CreateFrameOptions`, the JSON and CBOR serialization options and 8 more. Structures the client also hands back keep every field
+  required.
+
 ## [0.5.0] - 2026-11-16
 
 ### Added

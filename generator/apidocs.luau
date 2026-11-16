@@ -123,6 +123,103 @@ local function params(list: Table?, enums: { [string]: boolean }, isArgument: bo
 	return out
 end
 
+-- The names of the fields that the documentation gives a Default.
+local function defaulted(list: Table?): { [string]: boolean }
+	local out: { [string]: boolean } = {}
+	for _, v in (list or EMPTY).array do
+		local f = LuaTable.tbl(v)
+		local name = f and LuaTable.str(f.map.Name)
+		if f and name and f.map.Default ~= nil then
+			out[name] = true
+		end
+	end
+	return out
+end
+
+-- A structure field with a Default may be left out only where the addon writes the structure and the client reads
+-- it: a structure used only as input (an argument, or a field of one). Where the client also hands it back (a
+-- result, an event payload, a callback's argument), the client fills the field in, so it stays required.
+local function markDefaultedFields(set: DocSet, defaults: { [string]: { [string]: boolean } })
+	local seen: { [string]: boolean } = {} -- "<name>/<in|out>"
+	local output: { [string]: boolean } = {}
+	local function walk(t: Type, isInput: boolean)
+		if t.kind == "name" then
+			local key = t.name .. (if isInput then "/in" else "/out")
+			if seen[key] then
+				return
+			end
+			seen[key] = true
+			local struct = set.structures[t.name]
+			local callback = set.callbacks[t.name]
+			if struct then
+				if not isInput then
+					output[t.name] = true
+				end
+				for _, f in struct.fields do
+					walk(f.type, isInput)
+				end
+			elseif callback then
+				walk(callback.type, isInput)
+			end
+			for _, a in t.args do
+				walk(a, isInput)
+			end
+		elseif t.kind == "optional" or t.kind == "array" or t.kind == "variadic" then
+			walk(t.inner, isInput)
+		elseif t.kind == "map" then
+			walk(t.key, isInput)
+			walk(t.value, isInput)
+		elseif t.kind == "union" then
+			for _, u in t.types do
+				walk(u, isInput)
+			end
+		elseif t.kind == "fun" then
+			-- A function's parameters flow the other way: the client calls it with values it produces.
+			for _, p in t.params do
+				walk(p.type, not isInput)
+			end
+			for _, r in t.returns do
+				walk(r, isInput)
+			end
+		elseif t.kind == "table" then
+			for _, f in t.fields do
+				walk(f.type, isInput)
+			end
+		end
+	end
+	local function walkFunction(fn: DocFunction)
+		for _, p in fn.signature.params do
+			walk(p.type, true)
+		end
+		for _, r in fn.signature.returns do
+			walk(r, false)
+		end
+	end
+	for _, fn in set.functions do
+		walkFunction(fn)
+	end
+	for _, methods in set.scriptObjects do
+		for _, fn in methods do
+			walkFunction(fn)
+		end
+	end
+	for _, ev in set.events do
+		for _, p in ev.payload do
+			walk(p.type, false)
+		end
+	end
+	for name, fields in defaults do
+		local struct = set.structures[name]
+		if struct and not output[name] and seen[name .. "/in"] then
+			for _, f in struct.fields do
+				if fields[f.name] then
+					f.optional = true
+				end
+			end
+		end
+	end
+end
+
 local function returns(list: Table?, enums: { [string]: boolean }): { Type }
 	local out: { Type } = {}
 	for _, v in (list or EMPTY).array do
@@ -251,6 +348,7 @@ function ApiDocs.parse(files: { { name: string, source: string } }): DocSet
 		end
 	end
 	local enums = set.enumerations
+	local defaults: { [string]: { [string]: boolean } } = {} -- structure name -> the fields with a Default
 
 	-- Shared and constants files have no Name of their own, but their structures and callback types are
 	-- documented like any other (DiscordConstantsDocumentation's DiscordInfo, the chat events' payload).
@@ -270,6 +368,7 @@ function ApiDocs.parse(files: { { name: string, source: string } }): DocSet
 					end
 				end
 				set.structures[name] = { name = name, fields = fields }
+				defaults[name] = defaulted(LuaTable.tbl(t.map.Fields))
 			elseif t.map.Type == "CallbackType" and set.callbacks[name] == nil then
 				local args = params(LuaTable.tbl(t.map.Arguments), set.enumerations, false)
 				set.callbacks[name] = { name = name, type = { kind = "fun", params = args, returns = {} } :: Type }
@@ -335,6 +434,7 @@ function ApiDocs.parse(files: { { name: string, source: string } }): DocSet
 					end
 				end
 				set.structures[name] = { name = name, fields = fields }
+				defaults[name] = defaulted(LuaTable.tbl(t.map.Fields))
 			elseif t.map.Type == "CallbackType" then
 				if set.callbacks[name] then
 					report(doc.file, "duplicate callback type " .. name)
@@ -345,6 +445,7 @@ function ApiDocs.parse(files: { { name: string, source: string } }): DocSet
 			end
 		end
 	end
+	markDefaultedFields(set, defaults)
 	return set
 end
 

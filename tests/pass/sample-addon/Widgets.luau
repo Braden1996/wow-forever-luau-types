@@ -29,3 +29,9 @@ end
 
 local curve = C_CurveUtil.CreateCurve()
 curve:SetType(Enum.LuaCurveType.Linear)
+
+-- An input-only structure leaves out the fields the documentation gives a default.
+local talent = C_SpecializationInfo.GetTalentInfo({ tier = 1, column = 2 })
+if talent then
+	label:SetText(talent.name)
+end

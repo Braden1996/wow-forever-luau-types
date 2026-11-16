@@ -8,3 +8,4 @@
 19:1: TypeError: Argument count mismatch. Function expects 2 arguments, but only 1 is specified
 20:1: TypeError: Key 'Afterr' not found in table '{ After: (number, () -> ()) -> (), NewTicker: (number, (() -> ()) -> (), number?) -> FunctionContainer, NewTimedSignalMap: ((number) -> ()) -> TimedSignalMap, NewTimer: (number, (() -> ()) -> ()) -> FunctionContainer }'
 23:22: TypeError: Expected this to be 'string', but got 'unknown'
+26:30: TypeError: Table type '{ forceNoDuplicates: boolean? }' not compatible with type 'PlaySoundParams' because the former is missing field 'soundKitID'
