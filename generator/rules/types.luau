@@ -37,6 +37,14 @@ local basicTypes: { [string]: string } = {
 	FontAsset = "string",
 }
 
+-- Type names the documentation uses for a value of another type, resolved before anything else declares
+-- the name. The Forever documentation types unit tokens (`RegisterUnitEvent`'s units, the
+-- NAME_PLATE_UNIT_ADDED payload) as the `UnitTokenType` enumeration, but the client passes and takes the
+-- token strings ("player", "nameplate1"), as the annotations and Blizzard's own UI code do.
+local docTypeOverrides: { [string]: string } = {
+	UnitTokenType = "UnitToken",
+}
+
 -- String-literal aliases emitted as closed unions (a typo is a type error). Other aliases that list
 -- suggested values but are based on `string` stay `string`, because their lists are retail-only
 -- and incomplete for the Forever client. (FrameEvent is not listed: the generator builds it from the
@@ -56,6 +64,7 @@ local closedAliasPattern: string = "^Script"
 return {
 	derivedMinFields = derivedMinFields,
 	basicTypes = basicTypes,
+	docTypeOverrides = docTypeOverrides,
 	closedAliases = closedAliases,
 	closedAliasPattern = closedAliasPattern,
 }

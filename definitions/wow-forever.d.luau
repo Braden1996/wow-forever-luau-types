@@ -610,8 +610,8 @@ export type EventPayloads = {
 	FIRST_FRAME_RENDERED: () -> (),
 	FOG_OF_WAR_UPDATED: () -> (),
 	FORBIDDEN_NAME_PLATE_CREATED: (namePlateFrame: Frame) -> (),
-	FORBIDDEN_NAME_PLATE_UNIT_ADDED: (unitToken: Enum_UnitTokenType) -> (),
-	FORBIDDEN_NAME_PLATE_UNIT_REMOVED: (unitToken: Enum_UnitTokenType) -> (),
+	FORBIDDEN_NAME_PLATE_UNIT_ADDED: (unitToken: UnitToken) -> (),
+	FORBIDDEN_NAME_PLATE_UNIT_REMOVED: (unitToken: UnitToken) -> (),
 	FORCE_REFRESH_HOUSE_FINDER: () -> (),
 	FRAME_MANAGER_UPDATE_ALL: () -> (),
 	FRAME_MANAGER_UPDATE_FRAME: (type: Enum_UIFrameType, show: boolean) -> (),
@@ -1048,9 +1048,9 @@ export type EventPayloads = {
 	MYTHIC_PLUS_CURRENT_AFFIX_UPDATE: () -> (),
 	MYTHIC_PLUS_NEW_WEEKLY_RECORD: (mapChallengeModeID: number, completionMilliseconds: number, level: number) -> (),
 	NAME_PLATE_CREATED: (namePlateFrame: Frame) -> (),
-	NAME_PLATE_UNIT_ADDED: (unitToken: Enum_UnitTokenType) -> (),
+	NAME_PLATE_UNIT_ADDED: (unitToken: UnitToken) -> (),
 	NAME_PLATE_UNIT_BEHIND_CAMERA_CHANGED: (unitTarget: string, isBehindCamera: boolean) -> (),
-	NAME_PLATE_UNIT_REMOVED: (unitToken: Enum_UnitTokenType) -> (),
+	NAME_PLATE_UNIT_REMOVED: (unitToken: UnitToken) -> (),
 	NAVIGATION_DESTINATION_REACHED: (isWaypoint: boolean) -> (),
 	NAVIGATION_FRAME_CREATED: (region: ScriptRegion) -> (),
 	NAVIGATION_FRAME_DESTROYED: () -> (),
@@ -10604,7 +10604,7 @@ declare extern type Frame extends ScriptRegion with
 	function InterceptStartDrag(self, delegate: Frame): boolean
 	function IsClampedToScreen(self): boolean
 	function IsDrawLayerEnabled(self, layer: DrawLayer): boolean
-	function IsEventRegistered(self, eventName: FrameEvent): (boolean, ...Enum_UnitTokenType)
+	function IsEventRegistered(self, eventName: FrameEvent): (boolean, ...UnitToken)
 	function IsFrameBuffer(self): boolean
 	function IsGamePadButtonEnabled(self): boolean
 	function IsGamePadStickEnabled(self): boolean
@@ -10624,8 +10624,8 @@ declare extern type Frame extends ScriptRegion with
 	function RegisterEvent(self, eventName: FrameEvent): boolean
 	function RegisterEventCallback(self, eventName: string, cb: FrameEventCallbackType): boolean
 	function RegisterForDrag(self, ...: MouseButton): ()
-	function RegisterUnitEvent(self, eventName: FrameEvent, ...: Enum_UnitTokenType): boolean
-	function RegisterUnitEventCallback(self, eventName: string, cb: FrameEventCallbackType, ...: Enum_UnitTokenType): boolean
+	function RegisterUnitEvent(self, eventName: FrameEvent, ...: UnitToken): boolean
+	function RegisterUnitEventCallback(self, eventName: string, cb: FrameEventCallbackType, ...: UnitToken): boolean
 	function RemoveRoleset(self, roleset: string): ()
 	function ResizeToBoundsRect(self): ()
 	function RotateTextures(self, radians: number, x: number?, y: number?): ()
@@ -11896,7 +11896,7 @@ declare extern type UnitPositionFrame extends Frame with
 	function AddUnit(self, unitTokenString: string, asset: TextureAssetDisk, width: uiUnit?, height: uiUnit?, r: number?, g: number?, b: number?, a: number?, sublayer: number?, showFacing: boolean?): ()
 	function ClearUnits(self): ()
 	function FinalizeUnits(self): ()
-	function GetMouseOverUnits(self): (...Enum_UnitTokenType)
+	function GetMouseOverUnits(self): (...UnitToken)
 	function GetPlayerPingScale(self): number
 	function GetScript(self, scriptTypeName: UnitPositionFrameScriptType, bindingType: Enum_ScriptBindingType?): ((self: UnitPositionFrame, ...any) -> ())?
 	function GetUiMapID(self): number
@@ -11906,7 +11906,7 @@ declare extern type UnitPositionFrame extends Frame with
 	function SetPlayerPingTexture(self, textureType: Enum_PingTextureType, asset: FileAsset, width: uiUnit?, height: uiUnit?): ()
 	function SetScript(self, scriptTypeName: UnitPositionFrameScriptType, script: ((self: UnitPositionFrame, ...any) -> ())?): ()
 	function SetUiMapID(self, mapID: number): ()
-	function SetUnitColor(self, unit: Enum_UnitTokenType, colorR: number, colorG: number, colorB: number, colorA: number): ()
+	function SetUnitColor(self, unit: UnitToken, colorR: number, colorG: number, colorB: number, colorA: number): ()
 	function StartPlayerPing(self, duration: number?, fadeDuration: number?): ()
 	function StopPlayerPing(self): ()
 end

@@ -69,6 +69,7 @@ local config = {
 	-- Type names (generator/rules/types.luau).
 	derivedMinFields = types.derivedMinFields,
 	basicTypes = types.basicTypes,
+	docTypeOverrides = types.docTypeOverrides,
 	closedAliases = types.closedAliases,
 	closedAliasPattern = types.closedAliasPattern,
 
