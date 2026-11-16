@@ -130,8 +130,8 @@ return `unknown`. A function is counted as typed only when a source gives its ty
   names. Script names are per widget: `Button` has `OnClick`, `Frame` does not.
 - **Real inheritance.** Widgets are `declare extern type`s in the client's hierarchy (`CheckButton → Button → Frame →
   ScriptRegion → Object → FrameScriptObject`); a `Button` is a `Frame`, never the reverse.
-- **Derived, not duplicated.** A documented structure that contains another's fields is declared as
-  `Base & { extra }` (35 of them), `CreateFrame` is generic over `FrameTypeMap`, and an event handler's type is
+- **Derived, not duplicated.** The 32 UI widget visualization infos are `UIWidgetVisualizationInfoBase & { extra }`
+  (structures that only happen to share fields stay separate), `CreateFrame` is generic over `FrameTypeMap`, and an event handler's type is
   derived from the payload table: `EventHandler<"PLAYER_LEVEL_UP">` is `index<EventPayloads, "PLAYER_LEVEL_UP">`.
 
 ## Writing an addon in strict Luau

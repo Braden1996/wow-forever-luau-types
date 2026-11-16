@@ -1,7 +1,6 @@
 --!strict
 -- Stage 3 and the structures section of the output: Blizzard's documented structures and the annotation
--- classes that are neither widgets nor script objects, each derived from another where it contains all of
--- that one's fields (`Base & { extra }`).
+-- classes that are neither widgets nor script objects. Structures a rule groups share a base (`Base & { extra }`).
 
 local ApiDocs = require("../apidocs")
 local Common = require("./common")
@@ -85,60 +84,79 @@ local function fieldTexts(ctx: Context, s: Struct): Fields
 	return { list = list, set = set }
 end
 
-local function subsetOf(small: Fields, big: Fields): boolean
-	for _, f in small.list do
-		if not big.set[f.text] then
-			return false
-		end
-	end
-	return true
-end
-
--- For each documented structure, the largest other documented structure whose fields it contains.
-local function derivations(ctx: Context, fields: { [string]: Fields }): { [string]: string }
+-- The shared bases of config.structBases: each base holds the fields that every documented structure its pattern
+-- matches has in common, and each of those structures is declared as `Base & { its own fields }`. A structure
+-- that merely happens to contain another's fields is emitted flat: the documentation does not say they are
+-- related. Returns structure -> base, the bases' fields, and the rules that match too little.
+local function sharedBases(
+	ctx: Context,
+	fields: { [string]: Fields }
+): ({ [string]: string }, { [string]: Fields }, { string })
 	local derivedFrom: { [string]: string } = {}
-	local docNames = {}
-	for _, name in Common.sortedKeys(ctx.structs) do
-		if ctx.structs[name].source == "docs" and #fields[name].list >= ctx.config.derivedMinFields then
-			table.insert(docNames, name)
+	local bases: { [string]: Fields } = {}
+	local unused: { string } = {}
+	for _, base in Common.sortedKeys(ctx.config.structBases) do
+		local pattern = ctx.config.structBases[base]
+		local members: { string } = {}
+		for _, name in Common.sortedKeys(ctx.structs) do
+			if ctx.structs[name].source == "docs" and string.find(name, pattern) ~= nil then
+				table.insert(members, name)
+			end
 		end
-	end
-	for _, b in docNames do
-		local best: string? = nil
-		for _, a in docNames do
-			local sizeA, sizeB = #fields[a].list, #fields[b].list
-			if a ~= b and sizeA <= sizeB and subsetOf(fields[a], fields[b]) then
-				-- Equal shapes: the alphabetically first is the base; never derive from a later twin.
-				local equal = sizeA == sizeB
-				if not (equal and a > b) and derivedFrom[a] ~= b then
-					if best == nil or sizeA > #fields[best :: string].list then
-						best = a
+		local common: { FieldText } = {}
+		if #members >= 2 then
+			for _, f in fields[members[1]].list do
+				local shared = true
+				for _, m in members do
+					if not fields[m].set[f.text] then
+						shared = false
+						break
 					end
+				end
+				if shared then
+					table.insert(common, f)
 				end
 			end
 		end
-		if best then
-			derivedFrom[b] = best
+		if #common < ctx.config.derivedMinFields or ctx.structs[base] ~= nil or ctx.typeNames[base] ~= nil then
+			table.insert(unused, "structBases." .. base)
+			continue
+		end
+		local set: { [string]: boolean } = {}
+		for _, f in common do
+			set[f.text] = true
+		end
+		bases[base] = { list = common, set = set }
+		for _, m in members do
+			derivedFrom[m] = base
 		end
 	end
-	return derivedFrom
+	return derivedFrom, bases, unused
 end
 
--- Emits every structure; returns how many are derived from another.
-function Structs.emit(ctx: Context): number
+-- Emits every structure; returns how many are derived from a shared base, and the base rules that match too little.
+function Structs.emit(ctx: Context): (number, { string })
 	local structs, typeNames, widgetAliases, res = ctx.structs, ctx.typeNames, ctx.widgetAliases, ctx.res
 	ctx.emit("-- Structures and mixins ----------------------------------------------------------------------")
 	local fields: { [string]: Fields } = {}
 	for name, s in structs do
 		fields[name] = fieldTexts(ctx, s)
 	end
-	local derivedFrom = derivations(ctx, fields)
+	local derivedFrom, bases, unused = sharedBases(ctx, fields)
+	for _, base in Common.sortedKeys(bases) do
+		local lines = {}
+		for _, f in bases[base].list do
+			table.insert(lines, "\t" .. f.text .. ",")
+		end
+		ctx.emit("-- The fields every structure matching `" .. ctx.config.structBases[base] .. "` has in common.")
+		ctx.emit("export type " .. base .. " = {\n" .. table.concat(lines, "\n") .. "\n}")
+	end
 	for _, name in Common.sortedKeys(structs) do
 		local s = structs[name]
 		local base = derivedFrom[name]
 		local parents: { string } = {}
 		if base then
-			table.insert(parents, typeNames[base])
+			table.insert(parents, base)
 		else
 			for _, p in s.parents do
 				local resolved = if structs[p]
@@ -154,7 +172,7 @@ function Structs.emit(ctx: Context): number
 		if base then
 			own = {}
 			for _, f in fields[name].list do
-				if not fields[base].set[f.text] then
+				if not bases[base].set[f.text] then
 					table.insert(own, f)
 				end
 			end
@@ -183,7 +201,7 @@ function Structs.emit(ctx: Context): number
 		ctx.cover("structures", name, "typed", s.source, note)
 	end
 	ctx.emit("")
-	return Common.count(derivedFrom)
+	return Common.count(derivedFrom), unused
 end
 
 return Structs

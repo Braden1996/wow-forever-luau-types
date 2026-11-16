@@ -38,12 +38,21 @@
     }
   },
   "structures": {
+    "DemoBarVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 1 more fields }",
+      "source": "docs",
+      "status": "typed"
+    },
     "DemoInfo": {
       "source": "docs",
       "status": "typed"
     },
     "DemoInfoExtended": {
-      "note": "derived: DemoInfo & { 1 more fields }",
+      "source": "docs",
+      "status": "typed"
+    },
+    "DemoTextVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 1 more fields }",
       "source": "docs",
       "status": "typed"
     }

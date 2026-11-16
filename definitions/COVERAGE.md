@@ -109,4 +109,4 @@ Calls the documentation says may return nothing at all have every result optiona
 | `...any` in a handler | script handler and event payload arguments | 150 |
 | anything else | should be 0 | 0 |
 
-39 documented structures are derived from another (`Base & { ... }`). 7 type names used by upstream could not be resolved and are `unknown`; see `report.json`.
+32 documented structures extend a shared base (`Base & { ... }`). 7 type names used by upstream could not be resolved and are `unknown`; see `report.json`.

@@ -70,6 +70,7 @@ local config = {
 	scriptMethods = widgets.scriptMethods,
 
 	-- Type names (generator/rules/types.luau).
+	structBases = types.structBases,
 	derivedMinFields = types.derivedMinFields,
 	basicTypes = types.basicTypes,
 	docTypeOverrides = types.docTypeOverrides,

@@ -3065,6 +3065,21 @@ export type Enum_ZoneControlMode = number
 export type Enum_ZoneControlState = number
 
 -- Structures and mixins ----------------------------------------------------------------------
+-- The fields every structure matching `VisualizationInfo$` has in common.
+export type UIWidgetVisualizationInfoBase = {
+	frameTextureKit: textureKit,
+	hasTimer: boolean,
+	inAnimType: Enum_WidgetAnimationType,
+	layoutDirection: Enum_UIWidgetLayoutDirection,
+	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
+	orderIndex: number,
+	outAnimType: Enum_WidgetAnimationType,
+	scriptedAnimationEffectID: number,
+	textureKit: textureKit,
+	widgetScale: Enum_UIWidgetScale,
+	widgetSizeSetting: number,
+	widgetTag: string,
+}
 export type AbilityCounter = {
 	description: string,
 	factor: number,
@@ -3268,8 +3283,10 @@ export type ArdenwealdGardenData = {
 	ready: number,
 	remainingSeconds: time_t,
 }
-export type AreaPOIInfo = PetTamerMapInfo & {
+export type AreaPOIInfo = {
 	addPaddingAboveTooltipWidgets: boolean?,
+	areaPoiID: number,
+	atlasName: string?,
 	description: string?,
 	factionID: number?,
 	highlightVignettesOnHover: boolean,
@@ -3281,7 +3298,10 @@ export type AreaPOIInfo = PetTamerMapInfo & {
 	isPrimaryMapForPOI: boolean,
 	isSuppressible: boolean,
 	linkedUiMapID: number?,
+	name: string,
+	position: Vector2DMixin,
 	shouldGlow: boolean,
+	textureIndex: number?,
 	tooltipWidgetSet: number?,
 	uiTextureKit: textureKit?,
 }
@@ -3304,13 +3324,24 @@ export type ArtifactAppearanceSetInfo = {
 	artifactAppearanceSetID: number,
 	numAppearances: number,
 }
-export type ArtifactArtInfo = RemixArtifactArtInfo & {
+export type ArtifactArtInfo = {
 	barConnectedColor: ColorMixin,
 	barDisconnectedColor: ColorMixin,
+	spellVisualKitID: number,
+	textureKit: textureKit,
 	titleColor: ColorMixin,
+	titleName: string,
+	uiModelSceneID: number,
 }
-export type ArtifactInfo = RemixArtifactInfo & {
+export type ArtifactInfo = {
+	altItemAppearanceID: number?,
+	altItemID: number?,
+	altOnTop: boolean,
+	appearanceModID: number,
+	artifactAppearanceID: number,
 	icon: fileID,
+	itemAppearanceID: number?,
+	itemID: number,
 	name: string,
 	pointsSpent: number,
 	quality: number,
@@ -3403,7 +3434,12 @@ export type AuraContainerTooltipBackdropInfo = {
 	tileEdge: boolean?,
 	tileSize: number?,
 }
-export type AuraContainerTooltipBackdropInsets = AuraContainerTooltipAnchorOffsets
+export type AuraContainerTooltipBackdropInsets = {
+	bottom: number,
+	left: number,
+	right: number,
+	top: number,
+}
 export type AuraContainerTooltipBackdropOptions = {
 	anchorOffsets: AuraContainerTooltipAnchorOffsets?,
 	backdropInfo: AuraContainerTooltipBackdropInfo,
@@ -3468,11 +3504,14 @@ export type AutoCombatResult = {
 	combatLog: { AutoMissionRound },
 	winner: boolean,
 }
-export type AutoCombatSpellInfo = AlliedRaceRacialAbility & {
+export type AutoCombatSpellInfo = {
 	autoCombatSpellID: number,
 	cooldown: number,
+	description: string,
 	duration: number,
 	hasThornsEffect: boolean,
+	icon: fileID,
+	name: string,
 	previewMask: number,
 	schoolMask: number,
 	spellTutorialFlag: number,
@@ -3756,26 +3795,17 @@ export type BulkPurchaseIndividualProductResult = {
 	recordId: number,
 	status: Enum_SimpleOrderStatus,
 }
-export type BulletTextListWidgetVisualizationInfo = {
+export type BulletTextListWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	enabledState: Enum_WidgetEnabledState,
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
 	lines: { string },
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
-export type ButtonHeaderWidgetVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type ButtonHeaderWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	buttons: { UIWidgetSpellButtonInfo },
 	headerText: string,
+	shownState: Enum_WidgetShownState,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
 export type CBORSerializationOptions = {
 	ignoreSerializationErrors: boolean?,
@@ -3864,14 +3894,20 @@ export type CalendarEventTypeDisplayInfo = {
 	displayString: string,
 	eventType: Enum_CalendarEventType,
 }
-export type CalendarGuildEventInfo = CalendarTime & {
+export type CalendarGuildEventInfo = {
 	calendarType: string,
 	clubID: ClubId,
 	eventID: CalendarEventID,
 	eventType: Enum_CalendarEventType,
+	hour: number,
 	inviteStatus: Enum_CalendarStatus,
+	minute: number,
+	month: number,
+	monthDay: number,
 	texture: fileID,
 	title: string,
+	weekday: number,
+	year: number,
 }
 export type CalendarGuildFilterInfo = {
 	maxLevel: number,
@@ -3943,7 +3979,7 @@ export type CampaignInfo = {
 	uiTextureKit: textureKit,
 	usesNormalQuestIcons: boolean,
 }
-export type CaptureBarWidgetVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type CaptureBarWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	barMaxValue: number,
 	barMinValue: number,
 	barValue: number,
@@ -3951,25 +3987,16 @@ export type CaptureBarWidgetVisualizationInfo = TextureWithAnimationVisualizatio
 	glowAnimType: Enum_WidgetGlowAnimType,
 	neutralZoneCenter: number,
 	neutralZoneSize: number,
+	shownState: Enum_WidgetShownState,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
-export type CaptureZoneVisualizationInfo = {
+export type CaptureZoneVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	dangerFlashType: Enum_ZoneControlDangerFlashType,
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
 	leadingEdgeType: Enum_ZoneControlLeadingEdgeType,
 	mode: Enum_ZoneControlMode,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
 	tooltipLoc: Enum_UIWidgetTooltipLocation,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 	zoneInfo: ZoneEntry,
 }
 export type CatalogShopBundleChildInfo = {
@@ -5190,7 +5217,12 @@ export type CustomAuraButtonDispelTypeTextureOptions = {
 	stealableFilter: Enum_CustomAuraButtonDispelTypeStealableFilter?,
 	style: Enum_CustomAuraButtonDispelTypeTextureStyle,
 }
-export type CustomAuraButtonDispelTypeTextureTexCoords = AuraContainerTooltipAnchorOffsets
+export type CustomAuraButtonDispelTypeTextureTexCoords = {
+	bottom: number,
+	left: number,
+	right: number,
+	top: number,
+}
 export type CustomAuraButtonDurationBarOptions = {
 	direction: Enum_StatusBarTimerDirection?,
 	interpolation: Enum_StatusBarInterpolation?,
@@ -5310,11 +5342,14 @@ export type DiscordChatInfo = {
 	type: Enum_DiscordDisplayNameType,
 	userID: unknown,
 }
-export type DiscreteProgressStepsVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type DiscreteProgressStepsVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	numSteps: number,
 	progressMax: number,
 	progressMin: number,
 	progressVal: number,
+	shownState: Enum_WidgetShownState,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
 export type DisplayInfo = {
 	followerPageScale: number,
@@ -5326,46 +5361,22 @@ export type DoorConnectionInfo = {
 	doorFacing: number,
 	doorID: number,
 }
-export type DoubleIconAndTextWidgetVisualizationInfo = {
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
+export type DoubleIconAndTextWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	label: string,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
 	leftText: string,
 	leftTooltip: string,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
 	rightText: string,
 	rightTooltip: string,
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
 	tooltipLoc: Enum_UIWidgetTooltipLocation,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
-export type DoubleStateIconRowVisualizationInfo = {
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
+export type DoubleStateIconRowVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	leftIcons: { UIWidgetStateIconInfo },
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
 	rightIcons: { UIWidgetStateIconInfo },
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
 	tooltipLoc: Enum_UIWidgetTooltipLocation,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
-export type DoubleStatusBarWidgetVisualizationInfo = IconTextAndBackgroundWidgetVisualizationInfo & {
+export type DoubleStatusBarWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	barValueTextType: Enum_StatusBarValueTextType,
 	fillMotionType: Enum_UIWidgetMotionType,
 	leftBarMax: number,
@@ -5378,6 +5389,8 @@ export type DoubleStatusBarWidgetVisualizationInfo = IconTextAndBackgroundWidget
 	rightBarTooltip: string,
 	rightBarTooltipLoc: Enum_UIWidgetTooltipLocation,
 	rightBarValue: number,
+	shownState: Enum_WidgetShownState,
+	text: string,
 }
 export type DropdownButtonMixin = CallbackRegistryMixin & {
 	OnHide_Intrinsic: (self: DropdownButtonMixin) -> (),
@@ -5741,13 +5754,16 @@ export type FactionInfo = {
 	groupTag: string,
 	name: string,
 }
-export type FillUpFramesWidgetVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type FillUpFramesWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	fillMax: number,
 	fillMin: number,
 	fillValue: number,
 	numFullFrames: number,
 	numTotalFrames: number,
 	pulseFillingFrame: boolean,
+	shownState: Enum_WidgetShownState,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
 export type FlyoutInfo = {
 	description: string,
@@ -5903,9 +5919,12 @@ export type GamePadRawAxisMapping = {
 	comment: string?,
 	rawIndex: number,
 }
-export type GamePadRawButtonMapping = GamePadRawAxisMapping & {
+export type GamePadRawButtonMapping = {
+	axis: string?,
 	axisValue: number?,
 	button: string?,
+	comment: string?,
+	rawIndex: number,
 }
 export type GamePadRawState = {
 	name: string,
@@ -5958,9 +5977,12 @@ export type GarrFollowerInfo = {
 	status: string?,
 	xp: number?,
 }
-export type GarrisonAbilityCounterInfo = AlliedRaceRacialAbility & {
+export type GarrisonAbilityCounterInfo = {
+	description: string,
 	factor: number,
+	icon: fileID,
 	id: number,
+	name: string,
 }
 export type GarrisonAbilityEffect = {
 	description: string,
@@ -5968,13 +5990,16 @@ export type GarrisonAbilityEffect = {
 	icon: number,
 	name: string,
 }
-export type GarrisonAbilityInfo = AlliedRaceRacialAbility & {
+export type GarrisonAbilityInfo = {
 	category: string?,
 	counters: { GarrisonAbilityCounterInfo },
+	description: string,
+	icon: fileID,
 	id: number,
 	isEmptySlot: boolean,
 	isSpecialization: boolean,
 	isTrait: boolean,
+	name: string,
 	temporary: boolean,
 }
 export type GarrisonEnemyEncounterInfo = {
@@ -6010,10 +6035,13 @@ export type GarrisonFollowerDeathInfo = {
 	followerID: GarrisonFollower,
 	state: number,
 }
-export type GarrisonMechanicInfo = AlliedRaceRacialAbility & {
+export type GarrisonMechanicInfo = {
 	ability: GarrisonAbilityInfo?,
+	description: string,
 	factor: number,
+	icon: fileID,
 	mechanicTypeID: number,
+	name: string,
 }
 export type GarrisonPlotInstanceMapInfo = {
 	atlasName: textureAtlas,
@@ -6069,7 +6097,13 @@ export type GarrisonTalentTreeInfo = {
 	title: string,
 	treeID: number,
 }
-export type GatheringOperationBonusStatInfo = CraftingOperationBonusStatInfo
+export type GatheringOperationBonusStatInfo = {
+	bonusRatingPct: number,
+	bonusStatName: string,
+	bonusStatValue: number,
+	ratingDescription: string,
+	ratingPct: number,
+}
 export type GatheringOperationInfo = {
 	baseSkill: number,
 	bonusSkill: number,
@@ -6230,22 +6264,10 @@ export type HonorRewardInfo = {
 	badgeFileDataID: fileID,
 	honorLevelName: string,
 }
-export type HorizontalCurrenciesWidgetVisualizationInfo = {
+export type HorizontalCurrenciesWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	currencies: { UIWidgetCurrencyInfo },
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
 	tooltipLoc: Enum_UIWidgetTooltipLocation,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
 export type HouseExteriorSizeOption = {
 	isLocked: boolean,
@@ -6552,48 +6574,27 @@ export type HousingRoomComponentInstanceInfo = {
 	roomGUID: WOWGUID,
 	type: Enum_HousingRoomComponentType,
 }
-export type IconAndTextWidgetVisualizationInfo = {
+export type IconAndTextWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	dynamicTooltip: string,
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
 	shiftTextType: Enum_IconAndTextShiftTextType,
 	state: Enum_IconAndTextWidgetState,
 	text: string,
-	textureKit: textureKit,
 	tooltip: string,
 	tooltipLoc: Enum_UIWidgetTooltipLocation,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
-export type IconTextAndBackgroundWidgetVisualizationInfo = {
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
+export type IconTextAndBackgroundWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	shownState: Enum_WidgetShownState,
 	text: string,
-	textureKit: textureKit,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
-export type IconTextAndCurrenciesWidgetVisualizationInfo = HorizontalCurrenciesWidgetVisualizationInfo & {
+export type IconTextAndCurrenciesWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
+	currencies: { UIWidgetCurrencyInfo },
 	description: string,
 	descriptionEnabledState: Enum_WidgetEnabledState,
 	descriptionShownState: Enum_WidgetShownState,
 	enabledState: Enum_WidgetEnabledState,
+	shownState: Enum_WidgetShownState,
 	text: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
 export type ImportLoadoutEntryInfo = {
 	nodeID: number,
@@ -6694,22 +6695,10 @@ export type IslandsQueueDifficultyInfo = {
 	difficultyId: number,
 	previewRewardQuestId: number,
 }
-export type ItemDisplayVisualizationInfo = {
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
+export type ItemDisplayVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	itemInfo: UIWidgetItemInfo,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
 	tooltipLoc: Enum_UIWidgetTooltipLocation,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
 export type ItemInfoResult = {
 	bindType: number,
@@ -6846,12 +6835,20 @@ export type ItemQuestInfo = {
 	isQuestItem: boolean,
 	questID: number?,
 }
-export type ItemSearchResultInfo = BidInfo & {
+export type ItemSearchResultInfo = {
+	auctionID: number,
+	bidAmount: BigUInteger?,
+	bidder: WOWGUID?,
+	buyoutAmount: BigUInteger?,
 	containsAccountItem: boolean,
 	containsOwnerItem: boolean,
 	containsSocketedItem: boolean,
+	itemKey: ItemKey,
+	itemLink: string?,
+	minBid: BigUInteger?,
 	owners: { string },
 	quantity: number,
+	timeLeft: Enum_AuctionHouseTimeLeftBand,
 	timeLeftSeconds: number?,
 	totalNumberOfOwners: number,
 }
@@ -7098,7 +7095,7 @@ export type MailSendInfo = {
 	target: string,
 }
 export type MainlineInclude = {}
-export type MajorFactionData = MajorFactionRenownInfo & {
+export type MajorFactionData = {
 	bountySetID: number,
 	celebrationSoundKit: number,
 	description: string,
@@ -7112,16 +7109,22 @@ export type MajorFactionData = MajorFactionRenownInfo & {
 	name: string,
 	playerCompanionID: number?,
 	renownFanfareSoundKitID: number,
+	renownLevel: number,
+	renownLevelThreshold: number,
+	renownReputationEarned: number,
 	renownTrackLevelEffectID: number?,
 	textureKit: textureKit,
 	uiPriority: number,
 	unlockDescription: string?,
 	useJourneyUnlockToast: boolean,
 }
-export type MajorFactionProgressionInfo = MajorFactionRenownInfo & {
+export type MajorFactionProgressionInfo = {
 	currentWeekProgressiveMaxLevel: number,
 	maxLevel: number,
 	previousWeekProgressiveMaxLevel: number,
+	renownLevel: number,
+	renownLevelThreshold: number,
+	renownReputationEarned: number,
 	weekNumber: number,
 }
 export type MajorFactionRenownInfo = {
@@ -7129,8 +7132,12 @@ export type MajorFactionRenownInfo = {
 	renownLevelThreshold: number,
 	renownReputationEarned: number,
 }
-export type MajorFactionRenownLevelInfo = CovenantSanctumRenownLevelInfo & {
+export type MajorFactionRenownLevelInfo = {
 	factionID: number,
+	isCapstone: boolean,
+	isMilestone: boolean,
+	level: number,
+	locked: boolean,
 }
 export type MajorFactionRenownRewardInfo = {
 	description: string?,
@@ -7163,21 +7170,9 @@ export type MapLinkInfo = {
 	name: string,
 	position: Vector2DMixin,
 }
-export type MapPinAnimationWidgetVisualizationInfo = {
+export type MapPinAnimationWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	animType: Enum_MapPinAnimationType,
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
 export type MapSeasonBestInfo = {
 	affixIDs: { number },
@@ -7489,9 +7484,12 @@ export type NeighborhoodPlotMapInfo = {
 	plotDataID: number,
 	plotID: number,
 }
-export type NeighborhoodRosterMemberInfo = NeighborhoodRosterMemberUpdateInfo & {
+export type NeighborhoodRosterMemberInfo = {
+	isOnline: boolean,
+	playerGUID: WOWGUID,
 	plotID: number,
 	residentName: string,
+	residentType: Enum_ResidentType,
 	subdivision: number?,
 }
 export type NeighborhoodRosterMemberUpdateInfo = {
@@ -7702,18 +7700,23 @@ export type PerksVendorCategoryInfo = {
 	defaultUIModelSceneID: number,
 	displayName: string,
 }
-export type PerksVendorItemInfo = PerksVendorSubItemInfo & {
+export type PerksVendorItemInfo = {
 	description: string,
 	doesNotExpire: boolean,
 	iconTexture: string,
+	invType: string,
 	isPurchasePending: boolean,
+	itemID: number,
+	itemModifiedAppearanceID: number,
 	mountID: number,
 	mountTypeName: string,
+	name: string,
 	originalPrice: number?,
 	perksVendorCategoryID: number,
 	perksVendorItemID: number,
 	price: number,
 	purchased: boolean,
+	quality: Enum_ItemQuality,
 	refundable: boolean,
 	showSaleBanner: boolean,
 	speciesID: number,
@@ -7961,8 +7964,11 @@ export type PreviewDyeSlotInfo = {
 	dyeColorID: number,
 	dyeSlotID: number,
 }
-export type PreyHuntProgressWidgetVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type PreyHuntProgressWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	progressState: Enum_PreyHuntProgressState,
+	shownState: Enum_WidgetShownState,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
 export type PrivateAuraIconInfo = {
 	borderScale: uiUnit?,
@@ -8041,13 +8047,16 @@ export type PvpScalingData = {
 	specializationID: number,
 	value: number,
 }
-export type PvpTalentInfo = ScenarioStepSpellInfo & {
+export type PvpTalentInfo = {
 	available: boolean,
 	dependenciesUnmet: boolean,
 	dependenciesUnmetReason: string?,
 	grantedByAura: boolean,
+	icon: number,
 	known: boolean,
+	name: string,
 	selected: boolean,
+	spellID: number,
 	talentID: number,
 	unlocked: boolean,
 }
@@ -8543,50 +8552,29 @@ export type ScenarioDisplayInfo = {
 	startSoundKitID: number?,
 	themeColor: ColorMixin?,
 }
-export type ScenarioHeaderCurrenciesAndBackgroundWidgetVisualizationInfo = {
+export type ScenarioHeaderCurrenciesAndBackgroundWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	currencies: { UIWidgetCurrencyInfo },
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
 	headerText: string,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
-export type ScenarioHeaderDelvesWidgetVisualizationInfo = HorizontalCurrenciesWidgetVisualizationInfo & {
+export type ScenarioHeaderDelvesWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
+	currencies: { UIWidgetCurrencyInfo },
 	headerText: string,
 	rewardInfo: UIWidgetRewardInfo,
+	shownState: Enum_WidgetShownState,
 	spells: { UIWidgetSpellInfo },
 	tierText: string,
 	tierTooltipSpellID: number?,
 	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
-export type ScenarioHeaderTimerWidgetVisualizationInfo = {
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
+export type ScenarioHeaderTimerWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	headerText: string,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
 	timerMax: number,
 	timerMin: number,
 	timerTooltip: string,
 	timerValue: number,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
 export type ScenarioIconInfo = {
 	atlas: textureAtlas,
@@ -8626,12 +8614,15 @@ export type ScenarioStepSpellInfo = {
 	name: string,
 	spellID: number,
 }
-export type ScheduledEventInfo = OngoingEventInfo & {
+export type ScheduledEventInfo = {
+	areaPoiID: number,
+	displayInfo: EventDisplayInfo,
 	duration: time_t,
 	endTime: time_t,
 	eventID: number,
 	eventKey: string,
 	hasReminder: boolean,
+	rewardsClaimed: boolean,
 	startTime: time_t,
 }
 export type ScriptBucketThrottleLimits = {
@@ -8852,21 +8843,9 @@ export type SoulbindTree = {
 	editable: boolean,
 	nodes: { SoulbindNode },
 }
-export type SpacerVisualizationInfo = {
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
+export type SpacerVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
 	widgetHeight: number,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 	widgetWidth: number,
 }
 export type SpecPerkInfo = {
@@ -8898,11 +8877,14 @@ export type SpecializationInfoQuery = {
 	sex: number?,
 	specializationIndex: number,
 }
-export type SpecializationInfoResult = AlliedRaceRacialAbility & {
+export type SpecializationInfoResult = {
 	allowedForBoost: boolean,
+	description: string,
+	icon: fileID,
 	id: number,
 	masterySpell1: number?,
 	masterySpell2: number?,
+	name: string,
 	recommended: boolean,
 	role: string,
 }
@@ -8961,21 +8943,9 @@ export type SpellDiminishTrackerInfo = {
 	showCountdown: boolean,
 	startTime: number,
 }
-export type SpellDisplayVisualizationInfo = {
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
+export type SpellDisplayVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	spellInfo: UIWidgetSpellInfo,
-	textureKit: textureKit,
 	tooltipLoc: Enum_UIWidgetTooltipLocation,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
 export type SpellInfo = {
 	castTime: number,
@@ -9033,24 +9003,12 @@ export type SplashScreenInfo = {
 	topLeftFeatureDesc: string,
 	topLeftFeatureTitle: string,
 }
-export type StackedResourceTrackerWidgetVisualizationInfo = {
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
+export type StackedResourceTrackerWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	resources: { UIWidgetCurrencyInfo },
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
 	tooltipLoc: Enum_UIWidgetTooltipLocation,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
-export type StatusBarWidgetVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type StatusBarWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	barMax: number,
 	barMin: number,
 	barTextEnabledState: Enum_WidgetEnabledState,
@@ -9067,10 +9025,13 @@ export type StatusBarWidgetVisualizationInfo = TextureWithAnimationVisualization
 	overrideBarTextShownType: Enum_StatusBarOverrideBarTextShownType,
 	partitionValues: { number },
 	showGlowState: Enum_WidgetShowGlowState,
+	shownState: Enum_WidgetShownState,
 	text: string,
 	textEnabledState: Enum_WidgetEnabledState,
 	textFontType: Enum_UIWidgetFontType,
 	textSizeType: Enum_UIWidgetTextSizeType,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
 export type StripHyperlinkOptions = {
 	maintainAtlases: boolean,
@@ -9137,24 +9098,31 @@ export type TextColumnRowEntryInfo = {
 	hAlign: Enum_WidgetTextHorizontalAlignmentType,
 	text: string,
 }
-export type TextColumnRowVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type TextColumnRowVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	bottomPadding: number,
 	entries: { TextColumnRowEntryInfo },
 	fontType: Enum_UIWidgetFontType,
+	shownState: Enum_WidgetShownState,
 	textSizeType: Enum_UIWidgetTextSizeType,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
-export type TextWithStateWidgetVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type TextWithStateWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	bottomPadding: number,
 	enabledState: Enum_WidgetEnabledState,
 	fontType: Enum_UIWidgetFontType,
 	hAlign: Enum_WidgetTextHorizontalAlignmentType,
+	shownState: Enum_WidgetShownState,
 	text: string,
 	textSizeType: Enum_UIWidgetTextSizeType,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
-export type TextWithSubtextWidgetVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type TextWithSubtextWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	enabledState: Enum_WidgetEnabledState,
 	fontType: Enum_UIWidgetFontType,
 	hAlign: Enum_WidgetTextHorizontalAlignmentType,
+	shownState: Enum_WidgetShownState,
 	spacing: number,
 	subText: string,
 	subTextEnabledState: Enum_WidgetEnabledState,
@@ -9163,36 +9131,29 @@ export type TextWithSubtextWidgetVisualizationInfo = TextureWithAnimationVisuali
 	subTextSizeType: Enum_UIWidgetTextSizeType,
 	text: string,
 	textSizeType: Enum_UIWidgetTextSizeType,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 	widgetWidth: number,
 }
 export type TextureAndTextEntryInfo = {
 	text: string,
 	tooltip: string,
 }
-export type TextureAndTextRowVisualizationInfo = {
+export type TextureAndTextRowVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	entries: { TextureAndTextEntryInfo },
 	fixedWidth: number?,
-	frameTextureKit: textureKit,
 	groupAlignment: Enum_UIWidgetHorizontalDirection,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
 	textSizeType: Enum_UIWidgetTextureAndTextSizeType,
-	textureKit: textureKit,
 	tooltipLoc: Enum_UIWidgetTooltipLocation,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
-export type TextureAndTextVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type TextureAndTextVisualizationInfo = UIWidgetVisualizationInfoBase & {
+	shownState: Enum_WidgetShownState,
 	text: string,
 	textFormatType: Enum_UIWidgetTextFormatType,
 	textSizeType: Enum_UIWidgetTextureAndTextSizeType,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 	updateAnimType: Enum_UIWidgetUpdateAnimType,
 }
 export type TextureInfoTable = {
@@ -9207,22 +9168,10 @@ export type TextureInfoTable_margin = {
 	right: number,
 	top: number,
 }
-export type TextureWithAnimationVisualizationInfo = {
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
+export type TextureWithAnimationVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
 	tooltip: string,
 	tooltipLoc: Enum_UIWidgetTooltipLocation,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 }
 export type TieredEntranceRewardInfo = {
 	context: Enum_ItemCreationContext,
@@ -9545,10 +9494,13 @@ export type TransmogCategoryAppearanceInfo = {
 	uiOrder: number,
 	visualID: number,
 }
-export type TransmogCategoryInfo = TransmogOutfitCollectionInfo & {
+export type TransmogCategoryInfo = {
+	canHaveIllusions: boolean,
 	canMainHand: boolean,
 	canOffHand: boolean,
 	canRanged: boolean,
+	isWeapon: boolean,
+	name: string,
 }
 export type TransmogCustomSetInfo = {
 	icon: fileID,
@@ -9712,7 +9664,7 @@ export type TreeCurrencyInfo = {
 	spentInTree: number?,
 	traitCurrencyID: number,
 }
-export type TugOfWarWidgetVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type TugOfWarWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	currentValue: number,
 	glowAnimType: Enum_WidgetGlowAnimType,
 	leftIconInfo: UIWidgetIconInfo,
@@ -9723,6 +9675,9 @@ export type TugOfWarWidgetVisualizationInfo = TextureWithAnimationVisualizationI
 	neutralZoneCenter: number,
 	neutralZoneSize: number,
 	rightIconInfo: UIWidgetIconInfo,
+	shownState: Enum_WidgetShownState,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
 export type UIButtonInfo = {
 	highlight: textureAtlas,
@@ -9792,7 +9747,12 @@ export type UITextureSliceData = {
 	marginTop: number,
 	sliceMode: Enum_UITextureSliceMode,
 }
-export type UITextureSliceMargins = AuraContainerTooltipAnchorOffsets
+export type UITextureSliceMargins = {
+	bottom: number,
+	left: number,
+	right: number,
+	top: number,
+}
 export type UIWidgetCurrencyInfo = {
 	iconFileID: fileID,
 	iconSizeType: Enum_WidgetIconSizeType,
@@ -9886,7 +9846,12 @@ export type UiMapDetails = {
 	name: string,
 	parentMapID: number,
 }
-export type UiMapExplorationHitRect = AuraContainerTooltipAnchorOffsets
+export type UiMapExplorationHitRect = {
+	bottom: number,
+	left: number,
+	right: number,
+	top: number,
+}
 export type UiMapExplorationInfo = {
 	fileDataIDs: { number },
 	hitRect: UiMapExplorationHitRect,
@@ -10015,7 +9980,7 @@ export type UnitPowerBarInfo = {
 	sparkUnderFrame: boolean,
 	startInset: number,
 }
-export type UnitPowerBarWidgetVisualizationInfo = TextureWithAnimationVisualizationInfo & {
+export type UnitPowerBarWidgetVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	barMax: number,
 	barMin: number,
 	barValue: number,
@@ -10025,7 +9990,10 @@ export type UnitPowerBarWidgetVisualizationInfo = TextureWithAnimationVisualizat
 	flashMomentType: Enum_WidgetUnitPowerBarFlashMomentType,
 	overrideBarText: string,
 	overrideBarTextShownType: Enum_StatusBarOverrideBarTextShownType,
+	shownState: Enum_WidgetShownState,
 	sparkBlendModeType: Enum_UIWidgetBlendModeType,
+	tooltip: string,
+	tooltipLoc: Enum_UIWidgetTooltipLocation,
 }
 export type UnitPrivateAuraAnchorInfo = {
 	anchorID: number,
@@ -10300,24 +10268,12 @@ export type ZoneAbilityInfo = {
 	uiPriority: number,
 	zoneAbilityID: number,
 }
-export type ZoneControlVisualizationInfo = {
+export type ZoneControlVisualizationInfo = UIWidgetVisualizationInfoBase & {
 	dangerFlashType: Enum_ZoneControlDangerFlashType,
-	frameTextureKit: textureKit,
-	hasTimer: boolean,
-	inAnimType: Enum_WidgetAnimationType,
-	layoutDirection: Enum_UIWidgetLayoutDirection,
 	leadingEdgeType: Enum_ZoneControlLeadingEdgeType,
 	mode: Enum_ZoneControlMode,
-	modelSceneLayer: Enum_UIWidgetModelSceneLayer,
-	orderIndex: number,
-	outAnimType: Enum_WidgetAnimationType,
-	scriptedAnimationEffectID: number,
 	shownState: Enum_WidgetShownState,
-	textureKit: textureKit,
 	tooltipLoc: Enum_UIWidgetTooltipLocation,
-	widgetScale: Enum_UIWidgetScale,
-	widgetSizeSetting: number,
-	widgetTag: string,
 	zoneEntries: { ZoneEntry },
 }
 export type ZoneEntry = {

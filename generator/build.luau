@@ -126,7 +126,7 @@ function Build.run(input: Input): (string, Report, Coverage, ShapeSet)
 	Types.emitEvents(ctx)
 	Types.emitAliases(ctx)
 	Types.emitEnumValueTypes(ctx)
-	local derivedCount = Structs.emit(ctx)
+	local derivedCount, unusedBases = Structs.emit(ctx)
 	Widgets.emit(ctx)
 	local counts = Globals.emit(ctx, tree)
 	local shapes = Shapes.collect(ctx)
@@ -150,6 +150,10 @@ function Build.run(input: Input): (string, Report, Coverage, ShapeSet)
 		if ctx.widgets.objectTypes[name] == nil or ctx.widgets.objectTypes[parent] == nil then
 			table.insert(unusedOverrides, "scriptObjectParents." .. name)
 		end
+	end
+
+	for _, rule in unusedBases do
+		table.insert(unusedOverrides, rule)
 	end
 
 	local summary: { [Common.Category]: Common.StatusCounts } = Json.object({})

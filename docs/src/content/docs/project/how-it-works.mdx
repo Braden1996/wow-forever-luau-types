@@ -52,7 +52,9 @@ has a comment saying why, and a snapshot test.
 
 The generator derives types rather than duplicating them:
 
-- A documented structure that contains every field of another is declared as `Base & { extra }`.
+- A family of structures that the client treats as one shares a base: the UI widget visualization infos are
+  `UIWidgetVisualizationInfoBase & { extra }`. Structures that only happen to share fields are written out in full,
+  so one never claims to be a kind of another.
 - `CreateFrame` is generic over `FrameTypeMap`, so `CreateFrame("Button")` returns a `Button`.
 - Each event handler type is a lookup into one payload table: `EventHandler<E> = index<EventPayloads, E>`.
 - Every widget gets a union of its own script names, used by `SetScript`, `HookScript`, `GetScript` and `HasScript`.

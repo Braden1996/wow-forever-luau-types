@@ -33,7 +33,7 @@
   "counts": {
     "annotationFiles": 467,
     "anyOccurrences": 384,
-    "derivedStructures": 39,
+    "derivedStructures": 32,
     "globalFunctions": 6587,
     "globalTables": 402,
     "globalValues": 839,
