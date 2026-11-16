@@ -139,6 +139,11 @@ function Build.run(input: Input): (string, Report, Coverage, ShapeSet)
 			table.insert(unusedOverrides, key)
 		end
 	end
+	for _, key in Common.sortedKeys(config.resultTypeOverrides) do
+		if not ctx.overridesUsed[key] then
+			table.insert(unusedOverrides, "resultTypeOverrides." .. key)
+		end
+	end
 	-- Likewise for config.scriptObjectParents: both ends must be documented script objects.
 	for _, name in Common.sortedKeys(config.scriptObjectParents) do
 		local parent = config.scriptObjectParents[name]

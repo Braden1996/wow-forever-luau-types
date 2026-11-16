@@ -215,6 +215,43 @@ local function scriptMethod(m: string, typeName: string, scriptType: string, p: 
 	return typed
 end
 
+-- A factory method's overloads (config.factoryMethods): one per value of the alias that names a widget,
+-- returning that widget, then the call without the argument when it is optional.
+local function factoryOverloads(
+	ctx: Context,
+	factory: { param: string, alias: string },
+	printed: { Printed }
+): { Printed }
+	local alias = ctx.ann.aliases[factory.alias]
+	assert(alias, "factoryMethods: no annotation alias " .. factory.alias)
+	assert(ctx.config.closedAliases[factory.alias], "factoryMethods: " .. factory.alias .. " is not a closed alias")
+	local out: { Printed } = {}
+	for _, p in printed do
+		local index: number? = nil
+		for i, param in p.params do
+			if param.name == factory.param then
+				index = i
+			end
+		end
+		assert(index, "factoryMethods: no parameter " .. factory.param)
+		for _, v in alias.variants do
+			if v.kind == "string" and ctx.res.widgets[v.value] then
+				local params = table.clone(p.params)
+				params[index :: number] = { name = factory.param, type = Common.quote(v.value), vararg = false }
+				table.insert(out, { generics = p.generics, params = params, returns = ctx.typeNames[v.value] })
+			end
+		end
+		-- Without the argument, the documented result. (A fallback typed as the whole alias would make Luau's
+		-- overload resolution ambiguous for every literal, so a value only known as the alias needs a cast.)
+		if string.sub(p.params[index :: number].type, -1) == "?" then
+			local params = table.clone(p.params)
+			params[index :: number] = { name = factory.param, type = "nil", vararg = false }
+			table.insert(out, { generics = p.generics, params = params, returns = p.returns })
+		end
+	end
+	return out
+end
+
 -- Widgets, parents first, then the documented script objects that are not widgets.
 function Widgets.emit(ctx: Context)
 	local res, config, emit, typeNames, model = ctx.res, ctx.config, ctx.emit, ctx.typeNames, ctx.widgets
@@ -306,6 +343,10 @@ function Widgets.emit(ctx: Context)
 				ctx.apis.widgetMethods[key] = { sigs = final, doc = doc, selfName = typeName }
 			else
 				printed = { Signatures.print(ctx, Common.UNTYPED_SIGNATURE, typeName, true) }
+			end
+			local factory = config.factoryMethods[key]
+			if factory and sigs then
+				printed = factoryOverloads(ctx, factory, printed)
 			end
 			if config.scriptMethods[m] and scriptType then
 				ctx.apis.widgetMethods[key] = { sigs = {}, opaque = "a script method, typed per widget" }

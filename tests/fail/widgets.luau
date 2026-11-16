@@ -20,3 +20,16 @@ frame:SetScript("OnUpdte", function() end) -- expect-error: but got '"OnUpdte"'
 -- Closed string unions for anchor points, strata and draw layers.
 frame:SetPoint("CENTRE") -- expect-error: but got '"CENTRE"'
 frame:SetFrameStrata("HIGHEST") -- expect-error: but got '"HIGHEST"'
+
+-- Widget constants the client defines in full are closed too.
+local texture = frame:CreateTexture()
+texture:SetBlendMode("ADDD") -- expect-error: but got '"ADDD"'
+texture:SetTexture(134400, "CLAMPP") -- expect-error: but got '"CLAMPP"'
+
+-- CreateAnimation returns the animation type it names, and only real types.
+local group = frame:CreateAnimationGroup()
+group:CreateAnimation("Alhpa") -- expect-error: None of the overloads
+
+-- HookScript needs a handler; event callbacks take only real events.
+frame:HookScript("OnShow", nil) -- expect-error: but got 'nil'
+frame:RegisterEventCallback("PLAYER_LOGN", function() end) -- expect-error: Expected this to be

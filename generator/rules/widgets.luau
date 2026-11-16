@@ -105,11 +105,51 @@ local scriptObjectParents: { [string]: string } = {
 }
 -- Parameters both sources type too loosely (Blizzard documents event names as plain strings), keyed
 -- "Widget:Method" or a qualified function name. A key that matches nothing is an error.
+--
+-- SetTexture's `cstring` texture also takes a file ID (`SetTexture(134400)`, as the annotations say), and its
+-- wrap and filter modes are the closed WrapMode and FilterMode the annotations list. An attribute's value is
+-- any Lua value (`SetAttribute("unit", nil)`, `SetAttribute("showRaid", true)`), not the documented `cstring`.
 local paramTypeOverrides: { [string]: { [string]: string } } = {
 	["Frame:IsEventRegistered"] = { eventName = "FrameEvent" },
 	["Frame:RegisterEvent"] = { eventName = "FrameEvent" },
+	["Frame:RegisterEventCallback"] = { eventName = "FrameEvent" },
 	["Frame:RegisterUnitEvent"] = { eventName = "FrameEvent" },
+	["Frame:RegisterUnitEventCallback"] = { eventName = "FrameEvent" },
 	["Frame:UnregisterEvent"] = { eventName = "FrameEvent" },
+	["Frame:SetAttribute"] = { value = "unknown" },
+	["Frame:SetAttributeNoHandler"] = { value = "unknown" },
+	["RegisterEventCallback"] = { eventName = "FrameEvent" },
+	["RegisterUnitEventCallback"] = { eventName = "FrameEvent" },
+	["UnregisterEventCallback"] = { eventName = "FrameEvent" },
+	["UnregisterUnitEventCallback"] = { eventName = "FrameEvent" },
+	-- A font is set by object or by the name of a global font object (`SetFontObject("GameFontNormal")`), as the
+	-- annotations say; Blizzard's documentation names only the object.
+	["Button:SetDisabledFontObject"] = { font = "FontObject" },
+	["Button:SetHighlightFontObject"] = { font = "FontObject" },
+	["Button:SetNormalFontObject"] = { font = "FontObject" },
+	["EditBox:SetFontObject"] = { font = "FontObject" },
+	["Font:SetFontObject"] = { font = "FontObject" },
+	["FontInstance:SetFontObject"] = { font = "FontObject" },
+	["FontString:SetFontObject"] = { font = "FontObject" },
+	["MessageFrame:SetFontObject"] = { font = "FontObject" },
+	["SimpleHTML:SetFontObject"] = { font = "FontObject" },
+	["TextureBase:SetTexture"] = {
+		textureAsset = "TextureAssetDisk",
+		wrapModeHorizontal = "WrapMode",
+		wrapModeVertical = "WrapMode",
+		filterMode = "FilterMode",
+	},
+}
+-- Result types both sources state wrongly, keyed like paramTypeOverrides, by result position. An attribute
+-- holds any Lua value, or nil when it was never set (`GetAttribute("unit")`), not the documented `cstring`.
+local resultTypeOverrides: { [string]: { [number]: string } } = {
+	["Frame:GetAttribute"] = { [1] = "unknown" },
+}
+-- Factory methods whose result type follows a string argument naming a widget type, like CreateFrame's:
+-- one overload per value of the closed alias that names a widget, then the call without the argument.
+-- `AnimationGroup:CreateAnimation("Alpha")` returns an Alpha, and a misspelt type is an error.
+local factoryMethods: { [string]: { param: string, alias: string } } = {
+	["AnimationGroup:CreateAnimation"] = { param = "animationType", alias = "AnimationType" },
 }
 -- Methods whose first argument is a script name: typed per widget with that widget's handlers.
 local scriptMethods: { [string]: boolean } = { GetScript = true, HasScript = true, HookScript = true, SetScript = true }
@@ -121,5 +161,7 @@ return {
 	widgetParentOverrides = widgetParentOverrides,
 	scriptObjectParents = scriptObjectParents,
 	paramTypeOverrides = paramTypeOverrides,
+	resultTypeOverrides = resultTypeOverrides,
+	factoryMethods = factoryMethods,
 	scriptMethods = scriptMethods,
 }

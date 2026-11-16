@@ -7,3 +7,12 @@
 18:17: TypeError: Expected this to be '"OnAttributeChanged" | "OnChar" | "OnDisable" | "OnDragStart" | "OnDragStop" | "OnEnable" | "OnEnter" | "OnEvent" | "OnGamePadButtonDown" | "OnGamePadButtonUp" | "OnGamePadStick" | "OnHide" | "OnHyperlinkClick" | "OnHyperlinkEnter" | "OnHyperlinkLeave" | "OnKeyDown" | "OnKeyUp" | "OnLeave" | "OnLoad" | "OnMouseDown" | "OnMouseUp" | "OnMouseWheel" | "OnReceiveDrag" | "OnShow" | "OnSizeChanged" | "OnUpdate"', but got '"OnUpdte"'
 21:16: TypeError: Expected this to be '"BOTTOM" | "BOTTOMLEFT" | "BOTTOMRIGHT" | "CENTER" | "LEFT" | "RIGHT" | "TOP" | "TOPLEFT" | "TOPRIGHT"', but got '"CENTRE"'
 22:22: TypeError: Expected this to be '"BACKGROUND" | "BLIZZARD" | "DIALOG" | "FULLSCREEN" | "FULLSCREEN_DIALOG" | "HIGH" | "LOW" | "MEDIUM" | "PARENT" | "TOOLTIP"', but got '"HIGHEST"'
+26:22: TypeError: Expected this to be '"ADD" | "ALPHAKEY" | "BLEND" | "DISABLE" | "MOD"', but got '"ADDD"'
+27:28: TypeError: Expected this to be '("CLAMP" | "CLAMPTOBLACK" | "CLAMPTOBLACKADDITIVE" | "CLAMPTOWHITE" | "MIRROR" | "REPEAT")?', but got '"CLAMPP"'
+31:1: TypeError: Available overloads: (AnimationGroup, "Alpha", string?, string?) -> Alpha; (AnimationGroup, "Animation", string?, string?) -> Animation; (AnimationGroup, "FlipBook", string?, string?) -> FlipBook; (AnimationGroup, "LineScale", string?, string?) -> LineScale; (AnimationGroup, "LineTranslation", string?, string?) -> LineTranslation; (AnimationGroup, "Path", string?, string?) -> Path; (AnimationGroup, "Rotation", string?, string?) -> Rotation; (AnimationGroup, "Scale", string?, string?) -> Scale; (AnimationGroup, "Translation", string?, string?) -> Translation; (AnimationGroup, "VertexColor", string?, string?) -> VertexColor; and (AnimationGroup, nil, string?, string?) -> Animation
+31:1: TypeError: None of the overloads for function that accept 2 arguments are compatible.
+34:28: TypeError: Expected this to be '(Frame, ...any) -> ()', but got 'nil'
+35:29: TypeError: Expected this to be
+	'"ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED" | "ACCOUNT_CVARS_LOADED" | "ACCOUNT_MONEY" | "ACCOUNT_STORE_CURRENCY_AVAILABLE_UPDATED" | "ACCOUNT_STORE_FRONT_UPDATED" | "ACCOUNT_STORE_ITEM_INFO_UPDATED" | "ACCOUNT_STORE_TRANSACTION_ERROR" | "ACHIEVEMENT_EARNED" | "ACHIEVEMENT_PLAYER_NAME" | "ACHIEVEMENT_SEARCH_UPDATED" | "ACTIONBAR_HIDEGRID" | "ACTIONBAR_PAGE_CHANGED" | "ACTIONBAR_SHOWGRID" | "ACTIONBAR_SHOW_BOTTOMLEFT" | "ACTIONBAR_SLOT_CHANGED" | "ACTIONBAR_UPDATE_COOLDOWN" | "ACTIONBAR_UPDATE_STATE"... *TRUNCATED*'
+but got
+	'"PLAYER_LOGN"'
