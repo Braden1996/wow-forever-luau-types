@@ -3,8 +3,7 @@
 
 import type { ChangeEvent, ReactElement } from "react";
 import { useCallback, useId, useState } from "react";
-
-import { Input } from "../warcraftcn/input.tsx";
+import { Input } from "starlight-warcraft/react";
 
 interface ListFilterProps {
   readonly target: string;

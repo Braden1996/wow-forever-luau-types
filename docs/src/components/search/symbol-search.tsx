@@ -4,11 +4,10 @@
 
 import type { KeyboardEvent, ReactElement } from "react";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import { Input, Spinner } from "starlight-warcraft/react";
 
 import type { SearchEntry, SearchKind } from "../../lib/api/indexes.ts";
 import { withBase } from "../../lib/site.ts";
-import { Input } from "../warcraftcn/input.tsx";
-import { Spinner } from "../warcraftcn/spinner.tsx";
 import { loadSearchIndex } from "./load-index.ts";
 import { KIND_LABELS, searchSymbols } from "./search-core.ts";
 
@@ -88,7 +87,7 @@ const SearchPanel = (): ReactElement => {
         onKeyDown={onKeyDown}
         autoComplete="off"
         spellCheck={false}
-        className="w-full font-mono"
+        className="sym-input"
       />
       <fieldset className="sym-filters">
         <legend className="sr-only">Kinds</legend>
@@ -107,7 +106,7 @@ const SearchPanel = (): ReactElement => {
           </button>
         ))}
         <span id={`${id}-status`} className="sym-count" aria-live="polite">
-          {state === "loading" && <Spinner className="size-5" />}
+          {state === "loading" && <Spinner className="sym-spinner" />}
           {state === "error" && "The search index failed to load."}
           {state === "ready" && query.length > 0 && `${hits.length} shown`}
         </span>

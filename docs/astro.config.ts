@@ -1,7 +1,7 @@
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
-import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
+import starlightWarcraft from "starlight-warcraft";
 
 import { BASE } from "./src/lib/base.ts";
 
@@ -27,6 +27,7 @@ export default defineConfig({
       lastUpdated: true,
       credits: false,
       customCss: ["./src/styles/global.css"],
+      plugins: [starlightWarcraft()],
       components: {
         Footer: "./src/components/starlight/footer.astro",
         Search: "./src/components/starlight/search.astro",
@@ -79,7 +80,4 @@ export default defineConfig({
     }),
     react(),
   ],
-  vite: {
-    plugins: [tailwindcss()],
-  },
 });

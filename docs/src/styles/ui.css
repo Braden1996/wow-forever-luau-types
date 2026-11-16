@@ -24,7 +24,7 @@
   border-radius: 0.5rem;
   background: var(--sl-color-black);
   color: var(--sl-color-gray-2);
-  font-family: var(--font-display);
+  font-family: var(--wc-font-display);
   font-size: var(--sl-text-sm);
   cursor: pointer;
 }
@@ -212,4 +212,14 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 0.5rem;
+}
+
+.sym-input {
+  width: 100%;
+  font-family: var(--sl-font-mono);
+}
+
+.sym-spinner {
+  width: 1.25rem;
+  height: 1.25rem;
 }

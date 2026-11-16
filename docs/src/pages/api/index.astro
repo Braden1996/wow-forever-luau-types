@@ -1,7 +1,7 @@
 ---
 import ApiPage from "../../components/api/api-page.astro";
 import { SymbolSearch } from "../../components/search/symbol-search.tsx";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/warcraftcn/card.tsx";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "starlight-warcraft/react";
 import { loadCatalog } from "../../lib/api/load.ts";
 import { apiPaths } from "../../lib/api/paths.ts";
 import { withBase } from "../../lib/site.ts";
@@ -70,7 +70,7 @@ const sections = [
     {
       sections.map((section) => (
         <a href={withBase(section.path)} class="api-card-link">
-          <Card data-size="sm">
+          <Card size="sm">
             <CardHeader>
               <CardTitle>
                 {section.title} <span class="api-note">{section.count.toLocaleString("en-GB")}</span>
