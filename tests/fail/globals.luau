@@ -21,3 +21,6 @@ C_Timer.Afterr(5, function() end) -- expect-error: Key 'Afterr' not found
 
 -- A function with no type source returns unknown, which must be refined before use.
 local _key: string = GetBindingKeyForAction("JUMP") -- expect-error: Expected this to be 'string', but got 'unknown'
+
+-- An input structure's defaulted fields may be left out, but the others are still required.
+C_Sound.PlaySoundWithOptions({ forceNoDuplicates = true }) -- expect-error: soundKitID

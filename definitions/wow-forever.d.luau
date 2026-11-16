@@ -3159,12 +3159,12 @@ export type AddPrivateAuraAnchorArgs = {
 	auraIndex: number,
 	durationAnchor: AnchorBinding?,
 	iconInfo: PrivateAuraIconInfo?,
-	isContainer: boolean,
+	isContainer: boolean?,
 	parent: Frame,
-	showCooldownEdge: boolean,
-	showCooldownFrame: boolean,
-	showCountdownNumbers: boolean,
-	showDispelIcon: boolean,
+	showCooldownEdge: boolean?,
+	showCooldownFrame: boolean?,
+	showCountdownNumbers: boolean?,
+	showDispelIcon: boolean?,
 	unitToken: string,
 }
 export type AddonMessageParams = {
@@ -3778,7 +3778,7 @@ export type ButtonHeaderWidgetVisualizationInfo = TextureWithAnimationVisualizat
 	headerText: string,
 }
 export type CBORSerializationOptions = {
-	ignoreSerializationErrors: boolean,
+	ignoreSerializationErrors: boolean?,
 }
 export type CVarInfo = {
 	defaultValue: string,
@@ -5040,9 +5040,9 @@ export type CreateFontFamilyMemberInfo = {
 	height: uiFontHeight,
 }
 export type CreateFrameOptions = {
-	forbidden: boolean,
+	forbidden: boolean?,
 	frameType: string,
-	hidden: boolean,
+	hidden: boolean?,
 	id: number?,
 	inherits: { string }?,
 	name: string?,
@@ -5618,10 +5618,10 @@ export type EncounterTimelineScriptEventRequest = {
 	duration: number,
 	iconFileID: fileID,
 	icons: Enum_EncounterEventIconmask?,
-	maxQueueDuration: number,
-	overrideName: stringView,
-	paused: boolean,
-	severity: Enum_EncounterEventSeverity,
+	maxQueueDuration: number?,
+	overrideName: stringView?,
+	paused: boolean?,
+	severity: Enum_EncounterEventSeverity?,
 	spellID: number,
 }
 export type EncounterTimelineTrackInfo = {
@@ -6439,8 +6439,8 @@ export type HousingCatalogSubcategoryInfo = {
 }
 export type HousingCategorySearchInfo = {
 	editorModeContext: Enum_HouseEditorMode?,
-	includeFeaturedCategory: boolean,
-	withStoredEntriesOnly: boolean,
+	includeFeaturedCategory: boolean?,
+	withStoredEntriesOnly: boolean?,
 }
 export type HousingCoreFixtureInfo = {
 	currentStyleVariantOptions: { HousingFixtureOption },
@@ -6923,7 +6923,7 @@ export type ItemUpgradeStat = {
 	statValue: number,
 }
 export type JSONSerializationOptions = {
-	ignoreSerializationErrors: boolean,
+	ignoreSerializationErrors: boolean?,
 }
 export type LFGDungeonInfo = {
 	iconID: fileID,
@@ -6986,17 +6986,17 @@ export type LfgEntryData = {
 }
 export type LfgListingCreateData = {
 	activityIDs: { number },
-	generalPlaystyle: Enum_LFGEntryGeneralPlaystyle,
-	isAutoAccept: boolean,
-	isCrossFactionListing: boolean,
-	isPrivateGroup: boolean,
-	newPlayerFriendly: boolean,
-	playstyle: Enum_LFGEntryPlaystyle,
+	generalPlaystyle: Enum_LFGEntryGeneralPlaystyle?,
+	isAutoAccept: boolean?,
+	isCrossFactionListing: boolean?,
+	isPrivateGroup: boolean?,
+	newPlayerFriendly: boolean?,
+	playstyle: Enum_LFGEntryPlaystyle?,
 	questID: number?,
-	requiredDungeonScore: number,
-	requiredItemLevel: number,
-	requiredPvpRating: number,
-	voiceMode: Enum_LFGEntryVoiceMode,
+	requiredDungeonScore: number?,
+	requiredItemLevel: number?,
+	requiredPvpRating: number?,
+	voiceMode: Enum_LFGEntryVoiceMode?,
 }
 export type LfgSearchResultData = {
 	activityIDs: { number },
@@ -7823,11 +7823,11 @@ export type PingTypeInfo = {
 	uiTextureKitID: textureKit,
 }
 export type PlaySoundParams = {
-	forceNoDuplicates: boolean,
+	forceNoDuplicates: boolean?,
 	overridePriority: number?,
-	runFinishCallback: boolean,
+	runFinishCallback: boolean?,
 	soundKitID: number,
-	uiSoundSubType: UISoundSubType,
+	uiSoundSubType: UISoundSubType?,
 	volumeOverride: number?,
 }
 export type PlaySoundResult = {
@@ -8675,12 +8675,12 @@ export type SeasonTimeInfo = {
 	medal: number,
 }
 export type SecureCopyOptions = {
-	maxTraversalDepth: number,
-	permitScriptObjects: boolean,
-	wrapUntrustedFunctions: boolean,
+	maxTraversalDepth: number?,
+	permitScriptObjects: boolean?,
+	wrapUntrustedFunctions: boolean?,
 }
 export type SecureDelegateOptions = {
-	wrapUntrustedFunctions: boolean,
+	wrapUntrustedFunctions: boolean?,
 }
 export type SelfResurrectOption = {
 	canUse: boolean,
@@ -9082,8 +9082,8 @@ export type StripHyperlinkOptions = {
 export type TalentInfoQuery = {
 	column: number?,
 	groupIndex: number?,
-	isInspect: boolean,
-	isPet: boolean,
+	isInspect: boolean?,
+	isPet: boolean?,
 	specializationIndex: number?,
 	talentIndex: number?,
 	target: UnitToken?,
@@ -10182,8 +10182,8 @@ export type WarbandSceneEntry = {
 	warbandSceneID: number,
 }
 export type WarbandSceneSearchInfo = {
-	favoritesOnly: boolean,
-	ownedOnly: boolean,
+	favoritesOnly: boolean?,
+	ownedOnly: boolean?,
 }
 export type WeaponEnchantInfo = {
 	charges: number,
@@ -10263,17 +10263,17 @@ export type WorldSafeLocInfo = {
 	name: string,
 }
 export type WowLocale = {
-	deDE: boolean,
-	enUS: boolean,
-	esES: boolean,
-	esMX: boolean,
-	frFR: boolean,
-	itIT: boolean,
-	koKR: boolean,
-	ptBR: boolean,
-	ruRU: boolean,
-	zhCN: boolean,
-	zhTW: boolean,
+	deDE: boolean?,
+	enUS: boolean?,
+	esES: boolean?,
+	esMX: boolean?,
+	frFR: boolean?,
+	itIT: boolean?,
+	koKR: boolean?,
+	ptBR: boolean?,
+	ruRU: boolean?,
+	zhCN: boolean?,
+	zhTW: boolean?,
 }
 export type XMLTemplateInfo = {
 	height: number,
