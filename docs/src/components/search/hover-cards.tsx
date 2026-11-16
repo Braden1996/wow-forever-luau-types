@@ -1,200 +1,38 @@
-// Hover cards for every `a[data-sym]` on the page: one delegated listener, cards fetched lazily from the static
-// /api/cards/<kind>.json shards. Mounted once per page from the footer override; renders nothing until a hover.
-// The checked Luau code blocks (src/lib/luau/ec-plugin.ts) add two inline kinds that need no fetch: an inferred type
-// (`data-luau-type`) and a type error (`data-luau-error`).
+// The theme's hover cards (starlight-warcraft), plus this site's own source: every `a[data-sym]` opens the API
+// reference card for that symbol, fetched lazily from the static /api/cards/<kind>.json shards. The theme handles
+// the checked Luau code blocks' inferred types (`data-luau-type`) and errors (`data-luau-error`) itself. Mounted once
+// per page from the footer override; renders nothing until a hover.
 
 import type { ReactElement } from "react";
-import { useEffect, useRef, useState } from "react";
+import type { HoverCardData, HoverCardSource } from "starlight-warcraft/react";
+import { HoverCards } from "starlight-warcraft/react";
 
 import type { CardData } from "./load-index.ts";
 import { loadCard } from "./load-index.ts";
 
-interface Shown {
-  readonly card: CardData;
-  /** For an inferred type: the code block's pre-rendered, highlighted view (luau-web-checker's `.luau-popup`). */
-  readonly popup: Element | undefined;
-  readonly top: number;
-  readonly left: number;
-  readonly below: boolean;
+/** An API reference card as a theme hover card: rare (blue) when typed, uncommon (green) when untyped. */
+export function symbolCard(card: CardData): HoverCardData {
+  const detail =
+    card.status === undefined ? "" : ` · ${card.status}${card.source === undefined ? "" : ` (${card.source})`}`;
+  const base = { title: card.title, kind: `${card.kind}${detail}`, body: card.snippet };
+  if (card.status === "typed") {
+    return { ...base, quality: "rare" };
+  }
+  if (card.status === "untyped") {
+    return { ...base, quality: "uncommon" };
+  }
+  return base;
 }
 
-const OPEN_DELAY = 250;
-const CLOSE_DELAY = 150;
-const CARD_WIDTH = 440;
+const SOURCES: readonly HoverCardSource[] = [
+  {
+    selector: "a[data-sym]",
+    load: async (anchor) => {
+      const symbol = anchor.dataset["sym"];
+      const card = symbol === undefined ? undefined : await loadCard(symbol);
+      return card === undefined ? undefined : symbolCard(card);
+    },
+  },
+];
 
-const HOVERABLE = "a[data-sym], [data-luau-type], [data-luau-error]";
-
-function anchorOf(target: EventTarget | null): HTMLElement | undefined {
-  if (!(target instanceof Element)) {
-    return undefined;
-  }
-  // An error underline wins over the identifier it covers.
-  const anchor = target.closest("[data-luau-error]") ?? target.closest(HOVERABLE);
-  return anchor instanceof HTMLElement ? anchor : undefined;
-}
-
-/** The card for an anchor: inline for code-block types and errors, fetched for API symbols. */
-function cardFor(anchor: HTMLElement): Promise<CardData | undefined> {
-  const error = anchor.dataset["luauError"];
-  if (error !== undefined) {
-    const colon = error.indexOf(": ");
-    return Promise.resolve({
-      title: colon === -1 ? "Error" : error.slice(0, colon),
-      kind: "the line marked -- error",
-      snippet: colon === -1 ? error : error.slice(colon + 2),
-      path: "",
-      status: "error",
-      source: undefined,
-    });
-  }
-  // A linked API symbol in a code block carries both; its reference card says more than its inferred type.
-  const symbol = anchor.dataset["sym"];
-  if (symbol !== undefined) {
-    return loadCard(symbol);
-  }
-  const type = anchor.dataset["luauType"];
-  if (type !== undefined) {
-    return Promise.resolve({
-      title: "Inferred type",
-      kind: "Luau, new solver",
-      snippet: type,
-      path: "",
-      status: undefined,
-      source: undefined,
-    });
-  }
-  return Promise.resolve(undefined);
-}
-
-function place(anchor: HTMLElement, card: CardData): Shown {
-  const rect = anchor.getBoundingClientRect();
-  const below = rect.top < window.innerHeight / 2;
-  const left = Math.max(8, Math.min(rect.left, window.innerWidth - CARD_WIDTH - 8));
-  const inferred = anchor.dataset["sym"] === undefined && anchor.dataset["luauError"] === undefined;
-  const popup = inferred ? (anchor.querySelector(":scope > .luau-popup") ?? undefined) : undefined;
-  return { card, popup, left, below, top: below ? rect.bottom + 6 : window.innerHeight - rect.top + 6 };
-}
-
-// Shows a copy of the pre-rendered view (its spans carry the `luau-t-<kind>` highlighting classes).
-function showPopup(popup: Element): (code: HTMLElement | null) => void {
-  return (code) => {
-    code?.replaceChildren(...[...popup.childNodes].map((node) => node.cloneNode(true)));
-  };
-}
-
-export const HoverCards = (): ReactElement | null => {
-  const [shown, setShown] = useState<Shown | undefined>(undefined);
-  const openTimer = useRef<number | undefined>(undefined);
-  const closeTimer = useRef<number | undefined>(undefined);
-  const current = useRef<HTMLElement | undefined>(undefined);
-
-  useEffect(() => {
-    const cancelOpen = (): void => {
-      window.clearTimeout(openTimer.current);
-    };
-    const scheduleClose = (): void => {
-      window.clearTimeout(closeTimer.current);
-      closeTimer.current = window.setTimeout(() => {
-        current.current = undefined;
-        setShown(undefined);
-      }, CLOSE_DELAY);
-    };
-    const open = (anchor: HTMLElement): void => {
-      window.clearTimeout(closeTimer.current);
-      cancelOpen();
-      current.current = anchor;
-      openTimer.current = window.setTimeout(() => {
-        cardFor(anchor).then(
-          (card) => {
-            if (card !== undefined && current.current === anchor) {
-              setShown(place(anchor, card));
-            }
-          },
-          () => {
-            setShown(undefined);
-          },
-        );
-      }, OPEN_DELAY);
-    };
-    const onOver = (event: Event): void => {
-      const anchor = anchorOf(event.target);
-      if (anchor !== undefined && anchor !== current.current) {
-        open(anchor);
-      }
-    };
-    const onOut = (event: Event): void => {
-      if (anchorOf(event.target) !== undefined) {
-        cancelOpen();
-        scheduleClose();
-      }
-    };
-    const onKey = (event: KeyboardEvent): void => {
-      if (event.key === "Escape") {
-        setShown(undefined);
-      }
-    };
-    document.addEventListener("pointerover", onOver);
-    document.addEventListener("pointerout", onOut);
-    document.addEventListener("focusin", onOver);
-    document.addEventListener("focusout", onOut);
-    document.addEventListener("keydown", onKey);
-    window.addEventListener("scroll", scheduleClose, { passive: true });
-    return () => {
-      document.removeEventListener("pointerover", onOver);
-      document.removeEventListener("pointerout", onOut);
-      document.removeEventListener("focusin", onOver);
-      document.removeEventListener("focusout", onOut);
-      document.removeEventListener("keydown", onKey);
-      window.removeEventListener("scroll", scheduleClose);
-      cancelOpen();
-      window.clearTimeout(closeTimer.current);
-    };
-  }, []);
-
-  if (shown === undefined) {
-    return null;
-  }
-  const { card } = shown;
-  const position = shown.below ? { top: shown.top } : { bottom: shown.top };
-  const quality =
-    card.status === "untyped"
-      ? "wc-tooltip-uncommon"
-      : card.status === "typed"
-        ? "wc-tooltip-rare"
-        : card.status === "error"
-          ? "wc-tooltip hover-card-error"
-          : "wc-tooltip";
-  return (
-    <div
-      role="tooltip"
-      className={`hover-card fantasy wc-tooltip-base ${quality}`}
-      style={{ ...position, left: shown.left, width: CARD_WIDTH }}
-      onPointerEnter={() => {
-        window.clearTimeout(closeTimer.current);
-      }}
-      onPointerLeave={() => {
-        setShown(undefined);
-        current.current = undefined;
-      }}
-    >
-      <div className="hover-card-head">
-        <span className="hover-card-title">{card.title}</span>
-        <span className="hover-card-kind">
-          {card.kind}
-          {card.status !== undefined &&
-            card.status !== "error" &&
-            ` · ${card.status}${card.source === undefined ? "" : ` (${card.source})`}`}
-        </span>
-      </div>
-      {shown.popup === undefined ? (
-        <pre className="hover-card-snippet">
-          <code>{card.snippet}</code>
-        </pre>
-      ) : (
-        <pre className="hover-card-snippet hover-card-luau">
-          <code ref={showPopup(shown.popup)} />
-        </pre>
-      )}
-    </div>
-  );
-};
+export const SiteHoverCards = (): ReactElement => <HoverCards sources={SOURCES} />;

@@ -49,7 +49,7 @@
 }
 
 .lt-kw {
-  color: #d98a5f;
+  color: var(--wc-code-keyword);
 }
 
 .lt-fn {
@@ -58,41 +58,25 @@
 }
 
 .lt-name {
-  color: #9cc4e4;
+  color: var(--wc-code-name);
 }
 
 .lt-builtin {
-  color: #c792ea;
+  color: var(--wc-code-builtin);
 }
 
 .lt-type {
-  color: var(--sl-color-gray-2);
+  color: var(--wc-code-type);
 }
 
 .lt-string {
-  color: #a5c97a;
+  color: var(--wc-code-string);
 }
 
 a.lt-ref {
-  color: var(--sl-color-accent-high);
+  color: var(--wc-code-type);
   text-decoration: underline dotted;
   text-underline-offset: 3px;
-}
-
-:root[data-theme="light"] .lt-kw {
-  color: #a3461d;
-}
-
-:root[data-theme="light"] .lt-name {
-  color: #1f5f99;
-}
-
-:root[data-theme="light"] .lt-builtin {
-  color: #7a3db8;
-}
-
-:root[data-theme="light"] .lt-string {
-  color: #3f6d1a;
 }
 
 .api-member {
@@ -267,90 +251,4 @@ a.lt-ref {
 .api-sym {
   text-decoration: underline dotted;
   text-underline-offset: 3px;
-}
-
-.hover-card {
-  position: fixed;
-  z-index: 100;
-  max-width: calc(100vw - 16px);
-  padding: 0.75rem 0.9rem;
-  border-radius: 0.25rem;
-  color: var(--wc-gold-50);
-  pointer-events: auto;
-}
-
-.hover-card-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.25rem 1rem;
-}
-
-.hover-card-title {
-  font-weight: 700;
-  color: var(--wc-gold-300);
-}
-
-.hover-card-kind {
-  font-family: var(--sl-font-system);
-  font-size: 0.72rem;
-  color: var(--wc-stone-400);
-}
-
-.hover-card-snippet {
-  margin: 0.5rem 0 0;
-  max-height: 16rem;
-  overflow: auto;
-  font-family: var(--sl-font-mono);
-  font-size: 0.75rem;
-  line-height: 1.5;
-  white-space: pre;
-  color: var(--wc-stone-200);
-}
-
-/* A type error from a checked Luau code block (src/lib/luau/ec-plugin.ts): red title, wrapped message. */
-.hover-card-error .hover-card-title {
-  color: #f85149;
-}
-
-.hover-card-error .hover-card-snippet {
-  white-space: pre-wrap;
-}
-
-/* An inferred type from a checked code block: luau-web-checker's pre-rendered view (expanded type, then the declared
-   form under a rule), with its highlighting classes in this site's colours. */
-.hover-card-luau .luau-popup-main,
-.hover-card-luau .luau-popup-declared {
-  display: block;
-}
-
-.hover-card-luau .luau-popup-declared {
-  margin-top: 0.4rem;
-  padding-top: 0.4rem;
-  border-top: 1px solid var(--wc-stone-600);
-}
-
-.hover-card-luau .luau-t-keyword {
-  color: #ff7b72;
-}
-
-.hover-card-luau .luau-t-type {
-  color: var(--wc-gold-300);
-}
-
-.hover-card-luau .luau-t-builtin {
-  color: #79c0ff;
-}
-
-.hover-card-luau .luau-t-property {
-  color: #a5d6ff;
-}
-
-.hover-card-luau .luau-t-string {
-  color: #a5f3a5;
-}
-
-.hover-card-luau .luau-t-punctuation {
-  color: var(--wc-stone-300);
 }
