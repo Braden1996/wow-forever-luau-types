@@ -142904,7 +142904,7 @@
           },
           {
             "name": "...",
-            "type": "Enum_UnitTokenType",
+            "type": "UnitToken",
             "variadic": true
           }
         ]
@@ -142934,7 +142934,7 @@
           },
           {
             "name": "...",
-            "type": "Enum_UnitTokenType",
+            "type": "UnitToken",
             "variadic": true
           }
         ]
@@ -156362,7 +156362,7 @@
         [
           {
             "name": "unit",
-            "type": "Enum_UnitTokenType"
+            "type": "UnitToken"
           },
           {
             "name": "colorR",

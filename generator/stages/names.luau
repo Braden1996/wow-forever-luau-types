@@ -160,6 +160,10 @@ function Names.resolver(ctx: Context, generics: { [string]: string }?, selfName:
 		if widgetAliases[name] then
 			return typeNames[widgetAliases[name]]
 		end
+		local override = ctx.config.docTypeOverrides[name]
+		if override then
+			return resolve(override, args)
+		end
 		local declared = typeNames[name] or typeNames["Enum." .. name]
 		if declared then
 			return declared
