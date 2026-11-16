@@ -7,11 +7,11 @@ CI fails if an API that was typed becomes untyped.
 | Category | Typed | Untyped | Excluded | Typed share |
 | --- | ---: | ---: | ---: | ---: |
 | Functions (global and `C_*` namespaces) | 5917 | 6855 | 393 | 46.3% |
-| Widget and script-object methods | 1650 | 10 | 0 | 99.4% |
+| Widget and script-object methods | 1720 | 13 | 0 | 99.2% |
 | Events (payload types) | 1816 | 0 | 0 | 100.0% |
 | Structures and mixins | 840 | 0 | 0 | 100.0% |
 | Enums | 954 | 0 | 0 | 100.0% |
-| Widget types | 57 | 0 | 0 | 100.0% |
+| Widget types | 58 | 0 | 0 | 100.0% |
 
 ## Functions by kind
 
@@ -31,13 +31,14 @@ CI fails if an API that was typed becomes untyped.
 | functions | generator | 1 |
 | functions | supplements | 2 |
 | widgetMethods | annotations | 38 |
-| widgetMethods | docs | 1603 |
+| widgetMethods | docs | 1673 |
 | widgetMethods | docs+annotations | 9 |
 | events | docs | 1816 |
 | structures | annotations | 69 |
 | structures | docs | 771 |
 | enums | client | 954 |
 | widgets | client | 57 |
+| widgets | generator | 1 |
 
 ## Untyped and excluded APIs
 
@@ -55,7 +56,7 @@ CI fails if an API that was typed becomes untyped.
 | functions | excluded | documented, but absent from the client's API dump | 18 |
 | functions | excluded | not in the WoW: Forever client | 262 |
 | functions | excluded | provided by Luau's standard library | 87 |
-| widgetMethods | untyped | no type source | 10 |
+| widgetMethods | untyped | no type source | 13 |
 
 ## Result shapes
 
@@ -71,9 +72,9 @@ libraries that wrap the API (`maybe`: one nilable result; `record`: several name
 | `overloaded` | 5 | 0 |
 | `protected` | 1 | 65 |
 | `record` | 572 | 103 |
-| `untyped` | 6855 | 10 |
+| `untyped` | 6855 | 13 |
 | `value` | 2720 | 542 |
-| `variadic` | 39 | 8 |
+| `variadic` | 39 | 78 |
 | `void` | 1409 | 668 |
 
 Calls the documentation says may return nothing at all have every result optional (`T?`), by reason:
@@ -106,7 +107,7 @@ Calls the documentation says may return nothing at all have every result optiona
 | --- | --- | ---: |
 | `{ [any]: any }` | a parameter that takes any table | 73 |
 | `(...any) -> ...any` | a parameter that takes any function | 44 |
-| `...any` in a handler | script handler and event payload arguments | 150 |
+| `...any` in a handler | script handler and event payload arguments | 153 |
 | anything else | should be 0 | 0 |
 
 32 documented structures extend a shared base (`Base & { ... }`). 7 type names used by upstream could not be resolved and are `unknown`; see `report.json`.

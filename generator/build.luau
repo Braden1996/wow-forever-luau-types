@@ -144,6 +144,13 @@ function Build.run(input: Input): (string, Report, Coverage, ShapeSet)
 			table.insert(unusedOverrides, "resultTypeOverrides." .. key)
 		end
 	end
+	local mixinsUnused: { string } = {}
+	for _, name in Common.sortedKeys(config.widgetMixins) do
+		if not ctx.overridesUsed["widgetMixins." .. name] then
+			table.insert(mixinsUnused, name)
+			table.insert(unusedOverrides, "widgetMixins." .. name)
+		end
+	end
 	-- Likewise for config.scriptObjectParents: both ends must be documented script objects.
 	for _, name in Common.sortedKeys(config.scriptObjectParents) do
 		local parent = config.scriptObjectParents[name]
@@ -207,6 +214,7 @@ function Build.run(input: Input): (string, Report, Coverage, ShapeSet)
 			derivedStructures = derivedCount,
 			widgets = Common.count(input.resources.widgets),
 			scriptObjects = Common.count(widgets.objectTypes),
+			widgetMixins = #Common.sortedKeys(config.widgetMixins) - #mixinsUnused,
 			anyOccurrences = anyCount,
 		},
 		anyByForm = {

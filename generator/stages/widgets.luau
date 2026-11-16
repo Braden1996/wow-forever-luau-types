@@ -376,6 +376,96 @@ function Widgets.emit(ctx: Context)
 		emitWidget(w)
 	end
 
+	-- Template mixins (config.widgetMixins): a widget type extending the widget with the mixin's methods.
+	for _, mixin in Common.sortedKeys(config.widgetMixins) do
+		local rule = config.widgetMixins[mixin]
+		local w = rule.widget
+		if res.widgets[w] == nil or ctx.structs[mixin] ~= nil then
+			continue -- reported as unused by build.luau
+		end
+		local all = model.allMethods(w)
+		local lines: { string } = {}
+		-- The script methods again, so a handler receives the mixin's type (`tooltip:GetItem()` in a hook).
+		local scriptType = scriptTypes[w]
+		if scriptType then
+			for _, m in Common.sortedKeys(config.scriptMethods) do
+				if all[m] then
+					local sigs = sourceOf(w, m)
+					local typed: { Printed } = {}
+					if sigs then
+						local final = Signatures.applyOverrides(ctx, w .. ":" .. m, sigs)
+						for _, p in Signatures.printAll(ctx, final, mixin, true) do
+							table.insert(typed, scriptMethod(m, mixin, scriptType, p))
+						end
+					else
+						table.insert(typed, scriptMethod(m, mixin, scriptType, nil))
+					end
+					for _, p in typed do
+						table.insert(
+							lines,
+							"\tfunction " .. m .. Signatures.renderParams(p, "self", true) .. ": " .. p.returns
+						)
+					end
+				end
+			end
+		end
+		local scriptLines = #lines
+		local acc = rule.accessors
+		local candidates: { [string]: boolean } = {}
+		for _, m in rule.untyped do
+			candidates[m] = true
+		end
+		for qualified in ctx.docs.functions do
+			local prefix = acc.namespace .. "." .. acc.getter
+			if string.sub(qualified, 1, #prefix) == prefix then
+				candidates[acc.prefix .. string.sub(qualified, #prefix + 1)] = true
+			end
+		end
+		for _, m in Common.sortedKeys(candidates) do
+			local key = mixin .. ":" .. m
+			if all[m] or model.annotatedMethod(w, m) == nil then
+				continue -- the widget's own method, or not one the annotations name
+			end
+			local getter = acc.namespace .. "." .. acc.getter .. string.sub(m, #acc.prefix + 1)
+			local doc = ctx.docs.functions[getter]
+			local isAccessor = string.sub(m, 1, #acc.prefix) == acc.prefix and doc ~= nil and res.globalApi[getter]
+			local printed: { Printed }
+			if isAccessor then
+				local sigs = Signatures.reconcile(ctx, doc :: ApiDocs.DocFunction, nil)
+				local final: { Signature } = {}
+				for _, sig in sigs do
+					table.insert(
+						final,
+						{ params = sig.params, returns = Common.UNTYPED_SIGNATURE.returns, generics = sig.generics }
+					)
+				end
+				printed = Signatures.printAll(ctx, final, mixin, true)
+				ctx.apis.widgetMethods[key] = { sigs = final, selfName = mixin }
+				ctx.cover("widgetMethods", key, "typed", "docs", "the parameters of " .. getter .. "; result untyped")
+			elseif table.find(rule.untyped, m) then
+				printed = { Signatures.print(ctx, Common.UNTYPED_SIGNATURE, mixin, true) }
+				ctx.cover("widgetMethods", key, "untyped", nil, "no type source")
+			else
+				continue
+			end
+			for _, p in printed do
+				table.insert(lines, "\tfunction " .. m .. Signatures.renderParams(p, "self", true) .. ": " .. p.returns)
+			end
+		end
+		if #lines == scriptLines then
+			continue
+		end
+		ctx.overridesUsed["widgetMixins." .. mixin] = true
+		emit("-- " .. mixin .. ": mixed into " .. w .. " by its template; see generator/rules/widgets.luau.")
+		emit("declare extern type " .. mixin .. " extends " .. typeNames[w] .. " with")
+		for _, line in lines do
+			emit(line)
+		end
+		emit("end")
+		emit("")
+		ctx.cover("widgets", mixin, "typed", "generator", "extends " .. w)
+	end
+
 	-- Documented script objects that are not widgets (curves, durations, formatters), reconciled with the
 	-- annotation class of the same name where there is one (AbbreviateConfig, UnitHealPredictionCalculator).
 	emit("-- Script objects -----------------------------------------------------------------------------")

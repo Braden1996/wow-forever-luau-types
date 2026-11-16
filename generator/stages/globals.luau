@@ -229,6 +229,18 @@ export type Counts = { functions: number, tables: number, values: number }
 -- Emits FrameTypeMap and every global; returns how many functions, tables and values it declared.
 function Globals.emit(ctx: Context, tree: Tree): Counts
 	local emit, root = ctx.emit, tree.root
+	-- Frames built from a template with a mixin have the mixin's type (config.widgetMixins, emitted by
+	-- stages/widgets.luau, which runs after Globals.collect).
+	for _, mixin in Common.sortedKeys(ctx.config.widgetMixins) do
+		if ctx.overridesUsed["widgetMixins." .. mixin] then
+			for _, frame in ctx.config.widgetMixins[mixin].globals do
+				local node = root.children[frame]
+				if node and node.kind == "value" and ctx.res.frames[frame] then
+					node.valueType = mixin
+				end
+			end
+		end
+	end
 	emitFrameTypeMap(ctx)
 	emit("-- Globals ------------------------------------------------------------------------------------")
 	local counts: Counts = { functions = 0, tables = 0, values = 0 }

@@ -27,18 +27,19 @@
   "anyByForm": {
     "anyFunction": 44,
     "anyTable": 73,
-    "handlerArgs": 150,
+    "handlerArgs": 153,
     "other": 0
   },
   "counts": {
     "annotationFiles": 467,
-    "anyOccurrences": 384,
+    "anyOccurrences": 387,
     "derivedStructures": 32,
     "globalFunctions": 6587,
     "globalTables": 402,
     "globalValues": 839,
     "scriptObjects": 16,
     "structures": 840,
+    "widgetMixins": 1,
     "widgets": 57
   },
   "functionsByClientList": {
@@ -79,9 +80,9 @@
       "opaque": 200,
       "protected": 65,
       "record": 103,
-      "untyped": 10,
+      "untyped": 13,
       "value": 542,
-      "variadic": 8,
+      "variadic": 78,
       "void": 668
     }
   },
@@ -108,12 +109,12 @@
     },
     "widgetMethods": {
       "excluded": 0,
-      "typed": 1650,
-      "untyped": 10
+      "typed": 1720,
+      "untyped": 13
     },
     "widgets": {
       "excluded": 0,
-      "typed": 57,
+      "typed": 58,
       "untyped": 0
     }
   },

@@ -35,3 +35,12 @@ local talent = C_SpecializationInfo.GetTalentInfo({ tier = 1, column = 2 })
 if talent then
 	label:SetText(talent.name)
 end
+
+-- GameTooltip has its template's data mixin: one Set method per C_TooltipInfo accessor, with its arguments.
+GameTooltip:SetOwner(frame, "ANCHOR_RIGHT")
+GameTooltip:SetBagItem(0, 1)
+GameTooltip:SetSpellByID(133)
+GameTooltip:HookScript("OnTooltipCleared", function(tooltip: GameTooltipDataMixin)
+	local _name, _link = tooltip:GetItem()
+end)
+GameTooltip:Show()

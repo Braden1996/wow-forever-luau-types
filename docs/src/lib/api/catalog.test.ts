@@ -31,7 +31,9 @@ describe("the parsed definitions match the generator's report", () => {
   test("every event, enum and widget is parsed", () => {
     expect(parsed.events.length).toBe(coverageTotals(catalog.coverage, "events").typed);
     expect(parsed.enums.length).toBe(coverageTotals(catalog.coverage, "enums").typed);
-    expect(parsed.widgets.length).toBe(reportCount("widgets") + reportCount("scriptObjects"));
+    expect(parsed.widgets.length).toBe(
+      reportCount("widgets") + reportCount("scriptObjects") + reportCount("widgetMixins"),
+    );
   });
 
   test("every global table is parsed (Enum is modelled separately)", () => {

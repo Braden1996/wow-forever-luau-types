@@ -33,3 +33,8 @@ group:CreateAnimation("Alhpa") -- expect-error: None of the overloads
 -- HookScript needs a handler; event callbacks take only real events.
 frame:HookScript("OnShow", nil) -- expect-error: but got 'nil'
 frame:RegisterEventCallback("PLAYER_LOGN", function() end) -- expect-error: Expected this to be
+
+-- The tooltip data methods come from GameTooltipTemplate: a plain GameTooltip has none, and they take the
+-- C_TooltipInfo accessor's arguments.
+CreateFrame("GameTooltip"):SetBagItem(0, 1) -- expect-error: Key 'SetBagItem' not found
+GameTooltip:SetBagItem(0, "first") -- expect-error: Expected this to be

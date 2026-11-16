@@ -43,5 +43,5 @@
   <text fill="#c7d2fe" font-family="'Segoe UI','Inter','Helvetica Neue',Arial,sans-serif" font-size="25" x="472" y="198">Strict Luau type definitions for the World of Warcraft: Forever API</text>
   <rect fill="#0b1022" fill-opacity="0.75" height="60" rx="10" stroke="#2f6bff" stroke-opacity="0.5" width="580" x="470" y="228"/>
   <text font-family="'JetBrains Mono','Cascadia Code',Consolas,monospace" font-size="22" x="494" y="266"><tspan fill="#c678dd">local</tspan><tspan fill="#e5e7eb"> frame</tspan><tspan fill="#9ca3af">: </tspan><tspan fill="#5ec8ff">Button</tspan><tspan fill="#9ca3af"> = </tspan><tspan fill="#ffe7a3">CreateFrame</tspan><tspan fill="#e5e7eb">(</tspan><tspan fill="#98c379">&quot;Button&quot;</tspan><tspan fill="#e5e7eb">)</tspan></text>
-  <text fill="#ffe7a3" font-family="'Segoe UI','Inter','Helvetica Neue',Arial,sans-serif" font-size="20" x="472" y="340">5,917 typed functions  ·  1,650 typed widget methods  ·  1,816 events with payload types</text>
+  <text fill="#ffe7a3" font-family="'Segoe UI','Inter','Helvetica Neue',Arial,sans-serif" font-size="20" x="472" y="340">5,917 typed functions  ·  1,720 typed widget methods  ·  1,816 events with payload types</text>
 </svg>

@@ -105,11 +105,11 @@ wrapping library's decision.
 |                                                           |          Typed | Share |
 | --------------------------------------------------------- | -------------: | ----: |
 | C API functions (the game's native API, global and `C_*`) | 5,757 of 6,904 | 83.4% |
-| Widget and script-object methods                          | 1,650 of 1,660 | 99.4% |
+| Widget and script-object methods                          | 1,720 of 1,733 | 99.2% |
 | Events, with payload types                                |          1,816 |  100% |
 | Structures and mixins                                     |            840 |  100% |
 | Enums (from the client)                                   |            954 |  100% |
-| Widget types, in the client's own hierarchy               |             57 |  100% |
+| Widget types, in the client's own hierarchy               |             58 |  100% |
 
 Most untyped functions (5,691) are FrameXML: Blizzard's own UI code in Lua, which no source types. 1,147 C API
 functions are untyped too: 1,135 of them the annotations list only as wiki stubs without a single type, and 12 have

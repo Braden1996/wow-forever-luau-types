@@ -54,6 +54,7 @@ export type Report = {
 		derivedStructures: number,
 		widgets: number,
 		scriptObjects: number,
+		widgetMixins: number, -- template mixins declared as widget types (config.widgetMixins)
 		anyOccurrences: number,
 	},
 	-- Every `any` in the definitions by form; `other` should stay 0 (COVERAGE.md shows it).

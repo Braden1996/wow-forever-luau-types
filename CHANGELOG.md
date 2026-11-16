@@ -15,6 +15,11 @@ All notable changes to this project are documented here. The format follows
 
 ### Fixed
 
+- `GameTooltip` and `ItemRefTooltip` have their template's data methods: `GameTooltip:SetBagItem(bag, slot)`,
+  `SetSpellByID`, `SetUnit`, `SetHyperlink` and 66 more were "not found". They are declared on a new
+  `GameTooltipDataMixin` widget type that extends `GameTooltip`, one `Set<X>` per `C_TooltipInfo.Get<X>` accessor
+  with that accessor's documented parameters; the result is untyped, as no source documents it. A plain
+  `CreateFrame("GameTooltip")` still has none of them.
 - A structure the addon only passes in leaves out the fields the documentation gives a default:
   `C_SpecializationInfo.GetTalentInfo({ tier = 1, column = 2 })`, `PlaySoundWithOptions({ soundKitID = id })`,
   `CreateFrameOptions`, the JSON and CBOR serialization options and 8 more. Structures the client also hands back keep every field
