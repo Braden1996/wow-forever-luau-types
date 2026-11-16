@@ -5,6 +5,19 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-11-16
+
+### Fixed
+
+- Unit tokens are strings (`UnitToken`), not `Enum.UnitTokenType` numbers, where the documentation names that
+  enumeration: `Frame:RegisterUnitEvent` and `RegisterUnitEventCallback` accept `"player"`, `Frame:IsEventRegistered`
+  and `UnitPositionFrame:GetMouseOverUnits` return strings, `UnitPositionFrame:SetUnitColor` takes one, and the
+  `NAME_PLATE_UNIT_ADDED`/`_REMOVED` payloads (and their `FORBIDDEN_` twins) carry a string `unitToken`.
+
+### Changed
+
+- The documentation site takes its theme and components from the `starlight-warcraft` package.
+
 ## [0.4.0] - 2026-11-16
 
 ### Changed
@@ -86,7 +99,8 @@ All notable changes to this project are documented here. The format follows
 - CI (freshness, samples, strict generator, StyLua, selene, typos, actionlint, zizmor), a tag-triggered release, and
   Renovate for tools, actions and both upstream pins.
 
-[Unreleased]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/Braden1996/wow-forever-luau-types/compare/v0.1.0...v0.2.0
