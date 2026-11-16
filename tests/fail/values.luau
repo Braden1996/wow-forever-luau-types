@@ -21,3 +21,7 @@ local _title = quest.title -- expect-error: Value of type 'QuestInfo?' could be 
 local charges = C_ActionBar.GetActionCharges(1)
 local _current = charges.currentCharges -- expect-error: Value of type 'SpellChargeInfo?' could be nil
 local _texture: number = C_ActionBar.GetActionTexture(1) -- expect-error: Expected this to be 'number', but got 'number?'
+
+-- An enum is its own type: only its values are accepted, not a bare number or another enum's value.
+local _r, _g, _b = C_Item.GetItemQualityColor(4) -- expect-error: Expected this to be 'Enum_ItemQuality', but got 'number'
+local _wrong = C_Item.GetItemQualityColor(Enum.ItemClass.Weapon) -- expect-error: Expected this to be

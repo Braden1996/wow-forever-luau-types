@@ -263,6 +263,12 @@ export function parseDefinitions(source: string): ParsedDefinitions {
       out.header.push(line.slice(3));
     }
     const extern = EXTERN_TYPE.exec(line);
+    if (extern?.[1] !== undefined && section === "enumValueTypes") {
+      // An opaque enum type (its only members are the comparison metamethods).
+      out.enumValueTypes.push(extern[1]);
+      i = readBlock(lines, i, "end").next;
+      continue;
+    }
     if (extern?.[1] !== undefined) {
       const { block, next } = readBlock(lines, i, "end");
       const methods: Member[] = [];

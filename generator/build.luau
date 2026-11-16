@@ -7,6 +7,7 @@
 -- The stages live in generator/stages/; this file runs them in order and assembles the report.
 
 local Annotations = require("./stages/annotations")
+local Decls = require("./luacats/decls")
 local Common = require("./stages/common")
 local Globals = require("./stages/globals")
 local Json = require("./json")
@@ -14,6 +15,7 @@ local Names = require("./stages/names")
 local Shapes = require("./stages/shapes")
 local Signatures = require("./stages/signatures")
 local Structs = require("./stages/structs")
+local TypeExpr = require("./typeexpr")
 local Types = require("./stages/types")
 local Widgets = require("./stages/widgets")
 
@@ -26,6 +28,7 @@ export type Status = Common.Status
 export type StatusCounts = Common.StatusCounts
 export type Report = Common.Report
 export type ShapeSet = Shapes.Shapes
+type Signature = Decls.Signature
 
 local Build = {}
 
@@ -144,6 +147,66 @@ function Build.run(input: Input): (string, Report, Coverage, ShapeSet)
 			table.insert(unusedOverrides, "resultTypeOverrides." .. key)
 		end
 	end
+	-- Every `number` slot named like an opaque enum (`powerType`, `itemQuality`) must be typed with the enum
+	-- (generator/rules/enums.luau) or listed in config.notEnumSlots: otherwise a correct program compares the
+	-- enum's value with a number and fails. Such a slot, and a notEnumSlots entry that names nothing, are reported.
+	local opaqueEnums: { [string]: string } = {} -- lowercased enum name -> enum name
+	for _, e in input.resources.enums do
+		if not Common.isNumericEnum(config, e) then
+			opaqueEnums[string.lower(e.name)] = e.name
+		end
+	end
+	local slotsSeen: { [string]: boolean } = {}
+	local function checkSlot(key: string, name: string?, t: TypeExpr.Type)
+		if name == nil then
+			return
+		end
+		local inner = if t.kind == "optional" then t.inner else t
+		if inner.kind ~= "name" or inner.name ~= "number" or opaqueEnums[string.lower(name)] == nil then
+			return
+		end
+		local slot = key .. "." .. name
+		slotsSeen[slot] = true
+		if config.notEnumSlots[slot] == nil then
+			table.insert(unusedOverrides, "enum slot typed number: " .. slot)
+		end
+	end
+	local function checkSigs(key: string, sigs: { Signature })
+		for _, sig in sigs do
+			for _, p in sig.params do
+				checkSlot(key, p.name, p.type)
+			end
+			for i, r in sig.returns do
+				checkSlot(key, if sig.returnNames then sig.returnNames[i] else nil, r)
+			end
+		end
+	end
+	for _, key in Common.sortedKeys(ctx.apis.functions) do
+		checkSigs(key, ctx.apis.functions[key].sigs)
+	end
+	for _, key in Common.sortedKeys(ctx.apis.widgetMethods) do
+		checkSigs(key, ctx.apis.widgetMethods[key].sigs)
+	end
+	for _, e in input.resources.events do
+		local d = ctx.docs.events[e]
+		if d then
+			local sig: Signature = { params = d.payload, returns = {}, generics = {} }
+			checkSigs("event:" .. e, Signatures.applyOverrides(ctx, "event:" .. e, { sig }))
+		end
+	end
+	for _, name in Common.sortedKeys(structs) do
+		if structs[name].source == "docs" then
+			for _, f in structs[name].fields do
+				checkSlot(name, f.name, f.type)
+			end
+		end
+	end
+	for _, slot in Common.sortedKeys(config.notEnumSlots) do
+		if not slotsSeen[slot] then
+			table.insert(unusedOverrides, "notEnumSlots." .. slot)
+		end
+	end
+
 	local mixinsUnused: { string } = {}
 	for _, name in Common.sortedKeys(config.widgetMixins) do
 		if not ctx.overridesUsed["widgetMixins." .. name] then

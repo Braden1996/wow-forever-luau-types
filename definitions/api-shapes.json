@@ -6021,7 +6021,7 @@
         {
           "name": "quality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         },
         {
           "name": "artifactAppearanceID",
@@ -6190,7 +6190,7 @@
         {
           "name": "quality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         },
         {
           "name": "artifactAppearanceID",
@@ -6696,7 +6696,7 @@
         {
           "name": "quality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         },
         {
           "name": "artifactAppearanceID",
@@ -11223,7 +11223,7 @@
         {
           "name": "quality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         }
       ]
     },
@@ -11321,7 +11321,7 @@
         {
           "name": "quality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         }
       ]
     },
@@ -11419,7 +11419,7 @@
         {
           "name": "quality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         }
       ]
     },
@@ -32953,7 +32953,7 @@
         {
           "name": "garrTalentTreeType",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_GarrTalentTreeType"
         }
       ]
     },
@@ -33051,7 +33051,7 @@
         {
           "name": "itemQuality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         },
         {
           "name": "itemID",
@@ -40960,7 +40960,7 @@
           },
           {
             "name": "itemQuality",
-            "type": "number"
+            "type": "Enum_ItemQuality"
           }
         ]
       ],
@@ -43233,7 +43233,7 @@
         [
           {
             "name": "itemRedundancySlot",
-            "type": "number"
+            "type": "Enum_ItemRedundancySlot"
           }
         ]
       ],
@@ -43267,7 +43267,7 @@
         {
           "name": "itemRedundancySlot",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemRedundancySlot"
         }
       ]
     },
@@ -68627,7 +68627,7 @@
         {
           "name": "summonReason",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_SummonReason"
         }
       ]
     },
@@ -70598,7 +70598,7 @@
           },
           {
             "name": "quality",
-            "type": "number?"
+            "type": "Enum_ItemQuality?"
           },
           {
             "name": "itemContext",
@@ -75516,7 +75516,7 @@
         [
           {
             "name": "inventoryType",
-            "type": "number"
+            "type": "Enum_InventoryType"
           }
         ]
       ],
@@ -77714,7 +77714,7 @@
         [
           {
             "name": "inventoryType",
-            "type": "number"
+            "type": "Enum_InventoryType"
           }
         ]
       ],
@@ -89633,7 +89633,7 @@
         [
           {
             "name": "invType",
-            "type": "number"
+            "type": "Enum_InventoryType"
           }
         ]
       ],
@@ -95298,7 +95298,7 @@
         {
           "name": "which",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_BindingSet"
         }
       ]
     },
@@ -96490,7 +96490,7 @@
         {
           "name": "quality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         }
       ]
     },
@@ -97473,7 +97473,7 @@
         {
           "name": "quality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         },
         {
           "name": "canUse",
@@ -99221,7 +99221,7 @@
         {
           "name": "quality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         },
         {
           "name": "bindOnPickUp",
@@ -99340,7 +99340,7 @@
         {
           "name": "lootQuality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         },
         {
           "name": "locked",
@@ -101922,7 +101922,7 @@
         [
           {
             "name": "powerType",
-            "type": "number"
+            "type": "Enum_PowerType"
           }
         ]
       ],
@@ -102547,7 +102547,7 @@
         {
           "name": "quality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         },
         {
           "name": "isUsable",
@@ -105238,7 +105238,7 @@
         {
           "name": "quality",
           "nilable": false,
-          "type": "number"
+          "type": "Enum_ItemQuality"
         },
         {
           "name": "isUsable",
@@ -110206,7 +110206,7 @@
         [
           {
             "name": "bindingSet",
-            "type": "number"
+            "type": "Enum_BindingSet"
           }
         ]
       ]
@@ -138169,7 +138169,7 @@
           },
           {
             "name": "quality",
-            "type": "number?"
+            "type": "Enum_ItemQuality?"
           },
           {
             "name": "itemContext",

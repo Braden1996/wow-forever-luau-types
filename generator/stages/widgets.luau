@@ -431,7 +431,8 @@ function Widgets.emit(ctx: Context)
 			local isAccessor = string.sub(m, 1, #acc.prefix) == acc.prefix and doc ~= nil and res.globalApi[getter]
 			local printed: { Printed }
 			if isAccessor then
-				local sigs = Signatures.reconcile(ctx, doc :: ApiDocs.DocFunction, nil)
+				local sigs =
+					Signatures.applyOverrides(ctx, getter, (Signatures.reconcile(ctx, doc :: ApiDocs.DocFunction, nil)))
 				local final: { Signature } = {}
 				for _, sig in sigs do
 					table.insert(

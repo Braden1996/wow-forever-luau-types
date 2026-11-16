@@ -288,7 +288,16 @@ function Signatures.applyOverrides(ctx: Context, key: string, sigs: { Signature 
 		local returns: { Type } = {}
 		for i, r in sig.returns do
 			local t = resultOverrides[i]
-			table.insert(returns, if t then { kind = "name", name = t, args = {} } :: Type else r)
+			if t == nil then
+				table.insert(returns, r)
+			else
+				-- The override names the value's type; a result that may be nil stays optional.
+				local named: Type = { kind = "name", name = t, args = {} }
+				table.insert(
+					returns,
+					if r.kind == "optional" then { kind = "optional", inner = named } :: Type else named
+				)
+			end
 		end
 		table.insert(out, {
 			params = params,

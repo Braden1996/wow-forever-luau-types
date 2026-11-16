@@ -86,8 +86,34 @@ end
 local quality = Enum.ItemQuality.Legendaryy -- error: Key 'Legendaryy' not found
 ```
 
-Enum values are typed `number`: Luau has no numeric literal types. A parameter that takes an enum is declared with
-an alias such as `Enum_ItemQuality`, which links to the enum in the [API reference](/wow-forever-luau-types/api/enums/).
+## Enums are their own types
+
+Luau has no numeric literal types, so each enum is an opaque type of its own, such as `Enum_ItemQuality`. A function
+that takes an item quality accepts only `Enum.ItemQuality` values: not a bare number, and not another enum's value.
+Two values of the same enum compare with `==`, `<` and `<=`, and work as table keys:
+
+```luau
+local names: { [Enum_ItemQuality]: string } = { [Enum.ItemQuality.Epic] = "purple" }
+
+local quality = C_Item.GetItemQualityByID(19019)
+if quality and quality >= Enum.ItemQuality.Rare then
+	local r, g, b = C_Item.GetItemQualityColor(quality)
+	print(names[quality], r, g, b)
+end
+
+C_Item.GetItemQualityColor(4)                      -- error: expected Enum_ItemQuality, got number
+C_Item.GetItemQualityColor(Enum.ItemClass.Weapon)  -- error: expected Enum_ItemQuality, got Enum_ItemClass
+```
+
+Every function, event and structure that carries an enum's values is typed with it, including the ones Blizzard's
+documentation types as a plain number (`GetLootSlotInfo`'s quality, `GetCurrentBindingSet`). Some enums stay plain
+numbers:
+
+- **Flag sets** (`Enum.BagSlotFlags` and every other mask), because you combine and test them with `bit.band`.
+- **Bag indices**, which you iterate as a range (`for bag = 0, NUM_BAG_SLOTS do`).
+- **Expansion levels and Mythic+ season IDs**, which are ordinals that the client also returns as numbers.
+
+A number you stored yourself, in saved variables for example, needs a cast back: `saved.quality :: any`.
 
 ## Annotate function parameters
 

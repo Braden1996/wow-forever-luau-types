@@ -467,8 +467,8 @@ export type EventPayloads = {
 	CONFIRM_DISENCHANT_ROLL: (rollID: number, rollType: number) -> (),
 	CONFIRM_LOOT_ROLL: (rollID: number, rollType: number, confirmReason: string) -> (),
 	CONFIRM_PET_UNLEARN: (cost: number) -> (),
-	CONFIRM_SUMMON: (summonReason: number, skippingStartExperience: boolean) -> (),
-	CONFIRM_TALENT_WIPE: (cost: number, respecType: number) -> (),
+	CONFIRM_SUMMON: (summonReason: Enum_SummonReason, skippingStartExperience: boolean) -> (),
+	CONFIRM_TALENT_WIPE: (cost: number, respecType: Enum_RespecType) -> (),
 	CONFIRM_XP_LOSS: () -> (),
 	CONSOLE_CLEAR: () -> (),
 	CONSOLE_COLORS_CHANGED: () -> (),
@@ -631,7 +631,7 @@ export type EventPayloads = {
 	GAME_RULES_CHANGED: () -> (),
 	GARRISON_ARCHITECT_CLOSED: () -> (),
 	GARRISON_ARCHITECT_OPENED: (followerTypeID: number) -> (),
-	GARRISON_BUILDING_ACTIVATABLE: (buildingName: string, garrisonType: number) -> (),
+	GARRISON_BUILDING_ACTIVATABLE: (buildingName: string, garrisonType: Enum_GarrisonType) -> (),
 	GARRISON_BUILDING_ACTIVATED: (garrisonPlotInstanceID: number, garrisonBuildingID: number) -> (),
 	GARRISON_BUILDING_ERROR: () -> (),
 	GARRISON_BUILDING_LIST_UPDATE: (categoryID: number) -> (),
@@ -2110,959 +2110,3356 @@ export type TogglePingListenerCallback = (down: boolean) -> ()
 
 -- Enum value types ---------------------------------------------------------------------------
 export type Enum_AbbreviationDataError = number
-export type Enum_AccountCurrencyTransferResult = number
-export type Enum_AccountData = number
-export type Enum_AccountDataUpdateStatus = number
-export type Enum_AccountExportResult = number
-export type Enum_AccountGetListRequestType = number
-export type Enum_AccountSequenceCacheType = number
+declare extern type Enum_AccountCurrencyTransferResult with
+	function __lt(self, other: Enum_AccountCurrencyTransferResult): boolean
+	function __le(self, other: Enum_AccountCurrencyTransferResult): boolean
+end
+declare extern type Enum_AccountData with
+	function __lt(self, other: Enum_AccountData): boolean
+	function __le(self, other: Enum_AccountData): boolean
+end
+declare extern type Enum_AccountDataUpdateStatus with
+	function __lt(self, other: Enum_AccountDataUpdateStatus): boolean
+	function __le(self, other: Enum_AccountDataUpdateStatus): boolean
+end
+declare extern type Enum_AccountExportResult with
+	function __lt(self, other: Enum_AccountExportResult): boolean
+	function __le(self, other: Enum_AccountExportResult): boolean
+end
+declare extern type Enum_AccountGetListRequestType with
+	function __lt(self, other: Enum_AccountGetListRequestType): boolean
+	function __le(self, other: Enum_AccountGetListRequestType): boolean
+end
+declare extern type Enum_AccountSequenceCacheType with
+	function __lt(self, other: Enum_AccountSequenceCacheType): boolean
+	function __le(self, other: Enum_AccountSequenceCacheType): boolean
+end
 export type Enum_AccountStateFlags = number
 export type Enum_AccountStateLoadedFlags = number
-export type Enum_AccountStoreCategoryType = number
+declare extern type Enum_AccountStoreCategoryType with
+	function __lt(self, other: Enum_AccountStoreCategoryType): boolean
+	function __le(self, other: Enum_AccountStoreCategoryType): boolean
+end
 export type Enum_AccountStoreFrontFlag = number
 export type Enum_AccountStoreItemFlag = number
-export type Enum_AccountStoreItemMode = number
-export type Enum_AccountStoreItemRewardType = number
-export type Enum_AccountStoreItemStatus = number
-export type Enum_AccountStoreSettlementAction = number
-export type Enum_AccountStoreState = number
-export type Enum_AccountStoreTransactionResult = number
-export type Enum_AccountStoreTransactionType = number
-export type Enum_AccountTransType = number
-export type Enum_ActionBarOrientation = number
-export type Enum_ActionBarSet = number
-export type Enum_ActionBarVisibleSetting = number
-export type Enum_AddOnEnableState = number
-export type Enum_AddOnPerformanceMessageType = number
-export type Enum_AddOnProfilerMetric = number
-export type Enum_AddOnRestrictionState = number
-export type Enum_AddOnRestrictionType = number
-export type Enum_AddOnSecurityStatus = number
-export type Enum_AddSoulbindConduitReason = number
-export type Enum_AnimaDiversionNodeState = number
-export type Enum_ArrowCalloutDirection = number
-export type Enum_ArrowCalloutType = number
-export type Enum_AssistActionType = number
-export type Enum_AuctionHouseCommoditySortOrder = number
-export type Enum_AuctionHouseError = number
-export type Enum_AuctionHouseExtraColumn = number
-export type Enum_AuctionHouseFilter = number
-export type Enum_AuctionHouseFilterCategory = number
-export type Enum_AuctionHouseItemSortOrder = number
-export type Enum_AuctionHouseNotification = number
-export type Enum_AuctionHouseSortOrder = number
-export type Enum_AuctionHouseTimeLeftBand = number
-export type Enum_AuctionStatus = number
-export type Enum_AuraFrameIconDirection = number
-export type Enum_AuraFrameIconWrap = number
-export type Enum_AuraFrameOrientation = number
-export type Enum_AuraFrameVisibleSetting = number
+declare extern type Enum_AccountStoreItemMode with
+	function __lt(self, other: Enum_AccountStoreItemMode): boolean
+	function __le(self, other: Enum_AccountStoreItemMode): boolean
+end
+declare extern type Enum_AccountStoreItemRewardType with
+	function __lt(self, other: Enum_AccountStoreItemRewardType): boolean
+	function __le(self, other: Enum_AccountStoreItemRewardType): boolean
+end
+declare extern type Enum_AccountStoreItemStatus with
+	function __lt(self, other: Enum_AccountStoreItemStatus): boolean
+	function __le(self, other: Enum_AccountStoreItemStatus): boolean
+end
+declare extern type Enum_AccountStoreSettlementAction with
+	function __lt(self, other: Enum_AccountStoreSettlementAction): boolean
+	function __le(self, other: Enum_AccountStoreSettlementAction): boolean
+end
+declare extern type Enum_AccountStoreState with
+	function __lt(self, other: Enum_AccountStoreState): boolean
+	function __le(self, other: Enum_AccountStoreState): boolean
+end
+declare extern type Enum_AccountStoreTransactionResult with
+	function __lt(self, other: Enum_AccountStoreTransactionResult): boolean
+	function __le(self, other: Enum_AccountStoreTransactionResult): boolean
+end
+declare extern type Enum_AccountStoreTransactionType with
+	function __lt(self, other: Enum_AccountStoreTransactionType): boolean
+	function __le(self, other: Enum_AccountStoreTransactionType): boolean
+end
+declare extern type Enum_AccountTransType with
+	function __lt(self, other: Enum_AccountTransType): boolean
+	function __le(self, other: Enum_AccountTransType): boolean
+end
+declare extern type Enum_ActionBarOrientation with
+	function __lt(self, other: Enum_ActionBarOrientation): boolean
+	function __le(self, other: Enum_ActionBarOrientation): boolean
+end
+declare extern type Enum_ActionBarSet with
+	function __lt(self, other: Enum_ActionBarSet): boolean
+	function __le(self, other: Enum_ActionBarSet): boolean
+end
+declare extern type Enum_ActionBarVisibleSetting with
+	function __lt(self, other: Enum_ActionBarVisibleSetting): boolean
+	function __le(self, other: Enum_ActionBarVisibleSetting): boolean
+end
+declare extern type Enum_AddOnEnableState with
+	function __lt(self, other: Enum_AddOnEnableState): boolean
+	function __le(self, other: Enum_AddOnEnableState): boolean
+end
+declare extern type Enum_AddOnPerformanceMessageType with
+	function __lt(self, other: Enum_AddOnPerformanceMessageType): boolean
+	function __le(self, other: Enum_AddOnPerformanceMessageType): boolean
+end
+declare extern type Enum_AddOnProfilerMetric with
+	function __lt(self, other: Enum_AddOnProfilerMetric): boolean
+	function __le(self, other: Enum_AddOnProfilerMetric): boolean
+end
+declare extern type Enum_AddOnRestrictionState with
+	function __lt(self, other: Enum_AddOnRestrictionState): boolean
+	function __le(self, other: Enum_AddOnRestrictionState): boolean
+end
+declare extern type Enum_AddOnRestrictionType with
+	function __lt(self, other: Enum_AddOnRestrictionType): boolean
+	function __le(self, other: Enum_AddOnRestrictionType): boolean
+end
+declare extern type Enum_AddOnSecurityStatus with
+	function __lt(self, other: Enum_AddOnSecurityStatus): boolean
+	function __le(self, other: Enum_AddOnSecurityStatus): boolean
+end
+declare extern type Enum_AddSoulbindConduitReason with
+	function __lt(self, other: Enum_AddSoulbindConduitReason): boolean
+	function __le(self, other: Enum_AddSoulbindConduitReason): boolean
+end
+declare extern type Enum_AnimaDiversionNodeState with
+	function __lt(self, other: Enum_AnimaDiversionNodeState): boolean
+	function __le(self, other: Enum_AnimaDiversionNodeState): boolean
+end
+declare extern type Enum_ArrowCalloutDirection with
+	function __lt(self, other: Enum_ArrowCalloutDirection): boolean
+	function __le(self, other: Enum_ArrowCalloutDirection): boolean
+end
+declare extern type Enum_ArrowCalloutType with
+	function __lt(self, other: Enum_ArrowCalloutType): boolean
+	function __le(self, other: Enum_ArrowCalloutType): boolean
+end
+declare extern type Enum_AssistActionType with
+	function __lt(self, other: Enum_AssistActionType): boolean
+	function __le(self, other: Enum_AssistActionType): boolean
+end
+declare extern type Enum_AuctionHouseCommoditySortOrder with
+	function __lt(self, other: Enum_AuctionHouseCommoditySortOrder): boolean
+	function __le(self, other: Enum_AuctionHouseCommoditySortOrder): boolean
+end
+declare extern type Enum_AuctionHouseError with
+	function __lt(self, other: Enum_AuctionHouseError): boolean
+	function __le(self, other: Enum_AuctionHouseError): boolean
+end
+declare extern type Enum_AuctionHouseExtraColumn with
+	function __lt(self, other: Enum_AuctionHouseExtraColumn): boolean
+	function __le(self, other: Enum_AuctionHouseExtraColumn): boolean
+end
+declare extern type Enum_AuctionHouseFilter with
+	function __lt(self, other: Enum_AuctionHouseFilter): boolean
+	function __le(self, other: Enum_AuctionHouseFilter): boolean
+end
+declare extern type Enum_AuctionHouseFilterCategory with
+	function __lt(self, other: Enum_AuctionHouseFilterCategory): boolean
+	function __le(self, other: Enum_AuctionHouseFilterCategory): boolean
+end
+declare extern type Enum_AuctionHouseItemSortOrder with
+	function __lt(self, other: Enum_AuctionHouseItemSortOrder): boolean
+	function __le(self, other: Enum_AuctionHouseItemSortOrder): boolean
+end
+declare extern type Enum_AuctionHouseNotification with
+	function __lt(self, other: Enum_AuctionHouseNotification): boolean
+	function __le(self, other: Enum_AuctionHouseNotification): boolean
+end
+declare extern type Enum_AuctionHouseSortOrder with
+	function __lt(self, other: Enum_AuctionHouseSortOrder): boolean
+	function __le(self, other: Enum_AuctionHouseSortOrder): boolean
+end
+declare extern type Enum_AuctionHouseTimeLeftBand with
+	function __lt(self, other: Enum_AuctionHouseTimeLeftBand): boolean
+	function __le(self, other: Enum_AuctionHouseTimeLeftBand): boolean
+end
+declare extern type Enum_AuctionStatus with
+	function __lt(self, other: Enum_AuctionStatus): boolean
+	function __le(self, other: Enum_AuctionStatus): boolean
+end
+declare extern type Enum_AuraFrameIconDirection with
+	function __lt(self, other: Enum_AuraFrameIconDirection): boolean
+	function __le(self, other: Enum_AuraFrameIconDirection): boolean
+end
+declare extern type Enum_AuraFrameIconWrap with
+	function __lt(self, other: Enum_AuraFrameIconWrap): boolean
+	function __le(self, other: Enum_AuraFrameIconWrap): boolean
+end
+declare extern type Enum_AuraFrameOrientation with
+	function __lt(self, other: Enum_AuraFrameOrientation): boolean
+	function __le(self, other: Enum_AuraFrameOrientation): boolean
+end
+declare extern type Enum_AuraFrameVisibleSetting with
+	function __lt(self, other: Enum_AuraFrameVisibleSetting): boolean
+	function __le(self, other: Enum_AuraFrameVisibleSetting): boolean
+end
 export type Enum_AutoCompleteEntryFlag = number
-export type Enum_AutoCompletePriority = number
-export type Enum_AvgItemLevelCategories = number
-export type Enum_AzeriteEssenceSlot = number
-export type Enum_AzeritePowerLevel = number
+declare extern type Enum_AutoCompletePriority with
+	function __lt(self, other: Enum_AutoCompletePriority): boolean
+	function __le(self, other: Enum_AutoCompletePriority): boolean
+end
+declare extern type Enum_AvgItemLevelCategories with
+	function __lt(self, other: Enum_AvgItemLevelCategories): boolean
+	function __le(self, other: Enum_AvgItemLevelCategories): boolean
+end
+declare extern type Enum_AzeriteEssenceSlot with
+	function __lt(self, other: Enum_AzeriteEssenceSlot): boolean
+	function __le(self, other: Enum_AzeriteEssenceSlot): boolean
+end
+declare extern type Enum_AzeritePowerLevel with
+	function __lt(self, other: Enum_AzeritePowerLevel): boolean
+	function __le(self, other: Enum_AzeritePowerLevel): boolean
+end
 export type Enum_BagFlag = number
 export type Enum_BagIndex = number
 export type Enum_BagSlotFlags = number
-export type Enum_BagsDirection = number
-export type Enum_BagsOrientation = number
-export type Enum_BalanceType = number
-export type Enum_BankLockedReason = number
+declare extern type Enum_BagsDirection with
+	function __lt(self, other: Enum_BagsDirection): boolean
+	function __le(self, other: Enum_BagsDirection): boolean
+end
+declare extern type Enum_BagsOrientation with
+	function __lt(self, other: Enum_BagsOrientation): boolean
+	function __le(self, other: Enum_BagsOrientation): boolean
+end
+declare extern type Enum_BalanceType with
+	function __lt(self, other: Enum_BalanceType): boolean
+	function __le(self, other: Enum_BalanceType): boolean
+end
+declare extern type Enum_BankLockedReason with
+	function __lt(self, other: Enum_BankLockedReason): boolean
+	function __le(self, other: Enum_BankLockedReason): boolean
+end
 export type Enum_BankTabFlags = number
-export type Enum_BankType = number
-export type Enum_Base64Variant = number
-export type Enum_BattleNetFriendLevel = number
-export type Enum_BattleNetFriendTag = number
-export type Enum_BattlePetAction = number
-export type Enum_BattlePetBreedQuality = number
-export type Enum_BattlePetOwner = number
-export type Enum_BattlePetSources = number
+declare extern type Enum_BankType with
+	function __lt(self, other: Enum_BankType): boolean
+	function __le(self, other: Enum_BankType): boolean
+end
+declare extern type Enum_Base64Variant with
+	function __lt(self, other: Enum_Base64Variant): boolean
+	function __le(self, other: Enum_Base64Variant): boolean
+end
+declare extern type Enum_BattleNetFriendLevel with
+	function __lt(self, other: Enum_BattleNetFriendLevel): boolean
+	function __le(self, other: Enum_BattleNetFriendLevel): boolean
+end
+declare extern type Enum_BattleNetFriendTag with
+	function __lt(self, other: Enum_BattleNetFriendTag): boolean
+	function __le(self, other: Enum_BattleNetFriendTag): boolean
+end
+declare extern type Enum_BattlePetAction with
+	function __lt(self, other: Enum_BattlePetAction): boolean
+	function __le(self, other: Enum_BattlePetAction): boolean
+end
+declare extern type Enum_BattlePetBreedQuality with
+	function __lt(self, other: Enum_BattlePetBreedQuality): boolean
+	function __le(self, other: Enum_BattlePetBreedQuality): boolean
+end
+declare extern type Enum_BattlePetOwner with
+	function __lt(self, other: Enum_BattlePetOwner): boolean
+	function __le(self, other: Enum_BattlePetOwner): boolean
+end
+declare extern type Enum_BattlePetSources with
+	function __lt(self, other: Enum_BattlePetSources): boolean
+	function __le(self, other: Enum_BattlePetSources): boolean
+end
 export type Enum_BattlepayLicenseSynthesisFlags = number
-export type Enum_BattlepayProductChoiceType = number
-export type Enum_BattlepayShopEntryBannerType = number
+declare extern type Enum_BattlepayProductChoiceType with
+	function __lt(self, other: Enum_BattlepayProductChoiceType): boolean
+	function __le(self, other: Enum_BattlepayProductChoiceType): boolean
+end
+declare extern type Enum_BattlepayShopEntryBannerType with
+	function __lt(self, other: Enum_BattlepayShopEntryBannerType): boolean
+	function __le(self, other: Enum_BattlepayShopEntryBannerType): boolean
+end
 export type Enum_BattlepayShopEntryFlags = number
-export type Enum_Bc26Experience = number
-export type Enum_BindingContext = number
-export type Enum_BindingSet = number
+declare extern type Enum_Bc26Experience with
+	function __lt(self, other: Enum_Bc26Experience): boolean
+	function __le(self, other: Enum_Bc26Experience): boolean
+end
+declare extern type Enum_BindingContext with
+	function __lt(self, other: Enum_BindingContext): boolean
+	function __le(self, other: Enum_BindingContext): boolean
+end
+declare extern type Enum_BindingSet with
+	function __lt(self, other: Enum_BindingSet): boolean
+	function __le(self, other: Enum_BindingSet): boolean
+end
 export type Enum_BnetAccountFlag = number
-export type Enum_BonusStatIndex = number
-export type Enum_BrawlType = number
-export type Enum_BreakType = number
-export type Enum_BulkPurchaseResult = number
-export type Enum_BulkPurchaseStatus = number
-export type Enum_BulkRefundResult = number
-export type Enum_CDMLayoutMode = number
-export type Enum_CachedRewardType = number
-export type Enum_CalendarCommandType = number
-export type Enum_CalendarErrorType = number
+declare extern type Enum_BonusStatIndex with
+	function __lt(self, other: Enum_BonusStatIndex): boolean
+	function __le(self, other: Enum_BonusStatIndex): boolean
+end
+declare extern type Enum_BrawlType with
+	function __lt(self, other: Enum_BrawlType): boolean
+	function __le(self, other: Enum_BrawlType): boolean
+end
+declare extern type Enum_BreakType with
+	function __lt(self, other: Enum_BreakType): boolean
+	function __le(self, other: Enum_BreakType): boolean
+end
+declare extern type Enum_BulkPurchaseResult with
+	function __lt(self, other: Enum_BulkPurchaseResult): boolean
+	function __le(self, other: Enum_BulkPurchaseResult): boolean
+end
+declare extern type Enum_BulkPurchaseStatus with
+	function __lt(self, other: Enum_BulkPurchaseStatus): boolean
+	function __le(self, other: Enum_BulkPurchaseStatus): boolean
+end
+declare extern type Enum_BulkRefundResult with
+	function __lt(self, other: Enum_BulkRefundResult): boolean
+	function __le(self, other: Enum_BulkRefundResult): boolean
+end
+declare extern type Enum_CDMLayoutMode with
+	function __lt(self, other: Enum_CDMLayoutMode): boolean
+	function __le(self, other: Enum_CDMLayoutMode): boolean
+end
+declare extern type Enum_CachedRewardType with
+	function __lt(self, other: Enum_CachedRewardType): boolean
+	function __le(self, other: Enum_CachedRewardType): boolean
+end
+declare extern type Enum_CalendarCommandType with
+	function __lt(self, other: Enum_CalendarCommandType): boolean
+	function __le(self, other: Enum_CalendarCommandType): boolean
+end
+declare extern type Enum_CalendarErrorType with
+	function __lt(self, other: Enum_CalendarErrorType): boolean
+	function __le(self, other: Enum_CalendarErrorType): boolean
+end
 export type Enum_CalendarEventBits = number
-export type Enum_CalendarEventRepeatOptions = number
-export type Enum_CalendarEventType = number
+declare extern type Enum_CalendarEventRepeatOptions with
+	function __lt(self, other: Enum_CalendarEventRepeatOptions): boolean
+	function __le(self, other: Enum_CalendarEventRepeatOptions): boolean
+end
+declare extern type Enum_CalendarEventType with
+	function __lt(self, other: Enum_CalendarEventType): boolean
+	function __le(self, other: Enum_CalendarEventType): boolean
+end
 export type Enum_CalendarFilterFlags = number
-export type Enum_CalendarGetEventType = number
-export type Enum_CalendarHolidayFilterType = number
+declare extern type Enum_CalendarGetEventType with
+	function __lt(self, other: Enum_CalendarGetEventType): boolean
+	function __le(self, other: Enum_CalendarGetEventType): boolean
+end
+declare extern type Enum_CalendarHolidayFilterType with
+	function __lt(self, other: Enum_CalendarHolidayFilterType): boolean
+	function __le(self, other: Enum_CalendarHolidayFilterType): boolean
+end
 export type Enum_CalendarInviteBits = number
-export type Enum_CalendarInviteSortType = number
-export type Enum_CalendarInviteType = number
-export type Enum_CalendarModeratorStatus = number
-export type Enum_CalendarStatus = number
-export type Enum_CalendarTexturesType = number
-export type Enum_CalendarType = number
-export type Enum_CalendarWebActionType = number
-export type Enum_CallingStates = number
-export type Enum_CameraModeAspectRatio = number
-export type Enum_CampaignState = number
-export type Enum_CanRedeemTokenForBalanceResult = number
-export type Enum_CaptureBarWidgetFillDirectionType = number
-export type Enum_Causeofdeath = number
+declare extern type Enum_CalendarInviteSortType with
+	function __lt(self, other: Enum_CalendarInviteSortType): boolean
+	function __le(self, other: Enum_CalendarInviteSortType): boolean
+end
+declare extern type Enum_CalendarInviteType with
+	function __lt(self, other: Enum_CalendarInviteType): boolean
+	function __le(self, other: Enum_CalendarInviteType): boolean
+end
+declare extern type Enum_CalendarModeratorStatus with
+	function __lt(self, other: Enum_CalendarModeratorStatus): boolean
+	function __le(self, other: Enum_CalendarModeratorStatus): boolean
+end
+declare extern type Enum_CalendarStatus with
+	function __lt(self, other: Enum_CalendarStatus): boolean
+	function __le(self, other: Enum_CalendarStatus): boolean
+end
+declare extern type Enum_CalendarTexturesType with
+	function __lt(self, other: Enum_CalendarTexturesType): boolean
+	function __le(self, other: Enum_CalendarTexturesType): boolean
+end
+declare extern type Enum_CalendarType with
+	function __lt(self, other: Enum_CalendarType): boolean
+	function __le(self, other: Enum_CalendarType): boolean
+end
+declare extern type Enum_CalendarWebActionType with
+	function __lt(self, other: Enum_CalendarWebActionType): boolean
+	function __le(self, other: Enum_CalendarWebActionType): boolean
+end
+declare extern type Enum_CallingStates with
+	function __lt(self, other: Enum_CallingStates): boolean
+	function __le(self, other: Enum_CallingStates): boolean
+end
+declare extern type Enum_CameraModeAspectRatio with
+	function __lt(self, other: Enum_CameraModeAspectRatio): boolean
+	function __le(self, other: Enum_CameraModeAspectRatio): boolean
+end
+declare extern type Enum_CampaignState with
+	function __lt(self, other: Enum_CampaignState): boolean
+	function __le(self, other: Enum_CampaignState): boolean
+end
+declare extern type Enum_CanRedeemTokenForBalanceResult with
+	function __lt(self, other: Enum_CanRedeemTokenForBalanceResult): boolean
+	function __le(self, other: Enum_CanRedeemTokenForBalanceResult): boolean
+end
+declare extern type Enum_CaptureBarWidgetFillDirectionType with
+	function __lt(self, other: Enum_CaptureBarWidgetFillDirectionType): boolean
+	function __le(self, other: Enum_CaptureBarWidgetFillDirectionType): boolean
+end
+declare extern type Enum_Causeofdeath with
+	function __lt(self, other: Enum_Causeofdeath): boolean
+	function __le(self, other: Enum_Causeofdeath): boolean
+end
 export type Enum_CauseofdeathFlags = number
 export type Enum_ChallengeModeHistoryFlags = number
-export type Enum_ChallengeModeHistoryResult = number
-export type Enum_ChallengeModeHistoryStatus = number
+declare extern type Enum_ChallengeModeHistoryResult with
+	function __lt(self, other: Enum_ChallengeModeHistoryResult): boolean
+	function __le(self, other: Enum_ChallengeModeHistoryResult): boolean
+end
+declare extern type Enum_ChallengeModeHistoryStatus with
+	function __lt(self, other: Enum_ChallengeModeHistoryStatus): boolean
+	function __le(self, other: Enum_ChallengeModeHistoryStatus): boolean
+end
 export type Enum_ChannelPlayerFlags = number
-export type Enum_CharCustomizationType = number
+declare extern type Enum_CharCustomizationType with
+	function __lt(self, other: Enum_CharCustomizationType): boolean
+	function __le(self, other: Enum_CharCustomizationType): boolean
+end
 export type Enum_CharacterServiceInfoFlag = number
-export type Enum_ChatChannelRuleset = number
-export type Enum_ChatChannelType = number
-export type Enum_ChatToxityFilterOptOut = number
-export type Enum_ChatWhisperTargetStatus = number
+declare extern type Enum_ChatChannelRuleset with
+	function __lt(self, other: Enum_ChatChannelRuleset): boolean
+	function __le(self, other: Enum_ChatChannelRuleset): boolean
+end
+declare extern type Enum_ChatChannelType with
+	function __lt(self, other: Enum_ChatChannelType): boolean
+	function __le(self, other: Enum_ChatChannelType): boolean
+end
+declare extern type Enum_ChatToxityFilterOptOut with
+	function __lt(self, other: Enum_ChatToxityFilterOptOut): boolean
+	function __le(self, other: Enum_ChatToxityFilterOptOut): boolean
+end
+declare extern type Enum_ChatWhisperTargetStatus with
+	function __lt(self, other: Enum_ChatWhisperTargetStatus): boolean
+	function __le(self, other: Enum_ChatWhisperTargetStatus): boolean
+end
 export type Enum_ChrCustomizationCategoryFlag = number
-export type Enum_ChrCustomizationOptionType = number
+declare extern type Enum_ChrCustomizationOptionType with
+	function __lt(self, other: Enum_ChrCustomizationOptionType): boolean
+	function __le(self, other: Enum_ChrCustomizationOptionType): boolean
+end
 export type Enum_ChrModelFeatureFlags = number
-export type Enum_ChrRacesAllianceType = number
+declare extern type Enum_ChrRacesAllianceType with
+	function __lt(self, other: Enum_ChrRacesAllianceType): boolean
+	function __le(self, other: Enum_ChrRacesAllianceType): boolean
+end
 export type Enum_ChrSpecializationFlags = number
-export type Enum_CinematicType = number
-export type Enum_ClickBindingInteraction = number
-export type Enum_ClickBindingType = number
-export type Enum_ClientDebugAISpellReadyStatus = number
-export type Enum_ClientPlatformType = number
-export type Enum_ClientSceneType = number
+declare extern type Enum_CinematicType with
+	function __lt(self, other: Enum_CinematicType): boolean
+	function __le(self, other: Enum_CinematicType): boolean
+end
+declare extern type Enum_ClickBindingInteraction with
+	function __lt(self, other: Enum_ClickBindingInteraction): boolean
+	function __le(self, other: Enum_ClickBindingInteraction): boolean
+end
+declare extern type Enum_ClickBindingType with
+	function __lt(self, other: Enum_ClickBindingType): boolean
+	function __le(self, other: Enum_ClickBindingType): boolean
+end
+declare extern type Enum_ClientDebugAISpellReadyStatus with
+	function __lt(self, other: Enum_ClientDebugAISpellReadyStatus): boolean
+	function __le(self, other: Enum_ClientDebugAISpellReadyStatus): boolean
+end
+declare extern type Enum_ClientPlatformType with
+	function __lt(self, other: Enum_ClientPlatformType): boolean
+	function __le(self, other: Enum_ClientPlatformType): boolean
+end
+declare extern type Enum_ClientSceneType with
+	function __lt(self, other: Enum_ClientSceneType): boolean
+	function __le(self, other: Enum_ClientSceneType): boolean
+end
 export type Enum_ClientSettingsConfigFlag = number
-export type Enum_ClubActionType = number
-export type Enum_ClubErrorType = number
-export type Enum_ClubFieldType = number
-export type Enum_ClubFinderApplicationUpdateType = number
+declare extern type Enum_ClubActionType with
+	function __lt(self, other: Enum_ClubActionType): boolean
+	function __le(self, other: Enum_ClubActionType): boolean
+end
+declare extern type Enum_ClubErrorType with
+	function __lt(self, other: Enum_ClubErrorType): boolean
+	function __le(self, other: Enum_ClubErrorType): boolean
+end
+declare extern type Enum_ClubFieldType with
+	function __lt(self, other: Enum_ClubFieldType): boolean
+	function __le(self, other: Enum_ClubFieldType): boolean
+end
+declare extern type Enum_ClubFinderApplicationUpdateType with
+	function __lt(self, other: Enum_ClubFinderApplicationUpdateType): boolean
+	function __le(self, other: Enum_ClubFinderApplicationUpdateType): boolean
+end
 export type Enum_ClubFinderClubPostingStatusFlags = number
-export type Enum_ClubFinderDisableReason = number
-export type Enum_ClubFinderPostingReportType = number
-export type Enum_ClubFinderRequestType = number
+declare extern type Enum_ClubFinderDisableReason with
+	function __lt(self, other: Enum_ClubFinderDisableReason): boolean
+	function __le(self, other: Enum_ClubFinderDisableReason): boolean
+end
+declare extern type Enum_ClubFinderPostingReportType with
+	function __lt(self, other: Enum_ClubFinderPostingReportType): boolean
+	function __le(self, other: Enum_ClubFinderPostingReportType): boolean
+end
+declare extern type Enum_ClubFinderRequestType with
+	function __lt(self, other: Enum_ClubFinderRequestType): boolean
+	function __le(self, other: Enum_ClubFinderRequestType): boolean
+end
 export type Enum_ClubFinderSettingFlags = number
-export type Enum_ClubInvitationCandidateStatus = number
-export type Enum_ClubMemberPresence = number
-export type Enum_ClubRemovedReason = number
-export type Enum_ClubRestrictionReason = number
-export type Enum_ClubRoleIdentifier = number
-export type Enum_ClubStreamNotificationFilter = number
-export type Enum_ClubStreamType = number
-export type Enum_ClubType = number
-export type Enum_CollationStrength = number
-export type Enum_ColorOverride = number
-export type Enum_CombatAudioAlertCastState = number
-export type Enum_CombatAudioAlertCategory = number
-export type Enum_CombatAudioAlertDebuffSelfAlertValues = number
-export type Enum_CombatAudioAlertPartyPercentValues = number
-export type Enum_CombatAudioAlertPercentValues = number
-export type Enum_CombatAudioAlertPlayerCastFormatValues = number
-export type Enum_CombatAudioAlertPlayerDebuffFormatValues = number
-export type Enum_CombatAudioAlertPlayerHealthFormatValues = number
-export type Enum_CombatAudioAlertPlayerResourceFormatValues = number
-export type Enum_CombatAudioAlertPulsePercentValues = number
-export type Enum_CombatAudioAlertSayIfTargetedType = number
-export type Enum_CombatAudioAlertSpecSetting = number
-export type Enum_CombatAudioAlertTargetCastFormatValues = number
-export type Enum_CombatAudioAlertTargetDeathBehavior = number
-export type Enum_CombatAudioAlertTargetHealthFormatValues = number
-export type Enum_CombatAudioAlertThrottle = number
-export type Enum_CombatAudioAlertType = number
-export type Enum_CombatAudioAlertUnit = number
-export type Enum_CombatLogMessageOrder = number
+declare extern type Enum_ClubInvitationCandidateStatus with
+	function __lt(self, other: Enum_ClubInvitationCandidateStatus): boolean
+	function __le(self, other: Enum_ClubInvitationCandidateStatus): boolean
+end
+declare extern type Enum_ClubMemberPresence with
+	function __lt(self, other: Enum_ClubMemberPresence): boolean
+	function __le(self, other: Enum_ClubMemberPresence): boolean
+end
+declare extern type Enum_ClubRemovedReason with
+	function __lt(self, other: Enum_ClubRemovedReason): boolean
+	function __le(self, other: Enum_ClubRemovedReason): boolean
+end
+declare extern type Enum_ClubRestrictionReason with
+	function __lt(self, other: Enum_ClubRestrictionReason): boolean
+	function __le(self, other: Enum_ClubRestrictionReason): boolean
+end
+declare extern type Enum_ClubRoleIdentifier with
+	function __lt(self, other: Enum_ClubRoleIdentifier): boolean
+	function __le(self, other: Enum_ClubRoleIdentifier): boolean
+end
+declare extern type Enum_ClubStreamNotificationFilter with
+	function __lt(self, other: Enum_ClubStreamNotificationFilter): boolean
+	function __le(self, other: Enum_ClubStreamNotificationFilter): boolean
+end
+declare extern type Enum_ClubStreamType with
+	function __lt(self, other: Enum_ClubStreamType): boolean
+	function __le(self, other: Enum_ClubStreamType): boolean
+end
+declare extern type Enum_ClubType with
+	function __lt(self, other: Enum_ClubType): boolean
+	function __le(self, other: Enum_ClubType): boolean
+end
+declare extern type Enum_CollationStrength with
+	function __lt(self, other: Enum_CollationStrength): boolean
+	function __le(self, other: Enum_CollationStrength): boolean
+end
+declare extern type Enum_ColorOverride with
+	function __lt(self, other: Enum_ColorOverride): boolean
+	function __le(self, other: Enum_ColorOverride): boolean
+end
+declare extern type Enum_CombatAudioAlertCastState with
+	function __lt(self, other: Enum_CombatAudioAlertCastState): boolean
+	function __le(self, other: Enum_CombatAudioAlertCastState): boolean
+end
+declare extern type Enum_CombatAudioAlertCategory with
+	function __lt(self, other: Enum_CombatAudioAlertCategory): boolean
+	function __le(self, other: Enum_CombatAudioAlertCategory): boolean
+end
+declare extern type Enum_CombatAudioAlertDebuffSelfAlertValues with
+	function __lt(self, other: Enum_CombatAudioAlertDebuffSelfAlertValues): boolean
+	function __le(self, other: Enum_CombatAudioAlertDebuffSelfAlertValues): boolean
+end
+declare extern type Enum_CombatAudioAlertPartyPercentValues with
+	function __lt(self, other: Enum_CombatAudioAlertPartyPercentValues): boolean
+	function __le(self, other: Enum_CombatAudioAlertPartyPercentValues): boolean
+end
+declare extern type Enum_CombatAudioAlertPercentValues with
+	function __lt(self, other: Enum_CombatAudioAlertPercentValues): boolean
+	function __le(self, other: Enum_CombatAudioAlertPercentValues): boolean
+end
+declare extern type Enum_CombatAudioAlertPlayerCastFormatValues with
+	function __lt(self, other: Enum_CombatAudioAlertPlayerCastFormatValues): boolean
+	function __le(self, other: Enum_CombatAudioAlertPlayerCastFormatValues): boolean
+end
+declare extern type Enum_CombatAudioAlertPlayerDebuffFormatValues with
+	function __lt(self, other: Enum_CombatAudioAlertPlayerDebuffFormatValues): boolean
+	function __le(self, other: Enum_CombatAudioAlertPlayerDebuffFormatValues): boolean
+end
+declare extern type Enum_CombatAudioAlertPlayerHealthFormatValues with
+	function __lt(self, other: Enum_CombatAudioAlertPlayerHealthFormatValues): boolean
+	function __le(self, other: Enum_CombatAudioAlertPlayerHealthFormatValues): boolean
+end
+declare extern type Enum_CombatAudioAlertPlayerResourceFormatValues with
+	function __lt(self, other: Enum_CombatAudioAlertPlayerResourceFormatValues): boolean
+	function __le(self, other: Enum_CombatAudioAlertPlayerResourceFormatValues): boolean
+end
+declare extern type Enum_CombatAudioAlertPulsePercentValues with
+	function __lt(self, other: Enum_CombatAudioAlertPulsePercentValues): boolean
+	function __le(self, other: Enum_CombatAudioAlertPulsePercentValues): boolean
+end
+declare extern type Enum_CombatAudioAlertSayIfTargetedType with
+	function __lt(self, other: Enum_CombatAudioAlertSayIfTargetedType): boolean
+	function __le(self, other: Enum_CombatAudioAlertSayIfTargetedType): boolean
+end
+declare extern type Enum_CombatAudioAlertSpecSetting with
+	function __lt(self, other: Enum_CombatAudioAlertSpecSetting): boolean
+	function __le(self, other: Enum_CombatAudioAlertSpecSetting): boolean
+end
+declare extern type Enum_CombatAudioAlertTargetCastFormatValues with
+	function __lt(self, other: Enum_CombatAudioAlertTargetCastFormatValues): boolean
+	function __le(self, other: Enum_CombatAudioAlertTargetCastFormatValues): boolean
+end
+declare extern type Enum_CombatAudioAlertTargetDeathBehavior with
+	function __lt(self, other: Enum_CombatAudioAlertTargetDeathBehavior): boolean
+	function __le(self, other: Enum_CombatAudioAlertTargetDeathBehavior): boolean
+end
+declare extern type Enum_CombatAudioAlertTargetHealthFormatValues with
+	function __lt(self, other: Enum_CombatAudioAlertTargetHealthFormatValues): boolean
+	function __le(self, other: Enum_CombatAudioAlertTargetHealthFormatValues): boolean
+end
+declare extern type Enum_CombatAudioAlertThrottle with
+	function __lt(self, other: Enum_CombatAudioAlertThrottle): boolean
+	function __le(self, other: Enum_CombatAudioAlertThrottle): boolean
+end
+declare extern type Enum_CombatAudioAlertType with
+	function __lt(self, other: Enum_CombatAudioAlertType): boolean
+	function __le(self, other: Enum_CombatAudioAlertType): boolean
+end
+declare extern type Enum_CombatAudioAlertUnit with
+	function __lt(self, other: Enum_CombatAudioAlertUnit): boolean
+	function __le(self, other: Enum_CombatAudioAlertUnit): boolean
+end
+declare extern type Enum_CombatLogMessageOrder with
+	function __lt(self, other: Enum_CombatLogMessageOrder): boolean
+	function __le(self, other: Enum_CombatLogMessageOrder): boolean
+end
 export type Enum_CombatLogObject = number
 export type Enum_CombatLogObjectTarget = number
-export type Enum_CombinedQuestLogStatus = number
-export type Enum_CombinedQuestStatus = number
-export type Enum_CommunicationMode = number
-export type Enum_CompanionConfigSlotTypes = number
-export type Enum_CompanionRoleType = number
-export type Enum_CompressionLevel = number
-export type Enum_CompressionMethod = number
-export type Enum_ConfirmationPromptUIType = number
-export type Enum_ConquestProgressBarDisplayType = number
-export type Enum_ConsoleCategory = number
-export type Enum_ConsoleColorType = number
-export type Enum_ConsoleCommandType = number
-export type Enum_ContentTrackingError = number
-export type Enum_ContentTrackingResult = number
-export type Enum_ContentTrackingStopType = number
-export type Enum_ContentTrackingTargetType = number
-export type Enum_ContentTrackingType = number
+declare extern type Enum_CombinedQuestLogStatus with
+	function __lt(self, other: Enum_CombinedQuestLogStatus): boolean
+	function __le(self, other: Enum_CombinedQuestLogStatus): boolean
+end
+declare extern type Enum_CombinedQuestStatus with
+	function __lt(self, other: Enum_CombinedQuestStatus): boolean
+	function __le(self, other: Enum_CombinedQuestStatus): boolean
+end
+declare extern type Enum_CommunicationMode with
+	function __lt(self, other: Enum_CommunicationMode): boolean
+	function __le(self, other: Enum_CommunicationMode): boolean
+end
+declare extern type Enum_CompanionConfigSlotTypes with
+	function __lt(self, other: Enum_CompanionConfigSlotTypes): boolean
+	function __le(self, other: Enum_CompanionConfigSlotTypes): boolean
+end
+declare extern type Enum_CompanionRoleType with
+	function __lt(self, other: Enum_CompanionRoleType): boolean
+	function __le(self, other: Enum_CompanionRoleType): boolean
+end
+declare extern type Enum_CompressionLevel with
+	function __lt(self, other: Enum_CompressionLevel): boolean
+	function __le(self, other: Enum_CompressionLevel): boolean
+end
+declare extern type Enum_CompressionMethod with
+	function __lt(self, other: Enum_CompressionMethod): boolean
+	function __le(self, other: Enum_CompressionMethod): boolean
+end
+declare extern type Enum_ConfirmationPromptUIType with
+	function __lt(self, other: Enum_ConfirmationPromptUIType): boolean
+	function __le(self, other: Enum_ConfirmationPromptUIType): boolean
+end
+declare extern type Enum_ConquestProgressBarDisplayType with
+	function __lt(self, other: Enum_ConquestProgressBarDisplayType): boolean
+	function __le(self, other: Enum_ConquestProgressBarDisplayType): boolean
+end
+declare extern type Enum_ConsoleCategory with
+	function __lt(self, other: Enum_ConsoleCategory): boolean
+	function __le(self, other: Enum_ConsoleCategory): boolean
+end
+declare extern type Enum_ConsoleColorType with
+	function __lt(self, other: Enum_ConsoleColorType): boolean
+	function __le(self, other: Enum_ConsoleColorType): boolean
+end
+declare extern type Enum_ConsoleCommandType with
+	function __lt(self, other: Enum_ConsoleCommandType): boolean
+	function __le(self, other: Enum_ConsoleCommandType): boolean
+end
+declare extern type Enum_ContentTrackingError with
+	function __lt(self, other: Enum_ContentTrackingError): boolean
+	function __le(self, other: Enum_ContentTrackingError): boolean
+end
+declare extern type Enum_ContentTrackingResult with
+	function __lt(self, other: Enum_ContentTrackingResult): boolean
+	function __le(self, other: Enum_ContentTrackingResult): boolean
+end
+declare extern type Enum_ContentTrackingStopType with
+	function __lt(self, other: Enum_ContentTrackingStopType): boolean
+	function __le(self, other: Enum_ContentTrackingStopType): boolean
+end
+declare extern type Enum_ContentTrackingTargetType with
+	function __lt(self, other: Enum_ContentTrackingTargetType): boolean
+	function __le(self, other: Enum_ContentTrackingTargetType): boolean
+end
+declare extern type Enum_ContentTrackingType with
+	function __lt(self, other: Enum_ContentTrackingType): boolean
+	function __le(self, other: Enum_ContentTrackingType): boolean
+end
 export type Enum_ContributionAppearanceFlags = number
-export type Enum_ContributionResult = number
-export type Enum_ContributionState = number
-export type Enum_CooldownLayoutAction = number
-export type Enum_CooldownLayoutStatus = number
-export type Enum_CooldownLayoutType = number
+declare extern type Enum_ContributionResult with
+	function __lt(self, other: Enum_ContributionResult): boolean
+	function __le(self, other: Enum_ContributionResult): boolean
+end
+declare extern type Enum_ContributionState with
+	function __lt(self, other: Enum_ContributionState): boolean
+	function __le(self, other: Enum_ContributionState): boolean
+end
+declare extern type Enum_CooldownLayoutAction with
+	function __lt(self, other: Enum_CooldownLayoutAction): boolean
+	function __le(self, other: Enum_CooldownLayoutAction): boolean
+end
+declare extern type Enum_CooldownLayoutStatus with
+	function __lt(self, other: Enum_CooldownLayoutStatus): boolean
+	function __le(self, other: Enum_CooldownLayoutStatus): boolean
+end
+declare extern type Enum_CooldownLayoutType with
+	function __lt(self, other: Enum_CooldownLayoutType): boolean
+	function __le(self, other: Enum_CooldownLayoutType): boolean
+end
 export type Enum_CooldownSetLinkedSpellFlags = number
 export type Enum_CooldownSetSpellFlags = number
-export type Enum_CooldownViewerAddAlertStatus = number
-export type Enum_CooldownViewerAlertEventType = number
-export type Enum_CooldownViewerAlertType = number
-export type Enum_CooldownViewerBarContent = number
-export type Enum_CooldownViewerCategory = number
-export type Enum_CooldownViewerIconDirection = number
-export type Enum_CooldownViewerOrientation = number
-export type Enum_CooldownViewerSound = number
-export type Enum_CooldownViewerSoundCategory = number
-export type Enum_CooldownViewerVisibleSetting = number
-export type Enum_CornerstonePurchaseMode = number
-export type Enum_CovenantAbilityType = number
-export type Enum_CovenantSkill = number
-export type Enum_CovenantType = number
-export type Enum_CraftingOrderCustomerCategoryType = number
-export type Enum_CraftingOrderDuration = number
+declare extern type Enum_CooldownViewerAddAlertStatus with
+	function __lt(self, other: Enum_CooldownViewerAddAlertStatus): boolean
+	function __le(self, other: Enum_CooldownViewerAddAlertStatus): boolean
+end
+declare extern type Enum_CooldownViewerAlertEventType with
+	function __lt(self, other: Enum_CooldownViewerAlertEventType): boolean
+	function __le(self, other: Enum_CooldownViewerAlertEventType): boolean
+end
+declare extern type Enum_CooldownViewerAlertType with
+	function __lt(self, other: Enum_CooldownViewerAlertType): boolean
+	function __le(self, other: Enum_CooldownViewerAlertType): boolean
+end
+declare extern type Enum_CooldownViewerBarContent with
+	function __lt(self, other: Enum_CooldownViewerBarContent): boolean
+	function __le(self, other: Enum_CooldownViewerBarContent): boolean
+end
+declare extern type Enum_CooldownViewerCategory with
+	function __lt(self, other: Enum_CooldownViewerCategory): boolean
+	function __le(self, other: Enum_CooldownViewerCategory): boolean
+end
+declare extern type Enum_CooldownViewerIconDirection with
+	function __lt(self, other: Enum_CooldownViewerIconDirection): boolean
+	function __le(self, other: Enum_CooldownViewerIconDirection): boolean
+end
+declare extern type Enum_CooldownViewerOrientation with
+	function __lt(self, other: Enum_CooldownViewerOrientation): boolean
+	function __le(self, other: Enum_CooldownViewerOrientation): boolean
+end
+declare extern type Enum_CooldownViewerSound with
+	function __lt(self, other: Enum_CooldownViewerSound): boolean
+	function __le(self, other: Enum_CooldownViewerSound): boolean
+end
+declare extern type Enum_CooldownViewerSoundCategory with
+	function __lt(self, other: Enum_CooldownViewerSoundCategory): boolean
+	function __le(self, other: Enum_CooldownViewerSoundCategory): boolean
+end
+declare extern type Enum_CooldownViewerVisibleSetting with
+	function __lt(self, other: Enum_CooldownViewerVisibleSetting): boolean
+	function __le(self, other: Enum_CooldownViewerVisibleSetting): boolean
+end
+declare extern type Enum_CornerstonePurchaseMode with
+	function __lt(self, other: Enum_CornerstonePurchaseMode): boolean
+	function __le(self, other: Enum_CornerstonePurchaseMode): boolean
+end
+declare extern type Enum_CovenantAbilityType with
+	function __lt(self, other: Enum_CovenantAbilityType): boolean
+	function __le(self, other: Enum_CovenantAbilityType): boolean
+end
+declare extern type Enum_CovenantSkill with
+	function __lt(self, other: Enum_CovenantSkill): boolean
+	function __le(self, other: Enum_CovenantSkill): boolean
+end
+declare extern type Enum_CovenantType with
+	function __lt(self, other: Enum_CovenantType): boolean
+	function __le(self, other: Enum_CovenantType): boolean
+end
+declare extern type Enum_CraftingOrderCustomerCategoryType with
+	function __lt(self, other: Enum_CraftingOrderCustomerCategoryType): boolean
+	function __le(self, other: Enum_CraftingOrderCustomerCategoryType): boolean
+end
+declare extern type Enum_CraftingOrderDuration with
+	function __lt(self, other: Enum_CraftingOrderDuration): boolean
+	function __le(self, other: Enum_CraftingOrderDuration): boolean
+end
 export type Enum_CraftingOrderFlags = number
 export type Enum_CraftingOrderItemFlags = number
-export type Enum_CraftingOrderItemType = number
-export type Enum_CraftingOrderReagentSource = number
-export type Enum_CraftingOrderReagentsType = number
-export type Enum_CraftingOrderResult = number
-export type Enum_CraftingOrderSortType = number
-export type Enum_CraftingOrderState = number
-export type Enum_CraftingOrderType = number
+declare extern type Enum_CraftingOrderItemType with
+	function __lt(self, other: Enum_CraftingOrderItemType): boolean
+	function __le(self, other: Enum_CraftingOrderItemType): boolean
+end
+declare extern type Enum_CraftingOrderReagentSource with
+	function __lt(self, other: Enum_CraftingOrderReagentSource): boolean
+	function __le(self, other: Enum_CraftingOrderReagentSource): boolean
+end
+declare extern type Enum_CraftingOrderReagentsType with
+	function __lt(self, other: Enum_CraftingOrderReagentsType): boolean
+	function __le(self, other: Enum_CraftingOrderReagentsType): boolean
+end
+declare extern type Enum_CraftingOrderResult with
+	function __lt(self, other: Enum_CraftingOrderResult): boolean
+	function __le(self, other: Enum_CraftingOrderResult): boolean
+end
+declare extern type Enum_CraftingOrderSortType with
+	function __lt(self, other: Enum_CraftingOrderSortType): boolean
+	function __le(self, other: Enum_CraftingOrderSortType): boolean
+end
+declare extern type Enum_CraftingOrderState with
+	function __lt(self, other: Enum_CraftingOrderState): boolean
+	function __le(self, other: Enum_CraftingOrderState): boolean
+end
+declare extern type Enum_CraftingOrderType with
+	function __lt(self, other: Enum_CraftingOrderType): boolean
+	function __le(self, other: Enum_CraftingOrderType): boolean
+end
 export type Enum_CraftingReagentItemFlag = number
-export type Enum_CraftingReagentType = number
-export type Enum_CreateAllAccountData = number
-export type Enum_CreateNeighborhoodErrorType = number
-export type Enum_CurioRarity = number
-export type Enum_CurioType = number
-export type Enum_CurrencyConversionResult = number
-export type Enum_CurrencyDestroyReason = number
-export type Enum_CurrencyFilterType = number
+declare extern type Enum_CraftingReagentType with
+	function __lt(self, other: Enum_CraftingReagentType): boolean
+	function __le(self, other: Enum_CraftingReagentType): boolean
+end
+declare extern type Enum_CreateAllAccountData with
+	function __lt(self, other: Enum_CreateAllAccountData): boolean
+	function __le(self, other: Enum_CreateAllAccountData): boolean
+end
+declare extern type Enum_CreateNeighborhoodErrorType with
+	function __lt(self, other: Enum_CreateNeighborhoodErrorType): boolean
+	function __le(self, other: Enum_CreateNeighborhoodErrorType): boolean
+end
+declare extern type Enum_CurioRarity with
+	function __lt(self, other: Enum_CurioRarity): boolean
+	function __le(self, other: Enum_CurioRarity): boolean
+end
+declare extern type Enum_CurioType with
+	function __lt(self, other: Enum_CurioType): boolean
+	function __le(self, other: Enum_CurioType): boolean
+end
+declare extern type Enum_CurrencyConversionResult with
+	function __lt(self, other: Enum_CurrencyConversionResult): boolean
+	function __le(self, other: Enum_CurrencyConversionResult): boolean
+end
+declare extern type Enum_CurrencyDestroyReason with
+	function __lt(self, other: Enum_CurrencyDestroyReason): boolean
+	function __le(self, other: Enum_CurrencyDestroyReason): boolean
+end
+declare extern type Enum_CurrencyFilterType with
+	function __lt(self, other: Enum_CurrencyFilterType): boolean
+	function __le(self, other: Enum_CurrencyFilterType): boolean
+end
 export type Enum_CurrencyFlags = number
 export type Enum_CurrencyFlagsB = number
 export type Enum_CurrencyGainFlags = number
-export type Enum_CurrencyNameStyle = number
+declare extern type Enum_CurrencyNameStyle with
+	function __lt(self, other: Enum_CurrencyNameStyle): boolean
+	function __le(self, other: Enum_CurrencyNameStyle): boolean
+end
 export type Enum_CurrencyTokenCategoryFlags = number
-export type Enum_CurrencyType = number
-export type Enum_CurrencyWeeksFromStartOption = number
-export type Enum_CursorStyle = number
-export type Enum_Cursormode = number
-export type Enum_CustomAuraButtonDispelTypeStealableFilter = number
-export type Enum_CustomAuraButtonDispelTypeTextureStyle = number
-export type Enum_CustomAuraButtonUpdateMode = number
-export type Enum_CustomBindingType = number
-export type Enum_DamageMeterCombineSessionType = number
-export type Enum_DamageMeterNumbers = number
-export type Enum_DamageMeterOverrideType = number
-export type Enum_DamageMeterSessionType = number
-export type Enum_DamageMeterSourceDisplayType = number
-export type Enum_DamageMeterSpellDetailsDisplayType = number
-export type Enum_DamageMeterStorageType = number
-export type Enum_DamageMeterStyle = number
-export type Enum_DamageMeterType = number
-export type Enum_DamageMeterVisibility = number
+declare extern type Enum_CurrencyType with
+	function __lt(self, other: Enum_CurrencyType): boolean
+	function __le(self, other: Enum_CurrencyType): boolean
+end
+declare extern type Enum_CurrencyWeeksFromStartOption with
+	function __lt(self, other: Enum_CurrencyWeeksFromStartOption): boolean
+	function __le(self, other: Enum_CurrencyWeeksFromStartOption): boolean
+end
+declare extern type Enum_CursorStyle with
+	function __lt(self, other: Enum_CursorStyle): boolean
+	function __le(self, other: Enum_CursorStyle): boolean
+end
+declare extern type Enum_Cursormode with
+	function __lt(self, other: Enum_Cursormode): boolean
+	function __le(self, other: Enum_Cursormode): boolean
+end
+declare extern type Enum_CustomAuraButtonDispelTypeStealableFilter with
+	function __lt(self, other: Enum_CustomAuraButtonDispelTypeStealableFilter): boolean
+	function __le(self, other: Enum_CustomAuraButtonDispelTypeStealableFilter): boolean
+end
+declare extern type Enum_CustomAuraButtonDispelTypeTextureStyle with
+	function __lt(self, other: Enum_CustomAuraButtonDispelTypeTextureStyle): boolean
+	function __le(self, other: Enum_CustomAuraButtonDispelTypeTextureStyle): boolean
+end
+declare extern type Enum_CustomAuraButtonUpdateMode with
+	function __lt(self, other: Enum_CustomAuraButtonUpdateMode): boolean
+	function __le(self, other: Enum_CustomAuraButtonUpdateMode): boolean
+end
+declare extern type Enum_CustomBindingType with
+	function __lt(self, other: Enum_CustomBindingType): boolean
+	function __le(self, other: Enum_CustomBindingType): boolean
+end
+declare extern type Enum_DamageMeterCombineSessionType with
+	function __lt(self, other: Enum_DamageMeterCombineSessionType): boolean
+	function __le(self, other: Enum_DamageMeterCombineSessionType): boolean
+end
+declare extern type Enum_DamageMeterNumbers with
+	function __lt(self, other: Enum_DamageMeterNumbers): boolean
+	function __le(self, other: Enum_DamageMeterNumbers): boolean
+end
+declare extern type Enum_DamageMeterOverrideType with
+	function __lt(self, other: Enum_DamageMeterOverrideType): boolean
+	function __le(self, other: Enum_DamageMeterOverrideType): boolean
+end
+declare extern type Enum_DamageMeterSessionType with
+	function __lt(self, other: Enum_DamageMeterSessionType): boolean
+	function __le(self, other: Enum_DamageMeterSessionType): boolean
+end
+declare extern type Enum_DamageMeterSourceDisplayType with
+	function __lt(self, other: Enum_DamageMeterSourceDisplayType): boolean
+	function __le(self, other: Enum_DamageMeterSourceDisplayType): boolean
+end
+declare extern type Enum_DamageMeterSpellDetailsDisplayType with
+	function __lt(self, other: Enum_DamageMeterSpellDetailsDisplayType): boolean
+	function __le(self, other: Enum_DamageMeterSpellDetailsDisplayType): boolean
+end
+declare extern type Enum_DamageMeterStorageType with
+	function __lt(self, other: Enum_DamageMeterStorageType): boolean
+	function __le(self, other: Enum_DamageMeterStorageType): boolean
+end
+declare extern type Enum_DamageMeterStyle with
+	function __lt(self, other: Enum_DamageMeterStyle): boolean
+	function __le(self, other: Enum_DamageMeterStyle): boolean
+end
+declare extern type Enum_DamageMeterType with
+	function __lt(self, other: Enum_DamageMeterType): boolean
+	function __le(self, other: Enum_DamageMeterType): boolean
+end
+declare extern type Enum_DamageMeterVisibility with
+	function __lt(self, other: Enum_DamageMeterVisibility): boolean
+	function __le(self, other: Enum_DamageMeterVisibility): boolean
+end
 export type Enum_Damageclass = number
-export type Enum_DamageclassType = number
-export type Enum_DateTimeStyle = number
+declare extern type Enum_DamageclassType with
+	function __lt(self, other: Enum_DamageclassType): boolean
+	function __le(self, other: Enum_DamageclassType): boolean
+end
+declare extern type Enum_DateTimeStyle with
+	function __lt(self, other: Enum_DateTimeStyle): boolean
+	function __le(self, other: Enum_DateTimeStyle): boolean
+end
 export type Enum_DeveloperLogAssertDomain = number
-export type Enum_DeveloperLogErrorDomain = number
-export type Enum_DeveloperLogTrafficType = number
+declare extern type Enum_DeveloperLogErrorDomain with
+	function __lt(self, other: Enum_DeveloperLogErrorDomain): boolean
+	function __le(self, other: Enum_DeveloperLogErrorDomain): boolean
+end
+declare extern type Enum_DeveloperLogTrafficType with
+	function __lt(self, other: Enum_DeveloperLogTrafficType): boolean
+	function __le(self, other: Enum_DeveloperLogTrafficType): boolean
+end
 export type Enum_DisableAccountProfilesFlags = number
-export type Enum_DiscordAccountType = number
-export type Enum_DiscordChannelID = number
-export type Enum_DiscordDisplayNameType = number
-export type Enum_DiscordGuildID = number
-export type Enum_DiscordGuildSettings = number
-export type Enum_DiscordID = number
-export type Enum_DiscordLobbyID = number
-export type Enum_DiscordMemberID = number
-export type Enum_DiscordMessageID = number
-export type Enum_DurationTextBindingProperty = number
-export type Enum_DurationTimeModifier = number
-export type Enum_EditModeAccountSetting = number
-export type Enum_EditModeActionBarSetting = number
-export type Enum_EditModeActionBarSystemIndices = number
-export type Enum_EditModeArchaeologyBarSetting = number
-export type Enum_EditModeAuraFrameSetting = number
-export type Enum_EditModeAuraFrameSystemIndices = number
-export type Enum_EditModeBagsSetting = number
-export type Enum_EditModeCastBarSetting = number
-export type Enum_EditModeChatFrameDisplayOnlySetting = number
-export type Enum_EditModeChatFrameSetting = number
-export type Enum_EditModeCooldownViewerSetting = number
-export type Enum_EditModeCooldownViewerSystemIndices = number
-export type Enum_EditModeDamageMeterSetting = number
-export type Enum_EditModeDurabilityFrameSetting = number
-export type Enum_EditModeEncounterEventsSetting = number
-export type Enum_EditModeEncounterEventsSystemIndices = number
-export type Enum_EditModeGamepadMainActionBarSetting = number
-export type Enum_EditModeGroupFinderSetting = number
-export type Enum_EditModeLayoutType = number
-export type Enum_EditModeLossOfControlSetting = number
-export type Enum_EditModeMainActionBarEndCapSetting = number
-export type Enum_EditModeMainActionBarEndCapSystemIndices = number
-export type Enum_EditModeMicroMenuSetting = number
-export type Enum_EditModeMinimapSetting = number
-export type Enum_EditModeObjectiveTrackerSetting = number
-export type Enum_EditModePersonalResourceDisplaySetting = number
-export type Enum_EditModePresetLayouts = number
-export type Enum_EditModeRaidWarningSetting = number
-export type Enum_EditModeSettingDisplayType = number
-export type Enum_EditModeStatusTrackingBarSetting = number
-export type Enum_EditModeStatusTrackingBarSystemIndices = number
-export type Enum_EditModeSwingTimerSetting = number
-export type Enum_EditModeSwingTimerSystemIndices = number
-export type Enum_EditModeSwingTimerVisibility = number
-export type Enum_EditModeSystem = number
-export type Enum_EditModeTimerBarsSetting = number
-export type Enum_EditModeUnitFrameSetting = number
-export type Enum_EditModeUnitFrameSystemIndices = number
-export type Enum_EditModeVehicleSeatIndicatorSetting = number
-export type Enum_EncounterEventCastState = number
-export type Enum_EncounterEventColorTrigger = number
+declare extern type Enum_DiscordAccountType with
+	function __lt(self, other: Enum_DiscordAccountType): boolean
+	function __le(self, other: Enum_DiscordAccountType): boolean
+end
+declare extern type Enum_DiscordChannelID with
+	function __lt(self, other: Enum_DiscordChannelID): boolean
+	function __le(self, other: Enum_DiscordChannelID): boolean
+end
+declare extern type Enum_DiscordDisplayNameType with
+	function __lt(self, other: Enum_DiscordDisplayNameType): boolean
+	function __le(self, other: Enum_DiscordDisplayNameType): boolean
+end
+declare extern type Enum_DiscordGuildID with
+	function __lt(self, other: Enum_DiscordGuildID): boolean
+	function __le(self, other: Enum_DiscordGuildID): boolean
+end
+declare extern type Enum_DiscordGuildSettings with
+	function __lt(self, other: Enum_DiscordGuildSettings): boolean
+	function __le(self, other: Enum_DiscordGuildSettings): boolean
+end
+declare extern type Enum_DiscordID with
+	function __lt(self, other: Enum_DiscordID): boolean
+	function __le(self, other: Enum_DiscordID): boolean
+end
+declare extern type Enum_DiscordLobbyID with
+	function __lt(self, other: Enum_DiscordLobbyID): boolean
+	function __le(self, other: Enum_DiscordLobbyID): boolean
+end
+declare extern type Enum_DiscordMemberID with
+	function __lt(self, other: Enum_DiscordMemberID): boolean
+	function __le(self, other: Enum_DiscordMemberID): boolean
+end
+declare extern type Enum_DiscordMessageID with
+	function __lt(self, other: Enum_DiscordMessageID): boolean
+	function __le(self, other: Enum_DiscordMessageID): boolean
+end
+declare extern type Enum_DurationTextBindingProperty with
+	function __lt(self, other: Enum_DurationTextBindingProperty): boolean
+	function __le(self, other: Enum_DurationTextBindingProperty): boolean
+end
+declare extern type Enum_DurationTimeModifier with
+	function __lt(self, other: Enum_DurationTimeModifier): boolean
+	function __le(self, other: Enum_DurationTimeModifier): boolean
+end
+declare extern type Enum_EditModeAccountSetting with
+	function __lt(self, other: Enum_EditModeAccountSetting): boolean
+	function __le(self, other: Enum_EditModeAccountSetting): boolean
+end
+declare extern type Enum_EditModeActionBarSetting with
+	function __lt(self, other: Enum_EditModeActionBarSetting): boolean
+	function __le(self, other: Enum_EditModeActionBarSetting): boolean
+end
+declare extern type Enum_EditModeActionBarSystemIndices with
+	function __lt(self, other: Enum_EditModeActionBarSystemIndices): boolean
+	function __le(self, other: Enum_EditModeActionBarSystemIndices): boolean
+end
+declare extern type Enum_EditModeArchaeologyBarSetting with
+	function __lt(self, other: Enum_EditModeArchaeologyBarSetting): boolean
+	function __le(self, other: Enum_EditModeArchaeologyBarSetting): boolean
+end
+declare extern type Enum_EditModeAuraFrameSetting with
+	function __lt(self, other: Enum_EditModeAuraFrameSetting): boolean
+	function __le(self, other: Enum_EditModeAuraFrameSetting): boolean
+end
+declare extern type Enum_EditModeAuraFrameSystemIndices with
+	function __lt(self, other: Enum_EditModeAuraFrameSystemIndices): boolean
+	function __le(self, other: Enum_EditModeAuraFrameSystemIndices): boolean
+end
+declare extern type Enum_EditModeBagsSetting with
+	function __lt(self, other: Enum_EditModeBagsSetting): boolean
+	function __le(self, other: Enum_EditModeBagsSetting): boolean
+end
+declare extern type Enum_EditModeCastBarSetting with
+	function __lt(self, other: Enum_EditModeCastBarSetting): boolean
+	function __le(self, other: Enum_EditModeCastBarSetting): boolean
+end
+declare extern type Enum_EditModeChatFrameDisplayOnlySetting with
+	function __lt(self, other: Enum_EditModeChatFrameDisplayOnlySetting): boolean
+	function __le(self, other: Enum_EditModeChatFrameDisplayOnlySetting): boolean
+end
+declare extern type Enum_EditModeChatFrameSetting with
+	function __lt(self, other: Enum_EditModeChatFrameSetting): boolean
+	function __le(self, other: Enum_EditModeChatFrameSetting): boolean
+end
+declare extern type Enum_EditModeCooldownViewerSetting with
+	function __lt(self, other: Enum_EditModeCooldownViewerSetting): boolean
+	function __le(self, other: Enum_EditModeCooldownViewerSetting): boolean
+end
+declare extern type Enum_EditModeCooldownViewerSystemIndices with
+	function __lt(self, other: Enum_EditModeCooldownViewerSystemIndices): boolean
+	function __le(self, other: Enum_EditModeCooldownViewerSystemIndices): boolean
+end
+declare extern type Enum_EditModeDamageMeterSetting with
+	function __lt(self, other: Enum_EditModeDamageMeterSetting): boolean
+	function __le(self, other: Enum_EditModeDamageMeterSetting): boolean
+end
+declare extern type Enum_EditModeDurabilityFrameSetting with
+	function __lt(self, other: Enum_EditModeDurabilityFrameSetting): boolean
+	function __le(self, other: Enum_EditModeDurabilityFrameSetting): boolean
+end
+declare extern type Enum_EditModeEncounterEventsSetting with
+	function __lt(self, other: Enum_EditModeEncounterEventsSetting): boolean
+	function __le(self, other: Enum_EditModeEncounterEventsSetting): boolean
+end
+declare extern type Enum_EditModeEncounterEventsSystemIndices with
+	function __lt(self, other: Enum_EditModeEncounterEventsSystemIndices): boolean
+	function __le(self, other: Enum_EditModeEncounterEventsSystemIndices): boolean
+end
+declare extern type Enum_EditModeGamepadMainActionBarSetting with
+	function __lt(self, other: Enum_EditModeGamepadMainActionBarSetting): boolean
+	function __le(self, other: Enum_EditModeGamepadMainActionBarSetting): boolean
+end
+declare extern type Enum_EditModeGroupFinderSetting with
+	function __lt(self, other: Enum_EditModeGroupFinderSetting): boolean
+	function __le(self, other: Enum_EditModeGroupFinderSetting): boolean
+end
+declare extern type Enum_EditModeLayoutType with
+	function __lt(self, other: Enum_EditModeLayoutType): boolean
+	function __le(self, other: Enum_EditModeLayoutType): boolean
+end
+declare extern type Enum_EditModeLossOfControlSetting with
+	function __lt(self, other: Enum_EditModeLossOfControlSetting): boolean
+	function __le(self, other: Enum_EditModeLossOfControlSetting): boolean
+end
+declare extern type Enum_EditModeMainActionBarEndCapSetting with
+	function __lt(self, other: Enum_EditModeMainActionBarEndCapSetting): boolean
+	function __le(self, other: Enum_EditModeMainActionBarEndCapSetting): boolean
+end
+declare extern type Enum_EditModeMainActionBarEndCapSystemIndices with
+	function __lt(self, other: Enum_EditModeMainActionBarEndCapSystemIndices): boolean
+	function __le(self, other: Enum_EditModeMainActionBarEndCapSystemIndices): boolean
+end
+declare extern type Enum_EditModeMicroMenuSetting with
+	function __lt(self, other: Enum_EditModeMicroMenuSetting): boolean
+	function __le(self, other: Enum_EditModeMicroMenuSetting): boolean
+end
+declare extern type Enum_EditModeMinimapSetting with
+	function __lt(self, other: Enum_EditModeMinimapSetting): boolean
+	function __le(self, other: Enum_EditModeMinimapSetting): boolean
+end
+declare extern type Enum_EditModeObjectiveTrackerSetting with
+	function __lt(self, other: Enum_EditModeObjectiveTrackerSetting): boolean
+	function __le(self, other: Enum_EditModeObjectiveTrackerSetting): boolean
+end
+declare extern type Enum_EditModePersonalResourceDisplaySetting with
+	function __lt(self, other: Enum_EditModePersonalResourceDisplaySetting): boolean
+	function __le(self, other: Enum_EditModePersonalResourceDisplaySetting): boolean
+end
+declare extern type Enum_EditModePresetLayouts with
+	function __lt(self, other: Enum_EditModePresetLayouts): boolean
+	function __le(self, other: Enum_EditModePresetLayouts): boolean
+end
+declare extern type Enum_EditModeRaidWarningSetting with
+	function __lt(self, other: Enum_EditModeRaidWarningSetting): boolean
+	function __le(self, other: Enum_EditModeRaidWarningSetting): boolean
+end
+declare extern type Enum_EditModeSettingDisplayType with
+	function __lt(self, other: Enum_EditModeSettingDisplayType): boolean
+	function __le(self, other: Enum_EditModeSettingDisplayType): boolean
+end
+declare extern type Enum_EditModeStatusTrackingBarSetting with
+	function __lt(self, other: Enum_EditModeStatusTrackingBarSetting): boolean
+	function __le(self, other: Enum_EditModeStatusTrackingBarSetting): boolean
+end
+declare extern type Enum_EditModeStatusTrackingBarSystemIndices with
+	function __lt(self, other: Enum_EditModeStatusTrackingBarSystemIndices): boolean
+	function __le(self, other: Enum_EditModeStatusTrackingBarSystemIndices): boolean
+end
+declare extern type Enum_EditModeSwingTimerSetting with
+	function __lt(self, other: Enum_EditModeSwingTimerSetting): boolean
+	function __le(self, other: Enum_EditModeSwingTimerSetting): boolean
+end
+declare extern type Enum_EditModeSwingTimerSystemIndices with
+	function __lt(self, other: Enum_EditModeSwingTimerSystemIndices): boolean
+	function __le(self, other: Enum_EditModeSwingTimerSystemIndices): boolean
+end
+declare extern type Enum_EditModeSwingTimerVisibility with
+	function __lt(self, other: Enum_EditModeSwingTimerVisibility): boolean
+	function __le(self, other: Enum_EditModeSwingTimerVisibility): boolean
+end
+declare extern type Enum_EditModeSystem with
+	function __lt(self, other: Enum_EditModeSystem): boolean
+	function __le(self, other: Enum_EditModeSystem): boolean
+end
+declare extern type Enum_EditModeTimerBarsSetting with
+	function __lt(self, other: Enum_EditModeTimerBarsSetting): boolean
+	function __le(self, other: Enum_EditModeTimerBarsSetting): boolean
+end
+declare extern type Enum_EditModeUnitFrameSetting with
+	function __lt(self, other: Enum_EditModeUnitFrameSetting): boolean
+	function __le(self, other: Enum_EditModeUnitFrameSetting): boolean
+end
+declare extern type Enum_EditModeUnitFrameSystemIndices with
+	function __lt(self, other: Enum_EditModeUnitFrameSystemIndices): boolean
+	function __le(self, other: Enum_EditModeUnitFrameSystemIndices): boolean
+end
+declare extern type Enum_EditModeVehicleSeatIndicatorSetting with
+	function __lt(self, other: Enum_EditModeVehicleSeatIndicatorSetting): boolean
+	function __le(self, other: Enum_EditModeVehicleSeatIndicatorSetting): boolean
+end
+declare extern type Enum_EncounterEventCastState with
+	function __lt(self, other: Enum_EncounterEventCastState): boolean
+	function __le(self, other: Enum_EncounterEventCastState): boolean
+end
+declare extern type Enum_EncounterEventColorTrigger with
+	function __lt(self, other: Enum_EncounterEventColorTrigger): boolean
+	function __le(self, other: Enum_EncounterEventColorTrigger): boolean
+end
 export type Enum_EncounterEventIconmask = number
-export type Enum_EncounterEventSeverity = number
-export type Enum_EncounterEventSoundTrigger = number
-export type Enum_EncounterEventsIconDirection = number
-export type Enum_EncounterEventsOrientation = number
-export type Enum_EncounterEventsTooltipAnchor = number
-export type Enum_EncounterEventsViewType = number
-export type Enum_EncounterEventsVisibility = number
-export type Enum_EncounterLootDropRollState = number
-export type Enum_EncounterTimelineEventSortDirection = number
-export type Enum_EncounterTimelineEventSource = number
-export type Enum_EncounterTimelineEventState = number
-export type Enum_EncounterTimelineIconSet = number
-export type Enum_EncounterTimelineTrack = number
-export type Enum_EncounterTimelineTrackType = number
-export type Enum_EncounterTimelineViewType = number
-export type Enum_EndOfMatchType = number
+declare extern type Enum_EncounterEventSeverity with
+	function __lt(self, other: Enum_EncounterEventSeverity): boolean
+	function __le(self, other: Enum_EncounterEventSeverity): boolean
+end
+declare extern type Enum_EncounterEventSoundTrigger with
+	function __lt(self, other: Enum_EncounterEventSoundTrigger): boolean
+	function __le(self, other: Enum_EncounterEventSoundTrigger): boolean
+end
+declare extern type Enum_EncounterEventsIconDirection with
+	function __lt(self, other: Enum_EncounterEventsIconDirection): boolean
+	function __le(self, other: Enum_EncounterEventsIconDirection): boolean
+end
+declare extern type Enum_EncounterEventsOrientation with
+	function __lt(self, other: Enum_EncounterEventsOrientation): boolean
+	function __le(self, other: Enum_EncounterEventsOrientation): boolean
+end
+declare extern type Enum_EncounterEventsTooltipAnchor with
+	function __lt(self, other: Enum_EncounterEventsTooltipAnchor): boolean
+	function __le(self, other: Enum_EncounterEventsTooltipAnchor): boolean
+end
+declare extern type Enum_EncounterEventsViewType with
+	function __lt(self, other: Enum_EncounterEventsViewType): boolean
+	function __le(self, other: Enum_EncounterEventsViewType): boolean
+end
+declare extern type Enum_EncounterEventsVisibility with
+	function __lt(self, other: Enum_EncounterEventsVisibility): boolean
+	function __le(self, other: Enum_EncounterEventsVisibility): boolean
+end
+declare extern type Enum_EncounterLootDropRollState with
+	function __lt(self, other: Enum_EncounterLootDropRollState): boolean
+	function __le(self, other: Enum_EncounterLootDropRollState): boolean
+end
+declare extern type Enum_EncounterTimelineEventSortDirection with
+	function __lt(self, other: Enum_EncounterTimelineEventSortDirection): boolean
+	function __le(self, other: Enum_EncounterTimelineEventSortDirection): boolean
+end
+declare extern type Enum_EncounterTimelineEventSource with
+	function __lt(self, other: Enum_EncounterTimelineEventSource): boolean
+	function __le(self, other: Enum_EncounterTimelineEventSource): boolean
+end
+declare extern type Enum_EncounterTimelineEventState with
+	function __lt(self, other: Enum_EncounterTimelineEventState): boolean
+	function __le(self, other: Enum_EncounterTimelineEventState): boolean
+end
+declare extern type Enum_EncounterTimelineIconSet with
+	function __lt(self, other: Enum_EncounterTimelineIconSet): boolean
+	function __le(self, other: Enum_EncounterTimelineIconSet): boolean
+end
+declare extern type Enum_EncounterTimelineTrack with
+	function __lt(self, other: Enum_EncounterTimelineTrack): boolean
+	function __le(self, other: Enum_EncounterTimelineTrack): boolean
+end
+declare extern type Enum_EncounterTimelineTrackType with
+	function __lt(self, other: Enum_EncounterTimelineTrackType): boolean
+	function __le(self, other: Enum_EncounterTimelineTrackType): boolean
+end
+declare extern type Enum_EncounterTimelineViewType with
+	function __lt(self, other: Enum_EncounterTimelineViewType): boolean
+	function __le(self, other: Enum_EncounterTimelineViewType): boolean
+end
+declare extern type Enum_EndOfMatchType with
+	function __lt(self, other: Enum_EndOfMatchType): boolean
+	function __le(self, other: Enum_EndOfMatchType): boolean
+end
 export type Enum_EnvironmentalDamageFlags = number
-export type Enum_Environmentaldamagetype = number
+declare extern type Enum_Environmentaldamagetype with
+	function __lt(self, other: Enum_Environmentaldamagetype): boolean
+	function __le(self, other: Enum_Environmentaldamagetype): boolean
+end
 export type Enum_EventRealmQueues = number
-export type Enum_EventToastDisplayType = number
-export type Enum_EventToastEventType = number
+declare extern type Enum_EventToastDisplayType with
+	function __lt(self, other: Enum_EventToastDisplayType): boolean
+	function __le(self, other: Enum_EventToastDisplayType): boolean
+end
+declare extern type Enum_EventToastEventType with
+	function __lt(self, other: Enum_EventToastEventType): boolean
+	function __le(self, other: Enum_EventToastEventType): boolean
+end
 export type Enum_EventToastFlags = number
-export type Enum_EvictionType = number
+declare extern type Enum_EvictionType with
+	function __lt(self, other: Enum_EvictionType): boolean
+	function __le(self, other: Enum_EvictionType): boolean
+end
 export type Enum_ExcludedCensorSources = number
-export type Enum_ExpansionLandingPageType = number
+declare extern type Enum_ExpansionLandingPageType with
+	function __lt(self, other: Enum_ExpansionLandingPageType): boolean
+	function __le(self, other: Enum_ExpansionLandingPageType): boolean
+end
 export type Enum_ExpansionLevel = number
-export type Enum_FlightPathFaction = number
-export type Enum_FlightPathState = number
-export type Enum_FollowerAbilityCastResult = number
-export type Enum_FontStringScaleAnimationMode = number
+declare extern type Enum_FlightPathFaction with
+	function __lt(self, other: Enum_FlightPathFaction): boolean
+	function __le(self, other: Enum_FlightPathFaction): boolean
+end
+declare extern type Enum_FlightPathState with
+	function __lt(self, other: Enum_FlightPathState): boolean
+	function __le(self, other: Enum_FlightPathState): boolean
+end
+declare extern type Enum_FollowerAbilityCastResult with
+	function __lt(self, other: Enum_FollowerAbilityCastResult): boolean
+	function __le(self, other: Enum_FollowerAbilityCastResult): boolean
+end
+declare extern type Enum_FontStringScaleAnimationMode with
+	function __lt(self, other: Enum_FontStringScaleAnimationMode): boolean
+	function __le(self, other: Enum_FontStringScaleAnimationMode): boolean
+end
 export type Enum_ForbiddenAspect = number
-export type Enum_ForeverExperiencePreset = number
-export type Enum_FragmentID = number
-export type Enum_FrameTutorialAccount = number
-export type Enum_GameMode = number
-export type Enum_GamePadPowerLevel = number
-export type Enum_GameRule = number
+declare extern type Enum_ForeverExperiencePreset with
+	function __lt(self, other: Enum_ForeverExperiencePreset): boolean
+	function __le(self, other: Enum_ForeverExperiencePreset): boolean
+end
+declare extern type Enum_FragmentID with
+	function __lt(self, other: Enum_FragmentID): boolean
+	function __le(self, other: Enum_FragmentID): boolean
+end
+declare extern type Enum_FrameTutorialAccount with
+	function __lt(self, other: Enum_FrameTutorialAccount): boolean
+	function __le(self, other: Enum_FrameTutorialAccount): boolean
+end
+declare extern type Enum_GameMode with
+	function __lt(self, other: Enum_GameMode): boolean
+	function __le(self, other: Enum_GameMode): boolean
+end
+declare extern type Enum_GamePadPowerLevel with
+	function __lt(self, other: Enum_GamePadPowerLevel): boolean
+	function __le(self, other: Enum_GamePadPowerLevel): boolean
+end
+declare extern type Enum_GameRule with
+	function __lt(self, other: Enum_GameRule): boolean
+	function __le(self, other: Enum_GameRule): boolean
+end
 export type Enum_GameRuleFlags = number
-export type Enum_GameRuleType = number
-export type Enum_GamepadPossessBarOverride = number
-export type Enum_GamepadStanceBarOverride = number
-export type Enum_GamepadTargetingFilters = number
-export type Enum_GarrAutoBoardIndex = number
+declare extern type Enum_GameRuleType with
+	function __lt(self, other: Enum_GameRuleType): boolean
+	function __le(self, other: Enum_GameRuleType): boolean
+end
+declare extern type Enum_GamepadPossessBarOverride with
+	function __lt(self, other: Enum_GamepadPossessBarOverride): boolean
+	function __le(self, other: Enum_GamepadPossessBarOverride): boolean
+end
+declare extern type Enum_GamepadStanceBarOverride with
+	function __lt(self, other: Enum_GamepadStanceBarOverride): boolean
+	function __le(self, other: Enum_GamepadStanceBarOverride): boolean
+end
+declare extern type Enum_GamepadTargetingFilters with
+	function __lt(self, other: Enum_GamepadTargetingFilters): boolean
+	function __le(self, other: Enum_GamepadTargetingFilters): boolean
+end
+declare extern type Enum_GarrAutoBoardIndex with
+	function __lt(self, other: Enum_GarrAutoBoardIndex): boolean
+	function __le(self, other: Enum_GarrAutoBoardIndex): boolean
+end
 export type Enum_GarrAutoCombatSpellTutorialFlag = number
 export type Enum_GarrAutoCombatTutorial = number
-export type Enum_GarrAutoCombatantRole = number
+declare extern type Enum_GarrAutoCombatantRole with
+	function __lt(self, other: Enum_GarrAutoCombatantRole): boolean
+	function __le(self, other: Enum_GarrAutoCombatantRole): boolean
+end
 export type Enum_GarrAutoEventFlags = number
-export type Enum_GarrAutoMissionEventType = number
+declare extern type Enum_GarrAutoMissionEventType with
+	function __lt(self, other: Enum_GarrAutoMissionEventType): boolean
+	function __le(self, other: Enum_GarrAutoMissionEventType): boolean
+end
 export type Enum_GarrAutoPreviewTargetType = number
-export type Enum_GarrFollowerMissionCompleteState = number
-export type Enum_GarrFollowerQuality = number
-export type Enum_GarrTalentCostType = number
-export type Enum_GarrTalentFeatureSubtype = number
-export type Enum_GarrTalentFeatureType = number
-export type Enum_GarrTalentResearchCostSource = number
-export type Enum_GarrTalentSocketType = number
-export type Enum_GarrTalentTreeType = number
-export type Enum_GarrTalentType = number
-export type Enum_GarrTalentUI = number
-export type Enum_GarrisonFollowerType = number
-export type Enum_GarrisonTalentAvailability = number
-export type Enum_GarrisonType = number
-export type Enum_GossipNpcOption = number
+declare extern type Enum_GarrFollowerMissionCompleteState with
+	function __lt(self, other: Enum_GarrFollowerMissionCompleteState): boolean
+	function __le(self, other: Enum_GarrFollowerMissionCompleteState): boolean
+end
+declare extern type Enum_GarrFollowerQuality with
+	function __lt(self, other: Enum_GarrFollowerQuality): boolean
+	function __le(self, other: Enum_GarrFollowerQuality): boolean
+end
+declare extern type Enum_GarrTalentCostType with
+	function __lt(self, other: Enum_GarrTalentCostType): boolean
+	function __le(self, other: Enum_GarrTalentCostType): boolean
+end
+declare extern type Enum_GarrTalentFeatureSubtype with
+	function __lt(self, other: Enum_GarrTalentFeatureSubtype): boolean
+	function __le(self, other: Enum_GarrTalentFeatureSubtype): boolean
+end
+declare extern type Enum_GarrTalentFeatureType with
+	function __lt(self, other: Enum_GarrTalentFeatureType): boolean
+	function __le(self, other: Enum_GarrTalentFeatureType): boolean
+end
+declare extern type Enum_GarrTalentResearchCostSource with
+	function __lt(self, other: Enum_GarrTalentResearchCostSource): boolean
+	function __le(self, other: Enum_GarrTalentResearchCostSource): boolean
+end
+declare extern type Enum_GarrTalentSocketType with
+	function __lt(self, other: Enum_GarrTalentSocketType): boolean
+	function __le(self, other: Enum_GarrTalentSocketType): boolean
+end
+declare extern type Enum_GarrTalentTreeType with
+	function __lt(self, other: Enum_GarrTalentTreeType): boolean
+	function __le(self, other: Enum_GarrTalentTreeType): boolean
+end
+declare extern type Enum_GarrTalentType with
+	function __lt(self, other: Enum_GarrTalentType): boolean
+	function __le(self, other: Enum_GarrTalentType): boolean
+end
+declare extern type Enum_GarrTalentUI with
+	function __lt(self, other: Enum_GarrTalentUI): boolean
+	function __le(self, other: Enum_GarrTalentUI): boolean
+end
+declare extern type Enum_GarrisonFollowerType with
+	function __lt(self, other: Enum_GarrisonFollowerType): boolean
+	function __le(self, other: Enum_GarrisonFollowerType): boolean
+end
+declare extern type Enum_GarrisonTalentAvailability with
+	function __lt(self, other: Enum_GarrisonTalentAvailability): boolean
+	function __le(self, other: Enum_GarrisonTalentAvailability): boolean
+end
+declare extern type Enum_GarrisonType with
+	function __lt(self, other: Enum_GarrisonType): boolean
+	function __le(self, other: Enum_GarrisonType): boolean
+end
+declare extern type Enum_GossipNpcOption with
+	function __lt(self, other: Enum_GossipNpcOption): boolean
+	function __le(self, other: Enum_GossipNpcOption): boolean
+end
 export type Enum_GossipNpcOptionDisplayFlags = number
 export type Enum_GossipOptionRecFlags = number
-export type Enum_GossipOptionRewardType = number
-export type Enum_GossipOptionStatus = number
-export type Enum_GossipOptionUIWidgetSetTypes = number
-export type Enum_GraphicsValidationResult = number
+declare extern type Enum_GossipOptionRewardType with
+	function __lt(self, other: Enum_GossipOptionRewardType): boolean
+	function __le(self, other: Enum_GossipOptionRewardType): boolean
+end
+declare extern type Enum_GossipOptionStatus with
+	function __lt(self, other: Enum_GossipOptionStatus): boolean
+	function __le(self, other: Enum_GossipOptionStatus): boolean
+end
+declare extern type Enum_GossipOptionUIWidgetSetTypes with
+	function __lt(self, other: Enum_GossipOptionUIWidgetSetTypes): boolean
+	function __le(self, other: Enum_GossipOptionUIWidgetSetTypes): boolean
+end
+declare extern type Enum_GraphicsValidationResult with
+	function __lt(self, other: Enum_GraphicsValidationResult): boolean
+	function __le(self, other: Enum_GraphicsValidationResult): boolean
+end
 export type Enum_GroupBuffItemFlags = number
-export type Enum_GuildErrorType = number
+declare extern type Enum_GuildErrorType with
+	function __lt(self, other: Enum_GuildErrorType): boolean
+	function __le(self, other: Enum_GuildErrorType): boolean
+end
 export type Enum_HolidayCalendarFlags = number
 export type Enum_HolidayFlags = number
-export type Enum_HouseEditingContext = number
-export type Enum_HouseEditorMode = number
-export type Enum_HouseEditorPlayerType = number
+declare extern type Enum_HouseEditingContext with
+	function __lt(self, other: Enum_HouseEditingContext): boolean
+	function __le(self, other: Enum_HouseEditingContext): boolean
+end
+declare extern type Enum_HouseEditorMode with
+	function __lt(self, other: Enum_HouseEditorMode): boolean
+	function __le(self, other: Enum_HouseEditorMode): boolean
+end
+declare extern type Enum_HouseEditorPlayerType with
+	function __lt(self, other: Enum_HouseEditorPlayerType): boolean
+	function __le(self, other: Enum_HouseEditorPlayerType): boolean
+end
 export type Enum_HouseExteriorWMODataFlags = number
 export type Enum_HouseFinderSuggestionReason = number
-export type Enum_HouseLevelRewardType = number
-export type Enum_HouseLevelRewardValueType = number
-export type Enum_HouseOwnerError = number
+declare extern type Enum_HouseLevelRewardType with
+	function __lt(self, other: Enum_HouseLevelRewardType): boolean
+	function __le(self, other: Enum_HouseLevelRewardType): boolean
+end
+declare extern type Enum_HouseLevelRewardValueType with
+	function __lt(self, other: Enum_HouseLevelRewardValueType): boolean
+	function __le(self, other: Enum_HouseLevelRewardValueType): boolean
+end
+declare extern type Enum_HouseOwnerError with
+	function __lt(self, other: Enum_HouseOwnerError): boolean
+	function __le(self, other: Enum_HouseOwnerError): boolean
+end
 export type Enum_HouseSettingFlags = number
-export type Enum_HouseVisitType = number
-export type Enum_HousingBasicModeTargetType = number
-export type Enum_HousingBlueprintContentType = number
+declare extern type Enum_HouseVisitType with
+	function __lt(self, other: Enum_HouseVisitType): boolean
+	function __le(self, other: Enum_HouseVisitType): boolean
+end
+declare extern type Enum_HousingBasicModeTargetType with
+	function __lt(self, other: Enum_HousingBasicModeTargetType): boolean
+	function __le(self, other: Enum_HousingBasicModeTargetType): boolean
+end
+declare extern type Enum_HousingBlueprintContentType with
+	function __lt(self, other: Enum_HousingBlueprintContentType): boolean
+	function __le(self, other: Enum_HousingBlueprintContentType): boolean
+end
 export type Enum_HousingBlueprintFlag = number
-export type Enum_HousingBlueprintType = number
+declare extern type Enum_HousingBlueprintType with
+	function __lt(self, other: Enum_HousingBlueprintType): boolean
+	function __le(self, other: Enum_HousingBlueprintType): boolean
+end
 export type Enum_HousingBlueprintUnmetRequirementFlags = number
-export type Enum_HousingBudgetType = number
-export type Enum_HousingCatalogEntryModelScenePresets = number
-export type Enum_HousingCatalogEntrySize = number
-export type Enum_HousingCatalogEntryType = number
-export type Enum_HousingCatalogSortType = number
-export type Enum_HousingCleanupModeTargetType = number
-export type Enum_HousingCustomizeModeTargetType = number
+declare extern type Enum_HousingBudgetType with
+	function __lt(self, other: Enum_HousingBudgetType): boolean
+	function __le(self, other: Enum_HousingBudgetType): boolean
+end
+declare extern type Enum_HousingCatalogEntryModelScenePresets with
+	function __lt(self, other: Enum_HousingCatalogEntryModelScenePresets): boolean
+	function __le(self, other: Enum_HousingCatalogEntryModelScenePresets): boolean
+end
+declare extern type Enum_HousingCatalogEntrySize with
+	function __lt(self, other: Enum_HousingCatalogEntrySize): boolean
+	function __le(self, other: Enum_HousingCatalogEntrySize): boolean
+end
+declare extern type Enum_HousingCatalogEntryType with
+	function __lt(self, other: Enum_HousingCatalogEntryType): boolean
+	function __le(self, other: Enum_HousingCatalogEntryType): boolean
+end
+declare extern type Enum_HousingCatalogSortType with
+	function __lt(self, other: Enum_HousingCatalogSortType): boolean
+	function __le(self, other: Enum_HousingCatalogSortType): boolean
+end
+declare extern type Enum_HousingCleanupModeTargetType with
+	function __lt(self, other: Enum_HousingCleanupModeTargetType): boolean
+	function __le(self, other: Enum_HousingCleanupModeTargetType): boolean
+end
+declare extern type Enum_HousingCustomizeModeTargetType with
+	function __lt(self, other: Enum_HousingCustomizeModeTargetType): boolean
+	function __le(self, other: Enum_HousingCustomizeModeTargetType): boolean
+end
 export type Enum_HousingDecorActionFlags = number
-export type Enum_HousingDecorModelType = number
+declare extern type Enum_HousingDecorModelType with
+	function __lt(self, other: Enum_HousingDecorModelType): boolean
+	function __le(self, other: Enum_HousingDecorModelType): boolean
+end
 export type Enum_HousingDecorPlacementRestriction = number
-export type Enum_HousingDecorTheme = number
-export type Enum_HousingDecorType = number
-export type Enum_HousingExpertModeTargetType = number
-export type Enum_HousingExpertSubmodeRestriction = number
-export type Enum_HousingFavorUpdateSource = number
-export type Enum_HousingFavorUpdateType = number
-export type Enum_HousingFixtureDecorAction = number
+declare extern type Enum_HousingDecorTheme with
+	function __lt(self, other: Enum_HousingDecorTheme): boolean
+	function __le(self, other: Enum_HousingDecorTheme): boolean
+end
+declare extern type Enum_HousingDecorType with
+	function __lt(self, other: Enum_HousingDecorType): boolean
+	function __le(self, other: Enum_HousingDecorType): boolean
+end
+declare extern type Enum_HousingExpertModeTargetType with
+	function __lt(self, other: Enum_HousingExpertModeTargetType): boolean
+	function __le(self, other: Enum_HousingExpertModeTargetType): boolean
+end
+declare extern type Enum_HousingExpertSubmodeRestriction with
+	function __lt(self, other: Enum_HousingExpertSubmodeRestriction): boolean
+	function __le(self, other: Enum_HousingExpertSubmodeRestriction): boolean
+end
+declare extern type Enum_HousingFavorUpdateSource with
+	function __lt(self, other: Enum_HousingFavorUpdateSource): boolean
+	function __le(self, other: Enum_HousingFavorUpdateSource): boolean
+end
+declare extern type Enum_HousingFavorUpdateType with
+	function __lt(self, other: Enum_HousingFavorUpdateType): boolean
+	function __le(self, other: Enum_HousingFavorUpdateType): boolean
+end
+declare extern type Enum_HousingFixtureDecorAction with
+	function __lt(self, other: Enum_HousingFixtureDecorAction): boolean
+	function __le(self, other: Enum_HousingFixtureDecorAction): boolean
+end
 export type Enum_HousingFixtureFlags = number
-export type Enum_HousingFixtureSize = number
-export type Enum_HousingFixtureType = number
-export type Enum_HousingHouseScope = number
+declare extern type Enum_HousingFixtureSize with
+	function __lt(self, other: Enum_HousingFixtureSize): boolean
+	function __le(self, other: Enum_HousingFixtureSize): boolean
+end
+declare extern type Enum_HousingFixtureType with
+	function __lt(self, other: Enum_HousingFixtureType): boolean
+	function __le(self, other: Enum_HousingFixtureType): boolean
+end
+declare extern type Enum_HousingHouseScope with
+	function __lt(self, other: Enum_HousingHouseScope): boolean
+	function __le(self, other: Enum_HousingHouseScope): boolean
+end
 export type Enum_HousingIncrementType = number
-export type Enum_HousingItemToastType = number
+declare extern type Enum_HousingItemToastType with
+	function __lt(self, other: Enum_HousingItemToastType): boolean
+	function __le(self, other: Enum_HousingItemToastType): boolean
+end
 export type Enum_HousingLayoutCameraDirection = number
-export type Enum_HousingLayoutPinType = number
-export type Enum_HousingLayoutRestriction = number
-export type Enum_HousingLayoutStairDirection = number
-export type Enum_HousingPetBehaviorType = number
-export type Enum_HousingPlotOwnerType = number
-export type Enum_HousingPrecisionSubmode = number
-export type Enum_HousingResult = number
-export type Enum_HousingRoomComponentCeilingType = number
-export type Enum_HousingRoomComponentDoorType = number
+declare extern type Enum_HousingLayoutPinType with
+	function __lt(self, other: Enum_HousingLayoutPinType): boolean
+	function __le(self, other: Enum_HousingLayoutPinType): boolean
+end
+declare extern type Enum_HousingLayoutRestriction with
+	function __lt(self, other: Enum_HousingLayoutRestriction): boolean
+	function __le(self, other: Enum_HousingLayoutRestriction): boolean
+end
+declare extern type Enum_HousingLayoutStairDirection with
+	function __lt(self, other: Enum_HousingLayoutStairDirection): boolean
+	function __le(self, other: Enum_HousingLayoutStairDirection): boolean
+end
+declare extern type Enum_HousingPetBehaviorType with
+	function __lt(self, other: Enum_HousingPetBehaviorType): boolean
+	function __le(self, other: Enum_HousingPetBehaviorType): boolean
+end
+declare extern type Enum_HousingPlotOwnerType with
+	function __lt(self, other: Enum_HousingPlotOwnerType): boolean
+	function __le(self, other: Enum_HousingPlotOwnerType): boolean
+end
+declare extern type Enum_HousingPrecisionSubmode with
+	function __lt(self, other: Enum_HousingPrecisionSubmode): boolean
+	function __le(self, other: Enum_HousingPrecisionSubmode): boolean
+end
+declare extern type Enum_HousingResult with
+	function __lt(self, other: Enum_HousingResult): boolean
+	function __le(self, other: Enum_HousingResult): boolean
+end
+declare extern type Enum_HousingRoomComponentCeilingType with
+	function __lt(self, other: Enum_HousingRoomComponentCeilingType): boolean
+	function __le(self, other: Enum_HousingRoomComponentCeilingType): boolean
+end
+declare extern type Enum_HousingRoomComponentDoorType with
+	function __lt(self, other: Enum_HousingRoomComponentDoorType): boolean
+	function __le(self, other: Enum_HousingRoomComponentDoorType): boolean
+end
 export type Enum_HousingRoomComponentFlags = number
-export type Enum_HousingRoomComponentFloorType = number
+declare extern type Enum_HousingRoomComponentFloorType with
+	function __lt(self, other: Enum_HousingRoomComponentFloorType): boolean
+	function __le(self, other: Enum_HousingRoomComponentFloorType): boolean
+end
 export type Enum_HousingRoomComponentOptionFlags = number
-export type Enum_HousingRoomComponentOptionType = number
-export type Enum_HousingRoomComponentStairType = number
+declare extern type Enum_HousingRoomComponentOptionType with
+	function __lt(self, other: Enum_HousingRoomComponentOptionType): boolean
+	function __le(self, other: Enum_HousingRoomComponentOptionType): boolean
+end
+declare extern type Enum_HousingRoomComponentStairType with
+	function __lt(self, other: Enum_HousingRoomComponentStairType): boolean
+	function __le(self, other: Enum_HousingRoomComponentStairType): boolean
+end
 export type Enum_HousingRoomComponentTextureFlags = number
-export type Enum_HousingRoomComponentType = number
+declare extern type Enum_HousingRoomComponentType with
+	function __lt(self, other: Enum_HousingRoomComponentType): boolean
+	function __le(self, other: Enum_HousingRoomComponentType): boolean
+end
 export type Enum_HousingRoomFlags = number
-export type Enum_HousingShowcaseType = number
-export type Enum_HousingTeleportReason = number
+declare extern type Enum_HousingShowcaseType with
+	function __lt(self, other: Enum_HousingShowcaseType): boolean
+	function __le(self, other: Enum_HousingShowcaseType): boolean
+end
+declare extern type Enum_HousingTeleportReason with
+	function __lt(self, other: Enum_HousingTeleportReason): boolean
+	function __le(self, other: Enum_HousingTeleportReason): boolean
+end
 export type Enum_HousingThemeFlags = number
-export type Enum_HousingThrottleType = number
-export type Enum_IconAndTextShiftTextType = number
-export type Enum_IconAndTextWidgetState = number
-export type Enum_IconState = number
-export type Enum_ImageSharingResult = number
+declare extern type Enum_HousingThrottleType with
+	function __lt(self, other: Enum_HousingThrottleType): boolean
+	function __le(self, other: Enum_HousingThrottleType): boolean
+end
+declare extern type Enum_IconAndTextShiftTextType with
+	function __lt(self, other: Enum_IconAndTextShiftTextType): boolean
+	function __le(self, other: Enum_IconAndTextShiftTextType): boolean
+end
+declare extern type Enum_IconAndTextWidgetState with
+	function __lt(self, other: Enum_IconAndTextWidgetState): boolean
+	function __le(self, other: Enum_IconAndTextWidgetState): boolean
+end
+declare extern type Enum_IconState with
+	function __lt(self, other: Enum_IconState): boolean
+	function __le(self, other: Enum_IconState): boolean
+end
+declare extern type Enum_ImageSharingResult with
+	function __lt(self, other: Enum_ImageSharingResult): boolean
+	function __le(self, other: Enum_ImageSharingResult): boolean
+end
 export type Enum_InitiativeMilestoneFlags = number
 export type Enum_InitiativeRewardFlags = number
-export type Enum_InputContext = number
-export type Enum_InputDeviceInterfaceType = number
-export type Enum_InvalidPlotScreenshotReason = number
-export type Enum_InventoryType = number
-export type Enum_ItemArmorSubclass = number
-export type Enum_ItemBind = number
-export type Enum_ItemClass = number
-export type Enum_ItemCollectionType = number
-export type Enum_ItemCommodityStatus = number
-export type Enum_ItemConsumableSubclass = number
-export type Enum_ItemContainerSubclass = number
+declare extern type Enum_InputContext with
+	function __lt(self, other: Enum_InputContext): boolean
+	function __le(self, other: Enum_InputContext): boolean
+end
+declare extern type Enum_InputDeviceInterfaceType with
+	function __lt(self, other: Enum_InputDeviceInterfaceType): boolean
+	function __le(self, other: Enum_InputDeviceInterfaceType): boolean
+end
+declare extern type Enum_InvalidPlotScreenshotReason with
+	function __lt(self, other: Enum_InvalidPlotScreenshotReason): boolean
+	function __le(self, other: Enum_InvalidPlotScreenshotReason): boolean
+end
+declare extern type Enum_InventoryType with
+	function __lt(self, other: Enum_InventoryType): boolean
+	function __le(self, other: Enum_InventoryType): boolean
+end
+declare extern type Enum_ItemArmorSubclass with
+	function __lt(self, other: Enum_ItemArmorSubclass): boolean
+	function __le(self, other: Enum_ItemArmorSubclass): boolean
+end
+declare extern type Enum_ItemBind with
+	function __lt(self, other: Enum_ItemBind): boolean
+	function __le(self, other: Enum_ItemBind): boolean
+end
+declare extern type Enum_ItemClass with
+	function __lt(self, other: Enum_ItemClass): boolean
+	function __le(self, other: Enum_ItemClass): boolean
+end
+declare extern type Enum_ItemCollectionType with
+	function __lt(self, other: Enum_ItemCollectionType): boolean
+	function __le(self, other: Enum_ItemCollectionType): boolean
+end
+declare extern type Enum_ItemCommodityStatus with
+	function __lt(self, other: Enum_ItemCommodityStatus): boolean
+	function __le(self, other: Enum_ItemCommodityStatus): boolean
+end
+declare extern type Enum_ItemConsumableSubclass with
+	function __lt(self, other: Enum_ItemConsumableSubclass): boolean
+	function __le(self, other: Enum_ItemConsumableSubclass): boolean
+end
+declare extern type Enum_ItemContainerSubclass with
+	function __lt(self, other: Enum_ItemContainerSubclass): boolean
+	function __le(self, other: Enum_ItemContainerSubclass): boolean
+end
 export type Enum_ItemConversionFlags = number
-export type Enum_ItemCreationContext = number
-export type Enum_ItemDiscoverySource = number
-export type Enum_ItemDisplayTextDisplayStyle = number
-export type Enum_ItemDisplayTooltipEnabledType = number
-export type Enum_ItemEnchantType = number
+declare extern type Enum_ItemCreationContext with
+	function __lt(self, other: Enum_ItemCreationContext): boolean
+	function __le(self, other: Enum_ItemCreationContext): boolean
+end
+declare extern type Enum_ItemDiscoverySource with
+	function __lt(self, other: Enum_ItemDiscoverySource): boolean
+	function __le(self, other: Enum_ItemDiscoverySource): boolean
+end
+declare extern type Enum_ItemDisplayTextDisplayStyle with
+	function __lt(self, other: Enum_ItemDisplayTextDisplayStyle): boolean
+	function __le(self, other: Enum_ItemDisplayTextDisplayStyle): boolean
+end
+declare extern type Enum_ItemDisplayTooltipEnabledType with
+	function __lt(self, other: Enum_ItemDisplayTooltipEnabledType): boolean
+	function __le(self, other: Enum_ItemDisplayTooltipEnabledType): boolean
+end
+declare extern type Enum_ItemEnchantType with
+	function __lt(self, other: Enum_ItemEnchantType): boolean
+	function __le(self, other: Enum_ItemEnchantType): boolean
+end
 export type Enum_ItemGemColor = number
-export type Enum_ItemGemSubclass = number
-export type Enum_ItemHousingSubclass = number
-export type Enum_ItemMiscellaneousSubclass = number
-export type Enum_ItemModification = number
-export type Enum_ItemProfessionSubclass = number
-export type Enum_ItemQuality = number
-export type Enum_ItemQuiverSubclass = number
-export type Enum_ItemReagentSubclass = number
-export type Enum_ItemRecipeSubclass = number
+declare extern type Enum_ItemGemSubclass with
+	function __lt(self, other: Enum_ItemGemSubclass): boolean
+	function __le(self, other: Enum_ItemGemSubclass): boolean
+end
+declare extern type Enum_ItemHousingSubclass with
+	function __lt(self, other: Enum_ItemHousingSubclass): boolean
+	function __le(self, other: Enum_ItemHousingSubclass): boolean
+end
+declare extern type Enum_ItemMiscellaneousSubclass with
+	function __lt(self, other: Enum_ItemMiscellaneousSubclass): boolean
+	function __le(self, other: Enum_ItemMiscellaneousSubclass): boolean
+end
+declare extern type Enum_ItemModification with
+	function __lt(self, other: Enum_ItemModification): boolean
+	function __le(self, other: Enum_ItemModification): boolean
+end
+declare extern type Enum_ItemProfessionSubclass with
+	function __lt(self, other: Enum_ItemProfessionSubclass): boolean
+	function __le(self, other: Enum_ItemProfessionSubclass): boolean
+end
+declare extern type Enum_ItemQuality with
+	function __lt(self, other: Enum_ItemQuality): boolean
+	function __le(self, other: Enum_ItemQuality): boolean
+end
+declare extern type Enum_ItemQuiverSubclass with
+	function __lt(self, other: Enum_ItemQuiverSubclass): boolean
+	function __le(self, other: Enum_ItemQuiverSubclass): boolean
+end
+declare extern type Enum_ItemReagentSubclass with
+	function __lt(self, other: Enum_ItemReagentSubclass): boolean
+	function __le(self, other: Enum_ItemReagentSubclass): boolean
+end
+declare extern type Enum_ItemRecipeSubclass with
+	function __lt(self, other: Enum_ItemRecipeSubclass): boolean
+	function __le(self, other: Enum_ItemRecipeSubclass): boolean
+end
 export type Enum_ItemRecraftFlags = number
-export type Enum_ItemRedundancySlot = number
-export type Enum_ItemSlotFilterType = number
-export type Enum_ItemSocketInfoUIType = number
-export type Enum_ItemSocketType = number
-export type Enum_ItemSoundType = number
-export type Enum_ItemSubclassDisplay = number
+declare extern type Enum_ItemRedundancySlot with
+	function __lt(self, other: Enum_ItemRedundancySlot): boolean
+	function __le(self, other: Enum_ItemRedundancySlot): boolean
+end
+declare extern type Enum_ItemSlotFilterType with
+	function __lt(self, other: Enum_ItemSlotFilterType): boolean
+	function __le(self, other: Enum_ItemSlotFilterType): boolean
+end
+declare extern type Enum_ItemSocketInfoUIType with
+	function __lt(self, other: Enum_ItemSocketInfoUIType): boolean
+	function __le(self, other: Enum_ItemSocketInfoUIType): boolean
+end
+declare extern type Enum_ItemSocketType with
+	function __lt(self, other: Enum_ItemSocketType): boolean
+	function __le(self, other: Enum_ItemSocketType): boolean
+end
+declare extern type Enum_ItemSoundType with
+	function __lt(self, other: Enum_ItemSoundType): boolean
+	function __le(self, other: Enum_ItemSoundType): boolean
+end
+declare extern type Enum_ItemSubclassDisplay with
+	function __lt(self, other: Enum_ItemSubclassDisplay): boolean
+	function __le(self, other: Enum_ItemSubclassDisplay): boolean
+end
 export type Enum_ItemSubclassFlag = number
-export type Enum_ItemTryOnReason = number
-export type Enum_ItemWeaponSubclass = number
+declare extern type Enum_ItemTryOnReason with
+	function __lt(self, other: Enum_ItemTryOnReason): boolean
+	function __le(self, other: Enum_ItemTryOnReason): boolean
+end
+declare extern type Enum_ItemWeaponSubclass with
+	function __lt(self, other: Enum_ItemWeaponSubclass): boolean
+	function __le(self, other: Enum_ItemWeaponSubclass): boolean
+end
 export type Enum_Itemclassfilterflags = number
 export type Enum_Itemsetflags = number
-export type Enum_JailersTowerType = number
+declare extern type Enum_JailersTowerType with
+	function __lt(self, other: Enum_JailersTowerType): boolean
+	function __le(self, other: Enum_JailersTowerType): boolean
+end
 export type Enum_JournalEncounterFlags = number
 export type Enum_JournalEncounterIconFlags = number
 export type Enum_JournalEncounterItemFlags = number
 export type Enum_JournalEncounterLocFlags = number
-export type Enum_JournalEncounterSecTypes = number
+declare extern type Enum_JournalEncounterSecTypes with
+	function __lt(self, other: Enum_JournalEncounterSecTypes): boolean
+	function __le(self, other: Enum_JournalEncounterSecTypes): boolean
+end
 export type Enum_JournalEncounterSectionFlags = number
 export type Enum_JournalInstanceFlags = number
-export type Enum_JournalLinkTypes = number
-export type Enum_KioskExperience = number
-export type Enum_LFGEntryGeneralPlaystyle = number
-export type Enum_LFGEntryPlaystyle = number
-export type Enum_LFGEntryVoiceMode = number
-export type Enum_LFGListDisplayType = number
+declare extern type Enum_JournalLinkTypes with
+	function __lt(self, other: Enum_JournalLinkTypes): boolean
+	function __le(self, other: Enum_JournalLinkTypes): boolean
+end
+declare extern type Enum_KioskExperience with
+	function __lt(self, other: Enum_KioskExperience): boolean
+	function __le(self, other: Enum_KioskExperience): boolean
+end
+declare extern type Enum_LFGEntryGeneralPlaystyle with
+	function __lt(self, other: Enum_LFGEntryGeneralPlaystyle): boolean
+	function __le(self, other: Enum_LFGEntryGeneralPlaystyle): boolean
+end
+declare extern type Enum_LFGEntryPlaystyle with
+	function __lt(self, other: Enum_LFGEntryPlaystyle): boolean
+	function __le(self, other: Enum_LFGEntryPlaystyle): boolean
+end
+declare extern type Enum_LFGEntryVoiceMode with
+	function __lt(self, other: Enum_LFGEntryVoiceMode): boolean
+	function __le(self, other: Enum_LFGEntryVoiceMode): boolean
+end
+declare extern type Enum_LFGListDisplayType with
+	function __lt(self, other: Enum_LFGListDisplayType): boolean
+	function __le(self, other: Enum_LFGListDisplayType): boolean
+end
 export type Enum_LFGListFilter = number
-export type Enum_LFGRole = number
-export type Enum_LFGSlotInvalidReason = number
+declare extern type Enum_LFGRole with
+	function __lt(self, other: Enum_LFGRole): boolean
+	function __le(self, other: Enum_LFGRole): boolean
+end
+declare extern type Enum_LFGSlotInvalidReason with
+	function __lt(self, other: Enum_LFGSlotInvalidReason): boolean
+	function __le(self, other: Enum_LFGSlotInvalidReason): boolean
+end
 export type Enum_LanguageFlag = number
-export type Enum_LeavePartyConfirmReason = number
-export type Enum_LgVendorPurchaseSettlementState = number
-export type Enum_LgVendorPurchaseSqlResults = number
-export type Enum_LgVendorPurchaseState = number
-export type Enum_LightRadiusIndicatorType = number
-export type Enum_LimitedInputType = number
+declare extern type Enum_LeavePartyConfirmReason with
+	function __lt(self, other: Enum_LeavePartyConfirmReason): boolean
+	function __le(self, other: Enum_LeavePartyConfirmReason): boolean
+end
+declare extern type Enum_LgVendorPurchaseSettlementState with
+	function __lt(self, other: Enum_LgVendorPurchaseSettlementState): boolean
+	function __le(self, other: Enum_LgVendorPurchaseSettlementState): boolean
+end
+declare extern type Enum_LgVendorPurchaseSqlResults with
+	function __lt(self, other: Enum_LgVendorPurchaseSqlResults): boolean
+	function __le(self, other: Enum_LgVendorPurchaseSqlResults): boolean
+end
+declare extern type Enum_LgVendorPurchaseState with
+	function __lt(self, other: Enum_LgVendorPurchaseState): boolean
+	function __le(self, other: Enum_LgVendorPurchaseState): boolean
+end
+declare extern type Enum_LightRadiusIndicatorType with
+	function __lt(self, other: Enum_LightRadiusIndicatorType): boolean
+	function __le(self, other: Enum_LightRadiusIndicatorType): boolean
+end
+declare extern type Enum_LimitedInputType with
+	function __lt(self, other: Enum_LimitedInputType): boolean
+	function __le(self, other: Enum_LimitedInputType): boolean
+end
 export type Enum_LinkedCurrencyFlags = number
-export type Enum_LoadConfigResult = number
-export type Enum_LocaleTransform = number
-export type Enum_LogPriority = number
-export type Enum_LogicLogicop = number
-export type Enum_LogicMathop = number
-export type Enum_LogicRelop = number
-export type Enum_LoginTicketLicenses = number
-export type Enum_LootMethod = number
-export type Enum_LootMethodStyles = number
-export type Enum_LootRollDisabledReason = number
-export type Enum_LootRollType = number
-export type Enum_LootSlotType = number
-export type Enum_LuaCurveType = number
-export type Enum_MajorFactionFeatureAbility = number
-export type Enum_MajorFactionType = number
-export type Enum_ManipulatorEventType = number
-export type Enum_MapCanvasPosition = number
-export type Enum_MapIconUIWidgetSetType = number
-export type Enum_MapOverlayDisplayLocation = number
-export type Enum_MapPinAnimationType = number
-export type Enum_MapobjEventTypes = number
-export type Enum_MatchDetailType = number
-export type Enum_MicroMenuOrder = number
-export type Enum_MicroMenuOrientation = number
+declare extern type Enum_LoadConfigResult with
+	function __lt(self, other: Enum_LoadConfigResult): boolean
+	function __le(self, other: Enum_LoadConfigResult): boolean
+end
+declare extern type Enum_LocaleTransform with
+	function __lt(self, other: Enum_LocaleTransform): boolean
+	function __le(self, other: Enum_LocaleTransform): boolean
+end
+declare extern type Enum_LogPriority with
+	function __lt(self, other: Enum_LogPriority): boolean
+	function __le(self, other: Enum_LogPriority): boolean
+end
+declare extern type Enum_LogicLogicop with
+	function __lt(self, other: Enum_LogicLogicop): boolean
+	function __le(self, other: Enum_LogicLogicop): boolean
+end
+declare extern type Enum_LogicMathop with
+	function __lt(self, other: Enum_LogicMathop): boolean
+	function __le(self, other: Enum_LogicMathop): boolean
+end
+declare extern type Enum_LogicRelop with
+	function __lt(self, other: Enum_LogicRelop): boolean
+	function __le(self, other: Enum_LogicRelop): boolean
+end
+declare extern type Enum_LoginTicketLicenses with
+	function __lt(self, other: Enum_LoginTicketLicenses): boolean
+	function __le(self, other: Enum_LoginTicketLicenses): boolean
+end
+declare extern type Enum_LootMethod with
+	function __lt(self, other: Enum_LootMethod): boolean
+	function __le(self, other: Enum_LootMethod): boolean
+end
+declare extern type Enum_LootMethodStyles with
+	function __lt(self, other: Enum_LootMethodStyles): boolean
+	function __le(self, other: Enum_LootMethodStyles): boolean
+end
+declare extern type Enum_LootRollDisabledReason with
+	function __lt(self, other: Enum_LootRollDisabledReason): boolean
+	function __le(self, other: Enum_LootRollDisabledReason): boolean
+end
+declare extern type Enum_LootRollType with
+	function __lt(self, other: Enum_LootRollType): boolean
+	function __le(self, other: Enum_LootRollType): boolean
+end
+declare extern type Enum_LootSlotType with
+	function __lt(self, other: Enum_LootSlotType): boolean
+	function __le(self, other: Enum_LootSlotType): boolean
+end
+declare extern type Enum_LuaCurveType with
+	function __lt(self, other: Enum_LuaCurveType): boolean
+	function __le(self, other: Enum_LuaCurveType): boolean
+end
+declare extern type Enum_MajorFactionFeatureAbility with
+	function __lt(self, other: Enum_MajorFactionFeatureAbility): boolean
+	function __le(self, other: Enum_MajorFactionFeatureAbility): boolean
+end
+declare extern type Enum_MajorFactionType with
+	function __lt(self, other: Enum_MajorFactionType): boolean
+	function __le(self, other: Enum_MajorFactionType): boolean
+end
+declare extern type Enum_ManipulatorEventType with
+	function __lt(self, other: Enum_ManipulatorEventType): boolean
+	function __le(self, other: Enum_ManipulatorEventType): boolean
+end
+declare extern type Enum_MapCanvasPosition with
+	function __lt(self, other: Enum_MapCanvasPosition): boolean
+	function __le(self, other: Enum_MapCanvasPosition): boolean
+end
+declare extern type Enum_MapIconUIWidgetSetType with
+	function __lt(self, other: Enum_MapIconUIWidgetSetType): boolean
+	function __le(self, other: Enum_MapIconUIWidgetSetType): boolean
+end
+declare extern type Enum_MapOverlayDisplayLocation with
+	function __lt(self, other: Enum_MapOverlayDisplayLocation): boolean
+	function __le(self, other: Enum_MapOverlayDisplayLocation): boolean
+end
+declare extern type Enum_MapPinAnimationType with
+	function __lt(self, other: Enum_MapPinAnimationType): boolean
+	function __le(self, other: Enum_MapPinAnimationType): boolean
+end
+declare extern type Enum_MapobjEventTypes with
+	function __lt(self, other: Enum_MapobjEventTypes): boolean
+	function __le(self, other: Enum_MapobjEventTypes): boolean
+end
+declare extern type Enum_MatchDetailType with
+	function __lt(self, other: Enum_MatchDetailType): boolean
+	function __le(self, other: Enum_MatchDetailType): boolean
+end
+declare extern type Enum_MicroMenuOrder with
+	function __lt(self, other: Enum_MicroMenuOrder): boolean
+	function __le(self, other: Enum_MicroMenuOrder): boolean
+end
+declare extern type Enum_MicroMenuOrientation with
+	function __lt(self, other: Enum_MicroMenuOrientation): boolean
+	function __le(self, other: Enum_MicroMenuOrientation): boolean
+end
 export type Enum_MinimapTrackingFilter = number
-export type Enum_ModelBlendOperation = number
-export type Enum_ModelLightType = number
-export type Enum_ModelSceneSetting = number
-export type Enum_ModelSceneType = number
-export type Enum_ModelSoundOverrideType = number
-export type Enum_ModelSoundTagType = number
-export type Enum_MountType = number
+declare extern type Enum_ModelBlendOperation with
+	function __lt(self, other: Enum_ModelBlendOperation): boolean
+	function __le(self, other: Enum_ModelBlendOperation): boolean
+end
+declare extern type Enum_ModelLightType with
+	function __lt(self, other: Enum_ModelLightType): boolean
+	function __le(self, other: Enum_ModelLightType): boolean
+end
+declare extern type Enum_ModelSceneSetting with
+	function __lt(self, other: Enum_ModelSceneSetting): boolean
+	function __le(self, other: Enum_ModelSceneSetting): boolean
+end
+declare extern type Enum_ModelSceneType with
+	function __lt(self, other: Enum_ModelSceneType): boolean
+	function __le(self, other: Enum_ModelSceneType): boolean
+end
+declare extern type Enum_ModelSoundOverrideType with
+	function __lt(self, other: Enum_ModelSoundOverrideType): boolean
+	function __le(self, other: Enum_ModelSoundOverrideType): boolean
+end
+declare extern type Enum_ModelSoundTagType with
+	function __lt(self, other: Enum_ModelSoundTagType): boolean
+	function __le(self, other: Enum_ModelSoundTagType): boolean
+end
+declare extern type Enum_MountType with
+	function __lt(self, other: Enum_MountType): boolean
+	function __le(self, other: Enum_MountType): boolean
+end
 export type Enum_MountTypeFlag = number
-export type Enum_NamePartType = number
-export type Enum_NamePlateCastBarDisplay = number
-export type Enum_NamePlateEnemyNpcAuraDisplay = number
-export type Enum_NamePlateEnemyPlayerAuraDisplay = number
-export type Enum_NamePlateFriendlyPlayerAuraDisplay = number
-export type Enum_NamePlateInfoDisplay = number
-export type Enum_NamePlateSimplifiedType = number
-export type Enum_NamePlateSize = number
-export type Enum_NamePlateStackType = number
-export type Enum_NamePlateStyle = number
-export type Enum_NamePlateThreatDisplay = number
-export type Enum_NamePlateType = number
-export type Enum_NamegenType = number
-export type Enum_NavigationState = number
+declare extern type Enum_NamePartType with
+	function __lt(self, other: Enum_NamePartType): boolean
+	function __le(self, other: Enum_NamePartType): boolean
+end
+declare extern type Enum_NamePlateCastBarDisplay with
+	function __lt(self, other: Enum_NamePlateCastBarDisplay): boolean
+	function __le(self, other: Enum_NamePlateCastBarDisplay): boolean
+end
+declare extern type Enum_NamePlateEnemyNpcAuraDisplay with
+	function __lt(self, other: Enum_NamePlateEnemyNpcAuraDisplay): boolean
+	function __le(self, other: Enum_NamePlateEnemyNpcAuraDisplay): boolean
+end
+declare extern type Enum_NamePlateEnemyPlayerAuraDisplay with
+	function __lt(self, other: Enum_NamePlateEnemyPlayerAuraDisplay): boolean
+	function __le(self, other: Enum_NamePlateEnemyPlayerAuraDisplay): boolean
+end
+declare extern type Enum_NamePlateFriendlyPlayerAuraDisplay with
+	function __lt(self, other: Enum_NamePlateFriendlyPlayerAuraDisplay): boolean
+	function __le(self, other: Enum_NamePlateFriendlyPlayerAuraDisplay): boolean
+end
+declare extern type Enum_NamePlateInfoDisplay with
+	function __lt(self, other: Enum_NamePlateInfoDisplay): boolean
+	function __le(self, other: Enum_NamePlateInfoDisplay): boolean
+end
+declare extern type Enum_NamePlateSimplifiedType with
+	function __lt(self, other: Enum_NamePlateSimplifiedType): boolean
+	function __le(self, other: Enum_NamePlateSimplifiedType): boolean
+end
+declare extern type Enum_NamePlateSize with
+	function __lt(self, other: Enum_NamePlateSize): boolean
+	function __le(self, other: Enum_NamePlateSize): boolean
+end
+declare extern type Enum_NamePlateStackType with
+	function __lt(self, other: Enum_NamePlateStackType): boolean
+	function __le(self, other: Enum_NamePlateStackType): boolean
+end
+declare extern type Enum_NamePlateStyle with
+	function __lt(self, other: Enum_NamePlateStyle): boolean
+	function __le(self, other: Enum_NamePlateStyle): boolean
+end
+declare extern type Enum_NamePlateThreatDisplay with
+	function __lt(self, other: Enum_NamePlateThreatDisplay): boolean
+	function __le(self, other: Enum_NamePlateThreatDisplay): boolean
+end
+declare extern type Enum_NamePlateType with
+	function __lt(self, other: Enum_NamePlateType): boolean
+	function __le(self, other: Enum_NamePlateType): boolean
+end
+declare extern type Enum_NamegenType with
+	function __lt(self, other: Enum_NamegenType): boolean
+	function __le(self, other: Enum_NamegenType): boolean
+end
+declare extern type Enum_NavigationState with
+	function __lt(self, other: Enum_NavigationState): boolean
+	function __le(self, other: Enum_NavigationState): boolean
+end
 export type Enum_NeighborhoodFlags = number
-export type Enum_NeighborhoodInitiativeChestResult = number
+declare extern type Enum_NeighborhoodInitiativeChestResult with
+	function __lt(self, other: Enum_NeighborhoodInitiativeChestResult): boolean
+	function __le(self, other: Enum_NeighborhoodInitiativeChestResult): boolean
+end
 export type Enum_NeighborhoodInitiativeFlags = number
-export type Enum_NeighborhoodInitiativeNeighborhoodTypes = number
-export type Enum_NeighborhoodInitiativeTaskType = number
-export type Enum_NeighborhoodInitiativeUpdateStatus = number
-export type Enum_NeighborhoodInitiativesCompletionStates = number
-export type Enum_NeighborhoodInviteResult = number
+declare extern type Enum_NeighborhoodInitiativeNeighborhoodTypes with
+	function __lt(self, other: Enum_NeighborhoodInitiativeNeighborhoodTypes): boolean
+	function __le(self, other: Enum_NeighborhoodInitiativeNeighborhoodTypes): boolean
+end
+declare extern type Enum_NeighborhoodInitiativeTaskType with
+	function __lt(self, other: Enum_NeighborhoodInitiativeTaskType): boolean
+	function __le(self, other: Enum_NeighborhoodInitiativeTaskType): boolean
+end
+declare extern type Enum_NeighborhoodInitiativeUpdateStatus with
+	function __lt(self, other: Enum_NeighborhoodInitiativeUpdateStatus): boolean
+	function __le(self, other: Enum_NeighborhoodInitiativeUpdateStatus): boolean
+end
+declare extern type Enum_NeighborhoodInitiativesCompletionStates with
+	function __lt(self, other: Enum_NeighborhoodInitiativesCompletionStates): boolean
+	function __le(self, other: Enum_NeighborhoodInitiativesCompletionStates): boolean
+end
+declare extern type Enum_NeighborhoodInviteResult with
+	function __lt(self, other: Enum_NeighborhoodInviteResult): boolean
+	function __le(self, other: Enum_NeighborhoodInviteResult): boolean
+end
 export type Enum_NeighborhoodMapFlags = number
-export type Enum_NeighborhoodOwnerType = number
-export type Enum_NeighborhoodType = number
-export type Enum_NewCharGear = number
-export type Enum_NoRPEReason = number
-export type Enum_NodeOpFailureReason = number
-export type Enum_NormalizationForm = number
+declare extern type Enum_NeighborhoodOwnerType with
+	function __lt(self, other: Enum_NeighborhoodOwnerType): boolean
+	function __le(self, other: Enum_NeighborhoodOwnerType): boolean
+end
+declare extern type Enum_NeighborhoodType with
+	function __lt(self, other: Enum_NeighborhoodType): boolean
+	function __le(self, other: Enum_NeighborhoodType): boolean
+end
+declare extern type Enum_NewCharGear with
+	function __lt(self, other: Enum_NewCharGear): boolean
+	function __le(self, other: Enum_NewCharGear): boolean
+end
+declare extern type Enum_NoRPEReason with
+	function __lt(self, other: Enum_NoRPEReason): boolean
+	function __le(self, other: Enum_NoRPEReason): boolean
+end
+declare extern type Enum_NodeOpFailureReason with
+	function __lt(self, other: Enum_NodeOpFailureReason): boolean
+	function __le(self, other: Enum_NodeOpFailureReason): boolean
+end
+declare extern type Enum_NormalizationForm with
+	function __lt(self, other: Enum_NormalizationForm): boolean
+	function __le(self, other: Enum_NormalizationForm): boolean
+end
 export type Enum_NpcCraftingOrderSetFlags = number
-export type Enum_NumberStyle = number
-export type Enum_NumericRuleFormatRounding = number
-export type Enum_OnUpdateMode = number
-export type Enum_PartyPlaylistEntry = number
+declare extern type Enum_NumberStyle with
+	function __lt(self, other: Enum_NumberStyle): boolean
+	function __le(self, other: Enum_NumberStyle): boolean
+end
+declare extern type Enum_NumericRuleFormatRounding with
+	function __lt(self, other: Enum_NumericRuleFormatRounding): boolean
+	function __le(self, other: Enum_NumericRuleFormatRounding): boolean
+end
+declare extern type Enum_OnUpdateMode with
+	function __lt(self, other: Enum_OnUpdateMode): boolean
+	function __le(self, other: Enum_OnUpdateMode): boolean
+end
+declare extern type Enum_PartyPlaylistEntry with
+	function __lt(self, other: Enum_PartyPlaylistEntry): boolean
+	function __le(self, other: Enum_PartyPlaylistEntry): boolean
+end
 export type Enum_PartyPoseFlags = number
-export type Enum_PartyRequestJoinRelation = number
-export type Enum_PerksVendorCategoryType = number
-export type Enum_PermanentChatChannelType = number
-export type Enum_PersonalResourceDisplayVisibleSetting = number
-export type Enum_PetActionFeedback = number
-export type Enum_PetActionbuttonType = number
-export type Enum_PetBattleQueueStatus = number
-export type Enum_PetJournalError = number
-export type Enum_PetMode = number
-export type Enum_PetOrders = number
-export type Enum_PetOverride = number
-export type Enum_PetbattleSlot = number
-export type Enum_PetbattleState = number
-export type Enum_Pettameresult = number
-export type Enum_PhaseReason = number
-export type Enum_PhotoSharingStatus = number
-export type Enum_PhotoSharingUploadStatus = number
-export type Enum_PingMode = number
-export type Enum_PingResult = number
-export type Enum_PingSetTargetState = number
-export type Enum_PingSubjectType = number
-export type Enum_PingTargetOption = number
-export type Enum_PingTargetType = number
-export type Enum_PingTextureType = number
+declare extern type Enum_PartyRequestJoinRelation with
+	function __lt(self, other: Enum_PartyRequestJoinRelation): boolean
+	function __le(self, other: Enum_PartyRequestJoinRelation): boolean
+end
+declare extern type Enum_PerksVendorCategoryType with
+	function __lt(self, other: Enum_PerksVendorCategoryType): boolean
+	function __le(self, other: Enum_PerksVendorCategoryType): boolean
+end
+declare extern type Enum_PermanentChatChannelType with
+	function __lt(self, other: Enum_PermanentChatChannelType): boolean
+	function __le(self, other: Enum_PermanentChatChannelType): boolean
+end
+declare extern type Enum_PersonalResourceDisplayVisibleSetting with
+	function __lt(self, other: Enum_PersonalResourceDisplayVisibleSetting): boolean
+	function __le(self, other: Enum_PersonalResourceDisplayVisibleSetting): boolean
+end
+declare extern type Enum_PetActionFeedback with
+	function __lt(self, other: Enum_PetActionFeedback): boolean
+	function __le(self, other: Enum_PetActionFeedback): boolean
+end
+declare extern type Enum_PetActionbuttonType with
+	function __lt(self, other: Enum_PetActionbuttonType): boolean
+	function __le(self, other: Enum_PetActionbuttonType): boolean
+end
+declare extern type Enum_PetBattleQueueStatus with
+	function __lt(self, other: Enum_PetBattleQueueStatus): boolean
+	function __le(self, other: Enum_PetBattleQueueStatus): boolean
+end
+declare extern type Enum_PetJournalError with
+	function __lt(self, other: Enum_PetJournalError): boolean
+	function __le(self, other: Enum_PetJournalError): boolean
+end
+declare extern type Enum_PetMode with
+	function __lt(self, other: Enum_PetMode): boolean
+	function __le(self, other: Enum_PetMode): boolean
+end
+declare extern type Enum_PetOrders with
+	function __lt(self, other: Enum_PetOrders): boolean
+	function __le(self, other: Enum_PetOrders): boolean
+end
+declare extern type Enum_PetOverride with
+	function __lt(self, other: Enum_PetOverride): boolean
+	function __le(self, other: Enum_PetOverride): boolean
+end
+declare extern type Enum_PetbattleSlot with
+	function __lt(self, other: Enum_PetbattleSlot): boolean
+	function __le(self, other: Enum_PetbattleSlot): boolean
+end
+declare extern type Enum_PetbattleState with
+	function __lt(self, other: Enum_PetbattleState): boolean
+	function __le(self, other: Enum_PetbattleState): boolean
+end
+declare extern type Enum_Pettameresult with
+	function __lt(self, other: Enum_Pettameresult): boolean
+	function __le(self, other: Enum_Pettameresult): boolean
+end
+declare extern type Enum_PhaseReason with
+	function __lt(self, other: Enum_PhaseReason): boolean
+	function __le(self, other: Enum_PhaseReason): boolean
+end
+declare extern type Enum_PhotoSharingStatus with
+	function __lt(self, other: Enum_PhotoSharingStatus): boolean
+	function __le(self, other: Enum_PhotoSharingStatus): boolean
+end
+declare extern type Enum_PhotoSharingUploadStatus with
+	function __lt(self, other: Enum_PhotoSharingUploadStatus): boolean
+	function __le(self, other: Enum_PhotoSharingUploadStatus): boolean
+end
+declare extern type Enum_PingMode with
+	function __lt(self, other: Enum_PingMode): boolean
+	function __le(self, other: Enum_PingMode): boolean
+end
+declare extern type Enum_PingResult with
+	function __lt(self, other: Enum_PingResult): boolean
+	function __le(self, other: Enum_PingResult): boolean
+end
+declare extern type Enum_PingSetTargetState with
+	function __lt(self, other: Enum_PingSetTargetState): boolean
+	function __le(self, other: Enum_PingSetTargetState): boolean
+end
+declare extern type Enum_PingSubjectType with
+	function __lt(self, other: Enum_PingSubjectType): boolean
+	function __le(self, other: Enum_PingSubjectType): boolean
+end
+declare extern type Enum_PingTargetOption with
+	function __lt(self, other: Enum_PingTargetOption): boolean
+	function __le(self, other: Enum_PingTargetOption): boolean
+end
+declare extern type Enum_PingTargetType with
+	function __lt(self, other: Enum_PingTargetType): boolean
+	function __le(self, other: Enum_PingTargetType): boolean
+end
+declare extern type Enum_PingTextureType with
+	function __lt(self, other: Enum_PingTextureType): boolean
+	function __le(self, other: Enum_PingTextureType): boolean
+end
 export type Enum_PingTypeFlags = number
 export type Enum_PlayerChoiceFlags = number
-export type Enum_PlayerChoiceLayout = number
-export type Enum_PlayerChoiceRarity = number
+declare extern type Enum_PlayerChoiceLayout with
+	function __lt(self, other: Enum_PlayerChoiceLayout): boolean
+	function __le(self, other: Enum_PlayerChoiceLayout): boolean
+end
+declare extern type Enum_PlayerChoiceRarity with
+	function __lt(self, other: Enum_PlayerChoiceRarity): boolean
+	function __le(self, other: Enum_PlayerChoiceRarity): boolean
+end
 export type Enum_PlayerChoiceResponseFlags = number
-export type Enum_PlayerClubRequestStatus = number
+declare extern type Enum_PlayerClubRequestStatus with
+	function __lt(self, other: Enum_PlayerClubRequestStatus): boolean
+	function __le(self, other: Enum_PlayerClubRequestStatus): boolean
+end
 export type Enum_PlayerCompanionInfoFlags = number
 export type Enum_PlayerCurrencyFlags = number
 export type Enum_PlayerCurrencyFlagsDbFlags = number
 export type Enum_PlayerDataElementAccountFlags = number
 export type Enum_PlayerDataElementCharacterFlags = number
-export type Enum_PlayerDataElementType = number
-export type Enum_PlayerInteractionType = number
-export type Enum_PlayerMentorshipApplicationResult = number
-export type Enum_PlayerMentorshipStatus = number
-export type Enum_PlayerSwingType = number
-export type Enum_PlunderstormQueueState = number
-export type Enum_PluralType = number
-export type Enum_PowerType = number
-export type Enum_PowerTypeSign = number
-export type Enum_PowerTypeSlot = number
-export type Enum_PremadeGroupFinderStyle = number
-export type Enum_PreyHuntProgressState = number
-export type Enum_ProceduralSpawnInteractionMode = number
+declare extern type Enum_PlayerDataElementType with
+	function __lt(self, other: Enum_PlayerDataElementType): boolean
+	function __le(self, other: Enum_PlayerDataElementType): boolean
+end
+declare extern type Enum_PlayerInteractionType with
+	function __lt(self, other: Enum_PlayerInteractionType): boolean
+	function __le(self, other: Enum_PlayerInteractionType): boolean
+end
+declare extern type Enum_PlayerMentorshipApplicationResult with
+	function __lt(self, other: Enum_PlayerMentorshipApplicationResult): boolean
+	function __le(self, other: Enum_PlayerMentorshipApplicationResult): boolean
+end
+declare extern type Enum_PlayerMentorshipStatus with
+	function __lt(self, other: Enum_PlayerMentorshipStatus): boolean
+	function __le(self, other: Enum_PlayerMentorshipStatus): boolean
+end
+declare extern type Enum_PlayerSwingType with
+	function __lt(self, other: Enum_PlayerSwingType): boolean
+	function __le(self, other: Enum_PlayerSwingType): boolean
+end
+declare extern type Enum_PlunderstormQueueState with
+	function __lt(self, other: Enum_PlunderstormQueueState): boolean
+	function __le(self, other: Enum_PlunderstormQueueState): boolean
+end
+declare extern type Enum_PluralType with
+	function __lt(self, other: Enum_PluralType): boolean
+	function __le(self, other: Enum_PluralType): boolean
+end
+declare extern type Enum_PowerType with
+	function __lt(self, other: Enum_PowerType): boolean
+	function __le(self, other: Enum_PowerType): boolean
+end
+declare extern type Enum_PowerTypeSign with
+	function __lt(self, other: Enum_PowerTypeSign): boolean
+	function __le(self, other: Enum_PowerTypeSign): boolean
+end
+declare extern type Enum_PowerTypeSlot with
+	function __lt(self, other: Enum_PowerTypeSlot): boolean
+	function __le(self, other: Enum_PowerTypeSlot): boolean
+end
+declare extern type Enum_PremadeGroupFinderStyle with
+	function __lt(self, other: Enum_PremadeGroupFinderStyle): boolean
+	function __le(self, other: Enum_PremadeGroupFinderStyle): boolean
+end
+declare extern type Enum_PreyHuntProgressState with
+	function __lt(self, other: Enum_PreyHuntProgressState): boolean
+	function __le(self, other: Enum_PreyHuntProgressState): boolean
+end
+declare extern type Enum_ProceduralSpawnInteractionMode with
+	function __lt(self, other: Enum_ProceduralSpawnInteractionMode): boolean
+	function __le(self, other: Enum_ProceduralSpawnInteractionMode): boolean
+end
 export type Enum_ProceduralSpawnVolumeChunkFlags = number
 export type Enum_ProfTraitPerkNodeFlags = number
-export type Enum_Profession = number
-export type Enum_ProfessionActionType = number
-export type Enum_ProfessionEffect = number
-export type Enum_ProfessionRating = number
-export type Enum_ProfessionRatingType = number
-export type Enum_ProfessionsSpecPathState = number
-export type Enum_ProfessionsSpecPerkState = number
-export type Enum_ProfessionsSpecTabState = number
-export type Enum_PurchaseHouseDisabledReason = number
-export type Enum_PurchaseResult = number
-export type Enum_PvPFaction = number
-export type Enum_PvPMatchState = number
-export type Enum_PvPMatchmakingType = number
-export type Enum_PvPRanks = number
-export type Enum_PvPUnitClassification = number
-export type Enum_QuestClassification = number
-export type Enum_QuestCompleteSpellType = number
-export type Enum_QuestFrequency = number
-export type Enum_QuestLineFloorLocation = number
-export type Enum_QuestRepeatability = number
+declare extern type Enum_Profession with
+	function __lt(self, other: Enum_Profession): boolean
+	function __le(self, other: Enum_Profession): boolean
+end
+declare extern type Enum_ProfessionActionType with
+	function __lt(self, other: Enum_ProfessionActionType): boolean
+	function __le(self, other: Enum_ProfessionActionType): boolean
+end
+declare extern type Enum_ProfessionEffect with
+	function __lt(self, other: Enum_ProfessionEffect): boolean
+	function __le(self, other: Enum_ProfessionEffect): boolean
+end
+declare extern type Enum_ProfessionRating with
+	function __lt(self, other: Enum_ProfessionRating): boolean
+	function __le(self, other: Enum_ProfessionRating): boolean
+end
+declare extern type Enum_ProfessionRatingType with
+	function __lt(self, other: Enum_ProfessionRatingType): boolean
+	function __le(self, other: Enum_ProfessionRatingType): boolean
+end
+declare extern type Enum_ProfessionsSpecPathState with
+	function __lt(self, other: Enum_ProfessionsSpecPathState): boolean
+	function __le(self, other: Enum_ProfessionsSpecPathState): boolean
+end
+declare extern type Enum_ProfessionsSpecPerkState with
+	function __lt(self, other: Enum_ProfessionsSpecPerkState): boolean
+	function __le(self, other: Enum_ProfessionsSpecPerkState): boolean
+end
+declare extern type Enum_ProfessionsSpecTabState with
+	function __lt(self, other: Enum_ProfessionsSpecTabState): boolean
+	function __le(self, other: Enum_ProfessionsSpecTabState): boolean
+end
+declare extern type Enum_PurchaseHouseDisabledReason with
+	function __lt(self, other: Enum_PurchaseHouseDisabledReason): boolean
+	function __le(self, other: Enum_PurchaseHouseDisabledReason): boolean
+end
+declare extern type Enum_PurchaseResult with
+	function __lt(self, other: Enum_PurchaseResult): boolean
+	function __le(self, other: Enum_PurchaseResult): boolean
+end
+declare extern type Enum_PvPFaction with
+	function __lt(self, other: Enum_PvPFaction): boolean
+	function __le(self, other: Enum_PvPFaction): boolean
+end
+declare extern type Enum_PvPMatchState with
+	function __lt(self, other: Enum_PvPMatchState): boolean
+	function __le(self, other: Enum_PvPMatchState): boolean
+end
+declare extern type Enum_PvPMatchmakingType with
+	function __lt(self, other: Enum_PvPMatchmakingType): boolean
+	function __le(self, other: Enum_PvPMatchmakingType): boolean
+end
+declare extern type Enum_PvPRanks with
+	function __lt(self, other: Enum_PvPRanks): boolean
+	function __le(self, other: Enum_PvPRanks): boolean
+end
+declare extern type Enum_PvPUnitClassification with
+	function __lt(self, other: Enum_PvPUnitClassification): boolean
+	function __le(self, other: Enum_PvPUnitClassification): boolean
+end
+declare extern type Enum_QuestClassification with
+	function __lt(self, other: Enum_QuestClassification): boolean
+	function __le(self, other: Enum_QuestClassification): boolean
+end
+declare extern type Enum_QuestCompleteSpellType with
+	function __lt(self, other: Enum_QuestCompleteSpellType): boolean
+	function __le(self, other: Enum_QuestCompleteSpellType): boolean
+end
+declare extern type Enum_QuestFrequency with
+	function __lt(self, other: Enum_QuestFrequency): boolean
+	function __le(self, other: Enum_QuestFrequency): boolean
+end
+declare extern type Enum_QuestLineFloorLocation with
+	function __lt(self, other: Enum_QuestLineFloorLocation): boolean
+	function __le(self, other: Enum_QuestLineFloorLocation): boolean
+end
+declare extern type Enum_QuestRepeatability with
+	function __lt(self, other: Enum_QuestRepeatability): boolean
+	function __le(self, other: Enum_QuestRepeatability): boolean
+end
 export type Enum_QuestRewardContextFlags = number
-export type Enum_QuestSessionCommand = number
-export type Enum_QuestSessionResult = number
-export type Enum_QuestTag = number
-export type Enum_QuestTagType = number
-export type Enum_QuestTreasurePickerType = number
-export type Enum_QuestWatchType = number
-export type Enum_RafLinkType = number
-export type Enum_RafRecruitActivityState = number
-export type Enum_RafRecruitSubStatus = number
-export type Enum_RafRewardType = number
-export type Enum_RaidAuraOrganizationType = number
-export type Enum_RaidDispelDisplayType = number
-export type Enum_RaidDispelOverlayType = number
-export type Enum_RaidGroupDisplayType = number
-export type Enum_RaidMarkerSpellids = number
-export type Enum_RcoCloseReason = number
-export type Enum_RecentAlliesInteractionCategoryFilter = number
-export type Enum_RecentAllyPinResult = number
-export type Enum_RecipeRequirementType = number
-export type Enum_RecruitAFriendFailure = number
-export type Enum_RecruitAFriendRewardsVersion = number
-export type Enum_RegisterAddonMessagePrefixResult = number
-export type Enum_RelativeContentDifficulty = number
-export type Enum_ReleaseType = number
-export type Enum_RenownRewardDisplayType = number
+declare extern type Enum_QuestSessionCommand with
+	function __lt(self, other: Enum_QuestSessionCommand): boolean
+	function __le(self, other: Enum_QuestSessionCommand): boolean
+end
+declare extern type Enum_QuestSessionResult with
+	function __lt(self, other: Enum_QuestSessionResult): boolean
+	function __le(self, other: Enum_QuestSessionResult): boolean
+end
+declare extern type Enum_QuestTag with
+	function __lt(self, other: Enum_QuestTag): boolean
+	function __le(self, other: Enum_QuestTag): boolean
+end
+declare extern type Enum_QuestTagType with
+	function __lt(self, other: Enum_QuestTagType): boolean
+	function __le(self, other: Enum_QuestTagType): boolean
+end
+declare extern type Enum_QuestTreasurePickerType with
+	function __lt(self, other: Enum_QuestTreasurePickerType): boolean
+	function __le(self, other: Enum_QuestTreasurePickerType): boolean
+end
+declare extern type Enum_QuestWatchType with
+	function __lt(self, other: Enum_QuestWatchType): boolean
+	function __le(self, other: Enum_QuestWatchType): boolean
+end
+declare extern type Enum_RafLinkType with
+	function __lt(self, other: Enum_RafLinkType): boolean
+	function __le(self, other: Enum_RafLinkType): boolean
+end
+declare extern type Enum_RafRecruitActivityState with
+	function __lt(self, other: Enum_RafRecruitActivityState): boolean
+	function __le(self, other: Enum_RafRecruitActivityState): boolean
+end
+declare extern type Enum_RafRecruitSubStatus with
+	function __lt(self, other: Enum_RafRecruitSubStatus): boolean
+	function __le(self, other: Enum_RafRecruitSubStatus): boolean
+end
+declare extern type Enum_RafRewardType with
+	function __lt(self, other: Enum_RafRewardType): boolean
+	function __le(self, other: Enum_RafRewardType): boolean
+end
+declare extern type Enum_RaidAuraOrganizationType with
+	function __lt(self, other: Enum_RaidAuraOrganizationType): boolean
+	function __le(self, other: Enum_RaidAuraOrganizationType): boolean
+end
+declare extern type Enum_RaidDispelDisplayType with
+	function __lt(self, other: Enum_RaidDispelDisplayType): boolean
+	function __le(self, other: Enum_RaidDispelDisplayType): boolean
+end
+declare extern type Enum_RaidDispelOverlayType with
+	function __lt(self, other: Enum_RaidDispelOverlayType): boolean
+	function __le(self, other: Enum_RaidDispelOverlayType): boolean
+end
+declare extern type Enum_RaidGroupDisplayType with
+	function __lt(self, other: Enum_RaidGroupDisplayType): boolean
+	function __le(self, other: Enum_RaidGroupDisplayType): boolean
+end
+declare extern type Enum_RaidMarkerSpellids with
+	function __lt(self, other: Enum_RaidMarkerSpellids): boolean
+	function __le(self, other: Enum_RaidMarkerSpellids): boolean
+end
+declare extern type Enum_RcoCloseReason with
+	function __lt(self, other: Enum_RcoCloseReason): boolean
+	function __le(self, other: Enum_RcoCloseReason): boolean
+end
+declare extern type Enum_RecentAlliesInteractionCategoryFilter with
+	function __lt(self, other: Enum_RecentAlliesInteractionCategoryFilter): boolean
+	function __le(self, other: Enum_RecentAlliesInteractionCategoryFilter): boolean
+end
+declare extern type Enum_RecentAllyPinResult with
+	function __lt(self, other: Enum_RecentAllyPinResult): boolean
+	function __le(self, other: Enum_RecentAllyPinResult): boolean
+end
+declare extern type Enum_RecipeRequirementType with
+	function __lt(self, other: Enum_RecipeRequirementType): boolean
+	function __le(self, other: Enum_RecipeRequirementType): boolean
+end
+declare extern type Enum_RecruitAFriendFailure with
+	function __lt(self, other: Enum_RecruitAFriendFailure): boolean
+	function __le(self, other: Enum_RecruitAFriendFailure): boolean
+end
+declare extern type Enum_RecruitAFriendRewardsVersion with
+	function __lt(self, other: Enum_RecruitAFriendRewardsVersion): boolean
+	function __le(self, other: Enum_RecruitAFriendRewardsVersion): boolean
+end
+declare extern type Enum_RegisterAddonMessagePrefixResult with
+	function __lt(self, other: Enum_RegisterAddonMessagePrefixResult): boolean
+	function __le(self, other: Enum_RegisterAddonMessagePrefixResult): boolean
+end
+declare extern type Enum_RelativeContentDifficulty with
+	function __lt(self, other: Enum_RelativeContentDifficulty): boolean
+	function __le(self, other: Enum_RelativeContentDifficulty): boolean
+end
+declare extern type Enum_ReleaseType with
+	function __lt(self, other: Enum_ReleaseType): boolean
+	function __le(self, other: Enum_ReleaseType): boolean
+end
+declare extern type Enum_RenownRewardDisplayType with
+	function __lt(self, other: Enum_RenownRewardDisplayType): boolean
+	function __le(self, other: Enum_RenownRewardDisplayType): boolean
+end
 export type Enum_RenownRewardsFlags = number
-export type Enum_ReportEvidenceType = number
-export type Enum_ReportMajorCategory = number
+declare extern type Enum_ReportEvidenceType with
+	function __lt(self, other: Enum_ReportEvidenceType): boolean
+	function __le(self, other: Enum_ReportEvidenceType): boolean
+end
+declare extern type Enum_ReportMajorCategory with
+	function __lt(self, other: Enum_ReportMajorCategory): boolean
+	function __le(self, other: Enum_ReportMajorCategory): boolean
+end
 export type Enum_ReportMinorCategory = number
-export type Enum_ReportSubComplaintTypes = number
-export type Enum_ReportThrottleType = number
-export type Enum_ReportType = number
-export type Enum_ReputationSortType = number
+declare extern type Enum_ReportSubComplaintTypes with
+	function __lt(self, other: Enum_ReportSubComplaintTypes): boolean
+	function __le(self, other: Enum_ReportSubComplaintTypes): boolean
+end
+declare extern type Enum_ReportThrottleType with
+	function __lt(self, other: Enum_ReportThrottleType): boolean
+	function __le(self, other: Enum_ReportThrottleType): boolean
+end
+declare extern type Enum_ReportType with
+	function __lt(self, other: Enum_ReportType): boolean
+	function __le(self, other: Enum_ReportType): boolean
+end
+declare extern type Enum_ReputationSortType with
+	function __lt(self, other: Enum_ReputationSortType): boolean
+	function __le(self, other: Enum_ReputationSortType): boolean
+end
 export type Enum_ReservationFlags = number
-export type Enum_ResidentType = number
-export type Enum_RespecType = number
-export type Enum_RestrictPingsTo = number
+declare extern type Enum_ResidentType with
+	function __lt(self, other: Enum_ResidentType): boolean
+	function __le(self, other: Enum_ResidentType): boolean
+end
+declare extern type Enum_RespecType with
+	function __lt(self, other: Enum_RespecType): boolean
+	function __le(self, other: Enum_RespecType): boolean
+end
+declare extern type Enum_RestrictPingsTo with
+	function __lt(self, other: Enum_RestrictPingsTo): boolean
+	function __le(self, other: Enum_RestrictPingsTo): boolean
+end
 export type Enum_RetroactiveDecorRewardFlags = number
-export type Enum_RolodexContactMigrationResult = number
-export type Enum_RolodexContextLevelType = number
+declare extern type Enum_RolodexContactMigrationResult with
+	function __lt(self, other: Enum_RolodexContactMigrationResult): boolean
+	function __le(self, other: Enum_RolodexContactMigrationResult): boolean
+end
+declare extern type Enum_RolodexContextLevelType with
+	function __lt(self, other: Enum_RolodexContextLevelType): boolean
+	function __le(self, other: Enum_RolodexContextLevelType): boolean
+end
 export type Enum_RolodexDbFlags = number
-export type Enum_RolodexType = number
+declare extern type Enum_RolodexType with
+	function __lt(self, other: Enum_RolodexType): boolean
+	function __le(self, other: Enum_RolodexType): boolean
+end
 export type Enum_RolodexTypeFlags = number
-export type Enum_RoomConnectionType = number
-export type Enum_RuneforgePowerFilter = number
-export type Enum_RuneforgePowerState = number
-export type Enum_ScreenLocationType = number
-export type Enum_ScreenshotSource = number
-export type Enum_ScriptBindingType = number
-export type Enum_ScriptObjectAccessRestriction = number
-export type Enum_ScriptObjectMetatable = number
-export type Enum_ScriptObjectPartition = number
-export type Enum_ScriptObjectPropagationPath = number
-export type Enum_ScriptedAnimationBehavior = number
+declare extern type Enum_RoomConnectionType with
+	function __lt(self, other: Enum_RoomConnectionType): boolean
+	function __le(self, other: Enum_RoomConnectionType): boolean
+end
+declare extern type Enum_RuneforgePowerFilter with
+	function __lt(self, other: Enum_RuneforgePowerFilter): boolean
+	function __le(self, other: Enum_RuneforgePowerFilter): boolean
+end
+declare extern type Enum_RuneforgePowerState with
+	function __lt(self, other: Enum_RuneforgePowerState): boolean
+	function __le(self, other: Enum_RuneforgePowerState): boolean
+end
+declare extern type Enum_ScreenLocationType with
+	function __lt(self, other: Enum_ScreenLocationType): boolean
+	function __le(self, other: Enum_ScreenLocationType): boolean
+end
+declare extern type Enum_ScreenshotSource with
+	function __lt(self, other: Enum_ScreenshotSource): boolean
+	function __le(self, other: Enum_ScreenshotSource): boolean
+end
+declare extern type Enum_ScriptBindingType with
+	function __lt(self, other: Enum_ScriptBindingType): boolean
+	function __le(self, other: Enum_ScriptBindingType): boolean
+end
+declare extern type Enum_ScriptObjectAccessRestriction with
+	function __lt(self, other: Enum_ScriptObjectAccessRestriction): boolean
+	function __le(self, other: Enum_ScriptObjectAccessRestriction): boolean
+end
+declare extern type Enum_ScriptObjectMetatable with
+	function __lt(self, other: Enum_ScriptObjectMetatable): boolean
+	function __le(self, other: Enum_ScriptObjectMetatable): boolean
+end
+declare extern type Enum_ScriptObjectPartition with
+	function __lt(self, other: Enum_ScriptObjectPartition): boolean
+	function __le(self, other: Enum_ScriptObjectPartition): boolean
+end
+declare extern type Enum_ScriptObjectPropagationPath with
+	function __lt(self, other: Enum_ScriptObjectPropagationPath): boolean
+	function __le(self, other: Enum_ScriptObjectPropagationPath): boolean
+end
+declare extern type Enum_ScriptedAnimationBehavior with
+	function __lt(self, other: Enum_ScriptedAnimationBehavior): boolean
+	function __le(self, other: Enum_ScriptedAnimationBehavior): boolean
+end
 export type Enum_ScriptedAnimationFlags = number
-export type Enum_ScriptedAnimationTrajectory = number
+declare extern type Enum_ScriptedAnimationTrajectory with
+	function __lt(self, other: Enum_ScriptedAnimationTrajectory): boolean
+	function __le(self, other: Enum_ScriptedAnimationTrajectory): boolean
+end
 export type Enum_ScrubStringFlags = number
-export type Enum_SdToggleUsageLocation = number
-export type Enum_SdToggleUsageLocationUI = number
+declare extern type Enum_SdToggleUsageLocation with
+	function __lt(self, other: Enum_SdToggleUsageLocation): boolean
+	function __le(self, other: Enum_SdToggleUsageLocation): boolean
+end
+declare extern type Enum_SdToggleUsageLocationUI with
+	function __lt(self, other: Enum_SdToggleUsageLocationUI): boolean
+	function __le(self, other: Enum_SdToggleUsageLocationUI): boolean
+end
 export type Enum_SeasonID = number
-export type Enum_SecondsFormatterAbbreviation = number
-export type Enum_SecondsFormatterInterval = number
-export type Enum_SecondsFormatterIntervalWhitespace = number
-export type Enum_SecondsFormatterRounding = number
-export type Enum_SecrecyLevel = number
+declare extern type Enum_SecondsFormatterAbbreviation with
+	function __lt(self, other: Enum_SecondsFormatterAbbreviation): boolean
+	function __le(self, other: Enum_SecondsFormatterAbbreviation): boolean
+end
+declare extern type Enum_SecondsFormatterInterval with
+	function __lt(self, other: Enum_SecondsFormatterInterval): boolean
+	function __le(self, other: Enum_SecondsFormatterInterval): boolean
+end
+declare extern type Enum_SecondsFormatterIntervalWhitespace with
+	function __lt(self, other: Enum_SecondsFormatterIntervalWhitespace): boolean
+	function __le(self, other: Enum_SecondsFormatterIntervalWhitespace): boolean
+end
+declare extern type Enum_SecondsFormatterRounding with
+	function __lt(self, other: Enum_SecondsFormatterRounding): boolean
+	function __le(self, other: Enum_SecondsFormatterRounding): boolean
+end
+declare extern type Enum_SecrecyLevel with
+	function __lt(self, other: Enum_SecrecyLevel): boolean
+	function __le(self, other: Enum_SecrecyLevel): boolean
+end
 export type Enum_SecretAspect = number
-export type Enum_SelfResurrectOptionType = number
-export type Enum_SendAddonMessageResult = number
-export type Enum_SendReportResult = number
+declare extern type Enum_SelfResurrectOptionType with
+	function __lt(self, other: Enum_SelfResurrectOptionType): boolean
+	function __le(self, other: Enum_SelfResurrectOptionType): boolean
+end
+declare extern type Enum_SendAddonMessageResult with
+	function __lt(self, other: Enum_SendAddonMessageResult): boolean
+	function __le(self, other: Enum_SendAddonMessageResult): boolean
+end
+declare extern type Enum_SendReportResult with
+	function __lt(self, other: Enum_SendReportResult): boolean
+	function __le(self, other: Enum_SendReportResult): boolean
+end
 export type Enum_SharedStringFlag = number
-export type Enum_ShutdownSessionReason = number
-export type Enum_Si3UISoundSubType = number
+declare extern type Enum_ShutdownSessionReason with
+	function __lt(self, other: Enum_ShutdownSessionReason): boolean
+	function __le(self, other: Enum_ShutdownSessionReason): boolean
+end
+declare extern type Enum_Si3UISoundSubType with
+	function __lt(self, other: Enum_Si3UISoundSubType): boolean
+	function __le(self, other: Enum_Si3UISoundSubType): boolean
+end
 export type Enum_Siflag = number
-export type Enum_SimpleOrderStatus = number
-export type Enum_SkinningState = number
-export type Enum_SleevesGeoRange = number
-export type Enum_SlotRegion = number
+declare extern type Enum_SimpleOrderStatus with
+	function __lt(self, other: Enum_SimpleOrderStatus): boolean
+	function __le(self, other: Enum_SimpleOrderStatus): boolean
+end
+declare extern type Enum_SkinningState with
+	function __lt(self, other: Enum_SkinningState): boolean
+	function __le(self, other: Enum_SkinningState): boolean
+end
+declare extern type Enum_SleevesGeoRange with
+	function __lt(self, other: Enum_SleevesGeoRange): boolean
+	function __le(self, other: Enum_SleevesGeoRange): boolean
+end
+declare extern type Enum_SlotRegion with
+	function __lt(self, other: Enum_SlotRegion): boolean
+	function __le(self, other: Enum_SlotRegion): boolean
+end
 export type Enum_SlotRegionMask = number
-export type Enum_SocialSystemType = number
-export type Enum_SocialUIBlockType = number
-export type Enum_SocialUIPresenceType = number
-export type Enum_SocialWhoOrigin = number
+declare extern type Enum_SocialSystemType with
+	function __lt(self, other: Enum_SocialSystemType): boolean
+	function __le(self, other: Enum_SocialSystemType): boolean
+end
+declare extern type Enum_SocialUIBlockType with
+	function __lt(self, other: Enum_SocialUIBlockType): boolean
+	function __le(self, other: Enum_SocialUIBlockType): boolean
+end
+declare extern type Enum_SocialUIPresenceType with
+	function __lt(self, other: Enum_SocialUIPresenceType): boolean
+	function __le(self, other: Enum_SocialUIPresenceType): boolean
+end
+declare extern type Enum_SocialWhoOrigin with
+	function __lt(self, other: Enum_SocialWhoOrigin): boolean
+	function __le(self, other: Enum_SocialWhoOrigin): boolean
+end
 export type Enum_SoftTargetEnableFlags = number
-export type Enum_SortPlayersBy = number
+declare extern type Enum_SortPlayersBy with
+	function __lt(self, other: Enum_SortPlayersBy): boolean
+	function __le(self, other: Enum_SortPlayersBy): boolean
+end
 export type Enum_SoulbindConduitFlags = number
-export type Enum_SoulbindConduitInstallResult = number
-export type Enum_SoulbindConduitTransactionType = number
-export type Enum_SoulbindConduitType = number
-export type Enum_SoulbindNodeState = number
+declare extern type Enum_SoulbindConduitInstallResult with
+	function __lt(self, other: Enum_SoulbindConduitInstallResult): boolean
+	function __le(self, other: Enum_SoulbindConduitInstallResult): boolean
+end
+declare extern type Enum_SoulbindConduitTransactionType with
+	function __lt(self, other: Enum_SoulbindConduitTransactionType): boolean
+	function __le(self, other: Enum_SoulbindConduitTransactionType): boolean
+end
+declare extern type Enum_SoulbindConduitType with
+	function __lt(self, other: Enum_SoulbindConduitType): boolean
+	function __le(self, other: Enum_SoulbindConduitType): boolean
+end
+declare extern type Enum_SoulbindNodeState with
+	function __lt(self, other: Enum_SoulbindNodeState): boolean
+	function __le(self, other: Enum_SoulbindNodeState): boolean
+end
 export type Enum_SoundBusFlag = number
-export type Enum_SpecGroup = number
+declare extern type Enum_SpecGroup with
+	function __lt(self, other: Enum_SpecGroup): boolean
+	function __le(self, other: Enum_SpecGroup): boolean
+end
 export type Enum_SpecializationSpellsFlag = number
-export type Enum_SpecializationSystem = number
-export type Enum_SpellAuraVisibilityType = number
-export type Enum_SpellBookItemType = number
-export type Enum_SpellBookSkillLineIndex = number
-export type Enum_SpellBookSpellBank = number
-export type Enum_SpellDiminishCategory = number
-export type Enum_SpellDiminishRuleset = number
-export type Enum_SpellDisplayBorderColor = number
-export type Enum_SpellDisplayIconDisplayType = number
-export type Enum_SpellDisplayTextShownStateType = number
-export type Enum_SpellDisplayTint = number
-export type Enum_SplashScreenType = number
-export type Enum_StableResult = number
-export type Enum_StartTimerType = number
-export type Enum_StatusBarColorTintValue = number
-export type Enum_StatusBarFillStyle = number
-export type Enum_StatusBarInterpolation = number
-export type Enum_StatusBarOverrideBarTextShownType = number
-export type Enum_StatusBarRenderMode = number
-export type Enum_StatusBarTimerDirection = number
-export type Enum_StatusBarValueTextType = number
-export type Enum_SubcontainerType = number
-export type Enum_SubscriptionInterstitialResponseType = number
-export type Enum_SubscriptionInterstitialType = number
-export type Enum_SummonReason = number
-export type Enum_SummonStatus = number
-export type Enum_SuperTrackingMapPinType = number
-export type Enum_SuperTrackingType = number
+declare extern type Enum_SpecializationSystem with
+	function __lt(self, other: Enum_SpecializationSystem): boolean
+	function __le(self, other: Enum_SpecializationSystem): boolean
+end
+declare extern type Enum_SpellAuraVisibilityType with
+	function __lt(self, other: Enum_SpellAuraVisibilityType): boolean
+	function __le(self, other: Enum_SpellAuraVisibilityType): boolean
+end
+declare extern type Enum_SpellBookItemType with
+	function __lt(self, other: Enum_SpellBookItemType): boolean
+	function __le(self, other: Enum_SpellBookItemType): boolean
+end
+declare extern type Enum_SpellBookSkillLineIndex with
+	function __lt(self, other: Enum_SpellBookSkillLineIndex): boolean
+	function __le(self, other: Enum_SpellBookSkillLineIndex): boolean
+end
+declare extern type Enum_SpellBookSpellBank with
+	function __lt(self, other: Enum_SpellBookSpellBank): boolean
+	function __le(self, other: Enum_SpellBookSpellBank): boolean
+end
+declare extern type Enum_SpellDiminishCategory with
+	function __lt(self, other: Enum_SpellDiminishCategory): boolean
+	function __le(self, other: Enum_SpellDiminishCategory): boolean
+end
+declare extern type Enum_SpellDiminishRuleset with
+	function __lt(self, other: Enum_SpellDiminishRuleset): boolean
+	function __le(self, other: Enum_SpellDiminishRuleset): boolean
+end
+declare extern type Enum_SpellDisplayBorderColor with
+	function __lt(self, other: Enum_SpellDisplayBorderColor): boolean
+	function __le(self, other: Enum_SpellDisplayBorderColor): boolean
+end
+declare extern type Enum_SpellDisplayIconDisplayType with
+	function __lt(self, other: Enum_SpellDisplayIconDisplayType): boolean
+	function __le(self, other: Enum_SpellDisplayIconDisplayType): boolean
+end
+declare extern type Enum_SpellDisplayTextShownStateType with
+	function __lt(self, other: Enum_SpellDisplayTextShownStateType): boolean
+	function __le(self, other: Enum_SpellDisplayTextShownStateType): boolean
+end
+declare extern type Enum_SpellDisplayTint with
+	function __lt(self, other: Enum_SpellDisplayTint): boolean
+	function __le(self, other: Enum_SpellDisplayTint): boolean
+end
+declare extern type Enum_SplashScreenType with
+	function __lt(self, other: Enum_SplashScreenType): boolean
+	function __le(self, other: Enum_SplashScreenType): boolean
+end
+declare extern type Enum_StableResult with
+	function __lt(self, other: Enum_StableResult): boolean
+	function __le(self, other: Enum_StableResult): boolean
+end
+declare extern type Enum_StartTimerType with
+	function __lt(self, other: Enum_StartTimerType): boolean
+	function __le(self, other: Enum_StartTimerType): boolean
+end
+declare extern type Enum_StatusBarColorTintValue with
+	function __lt(self, other: Enum_StatusBarColorTintValue): boolean
+	function __le(self, other: Enum_StatusBarColorTintValue): boolean
+end
+declare extern type Enum_StatusBarFillStyle with
+	function __lt(self, other: Enum_StatusBarFillStyle): boolean
+	function __le(self, other: Enum_StatusBarFillStyle): boolean
+end
+declare extern type Enum_StatusBarInterpolation with
+	function __lt(self, other: Enum_StatusBarInterpolation): boolean
+	function __le(self, other: Enum_StatusBarInterpolation): boolean
+end
+declare extern type Enum_StatusBarOverrideBarTextShownType with
+	function __lt(self, other: Enum_StatusBarOverrideBarTextShownType): boolean
+	function __le(self, other: Enum_StatusBarOverrideBarTextShownType): boolean
+end
+declare extern type Enum_StatusBarRenderMode with
+	function __lt(self, other: Enum_StatusBarRenderMode): boolean
+	function __le(self, other: Enum_StatusBarRenderMode): boolean
+end
+declare extern type Enum_StatusBarTimerDirection with
+	function __lt(self, other: Enum_StatusBarTimerDirection): boolean
+	function __le(self, other: Enum_StatusBarTimerDirection): boolean
+end
+declare extern type Enum_StatusBarValueTextType with
+	function __lt(self, other: Enum_StatusBarValueTextType): boolean
+	function __le(self, other: Enum_StatusBarValueTextType): boolean
+end
+declare extern type Enum_SubcontainerType with
+	function __lt(self, other: Enum_SubcontainerType): boolean
+	function __le(self, other: Enum_SubcontainerType): boolean
+end
+declare extern type Enum_SubscriptionInterstitialResponseType with
+	function __lt(self, other: Enum_SubscriptionInterstitialResponseType): boolean
+	function __le(self, other: Enum_SubscriptionInterstitialResponseType): boolean
+end
+declare extern type Enum_SubscriptionInterstitialType with
+	function __lt(self, other: Enum_SubscriptionInterstitialType): boolean
+	function __le(self, other: Enum_SubscriptionInterstitialType): boolean
+end
+declare extern type Enum_SummonReason with
+	function __lt(self, other: Enum_SummonReason): boolean
+	function __le(self, other: Enum_SummonReason): boolean
+end
+declare extern type Enum_SummonStatus with
+	function __lt(self, other: Enum_SummonStatus): boolean
+	function __le(self, other: Enum_SummonStatus): boolean
+end
+declare extern type Enum_SuperTrackingMapPinType with
+	function __lt(self, other: Enum_SuperTrackingMapPinType): boolean
+	function __le(self, other: Enum_SuperTrackingMapPinType): boolean
+end
+declare extern type Enum_SuperTrackingType with
+	function __lt(self, other: Enum_SuperTrackingType): boolean
+	function __le(self, other: Enum_SuperTrackingType): boolean
+end
 export type Enum_SurveyDeliveryFlags = number
-export type Enum_SurveyDeliveryMoment = number
-export type Enum_TableSecurityOption = number
-export type Enum_TieredEntranceRewardType = number
+declare extern type Enum_SurveyDeliveryMoment with
+	function __lt(self, other: Enum_SurveyDeliveryMoment): boolean
+	function __le(self, other: Enum_SurveyDeliveryMoment): boolean
+end
+declare extern type Enum_TableSecurityOption with
+	function __lt(self, other: Enum_TableSecurityOption): boolean
+	function __le(self, other: Enum_TableSecurityOption): boolean
+end
+declare extern type Enum_TieredEntranceRewardType with
+	function __lt(self, other: Enum_TieredEntranceRewardType): boolean
+	function __le(self, other: Enum_TieredEntranceRewardType): boolean
+end
 export type Enum_TieredEntranceTierFlag = number
-export type Enum_TieredEntranceType = number
+declare extern type Enum_TieredEntranceType with
+	function __lt(self, other: Enum_TieredEntranceType): boolean
+	function __le(self, other: Enum_TieredEntranceType): boolean
+end
 export type Enum_TimeEventFlag = number
-export type Enum_TitleIconVersion = number
-export type Enum_TooltipComparisonMethod = number
-export type Enum_TooltipDataItemBinding = number
-export type Enum_TooltipDataLineType = number
-export type Enum_TooltipDataType = number
-export type Enum_TooltipDataUsageRequirementType = number
-export type Enum_TooltipSide = number
-export type Enum_TooltipTextureAnchor = number
-export type Enum_TooltipTextureRelativeRegion = number
-export type Enum_TrackedSpellCategory = number
-export type Enum_TrackedSpellsResult = number
-export type Enum_TradeskillOrderDuration = number
-export type Enum_TradeskillOrderRecipient = number
-export type Enum_TradeskillOrderStatus = number
-export type Enum_TradeskillRecipeType = number
-export type Enum_TradeskillRelativeDifficulty = number
-export type Enum_TradeskillSlotDataType = number
-export type Enum_TrainerType = number
+declare extern type Enum_TitleIconVersion with
+	function __lt(self, other: Enum_TitleIconVersion): boolean
+	function __le(self, other: Enum_TitleIconVersion): boolean
+end
+declare extern type Enum_TooltipComparisonMethod with
+	function __lt(self, other: Enum_TooltipComparisonMethod): boolean
+	function __le(self, other: Enum_TooltipComparisonMethod): boolean
+end
+declare extern type Enum_TooltipDataItemBinding with
+	function __lt(self, other: Enum_TooltipDataItemBinding): boolean
+	function __le(self, other: Enum_TooltipDataItemBinding): boolean
+end
+declare extern type Enum_TooltipDataLineType with
+	function __lt(self, other: Enum_TooltipDataLineType): boolean
+	function __le(self, other: Enum_TooltipDataLineType): boolean
+end
+declare extern type Enum_TooltipDataType with
+	function __lt(self, other: Enum_TooltipDataType): boolean
+	function __le(self, other: Enum_TooltipDataType): boolean
+end
+declare extern type Enum_TooltipDataUsageRequirementType with
+	function __lt(self, other: Enum_TooltipDataUsageRequirementType): boolean
+	function __le(self, other: Enum_TooltipDataUsageRequirementType): boolean
+end
+declare extern type Enum_TooltipSide with
+	function __lt(self, other: Enum_TooltipSide): boolean
+	function __le(self, other: Enum_TooltipSide): boolean
+end
+declare extern type Enum_TooltipTextureAnchor with
+	function __lt(self, other: Enum_TooltipTextureAnchor): boolean
+	function __le(self, other: Enum_TooltipTextureAnchor): boolean
+end
+declare extern type Enum_TooltipTextureRelativeRegion with
+	function __lt(self, other: Enum_TooltipTextureRelativeRegion): boolean
+	function __le(self, other: Enum_TooltipTextureRelativeRegion): boolean
+end
+declare extern type Enum_TrackedSpellCategory with
+	function __lt(self, other: Enum_TrackedSpellCategory): boolean
+	function __le(self, other: Enum_TrackedSpellCategory): boolean
+end
+declare extern type Enum_TrackedSpellsResult with
+	function __lt(self, other: Enum_TrackedSpellsResult): boolean
+	function __le(self, other: Enum_TrackedSpellsResult): boolean
+end
+declare extern type Enum_TradeskillOrderDuration with
+	function __lt(self, other: Enum_TradeskillOrderDuration): boolean
+	function __le(self, other: Enum_TradeskillOrderDuration): boolean
+end
+declare extern type Enum_TradeskillOrderRecipient with
+	function __lt(self, other: Enum_TradeskillOrderRecipient): boolean
+	function __le(self, other: Enum_TradeskillOrderRecipient): boolean
+end
+declare extern type Enum_TradeskillOrderStatus with
+	function __lt(self, other: Enum_TradeskillOrderStatus): boolean
+	function __le(self, other: Enum_TradeskillOrderStatus): boolean
+end
+declare extern type Enum_TradeskillRecipeType with
+	function __lt(self, other: Enum_TradeskillRecipeType): boolean
+	function __le(self, other: Enum_TradeskillRecipeType): boolean
+end
+declare extern type Enum_TradeskillRelativeDifficulty with
+	function __lt(self, other: Enum_TradeskillRelativeDifficulty): boolean
+	function __le(self, other: Enum_TradeskillRelativeDifficulty): boolean
+end
+declare extern type Enum_TradeskillSlotDataType with
+	function __lt(self, other: Enum_TradeskillSlotDataType): boolean
+	function __le(self, other: Enum_TradeskillSlotDataType): boolean
+end
+declare extern type Enum_TrainerType with
+	function __lt(self, other: Enum_TrainerType): boolean
+	function __le(self, other: Enum_TrainerType): boolean
+end
 export type Enum_TraitCombatConfigFlags = number
 export type Enum_TraitCondFlag = number
-export type Enum_TraitConditionType = number
-export type Enum_TraitConfigDbState = number
-export type Enum_TraitConfigType = number
+declare extern type Enum_TraitConditionType with
+	function __lt(self, other: Enum_TraitConditionType): boolean
+	function __le(self, other: Enum_TraitConditionType): boolean
+end
+declare extern type Enum_TraitConfigDbState with
+	function __lt(self, other: Enum_TraitConfigDbState): boolean
+	function __le(self, other: Enum_TraitConfigDbState): boolean
+end
+declare extern type Enum_TraitConfigType with
+	function __lt(self, other: Enum_TraitConfigType): boolean
+	function __le(self, other: Enum_TraitConfigType): boolean
+end
 export type Enum_TraitCurrencyFlag = number
-export type Enum_TraitCurrencyType = number
-export type Enum_TraitDefinitionSubType = number
-export type Enum_TraitEdgeType = number
-export type Enum_TraitEdgeVisualStyle = number
-export type Enum_TraitNodeEntryType = number
+declare extern type Enum_TraitCurrencyType with
+	function __lt(self, other: Enum_TraitCurrencyType): boolean
+	function __le(self, other: Enum_TraitCurrencyType): boolean
+end
+declare extern type Enum_TraitDefinitionSubType with
+	function __lt(self, other: Enum_TraitDefinitionSubType): boolean
+	function __le(self, other: Enum_TraitDefinitionSubType): boolean
+end
+declare extern type Enum_TraitEdgeType with
+	function __lt(self, other: Enum_TraitEdgeType): boolean
+	function __le(self, other: Enum_TraitEdgeType): boolean
+end
+declare extern type Enum_TraitEdgeVisualStyle with
+	function __lt(self, other: Enum_TraitEdgeVisualStyle): boolean
+	function __le(self, other: Enum_TraitEdgeVisualStyle): boolean
+end
+declare extern type Enum_TraitNodeEntryType with
+	function __lt(self, other: Enum_TraitNodeEntryType): boolean
+	function __le(self, other: Enum_TraitNodeEntryType): boolean
+end
 export type Enum_TraitNodeFlag = number
 export type Enum_TraitNodeGroupFlag = number
-export type Enum_TraitNodeType = number
-export type Enum_TraitPointsOperationType = number
+declare extern type Enum_TraitNodeType with
+	function __lt(self, other: Enum_TraitNodeType): boolean
+	function __le(self, other: Enum_TraitNodeType): boolean
+end
+declare extern type Enum_TraitPointsOperationType with
+	function __lt(self, other: Enum_TraitPointsOperationType): boolean
+	function __le(self, other: Enum_TraitPointsOperationType): boolean
+end
 export type Enum_TraitSystemFlag = number
-export type Enum_TraitSystemVariationType = number
+declare extern type Enum_TraitSystemVariationType with
+	function __lt(self, other: Enum_TraitSystemVariationType): boolean
+	function __le(self, other: Enum_TraitSystemVariationType): boolean
+end
 export type Enum_TraitTreeFlag = number
-export type Enum_TraitVendorResetFailureReason = number
-export type Enum_TransformManipulatorAxis = number
-export type Enum_TransformManipulatorControlState = number
-export type Enum_TransformManipulatorDirection = number
-export type Enum_TransformManipulatorEvent = number
-export type Enum_TransformManipulatorMode = number
-export type Enum_TransmogCameraVariation = number
-export type Enum_TransmogCollectionType = number
+declare extern type Enum_TraitVendorResetFailureReason with
+	function __lt(self, other: Enum_TraitVendorResetFailureReason): boolean
+	function __le(self, other: Enum_TraitVendorResetFailureReason): boolean
+end
+declare extern type Enum_TransformManipulatorAxis with
+	function __lt(self, other: Enum_TransformManipulatorAxis): boolean
+	function __le(self, other: Enum_TransformManipulatorAxis): boolean
+end
+declare extern type Enum_TransformManipulatorControlState with
+	function __lt(self, other: Enum_TransformManipulatorControlState): boolean
+	function __le(self, other: Enum_TransformManipulatorControlState): boolean
+end
+declare extern type Enum_TransformManipulatorDirection with
+	function __lt(self, other: Enum_TransformManipulatorDirection): boolean
+	function __le(self, other: Enum_TransformManipulatorDirection): boolean
+end
+declare extern type Enum_TransformManipulatorEvent with
+	function __lt(self, other: Enum_TransformManipulatorEvent): boolean
+	function __le(self, other: Enum_TransformManipulatorEvent): boolean
+end
+declare extern type Enum_TransformManipulatorMode with
+	function __lt(self, other: Enum_TransformManipulatorMode): boolean
+	function __le(self, other: Enum_TransformManipulatorMode): boolean
+end
+declare extern type Enum_TransmogCameraVariation with
+	function __lt(self, other: Enum_TransmogCameraVariation): boolean
+	function __le(self, other: Enum_TransmogCameraVariation): boolean
+end
+declare extern type Enum_TransmogCollectionType with
+	function __lt(self, other: Enum_TransmogCollectionType): boolean
+	function __le(self, other: Enum_TransmogCollectionType): boolean
+end
 export type Enum_TransmogIllusionFlags = number
-export type Enum_TransmogModification = number
+declare extern type Enum_TransmogModification with
+	function __lt(self, other: Enum_TransmogModification): boolean
+	function __le(self, other: Enum_TransmogModification): boolean
+end
 export type Enum_TransmogOutfitCostModifiersApplied = number
 export type Enum_TransmogOutfitDataFlags = number
-export type Enum_TransmogOutfitDisplayType = number
+declare extern type Enum_TransmogOutfitDisplayType with
+	function __lt(self, other: Enum_TransmogOutfitDisplayType): boolean
+	function __le(self, other: Enum_TransmogOutfitDisplayType): boolean
+end
 export type Enum_TransmogOutfitEntryFlags = number
-export type Enum_TransmogOutfitEntrySource = number
-export type Enum_TransmogOutfitEquipAction = number
-export type Enum_TransmogOutfitSetType = number
-export type Enum_TransmogOutfitSlot = number
-export type Enum_TransmogOutfitSlotError = number
+declare extern type Enum_TransmogOutfitEntrySource with
+	function __lt(self, other: Enum_TransmogOutfitEntrySource): boolean
+	function __le(self, other: Enum_TransmogOutfitEntrySource): boolean
+end
+declare extern type Enum_TransmogOutfitEquipAction with
+	function __lt(self, other: Enum_TransmogOutfitEquipAction): boolean
+	function __le(self, other: Enum_TransmogOutfitEquipAction): boolean
+end
+declare extern type Enum_TransmogOutfitSetType with
+	function __lt(self, other: Enum_TransmogOutfitSetType): boolean
+	function __le(self, other: Enum_TransmogOutfitSetType): boolean
+end
+declare extern type Enum_TransmogOutfitSlot with
+	function __lt(self, other: Enum_TransmogOutfitSlot): boolean
+	function __le(self, other: Enum_TransmogOutfitSlot): boolean
+end
+declare extern type Enum_TransmogOutfitSlotError with
+	function __lt(self, other: Enum_TransmogOutfitSlotError): boolean
+	function __le(self, other: Enum_TransmogOutfitSlotError): boolean
+end
 export type Enum_TransmogOutfitSlotFlags = number
-export type Enum_TransmogOutfitSlotOption = number
+declare extern type Enum_TransmogOutfitSlotOption with
+	function __lt(self, other: Enum_TransmogOutfitSlotOption): boolean
+	function __le(self, other: Enum_TransmogOutfitSlotOption): boolean
+end
 export type Enum_TransmogOutfitSlotOptionFlags = number
-export type Enum_TransmogOutfitSlotOptionSheatheCategory = number
-export type Enum_TransmogOutfitSlotPosition = number
+declare extern type Enum_TransmogOutfitSlotOptionSheatheCategory with
+	function __lt(self, other: Enum_TransmogOutfitSlotOptionSheatheCategory): boolean
+	function __le(self, other: Enum_TransmogOutfitSlotOptionSheatheCategory): boolean
+end
+declare extern type Enum_TransmogOutfitSlotPosition with
+	function __lt(self, other: Enum_TransmogOutfitSlotPosition): boolean
+	function __le(self, other: Enum_TransmogOutfitSlotPosition): boolean
+end
 export type Enum_TransmogOutfitSlotSaveFlags = number
-export type Enum_TransmogOutfitSlotWarning = number
+declare extern type Enum_TransmogOutfitSlotWarning with
+	function __lt(self, other: Enum_TransmogOutfitSlotWarning): boolean
+	function __le(self, other: Enum_TransmogOutfitSlotWarning): boolean
+end
 export type Enum_TransmogOutfitTransactionFlags = number
-export type Enum_TransmogOutfitTransactionType = number
-export type Enum_TransmogPendingType = number
-export type Enum_TransmogSearchType = number
-export type Enum_TransmogSettingsUpdateType = number
-export type Enum_TransmogSituation = number
+declare extern type Enum_TransmogOutfitTransactionType with
+	function __lt(self, other: Enum_TransmogOutfitTransactionType): boolean
+	function __le(self, other: Enum_TransmogOutfitTransactionType): boolean
+end
+declare extern type Enum_TransmogPendingType with
+	function __lt(self, other: Enum_TransmogPendingType): boolean
+	function __le(self, other: Enum_TransmogPendingType): boolean
+end
+declare extern type Enum_TransmogSearchType with
+	function __lt(self, other: Enum_TransmogSearchType): boolean
+	function __le(self, other: Enum_TransmogSearchType): boolean
+end
+declare extern type Enum_TransmogSettingsUpdateType with
+	function __lt(self, other: Enum_TransmogSettingsUpdateType): boolean
+	function __le(self, other: Enum_TransmogSettingsUpdateType): boolean
+end
+declare extern type Enum_TransmogSituation with
+	function __lt(self, other: Enum_TransmogSituation): boolean
+	function __le(self, other: Enum_TransmogSituation): boolean
+end
 export type Enum_TransmogSituationFlags = number
 export type Enum_TransmogSituationGroupFlags = number
-export type Enum_TransmogSituationTrigger = number
+declare extern type Enum_TransmogSituationTrigger with
+	function __lt(self, other: Enum_TransmogSituationTrigger): boolean
+	function __le(self, other: Enum_TransmogSituationTrigger): boolean
+end
 export type Enum_TransmogSituationTriggerFlags = number
-export type Enum_TransmogSituationTriggerType = number
-export type Enum_TransmogSlot = number
-export type Enum_TransmogSource = number
-export type Enum_TransmogTimeOfDayCategory = number
-export type Enum_TransmogType = number
-export type Enum_TransmogUseErrorType = number
-export type Enum_TtsBoolSetting = number
-export type Enum_TtsVoiceType = number
-export type Enum_TugOfWarMarkerArrowShownState = number
-export type Enum_TugOfWarStyleValue = number
-export type Enum_TurnStrafeStyle = number
-export type Enum_UIActionType = number
+declare extern type Enum_TransmogSituationTriggerType with
+	function __lt(self, other: Enum_TransmogSituationTriggerType): boolean
+	function __le(self, other: Enum_TransmogSituationTriggerType): boolean
+end
+declare extern type Enum_TransmogSlot with
+	function __lt(self, other: Enum_TransmogSlot): boolean
+	function __le(self, other: Enum_TransmogSlot): boolean
+end
+declare extern type Enum_TransmogSource with
+	function __lt(self, other: Enum_TransmogSource): boolean
+	function __le(self, other: Enum_TransmogSource): boolean
+end
+declare extern type Enum_TransmogTimeOfDayCategory with
+	function __lt(self, other: Enum_TransmogTimeOfDayCategory): boolean
+	function __le(self, other: Enum_TransmogTimeOfDayCategory): boolean
+end
+declare extern type Enum_TransmogType with
+	function __lt(self, other: Enum_TransmogType): boolean
+	function __le(self, other: Enum_TransmogType): boolean
+end
+declare extern type Enum_TransmogUseErrorType with
+	function __lt(self, other: Enum_TransmogUseErrorType): boolean
+	function __le(self, other: Enum_TransmogUseErrorType): boolean
+end
+declare extern type Enum_TtsBoolSetting with
+	function __lt(self, other: Enum_TtsBoolSetting): boolean
+	function __le(self, other: Enum_TtsBoolSetting): boolean
+end
+declare extern type Enum_TtsVoiceType with
+	function __lt(self, other: Enum_TtsVoiceType): boolean
+	function __le(self, other: Enum_TtsVoiceType): boolean
+end
+declare extern type Enum_TugOfWarMarkerArrowShownState with
+	function __lt(self, other: Enum_TugOfWarMarkerArrowShownState): boolean
+	function __le(self, other: Enum_TugOfWarMarkerArrowShownState): boolean
+end
+declare extern type Enum_TugOfWarStyleValue with
+	function __lt(self, other: Enum_TugOfWarStyleValue): boolean
+	function __le(self, other: Enum_TugOfWarStyleValue): boolean
+end
+declare extern type Enum_TurnStrafeStyle with
+	function __lt(self, other: Enum_TurnStrafeStyle): boolean
+	function __le(self, other: Enum_TurnStrafeStyle): boolean
+end
+declare extern type Enum_UIActionType with
+	function __lt(self, other: Enum_UIActionType): boolean
+	function __le(self, other: Enum_UIActionType): boolean
+end
 export type Enum_UICovenantDisplayInfoFlags = number
-export type Enum_UICursorType = number
-export type Enum_UIFrameType = number
+declare extern type Enum_UICursorType with
+	function __lt(self, other: Enum_UICursorType): boolean
+	function __le(self, other: Enum_UICursorType): boolean
+end
+declare extern type Enum_UIFrameType with
+	function __lt(self, other: Enum_UIFrameType): boolean
+	function __le(self, other: Enum_UIFrameType): boolean
+end
 export type Enum_UIItemInteractionFlags = number
-export type Enum_UIItemInteractionType = number
+declare extern type Enum_UIItemInteractionType with
+	function __lt(self, other: Enum_UIItemInteractionType): boolean
+	function __le(self, other: Enum_UIItemInteractionType): boolean
+end
 export type Enum_UIMapFlag = number
 export type Enum_UIMapGroupFlag = number
-export type Enum_UIMapSystem = number
-export type Enum_UIMapType = number
+declare extern type Enum_UIMapSystem with
+	function __lt(self, other: Enum_UIMapSystem): boolean
+	function __le(self, other: Enum_UIMapSystem): boolean
+end
+declare extern type Enum_UIMapType with
+	function __lt(self, other: Enum_UIMapType): boolean
+	function __le(self, other: Enum_UIMapType): boolean
+end
 export type Enum_UIModelSceneActorFlag = number
-export type Enum_UIModelSceneContext = number
+declare extern type Enum_UIModelSceneContext with
+	function __lt(self, other: Enum_UIModelSceneContext): boolean
+	function __le(self, other: Enum_UIModelSceneContext): boolean
+end
 export type Enum_UIModelSceneFlags = number
-export type Enum_UISystemType = number
-export type Enum_UITextureSliceMode = number
-export type Enum_UIWidgetBlendModeType = number
-export type Enum_UIWidgetButtonEnabledState = number
-export type Enum_UIWidgetButtonIconType = number
+declare extern type Enum_UISystemType with
+	function __lt(self, other: Enum_UISystemType): boolean
+	function __le(self, other: Enum_UISystemType): boolean
+end
+declare extern type Enum_UITextureSliceMode with
+	function __lt(self, other: Enum_UITextureSliceMode): boolean
+	function __le(self, other: Enum_UITextureSliceMode): boolean
+end
+declare extern type Enum_UIWidgetBlendModeType with
+	function __lt(self, other: Enum_UIWidgetBlendModeType): boolean
+	function __le(self, other: Enum_UIWidgetBlendModeType): boolean
+end
+declare extern type Enum_UIWidgetButtonEnabledState with
+	function __lt(self, other: Enum_UIWidgetButtonEnabledState): boolean
+	function __le(self, other: Enum_UIWidgetButtonEnabledState): boolean
+end
+declare extern type Enum_UIWidgetButtonIconType with
+	function __lt(self, other: Enum_UIWidgetButtonIconType): boolean
+	function __le(self, other: Enum_UIWidgetButtonIconType): boolean
+end
 export type Enum_UIWidgetFlag = number
-export type Enum_UIWidgetFontType = number
-export type Enum_UIWidgetHorizontalDirection = number
-export type Enum_UIWidgetLayoutDirection = number
-export type Enum_UIWidgetModelSceneLayer = number
-export type Enum_UIWidgetMotionType = number
-export type Enum_UIWidgetOverrideState = number
-export type Enum_UIWidgetRewardShownState = number
-export type Enum_UIWidgetScale = number
-export type Enum_UIWidgetSetLayoutDirection = number
-export type Enum_UIWidgetSpellButtonCooldownType = number
-export type Enum_UIWidgetTextFormatType = number
-export type Enum_UIWidgetTextSizeType = number
-export type Enum_UIWidgetTextureAndTextSizeType = number
-export type Enum_UIWidgetTooltipLocation = number
-export type Enum_UIWidgetUpdateAnimType = number
-export type Enum_UIWidgetVisualizationType = number
-export type Enum_UnitAuraSortDirection = number
-export type Enum_UnitAuraSortRule = number
-export type Enum_UnitAuraSoundTrigger = number
-export type Enum_UnitDamageAbsorbClampMode = number
-export type Enum_UnitHealAbsorbClampMode = number
-export type Enum_UnitHealAbsorbMode = number
-export type Enum_UnitIncomingHealClampMode = number
-export type Enum_UnitMaximumHealthMode = number
+declare extern type Enum_UIWidgetFontType with
+	function __lt(self, other: Enum_UIWidgetFontType): boolean
+	function __le(self, other: Enum_UIWidgetFontType): boolean
+end
+declare extern type Enum_UIWidgetHorizontalDirection with
+	function __lt(self, other: Enum_UIWidgetHorizontalDirection): boolean
+	function __le(self, other: Enum_UIWidgetHorizontalDirection): boolean
+end
+declare extern type Enum_UIWidgetLayoutDirection with
+	function __lt(self, other: Enum_UIWidgetLayoutDirection): boolean
+	function __le(self, other: Enum_UIWidgetLayoutDirection): boolean
+end
+declare extern type Enum_UIWidgetModelSceneLayer with
+	function __lt(self, other: Enum_UIWidgetModelSceneLayer): boolean
+	function __le(self, other: Enum_UIWidgetModelSceneLayer): boolean
+end
+declare extern type Enum_UIWidgetMotionType with
+	function __lt(self, other: Enum_UIWidgetMotionType): boolean
+	function __le(self, other: Enum_UIWidgetMotionType): boolean
+end
+declare extern type Enum_UIWidgetOverrideState with
+	function __lt(self, other: Enum_UIWidgetOverrideState): boolean
+	function __le(self, other: Enum_UIWidgetOverrideState): boolean
+end
+declare extern type Enum_UIWidgetRewardShownState with
+	function __lt(self, other: Enum_UIWidgetRewardShownState): boolean
+	function __le(self, other: Enum_UIWidgetRewardShownState): boolean
+end
+declare extern type Enum_UIWidgetScale with
+	function __lt(self, other: Enum_UIWidgetScale): boolean
+	function __le(self, other: Enum_UIWidgetScale): boolean
+end
+declare extern type Enum_UIWidgetSetLayoutDirection with
+	function __lt(self, other: Enum_UIWidgetSetLayoutDirection): boolean
+	function __le(self, other: Enum_UIWidgetSetLayoutDirection): boolean
+end
+declare extern type Enum_UIWidgetSpellButtonCooldownType with
+	function __lt(self, other: Enum_UIWidgetSpellButtonCooldownType): boolean
+	function __le(self, other: Enum_UIWidgetSpellButtonCooldownType): boolean
+end
+declare extern type Enum_UIWidgetTextFormatType with
+	function __lt(self, other: Enum_UIWidgetTextFormatType): boolean
+	function __le(self, other: Enum_UIWidgetTextFormatType): boolean
+end
+declare extern type Enum_UIWidgetTextSizeType with
+	function __lt(self, other: Enum_UIWidgetTextSizeType): boolean
+	function __le(self, other: Enum_UIWidgetTextSizeType): boolean
+end
+declare extern type Enum_UIWidgetTextureAndTextSizeType with
+	function __lt(self, other: Enum_UIWidgetTextureAndTextSizeType): boolean
+	function __le(self, other: Enum_UIWidgetTextureAndTextSizeType): boolean
+end
+declare extern type Enum_UIWidgetTooltipLocation with
+	function __lt(self, other: Enum_UIWidgetTooltipLocation): boolean
+	function __le(self, other: Enum_UIWidgetTooltipLocation): boolean
+end
+declare extern type Enum_UIWidgetUpdateAnimType with
+	function __lt(self, other: Enum_UIWidgetUpdateAnimType): boolean
+	function __le(self, other: Enum_UIWidgetUpdateAnimType): boolean
+end
+declare extern type Enum_UIWidgetVisualizationType with
+	function __lt(self, other: Enum_UIWidgetVisualizationType): boolean
+	function __le(self, other: Enum_UIWidgetVisualizationType): boolean
+end
+declare extern type Enum_UnitAuraSortDirection with
+	function __lt(self, other: Enum_UnitAuraSortDirection): boolean
+	function __le(self, other: Enum_UnitAuraSortDirection): boolean
+end
+declare extern type Enum_UnitAuraSortRule with
+	function __lt(self, other: Enum_UnitAuraSortRule): boolean
+	function __le(self, other: Enum_UnitAuraSortRule): boolean
+end
+declare extern type Enum_UnitAuraSoundTrigger with
+	function __lt(self, other: Enum_UnitAuraSoundTrigger): boolean
+	function __le(self, other: Enum_UnitAuraSoundTrigger): boolean
+end
+declare extern type Enum_UnitDamageAbsorbClampMode with
+	function __lt(self, other: Enum_UnitDamageAbsorbClampMode): boolean
+	function __le(self, other: Enum_UnitDamageAbsorbClampMode): boolean
+end
+declare extern type Enum_UnitHealAbsorbClampMode with
+	function __lt(self, other: Enum_UnitHealAbsorbClampMode): boolean
+	function __le(self, other: Enum_UnitHealAbsorbClampMode): boolean
+end
+declare extern type Enum_UnitHealAbsorbMode with
+	function __lt(self, other: Enum_UnitHealAbsorbMode): boolean
+	function __le(self, other: Enum_UnitHealAbsorbMode): boolean
+end
+declare extern type Enum_UnitIncomingHealClampMode with
+	function __lt(self, other: Enum_UnitIncomingHealClampMode): boolean
+	function __le(self, other: Enum_UnitIncomingHealClampMode): boolean
+end
+declare extern type Enum_UnitMaximumHealthMode with
+	function __lt(self, other: Enum_UnitMaximumHealthMode): boolean
+	function __le(self, other: Enum_UnitMaximumHealthMode): boolean
+end
 export type Enum_UnitMirrorPetFlags = number
-export type Enum_UnitSex = number
-export type Enum_UnitTokenType = number
-export type Enum_UrlTextureResult = number
-export type Enum_ValidateNameResult = number
-export type Enum_VasPurchaseProgress = number
-export type Enum_ViewArenaSize = number
-export type Enum_ViewRaidSize = number
-export type Enum_VignetteObjectiveType = number
-export type Enum_VignetteType = number
-export type Enum_VisualAlertType = number
-export type Enum_Vocalerrorsounds = number
-export type Enum_VoiceChannelErrorReason = number
-export type Enum_VoiceChatStatusCode = number
-export type Enum_VoiceProviderID = number
-export type Enum_VoiceTtsStatusCode = number
+declare extern type Enum_UnitSex with
+	function __lt(self, other: Enum_UnitSex): boolean
+	function __le(self, other: Enum_UnitSex): boolean
+end
+declare extern type Enum_UnitTokenType with
+	function __lt(self, other: Enum_UnitTokenType): boolean
+	function __le(self, other: Enum_UnitTokenType): boolean
+end
+declare extern type Enum_UrlTextureResult with
+	function __lt(self, other: Enum_UrlTextureResult): boolean
+	function __le(self, other: Enum_UrlTextureResult): boolean
+end
+declare extern type Enum_ValidateNameResult with
+	function __lt(self, other: Enum_ValidateNameResult): boolean
+	function __le(self, other: Enum_ValidateNameResult): boolean
+end
+declare extern type Enum_VasPurchaseProgress with
+	function __lt(self, other: Enum_VasPurchaseProgress): boolean
+	function __le(self, other: Enum_VasPurchaseProgress): boolean
+end
+declare extern type Enum_ViewArenaSize with
+	function __lt(self, other: Enum_ViewArenaSize): boolean
+	function __le(self, other: Enum_ViewArenaSize): boolean
+end
+declare extern type Enum_ViewRaidSize with
+	function __lt(self, other: Enum_ViewRaidSize): boolean
+	function __le(self, other: Enum_ViewRaidSize): boolean
+end
+declare extern type Enum_VignetteObjectiveType with
+	function __lt(self, other: Enum_VignetteObjectiveType): boolean
+	function __le(self, other: Enum_VignetteObjectiveType): boolean
+end
+declare extern type Enum_VignetteType with
+	function __lt(self, other: Enum_VignetteType): boolean
+	function __le(self, other: Enum_VignetteType): boolean
+end
+declare extern type Enum_VisualAlertType with
+	function __lt(self, other: Enum_VisualAlertType): boolean
+	function __le(self, other: Enum_VisualAlertType): boolean
+end
+declare extern type Enum_Vocalerrorsounds with
+	function __lt(self, other: Enum_Vocalerrorsounds): boolean
+	function __le(self, other: Enum_Vocalerrorsounds): boolean
+end
+declare extern type Enum_VoiceChannelErrorReason with
+	function __lt(self, other: Enum_VoiceChannelErrorReason): boolean
+	function __le(self, other: Enum_VoiceChannelErrorReason): boolean
+end
+declare extern type Enum_VoiceChatStatusCode with
+	function __lt(self, other: Enum_VoiceChatStatusCode): boolean
+	function __le(self, other: Enum_VoiceChatStatusCode): boolean
+end
+declare extern type Enum_VoiceProviderID with
+	function __lt(self, other: Enum_VoiceProviderID): boolean
+	function __le(self, other: Enum_VoiceProviderID): boolean
+end
+declare extern type Enum_VoiceTtsStatusCode with
+	function __lt(self, other: Enum_VoiceTtsStatusCode): boolean
+	function __le(self, other: Enum_VoiceTtsStatusCode): boolean
+end
 export type Enum_WarbandSceneFlags = number
-export type Enum_WeaponSlot = number
-export type Enum_WeatherType = number
-export type Enum_WeeklyRewardChestActivityType = number
-export type Enum_WeeklyRewardChestClaimRewardResult = number
-export type Enum_WeeklyRewardChestThresholdType = number
-export type Enum_WeeklyRewardProgressResult = number
-export type Enum_WidgetAnimationType = number
-export type Enum_WidgetCurrencyClass = number
-export type Enum_WidgetEnabledState = number
-export type Enum_WidgetGlowAnimType = number
-export type Enum_WidgetIconSizeType = number
-export type Enum_WidgetIconSourceType = number
-export type Enum_WidgetOpacityType = number
-export type Enum_WidgetShowGlowState = number
-export type Enum_WidgetShownState = number
-export type Enum_WidgetTextHorizontalAlignmentType = number
-export type Enum_WidgetUnitPowerBarFlashMomentType = number
-export type Enum_WoWClientCursorSize = number
-export type Enum_WoWEntitlementType = number
-export type Enum_WoWLabsAreaType = number
-export type Enum_WorldCursorAnchorType = number
-export type Enum_WorldElapsedTimerTypes = number
-export type Enum_WorldQuestQuality = number
-export type Enum_WorldTierDifficulty = number
-export type Enum_ZoneControlActiveState = number
-export type Enum_ZoneControlDangerFlashType = number
-export type Enum_ZoneControlFillType = number
-export type Enum_ZoneControlLeadingEdgeType = number
-export type Enum_ZoneControlMode = number
-export type Enum_ZoneControlState = number
+declare extern type Enum_WeaponSlot with
+	function __lt(self, other: Enum_WeaponSlot): boolean
+	function __le(self, other: Enum_WeaponSlot): boolean
+end
+declare extern type Enum_WeatherType with
+	function __lt(self, other: Enum_WeatherType): boolean
+	function __le(self, other: Enum_WeatherType): boolean
+end
+declare extern type Enum_WeeklyRewardChestActivityType with
+	function __lt(self, other: Enum_WeeklyRewardChestActivityType): boolean
+	function __le(self, other: Enum_WeeklyRewardChestActivityType): boolean
+end
+declare extern type Enum_WeeklyRewardChestClaimRewardResult with
+	function __lt(self, other: Enum_WeeklyRewardChestClaimRewardResult): boolean
+	function __le(self, other: Enum_WeeklyRewardChestClaimRewardResult): boolean
+end
+declare extern type Enum_WeeklyRewardChestThresholdType with
+	function __lt(self, other: Enum_WeeklyRewardChestThresholdType): boolean
+	function __le(self, other: Enum_WeeklyRewardChestThresholdType): boolean
+end
+declare extern type Enum_WeeklyRewardProgressResult with
+	function __lt(self, other: Enum_WeeklyRewardProgressResult): boolean
+	function __le(self, other: Enum_WeeklyRewardProgressResult): boolean
+end
+declare extern type Enum_WidgetAnimationType with
+	function __lt(self, other: Enum_WidgetAnimationType): boolean
+	function __le(self, other: Enum_WidgetAnimationType): boolean
+end
+declare extern type Enum_WidgetCurrencyClass with
+	function __lt(self, other: Enum_WidgetCurrencyClass): boolean
+	function __le(self, other: Enum_WidgetCurrencyClass): boolean
+end
+declare extern type Enum_WidgetEnabledState with
+	function __lt(self, other: Enum_WidgetEnabledState): boolean
+	function __le(self, other: Enum_WidgetEnabledState): boolean
+end
+declare extern type Enum_WidgetGlowAnimType with
+	function __lt(self, other: Enum_WidgetGlowAnimType): boolean
+	function __le(self, other: Enum_WidgetGlowAnimType): boolean
+end
+declare extern type Enum_WidgetIconSizeType with
+	function __lt(self, other: Enum_WidgetIconSizeType): boolean
+	function __le(self, other: Enum_WidgetIconSizeType): boolean
+end
+declare extern type Enum_WidgetIconSourceType with
+	function __lt(self, other: Enum_WidgetIconSourceType): boolean
+	function __le(self, other: Enum_WidgetIconSourceType): boolean
+end
+declare extern type Enum_WidgetOpacityType with
+	function __lt(self, other: Enum_WidgetOpacityType): boolean
+	function __le(self, other: Enum_WidgetOpacityType): boolean
+end
+declare extern type Enum_WidgetShowGlowState with
+	function __lt(self, other: Enum_WidgetShowGlowState): boolean
+	function __le(self, other: Enum_WidgetShowGlowState): boolean
+end
+declare extern type Enum_WidgetShownState with
+	function __lt(self, other: Enum_WidgetShownState): boolean
+	function __le(self, other: Enum_WidgetShownState): boolean
+end
+declare extern type Enum_WidgetTextHorizontalAlignmentType with
+	function __lt(self, other: Enum_WidgetTextHorizontalAlignmentType): boolean
+	function __le(self, other: Enum_WidgetTextHorizontalAlignmentType): boolean
+end
+declare extern type Enum_WidgetUnitPowerBarFlashMomentType with
+	function __lt(self, other: Enum_WidgetUnitPowerBarFlashMomentType): boolean
+	function __le(self, other: Enum_WidgetUnitPowerBarFlashMomentType): boolean
+end
+declare extern type Enum_WoWClientCursorSize with
+	function __lt(self, other: Enum_WoWClientCursorSize): boolean
+	function __le(self, other: Enum_WoWClientCursorSize): boolean
+end
+declare extern type Enum_WoWEntitlementType with
+	function __lt(self, other: Enum_WoWEntitlementType): boolean
+	function __le(self, other: Enum_WoWEntitlementType): boolean
+end
+declare extern type Enum_WoWLabsAreaType with
+	function __lt(self, other: Enum_WoWLabsAreaType): boolean
+	function __le(self, other: Enum_WoWLabsAreaType): boolean
+end
+declare extern type Enum_WorldCursorAnchorType with
+	function __lt(self, other: Enum_WorldCursorAnchorType): boolean
+	function __le(self, other: Enum_WorldCursorAnchorType): boolean
+end
+declare extern type Enum_WorldElapsedTimerTypes with
+	function __lt(self, other: Enum_WorldElapsedTimerTypes): boolean
+	function __le(self, other: Enum_WorldElapsedTimerTypes): boolean
+end
+declare extern type Enum_WorldQuestQuality with
+	function __lt(self, other: Enum_WorldQuestQuality): boolean
+	function __le(self, other: Enum_WorldQuestQuality): boolean
+end
+declare extern type Enum_WorldTierDifficulty with
+	function __lt(self, other: Enum_WorldTierDifficulty): boolean
+	function __le(self, other: Enum_WorldTierDifficulty): boolean
+end
+declare extern type Enum_ZoneControlActiveState with
+	function __lt(self, other: Enum_ZoneControlActiveState): boolean
+	function __le(self, other: Enum_ZoneControlActiveState): boolean
+end
+declare extern type Enum_ZoneControlDangerFlashType with
+	function __lt(self, other: Enum_ZoneControlDangerFlashType): boolean
+	function __le(self, other: Enum_ZoneControlDangerFlashType): boolean
+end
+declare extern type Enum_ZoneControlFillType with
+	function __lt(self, other: Enum_ZoneControlFillType): boolean
+	function __le(self, other: Enum_ZoneControlFillType): boolean
+end
+declare extern type Enum_ZoneControlLeadingEdgeType with
+	function __lt(self, other: Enum_ZoneControlLeadingEdgeType): boolean
+	function __le(self, other: Enum_ZoneControlLeadingEdgeType): boolean
+end
+declare extern type Enum_ZoneControlMode with
+	function __lt(self, other: Enum_ZoneControlMode): boolean
+	function __le(self, other: Enum_ZoneControlMode): boolean
+end
+declare extern type Enum_ZoneControlState with
+	function __lt(self, other: Enum_ZoneControlState): boolean
+	function __le(self, other: Enum_ZoneControlState): boolean
+end
 
 -- Structures and mixins ----------------------------------------------------------------------
 -- The fields every structure matching `VisualizationInfo$` has in common.
@@ -12036,7 +14433,7 @@ declare extern type GameTooltipDataMixin extends GameTooltip with
 	function SetInstanceLockEncountersComplete(self, index: number): (...unknown)
 	function SetInventoryItem(self, unit: UnitToken, slot: number, hideUselessStats: boolean?): (...unknown)
 	function SetInventoryItemByID(self, itemID: number): (...unknown)
-	function SetItemByID(self, itemID: number, quality: number?, itemContext: number?, treasureContextLevel: number?): (...unknown)
+	function SetItemByID(self, itemID: number, quality: Enum_ItemQuality?, itemContext: number?, treasureContextLevel: number?): (...unknown)
 	function SetItemKey(self, itemID: number, itemLevel: number, itemSuffix: number, requiredLevel: number?): (...unknown)
 	function SetLFGDungeonReward(self, dungeonID: number, lootIndex: number): (...unknown)
 	function SetLFGDungeonShortageReward(self, dungeonID: number, shortageSeverity: number, lootIndex: number): (...unknown)
@@ -13436,13 +15833,13 @@ declare C_ArtifactUI: {
 	GetAppearanceInfoByID: (artifactAppearanceID: number) -> (number?, number?, string?, number?, boolean?, string?, number?, number?, number?, number?, number?, number?, number?, boolean?),
 	GetAppearanceSetInfo: (appearanceSetIndex: number) -> (number?, string?, string?, number?),
 	GetArtifactArtInfo: () -> ArtifactArtInfo?,
-	GetArtifactInfo: () -> (number?, number?, string?, fileID?, number?, number?, number?, number?, number?, number?, number?, boolean?, ArtifactTiers?),
+	GetArtifactInfo: () -> (number?, number?, string?, fileID?, number?, number?, Enum_ItemQuality?, number?, number?, number?, number?, boolean?, ArtifactTiers?),
 	GetArtifactItemID: () -> number?,
 	GetArtifactTier: () -> ArtifactTiers?,
 	GetArtifactXPRewardTargetInfo: (artifactCategoryID: number) -> (string?, fileID?),
 	GetCostForPointAtRank: (rank: number, tier: ArtifactTiers) -> number,
 	GetEquippedArtifactArtInfo: () -> ArtifactArtInfo?,
-	GetEquippedArtifactInfo: () -> (number?, number?, string?, fileID?, number?, number?, number?, number?, number?, number?, number?, boolean?, ArtifactTiers?),
+	GetEquippedArtifactInfo: () -> (number?, number?, string?, fileID?, number?, number?, Enum_ItemQuality?, number?, number?, number?, number?, boolean?, ArtifactTiers?),
 	GetEquippedArtifactItemID: () -> number?,
 	GetEquippedArtifactNumRelicSlots: (onlyUnlocked: boolean?) -> number,
 	GetEquippedArtifactRelicInfo: (relicSlotIndex: number) -> (string?, fileID?, string?, string?),
@@ -13466,7 +15863,7 @@ declare C_ArtifactUI: {
 	GetRelicLockedReason: (relicSlotIndex: number) -> string?,
 	GetRelicSlotType: (relicSlotIndex: number) -> string?,
 	GetRespecArtifactArtInfo: () -> ArtifactArtInfo?,
-	GetRespecArtifactInfo: () -> (number?, number?, string?, fileID?, number?, number?, number?, number?, number?, number?, number?, boolean?, ArtifactTiers?),
+	GetRespecArtifactInfo: () -> (number?, number?, string?, fileID?, number?, number?, Enum_ItemQuality?, number?, number?, number?, number?, boolean?, ArtifactTiers?),
 	GetRespecCost: () -> number,
 	GetTotalPowerCost: (startingTrait: number, numTraits: number, artifactTier: ArtifactTiers) -> number?,
 	GetTotalPurchasedRanks: () -> number,
@@ -13756,9 +16153,9 @@ declare C_BehavioralMessaging: {
 }
 declare C_BlackMarket: {
 	Close: (...unknown) -> (...unknown),
-	GetHotItem: () -> (string, string, number, string, boolean, number, string, string, number, number, number, boolean, number, number, string, number, number),
-	GetItemInfoByID: (marketID: number) -> (string, string, number, string, boolean, number, string, string, number, number, number, boolean, number, number, string, number, number),
-	GetItemInfoByIndex: (index: number) -> (string, string, number, string, boolean, number, string, string, number, number, number, boolean, number, number, string, number, number),
+	GetHotItem: () -> (string, string, number, string, boolean, number, string, string, number, number, number, boolean, number, number, string, number, Enum_ItemQuality),
+	GetItemInfoByID: (marketID: number) -> (string, string, number, string, boolean, number, string, string, number, number, number, boolean, number, number, string, number, Enum_ItemQuality),
+	GetItemInfoByIndex: (index: number) -> (string, string, number, string, boolean, number, string, string, number, number, number, boolean, number, number, string, number, Enum_ItemQuality),
 	GetNumItems: () -> number,
 	IsViewOnly: () -> boolean,
 	ItemPlaceBid: (marketID: number, bid: number) -> (),
@@ -15212,13 +17609,13 @@ declare C_Garrison: {
 	GetGarrisonInfo: (garrisonType: Enum_GarrisonType) -> (number?, string?, number?, number?),
 	GetGarrisonPlotsInstancesForMap: (uiMapID: number) -> { GarrisonPlotInstanceMapInfo },
 	GetGarrisonTalentTreeCurrencyTypes: (garrTalentTreeID: number) -> number?,
-	GetGarrisonTalentTreeType: (garrTalentTreeID: number) -> number,
+	GetGarrisonTalentTreeType: (garrTalentTreeID: number) -> Enum_GarrTalentTreeType,
 	GetGarrisonUpgradeCost: (...unknown) -> (...unknown),
 	GetInProgressMissions: (garrFollowerTypeID: Enum_GarrisonFollowerType) -> { MissionInfo },
 	GetLandingPageGarrisonType: (...unknown) -> (...unknown),
 	GetLandingPageItems: (...unknown) -> (...unknown),
 	GetLandingPageShipmentCount: (...unknown) -> (...unknown),
-	GetLandingPageShipmentInfo: (buildingID: number) -> (string, string, number, number, number, number, number, string, string, number, number, number),
+	GetLandingPageShipmentInfo: (buildingID: number) -> (string, string, number, number, number, number, number, string, string, number, Enum_ItemQuality, number),
 	GetLandingPageShipmentInfoByContainerID: (containerID: number) -> (string, number, number, number, number, number, number, string, string, number, number, number, number),
 	GetLooseShipments: (garrisonType: Enum_GarrisonType) -> { number },
 	GetMaxCypherEquipmentLevel: () -> number,
@@ -15895,7 +18292,7 @@ declare C_Item: {
 	GetDelvePreviewItemLink: (itemID: number, context: Enum_ItemCreationContext) -> string?,
 	GetDelvePreviewItemQuality: (itemID: number, context: Enum_ItemCreationContext) -> Enum_ItemQuality,
 	GetDetailedItemLevelInfo: (itemInfo: ItemInfo) -> (number?, boolean?, number?),
-	GetFirstTriggeredSpellForItem: (itemID: number, itemQuality: number) -> number?,
+	GetFirstTriggeredSpellForItem: (itemID: number, itemQuality: Enum_ItemQuality) -> number?,
 	GetItemChildInfo: (itemInfo: ItemInfo, slotID: number?) -> { number },
 	GetItemClassInfo: (itemClassID: number) -> string,
 	GetItemConversionOutputIcon: (itemLoc: ItemLocationMixin) -> fileID?,
@@ -16023,8 +18420,8 @@ declare C_ItemUpgrade: {
 	ClearItemUpgrade: () -> (),
 	CloseItemUpgrade: () -> (),
 	GetHighWatermarkForItem: (itemInfo: ItemInfo) -> (number?, number?),
-	GetHighWatermarkForSlot: (itemRedundancySlot: number) -> (number?, number?),
-	GetHighWatermarkSlotForItem: (itemInfo: ItemInfo) -> number?,
+	GetHighWatermarkForSlot: (itemRedundancySlot: Enum_ItemRedundancySlot) -> (number?, number?),
+	GetHighWatermarkSlotForItem: (itemInfo: ItemInfo) -> Enum_ItemRedundancySlot?,
 	GetItemHyperlink: () -> string?,
 	GetItemUpgradeCurrentLevel: () -> (number?, boolean?),
 	GetItemUpgradeEffect: (effectIndex: number, numUpgradeLevels: number?) -> (string?, string?),
@@ -17674,7 +20071,7 @@ declare C_SummonInfo: {
 	GetSummonConfirmAreaName: () -> string,
 	GetSummonConfirmSummoner: () -> string?,
 	GetSummonConfirmTimeLeft: () -> number,
-	GetSummonReason: () -> number,
+	GetSummonReason: () -> Enum_SummonReason,
 	IsSummonSkippingStartExperience: () -> boolean,
 }
 declare C_SuperTrack: {
@@ -17811,7 +20208,7 @@ declare C_TooltipInfo: {
 	GetInventoryItem: (unit: UnitToken, slot: number, hideUselessStats: boolean?) -> TooltipData?,
 	GetInventoryItemByID: (itemID: number) -> TooltipData?,
 	GetItemByGUID: (guid: WOWGUID) -> TooltipData?,
-	GetItemByID: (itemID: number, quality: number?, itemContext: number?, treasureContextLevel: number?) -> TooltipData?,
+	GetItemByID: (itemID: number, quality: Enum_ItemQuality?, itemContext: number?, treasureContextLevel: number?) -> TooltipData?,
 	GetItemByItemModifiedAppearanceID: (itemModifiedAppearanceID: number) -> TooltipData?,
 	GetItemInteractionItem: () -> TooltipData?,
 	GetItemKey: (itemID: number, itemLevel: number, itemSuffix: number, requiredLevel: number?) -> TooltipData?,
@@ -18124,7 +20521,7 @@ declare C_Transmog: {
 	ExtractTransmogIDList: (input: string) -> { number },
 	GetAllSetAppearancesByID: (setID: number) -> { TransmogSetItemInfo }?,
 	GetItemIDForSource: (itemModifiedAppearanceID: number) -> number?,
-	GetSlotForInventoryType: (inventoryType: number) -> number?,
+	GetSlotForInventoryType: (inventoryType: Enum_InventoryType) -> number?,
 	GetSlotVisualInfo: (transmogLocation: TransmogLocationMixin) -> TransmogSlotVisualInfo?,
 	IsAtTransmogNPC: () -> boolean,
 }
@@ -18252,7 +20649,7 @@ declare C_TransmogOutfitInfo: {
 	GetSetSourcesForSlot: (transmogSetID: number, slot: Enum_TransmogOutfitSlot) -> { AppearanceSourceInfo }?,
 	GetSlotGroupInfo: () -> { TransmogOutfitSlotGroup }?,
 	GetSourceIDsForSlot: (transmogSetID: number, slot: Enum_TransmogOutfitSlot) -> { number }?,
-	GetTransmogOutfitSlotForInventoryType: (inventoryType: number) -> Enum_TransmogOutfitSlot?,
+	GetTransmogOutfitSlotForInventoryType: (inventoryType: Enum_InventoryType) -> Enum_TransmogOutfitSlot?,
 	GetTransmogOutfitSlotFromInventorySlot: (inventorySlot: InventorySlots) -> Enum_TransmogOutfitSlot?,
 	GetUISituationCategoriesAndOptions: () -> { TransmogSituationCategory }?,
 	GetUnassignedAtlasForSlot: (slot: Enum_TransmogOutfitSlot) -> textureAtlas?,
@@ -20765,7 +23162,7 @@ declare function EJ_GetEncounterInfoByIndex(index: number, journalInstanceID: nu
 declare function EJ_GetInstanceByIndex(index: number, isRaid: boolean): (number, string, string, number, number, number, number, number, string, boolean, number, number, boolean)
 declare function EJ_GetInstanceForMap(mapID: number): number
 declare function EJ_GetInstanceInfo(journalInstanceID: number?): (string, string, number, number, number, number, number, string, boolean, number, number, boolean)
-declare function EJ_GetInvTypeSortOrder(invType: number): number
+declare function EJ_GetInvTypeSortOrder(invType: Enum_InventoryType): number
 declare function EJ_GetLootFilter(): (number, number)
 declare function EJ_GetMapEncounter(uiMapID: number, index: number, fromJournal: boolean?): (number, number, number, string, string, number, number, string)
 declare function EJ_GetNumEncountersForLootByIndex(index: number): number
@@ -20868,70 +23265,70 @@ declare Enum: {
 		NotMultipleOfTen: number,
 	},
 	AccountCurrencyTransferResult: {
-		Success: number,
-		InvalidCharacter: number,
-		CharacterLoggedIn: number,
-		InsufficientCurrency: number,
-		MaxQuantity: number,
-		InvalidCurrency: number,
-		NoValidSourceCharacter: number,
-		ServerError: number,
-		CannotUseCurrency: number,
-		TransactionInProgress: number,
-		CurrencyTransferDisabled: number,
+		Success: Enum_AccountCurrencyTransferResult,
+		InvalidCharacter: Enum_AccountCurrencyTransferResult,
+		CharacterLoggedIn: Enum_AccountCurrencyTransferResult,
+		InsufficientCurrency: Enum_AccountCurrencyTransferResult,
+		MaxQuantity: Enum_AccountCurrencyTransferResult,
+		InvalidCurrency: Enum_AccountCurrencyTransferResult,
+		NoValidSourceCharacter: Enum_AccountCurrencyTransferResult,
+		ServerError: Enum_AccountCurrencyTransferResult,
+		CannotUseCurrency: Enum_AccountCurrencyTransferResult,
+		TransactionInProgress: Enum_AccountCurrencyTransferResult,
+		CurrencyTransferDisabled: Enum_AccountCurrencyTransferResult,
 	},
 	AccountData: {
-		Config: number,
-		Config2: number,
-		Bindings: number,
-		Bindings2: number,
-		Macros: number,
-		Macros2: number,
-		UILayout: number,
-		ChatSettings: number,
-		TtsSettings: number,
-		TtsSettings2: number,
-		FlaggedIDs: number,
-		FlaggedIDs2: number,
-		ClickBindings: number,
-		UIEditModeAccount: number,
-		UIEditModeChar: number,
-		FrontendChatSettings: number,
-		CharacterListOrder: number,
-		CooldownManager: number,
-		CooldownManager2: number,
-		Shop2PendingOrders: number,
+		Config: Enum_AccountData,
+		Config2: Enum_AccountData,
+		Bindings: Enum_AccountData,
+		Bindings2: Enum_AccountData,
+		Macros: Enum_AccountData,
+		Macros2: Enum_AccountData,
+		UILayout: Enum_AccountData,
+		ChatSettings: Enum_AccountData,
+		TtsSettings: Enum_AccountData,
+		TtsSettings2: Enum_AccountData,
+		FlaggedIDs: Enum_AccountData,
+		FlaggedIDs2: Enum_AccountData,
+		ClickBindings: Enum_AccountData,
+		UIEditModeAccount: Enum_AccountData,
+		UIEditModeChar: Enum_AccountData,
+		FrontendChatSettings: Enum_AccountData,
+		CharacterListOrder: Enum_AccountData,
+		CooldownManager: Enum_AccountData,
+		CooldownManager2: Enum_AccountData,
+		Shop2PendingOrders: Enum_AccountData,
 	},
 	AccountDataUpdateStatus: {
-		Success: number,
-		Failed: number,
-		Corrupt: number,
-		Toobig: number,
+		Success: Enum_AccountDataUpdateStatus,
+		Failed: Enum_AccountDataUpdateStatus,
+		Corrupt: Enum_AccountDataUpdateStatus,
+		Toobig: Enum_AccountDataUpdateStatus,
 	},
 	AccountExportResult: {
-		Success: number,
-		UnknownError: number,
-		Cancelled: number,
-		ShuttingDown: number,
-		TimedOut: number,
-		NoAccountFound: number,
-		RequestedInvalidCharacter: number,
-		RpcError: number,
-		FileInvalid: number,
-		FileWriteFailed: number,
-		Unavailable: number,
-		AlreadyInProgress: number,
-		FailedToLockAccount: number,
-		FailedToGenerateFile: number,
+		Success: Enum_AccountExportResult,
+		UnknownError: Enum_AccountExportResult,
+		Cancelled: Enum_AccountExportResult,
+		ShuttingDown: Enum_AccountExportResult,
+		TimedOut: Enum_AccountExportResult,
+		NoAccountFound: Enum_AccountExportResult,
+		RequestedInvalidCharacter: Enum_AccountExportResult,
+		RpcError: Enum_AccountExportResult,
+		FileInvalid: Enum_AccountExportResult,
+		FileWriteFailed: Enum_AccountExportResult,
+		Unavailable: Enum_AccountExportResult,
+		AlreadyInProgress: Enum_AccountExportResult,
+		FailedToLockAccount: Enum_AccountExportResult,
+		FailedToGenerateFile: Enum_AccountExportResult,
 	},
 	AccountGetListRequestType: {
-		None: number,
-		Battlepets: number,
+		None: Enum_AccountGetListRequestType,
+		Battlepets: Enum_AccountGetListRequestType,
 	},
 	AccountSequenceCacheType: {
-		Invalid: number,
-		Local: number,
-		HouseDecor: number,
+		Invalid: Enum_AccountSequenceCacheType,
+		Local: Enum_AccountSequenceCacheType,
+		HouseDecor: Enum_AccountSequenceCacheType,
 	},
 	AccountStateFlags: {
 		None: number,
@@ -20992,10 +23389,10 @@ declare Enum: {
 		DynamicDistrictsLoaded: string,
 	},
 	AccountStoreCategoryType: {
-		Creature: number,
-		TransmogSet: number,
-		Mount: number,
-		Icon: number,
+		Creature: Enum_AccountStoreCategoryType,
+		TransmogSet: Enum_AccountStoreCategoryType,
+		Mount: Enum_AccountStoreCategoryType,
+		Icon: Enum_AccountStoreCategoryType,
 	},
 	AccountStoreFrontFlag: {
 		Enabled: number,
@@ -21009,332 +23406,332 @@ declare Enum: {
 		DisplayOnly: number,
 	},
 	AccountStoreItemMode: {
-		Normal: number,
-		Hidden: number,
-		Locked: number,
+		Normal: Enum_AccountStoreItemMode,
+		Hidden: Enum_AccountStoreItemMode,
+		Locked: Enum_AccountStoreItemMode,
 	},
 	AccountStoreItemRewardType: {
-		Transmog: number,
-		Mount: number,
-		Pet: number,
-		Toy: number,
-		Illusion: number,
-		TransmogSet: number,
-		Tender: number,
-		Misc: number,
-		WarbandScene: number,
+		Transmog: Enum_AccountStoreItemRewardType,
+		Mount: Enum_AccountStoreItemRewardType,
+		Pet: Enum_AccountStoreItemRewardType,
+		Toy: Enum_AccountStoreItemRewardType,
+		Illusion: Enum_AccountStoreItemRewardType,
+		TransmogSet: Enum_AccountStoreItemRewardType,
+		Tender: Enum_AccountStoreItemRewardType,
+		Misc: Enum_AccountStoreItemRewardType,
+		WarbandScene: Enum_AccountStoreItemRewardType,
 	},
 	AccountStoreItemStatus: {
-		Unowned: number,
-		Refundable: number,
-		Owned: number,
+		Unowned: Enum_AccountStoreItemStatus,
+		Refundable: Enum_AccountStoreItemStatus,
+		Owned: Enum_AccountStoreItemStatus,
 	},
 	AccountStoreSettlementAction: {
-		NotSet: number,
-		Give: number,
-		Remove: number,
+		NotSet: Enum_AccountStoreSettlementAction,
+		Give: Enum_AccountStoreSettlementAction,
+		Remove: Enum_AccountStoreSettlementAction,
 	},
 	AccountStoreState: {
-		Available: number,
-		Unknown: number,
-		Unavailable: number,
+		Available: Enum_AccountStoreState,
+		Unknown: Enum_AccountStoreState,
+		Unavailable: Enum_AccountStoreState,
 	},
 	AccountStoreTransactionResult: {
-		Success: number,
-		Incomplete: number,
-		UnknownError: number,
-		TransactionInProgress: number,
-		InsufficientFunds: number,
-		ItemUnknown: number,
-		ItemAlreadyOwned: number,
-		ItemNotOwned: number,
-		InvalidCurrencyType: number,
-		OwnedButRefundTimeExpired: number,
-		NotSupported: number,
-		Unavailable: number,
-		ProxyError: number,
+		Success: Enum_AccountStoreTransactionResult,
+		Incomplete: Enum_AccountStoreTransactionResult,
+		UnknownError: Enum_AccountStoreTransactionResult,
+		TransactionInProgress: Enum_AccountStoreTransactionResult,
+		InsufficientFunds: Enum_AccountStoreTransactionResult,
+		ItemUnknown: Enum_AccountStoreTransactionResult,
+		ItemAlreadyOwned: Enum_AccountStoreTransactionResult,
+		ItemNotOwned: Enum_AccountStoreTransactionResult,
+		InvalidCurrencyType: Enum_AccountStoreTransactionResult,
+		OwnedButRefundTimeExpired: Enum_AccountStoreTransactionResult,
+		NotSupported: Enum_AccountStoreTransactionResult,
+		Unavailable: Enum_AccountStoreTransactionResult,
+		ProxyError: Enum_AccountStoreTransactionResult,
 	},
 	AccountStoreTransactionType: {
-		Undefined: number,
-		Purchase: number,
-		Refund: number,
-		DebugResetHistory: number,
-		DebugRemoveItem: number,
+		Undefined: Enum_AccountStoreTransactionType,
+		Purchase: Enum_AccountStoreTransactionType,
+		Refund: Enum_AccountStoreTransactionType,
+		DebugResetHistory: Enum_AccountStoreTransactionType,
+		DebugRemoveItem: Enum_AccountStoreTransactionType,
 	},
 	AccountTransType: {
-		ProxyForwarder: number,
-		Purchase: number,
-		Distribution: number,
-		Battlepet: number,
-		Achievements: number,
-		Criteria: number,
-		Mounts: number,
-		Characters: number,
-		Purchases: number,
-		ArchivedPurchases: number,
-		Distributions: number,
-		CurrencyCaps: number,
-		QuestLog: number,
-		CriteriaNotif: number,
-		Settings: number,
-		FixedLicense: number,
-		AddLicense: number,
-		ItemCollections: number,
-		AuctionableToken: number,
-		ConsumableToken: number,
-		VasTransaction: number,
-		Productitem: number,
-		TrialBoostHistory: number,
-		TrialBoostHistories: number,
-		QuestCriteria: number,
-		BattlenetAccount: number,
-		AccountCurrencies: number,
-		RafRecruiterAcceptances: number,
-		RafFriendMonth: number,
-		RafReward: number,
-		DynamicCriteria: number,
-		RafActivity: number,
-		CreateOrderInfo: number,
-		ProxyHonorInitialConversion: number,
-		ProxyCreateAccountHonor: number,
-		ProxyValidateAccountHonor: number,
-		ProxyGmSetHonor: number,
-		ProxyGenerateBpayID: number,
-		AccountNotifications: number,
-		PerkItemHold: number,
-		PerkPendingRewards: number,
-		PerkPastRewards: number,
-		PerkTransaction: number,
-		OutstandingRpc: number,
-		LoadWowlabs: number,
-		UpgradeAccount: number,
-		GetOrderStatusByPurchaseID: number,
-		Items: number,
-		BankTab: number,
-		Factions: number,
-		BitVectors: number,
-		CombinedQuestLog: number,
-		PlayerDataElements: number,
-		CharacterDataMerge: number,
-		AccountStore: number,
-		WarbandGroups: number,
-		Mapping: number,
-		CharacterItems: number,
-		CurrencyTransferLog: number,
-		LgVendorPurchase: number,
-		SaveWarbandGroups: number,
-		Profile: number,
-		WarbandSceneCollection: number,
-		EventRecords: number,
-		HousingItem: number,
-		TransmogOutfitCollection: number,
-		HouseInitiativeFavor: number,
+		ProxyForwarder: Enum_AccountTransType,
+		Purchase: Enum_AccountTransType,
+		Distribution: Enum_AccountTransType,
+		Battlepet: Enum_AccountTransType,
+		Achievements: Enum_AccountTransType,
+		Criteria: Enum_AccountTransType,
+		Mounts: Enum_AccountTransType,
+		Characters: Enum_AccountTransType,
+		Purchases: Enum_AccountTransType,
+		ArchivedPurchases: Enum_AccountTransType,
+		Distributions: Enum_AccountTransType,
+		CurrencyCaps: Enum_AccountTransType,
+		QuestLog: Enum_AccountTransType,
+		CriteriaNotif: Enum_AccountTransType,
+		Settings: Enum_AccountTransType,
+		FixedLicense: Enum_AccountTransType,
+		AddLicense: Enum_AccountTransType,
+		ItemCollections: Enum_AccountTransType,
+		AuctionableToken: Enum_AccountTransType,
+		ConsumableToken: Enum_AccountTransType,
+		VasTransaction: Enum_AccountTransType,
+		Productitem: Enum_AccountTransType,
+		TrialBoostHistory: Enum_AccountTransType,
+		TrialBoostHistories: Enum_AccountTransType,
+		QuestCriteria: Enum_AccountTransType,
+		BattlenetAccount: Enum_AccountTransType,
+		AccountCurrencies: Enum_AccountTransType,
+		RafRecruiterAcceptances: Enum_AccountTransType,
+		RafFriendMonth: Enum_AccountTransType,
+		RafReward: Enum_AccountTransType,
+		DynamicCriteria: Enum_AccountTransType,
+		RafActivity: Enum_AccountTransType,
+		CreateOrderInfo: Enum_AccountTransType,
+		ProxyHonorInitialConversion: Enum_AccountTransType,
+		ProxyCreateAccountHonor: Enum_AccountTransType,
+		ProxyValidateAccountHonor: Enum_AccountTransType,
+		ProxyGmSetHonor: Enum_AccountTransType,
+		ProxyGenerateBpayID: Enum_AccountTransType,
+		AccountNotifications: Enum_AccountTransType,
+		PerkItemHold: Enum_AccountTransType,
+		PerkPendingRewards: Enum_AccountTransType,
+		PerkPastRewards: Enum_AccountTransType,
+		PerkTransaction: Enum_AccountTransType,
+		OutstandingRpc: Enum_AccountTransType,
+		LoadWowlabs: Enum_AccountTransType,
+		UpgradeAccount: Enum_AccountTransType,
+		GetOrderStatusByPurchaseID: Enum_AccountTransType,
+		Items: Enum_AccountTransType,
+		BankTab: Enum_AccountTransType,
+		Factions: Enum_AccountTransType,
+		BitVectors: Enum_AccountTransType,
+		CombinedQuestLog: Enum_AccountTransType,
+		PlayerDataElements: Enum_AccountTransType,
+		CharacterDataMerge: Enum_AccountTransType,
+		AccountStore: Enum_AccountTransType,
+		WarbandGroups: Enum_AccountTransType,
+		Mapping: Enum_AccountTransType,
+		CharacterItems: Enum_AccountTransType,
+		CurrencyTransferLog: Enum_AccountTransType,
+		LgVendorPurchase: Enum_AccountTransType,
+		SaveWarbandGroups: Enum_AccountTransType,
+		Profile: Enum_AccountTransType,
+		WarbandSceneCollection: Enum_AccountTransType,
+		EventRecords: Enum_AccountTransType,
+		HousingItem: Enum_AccountTransType,
+		TransmogOutfitCollection: Enum_AccountTransType,
+		HouseInitiativeFavor: Enum_AccountTransType,
 	},
 	ActionBarOrientation: {
-		Horizontal: number,
-		Vertical: number,
+		Horizontal: Enum_ActionBarOrientation,
+		Vertical: Enum_ActionBarOrientation,
 	},
 	ActionBarSet: {
-		None: number,
-		Mkb: number,
-		Gamepad: number,
-		All: number,
+		None: Enum_ActionBarSet,
+		Mkb: Enum_ActionBarSet,
+		Gamepad: Enum_ActionBarSet,
+		All: Enum_ActionBarSet,
 	},
 	ActionBarVisibleSetting: {
-		Always: number,
-		InCombat: number,
-		OutOfCombat: number,
-		Hidden: number,
+		Always: Enum_ActionBarVisibleSetting,
+		InCombat: Enum_ActionBarVisibleSetting,
+		OutOfCombat: Enum_ActionBarVisibleSetting,
+		Hidden: Enum_ActionBarVisibleSetting,
 	},
 	AddOnEnableState: {
-		None: number,
-		Some: number,
-		All: number,
+		None: Enum_AddOnEnableState,
+		Some: Enum_AddOnEnableState,
+		All: Enum_AddOnEnableState,
 	},
 	AddOnPerformanceMessageType: {
-		SpecificAddOnChatWarning: number,
-		SpecificAddOnErrorDialog: number,
-		OverallAddOnErrorDialog: number,
+		SpecificAddOnChatWarning: Enum_AddOnPerformanceMessageType,
+		SpecificAddOnErrorDialog: Enum_AddOnPerformanceMessageType,
+		OverallAddOnErrorDialog: Enum_AddOnPerformanceMessageType,
 	},
 	AddOnProfilerMetric: {
-		SessionAverageTime: number,
-		RecentAverageTime: number,
-		EncounterAverageTime: number,
-		LastTime: number,
-		PeakTime: number,
-		CountTimeOver1Ms: number,
-		CountTimeOver5Ms: number,
-		CountTimeOver10Ms: number,
-		CountTimeOver50Ms: number,
-		CountTimeOver100Ms: number,
-		CountTimeOver500Ms: number,
-		CountTimeOver1000Ms: number,
+		SessionAverageTime: Enum_AddOnProfilerMetric,
+		RecentAverageTime: Enum_AddOnProfilerMetric,
+		EncounterAverageTime: Enum_AddOnProfilerMetric,
+		LastTime: Enum_AddOnProfilerMetric,
+		PeakTime: Enum_AddOnProfilerMetric,
+		CountTimeOver1Ms: Enum_AddOnProfilerMetric,
+		CountTimeOver5Ms: Enum_AddOnProfilerMetric,
+		CountTimeOver10Ms: Enum_AddOnProfilerMetric,
+		CountTimeOver50Ms: Enum_AddOnProfilerMetric,
+		CountTimeOver100Ms: Enum_AddOnProfilerMetric,
+		CountTimeOver500Ms: Enum_AddOnProfilerMetric,
+		CountTimeOver1000Ms: Enum_AddOnProfilerMetric,
 	},
 	AddOnRestrictionState: {
-		Inactive: number,
-		Activating: number,
-		Active: number,
+		Inactive: Enum_AddOnRestrictionState,
+		Activating: Enum_AddOnRestrictionState,
+		Active: Enum_AddOnRestrictionState,
 	},
 	AddOnRestrictionType: {
-		Combat: number,
-		Encounter: number,
-		ChallengeMode: number,
-		PvPMatch: number,
-		Map: number,
-		Chat: number,
+		Combat: Enum_AddOnRestrictionType,
+		Encounter: Enum_AddOnRestrictionType,
+		ChallengeMode: Enum_AddOnRestrictionType,
+		PvPMatch: Enum_AddOnRestrictionType,
+		Map: Enum_AddOnRestrictionType,
+		Chat: Enum_AddOnRestrictionType,
 	},
 	AddOnSecurityStatus: {
-		Secure: number,
-		Insecure: number,
-		Banned: number,
-		NotAvailable: number,
+		Secure: Enum_AddOnSecurityStatus,
+		Insecure: Enum_AddOnSecurityStatus,
+		Banned: Enum_AddOnSecurityStatus,
+		NotAvailable: Enum_AddOnSecurityStatus,
 	},
 	AddSoulbindConduitReason: {
-		None: number,
-		Cheat: number,
-		SpellEffect: number,
-		Upgrade: number,
+		None: Enum_AddSoulbindConduitReason,
+		Cheat: Enum_AddSoulbindConduitReason,
+		SpellEffect: Enum_AddSoulbindConduitReason,
+		Upgrade: Enum_AddSoulbindConduitReason,
 	},
 	AnimaDiversionNodeState: {
-		Unavailable: number,
-		Available: number,
-		SelectedTemporary: number,
-		SelectedPermanent: number,
-		Cooldown: number,
+		Unavailable: Enum_AnimaDiversionNodeState,
+		Available: Enum_AnimaDiversionNodeState,
+		SelectedTemporary: Enum_AnimaDiversionNodeState,
+		SelectedPermanent: Enum_AnimaDiversionNodeState,
+		Cooldown: Enum_AnimaDiversionNodeState,
 	},
 	ArrowCalloutDirection: {
-		Up: number,
-		Down: number,
-		Left: number,
-		Right: number,
+		Up: Enum_ArrowCalloutDirection,
+		Down: Enum_ArrowCalloutDirection,
+		Left: Enum_ArrowCalloutDirection,
+		Right: Enum_ArrowCalloutDirection,
 	},
 	ArrowCalloutType: {
-		None: number,
-		Generic: number,
-		WorldLootObject: number,
-		Tutorial: number,
-		WidgetContainerNoBorder: number,
+		None: Enum_ArrowCalloutType,
+		Generic: Enum_ArrowCalloutType,
+		WorldLootObject: Enum_ArrowCalloutType,
+		Tutorial: Enum_ArrowCalloutType,
+		WidgetContainerNoBorder: Enum_ArrowCalloutType,
 	},
 	AssistActionType: {
-		None: number,
-		LoungingPlayer: number,
-		GraveMarker: number,
-		PlacedVo: number,
-		PlayerGuardian: number,
-		PlayerSlayer: number,
-		CapturedBuff: number,
+		None: Enum_AssistActionType,
+		LoungingPlayer: Enum_AssistActionType,
+		GraveMarker: Enum_AssistActionType,
+		PlacedVo: Enum_AssistActionType,
+		PlayerGuardian: Enum_AssistActionType,
+		PlayerSlayer: Enum_AssistActionType,
+		CapturedBuff: Enum_AssistActionType,
 	},
 	AuctionHouseCommoditySortOrder: {
-		UnitPrice: number,
-		Quantity: number,
+		UnitPrice: Enum_AuctionHouseCommoditySortOrder,
+		Quantity: Enum_AuctionHouseCommoditySortOrder,
 	},
 	AuctionHouseError: {
-		NotEnoughMoney: number,
-		HigherBid: number,
-		BidIncrement: number,
-		BidOwn: number,
-		ItemNotFound: number,
-		RestrictedAccountTrial: number,
-		HasRestriction: number,
-		IsBusy: number,
-		Unavailable: number,
-		ItemHasQuote: number,
-		DatabaseError: number,
-		MinBid: number,
-		NotEnoughItems: number,
-		RepairItem: number,
-		UsedCharges: number,
-		QuestItem: number,
-		BoundItem: number,
-		ConjuredItem: number,
-		LimitedDurationItem: number,
-		IsBag: number,
-		EquippedBag: number,
-		WrappedItem: number,
-		LootItem: number,
-		DoubleBid: number,
-		FavoritesMaxed: number,
-		ItemNotAvailable: number,
-		ItemBoundToAccountUntilEquip: number,
+		NotEnoughMoney: Enum_AuctionHouseError,
+		HigherBid: Enum_AuctionHouseError,
+		BidIncrement: Enum_AuctionHouseError,
+		BidOwn: Enum_AuctionHouseError,
+		ItemNotFound: Enum_AuctionHouseError,
+		RestrictedAccountTrial: Enum_AuctionHouseError,
+		HasRestriction: Enum_AuctionHouseError,
+		IsBusy: Enum_AuctionHouseError,
+		Unavailable: Enum_AuctionHouseError,
+		ItemHasQuote: Enum_AuctionHouseError,
+		DatabaseError: Enum_AuctionHouseError,
+		MinBid: Enum_AuctionHouseError,
+		NotEnoughItems: Enum_AuctionHouseError,
+		RepairItem: Enum_AuctionHouseError,
+		UsedCharges: Enum_AuctionHouseError,
+		QuestItem: Enum_AuctionHouseError,
+		BoundItem: Enum_AuctionHouseError,
+		ConjuredItem: Enum_AuctionHouseError,
+		LimitedDurationItem: Enum_AuctionHouseError,
+		IsBag: Enum_AuctionHouseError,
+		EquippedBag: Enum_AuctionHouseError,
+		WrappedItem: Enum_AuctionHouseError,
+		LootItem: Enum_AuctionHouseError,
+		DoubleBid: Enum_AuctionHouseError,
+		FavoritesMaxed: Enum_AuctionHouseError,
+		ItemNotAvailable: Enum_AuctionHouseError,
+		ItemBoundToAccountUntilEquip: Enum_AuctionHouseError,
 	},
 	AuctionHouseExtraColumn: {
-		None: number,
-		Ilvl: number,
-		Slots: number,
-		Level: number,
-		Skill: number,
+		None: Enum_AuctionHouseExtraColumn,
+		Ilvl: Enum_AuctionHouseExtraColumn,
+		Slots: Enum_AuctionHouseExtraColumn,
+		Level: Enum_AuctionHouseExtraColumn,
+		Skill: Enum_AuctionHouseExtraColumn,
 	},
 	AuctionHouseFilter: {
-		None: number,
-		UncollectedOnly: number,
-		UsableOnly: number,
-		CurrentExpansionOnly: number,
-		UpgradesOnly: number,
-		ExactMatch: number,
-		PoorQuality: number,
-		CommonQuality: number,
-		UncommonQuality: number,
-		RareQuality: number,
-		EpicQuality: number,
-		LegendaryQuality: number,
-		ArtifactQuality: number,
-		LegendaryCraftedItemOnly: number,
+		None: Enum_AuctionHouseFilter,
+		UncollectedOnly: Enum_AuctionHouseFilter,
+		UsableOnly: Enum_AuctionHouseFilter,
+		CurrentExpansionOnly: Enum_AuctionHouseFilter,
+		UpgradesOnly: Enum_AuctionHouseFilter,
+		ExactMatch: Enum_AuctionHouseFilter,
+		PoorQuality: Enum_AuctionHouseFilter,
+		CommonQuality: Enum_AuctionHouseFilter,
+		UncommonQuality: Enum_AuctionHouseFilter,
+		RareQuality: Enum_AuctionHouseFilter,
+		EpicQuality: Enum_AuctionHouseFilter,
+		LegendaryQuality: Enum_AuctionHouseFilter,
+		ArtifactQuality: Enum_AuctionHouseFilter,
+		LegendaryCraftedItemOnly: Enum_AuctionHouseFilter,
 	},
 	AuctionHouseFilterCategory: {
-		Uncategorized: number,
-		Equipment: number,
-		Rarity: number,
+		Uncategorized: Enum_AuctionHouseFilterCategory,
+		Equipment: Enum_AuctionHouseFilterCategory,
+		Rarity: Enum_AuctionHouseFilterCategory,
 	},
 	AuctionHouseItemSortOrder: {
-		Bid: number,
-		Buyout: number,
+		Bid: Enum_AuctionHouseItemSortOrder,
+		Buyout: Enum_AuctionHouseItemSortOrder,
 	},
 	AuctionHouseNotification: {
-		BidPlaced: number,
-		AuctionRemoved: number,
-		AuctionWon: number,
-		AuctionOutbid: number,
-		AuctionSold: number,
-		AuctionExpired: number,
+		BidPlaced: Enum_AuctionHouseNotification,
+		AuctionRemoved: Enum_AuctionHouseNotification,
+		AuctionWon: Enum_AuctionHouseNotification,
+		AuctionOutbid: Enum_AuctionHouseNotification,
+		AuctionSold: Enum_AuctionHouseNotification,
+		AuctionExpired: Enum_AuctionHouseNotification,
 	},
 	AuctionHouseSortOrder: {
-		Price: number,
-		Name: number,
-		Level: number,
-		Bid: number,
-		Buyout: number,
-		TimeRemaining: number,
+		Price: Enum_AuctionHouseSortOrder,
+		Name: Enum_AuctionHouseSortOrder,
+		Level: Enum_AuctionHouseSortOrder,
+		Bid: Enum_AuctionHouseSortOrder,
+		Buyout: Enum_AuctionHouseSortOrder,
+		TimeRemaining: Enum_AuctionHouseSortOrder,
 	},
 	AuctionHouseTimeLeftBand: {
-		Short: number,
-		Medium: number,
-		Long: number,
-		VeryLong: number,
+		Short: Enum_AuctionHouseTimeLeftBand,
+		Medium: Enum_AuctionHouseTimeLeftBand,
+		Long: Enum_AuctionHouseTimeLeftBand,
+		VeryLong: Enum_AuctionHouseTimeLeftBand,
 	},
 	AuctionStatus: {
-		Active: number,
-		Sold: number,
+		Active: Enum_AuctionStatus,
+		Sold: Enum_AuctionStatus,
 	},
 	AuraFrameIconDirection: {
-		Down: number,
-		Left: number,
-		Right: number,
-		Up: number,
+		Down: Enum_AuraFrameIconDirection,
+		Left: Enum_AuraFrameIconDirection,
+		Right: Enum_AuraFrameIconDirection,
+		Up: Enum_AuraFrameIconDirection,
 	},
 	AuraFrameIconWrap: {
-		Down: number,
-		Left: number,
-		Right: number,
-		Up: number,
+		Down: Enum_AuraFrameIconWrap,
+		Left: Enum_AuraFrameIconWrap,
+		Right: Enum_AuraFrameIconWrap,
+		Up: Enum_AuraFrameIconWrap,
 	},
 	AuraFrameOrientation: {
-		Horizontal: number,
-		Vertical: number,
+		Horizontal: Enum_AuraFrameOrientation,
+		Vertical: Enum_AuraFrameOrientation,
 	},
 	AuraFrameVisibleSetting: {
-		Always: number,
-		InCombat: number,
-		Hidden: number,
+		Always: Enum_AuraFrameVisibleSetting,
+		InCombat: Enum_AuraFrameVisibleSetting,
+		Hidden: Enum_AuraFrameVisibleSetting,
 	},
 	AutoCompleteEntryFlag: {
 		InGroup: number,
@@ -21348,32 +23745,32 @@ declare Enum: {
 		RecentPlayer: number,
 	},
 	AutoCompletePriority: {
-		Other: number,
-		Interacted: number,
-		InGroup: number,
-		Guild: number,
-		Friend: number,
-		AccountCharacter: number,
-		AccountCharacterSameRealm: number,
+		Other: Enum_AutoCompletePriority,
+		Interacted: Enum_AutoCompletePriority,
+		InGroup: Enum_AutoCompletePriority,
+		Guild: Enum_AutoCompletePriority,
+		Friend: Enum_AutoCompletePriority,
+		AccountCharacter: Enum_AutoCompletePriority,
+		AccountCharacterSameRealm: Enum_AutoCompletePriority,
 	},
 	AvgItemLevelCategories: {
-		Base: number,
-		EquippedBase: number,
-		EquippedEffective: number,
-		PvP: number,
-		PvPWeighted: number,
-		EquippedEffectiveWeighted: number,
+		Base: Enum_AvgItemLevelCategories,
+		EquippedBase: Enum_AvgItemLevelCategories,
+		EquippedEffective: Enum_AvgItemLevelCategories,
+		PvP: Enum_AvgItemLevelCategories,
+		PvPWeighted: Enum_AvgItemLevelCategories,
+		EquippedEffectiveWeighted: Enum_AvgItemLevelCategories,
 	},
 	AzeriteEssenceSlot: {
-		MainSlot: number,
-		PassiveOneSlot: number,
-		PassiveTwoSlot: number,
-		PassiveThreeSlot: number,
+		MainSlot: Enum_AzeriteEssenceSlot,
+		PassiveOneSlot: Enum_AzeriteEssenceSlot,
+		PassiveTwoSlot: Enum_AzeriteEssenceSlot,
+		PassiveThreeSlot: Enum_AzeriteEssenceSlot,
 	},
 	AzeritePowerLevel: {
-		Base: number,
-		Upgraded: number,
-		Downgraded: number,
+		Base: Enum_AzeritePowerLevel,
+		Upgraded: Enum_AzeritePowerLevel,
+		Downgraded: Enum_AzeritePowerLevel,
 	},
 	BagFlag: {
 		DontFindStack: number,
@@ -21446,127 +23843,127 @@ declare Enum: {
 		ExpansionLegacy: number,
 	},
 	BagsDirection: {
-		Left: number,
-		Up: number,
-		Down: number,
-		Right: number,
+		Left: Enum_BagsDirection,
+		Up: Enum_BagsDirection,
+		Down: Enum_BagsDirection,
+		Right: Enum_BagsDirection,
 	},
 	BagsOrientation: {
-		Horizontal: number,
-		Vertical: number,
+		Horizontal: Enum_BagsOrientation,
+		Vertical: Enum_BagsOrientation,
 	},
 	BalanceType: {
-		None: number,
-		Eclipse: number,
+		None: Enum_BalanceType,
+		Eclipse: Enum_BalanceType,
 	},
 	BankLockedReason: {
-		None: number,
-		NoAccountInventoryLock: number,
-		BankDisabled: number,
-		BankConversionFailed: number,
+		None: Enum_BankLockedReason,
+		NoAccountInventoryLock: Enum_BankLockedReason,
+		BankDisabled: Enum_BankLockedReason,
+		BankConversionFailed: Enum_BankLockedReason,
 	},
 	BankTabFlags: {
 		AllowMissingBag: number,
 	},
 	BankType: {
-		Character: number,
-		Guild: number,
-		Account: number,
+		Character: Enum_BankType,
+		Guild: Enum_BankType,
+		Account: Enum_BankType,
 	},
 	Base64Variant: {
-		Standard: number,
-		StandardUrlSafe: number,
+		Standard: Enum_Base64Variant,
+		StandardUrlSafe: Enum_Base64Variant,
 	},
 	BattleNetFriendLevel: {
-		BattleTag: number,
-		RealID: number,
-		Title: number,
+		BattleTag: Enum_BattleNetFriendLevel,
+		RealID: Enum_BattleNetFriendLevel,
+		Title: Enum_BattleNetFriendLevel,
 	},
 	BattleNetFriendTag: {
-		Professions: number,
-		PvP: number,
-		Raiding: number,
-		Dungeons: number,
-		Delves: number,
-		Questing: number,
-		Roleplaying: number,
-		DamagerRole: number,
-		HealerRole: number,
-		TankRole: number,
+		Professions: Enum_BattleNetFriendTag,
+		PvP: Enum_BattleNetFriendTag,
+		Raiding: Enum_BattleNetFriendTag,
+		Dungeons: Enum_BattleNetFriendTag,
+		Delves: Enum_BattleNetFriendTag,
+		Questing: Enum_BattleNetFriendTag,
+		Roleplaying: Enum_BattleNetFriendTag,
+		DamagerRole: Enum_BattleNetFriendTag,
+		HealerRole: Enum_BattleNetFriendTag,
+		TankRole: Enum_BattleNetFriendTag,
 	},
 	BattlePetAction: {
-		None: number,
-		Ability: number,
-		SwitchPet: number,
-		Trap: number,
-		Skip: number,
+		None: Enum_BattlePetAction,
+		Ability: Enum_BattlePetAction,
+		SwitchPet: Enum_BattlePetAction,
+		Trap: Enum_BattlePetAction,
+		Skip: Enum_BattlePetAction,
 	},
 	BattlePetBreedQuality: {
-		Poor: number,
-		Common: number,
-		Uncommon: number,
-		Rare: number,
-		Epic: number,
-		Legendary: number,
+		Poor: Enum_BattlePetBreedQuality,
+		Common: Enum_BattlePetBreedQuality,
+		Uncommon: Enum_BattlePetBreedQuality,
+		Rare: Enum_BattlePetBreedQuality,
+		Epic: Enum_BattlePetBreedQuality,
+		Legendary: Enum_BattlePetBreedQuality,
 	},
 	BattlePetOwner: {
-		Weather: number,
-		Ally: number,
-		Enemy: number,
+		Weather: Enum_BattlePetOwner,
+		Ally: Enum_BattlePetOwner,
+		Enemy: Enum_BattlePetOwner,
 	},
 	BattlePetSources: {
-		Drop: number,
-		Quest: number,
-		Vendor: number,
-		Profession: number,
-		WildPet: number,
-		Achievement: number,
-		WorldEvent: number,
-		Promotion: number,
-		Tcg: number,
-		PetStore: number,
-		Discovery: number,
-		TradingPost: number,
+		Drop: Enum_BattlePetSources,
+		Quest: Enum_BattlePetSources,
+		Vendor: Enum_BattlePetSources,
+		Profession: Enum_BattlePetSources,
+		WildPet: Enum_BattlePetSources,
+		Achievement: Enum_BattlePetSources,
+		WorldEvent: Enum_BattlePetSources,
+		Promotion: Enum_BattlePetSources,
+		Tcg: Enum_BattlePetSources,
+		PetStore: Enum_BattlePetSources,
+		Discovery: Enum_BattlePetSources,
+		TradingPost: Enum_BattlePetSources,
 	},
 	BattlepayLicenseSynthesisFlags: {
 		ForceToGameAccount: number,
 	},
 	BattlepayProductChoiceType: {
-		ChoiceNone: number,
-		ChoiceOne: number,
-		SpecAndFaction: number,
-		VasCharacter: number,
-		VasCharacterAndName: number,
+		ChoiceNone: Enum_BattlepayProductChoiceType,
+		ChoiceOne: Enum_BattlepayProductChoiceType,
+		SpecAndFaction: Enum_BattlepayProductChoiceType,
+		VasCharacter: Enum_BattlepayProductChoiceType,
+		VasCharacterAndName: Enum_BattlepayProductChoiceType,
 	},
 	BattlepayShopEntryBannerType: {
-		Featured: number,
-		Discount: number,
-		New: number,
+		Featured: Enum_BattlepayShopEntryBannerType,
+		Discount: Enum_BattlepayShopEntryBannerType,
+		New: Enum_BattlepayShopEntryBannerType,
 	},
 	BattlepayShopEntryFlags: {
 		None: number,
 	},
 	Bc26Experience: {
-		Skyborne: number,
-		Dungeon: number,
+		Skyborne: Enum_Bc26Experience,
+		Dungeon: Enum_Bc26Experience,
 	},
 	BindingContext: {
-		None: number,
-		HousingEditor: number,
-		HousingEditorBasicDecorMode: number,
-		HousingEditorExpertDecorMode: number,
-		HousingEditorCustomizeMode: number,
-		HousingEditorCleanupMode: number,
-		HousingEditorLayoutMode: number,
-		HousingEditorBasicAndExpertDecorMode: number,
-		HousingEditorExteriorCustomizationMode: number,
-		GamepadModeInGameCore: number,
+		None: Enum_BindingContext,
+		HousingEditor: Enum_BindingContext,
+		HousingEditorBasicDecorMode: Enum_BindingContext,
+		HousingEditorExpertDecorMode: Enum_BindingContext,
+		HousingEditorCustomizeMode: Enum_BindingContext,
+		HousingEditorCleanupMode: Enum_BindingContext,
+		HousingEditorLayoutMode: Enum_BindingContext,
+		HousingEditorBasicAndExpertDecorMode: Enum_BindingContext,
+		HousingEditorExteriorCustomizationMode: Enum_BindingContext,
+		GamepadModeInGameCore: Enum_BindingContext,
 	},
 	BindingSet: {
-		Default: number,
-		Account: number,
-		Character: number,
-		Current: number,
+		Default: Enum_BindingSet,
+		Account: Enum_BindingSet,
+		Character: Enum_BindingSet,
+		Current: Enum_BindingSet,
 	},
 	BnetAccountFlag: {
 		None: number,
@@ -21594,264 +23991,264 @@ declare Enum: {
 		Unused: number,
 	},
 	BonusStatIndex: {
-		Mana: number,
-		Health: number,
-		Endurance: number,
-		Agility: number,
-		Strength: number,
-		Intellect: number,
-		Spirit: number,
-		Stamina: number,
-		Energy: number,
-		Rage: number,
-		Focus: number,
-		WeaponSkillRating: number,
-		DefenseSkillRating: number,
-		DodgeRating: number,
-		ParryRating: number,
-		BlockRating: number,
-		HitMeleeRating: number,
-		HitRangedRating: number,
-		HitSpellRating: number,
-		CritMeleeRating: number,
-		CritRangedRating: number,
-		CritSpellRating: number,
-		Corruption: number,
-		CorruptionResistance: number,
-		ModifiedCraftingStat_1: number,
-		ModifiedCraftingStat_2: number,
-		CritTakenRangedRatingObsolete: number,
-		CritTakenSpellRatingObsolete: number,
-		HasteMeleeRatingObsolete: number,
-		HasteRangedRatingObsolete: number,
-		HasteSpellRatingObsolete: number,
-		HitRating: number,
-		CritRating: number,
-		HitTakenRatingObsolete: number,
-		CritTakenRatingObsolete: number,
-		ResilienceRating: number,
-		HasteRating: number,
-		ExpertiseRating: number,
-		AttackPower: number,
-		RangedAttackPower: number,
-		Versatility: number,
-		SpellHealingDone: number,
-		SpellDamageDone: number,
-		ManaRegeneration: number,
-		ArmorPenetrationRating: number,
-		SpellPower: number,
-		HealthRegen: number,
-		SpellPenetration: number,
-		BlockValue: number,
-		MasteryRating: number,
-		ExtraArmor: number,
-		FireResistance: number,
-		FrostResistance: number,
-		HolyResistance: number,
-		ShadowResistance: number,
-		NatureResistance: number,
-		ArcaneResistance: number,
-		PvPPower: number,
-		CombatRatingUnused_0: number,
-		CombatRatingUnused_2: number,
-		CombatRatingUnused_3: number,
-		CombatRatingSpeed: number,
-		CombatRatingLifesteal: number,
-		CombatRatingAvoidance: number,
-		CombatRatingSturdiness: number,
-		CombatRatingUnused_7: number,
-		CombatRatingUnused_27: number,
-		CombatRatingUnused_9: number,
-		CombatRatingUnused_10: number,
-		CombatRatingUnused_11: number,
-		CombatRatingUnused_12: number,
-		AgilityOrStrengthOrIntellect: number,
-		AgilityOrStrength: number,
-		AgilityOrIntellect: number,
-		StrengthOrIntellect: number,
-		ProfessionInspiration: number,
-		ProfessionResourcefulness: number,
-		ProfessionFinesse: number,
-		ProfessionDeftness: number,
-		ProfessionPerception: number,
-		ProfessionCraftingSpeed: number,
-		ProfessionMulticraft: number,
-		ProfessionIngenuity: number,
-		PhysicalDamageDone: number,
-		HolyDamageDone: number,
-		FireDamageDone: number,
-		NatureDamageDone: number,
-		FrostDamageDone: number,
-		ShadowDamageDone: number,
-		ArcaneDamageDone: number,
-		TwohandedAxesSkill: number,
-		TwohandedMacesSkill: number,
-		TwohandedSwordsSkill: number,
-		AxesSkill: number,
-		BowsSkill: number,
-		CrossbowsSkill: number,
-		DaggersSkill: number,
-		DualWieldSkill: number,
-		FistWeaponsSkill: number,
-		GunsSkill: number,
-		MacesSkill: number,
-		PolearmsSkill: number,
-		StavesSkill: number,
-		SwordsSkill: number,
-		ThrownSkill: number,
-		WandsSkill: number,
-		AlchemySkill: number,
-		BlacksmithingSkill: number,
-		EnchantingSkill: number,
-		EngineeringSkill: number,
-		JewelcraftingSkill: number,
-		LeatherworkingSkill: number,
-		HerbalismSkill: number,
-		MiningSkill: number,
-		SkinningSkill: number,
-		CookingSkill: number,
-		FirstAidSkill: number,
-		FishingSkill: number,
-		TailoringSkill: number,
-		FirePenetration: number,
-		NaturePenetration: number,
-		FrostPenetration: number,
-		ShadowPenetration: number,
-		ArcanePenetration: number,
-		SpellResistanceAllSchools: number,
-		AttackPowerVsHumanoid: number,
-		AttackPowerVsElemental: number,
-		AttackPowerVsDemon: number,
-		AttackPowerVsUndead: number,
-		AttackPowerVsDragonkin: number,
-		AttackPowerVsGiant: number,
-		AttackPowerVsBeast: number,
-		AttackPowerVsMechanical: number,
-		SpellDamageVsHumanoid: number,
-		SpellDamageVsElemental: number,
-		SpellDamageVsDemon: number,
-		SpellDamageVsUndead: number,
-		SpellDamageVsDragonkin: number,
-		SpellDamageVsGiant: number,
-		SpellDamageVsBeast: number,
-		SpellDamageVsMechanical: number,
-		Reserved_141: number,
+		Mana: Enum_BonusStatIndex,
+		Health: Enum_BonusStatIndex,
+		Endurance: Enum_BonusStatIndex,
+		Agility: Enum_BonusStatIndex,
+		Strength: Enum_BonusStatIndex,
+		Intellect: Enum_BonusStatIndex,
+		Spirit: Enum_BonusStatIndex,
+		Stamina: Enum_BonusStatIndex,
+		Energy: Enum_BonusStatIndex,
+		Rage: Enum_BonusStatIndex,
+		Focus: Enum_BonusStatIndex,
+		WeaponSkillRating: Enum_BonusStatIndex,
+		DefenseSkillRating: Enum_BonusStatIndex,
+		DodgeRating: Enum_BonusStatIndex,
+		ParryRating: Enum_BonusStatIndex,
+		BlockRating: Enum_BonusStatIndex,
+		HitMeleeRating: Enum_BonusStatIndex,
+		HitRangedRating: Enum_BonusStatIndex,
+		HitSpellRating: Enum_BonusStatIndex,
+		CritMeleeRating: Enum_BonusStatIndex,
+		CritRangedRating: Enum_BonusStatIndex,
+		CritSpellRating: Enum_BonusStatIndex,
+		Corruption: Enum_BonusStatIndex,
+		CorruptionResistance: Enum_BonusStatIndex,
+		ModifiedCraftingStat_1: Enum_BonusStatIndex,
+		ModifiedCraftingStat_2: Enum_BonusStatIndex,
+		CritTakenRangedRatingObsolete: Enum_BonusStatIndex,
+		CritTakenSpellRatingObsolete: Enum_BonusStatIndex,
+		HasteMeleeRatingObsolete: Enum_BonusStatIndex,
+		HasteRangedRatingObsolete: Enum_BonusStatIndex,
+		HasteSpellRatingObsolete: Enum_BonusStatIndex,
+		HitRating: Enum_BonusStatIndex,
+		CritRating: Enum_BonusStatIndex,
+		HitTakenRatingObsolete: Enum_BonusStatIndex,
+		CritTakenRatingObsolete: Enum_BonusStatIndex,
+		ResilienceRating: Enum_BonusStatIndex,
+		HasteRating: Enum_BonusStatIndex,
+		ExpertiseRating: Enum_BonusStatIndex,
+		AttackPower: Enum_BonusStatIndex,
+		RangedAttackPower: Enum_BonusStatIndex,
+		Versatility: Enum_BonusStatIndex,
+		SpellHealingDone: Enum_BonusStatIndex,
+		SpellDamageDone: Enum_BonusStatIndex,
+		ManaRegeneration: Enum_BonusStatIndex,
+		ArmorPenetrationRating: Enum_BonusStatIndex,
+		SpellPower: Enum_BonusStatIndex,
+		HealthRegen: Enum_BonusStatIndex,
+		SpellPenetration: Enum_BonusStatIndex,
+		BlockValue: Enum_BonusStatIndex,
+		MasteryRating: Enum_BonusStatIndex,
+		ExtraArmor: Enum_BonusStatIndex,
+		FireResistance: Enum_BonusStatIndex,
+		FrostResistance: Enum_BonusStatIndex,
+		HolyResistance: Enum_BonusStatIndex,
+		ShadowResistance: Enum_BonusStatIndex,
+		NatureResistance: Enum_BonusStatIndex,
+		ArcaneResistance: Enum_BonusStatIndex,
+		PvPPower: Enum_BonusStatIndex,
+		CombatRatingUnused_0: Enum_BonusStatIndex,
+		CombatRatingUnused_2: Enum_BonusStatIndex,
+		CombatRatingUnused_3: Enum_BonusStatIndex,
+		CombatRatingSpeed: Enum_BonusStatIndex,
+		CombatRatingLifesteal: Enum_BonusStatIndex,
+		CombatRatingAvoidance: Enum_BonusStatIndex,
+		CombatRatingSturdiness: Enum_BonusStatIndex,
+		CombatRatingUnused_7: Enum_BonusStatIndex,
+		CombatRatingUnused_27: Enum_BonusStatIndex,
+		CombatRatingUnused_9: Enum_BonusStatIndex,
+		CombatRatingUnused_10: Enum_BonusStatIndex,
+		CombatRatingUnused_11: Enum_BonusStatIndex,
+		CombatRatingUnused_12: Enum_BonusStatIndex,
+		AgilityOrStrengthOrIntellect: Enum_BonusStatIndex,
+		AgilityOrStrength: Enum_BonusStatIndex,
+		AgilityOrIntellect: Enum_BonusStatIndex,
+		StrengthOrIntellect: Enum_BonusStatIndex,
+		ProfessionInspiration: Enum_BonusStatIndex,
+		ProfessionResourcefulness: Enum_BonusStatIndex,
+		ProfessionFinesse: Enum_BonusStatIndex,
+		ProfessionDeftness: Enum_BonusStatIndex,
+		ProfessionPerception: Enum_BonusStatIndex,
+		ProfessionCraftingSpeed: Enum_BonusStatIndex,
+		ProfessionMulticraft: Enum_BonusStatIndex,
+		ProfessionIngenuity: Enum_BonusStatIndex,
+		PhysicalDamageDone: Enum_BonusStatIndex,
+		HolyDamageDone: Enum_BonusStatIndex,
+		FireDamageDone: Enum_BonusStatIndex,
+		NatureDamageDone: Enum_BonusStatIndex,
+		FrostDamageDone: Enum_BonusStatIndex,
+		ShadowDamageDone: Enum_BonusStatIndex,
+		ArcaneDamageDone: Enum_BonusStatIndex,
+		TwohandedAxesSkill: Enum_BonusStatIndex,
+		TwohandedMacesSkill: Enum_BonusStatIndex,
+		TwohandedSwordsSkill: Enum_BonusStatIndex,
+		AxesSkill: Enum_BonusStatIndex,
+		BowsSkill: Enum_BonusStatIndex,
+		CrossbowsSkill: Enum_BonusStatIndex,
+		DaggersSkill: Enum_BonusStatIndex,
+		DualWieldSkill: Enum_BonusStatIndex,
+		FistWeaponsSkill: Enum_BonusStatIndex,
+		GunsSkill: Enum_BonusStatIndex,
+		MacesSkill: Enum_BonusStatIndex,
+		PolearmsSkill: Enum_BonusStatIndex,
+		StavesSkill: Enum_BonusStatIndex,
+		SwordsSkill: Enum_BonusStatIndex,
+		ThrownSkill: Enum_BonusStatIndex,
+		WandsSkill: Enum_BonusStatIndex,
+		AlchemySkill: Enum_BonusStatIndex,
+		BlacksmithingSkill: Enum_BonusStatIndex,
+		EnchantingSkill: Enum_BonusStatIndex,
+		EngineeringSkill: Enum_BonusStatIndex,
+		JewelcraftingSkill: Enum_BonusStatIndex,
+		LeatherworkingSkill: Enum_BonusStatIndex,
+		HerbalismSkill: Enum_BonusStatIndex,
+		MiningSkill: Enum_BonusStatIndex,
+		SkinningSkill: Enum_BonusStatIndex,
+		CookingSkill: Enum_BonusStatIndex,
+		FirstAidSkill: Enum_BonusStatIndex,
+		FishingSkill: Enum_BonusStatIndex,
+		TailoringSkill: Enum_BonusStatIndex,
+		FirePenetration: Enum_BonusStatIndex,
+		NaturePenetration: Enum_BonusStatIndex,
+		FrostPenetration: Enum_BonusStatIndex,
+		ShadowPenetration: Enum_BonusStatIndex,
+		ArcanePenetration: Enum_BonusStatIndex,
+		SpellResistanceAllSchools: Enum_BonusStatIndex,
+		AttackPowerVsHumanoid: Enum_BonusStatIndex,
+		AttackPowerVsElemental: Enum_BonusStatIndex,
+		AttackPowerVsDemon: Enum_BonusStatIndex,
+		AttackPowerVsUndead: Enum_BonusStatIndex,
+		AttackPowerVsDragonkin: Enum_BonusStatIndex,
+		AttackPowerVsGiant: Enum_BonusStatIndex,
+		AttackPowerVsBeast: Enum_BonusStatIndex,
+		AttackPowerVsMechanical: Enum_BonusStatIndex,
+		SpellDamageVsHumanoid: Enum_BonusStatIndex,
+		SpellDamageVsElemental: Enum_BonusStatIndex,
+		SpellDamageVsDemon: Enum_BonusStatIndex,
+		SpellDamageVsUndead: Enum_BonusStatIndex,
+		SpellDamageVsDragonkin: Enum_BonusStatIndex,
+		SpellDamageVsGiant: Enum_BonusStatIndex,
+		SpellDamageVsBeast: Enum_BonusStatIndex,
+		SpellDamageVsMechanical: Enum_BonusStatIndex,
+		Reserved_141: Enum_BonusStatIndex,
 	},
 	BrawlType: {
-		None: number,
-		Battleground: number,
-		Arena: number,
-		LFG: number,
-		SoloShuffle: number,
-		SoloRbg: number,
+		None: Enum_BrawlType,
+		Battleground: Enum_BrawlType,
+		Arena: Enum_BrawlType,
+		LFG: Enum_BrawlType,
+		SoloShuffle: Enum_BrawlType,
+		SoloRbg: Enum_BrawlType,
 	},
 	BreakType: {
-		Character: number,
-		Word: number,
-		Sentence: number,
-		Line: number,
+		Character: Enum_BreakType,
+		Word: Enum_BreakType,
+		Sentence: Enum_BreakType,
+		Line: Enum_BreakType,
 	},
 	BulkPurchaseResult: {
-		ResultOk: number,
-		ResultInProgress: number,
-		ResultPartialSuccess: number,
-		ResultFailed: number,
-		ResultTooManyProducts: number,
-		ResultSystemDisabled: number,
-		ResultInsufficientFunds: number,
-		ResultPurchaseTimeout: number,
+		ResultOk: Enum_BulkPurchaseResult,
+		ResultInProgress: Enum_BulkPurchaseResult,
+		ResultPartialSuccess: Enum_BulkPurchaseResult,
+		ResultFailed: Enum_BulkPurchaseResult,
+		ResultTooManyProducts: Enum_BulkPurchaseResult,
+		ResultSystemDisabled: Enum_BulkPurchaseResult,
+		ResultInsufficientFunds: Enum_BulkPurchaseResult,
+		ResultPurchaseTimeout: Enum_BulkPurchaseResult,
 	},
 	BulkPurchaseStatus: {
-		PlacingOrders: number,
-		PurchasesPending: number,
-		FetchEntitlements: number,
-		Done: number,
-		Failed: number,
+		PlacingOrders: Enum_BulkPurchaseStatus,
+		PurchasesPending: Enum_BulkPurchaseStatus,
+		FetchEntitlements: Enum_BulkPurchaseStatus,
+		Done: Enum_BulkPurchaseStatus,
+		Failed: Enum_BulkPurchaseStatus,
 	},
 	BulkRefundResult: {
-		ResultOk: number,
-		ResultFailed: number,
-		ResultInvalidRequest: number,
-		ResultRefundWindowExpired: number,
-		ResultSystemDisabled: number,
-		ResultTimeout: number,
+		ResultOk: Enum_BulkRefundResult,
+		ResultFailed: Enum_BulkRefundResult,
+		ResultInvalidRequest: Enum_BulkRefundResult,
+		ResultRefundWindowExpired: Enum_BulkRefundResult,
+		ResultSystemDisabled: Enum_BulkRefundResult,
+		ResultTimeout: Enum_BulkRefundResult,
 	},
 	CDMLayoutMode: {
-		AccessOnly: boolean,
-		AllowCreate: boolean,
+		AccessOnly: Enum_CDMLayoutMode,
+		AllowCreate: Enum_CDMLayoutMode,
 	},
 	CachedRewardType: {
-		None: number,
-		Item: number,
-		Currency: number,
-		Quest: number,
+		None: Enum_CachedRewardType,
+		Item: Enum_CachedRewardType,
+		Currency: Enum_CachedRewardType,
+		Quest: Enum_CachedRewardType,
 	},
 	CalendarCommandType: {
-		Create: number,
-		Invite: number,
-		Rsvp: number,
-		RemoveInvite: number,
-		RemoveEvent: number,
-		Status: number,
-		ModeratorStatus: number,
-		GetCalendar: number,
-		GetEvent: number,
-		UpdateEvent: number,
-		Complain: number,
-		Notes: number,
+		Create: Enum_CalendarCommandType,
+		Invite: Enum_CalendarCommandType,
+		Rsvp: Enum_CalendarCommandType,
+		RemoveInvite: Enum_CalendarCommandType,
+		RemoveEvent: Enum_CalendarCommandType,
+		Status: Enum_CalendarCommandType,
+		ModeratorStatus: Enum_CalendarCommandType,
+		GetCalendar: Enum_CalendarCommandType,
+		GetEvent: Enum_CalendarCommandType,
+		UpdateEvent: Enum_CalendarCommandType,
+		Complain: Enum_CalendarCommandType,
+		Notes: Enum_CalendarCommandType,
 	},
 	CalendarErrorType: {
-		Success: number,
-		CommunityEventsExceeded: number,
-		EventsExceeded: number,
-		SelfInvitesExceeded: number,
-		OtherInvitesExceeded: number,
-		NoPermission: number,
-		EventInvalid: number,
-		NotInvited: number,
-		UnknownError: number,
-		NotInGuild: number,
-		NotInCommunity: number,
-		TargetAlreadyInvited: number,
-		NameNotFound: number,
-		WrongFaction: number,
-		Ignored: number,
-		InvitesExceeded: number,
-		InvalidMaxSize: number,
-		InvalidDate: number,
-		InvalidTime: number,
-		NoInvites: number,
-		NeedsTitle: number,
-		EventPassed: number,
-		EventLocked: number,
-		DeleteCreatorFailed: number,
-		DataAlreadySet: number,
-		CalendarDisabled: number,
-		RestrictedAccount: number,
-		ArenaEventsExceeded: number,
-		RestrictedLevel: number,
-		Squelched: number,
-		NoInvite: number,
-		ComplaintDisabled: number,
-		ComplaintSelf: number,
-		ComplaintSameGuild: number,
-		ComplaintGm: number,
-		ComplaintLimit: number,
-		ComplaintNotFound: number,
-		EventWrongServer: number,
-		NoCommunityInvites: number,
-		InvalidSignup: number,
-		NoModerator: number,
-		ModeratorRestricted: number,
-		InvalidNotes: number,
-		InvalidTitle: number,
-		InvalidDescription: number,
-		InvalidClub: number,
-		CreatorNotFound: number,
-		EventThrottled: number,
-		InviteThrottled: number,
-		Internal: number,
-		ComplaintAdded: number,
+		Success: Enum_CalendarErrorType,
+		CommunityEventsExceeded: Enum_CalendarErrorType,
+		EventsExceeded: Enum_CalendarErrorType,
+		SelfInvitesExceeded: Enum_CalendarErrorType,
+		OtherInvitesExceeded: Enum_CalendarErrorType,
+		NoPermission: Enum_CalendarErrorType,
+		EventInvalid: Enum_CalendarErrorType,
+		NotInvited: Enum_CalendarErrorType,
+		UnknownError: Enum_CalendarErrorType,
+		NotInGuild: Enum_CalendarErrorType,
+		NotInCommunity: Enum_CalendarErrorType,
+		TargetAlreadyInvited: Enum_CalendarErrorType,
+		NameNotFound: Enum_CalendarErrorType,
+		WrongFaction: Enum_CalendarErrorType,
+		Ignored: Enum_CalendarErrorType,
+		InvitesExceeded: Enum_CalendarErrorType,
+		InvalidMaxSize: Enum_CalendarErrorType,
+		InvalidDate: Enum_CalendarErrorType,
+		InvalidTime: Enum_CalendarErrorType,
+		NoInvites: Enum_CalendarErrorType,
+		NeedsTitle: Enum_CalendarErrorType,
+		EventPassed: Enum_CalendarErrorType,
+		EventLocked: Enum_CalendarErrorType,
+		DeleteCreatorFailed: Enum_CalendarErrorType,
+		DataAlreadySet: Enum_CalendarErrorType,
+		CalendarDisabled: Enum_CalendarErrorType,
+		RestrictedAccount: Enum_CalendarErrorType,
+		ArenaEventsExceeded: Enum_CalendarErrorType,
+		RestrictedLevel: Enum_CalendarErrorType,
+		Squelched: Enum_CalendarErrorType,
+		NoInvite: Enum_CalendarErrorType,
+		ComplaintDisabled: Enum_CalendarErrorType,
+		ComplaintSelf: Enum_CalendarErrorType,
+		ComplaintSameGuild: Enum_CalendarErrorType,
+		ComplaintGm: Enum_CalendarErrorType,
+		ComplaintLimit: Enum_CalendarErrorType,
+		ComplaintNotFound: Enum_CalendarErrorType,
+		EventWrongServer: Enum_CalendarErrorType,
+		NoCommunityInvites: Enum_CalendarErrorType,
+		InvalidSignup: Enum_CalendarErrorType,
+		NoModerator: Enum_CalendarErrorType,
+		ModeratorRestricted: Enum_CalendarErrorType,
+		InvalidNotes: Enum_CalendarErrorType,
+		InvalidTitle: Enum_CalendarErrorType,
+		InvalidDescription: Enum_CalendarErrorType,
+		InvalidClub: Enum_CalendarErrorType,
+		CreatorNotFound: Enum_CalendarErrorType,
+		EventThrottled: Enum_CalendarErrorType,
+		InviteThrottled: Enum_CalendarErrorType,
+		Internal: Enum_CalendarErrorType,
+		ComplaintAdded: Enum_CalendarErrorType,
 	},
 	CalendarEventBits: {
 		Player: number,
@@ -21871,18 +24268,18 @@ declare Enum: {
 		CantComplain: number,
 	},
 	CalendarEventRepeatOptions: {
-		Never: number,
-		Weekly: number,
-		Biweekly: number,
-		Monthly: number,
+		Never: Enum_CalendarEventRepeatOptions,
+		Weekly: Enum_CalendarEventRepeatOptions,
+		Biweekly: Enum_CalendarEventRepeatOptions,
+		Monthly: Enum_CalendarEventRepeatOptions,
 	},
 	CalendarEventType: {
-		Raid: number,
-		Dungeon: number,
-		PvP: number,
-		Meeting: number,
-		Other: number,
-		HeroicDeprecated: number,
+		Raid: Enum_CalendarEventType,
+		Dungeon: Enum_CalendarEventType,
+		PvP: Enum_CalendarEventType,
+		Meeting: Enum_CalendarEventType,
+		Other: Enum_CalendarEventType,
+		HeroicDeprecated: Enum_CalendarEventType,
 	},
 	CalendarFilterFlags: {
 		WeeklyHoliday: number,
@@ -21892,14 +24289,14 @@ declare Enum: {
 		RaidReset: number,
 	},
 	CalendarGetEventType: {
-		Get: number,
-		Add: number,
-		Copy: number,
+		Get: Enum_CalendarGetEventType,
+		Add: Enum_CalendarGetEventType,
+		Copy: Enum_CalendarGetEventType,
 	},
 	CalendarHolidayFilterType: {
-		Weekly: number,
-		Darkmoon: number,
-		Battleground: number,
+		Weekly: Enum_CalendarHolidayFilterType,
+		Darkmoon: Enum_CalendarHolidayFilterType,
+		Battleground: Enum_CalendarHolidayFilterType,
 	},
 	CalendarInviteBits: {
 		None: number,
@@ -21909,92 +24306,92 @@ declare Enum: {
 		Signup: number,
 	},
 	CalendarInviteSortType: {
-		Name: number,
-		Level: number,
-		Class: number,
-		Status: number,
-		Party: number,
-		Notes: number,
+		Name: Enum_CalendarInviteSortType,
+		Level: Enum_CalendarInviteSortType,
+		Class: Enum_CalendarInviteSortType,
+		Status: Enum_CalendarInviteSortType,
+		Party: Enum_CalendarInviteSortType,
+		Notes: Enum_CalendarInviteSortType,
 	},
 	CalendarInviteType: {
-		Normal: number,
-		Signup: number,
+		Normal: Enum_CalendarInviteType,
+		Signup: Enum_CalendarInviteType,
 	},
 	CalendarModeratorStatus: {
-		None: number,
-		Moderator: number,
-		Creator: number,
+		None: Enum_CalendarModeratorStatus,
+		Moderator: Enum_CalendarModeratorStatus,
+		Creator: Enum_CalendarModeratorStatus,
 	},
 	CalendarStatus: {
-		Invited: number,
-		Available: number,
-		Declined: number,
-		Confirmed: number,
-		Out: number,
-		Standby: number,
-		Signedup: number,
-		NotSignedup: number,
-		Tentative: number,
+		Invited: Enum_CalendarStatus,
+		Available: Enum_CalendarStatus,
+		Declined: Enum_CalendarStatus,
+		Confirmed: Enum_CalendarStatus,
+		Out: Enum_CalendarStatus,
+		Standby: Enum_CalendarStatus,
+		Signedup: Enum_CalendarStatus,
+		NotSignedup: Enum_CalendarStatus,
+		Tentative: Enum_CalendarStatus,
 	},
 	CalendarTexturesType: {
-		Dungeons: number,
-		Raid: number,
+		Dungeons: Enum_CalendarTexturesType,
+		Raid: Enum_CalendarTexturesType,
 	},
 	CalendarType: {
-		Player: number,
-		Community: number,
-		RaidLockout: number,
-		RaidResetDeprecated: number,
-		Holiday: number,
-		HolidayWeekly: number,
-		HolidayDarkmoon: number,
-		HolidayBattleground: number,
+		Player: Enum_CalendarType,
+		Community: Enum_CalendarType,
+		RaidLockout: Enum_CalendarType,
+		RaidResetDeprecated: Enum_CalendarType,
+		Holiday: Enum_CalendarType,
+		HolidayWeekly: Enum_CalendarType,
+		HolidayDarkmoon: Enum_CalendarType,
+		HolidayBattleground: Enum_CalendarType,
 	},
 	CalendarWebActionType: {
-		Accept: number,
-		Decline: number,
-		Remove: number,
-		ReportSpam: number,
-		Signup: number,
-		Tentative: number,
-		TentativeSignup: number,
+		Accept: Enum_CalendarWebActionType,
+		Decline: Enum_CalendarWebActionType,
+		Remove: Enum_CalendarWebActionType,
+		ReportSpam: Enum_CalendarWebActionType,
+		Signup: Enum_CalendarWebActionType,
+		Tentative: Enum_CalendarWebActionType,
+		TentativeSignup: Enum_CalendarWebActionType,
 	},
 	CallingStates: {
-		QuestOffer: number,
-		QuestActive: number,
-		QuestCompleted: number,
+		QuestOffer: Enum_CallingStates,
+		QuestActive: Enum_CallingStates,
+		QuestCompleted: Enum_CallingStates,
 	},
 	CameraModeAspectRatio: {
-		Default: number,
-		LegacyLetterbox: number,
-		HighDefinition_16_X_9: number,
-		Cinemascope_2_Dot_4_X_1: number,
+		Default: Enum_CameraModeAspectRatio,
+		LegacyLetterbox: Enum_CameraModeAspectRatio,
+		HighDefinition_16_X_9: Enum_CameraModeAspectRatio,
+		Cinemascope_2_Dot_4_X_1: Enum_CameraModeAspectRatio,
 	},
 	CampaignState: {
-		Invalid: number,
-		Complete: number,
-		InProgress: number,
-		Stalled: number,
+		Invalid: Enum_CampaignState,
+		Complete: Enum_CampaignState,
+		InProgress: Enum_CampaignState,
+		Stalled: Enum_CampaignState,
 	},
 	CanRedeemTokenForBalanceResult: {
-		Ok: number,
-		FailureCap: number,
+		Ok: Enum_CanRedeemTokenForBalanceResult,
+		FailureCap: Enum_CanRedeemTokenForBalanceResult,
 	},
 	CaptureBarWidgetFillDirectionType: {
-		RightToLeft: number,
-		LeftToRight: number,
+		RightToLeft: Enum_CaptureBarWidgetFillDirectionType,
+		LeftToRight: Enum_CaptureBarWidgetFillDirectionType,
 	},
 	Causeofdeath: {
-		None: number,
-		PlayerPvP: number,
-		PlayerDuel: number,
-		Creature: number,
-		Falling: number,
-		Drowning: number,
-		Fatigue: number,
-		Slime: number,
-		Lava: number,
-		Fire: number,
+		None: Enum_Causeofdeath,
+		PlayerPvP: Enum_Causeofdeath,
+		PlayerDuel: Enum_Causeofdeath,
+		Creature: Enum_Causeofdeath,
+		Falling: Enum_Causeofdeath,
+		Drowning: Enum_Causeofdeath,
+		Fatigue: Enum_Causeofdeath,
+		Slime: Enum_Causeofdeath,
+		Lava: Enum_Causeofdeath,
+		Fire: Enum_Causeofdeath,
 	},
 	CauseofdeathFlags: {
 		NoneNeeded: number,
@@ -22007,12 +24404,12 @@ declare Enum: {
 		ConfirmedLeaver: number,
 	},
 	ChallengeModeHistoryResult: {
-		Successful: number,
-		Leaver: number,
+		Successful: Enum_ChallengeModeHistoryResult,
+		Leaver: Enum_ChallengeModeHistoryResult,
 	},
 	ChallengeModeHistoryStatus: {
-		Normal: number,
-		Leaver: number,
+		Normal: Enum_ChallengeModeHistoryStatus,
+		Leaver: Enum_ChallengeModeHistoryStatus,
 	},
 	ChannelPlayerFlags: {
 		ChannelPlayerNone: number,
@@ -22022,61 +24419,61 @@ declare Enum: {
 		ChannelPlayerHidden: number,
 	},
 	CharCustomizationType: {
-		Skin: number,
-		Face: number,
-		Hair: number,
-		HairColor: number,
-		FacialHair: number,
-		CustomOptionTattoo: number,
-		CustomOptionHorn: number,
-		CustomOptionFacewear: number,
-		CustomOptionTattooColor: number,
+		Skin: Enum_CharCustomizationType,
+		Face: Enum_CharCustomizationType,
+		Hair: Enum_CharCustomizationType,
+		HairColor: Enum_CharCustomizationType,
+		FacialHair: Enum_CharCustomizationType,
+		CustomOptionTattoo: Enum_CharCustomizationType,
+		CustomOptionHorn: Enum_CharCustomizationType,
+		CustomOptionFacewear: Enum_CharCustomizationType,
+		CustomOptionTattooColor: Enum_CharCustomizationType,
 	},
 	CharacterServiceInfoFlag: {
 		RestrictToRecommendedSpecs: number,
 		AllowMaxLevelBoost: number,
 	},
 	ChatChannelRuleset: {
-		None: number,
-		Mentor: number,
-		Disabled: number,
-		ChromieTimeCataclysm: number,
-		ChromieTimeBuringCrusade: number,
-		ChromieTimeWrath: number,
-		ChromieTimeMists: number,
-		ChromieTimeWoD: number,
-		ChromieTimeLegion: number,
+		None: Enum_ChatChannelRuleset,
+		Mentor: Enum_ChatChannelRuleset,
+		Disabled: Enum_ChatChannelRuleset,
+		ChromieTimeCataclysm: Enum_ChatChannelRuleset,
+		ChromieTimeBuringCrusade: Enum_ChatChannelRuleset,
+		ChromieTimeWrath: Enum_ChatChannelRuleset,
+		ChromieTimeMists: Enum_ChatChannelRuleset,
+		ChromieTimeWoD: Enum_ChatChannelRuleset,
+		ChromieTimeLegion: Enum_ChatChannelRuleset,
 	},
 	ChatChannelType: {
-		None: number,
-		Custom: number,
-		PrivateParty: number,
-		PublicParty: number,
-		Communities: number,
-		DiscordParty: number,
-		DiscordGuild: number,
-		DiscordSolo: number,
+		None: Enum_ChatChannelType,
+		Custom: Enum_ChatChannelType,
+		PrivateParty: Enum_ChatChannelType,
+		PublicParty: Enum_ChatChannelType,
+		Communities: Enum_ChatChannelType,
+		DiscordParty: Enum_ChatChannelType,
+		DiscordGuild: Enum_ChatChannelType,
+		DiscordSolo: Enum_ChatChannelType,
 	},
 	ChatToxityFilterOptOut: {
-		FilterAll: number,
-		ExcludeFilterFriend: number,
-		ExcludeFilterGuild: number,
-		ExcludeFilterAll: number,
+		FilterAll: Enum_ChatToxityFilterOptOut,
+		ExcludeFilterFriend: Enum_ChatToxityFilterOptOut,
+		ExcludeFilterGuild: Enum_ChatToxityFilterOptOut,
+		ExcludeFilterAll: Enum_ChatToxityFilterOptOut,
 	},
 	ChatWhisperTargetStatus: {
-		CanWhisper: number,
-		CanWhisperGuild: number,
-		Offline: number,
-		WrongFaction: number,
+		CanWhisper: Enum_ChatWhisperTargetStatus,
+		CanWhisperGuild: Enum_ChatWhisperTargetStatus,
+		Offline: Enum_ChatWhisperTargetStatus,
+		WrongFaction: Enum_ChatWhisperTargetStatus,
 	},
 	ChrCustomizationCategoryFlag: {
 		UndressModel: number,
 		Subcategory: number,
 	},
 	ChrCustomizationOptionType: {
-		Dropdown: number,
-		Checkbox: number,
-		Slider: number,
+		Dropdown: Enum_ChrCustomizationOptionType,
+		Checkbox: Enum_ChrCustomizationOptionType,
+		Slider: Enum_ChrCustomizationOptionType,
 	},
 	ChrModelFeatureFlags: {
 		None: number,
@@ -22089,9 +24486,9 @@ declare Enum: {
 		Players: number,
 	},
 	ChrRacesAllianceType: {
-		Alliance: number,
-		Horde: number,
-		NeutralOrNpc: number,
+		Alliance: Enum_ChrRacesAllianceType,
+		Horde: Enum_ChrRacesAllianceType,
+		NeutralOrNpc: Enum_ChrRacesAllianceType,
 	},
 	ChrSpecializationFlags: {
 		IsCaster: number,
@@ -22105,63 +24502,63 @@ declare Enum: {
 		AllowedSpecForBoost: number,
 	},
 	CinematicType: {
-		GlueMovie: number,
-		GameMovie: number,
-		GameClientScene: number,
-		GameCinematicSequence: number,
+		GlueMovie: Enum_CinematicType,
+		GameMovie: Enum_CinematicType,
+		GameClientScene: Enum_CinematicType,
+		GameCinematicSequence: Enum_CinematicType,
 	},
 	ClickBindingInteraction: {
-		Target: number,
-		OpenContextMenu: number,
+		Target: Enum_ClickBindingInteraction,
+		OpenContextMenu: Enum_ClickBindingInteraction,
 	},
 	ClickBindingType: {
-		None: number,
-		Spell: number,
-		Macro: number,
-		Interaction: number,
-		PetAction: number,
+		None: Enum_ClickBindingType,
+		Spell: Enum_ClickBindingType,
+		Macro: Enum_ClickBindingType,
+		Interaction: Enum_ClickBindingType,
+		PetAction: Enum_ClickBindingType,
 	},
 	ClientDebugAISpellReadyStatus: {
-		Ready: number,
-		Cooldown: number,
-		InitialDelay: number,
-		Enabled: number,
-		Paused: number,
-		Charmed: number,
-		Stunned: number,
-		Silenced: number,
-		Pacified: number,
-		NoActions: number,
-		Fleeing: number,
-		Confused: number,
-		Tokenless: number,
-		EquippedItems: number,
-		ReadyToCast: number,
-		PowerCost: number,
-		ShapeShiftRules: number,
-		StealthRules: number,
-		Peaceful: number,
-		CasterAuraStateRestrictions: number,
-		ExcludeCasterAuraStateRestrictions: number,
-		CasterAuraSpellRestrictions: number,
-		ExcludeCasterSpell: number,
-		DungeonEncounter: number,
-		FactionReaction: number,
-		DungeonEncounterID: number,
-		CheckArea: number,
-		CombatCondition: number,
-		HasTargets: number,
-		CasterAuraEffectRestrictions: number,
-		ExcludeCasterAuraEffect: number,
-		GeneralAuraRestrictions: number,
+		Ready: Enum_ClientDebugAISpellReadyStatus,
+		Cooldown: Enum_ClientDebugAISpellReadyStatus,
+		InitialDelay: Enum_ClientDebugAISpellReadyStatus,
+		Enabled: Enum_ClientDebugAISpellReadyStatus,
+		Paused: Enum_ClientDebugAISpellReadyStatus,
+		Charmed: Enum_ClientDebugAISpellReadyStatus,
+		Stunned: Enum_ClientDebugAISpellReadyStatus,
+		Silenced: Enum_ClientDebugAISpellReadyStatus,
+		Pacified: Enum_ClientDebugAISpellReadyStatus,
+		NoActions: Enum_ClientDebugAISpellReadyStatus,
+		Fleeing: Enum_ClientDebugAISpellReadyStatus,
+		Confused: Enum_ClientDebugAISpellReadyStatus,
+		Tokenless: Enum_ClientDebugAISpellReadyStatus,
+		EquippedItems: Enum_ClientDebugAISpellReadyStatus,
+		ReadyToCast: Enum_ClientDebugAISpellReadyStatus,
+		PowerCost: Enum_ClientDebugAISpellReadyStatus,
+		ShapeShiftRules: Enum_ClientDebugAISpellReadyStatus,
+		StealthRules: Enum_ClientDebugAISpellReadyStatus,
+		Peaceful: Enum_ClientDebugAISpellReadyStatus,
+		CasterAuraStateRestrictions: Enum_ClientDebugAISpellReadyStatus,
+		ExcludeCasterAuraStateRestrictions: Enum_ClientDebugAISpellReadyStatus,
+		CasterAuraSpellRestrictions: Enum_ClientDebugAISpellReadyStatus,
+		ExcludeCasterSpell: Enum_ClientDebugAISpellReadyStatus,
+		DungeonEncounter: Enum_ClientDebugAISpellReadyStatus,
+		FactionReaction: Enum_ClientDebugAISpellReadyStatus,
+		DungeonEncounterID: Enum_ClientDebugAISpellReadyStatus,
+		CheckArea: Enum_ClientDebugAISpellReadyStatus,
+		CombatCondition: Enum_ClientDebugAISpellReadyStatus,
+		HasTargets: Enum_ClientDebugAISpellReadyStatus,
+		CasterAuraEffectRestrictions: Enum_ClientDebugAISpellReadyStatus,
+		ExcludeCasterAuraEffect: Enum_ClientDebugAISpellReadyStatus,
+		GeneralAuraRestrictions: Enum_ClientDebugAISpellReadyStatus,
 	},
 	ClientPlatformType: {
-		Windows: number,
-		Macintosh: number,
+		Windows: Enum_ClientPlatformType,
+		Macintosh: Enum_ClientPlatformType,
 	},
 	ClientSceneType: {
-		DefaultSceneType: number,
-		MinigameSceneType: number,
+		DefaultSceneType: Enum_ClientSceneType,
+		MinigameSceneType: Enum_ClientSceneType,
 	},
 	ClientSettingsConfigFlag: {
 		ClientSettingsConfigDebug: number,
@@ -22175,92 +24572,92 @@ declare Enum: {
 		ClientSettingsConfigRetail: number,
 	},
 	ClubActionType: {
-		ErrorClubActionSubscribe: number,
-		ErrorClubActionCreate: number,
-		ErrorClubActionEdit: number,
-		ErrorClubActionDestroy: number,
-		ErrorClubActionLeave: number,
-		ErrorClubActionCreateTicket: number,
-		ErrorClubActionDestroyTicket: number,
-		ErrorClubActionRedeemTicket: number,
-		ErrorClubActionGetTicket: number,
-		ErrorClubActionGetTickets: number,
-		ErrorClubActionGetBans: number,
-		ErrorClubActionGetInvitations: number,
-		ErrorClubActionRevokeInvitation: number,
-		ErrorClubActionAcceptInvitation: number,
-		ErrorClubActionDeclineInvitation: number,
-		ErrorClubActionCreateStream: number,
-		ErrorClubActionEditStream: number,
-		ErrorClubActionDestroyStream: number,
-		ErrorClubActionInviteMember: number,
-		ErrorClubActionEditMember: number,
-		ErrorClubActionEditMemberNote: number,
-		ErrorClubActionKickMember: number,
-		ErrorClubActionAddBan: number,
-		ErrorClubActionRemoveBan: number,
-		ErrorClubActionCreateMessage: number,
-		ErrorClubActionEditMessage: number,
-		ErrorClubActionDestroyMessage: number,
+		ErrorClubActionSubscribe: Enum_ClubActionType,
+		ErrorClubActionCreate: Enum_ClubActionType,
+		ErrorClubActionEdit: Enum_ClubActionType,
+		ErrorClubActionDestroy: Enum_ClubActionType,
+		ErrorClubActionLeave: Enum_ClubActionType,
+		ErrorClubActionCreateTicket: Enum_ClubActionType,
+		ErrorClubActionDestroyTicket: Enum_ClubActionType,
+		ErrorClubActionRedeemTicket: Enum_ClubActionType,
+		ErrorClubActionGetTicket: Enum_ClubActionType,
+		ErrorClubActionGetTickets: Enum_ClubActionType,
+		ErrorClubActionGetBans: Enum_ClubActionType,
+		ErrorClubActionGetInvitations: Enum_ClubActionType,
+		ErrorClubActionRevokeInvitation: Enum_ClubActionType,
+		ErrorClubActionAcceptInvitation: Enum_ClubActionType,
+		ErrorClubActionDeclineInvitation: Enum_ClubActionType,
+		ErrorClubActionCreateStream: Enum_ClubActionType,
+		ErrorClubActionEditStream: Enum_ClubActionType,
+		ErrorClubActionDestroyStream: Enum_ClubActionType,
+		ErrorClubActionInviteMember: Enum_ClubActionType,
+		ErrorClubActionEditMember: Enum_ClubActionType,
+		ErrorClubActionEditMemberNote: Enum_ClubActionType,
+		ErrorClubActionKickMember: Enum_ClubActionType,
+		ErrorClubActionAddBan: Enum_ClubActionType,
+		ErrorClubActionRemoveBan: Enum_ClubActionType,
+		ErrorClubActionCreateMessage: Enum_ClubActionType,
+		ErrorClubActionEditMessage: Enum_ClubActionType,
+		ErrorClubActionDestroyMessage: Enum_ClubActionType,
 	},
 	ClubErrorType: {
-		ErrorCommunitiesNone: number,
-		ErrorCommunitiesUnknown: number,
-		ErrorCommunitiesNeutralFaction: number,
-		ErrorCommunitiesUnknownRealm: number,
-		ErrorCommunitiesBadTarget: number,
-		ErrorCommunitiesWrongFaction: number,
-		ErrorCommunitiesRestricted: number,
-		ErrorCommunitiesIgnored: number,
-		ErrorCommunitiesGuild: number,
-		ErrorCommunitiesWrongRegion: number,
-		ErrorCommunitiesUnknownTicket: number,
-		ErrorCommunitiesMissingShortName: number,
-		ErrorCommunitiesProfanity: number,
-		ErrorCommunitiesTrial: number,
-		ErrorCommunitiesVeteranTrial: number,
-		ErrorCommunitiesChatMute: number,
-		ErrorClubFull: number,
-		ErrorClubNoClub: number,
-		ErrorClubNotMember: number,
-		ErrorClubAlreadyMember: number,
-		ErrorClubNoSuchMember: number,
-		ErrorClubNoSuchInvitation: number,
-		ErrorClubInvitationAlreadyExists: number,
-		ErrorClubInvalidRoleID: number,
-		ErrorClubInsufficientPrivileges: number,
-		ErrorClubTooManyClubsJoined: number,
-		ErrorClubVoiceFull: number,
-		ErrorClubStreamNoStream: number,
-		ErrorClubStreamInvalidName: number,
-		ErrorClubStreamCountAtMin: number,
-		ErrorClubStreamCountAtMax: number,
-		ErrorClubMemberHasRequiredRole: number,
-		ErrorClubSentInvitationCountAtMax: number,
-		ErrorClubReceivedInvitationCountAtMax: number,
-		ErrorClubTargetIsBanned: number,
-		ErrorClubBanAlreadyExists: number,
-		ErrorClubBanCountAtMax: number,
-		ErrorClubTicketCountAtMax: number,
-		ErrorClubTicketNoSuchTicket: number,
-		ErrorClubTicketHasConsumedAllowedRedeemCount: number,
-		ErrorClubDoesntAllowCrossFaction: number,
-		ErrorClubEditHasCrossFactionMembers: number,
+		ErrorCommunitiesNone: Enum_ClubErrorType,
+		ErrorCommunitiesUnknown: Enum_ClubErrorType,
+		ErrorCommunitiesNeutralFaction: Enum_ClubErrorType,
+		ErrorCommunitiesUnknownRealm: Enum_ClubErrorType,
+		ErrorCommunitiesBadTarget: Enum_ClubErrorType,
+		ErrorCommunitiesWrongFaction: Enum_ClubErrorType,
+		ErrorCommunitiesRestricted: Enum_ClubErrorType,
+		ErrorCommunitiesIgnored: Enum_ClubErrorType,
+		ErrorCommunitiesGuild: Enum_ClubErrorType,
+		ErrorCommunitiesWrongRegion: Enum_ClubErrorType,
+		ErrorCommunitiesUnknownTicket: Enum_ClubErrorType,
+		ErrorCommunitiesMissingShortName: Enum_ClubErrorType,
+		ErrorCommunitiesProfanity: Enum_ClubErrorType,
+		ErrorCommunitiesTrial: Enum_ClubErrorType,
+		ErrorCommunitiesVeteranTrial: Enum_ClubErrorType,
+		ErrorCommunitiesChatMute: Enum_ClubErrorType,
+		ErrorClubFull: Enum_ClubErrorType,
+		ErrorClubNoClub: Enum_ClubErrorType,
+		ErrorClubNotMember: Enum_ClubErrorType,
+		ErrorClubAlreadyMember: Enum_ClubErrorType,
+		ErrorClubNoSuchMember: Enum_ClubErrorType,
+		ErrorClubNoSuchInvitation: Enum_ClubErrorType,
+		ErrorClubInvitationAlreadyExists: Enum_ClubErrorType,
+		ErrorClubInvalidRoleID: Enum_ClubErrorType,
+		ErrorClubInsufficientPrivileges: Enum_ClubErrorType,
+		ErrorClubTooManyClubsJoined: Enum_ClubErrorType,
+		ErrorClubVoiceFull: Enum_ClubErrorType,
+		ErrorClubStreamNoStream: Enum_ClubErrorType,
+		ErrorClubStreamInvalidName: Enum_ClubErrorType,
+		ErrorClubStreamCountAtMin: Enum_ClubErrorType,
+		ErrorClubStreamCountAtMax: Enum_ClubErrorType,
+		ErrorClubMemberHasRequiredRole: Enum_ClubErrorType,
+		ErrorClubSentInvitationCountAtMax: Enum_ClubErrorType,
+		ErrorClubReceivedInvitationCountAtMax: Enum_ClubErrorType,
+		ErrorClubTargetIsBanned: Enum_ClubErrorType,
+		ErrorClubBanAlreadyExists: Enum_ClubErrorType,
+		ErrorClubBanCountAtMax: Enum_ClubErrorType,
+		ErrorClubTicketCountAtMax: Enum_ClubErrorType,
+		ErrorClubTicketNoSuchTicket: Enum_ClubErrorType,
+		ErrorClubTicketHasConsumedAllowedRedeemCount: Enum_ClubErrorType,
+		ErrorClubDoesntAllowCrossFaction: Enum_ClubErrorType,
+		ErrorClubEditHasCrossFactionMembers: Enum_ClubErrorType,
 	},
 	ClubFieldType: {
-		ClubName: number,
-		ClubShortName: number,
-		ClubDescription: number,
-		ClubBroadcast: number,
-		ClubStreamName: number,
-		ClubStreamSubject: number,
-		NumTypes: number,
+		ClubName: Enum_ClubFieldType,
+		ClubShortName: Enum_ClubFieldType,
+		ClubDescription: Enum_ClubFieldType,
+		ClubBroadcast: Enum_ClubFieldType,
+		ClubStreamName: Enum_ClubFieldType,
+		ClubStreamSubject: Enum_ClubFieldType,
+		NumTypes: Enum_ClubFieldType,
 	},
 	ClubFinderApplicationUpdateType: {
-		None: number,
-		AcceptInvite: number,
-		DeclineInvite: number,
-		Cancel: number,
+		None: Enum_ClubFinderApplicationUpdateType,
+		AcceptInvite: Enum_ClubFinderApplicationUpdateType,
+		DeclineInvite: Enum_ClubFinderApplicationUpdateType,
+		Cancel: Enum_ClubFinderApplicationUpdateType,
 	},
 	ClubFinderClubPostingStatusFlags: {
 		None: number,
@@ -22274,22 +24671,22 @@ declare Enum: {
 		PostDelisted: number,
 	},
 	ClubFinderDisableReason: {
-		Muted: number,
-		Silenced: number,
-		VeteranTrial: number,
+		Muted: Enum_ClubFinderDisableReason,
+		Silenced: Enum_ClubFinderDisableReason,
+		VeteranTrial: Enum_ClubFinderDisableReason,
 	},
 	ClubFinderPostingReportType: {
-		PostersName: number,
-		ClubName: number,
-		PostingDescription: number,
-		ApplicantsName: number,
-		JoinNote: number,
+		PostersName: Enum_ClubFinderPostingReportType,
+		ClubName: Enum_ClubFinderPostingReportType,
+		PostingDescription: Enum_ClubFinderPostingReportType,
+		ApplicantsName: Enum_ClubFinderPostingReportType,
+		JoinNote: Enum_ClubFinderPostingReportType,
 	},
 	ClubFinderRequestType: {
-		None: number,
-		Guild: number,
-		Community: number,
-		All: number,
+		None: Enum_ClubFinderRequestType,
+		Guild: Enum_ClubFinderRequestType,
+		Community: Enum_ClubFinderRequestType,
+		All: Enum_ClubFinderRequestType,
 	},
 	ClubFinderSettingFlags: {
 		None: number,
@@ -22320,215 +24717,215 @@ declare Enum: {
 		LanguageReserved5: number,
 	},
 	ClubInvitationCandidateStatus: {
-		Available: number,
-		InvitePending: number,
-		AlreadyMember: number,
+		Available: Enum_ClubInvitationCandidateStatus,
+		InvitePending: Enum_ClubInvitationCandidateStatus,
+		AlreadyMember: Enum_ClubInvitationCandidateStatus,
 	},
 	ClubMemberPresence: {
-		Unknown: number,
-		Online: number,
-		OnlineMobile: number,
-		Offline: number,
-		Away: number,
-		Busy: number,
+		Unknown: Enum_ClubMemberPresence,
+		Online: Enum_ClubMemberPresence,
+		OnlineMobile: Enum_ClubMemberPresence,
+		Offline: Enum_ClubMemberPresence,
+		Away: Enum_ClubMemberPresence,
+		Busy: Enum_ClubMemberPresence,
 	},
 	ClubRemovedReason: {
-		None: number,
-		Banned: number,
-		Removed: number,
-		ClubDestroyed: number,
+		None: Enum_ClubRemovedReason,
+		Banned: Enum_ClubRemovedReason,
+		Removed: Enum_ClubRemovedReason,
+		ClubDestroyed: Enum_ClubRemovedReason,
 	},
 	ClubRestrictionReason: {
-		None: number,
-		Unavailable: number,
+		None: Enum_ClubRestrictionReason,
+		Unavailable: Enum_ClubRestrictionReason,
 	},
 	ClubRoleIdentifier: {
-		Owner: number,
-		Leader: number,
-		Moderator: number,
-		Member: number,
+		Owner: Enum_ClubRoleIdentifier,
+		Leader: Enum_ClubRoleIdentifier,
+		Moderator: Enum_ClubRoleIdentifier,
+		Member: Enum_ClubRoleIdentifier,
 	},
 	ClubStreamNotificationFilter: {
-		None: number,
-		Mention: number,
-		All: number,
+		None: Enum_ClubStreamNotificationFilter,
+		Mention: Enum_ClubStreamNotificationFilter,
+		All: Enum_ClubStreamNotificationFilter,
 	},
 	ClubStreamType: {
-		General: number,
-		Guild: number,
-		Officer: number,
-		Discord: number,
-		Other: number,
+		General: Enum_ClubStreamType,
+		Guild: Enum_ClubStreamType,
+		Officer: Enum_ClubStreamType,
+		Discord: Enum_ClubStreamType,
+		Other: Enum_ClubStreamType,
 	},
 	ClubType: {
-		BattleNet: number,
-		Character: number,
-		Guild: number,
-		Other: number,
+		BattleNet: Enum_ClubType,
+		Character: Enum_ClubType,
+		Guild: Enum_ClubType,
+		Other: Enum_ClubType,
 	},
 	CollationStrength: {
-		Primary: number,
-		Secondary: number,
-		Tertiary: number,
-		Quaternary: number,
-		Identical: number,
+		Primary: Enum_CollationStrength,
+		Secondary: Enum_CollationStrength,
+		Tertiary: Enum_CollationStrength,
+		Quaternary: Enum_CollationStrength,
+		Identical: Enum_CollationStrength,
 	},
 	ColorOverride: {
-		ItemQualityPoor: number,
-		ItemQualityCommon: number,
-		ItemQualityUncommon: number,
-		ItemQualityRare: number,
-		ItemQualityEpic: number,
-		ItemQualityLegendary: number,
-		ItemQualityArtifact: number,
-		ItemQualityAccount: number,
+		ItemQualityPoor: Enum_ColorOverride,
+		ItemQualityCommon: Enum_ColorOverride,
+		ItemQualityUncommon: Enum_ColorOverride,
+		ItemQualityRare: Enum_ColorOverride,
+		ItemQualityEpic: Enum_ColorOverride,
+		ItemQualityLegendary: Enum_ColorOverride,
+		ItemQualityArtifact: Enum_ColorOverride,
+		ItemQualityAccount: Enum_ColorOverride,
 	},
 	CombatAudioAlertCastState: {
-		Off: number,
-		OnCastStart: number,
-		OnCastEnd: number,
+		Off: Enum_CombatAudioAlertCastState,
+		OnCastStart: Enum_CombatAudioAlertCastState,
+		OnCastEnd: Enum_CombatAudioAlertCastState,
 	},
 	CombatAudioAlertCategory: {
-		General: number,
-		PlayerHealth: number,
-		TargetHealth: number,
-		PlayerCast: number,
-		TargetCast: number,
-		PlayerResource1: number,
-		PlayerResource2: number,
-		PartyHealth: number,
-		PlayerDebuffs: number,
-		PlayerHealthPulse: number,
+		General: Enum_CombatAudioAlertCategory,
+		PlayerHealth: Enum_CombatAudioAlertCategory,
+		TargetHealth: Enum_CombatAudioAlertCategory,
+		PlayerCast: Enum_CombatAudioAlertCategory,
+		TargetCast: Enum_CombatAudioAlertCategory,
+		PlayerResource1: Enum_CombatAudioAlertCategory,
+		PlayerResource2: Enum_CombatAudioAlertCategory,
+		PartyHealth: Enum_CombatAudioAlertCategory,
+		PlayerDebuffs: Enum_CombatAudioAlertCategory,
+		PlayerHealthPulse: Enum_CombatAudioAlertCategory,
 	},
 	CombatAudioAlertDebuffSelfAlertValues: {
-		Off: number,
-		DispelType: number,
+		Off: Enum_CombatAudioAlertDebuffSelfAlertValues,
+		DispelType: Enum_CombatAudioAlertDebuffSelfAlertValues,
 	},
 	CombatAudioAlertPartyPercentValues: {
-		Off: number,
-		Under100Percent: number,
-		Under90Percent: number,
-		Under80Percent: number,
-		Under70Percent: number,
-		Under60Percent: number,
-		Under50Percent: number,
-		Under40Percent: number,
-		Under30Percent: number,
-		Under20Percent: number,
-		Under10Percent: number,
+		Off: Enum_CombatAudioAlertPartyPercentValues,
+		Under100Percent: Enum_CombatAudioAlertPartyPercentValues,
+		Under90Percent: Enum_CombatAudioAlertPartyPercentValues,
+		Under80Percent: Enum_CombatAudioAlertPartyPercentValues,
+		Under70Percent: Enum_CombatAudioAlertPartyPercentValues,
+		Under60Percent: Enum_CombatAudioAlertPartyPercentValues,
+		Under50Percent: Enum_CombatAudioAlertPartyPercentValues,
+		Under40Percent: Enum_CombatAudioAlertPartyPercentValues,
+		Under30Percent: Enum_CombatAudioAlertPartyPercentValues,
+		Under20Percent: Enum_CombatAudioAlertPartyPercentValues,
+		Under10Percent: Enum_CombatAudioAlertPartyPercentValues,
 	},
 	CombatAudioAlertPercentValues: {
-		Off: number,
-		Every10Percent: number,
-		Every20Percent: number,
-		Every30Percent: number,
-		Every40Percent: number,
-		Every50Percent: number,
+		Off: Enum_CombatAudioAlertPercentValues,
+		Every10Percent: Enum_CombatAudioAlertPercentValues,
+		Every20Percent: Enum_CombatAudioAlertPercentValues,
+		Every30Percent: Enum_CombatAudioAlertPercentValues,
+		Every40Percent: Enum_CombatAudioAlertPercentValues,
+		Every50Percent: Enum_CombatAudioAlertPercentValues,
 	},
 	CombatAudioAlertPlayerCastFormatValues: {
-		CastingSpellname: number,
-		CastSpellname: number,
-		Casting: number,
-		Cast: number,
-		Spellname: number,
+		CastingSpellname: Enum_CombatAudioAlertPlayerCastFormatValues,
+		CastSpellname: Enum_CombatAudioAlertPlayerCastFormatValues,
+		Casting: Enum_CombatAudioAlertPlayerCastFormatValues,
+		Cast: Enum_CombatAudioAlertPlayerCastFormatValues,
+		Spellname: Enum_CombatAudioAlertPlayerCastFormatValues,
 	},
 	CombatAudioAlertPlayerDebuffFormatValues: {
-		Full: number,
-		NoSpellname: number,
+		Full: Enum_CombatAudioAlertPlayerDebuffFormatValues,
+		NoSpellname: Enum_CombatAudioAlertPlayerDebuffFormatValues,
 	},
 	CombatAudioAlertPlayerHealthFormatValues: {
-		HealthFull: number,
-		HealthNoPercent: number,
-		HealthNoPercentDiv10: number,
-		NoHealthFull: number,
-		NoHealthNoPercent: number,
-		NoHealthNoPercentDiv10: number,
+		HealthFull: Enum_CombatAudioAlertPlayerHealthFormatValues,
+		HealthNoPercent: Enum_CombatAudioAlertPlayerHealthFormatValues,
+		HealthNoPercentDiv10: Enum_CombatAudioAlertPlayerHealthFormatValues,
+		NoHealthFull: Enum_CombatAudioAlertPlayerHealthFormatValues,
+		NoHealthNoPercent: Enum_CombatAudioAlertPlayerHealthFormatValues,
+		NoHealthNoPercentDiv10: Enum_CombatAudioAlertPlayerHealthFormatValues,
 	},
 	CombatAudioAlertPlayerResourceFormatValues: {
-		ResourceFull: number,
-		ResourceNoPercent: number,
-		ResourceNoPercentDiv10: number,
-		NoResourceFull: number,
-		NoResourceNoPercent: number,
-		NoResourceNoPercentDiv10: number,
+		ResourceFull: Enum_CombatAudioAlertPlayerResourceFormatValues,
+		ResourceNoPercent: Enum_CombatAudioAlertPlayerResourceFormatValues,
+		ResourceNoPercentDiv10: Enum_CombatAudioAlertPlayerResourceFormatValues,
+		NoResourceFull: Enum_CombatAudioAlertPlayerResourceFormatValues,
+		NoResourceNoPercent: Enum_CombatAudioAlertPlayerResourceFormatValues,
+		NoResourceNoPercentDiv10: Enum_CombatAudioAlertPlayerResourceFormatValues,
 	},
 	CombatAudioAlertPulsePercentValues: {
-		Off: number,
-		Under90Percent: number,
-		Under80Percent: number,
-		Under70Percent: number,
-		Under60Percent: number,
-		Under50Percent: number,
-		Under40Percent: number,
-		Under30Percent: number,
-		Under20Percent: number,
-		Under10Percent: number,
+		Off: Enum_CombatAudioAlertPulsePercentValues,
+		Under90Percent: Enum_CombatAudioAlertPulsePercentValues,
+		Under80Percent: Enum_CombatAudioAlertPulsePercentValues,
+		Under70Percent: Enum_CombatAudioAlertPulsePercentValues,
+		Under60Percent: Enum_CombatAudioAlertPulsePercentValues,
+		Under50Percent: Enum_CombatAudioAlertPulsePercentValues,
+		Under40Percent: Enum_CombatAudioAlertPulsePercentValues,
+		Under30Percent: Enum_CombatAudioAlertPulsePercentValues,
+		Under20Percent: Enum_CombatAudioAlertPulsePercentValues,
+		Under10Percent: Enum_CombatAudioAlertPulsePercentValues,
 	},
 	CombatAudioAlertSayIfTargetedType: {
-		None: number,
-		Aggro: number,
-		Targeted: number,
-		TargetedBy: number,
+		None: Enum_CombatAudioAlertSayIfTargetedType,
+		Aggro: Enum_CombatAudioAlertSayIfTargetedType,
+		Targeted: Enum_CombatAudioAlertSayIfTargetedType,
+		TargetedBy: Enum_CombatAudioAlertSayIfTargetedType,
 	},
 	CombatAudioAlertSpecSetting: {
-		Resource1Percent: number,
-		Resource1Format: number,
-		Resource1Voice: number,
-		Resource1Volume: number,
-		Resource2Percent: number,
-		Resource2Format: number,
-		Resource2Voice: number,
-		Resource2Volume: number,
-		SayIfTargeted: number,
+		Resource1Percent: Enum_CombatAudioAlertSpecSetting,
+		Resource1Format: Enum_CombatAudioAlertSpecSetting,
+		Resource1Voice: Enum_CombatAudioAlertSpecSetting,
+		Resource1Volume: Enum_CombatAudioAlertSpecSetting,
+		Resource2Percent: Enum_CombatAudioAlertSpecSetting,
+		Resource2Format: Enum_CombatAudioAlertSpecSetting,
+		Resource2Voice: Enum_CombatAudioAlertSpecSetting,
+		Resource2Volume: Enum_CombatAudioAlertSpecSetting,
+		SayIfTargeted: Enum_CombatAudioAlertSpecSetting,
 	},
 	CombatAudioAlertTargetCastFormatValues: {
-		TargetCastingSpellname: number,
-		TargetCastSpellname: number,
-		CastingSpellname: number,
-		CastSpellname: number,
-		Casting: number,
-		Cast: number,
-		Spellname: number,
+		TargetCastingSpellname: Enum_CombatAudioAlertTargetCastFormatValues,
+		TargetCastSpellname: Enum_CombatAudioAlertTargetCastFormatValues,
+		CastingSpellname: Enum_CombatAudioAlertTargetCastFormatValues,
+		CastSpellname: Enum_CombatAudioAlertTargetCastFormatValues,
+		Casting: Enum_CombatAudioAlertTargetCastFormatValues,
+		Cast: Enum_CombatAudioAlertTargetCastFormatValues,
+		Spellname: Enum_CombatAudioAlertTargetCastFormatValues,
 	},
 	CombatAudioAlertTargetDeathBehavior: {
-		Default: number,
-		SayTargetDead: number,
+		Default: Enum_CombatAudioAlertTargetDeathBehavior,
+		SayTargetDead: Enum_CombatAudioAlertTargetDeathBehavior,
 	},
 	CombatAudioAlertTargetHealthFormatValues: {
-		NoHealthFull: number,
-		NoHealthNoPercent: number,
-		NoHealthNoPercentDiv10: number,
-		HealthFull: number,
-		HealthNoPercent: number,
-		HealthNoPercentDiv10: number,
-		TargetFull: number,
-		TargetNoPercent: number,
-		TargetNoPercentDiv10: number,
+		NoHealthFull: Enum_CombatAudioAlertTargetHealthFormatValues,
+		NoHealthNoPercent: Enum_CombatAudioAlertTargetHealthFormatValues,
+		NoHealthNoPercentDiv10: Enum_CombatAudioAlertTargetHealthFormatValues,
+		HealthFull: Enum_CombatAudioAlertTargetHealthFormatValues,
+		HealthNoPercent: Enum_CombatAudioAlertTargetHealthFormatValues,
+		HealthNoPercentDiv10: Enum_CombatAudioAlertTargetHealthFormatValues,
+		TargetFull: Enum_CombatAudioAlertTargetHealthFormatValues,
+		TargetNoPercent: Enum_CombatAudioAlertTargetHealthFormatValues,
+		TargetNoPercentDiv10: Enum_CombatAudioAlertTargetHealthFormatValues,
 	},
 	CombatAudioAlertThrottle: {
-		Sample: number,
-		PlayerHealth: number,
-		TargetHealth: number,
-		PlayerCast: number,
-		TargetCast: number,
-		PlayerResource1: number,
-		PlayerResource2: number,
-		PlayerHealthSamePercent: number,
-		TargetHealthSamePercent: number,
-		PlayerResource1SamePercent: number,
-		PlayerResource2SamePercent: number,
+		Sample: Enum_CombatAudioAlertThrottle,
+		PlayerHealth: Enum_CombatAudioAlertThrottle,
+		TargetHealth: Enum_CombatAudioAlertThrottle,
+		PlayerCast: Enum_CombatAudioAlertThrottle,
+		TargetCast: Enum_CombatAudioAlertThrottle,
+		PlayerResource1: Enum_CombatAudioAlertThrottle,
+		PlayerResource2: Enum_CombatAudioAlertThrottle,
+		PlayerHealthSamePercent: Enum_CombatAudioAlertThrottle,
+		TargetHealthSamePercent: Enum_CombatAudioAlertThrottle,
+		PlayerResource1SamePercent: Enum_CombatAudioAlertThrottle,
+		PlayerResource2SamePercent: Enum_CombatAudioAlertThrottle,
 	},
 	CombatAudioAlertType: {
-		Health: number,
-		Cast: number,
+		Health: Enum_CombatAudioAlertType,
+		Cast: Enum_CombatAudioAlertType,
 	},
 	CombatAudioAlertUnit: {
-		Player: number,
-		Target: number,
+		Player: Enum_CombatAudioAlertUnit,
+		Target: Enum_CombatAudioAlertUnit,
 	},
 	CombatLogMessageOrder: {
-		Newest: number,
-		Oldest: number,
+		Newest: Enum_CombatLogMessageOrder,
+		Oldest: Enum_CombatLogMessageOrder,
 	},
 	CombatLogObject: {
 		Empty: number,
@@ -22564,156 +24961,156 @@ declare Enum: {
 		RaidNone: number,
 	},
 	CombinedQuestLogStatus: {
-		Available: number,
-		Complete: number,
-		CompleteDaily: number,
-		CompleteWeekly: number,
-		CompleteMonthly: number,
-		CompleteYearly: number,
-		CompleteGameReset: number,
-		Reset: number,
+		Available: Enum_CombinedQuestLogStatus,
+		Complete: Enum_CombinedQuestLogStatus,
+		CompleteDaily: Enum_CombinedQuestLogStatus,
+		CompleteWeekly: Enum_CombinedQuestLogStatus,
+		CompleteMonthly: Enum_CombinedQuestLogStatus,
+		CompleteYearly: Enum_CombinedQuestLogStatus,
+		CompleteGameReset: Enum_CombinedQuestLogStatus,
+		Reset: Enum_CombinedQuestLogStatus,
 	},
 	CombinedQuestStatus: {
-		Invalid: number,
-		Completed: number,
-		NotCompleted: number,
+		Invalid: Enum_CombinedQuestStatus,
+		Completed: Enum_CombinedQuestStatus,
+		NotCompleted: Enum_CombinedQuestStatus,
 	},
 	CommunicationMode: {
-		PushToTalk: number,
-		OpenMic: number,
+		PushToTalk: Enum_CommunicationMode,
+		OpenMic: Enum_CommunicationMode,
 	},
 	CompanionConfigSlotTypes: {
-		Role: number,
-		Utility: number,
-		Combat: number,
-		Flavor: number,
+		Role: Enum_CompanionConfigSlotTypes,
+		Utility: Enum_CompanionConfigSlotTypes,
+		Combat: Enum_CompanionConfigSlotTypes,
+		Flavor: Enum_CompanionConfigSlotTypes,
 	},
 	CompanionRoleType: {
-		Dps: number,
-		Heal: number,
-		Tank: number,
+		Dps: Enum_CompanionRoleType,
+		Heal: Enum_CompanionRoleType,
+		Tank: Enum_CompanionRoleType,
 	},
 	CompressionLevel: {
-		Default: number,
-		OptimizeForSpeed: number,
-		OptimizeForSize: number,
+		Default: Enum_CompressionLevel,
+		OptimizeForSpeed: Enum_CompressionLevel,
+		OptimizeForSize: Enum_CompressionLevel,
 	},
 	CompressionMethod: {
-		Deflate: number,
-		Zlib: number,
-		Gzip: number,
+		Deflate: Enum_CompressionMethod,
+		Zlib: Enum_CompressionMethod,
+		Gzip: Enum_CompressionMethod,
 	},
 	ConfirmationPromptUIType: {
-		StaticText: number,
-		BonusRoll: number,
-		SimpleWarning: number,
-		StaticTextAlert: number,
-		SimpleWarningAlert: number,
+		StaticText: Enum_ConfirmationPromptUIType,
+		BonusRoll: Enum_ConfirmationPromptUIType,
+		SimpleWarning: Enum_ConfirmationPromptUIType,
+		StaticTextAlert: Enum_ConfirmationPromptUIType,
+		SimpleWarningAlert: Enum_ConfirmationPromptUIType,
 	},
 	ConquestProgressBarDisplayType: {
-		FirstChest: number,
-		AdditionalChest: number,
-		Seasonal: number,
+		FirstChest: Enum_ConquestProgressBarDisplayType,
+		AdditionalChest: Enum_ConquestProgressBarDisplayType,
+		Seasonal: Enum_ConquestProgressBarDisplayType,
 	},
 	ConsoleCategory: {
-		Debug: number,
-		Graphics: number,
-		Console: number,
-		Combat: number,
-		Game: number,
-		Default: number,
-		Net: number,
-		Sound: number,
-		Gm: number,
-		Reveal: number,
-		None: number,
+		Debug: Enum_ConsoleCategory,
+		Graphics: Enum_ConsoleCategory,
+		Console: Enum_ConsoleCategory,
+		Combat: Enum_ConsoleCategory,
+		Game: Enum_ConsoleCategory,
+		Default: Enum_ConsoleCategory,
+		Net: Enum_ConsoleCategory,
+		Sound: Enum_ConsoleCategory,
+		Gm: Enum_ConsoleCategory,
+		Reveal: Enum_ConsoleCategory,
+		None: Enum_ConsoleCategory,
 	},
 	ConsoleColorType: {
-		DefaultColor: number,
-		InputColor: number,
-		EchoColor: number,
-		ErrorColor: number,
-		WarningColor: number,
-		GlobalColor: number,
-		AdminColor: number,
-		HighlightColor: number,
-		BackgroundColor: number,
-		ClickbufferColor: number,
-		PrivateColor: number,
-		DefaultGreen: number,
+		DefaultColor: Enum_ConsoleColorType,
+		InputColor: Enum_ConsoleColorType,
+		EchoColor: Enum_ConsoleColorType,
+		ErrorColor: Enum_ConsoleColorType,
+		WarningColor: Enum_ConsoleColorType,
+		GlobalColor: Enum_ConsoleColorType,
+		AdminColor: Enum_ConsoleColorType,
+		HighlightColor: Enum_ConsoleColorType,
+		BackgroundColor: Enum_ConsoleColorType,
+		ClickbufferColor: Enum_ConsoleColorType,
+		PrivateColor: Enum_ConsoleColorType,
+		DefaultGreen: Enum_ConsoleColorType,
 	},
 	ConsoleCommandType: {
-		Cvar: number,
-		Command: number,
-		Macro: number,
-		Script: number,
+		Cvar: Enum_ConsoleCommandType,
+		Command: Enum_ConsoleCommandType,
+		Macro: Enum_ConsoleCommandType,
+		Script: Enum_ConsoleCommandType,
 	},
 	ContentTrackingError: {
-		Untrackable: number,
-		MaxTracked: number,
-		AlreadyTracked: number,
+		Untrackable: Enum_ContentTrackingError,
+		MaxTracked: Enum_ContentTrackingError,
+		AlreadyTracked: Enum_ContentTrackingError,
 	},
 	ContentTrackingResult: {
-		Success: number,
-		DataPending: number,
-		Failure: number,
+		Success: Enum_ContentTrackingResult,
+		DataPending: Enum_ContentTrackingResult,
+		Failure: Enum_ContentTrackingResult,
 	},
 	ContentTrackingStopType: {
-		Invalidated: number,
-		Collected: number,
-		Manual: number,
+		Invalidated: Enum_ContentTrackingStopType,
+		Collected: Enum_ContentTrackingStopType,
+		Manual: Enum_ContentTrackingStopType,
 	},
 	ContentTrackingTargetType: {
-		JournalEncounter: number,
-		Vendor: number,
-		Achievement: number,
-		Profession: number,
-		Quest: number,
+		JournalEncounter: Enum_ContentTrackingTargetType,
+		Vendor: Enum_ContentTrackingTargetType,
+		Achievement: Enum_ContentTrackingTargetType,
+		Profession: Enum_ContentTrackingTargetType,
+		Quest: Enum_ContentTrackingTargetType,
 	},
 	ContentTrackingType: {
-		Appearance: number,
-		Mount: number,
-		Achievement: number,
-		Decor: number,
+		Appearance: Enum_ContentTrackingType,
+		Mount: Enum_ContentTrackingType,
+		Achievement: Enum_ContentTrackingType,
+		Decor: Enum_ContentTrackingType,
 	},
 	ContributionAppearanceFlags: {
 		TooltipUseTimeRemaining: number,
 	},
 	ContributionResult: {
-		Success: number,
-		MustBeNearNpc: number,
-		IncorrectState: number,
-		InvalidID: number,
-		QuestDataMissing: number,
-		FailedConditionCheck: number,
-		UnableToCompleteTurnIn: number,
-		InternalError: number,
+		Success: Enum_ContributionResult,
+		MustBeNearNpc: Enum_ContributionResult,
+		IncorrectState: Enum_ContributionResult,
+		InvalidID: Enum_ContributionResult,
+		QuestDataMissing: Enum_ContributionResult,
+		FailedConditionCheck: Enum_ContributionResult,
+		UnableToCompleteTurnIn: Enum_ContributionResult,
+		InternalError: Enum_ContributionResult,
 	},
 	ContributionState: {
-		None: number,
-		Building: number,
-		Active: number,
-		UnderAttack: number,
-		Destroyed: number,
+		None: Enum_ContributionState,
+		Building: Enum_ContributionState,
+		Active: Enum_ContributionState,
+		UnderAttack: Enum_ContributionState,
+		Destroyed: Enum_ContributionState,
 	},
 	CooldownLayoutAction: {
-		ChangeOrder: number,
-		ChangeCategory: number,
-		AddLayout: number,
-		AddAlert: number,
+		ChangeOrder: Enum_CooldownLayoutAction,
+		ChangeCategory: Enum_CooldownLayoutAction,
+		AddLayout: Enum_CooldownLayoutAction,
+		AddAlert: Enum_CooldownLayoutAction,
 	},
 	CooldownLayoutStatus: {
-		Success: number,
-		InvalidLayoutName: number,
-		TooManyLayouts: number,
-		AttemptToModifyDefaultLayoutWouldCreateTooManyLayouts: number,
-		TooManyAlerts: number,
-		InvalidOrderChange: number,
-		NoValidAlerts: number,
+		Success: Enum_CooldownLayoutStatus,
+		InvalidLayoutName: Enum_CooldownLayoutStatus,
+		TooManyLayouts: Enum_CooldownLayoutStatus,
+		AttemptToModifyDefaultLayoutWouldCreateTooManyLayouts: Enum_CooldownLayoutStatus,
+		TooManyAlerts: Enum_CooldownLayoutStatus,
+		InvalidOrderChange: Enum_CooldownLayoutStatus,
+		NoValidAlerts: Enum_CooldownLayoutStatus,
 	},
 	CooldownLayoutType: {
-		Character: number,
-		Account: number,
+		Character: Enum_CooldownLayoutType,
+		Account: Enum_CooldownLayoutType,
 	},
 	CooldownSetLinkedSpellFlags: {
 		UseAsTooltip: number,
@@ -22724,191 +25121,191 @@ declare Enum: {
 		SelectHighestLevelLinkedSpell: number,
 	},
 	CooldownViewerAddAlertStatus: {
-		Success: number,
-		InvalidAlertType: number,
-		InvalidEventType: number,
-		DuplicateAlert: number,
+		Success: Enum_CooldownViewerAddAlertStatus,
+		InvalidAlertType: Enum_CooldownViewerAddAlertStatus,
+		InvalidEventType: Enum_CooldownViewerAddAlertStatus,
+		DuplicateAlert: Enum_CooldownViewerAddAlertStatus,
 	},
 	CooldownViewerAlertEventType: {
-		Available: number,
-		PandemicTime: number,
-		OnCooldown: number,
-		ChargeGained: number,
-		OnAuraApplied: number,
-		OnAuraRemoved: number,
+		Available: Enum_CooldownViewerAlertEventType,
+		PandemicTime: Enum_CooldownViewerAlertEventType,
+		OnCooldown: Enum_CooldownViewerAlertEventType,
+		ChargeGained: Enum_CooldownViewerAlertEventType,
+		OnAuraApplied: Enum_CooldownViewerAlertEventType,
+		OnAuraRemoved: Enum_CooldownViewerAlertEventType,
 	},
 	CooldownViewerAlertType: {
-		Sound: number,
-		Visual: number,
+		Sound: Enum_CooldownViewerAlertType,
+		Visual: Enum_CooldownViewerAlertType,
 	},
 	CooldownViewerBarContent: {
-		IconAndName: number,
-		IconOnly: number,
-		NameOnly: number,
+		IconAndName: Enum_CooldownViewerBarContent,
+		IconOnly: Enum_CooldownViewerBarContent,
+		NameOnly: Enum_CooldownViewerBarContent,
 	},
 	CooldownViewerCategory: {
-		HiddenPassive: number,
-		HiddenActive: number,
-		Essential: number,
-		Utility: number,
-		TrackedBuff: number,
-		TrackedBar: number,
-		GroupBuff: number,
-		SpecAgnosticEssential: number,
-		SpecAgnosticTracked: number,
-		EquipSlotEssential: number,
-		EquipSlotTracked: number,
+		HiddenPassive: Enum_CooldownViewerCategory,
+		HiddenActive: Enum_CooldownViewerCategory,
+		Essential: Enum_CooldownViewerCategory,
+		Utility: Enum_CooldownViewerCategory,
+		TrackedBuff: Enum_CooldownViewerCategory,
+		TrackedBar: Enum_CooldownViewerCategory,
+		GroupBuff: Enum_CooldownViewerCategory,
+		SpecAgnosticEssential: Enum_CooldownViewerCategory,
+		SpecAgnosticTracked: Enum_CooldownViewerCategory,
+		EquipSlotEssential: Enum_CooldownViewerCategory,
+		EquipSlotTracked: Enum_CooldownViewerCategory,
 	},
 	CooldownViewerIconDirection: {
-		Left: number,
-		Right: number,
+		Left: Enum_CooldownViewerIconDirection,
+		Right: Enum_CooldownViewerIconDirection,
 	},
 	CooldownViewerOrientation: {
-		Horizontal: number,
-		Vertical: number,
+		Horizontal: Enum_CooldownViewerOrientation,
+		Vertical: Enum_CooldownViewerOrientation,
 	},
 	CooldownViewerSound: {
-		TextToSpeech: number,
-		AnimalsCat: number,
-		AnimalsChicken: number,
-		AnimalsCow: number,
-		AnimalsGnoll: number,
-		AnimalsGoat: number,
-		AnimalsLion: number,
-		AnimalsPanther: number,
-		AnimalsRattlesnake: number,
-		AnimalsSheep: number,
-		AnimalsWolf: number,
-		DevicesBoatHorn: number,
-		DevicesAirHorn: number,
-		DevicesBikeHorn: number,
-		DevicesCashRegister: number,
-		DevicesJackpotBell: number,
-		DevicesJackpotCoins: number,
-		DevicesJackpotFail: number,
-		DevicesRotaryPhoneDial: number,
-		DevicesRotaryPhoneRing: number,
-		DevicesStovePipe: number,
-		DevicesTrashcanLid: number,
-		ImpactsAnvilStrike: number,
-		ImpactsBubbleSmash: number,
-		ImpactsLowThud: number,
-		ImpactsMetalClanks: number,
-		ImpactsMetalRattle: number,
-		ImpactsMetalScrape: number,
-		ImpactsMetalWarble: number,
-		ImpactsPopClick: number,
-		ImpactsStrangeClang: number,
-		ImpactsSwordScrape: number,
-		InstrumentsBellRing: number,
-		InstrumentsBellTrill: number,
-		InstrumentsBrass: number,
-		InstrumentsChimeAscending: number,
-		InstrumentsGuitarChug: number,
-		InstrumentsGuitarPinch: number,
-		InstrumentsPitchPipeDistressed: number,
-		InstrumentsPitchPipeNote: number,
-		InstrumentsSynthBig: number,
-		InstrumentsSynthBuzz: number,
-		InstrumentsSynthHigh: number,
-		InstrumentsWarhorn: number,
-		War2AbstractWhoosh: number,
-		War2Choir: number,
-		War2Construction: number,
-		War2MagicChimes: number,
-		War2PigSqueal: number,
-		War2Saws: number,
-		War2Seal: number,
-		War2Slow: number,
-		War2Smith: number,
-		War2SynthStinger: number,
-		War2TrumpetRally: number,
-		War2ZippyMagic: number,
-		War3Bell: number,
-		War3CrunchyBell: number,
-		War3DrumSplash: number,
-		War3Error: number,
-		War3Fanfare: number,
-		War3GateOpen: number,
-		War3Gold: number,
-		War3MagicShimmer: number,
-		War3Ringout: number,
-		War3Rooster: number,
-		War3ShimmerBell: number,
-		War3WolfHowl: number,
-		ShortBellStrike: number,
-		ShortBellTree: number,
-		ShortBigPot: number,
-		ShortBlades: number,
-		ShortCoffeeMug: number,
-		ShortCowBell: number,
-		ShortFingerSnap: number,
-		ShortGuitar: number,
-		ShortKalimba: number,
-		ShortMetalBladeDrop: number,
-		ShortMetalBladeOnRod: number,
-		ShortMetalImpact: number,
-		ShortMiniWoodXylophone: number,
-		ShortPaperCup: number,
-		ShortSheetMetal: number,
-		ShortStovePipe: number,
-		ShortStovePipeBlade: number,
-		ShortSwordShing: number,
-		ShortSynthBleep: number,
-		ShortSynthBlurp: number,
-		ShortSynthError: number,
-		ShortSynthHigh: number,
-		ShortTriangle: number,
-		ShortWaterDrop: number,
-		ShortWineBottle: number,
-		ShortWoodXylophone: number,
+		TextToSpeech: Enum_CooldownViewerSound,
+		AnimalsCat: Enum_CooldownViewerSound,
+		AnimalsChicken: Enum_CooldownViewerSound,
+		AnimalsCow: Enum_CooldownViewerSound,
+		AnimalsGnoll: Enum_CooldownViewerSound,
+		AnimalsGoat: Enum_CooldownViewerSound,
+		AnimalsLion: Enum_CooldownViewerSound,
+		AnimalsPanther: Enum_CooldownViewerSound,
+		AnimalsRattlesnake: Enum_CooldownViewerSound,
+		AnimalsSheep: Enum_CooldownViewerSound,
+		AnimalsWolf: Enum_CooldownViewerSound,
+		DevicesBoatHorn: Enum_CooldownViewerSound,
+		DevicesAirHorn: Enum_CooldownViewerSound,
+		DevicesBikeHorn: Enum_CooldownViewerSound,
+		DevicesCashRegister: Enum_CooldownViewerSound,
+		DevicesJackpotBell: Enum_CooldownViewerSound,
+		DevicesJackpotCoins: Enum_CooldownViewerSound,
+		DevicesJackpotFail: Enum_CooldownViewerSound,
+		DevicesRotaryPhoneDial: Enum_CooldownViewerSound,
+		DevicesRotaryPhoneRing: Enum_CooldownViewerSound,
+		DevicesStovePipe: Enum_CooldownViewerSound,
+		DevicesTrashcanLid: Enum_CooldownViewerSound,
+		ImpactsAnvilStrike: Enum_CooldownViewerSound,
+		ImpactsBubbleSmash: Enum_CooldownViewerSound,
+		ImpactsLowThud: Enum_CooldownViewerSound,
+		ImpactsMetalClanks: Enum_CooldownViewerSound,
+		ImpactsMetalRattle: Enum_CooldownViewerSound,
+		ImpactsMetalScrape: Enum_CooldownViewerSound,
+		ImpactsMetalWarble: Enum_CooldownViewerSound,
+		ImpactsPopClick: Enum_CooldownViewerSound,
+		ImpactsStrangeClang: Enum_CooldownViewerSound,
+		ImpactsSwordScrape: Enum_CooldownViewerSound,
+		InstrumentsBellRing: Enum_CooldownViewerSound,
+		InstrumentsBellTrill: Enum_CooldownViewerSound,
+		InstrumentsBrass: Enum_CooldownViewerSound,
+		InstrumentsChimeAscending: Enum_CooldownViewerSound,
+		InstrumentsGuitarChug: Enum_CooldownViewerSound,
+		InstrumentsGuitarPinch: Enum_CooldownViewerSound,
+		InstrumentsPitchPipeDistressed: Enum_CooldownViewerSound,
+		InstrumentsPitchPipeNote: Enum_CooldownViewerSound,
+		InstrumentsSynthBig: Enum_CooldownViewerSound,
+		InstrumentsSynthBuzz: Enum_CooldownViewerSound,
+		InstrumentsSynthHigh: Enum_CooldownViewerSound,
+		InstrumentsWarhorn: Enum_CooldownViewerSound,
+		War2AbstractWhoosh: Enum_CooldownViewerSound,
+		War2Choir: Enum_CooldownViewerSound,
+		War2Construction: Enum_CooldownViewerSound,
+		War2MagicChimes: Enum_CooldownViewerSound,
+		War2PigSqueal: Enum_CooldownViewerSound,
+		War2Saws: Enum_CooldownViewerSound,
+		War2Seal: Enum_CooldownViewerSound,
+		War2Slow: Enum_CooldownViewerSound,
+		War2Smith: Enum_CooldownViewerSound,
+		War2SynthStinger: Enum_CooldownViewerSound,
+		War2TrumpetRally: Enum_CooldownViewerSound,
+		War2ZippyMagic: Enum_CooldownViewerSound,
+		War3Bell: Enum_CooldownViewerSound,
+		War3CrunchyBell: Enum_CooldownViewerSound,
+		War3DrumSplash: Enum_CooldownViewerSound,
+		War3Error: Enum_CooldownViewerSound,
+		War3Fanfare: Enum_CooldownViewerSound,
+		War3GateOpen: Enum_CooldownViewerSound,
+		War3Gold: Enum_CooldownViewerSound,
+		War3MagicShimmer: Enum_CooldownViewerSound,
+		War3Ringout: Enum_CooldownViewerSound,
+		War3Rooster: Enum_CooldownViewerSound,
+		War3ShimmerBell: Enum_CooldownViewerSound,
+		War3WolfHowl: Enum_CooldownViewerSound,
+		ShortBellStrike: Enum_CooldownViewerSound,
+		ShortBellTree: Enum_CooldownViewerSound,
+		ShortBigPot: Enum_CooldownViewerSound,
+		ShortBlades: Enum_CooldownViewerSound,
+		ShortCoffeeMug: Enum_CooldownViewerSound,
+		ShortCowBell: Enum_CooldownViewerSound,
+		ShortFingerSnap: Enum_CooldownViewerSound,
+		ShortGuitar: Enum_CooldownViewerSound,
+		ShortKalimba: Enum_CooldownViewerSound,
+		ShortMetalBladeDrop: Enum_CooldownViewerSound,
+		ShortMetalBladeOnRod: Enum_CooldownViewerSound,
+		ShortMetalImpact: Enum_CooldownViewerSound,
+		ShortMiniWoodXylophone: Enum_CooldownViewerSound,
+		ShortPaperCup: Enum_CooldownViewerSound,
+		ShortSheetMetal: Enum_CooldownViewerSound,
+		ShortStovePipe: Enum_CooldownViewerSound,
+		ShortStovePipeBlade: Enum_CooldownViewerSound,
+		ShortSwordShing: Enum_CooldownViewerSound,
+		ShortSynthBleep: Enum_CooldownViewerSound,
+		ShortSynthBlurp: Enum_CooldownViewerSound,
+		ShortSynthError: Enum_CooldownViewerSound,
+		ShortSynthHigh: Enum_CooldownViewerSound,
+		ShortTriangle: Enum_CooldownViewerSound,
+		ShortWaterDrop: Enum_CooldownViewerSound,
+		ShortWineBottle: Enum_CooldownViewerSound,
+		ShortWoodXylophone: Enum_CooldownViewerSound,
 	},
 	CooldownViewerSoundCategory: {
-		Animals: number,
-		Devices: number,
-		Impacts: number,
-		Instruments: number,
-		Short: number,
-		War2: number,
-		War3: number,
+		Animals: Enum_CooldownViewerSoundCategory,
+		Devices: Enum_CooldownViewerSoundCategory,
+		Impacts: Enum_CooldownViewerSoundCategory,
+		Instruments: Enum_CooldownViewerSoundCategory,
+		Short: Enum_CooldownViewerSoundCategory,
+		War2: Enum_CooldownViewerSoundCategory,
+		War3: Enum_CooldownViewerSoundCategory,
 	},
 	CooldownViewerVisibleSetting: {
-		Always: number,
-		InCombat: number,
-		Hidden: number,
+		Always: Enum_CooldownViewerVisibleSetting,
+		InCombat: Enum_CooldownViewerVisibleSetting,
+		Hidden: Enum_CooldownViewerVisibleSetting,
 	},
 	CornerstonePurchaseMode: {
-		Basic: number,
-		Import: number,
-		Move: number,
+		Basic: Enum_CornerstonePurchaseMode,
+		Import: Enum_CornerstonePurchaseMode,
+		Move: Enum_CornerstonePurchaseMode,
 	},
 	CovenantAbilityType: {
-		Class: number,
-		Signature: number,
-		Soulbind: number,
+		Class: Enum_CovenantAbilityType,
+		Signature: Enum_CovenantAbilityType,
+		Soulbind: Enum_CovenantAbilityType,
 	},
 	CovenantSkill: {
-		Kyrian: number,
-		Venthyr: number,
-		NightFae: number,
-		Necrolord: number,
+		Kyrian: Enum_CovenantSkill,
+		Venthyr: Enum_CovenantSkill,
+		NightFae: Enum_CovenantSkill,
+		Necrolord: Enum_CovenantSkill,
 	},
 	CovenantType: {
-		None: number,
-		Kyrian: number,
-		Venthyr: number,
-		NightFae: number,
-		Necrolord: number,
+		None: Enum_CovenantType,
+		Kyrian: Enum_CovenantType,
+		Venthyr: Enum_CovenantType,
+		NightFae: Enum_CovenantType,
+		Necrolord: Enum_CovenantType,
 	},
 	CraftingOrderCustomerCategoryType: {
-		Primary: number,
-		Secondary: number,
-		Tertiary: number,
+		Primary: Enum_CraftingOrderCustomerCategoryType,
+		Secondary: Enum_CraftingOrderCustomerCategoryType,
+		Tertiary: Enum_CraftingOrderCustomerCategoryType,
 	},
 	CraftingOrderDuration: {
-		Short: number,
-		Medium: number,
-		Long: number,
+		Short: Enum_CraftingOrderDuration,
+		Medium: Enum_CraftingOrderDuration,
+		Long: Enum_CraftingOrderDuration,
 	},
 	CraftingOrderFlags: {
 		None: number,
@@ -22924,215 +25321,215 @@ declare Enum: {
 		HasEnchantmentData: number,
 	},
 	CraftingOrderItemType: {
-		Item: number,
-		Recraft: number,
-		CraftedResult: number,
-		RemoveReagent: number,
-		Deprecated: number,
-		Currency: number,
+		Item: Enum_CraftingOrderItemType,
+		Recraft: Enum_CraftingOrderItemType,
+		CraftedResult: Enum_CraftingOrderItemType,
+		RemoveReagent: Enum_CraftingOrderItemType,
+		Deprecated: Enum_CraftingOrderItemType,
+		Currency: Enum_CraftingOrderItemType,
 	},
 	CraftingOrderReagentSource: {
-		Any: number,
-		Customer: number,
-		Crafter: number,
-		None: number,
+		Any: Enum_CraftingOrderReagentSource,
+		Customer: Enum_CraftingOrderReagentSource,
+		Crafter: Enum_CraftingOrderReagentSource,
+		None: Enum_CraftingOrderReagentSource,
 	},
 	CraftingOrderReagentsType: {
-		All: number,
-		Some: number,
-		None: number,
+		All: Enum_CraftingOrderReagentsType,
+		Some: Enum_CraftingOrderReagentsType,
+		None: Enum_CraftingOrderReagentsType,
 	},
 	CraftingOrderResult: {
-		Ok: number,
-		Aborted: number,
-		AlreadyClaimed: number,
-		AlreadyCrafted: number,
-		CannotBeOrdered: number,
-		CannotCancel: number,
-		CannotClaim: number,
-		CannotClaimOwnOrder: number,
-		CannotCraft: number,
-		CannotCreate: number,
-		CannotFulfill: number,
-		CannotRecraft: number,
-		CannotReject: number,
-		CannotRelease: number,
-		CrafterIsIgnored: number,
-		DatabaseError: number,
-		Expired: number,
-		Locked: number,
-		InvalidDuration: number,
-		InvalidMinQuality: number,
-		InvalidNotes: number,
-		InvalidReagent: number,
-		InvalidRealm: number,
-		InvalidRecipe: number,
-		InvalidRecraftItem: number,
-		InvalidSort: number,
-		InvalidTarget: number,
-		InvalidType: number,
-		MaxOrdersReached: number,
-		MissingCraftingTable: number,
-		MissingCurrency: number,
-		MissingItem: number,
-		MissingNpc: number,
-		MissingOrder: number,
-		MissingRecraftItem: number,
-		NoAccountItems: number,
-		NotClaimed: number,
-		NotCrafted: number,
-		NotInGuild: number,
-		NotYetImplemented: number,
-		OutOfPublicOrderCapacity: number,
-		ServerIsNotAvailable: number,
-		ThrottleViolation: number,
-		TargetCannotCraft: number,
-		TargetLocked: number,
-		Timeout: number,
-		TooManyCurrencies: number,
-		TooManyItems: number,
-		WrongVersion: number,
+		Ok: Enum_CraftingOrderResult,
+		Aborted: Enum_CraftingOrderResult,
+		AlreadyClaimed: Enum_CraftingOrderResult,
+		AlreadyCrafted: Enum_CraftingOrderResult,
+		CannotBeOrdered: Enum_CraftingOrderResult,
+		CannotCancel: Enum_CraftingOrderResult,
+		CannotClaim: Enum_CraftingOrderResult,
+		CannotClaimOwnOrder: Enum_CraftingOrderResult,
+		CannotCraft: Enum_CraftingOrderResult,
+		CannotCreate: Enum_CraftingOrderResult,
+		CannotFulfill: Enum_CraftingOrderResult,
+		CannotRecraft: Enum_CraftingOrderResult,
+		CannotReject: Enum_CraftingOrderResult,
+		CannotRelease: Enum_CraftingOrderResult,
+		CrafterIsIgnored: Enum_CraftingOrderResult,
+		DatabaseError: Enum_CraftingOrderResult,
+		Expired: Enum_CraftingOrderResult,
+		Locked: Enum_CraftingOrderResult,
+		InvalidDuration: Enum_CraftingOrderResult,
+		InvalidMinQuality: Enum_CraftingOrderResult,
+		InvalidNotes: Enum_CraftingOrderResult,
+		InvalidReagent: Enum_CraftingOrderResult,
+		InvalidRealm: Enum_CraftingOrderResult,
+		InvalidRecipe: Enum_CraftingOrderResult,
+		InvalidRecraftItem: Enum_CraftingOrderResult,
+		InvalidSort: Enum_CraftingOrderResult,
+		InvalidTarget: Enum_CraftingOrderResult,
+		InvalidType: Enum_CraftingOrderResult,
+		MaxOrdersReached: Enum_CraftingOrderResult,
+		MissingCraftingTable: Enum_CraftingOrderResult,
+		MissingCurrency: Enum_CraftingOrderResult,
+		MissingItem: Enum_CraftingOrderResult,
+		MissingNpc: Enum_CraftingOrderResult,
+		MissingOrder: Enum_CraftingOrderResult,
+		MissingRecraftItem: Enum_CraftingOrderResult,
+		NoAccountItems: Enum_CraftingOrderResult,
+		NotClaimed: Enum_CraftingOrderResult,
+		NotCrafted: Enum_CraftingOrderResult,
+		NotInGuild: Enum_CraftingOrderResult,
+		NotYetImplemented: Enum_CraftingOrderResult,
+		OutOfPublicOrderCapacity: Enum_CraftingOrderResult,
+		ServerIsNotAvailable: Enum_CraftingOrderResult,
+		ThrottleViolation: Enum_CraftingOrderResult,
+		TargetCannotCraft: Enum_CraftingOrderResult,
+		TargetLocked: Enum_CraftingOrderResult,
+		Timeout: Enum_CraftingOrderResult,
+		TooManyCurrencies: Enum_CraftingOrderResult,
+		TooManyItems: Enum_CraftingOrderResult,
+		WrongVersion: Enum_CraftingOrderResult,
 	},
 	CraftingOrderSortType: {
-		ItemName: number,
-		AveTip: number,
-		MaxTip: number,
-		Quantity: number,
-		Reagents: number,
-		Tip: number,
-		TimeRemaining: number,
-		Status: number,
+		ItemName: Enum_CraftingOrderSortType,
+		AveTip: Enum_CraftingOrderSortType,
+		MaxTip: Enum_CraftingOrderSortType,
+		Quantity: Enum_CraftingOrderSortType,
+		Reagents: Enum_CraftingOrderSortType,
+		Tip: Enum_CraftingOrderSortType,
+		TimeRemaining: Enum_CraftingOrderSortType,
+		Status: Enum_CraftingOrderSortType,
 	},
 	CraftingOrderState: {
-		None: number,
-		Creating: number,
-		Created: number,
-		Claiming: number,
-		Claimed: number,
-		Rejecting: number,
-		Rejected: number,
-		Releasing: number,
-		Crafting: number,
-		Recrafting: number,
-		Fulfilling: number,
-		Fulfilled: number,
-		Canceling: number,
-		Canceled: number,
-		Expiring: number,
-		Expired: number,
+		None: Enum_CraftingOrderState,
+		Creating: Enum_CraftingOrderState,
+		Created: Enum_CraftingOrderState,
+		Claiming: Enum_CraftingOrderState,
+		Claimed: Enum_CraftingOrderState,
+		Rejecting: Enum_CraftingOrderState,
+		Rejected: Enum_CraftingOrderState,
+		Releasing: Enum_CraftingOrderState,
+		Crafting: Enum_CraftingOrderState,
+		Recrafting: Enum_CraftingOrderState,
+		Fulfilling: Enum_CraftingOrderState,
+		Fulfilled: Enum_CraftingOrderState,
+		Canceling: Enum_CraftingOrderState,
+		Canceled: Enum_CraftingOrderState,
+		Expiring: Enum_CraftingOrderState,
+		Expired: Enum_CraftingOrderState,
 	},
 	CraftingOrderType: {
-		Public: number,
-		Guild: number,
-		Personal: number,
-		Npc: number,
+		Public: Enum_CraftingOrderType,
+		Guild: Enum_CraftingOrderType,
+		Personal: Enum_CraftingOrderType,
+		Npc: Enum_CraftingOrderType,
 	},
 	CraftingReagentItemFlag: {
 		TooltipShowsAsStatModifications: number,
 	},
 	CraftingReagentType: {
-		Modifying: number,
-		Basic: number,
-		Finishing: number,
-		Automatic: number,
+		Modifying: Enum_CraftingReagentType,
+		Basic: Enum_CraftingReagentType,
+		Finishing: Enum_CraftingReagentType,
+		Automatic: Enum_CraftingReagentType,
 	},
 	CreateAllAccountData: {
-		None: string,
-		AchievementsDone: string,
-		CriteriaDone: string,
-		MountsDone: string,
-		BattlepetsDone: string,
-		CurrencycapsDone: string,
-		QuestLogDone: string,
-		CharactersDone: string,
-		PurchasesDone: string,
-		BpayDistributionObjectsDone: string,
-		ArchivedPurchasesDone: string,
-		SettingsDone: string,
-		BpayAddLicenseObjectsDone: string,
-		ItemCollectionItemsDone: string,
-		AuctionableTokensDone: string,
-		ConsumableTokensDone: string,
-		PerkPastRewardsDone: string,
-		VasTransactionsDone: string,
-		BpayProductitemObjectsDone: string,
-		TrialBoostHistoryDone: string,
-		QuestCriteriaDone: string,
-		Object: string,
-		AccountCurrenciesDone: string,
-		RafBalanceDone: string,
-		RafRewardsDone: string,
-		AccountDynamicCriteriaDone: string,
-		RafActivitiesDone: string,
-		RevokedRafRewardsDone: string,
-		AccountNotificationsDone: string,
-		PerkPendingPurchasesDone: string,
-		WowlabsDataDone: string,
-		PerkHeldItemsDone: string,
-		PerkPendingRewardsDone: string,
-		BitVectorsDone: string,
-		AccountFactionsDone: string,
-		AccountItemsDone: string,
-		CombinedQuestLogEntriesDone: string,
-		DataElementsDone: string,
-		WarbandGroupsDone: string,
-		BanktabSettingsDone: string,
-		AccountMappingDone: string,
-		CharacterItemsDone: string,
-		CurrencyTransferLogDone: string,
-		LgVendorPurchaseDone: string,
-		AccountStateHousingData: string,
-		WarbandScenesLoadedDone: string,
-		EventRecordsDone: string,
-		TransmogOutfitsLoadedDone: string,
-		DynamicDistrictsDone: string,
+		None: Enum_CreateAllAccountData,
+		AchievementsDone: Enum_CreateAllAccountData,
+		CriteriaDone: Enum_CreateAllAccountData,
+		MountsDone: Enum_CreateAllAccountData,
+		BattlepetsDone: Enum_CreateAllAccountData,
+		CurrencycapsDone: Enum_CreateAllAccountData,
+		QuestLogDone: Enum_CreateAllAccountData,
+		CharactersDone: Enum_CreateAllAccountData,
+		PurchasesDone: Enum_CreateAllAccountData,
+		BpayDistributionObjectsDone: Enum_CreateAllAccountData,
+		ArchivedPurchasesDone: Enum_CreateAllAccountData,
+		SettingsDone: Enum_CreateAllAccountData,
+		BpayAddLicenseObjectsDone: Enum_CreateAllAccountData,
+		ItemCollectionItemsDone: Enum_CreateAllAccountData,
+		AuctionableTokensDone: Enum_CreateAllAccountData,
+		ConsumableTokensDone: Enum_CreateAllAccountData,
+		PerkPastRewardsDone: Enum_CreateAllAccountData,
+		VasTransactionsDone: Enum_CreateAllAccountData,
+		BpayProductitemObjectsDone: Enum_CreateAllAccountData,
+		TrialBoostHistoryDone: Enum_CreateAllAccountData,
+		QuestCriteriaDone: Enum_CreateAllAccountData,
+		Object: Enum_CreateAllAccountData,
+		AccountCurrenciesDone: Enum_CreateAllAccountData,
+		RafBalanceDone: Enum_CreateAllAccountData,
+		RafRewardsDone: Enum_CreateAllAccountData,
+		AccountDynamicCriteriaDone: Enum_CreateAllAccountData,
+		RafActivitiesDone: Enum_CreateAllAccountData,
+		RevokedRafRewardsDone: Enum_CreateAllAccountData,
+		AccountNotificationsDone: Enum_CreateAllAccountData,
+		PerkPendingPurchasesDone: Enum_CreateAllAccountData,
+		WowlabsDataDone: Enum_CreateAllAccountData,
+		PerkHeldItemsDone: Enum_CreateAllAccountData,
+		PerkPendingRewardsDone: Enum_CreateAllAccountData,
+		BitVectorsDone: Enum_CreateAllAccountData,
+		AccountFactionsDone: Enum_CreateAllAccountData,
+		AccountItemsDone: Enum_CreateAllAccountData,
+		CombinedQuestLogEntriesDone: Enum_CreateAllAccountData,
+		DataElementsDone: Enum_CreateAllAccountData,
+		WarbandGroupsDone: Enum_CreateAllAccountData,
+		BanktabSettingsDone: Enum_CreateAllAccountData,
+		AccountMappingDone: Enum_CreateAllAccountData,
+		CharacterItemsDone: Enum_CreateAllAccountData,
+		CurrencyTransferLogDone: Enum_CreateAllAccountData,
+		LgVendorPurchaseDone: Enum_CreateAllAccountData,
+		AccountStateHousingData: Enum_CreateAllAccountData,
+		WarbandScenesLoadedDone: Enum_CreateAllAccountData,
+		EventRecordsDone: Enum_CreateAllAccountData,
+		TransmogOutfitsLoadedDone: Enum_CreateAllAccountData,
+		DynamicDistrictsDone: Enum_CreateAllAccountData,
 	},
 	CreateNeighborhoodErrorType: {
-		None: number,
-		Profanity: number,
-		UndersizedGuild: number,
-		OversizedGuild: number,
+		None: Enum_CreateNeighborhoodErrorType,
+		Profanity: Enum_CreateNeighborhoodErrorType,
+		UndersizedGuild: Enum_CreateNeighborhoodErrorType,
+		OversizedGuild: Enum_CreateNeighborhoodErrorType,
 	},
 	CurioRarity: {
-		Common: number,
-		Uncommon: number,
-		Rare: number,
-		Epic: number,
-		EpicTier2: number,
+		Common: Enum_CurioRarity,
+		Uncommon: Enum_CurioRarity,
+		Rare: Enum_CurioRarity,
+		Epic: Enum_CurioRarity,
+		EpicTier2: Enum_CurioRarity,
 	},
 	CurioType: {
-		Combat: number,
-		Utility: number,
+		Combat: Enum_CurioType,
+		Utility: Enum_CurioType,
 	},
 	CurrencyConversionResult: {
-		NoConversion: number,
-		Conversion: number,
-		SkippedAccountCurrency: number,
+		NoConversion: Enum_CurrencyConversionResult,
+		Conversion: Enum_CurrencyConversionResult,
+		SkippedAccountCurrency: Enum_CurrencyConversionResult,
 	},
 	CurrencyDestroyReason: {
-		Cheat: number,
-		Spell: number,
-		VersionUpdate: number,
-		QuestTurnin: number,
-		Vendor: number,
-		Trade: number,
-		Capped: number,
-		Garrison: number,
-		DroppedToCorpse: number,
-		BonusRoll: number,
-		FactionConversion: number,
-		FulfillCraftingOrder: number,
-		Script: number,
-		ConcentrationCast: number,
-		AccountTransfer: number,
-		HonorLoss: number,
-		CraftingOrderReagent: number,
-		AccountServerConversion: number,
+		Cheat: Enum_CurrencyDestroyReason,
+		Spell: Enum_CurrencyDestroyReason,
+		VersionUpdate: Enum_CurrencyDestroyReason,
+		QuestTurnin: Enum_CurrencyDestroyReason,
+		Vendor: Enum_CurrencyDestroyReason,
+		Trade: Enum_CurrencyDestroyReason,
+		Capped: Enum_CurrencyDestroyReason,
+		Garrison: Enum_CurrencyDestroyReason,
+		DroppedToCorpse: Enum_CurrencyDestroyReason,
+		BonusRoll: Enum_CurrencyDestroyReason,
+		FactionConversion: Enum_CurrencyDestroyReason,
+		FulfillCraftingOrder: Enum_CurrencyDestroyReason,
+		Script: Enum_CurrencyDestroyReason,
+		ConcentrationCast: Enum_CurrencyDestroyReason,
+		AccountTransfer: Enum_CurrencyDestroyReason,
+		HonorLoss: Enum_CurrencyDestroyReason,
+		CraftingOrderReagent: Enum_CurrencyDestroyReason,
+		AccountServerConversion: Enum_CurrencyDestroyReason,
 	},
 	CurrencyFilterType: {
-		None: number,
-		DiscoveredOnly: number,
-		DiscoveredAndAllAccountTransferable: number,
+		None: Enum_CurrencyFilterType,
+		DiscoveredOnly: Enum_CurrencyFilterType,
+		DiscoveredAndAllAccountTransferable: Enum_CurrencyFilterType,
 	},
 	CurrencyFlags: {
 		CurrencyTradable: number,
@@ -23190,11 +25587,11 @@ declare Enum: {
 		Autotracking: number,
 	},
 	CurrencyNameStyle: {
-		Symbol: number,
-		NarrowSymbol: number,
-		Long: number,
-		FormalSymbol: number,
-		VariantSymbol: number,
+		Symbol: Enum_CurrencyNameStyle,
+		NarrowSymbol: Enum_CurrencyNameStyle,
+		Long: Enum_CurrencyNameStyle,
+		FormalSymbol: Enum_CurrencyNameStyle,
+		VariantSymbol: Enum_CurrencyNameStyle,
 	},
 	CurrencyTokenCategoryFlags: {
 		FlagSortLast: number,
@@ -23204,201 +25601,201 @@ declare Enum: {
 		StartsCollapsed: number,
 	},
 	CurrencyType: {
-		Copper: number,
-		Silver: number,
-		Gold: number,
+		Copper: Enum_CurrencyType,
+		Silver: Enum_CurrencyType,
+		Gold: Enum_CurrencyType,
 	},
 	CurrencyWeeksFromStartOption: {
-		DebugLogging: number,
-		IgnoreTimeBeforeStart: number,
+		DebugLogging: Enum_CurrencyWeeksFromStartOption,
+		IgnoreTimeBeforeStart: Enum_CurrencyWeeksFromStartOption,
 	},
 	CursorStyle: {
-		Mouse: number,
-		Crosshair: number,
+		Mouse: Enum_CursorStyle,
+		Crosshair: Enum_CursorStyle,
 	},
 	Cursormode: {
-		NoCursor: number,
-		PointCursor: number,
-		CastCursor: number,
-		BuyCursor: number,
-		AttackCursor: number,
-		InteractCursor: number,
-		SpeakCursor: number,
-		InspectCursor: number,
-		PickupCursor: number,
-		TaxiCursor: number,
-		TrainerCursor: number,
-		MineCursor: number,
-		SkinCursor: number,
-		GatherCursor: number,
-		LockCursor: number,
-		MailCursor: number,
-		LootAllCursor: number,
-		RepairCursor: number,
-		RepairnpcCursor: number,
-		ItemCursor: number,
-		SkinHordeCursor: number,
-		SkinAllianceCursor: number,
-		InnkeeperCursor: number,
-		CampaignQuestCursor: number,
-		CampaignQuestTurninCursor: number,
-		QuestCursor: number,
-		QuestRepeatableCursor: number,
-		QuestTurninCursor: number,
-		QuestLegendaryCursor: number,
-		QuestLegendaryTurninCursor: number,
-		QuestImportantCursor: number,
-		QuestImportantTurninCursor: number,
-		QuestMetaCursor: number,
-		QuestMetaTurninCursor: number,
-		QuestRecurringCursor: number,
-		QuestRecurringTurninCursor: number,
-		VehicleCursor: number,
-		MapPinCursor: number,
-		PingCursor: number,
-		EnchantCursor: number,
-		StablemasterCursor: number,
-		PaletteCursor: number,
-		BroomCursor: number,
-		HoldingHandCursor: number,
-		GrabbingHandCursor: number,
-		UIMoveCursor: number,
-		UIResizeCursor: number,
-		GamepadInteractCursor: number,
-		PointErrorCursor: number,
-		CastErrorCursor: number,
-		BuyErrorCursor: number,
-		AttackErrorCursor: number,
-		InteractErrorCursor: number,
-		SpeakErrorCursor: number,
-		InspectErrorCursor: number,
-		PickupErrorCursor: number,
-		TaxiErrorCursor: number,
-		TrainerErrorCursor: number,
-		MineErrorCursor: number,
-		SkinErrorCursor: number,
-		GatherErrorCursor: number,
-		LockErrorCursor: number,
-		MailErrorCursor: number,
-		LootAllErrorCursor: number,
-		RepairErrorCursor: number,
-		RepairnpcErrorCursor: number,
-		ItemErrorCursor: number,
-		SkinHordeErrorCursor: number,
-		SkinAllianceErrorCursor: number,
-		InnkeeperErrorCursor: number,
-		CampaignQuestErrorCursor: number,
-		CampaignQuestTurninErrorCursor: number,
-		QuestErrorCursor: number,
-		QuestRepeatableErrorCursor: number,
-		QuestTurninErrorCursor: number,
-		QuestLegendaryErrorCursor: number,
-		QuestLegendaryTurninErrorCursor: number,
-		QuestImportantErrorCursor: number,
-		QuestImportantTurninErrorCursor: number,
-		QuestMetaErrorCursor: number,
-		QuestMetaTurninErrorCursor: number,
-		QuestRecurringErrorCursor: number,
-		QuestRecurringTurninErrorCursor: number,
-		VehicleErrorCursor: number,
-		MapPinErrorCursor: number,
-		PingErrorCursor: number,
-		EnchantErrorCursor: number,
-		StablemasterErrorCursor: number,
-		PaletteErrorCursor: number,
-		BroomErrorCursor: number,
-		HoldingHandErrorCursor: number,
-		GrabbingHandErrorCursor: number,
-		CustomCursor: number,
+		NoCursor: Enum_Cursormode,
+		PointCursor: Enum_Cursormode,
+		CastCursor: Enum_Cursormode,
+		BuyCursor: Enum_Cursormode,
+		AttackCursor: Enum_Cursormode,
+		InteractCursor: Enum_Cursormode,
+		SpeakCursor: Enum_Cursormode,
+		InspectCursor: Enum_Cursormode,
+		PickupCursor: Enum_Cursormode,
+		TaxiCursor: Enum_Cursormode,
+		TrainerCursor: Enum_Cursormode,
+		MineCursor: Enum_Cursormode,
+		SkinCursor: Enum_Cursormode,
+		GatherCursor: Enum_Cursormode,
+		LockCursor: Enum_Cursormode,
+		MailCursor: Enum_Cursormode,
+		LootAllCursor: Enum_Cursormode,
+		RepairCursor: Enum_Cursormode,
+		RepairnpcCursor: Enum_Cursormode,
+		ItemCursor: Enum_Cursormode,
+		SkinHordeCursor: Enum_Cursormode,
+		SkinAllianceCursor: Enum_Cursormode,
+		InnkeeperCursor: Enum_Cursormode,
+		CampaignQuestCursor: Enum_Cursormode,
+		CampaignQuestTurninCursor: Enum_Cursormode,
+		QuestCursor: Enum_Cursormode,
+		QuestRepeatableCursor: Enum_Cursormode,
+		QuestTurninCursor: Enum_Cursormode,
+		QuestLegendaryCursor: Enum_Cursormode,
+		QuestLegendaryTurninCursor: Enum_Cursormode,
+		QuestImportantCursor: Enum_Cursormode,
+		QuestImportantTurninCursor: Enum_Cursormode,
+		QuestMetaCursor: Enum_Cursormode,
+		QuestMetaTurninCursor: Enum_Cursormode,
+		QuestRecurringCursor: Enum_Cursormode,
+		QuestRecurringTurninCursor: Enum_Cursormode,
+		VehicleCursor: Enum_Cursormode,
+		MapPinCursor: Enum_Cursormode,
+		PingCursor: Enum_Cursormode,
+		EnchantCursor: Enum_Cursormode,
+		StablemasterCursor: Enum_Cursormode,
+		PaletteCursor: Enum_Cursormode,
+		BroomCursor: Enum_Cursormode,
+		HoldingHandCursor: Enum_Cursormode,
+		GrabbingHandCursor: Enum_Cursormode,
+		UIMoveCursor: Enum_Cursormode,
+		UIResizeCursor: Enum_Cursormode,
+		GamepadInteractCursor: Enum_Cursormode,
+		PointErrorCursor: Enum_Cursormode,
+		CastErrorCursor: Enum_Cursormode,
+		BuyErrorCursor: Enum_Cursormode,
+		AttackErrorCursor: Enum_Cursormode,
+		InteractErrorCursor: Enum_Cursormode,
+		SpeakErrorCursor: Enum_Cursormode,
+		InspectErrorCursor: Enum_Cursormode,
+		PickupErrorCursor: Enum_Cursormode,
+		TaxiErrorCursor: Enum_Cursormode,
+		TrainerErrorCursor: Enum_Cursormode,
+		MineErrorCursor: Enum_Cursormode,
+		SkinErrorCursor: Enum_Cursormode,
+		GatherErrorCursor: Enum_Cursormode,
+		LockErrorCursor: Enum_Cursormode,
+		MailErrorCursor: Enum_Cursormode,
+		LootAllErrorCursor: Enum_Cursormode,
+		RepairErrorCursor: Enum_Cursormode,
+		RepairnpcErrorCursor: Enum_Cursormode,
+		ItemErrorCursor: Enum_Cursormode,
+		SkinHordeErrorCursor: Enum_Cursormode,
+		SkinAllianceErrorCursor: Enum_Cursormode,
+		InnkeeperErrorCursor: Enum_Cursormode,
+		CampaignQuestErrorCursor: Enum_Cursormode,
+		CampaignQuestTurninErrorCursor: Enum_Cursormode,
+		QuestErrorCursor: Enum_Cursormode,
+		QuestRepeatableErrorCursor: Enum_Cursormode,
+		QuestTurninErrorCursor: Enum_Cursormode,
+		QuestLegendaryErrorCursor: Enum_Cursormode,
+		QuestLegendaryTurninErrorCursor: Enum_Cursormode,
+		QuestImportantErrorCursor: Enum_Cursormode,
+		QuestImportantTurninErrorCursor: Enum_Cursormode,
+		QuestMetaErrorCursor: Enum_Cursormode,
+		QuestMetaTurninErrorCursor: Enum_Cursormode,
+		QuestRecurringErrorCursor: Enum_Cursormode,
+		QuestRecurringTurninErrorCursor: Enum_Cursormode,
+		VehicleErrorCursor: Enum_Cursormode,
+		MapPinErrorCursor: Enum_Cursormode,
+		PingErrorCursor: Enum_Cursormode,
+		EnchantErrorCursor: Enum_Cursormode,
+		StablemasterErrorCursor: Enum_Cursormode,
+		PaletteErrorCursor: Enum_Cursormode,
+		BroomErrorCursor: Enum_Cursormode,
+		HoldingHandErrorCursor: Enum_Cursormode,
+		GrabbingHandErrorCursor: Enum_Cursormode,
+		CustomCursor: Enum_Cursormode,
 	},
 	CustomAuraButtonDispelTypeStealableFilter: {
-		Stealable: number,
-		NotStealable: number,
+		Stealable: Enum_CustomAuraButtonDispelTypeStealableFilter,
+		NotStealable: Enum_CustomAuraButtonDispelTypeStealableFilter,
 	},
 	CustomAuraButtonDispelTypeTextureStyle: {
-		Border: number,
-		BorderWithIcon: number,
-		Icon: number,
-		PreserveAsset: number,
-		CustomAsset: number,
+		Border: Enum_CustomAuraButtonDispelTypeTextureStyle,
+		BorderWithIcon: Enum_CustomAuraButtonDispelTypeTextureStyle,
+		Icon: Enum_CustomAuraButtonDispelTypeTextureStyle,
+		PreserveAsset: Enum_CustomAuraButtonDispelTypeTextureStyle,
+		CustomAsset: Enum_CustomAuraButtonDispelTypeTextureStyle,
 	},
 	CustomAuraButtonUpdateMode: {
-		Assignment: number,
-		Update: number,
+		Assignment: Enum_CustomAuraButtonUpdateMode,
+		Update: Enum_CustomAuraButtonUpdateMode,
 	},
 	CustomBindingType: {
-		VoicePushToTalk: number,
+		VoicePushToTalk: Enum_CustomBindingType,
 	},
 	DamageMeterCombineSessionType: {
-		None: number,
-		ChallengeMode: number,
-		Arena: number,
-		ArenaMultiRound: number,
+		None: Enum_DamageMeterCombineSessionType,
+		ChallengeMode: Enum_DamageMeterCombineSessionType,
+		Arena: Enum_DamageMeterCombineSessionType,
+		ArenaMultiRound: Enum_DamageMeterCombineSessionType,
 	},
 	DamageMeterNumbers: {
-		Minimal: number,
-		Compact: number,
-		Complete: number,
+		Minimal: Enum_DamageMeterNumbers,
+		Compact: Enum_DamageMeterNumbers,
+		Complete: Enum_DamageMeterNumbers,
 	},
 	DamageMeterOverrideType: {
-		Ignore: number,
-		AllowFriendlyFire: number,
-		RedirectSourceToOwner: number,
-		RedirectSourceToAuraCaster: number,
-		IgnoreForAbsorbSpell: number,
+		Ignore: Enum_DamageMeterOverrideType,
+		AllowFriendlyFire: Enum_DamageMeterOverrideType,
+		RedirectSourceToOwner: Enum_DamageMeterOverrideType,
+		RedirectSourceToAuraCaster: Enum_DamageMeterOverrideType,
+		IgnoreForAbsorbSpell: Enum_DamageMeterOverrideType,
 	},
 	DamageMeterSessionType: {
-		Overall: number,
-		Current: number,
-		Expired: number,
+		Overall: Enum_DamageMeterSessionType,
+		Current: Enum_DamageMeterSessionType,
+		Expired: Enum_DamageMeterSessionType,
 	},
 	DamageMeterSourceDisplayType: {
-		None: number,
-		Ally: number,
-		Enemy: number,
+		None: Enum_DamageMeterSourceDisplayType,
+		Ally: Enum_DamageMeterSourceDisplayType,
+		Enemy: Enum_DamageMeterSourceDisplayType,
 	},
 	DamageMeterSpellDetailsDisplayType: {
-		SpellCasted: number,
-		UnitSpecificSpellCasted: number,
-		SpellAffected: number,
-		Deaths: number,
-		EnemyDamageTaken: number,
+		SpellCasted: Enum_DamageMeterSpellDetailsDisplayType,
+		UnitSpecificSpellCasted: Enum_DamageMeterSpellDetailsDisplayType,
+		SpellAffected: Enum_DamageMeterSpellDetailsDisplayType,
+		Deaths: Enum_DamageMeterSpellDetailsDisplayType,
+		EnemyDamageTaken: Enum_DamageMeterSpellDetailsDisplayType,
 	},
 	DamageMeterStorageType: {
-		Damage: number,
-		HealingAndAbsorbs: number,
-		Absorbs: number,
-		Interrupts: number,
-		Dispels: number,
-		DamageTaken: number,
-		AvoidableDamageTaken: number,
-		Deaths: number,
-		EnemyDamageTaken: number,
+		Damage: Enum_DamageMeterStorageType,
+		HealingAndAbsorbs: Enum_DamageMeterStorageType,
+		Absorbs: Enum_DamageMeterStorageType,
+		Interrupts: Enum_DamageMeterStorageType,
+		Dispels: Enum_DamageMeterStorageType,
+		DamageTaken: Enum_DamageMeterStorageType,
+		AvoidableDamageTaken: Enum_DamageMeterStorageType,
+		Deaths: Enum_DamageMeterStorageType,
+		EnemyDamageTaken: Enum_DamageMeterStorageType,
 	},
 	DamageMeterStyle: {
-		Default: number,
-		Thin: number,
-		Bordered: number,
-		FullBackground: number,
+		Default: Enum_DamageMeterStyle,
+		Thin: Enum_DamageMeterStyle,
+		Bordered: Enum_DamageMeterStyle,
+		FullBackground: Enum_DamageMeterStyle,
 	},
 	DamageMeterType: {
-		DamageDone: number,
-		Dps: number,
-		HealingDone: number,
-		Hps: number,
-		Absorbs: number,
-		Interrupts: number,
-		Dispels: number,
-		DamageTaken: number,
-		AvoidableDamageTaken: number,
-		Deaths: number,
-		EnemyDamageTaken: number,
+		DamageDone: Enum_DamageMeterType,
+		Dps: Enum_DamageMeterType,
+		HealingDone: Enum_DamageMeterType,
+		Hps: Enum_DamageMeterType,
+		Absorbs: Enum_DamageMeterType,
+		Interrupts: Enum_DamageMeterType,
+		Dispels: Enum_DamageMeterType,
+		DamageTaken: Enum_DamageMeterType,
+		AvoidableDamageTaken: Enum_DamageMeterType,
+		Deaths: Enum_DamageMeterType,
+		EnemyDamageTaken: Enum_DamageMeterType,
 	},
 	DamageMeterVisibility: {
-		Always: number,
-		InCombat: number,
-		Hidden: number,
-		InGroup: number,
+		Always: Enum_DamageMeterVisibility,
+		InCombat: Enum_DamageMeterVisibility,
+		Hidden: Enum_DamageMeterVisibility,
+		InGroup: Enum_DamageMeterVisibility,
 	},
 	Damageclass: {
 		MaskNone: number,
@@ -23449,15 +25846,15 @@ declare Enum: {
 		All: number,
 	},
 	DamageclassType: {
-		Physical: number,
-		Magical: number,
+		Physical: Enum_DamageclassType,
+		Magical: Enum_DamageclassType,
 	},
 	DateTimeStyle: {
-		None: number,
-		Short: number,
-		Medium: number,
-		Long: number,
-		Full: number,
+		None: Enum_DateTimeStyle,
+		Short: Enum_DateTimeStyle,
+		Medium: Enum_DateTimeStyle,
+		Long: Enum_DateTimeStyle,
+		Full: Enum_DateTimeStyle,
 	},
 	DeveloperLogAssertDomain: {
 		Art: number,
@@ -23469,16 +25866,16 @@ declare Enum: {
 		LiveOperations: number,
 	},
 	DeveloperLogErrorDomain: {
-		Assert: number,
-		AssertData: number,
-		Frame: number,
-		TestSuite: number,
+		Assert: Enum_DeveloperLogErrorDomain,
+		AssertData: Enum_DeveloperLogErrorDomain,
+		Frame: Enum_DeveloperLogErrorDomain,
+		TestSuite: Enum_DeveloperLogErrorDomain,
 	},
 	DeveloperLogTrafficType: {
-		ServerToClient: number,
-		ClientToServer: number,
-		GameEvent: number,
-		LuaToClient: number,
+		ServerToClient: Enum_DeveloperLogTrafficType,
+		ClientToServer: Enum_DeveloperLogTrafficType,
+		GameEvent: Enum_DeveloperLogTrafficType,
+		LuaToClient: Enum_DeveloperLogTrafficType,
 	},
 	DisableAccountProfilesFlags: {
 		None: number,
@@ -23490,400 +25887,400 @@ declare Enum: {
 		DecorsCollections: number,
 	},
 	DiscordAccountType: {
-		Normal: number,
-		Provisional: number,
+		Normal: Enum_DiscordAccountType,
+		Provisional: Enum_DiscordAccountType,
 	},
 	DiscordChannelID: {
-		InvalidDiscordID: string,
+		InvalidDiscordID: Enum_DiscordChannelID,
 	},
 	DiscordDisplayNameType: {
-		Default: number,
-		LastOnline: number,
-		GlobalName: number,
+		Default: Enum_DiscordDisplayNameType,
+		LastOnline: Enum_DiscordDisplayNameType,
+		GlobalName: Enum_DiscordDisplayNameType,
 	},
 	DiscordGuildID: {
-		InvalidDiscordID: string,
+		InvalidDiscordID: Enum_DiscordGuildID,
 	},
 	DiscordGuildSettings: {
-		SeparateStream: number,
+		SeparateStream: Enum_DiscordGuildSettings,
 	},
 	DiscordID: {
-		InvalidDiscordID: string,
+		InvalidDiscordID: Enum_DiscordID,
 	},
 	DiscordLobbyID: {
-		InvalidDiscordID: string,
+		InvalidDiscordID: Enum_DiscordLobbyID,
 	},
 	DiscordMemberID: {
-		InvalidDiscordID: string,
+		InvalidDiscordID: Enum_DiscordMemberID,
 	},
 	DiscordMessageID: {
-		InvalidDiscordID: string,
+		InvalidDiscordID: Enum_DiscordMessageID,
 	},
 	DurationTextBindingProperty: {
-		RemainingDuration: number,
-		RemainingPercent: number,
-		ElapsedDuration: number,
-		ElapsedPercent: number,
-		TotalDuration: number,
-		StartTime: number,
-		EndTime: number,
+		RemainingDuration: Enum_DurationTextBindingProperty,
+		RemainingPercent: Enum_DurationTextBindingProperty,
+		ElapsedDuration: Enum_DurationTextBindingProperty,
+		ElapsedPercent: Enum_DurationTextBindingProperty,
+		TotalDuration: Enum_DurationTextBindingProperty,
+		StartTime: Enum_DurationTextBindingProperty,
+		EndTime: Enum_DurationTextBindingProperty,
 	},
 	DurationTimeModifier: {
-		RealTime: number,
-		BaseTime: number,
+		RealTime: Enum_DurationTimeModifier,
+		BaseTime: Enum_DurationTimeModifier,
 	},
 	EditModeAccountSetting: {
-		ShowGrid: number,
-		GridSpacing: number,
-		SettingsExpanded: number,
-		ShowTargetAndFocus: number,
-		ShowStanceBar: number,
-		ShowPetActionBar: number,
-		ShowPossessActionBar: number,
-		ShowCastBar: number,
-		ShowEncounterBar: number,
-		ShowExtraAbilities: number,
-		ShowBuffsAndDebuffs: number,
-		DeprecatedShowDebuffFrame: number,
-		ShowPartyFrames: number,
-		ShowRaidFrames: number,
-		ShowTalkingHeadFrame: number,
-		ShowVehicleLeaveButton: number,
-		ShowBossFrames: number,
-		ShowArenaFrames: number,
-		ShowLootFrame: number,
-		ShowHudTooltip: number,
-		ShowStatusTrackingBar2: number,
-		ShowDurabilityFrame: number,
-		EnableSnap: number,
-		EnableAdvancedOptions: number,
-		ShowPetFrame: number,
-		ShowTimerBars: number,
-		ShowVehicleSeatIndicator: number,
-		ShowArchaeologyBar: number,
-		ShowCooldownViewer: number,
-		ShowPersonalResourceDisplay: number,
-		ShowEncounterEvents: number,
-		ShowDamageMeter: number,
-		ShowExternalDefensives: number,
-		ShowRaidWarning: number,
-		ShowTotemActionBar: number,
-		ShowGroupFinder: number,
-		ShowLossOfControl: number,
-		ShowSwingTimer: number,
+		ShowGrid: Enum_EditModeAccountSetting,
+		GridSpacing: Enum_EditModeAccountSetting,
+		SettingsExpanded: Enum_EditModeAccountSetting,
+		ShowTargetAndFocus: Enum_EditModeAccountSetting,
+		ShowStanceBar: Enum_EditModeAccountSetting,
+		ShowPetActionBar: Enum_EditModeAccountSetting,
+		ShowPossessActionBar: Enum_EditModeAccountSetting,
+		ShowCastBar: Enum_EditModeAccountSetting,
+		ShowEncounterBar: Enum_EditModeAccountSetting,
+		ShowExtraAbilities: Enum_EditModeAccountSetting,
+		ShowBuffsAndDebuffs: Enum_EditModeAccountSetting,
+		DeprecatedShowDebuffFrame: Enum_EditModeAccountSetting,
+		ShowPartyFrames: Enum_EditModeAccountSetting,
+		ShowRaidFrames: Enum_EditModeAccountSetting,
+		ShowTalkingHeadFrame: Enum_EditModeAccountSetting,
+		ShowVehicleLeaveButton: Enum_EditModeAccountSetting,
+		ShowBossFrames: Enum_EditModeAccountSetting,
+		ShowArenaFrames: Enum_EditModeAccountSetting,
+		ShowLootFrame: Enum_EditModeAccountSetting,
+		ShowHudTooltip: Enum_EditModeAccountSetting,
+		ShowStatusTrackingBar2: Enum_EditModeAccountSetting,
+		ShowDurabilityFrame: Enum_EditModeAccountSetting,
+		EnableSnap: Enum_EditModeAccountSetting,
+		EnableAdvancedOptions: Enum_EditModeAccountSetting,
+		ShowPetFrame: Enum_EditModeAccountSetting,
+		ShowTimerBars: Enum_EditModeAccountSetting,
+		ShowVehicleSeatIndicator: Enum_EditModeAccountSetting,
+		ShowArchaeologyBar: Enum_EditModeAccountSetting,
+		ShowCooldownViewer: Enum_EditModeAccountSetting,
+		ShowPersonalResourceDisplay: Enum_EditModeAccountSetting,
+		ShowEncounterEvents: Enum_EditModeAccountSetting,
+		ShowDamageMeter: Enum_EditModeAccountSetting,
+		ShowExternalDefensives: Enum_EditModeAccountSetting,
+		ShowRaidWarning: Enum_EditModeAccountSetting,
+		ShowTotemActionBar: Enum_EditModeAccountSetting,
+		ShowGroupFinder: Enum_EditModeAccountSetting,
+		ShowLossOfControl: Enum_EditModeAccountSetting,
+		ShowSwingTimer: Enum_EditModeAccountSetting,
 	},
 	EditModeActionBarSetting: {
-		Orientation: number,
-		NumRows: number,
-		NumIcons: number,
-		IconSize: number,
-		IconPadding: number,
-		VisibleSetting: number,
-		HideBarArt: number,
-		DeprecatedSnapToSide: number,
-		HideBarScrolling: number,
-		AlwaysShowButtons: number,
+		Orientation: Enum_EditModeActionBarSetting,
+		NumRows: Enum_EditModeActionBarSetting,
+		NumIcons: Enum_EditModeActionBarSetting,
+		IconSize: Enum_EditModeActionBarSetting,
+		IconPadding: Enum_EditModeActionBarSetting,
+		VisibleSetting: Enum_EditModeActionBarSetting,
+		HideBarArt: Enum_EditModeActionBarSetting,
+		DeprecatedSnapToSide: Enum_EditModeActionBarSetting,
+		HideBarScrolling: Enum_EditModeActionBarSetting,
+		AlwaysShowButtons: Enum_EditModeActionBarSetting,
 	},
 	EditModeActionBarSystemIndices: {
-		MainBar: number,
-		Bar2: number,
-		Bar3: number,
-		RightBar1: number,
-		RightBar2: number,
-		ExtraBar1: number,
-		ExtraBar2: number,
-		ExtraBar3: number,
-		StanceBar: number,
-		PetActionBar: number,
-		PossessActionBar: number,
+		MainBar: Enum_EditModeActionBarSystemIndices,
+		Bar2: Enum_EditModeActionBarSystemIndices,
+		Bar3: Enum_EditModeActionBarSystemIndices,
+		RightBar1: Enum_EditModeActionBarSystemIndices,
+		RightBar2: Enum_EditModeActionBarSystemIndices,
+		ExtraBar1: Enum_EditModeActionBarSystemIndices,
+		ExtraBar2: Enum_EditModeActionBarSystemIndices,
+		ExtraBar3: Enum_EditModeActionBarSystemIndices,
+		StanceBar: Enum_EditModeActionBarSystemIndices,
+		PetActionBar: Enum_EditModeActionBarSystemIndices,
+		PossessActionBar: Enum_EditModeActionBarSystemIndices,
 	},
 	EditModeArchaeologyBarSetting: {
-		Size: number,
+		Size: Enum_EditModeArchaeologyBarSetting,
 	},
 	EditModeAuraFrameSetting: {
-		Orientation: number,
-		IconWrap: number,
-		IconDirection: number,
-		IconLimitBuffFrame: number,
-		IconLimitDebuffFrame: number,
-		IconSize: number,
-		IconPadding: number,
-		DeprecatedShowFull: number,
-		VisibleSetting: number,
-		Opacity: number,
-		ShowDispelType: number,
+		Orientation: Enum_EditModeAuraFrameSetting,
+		IconWrap: Enum_EditModeAuraFrameSetting,
+		IconDirection: Enum_EditModeAuraFrameSetting,
+		IconLimitBuffFrame: Enum_EditModeAuraFrameSetting,
+		IconLimitDebuffFrame: Enum_EditModeAuraFrameSetting,
+		IconSize: Enum_EditModeAuraFrameSetting,
+		IconPadding: Enum_EditModeAuraFrameSetting,
+		DeprecatedShowFull: Enum_EditModeAuraFrameSetting,
+		VisibleSetting: Enum_EditModeAuraFrameSetting,
+		Opacity: Enum_EditModeAuraFrameSetting,
+		ShowDispelType: Enum_EditModeAuraFrameSetting,
 	},
 	EditModeAuraFrameSystemIndices: {
-		BuffFrame: number,
-		DebuffFrame: number,
-		ExternalDefensivesFrame: number,
+		BuffFrame: Enum_EditModeAuraFrameSystemIndices,
+		DebuffFrame: Enum_EditModeAuraFrameSystemIndices,
+		ExternalDefensivesFrame: Enum_EditModeAuraFrameSystemIndices,
 	},
 	EditModeBagsSetting: {
-		Orientation: number,
-		Direction: number,
-		Size: number,
-		BagSlotPadding: number,
+		Orientation: Enum_EditModeBagsSetting,
+		Direction: Enum_EditModeBagsSetting,
+		Size: Enum_EditModeBagsSetting,
+		BagSlotPadding: Enum_EditModeBagsSetting,
 	},
 	EditModeCastBarSetting: {
-		BarSize: number,
-		LockToPlayerFrame: number,
-		ShowCastTime: number,
+		BarSize: Enum_EditModeCastBarSetting,
+		LockToPlayerFrame: Enum_EditModeCastBarSetting,
+		ShowCastTime: Enum_EditModeCastBarSetting,
 	},
 	EditModeChatFrameDisplayOnlySetting: {
-		Width: number,
-		Height: number,
+		Width: Enum_EditModeChatFrameDisplayOnlySetting,
+		Height: Enum_EditModeChatFrameDisplayOnlySetting,
 	},
 	EditModeChatFrameSetting: {
-		WidthHundreds: number,
-		WidthTensAndOnes: number,
-		HeightHundreds: number,
-		HeightTensAndOnes: number,
+		WidthHundreds: Enum_EditModeChatFrameSetting,
+		WidthTensAndOnes: Enum_EditModeChatFrameSetting,
+		HeightHundreds: Enum_EditModeChatFrameSetting,
+		HeightTensAndOnes: Enum_EditModeChatFrameSetting,
 	},
 	EditModeCooldownViewerSetting: {
-		Orientation: number,
-		IconLimit: number,
-		IconDirection: number,
-		IconSize: number,
-		IconPadding: number,
-		Opacity: number,
-		VisibleSetting: number,
-		BarContent: number,
-		HideWhenInactive: number,
-		ShowTimer: number,
-		ShowTooltips: number,
-		BarWidthScale: number,
+		Orientation: Enum_EditModeCooldownViewerSetting,
+		IconLimit: Enum_EditModeCooldownViewerSetting,
+		IconDirection: Enum_EditModeCooldownViewerSetting,
+		IconSize: Enum_EditModeCooldownViewerSetting,
+		IconPadding: Enum_EditModeCooldownViewerSetting,
+		Opacity: Enum_EditModeCooldownViewerSetting,
+		VisibleSetting: Enum_EditModeCooldownViewerSetting,
+		BarContent: Enum_EditModeCooldownViewerSetting,
+		HideWhenInactive: Enum_EditModeCooldownViewerSetting,
+		ShowTimer: Enum_EditModeCooldownViewerSetting,
+		ShowTooltips: Enum_EditModeCooldownViewerSetting,
+		BarWidthScale: Enum_EditModeCooldownViewerSetting,
 	},
 	EditModeCooldownViewerSystemIndices: {
-		Essential: number,
-		Utility: number,
-		BuffIcon: number,
-		BuffBar: number,
+		Essential: Enum_EditModeCooldownViewerSystemIndices,
+		Utility: Enum_EditModeCooldownViewerSystemIndices,
+		BuffIcon: Enum_EditModeCooldownViewerSystemIndices,
+		BuffBar: Enum_EditModeCooldownViewerSystemIndices,
 	},
 	EditModeDamageMeterSetting: {
-		Visibility: number,
-		Style: number,
-		Numbers: number,
-		FrameWidth: number,
-		FrameHeight: number,
-		Padding: number,
-		Transparency: number,
-		ObsoleteReuse1: number,
-		ShowSpecIcon: number,
-		ShowClassColor: number,
-		BarHeight: number,
-		TextSize: number,
-		BackgroundTransparency: number,
+		Visibility: Enum_EditModeDamageMeterSetting,
+		Style: Enum_EditModeDamageMeterSetting,
+		Numbers: Enum_EditModeDamageMeterSetting,
+		FrameWidth: Enum_EditModeDamageMeterSetting,
+		FrameHeight: Enum_EditModeDamageMeterSetting,
+		Padding: Enum_EditModeDamageMeterSetting,
+		Transparency: Enum_EditModeDamageMeterSetting,
+		ObsoleteReuse1: Enum_EditModeDamageMeterSetting,
+		ShowSpecIcon: Enum_EditModeDamageMeterSetting,
+		ShowClassColor: Enum_EditModeDamageMeterSetting,
+		BarHeight: Enum_EditModeDamageMeterSetting,
+		TextSize: Enum_EditModeDamageMeterSetting,
+		BackgroundTransparency: Enum_EditModeDamageMeterSetting,
 	},
 	EditModeDurabilityFrameSetting: {
-		Size: number,
+		Size: Enum_EditModeDurabilityFrameSetting,
 	},
 	EditModeEncounterEventsSetting: {
-		Orientation: number,
-		IconDirection: number,
-		ShowSpellName: number,
-		IconSize: number,
-		OverallSize: number,
-		BackgroundTransparency: number,
-		Transparency: number,
-		Visibility: number,
-		TooltipAnchor: number,
-		ShowTimer: number,
-		ViewType: number,
-		FlipHorizontally: number,
-		BarWidth: number,
-		Padding: number,
+		Orientation: Enum_EditModeEncounterEventsSetting,
+		IconDirection: Enum_EditModeEncounterEventsSetting,
+		ShowSpellName: Enum_EditModeEncounterEventsSetting,
+		IconSize: Enum_EditModeEncounterEventsSetting,
+		OverallSize: Enum_EditModeEncounterEventsSetting,
+		BackgroundTransparency: Enum_EditModeEncounterEventsSetting,
+		Transparency: Enum_EditModeEncounterEventsSetting,
+		Visibility: Enum_EditModeEncounterEventsSetting,
+		TooltipAnchor: Enum_EditModeEncounterEventsSetting,
+		ShowTimer: Enum_EditModeEncounterEventsSetting,
+		ViewType: Enum_EditModeEncounterEventsSetting,
+		FlipHorizontally: Enum_EditModeEncounterEventsSetting,
+		BarWidth: Enum_EditModeEncounterEventsSetting,
+		Padding: Enum_EditModeEncounterEventsSetting,
 	},
 	EditModeEncounterEventsSystemIndices: {
-		Timeline: number,
-		CriticalWarnings: number,
-		MediumWarnings: number,
-		NormalWarnings: number,
+		Timeline: Enum_EditModeEncounterEventsSystemIndices,
+		CriticalWarnings: Enum_EditModeEncounterEventsSystemIndices,
+		MediumWarnings: Enum_EditModeEncounterEventsSystemIndices,
+		NormalWarnings: Enum_EditModeEncounterEventsSystemIndices,
 	},
 	EditModeGamepadMainActionBarSetting: {
-		Compact: number,
-		ShowEmptyBars: number,
-		ShowButtonPrompts: number,
-		ShowHighlight: number,
-		ShouldExpand: number,
+		Compact: Enum_EditModeGamepadMainActionBarSetting,
+		ShowEmptyBars: Enum_EditModeGamepadMainActionBarSetting,
+		ShowButtonPrompts: Enum_EditModeGamepadMainActionBarSetting,
+		ShowHighlight: Enum_EditModeGamepadMainActionBarSetting,
+		ShouldExpand: Enum_EditModeGamepadMainActionBarSetting,
 	},
 	EditModeGroupFinderSetting: {
-		Size: number,
+		Size: Enum_EditModeGroupFinderSetting,
 	},
 	EditModeLayoutType: {
-		Preset: number,
-		Account: number,
-		Character: number,
-		Override: number,
+		Preset: Enum_EditModeLayoutType,
+		Account: Enum_EditModeLayoutType,
+		Character: Enum_EditModeLayoutType,
+		Override: Enum_EditModeLayoutType,
 	},
 	EditModeLossOfControlSetting: {
-		Size: number,
+		Size: Enum_EditModeLossOfControlSetting,
 	},
 	EditModeMainActionBarEndCapSetting: {
-		Hidden: number,
+		Hidden: Enum_EditModeMainActionBarEndCapSetting,
 	},
 	EditModeMainActionBarEndCapSystemIndices: {
-		EndCapLeft: number,
-		EndCapRight: number,
+		EndCapLeft: Enum_EditModeMainActionBarEndCapSystemIndices,
+		EndCapRight: Enum_EditModeMainActionBarEndCapSystemIndices,
 	},
 	EditModeMicroMenuSetting: {
-		Orientation: number,
-		Order: number,
-		Size: number,
-		DeprecatedEyeSize: number,
+		Orientation: Enum_EditModeMicroMenuSetting,
+		Order: Enum_EditModeMicroMenuSetting,
+		Size: Enum_EditModeMicroMenuSetting,
+		DeprecatedEyeSize: Enum_EditModeMicroMenuSetting,
 	},
 	EditModeMinimapSetting: {
-		HeaderUnderneath: number,
-		RotateMinimap: number,
-		Size: number,
-		IconScale: number,
+		HeaderUnderneath: Enum_EditModeMinimapSetting,
+		RotateMinimap: Enum_EditModeMinimapSetting,
+		Size: Enum_EditModeMinimapSetting,
+		IconScale: Enum_EditModeMinimapSetting,
 	},
 	EditModeObjectiveTrackerSetting: {
-		Height: number,
-		Opacity: number,
-		TextSize: number,
+		Height: Enum_EditModeObjectiveTrackerSetting,
+		Opacity: Enum_EditModeObjectiveTrackerSetting,
+		TextSize: Enum_EditModeObjectiveTrackerSetting,
 	},
 	EditModePersonalResourceDisplaySetting: {
-		HideHealth: number,
-		DeprecatedOnlyShowInCombat: number,
-		HidePower: number,
-		HideClassInfo: number,
-		HealthBarHeight: number,
-		PowerBarHeight: number,
-		Padding: number,
-		Opacity: number,
-		VisibleSetting: number,
-		Size: number,
-		HideClassInfoOnPlayerFrame: number,
-		ShowClassColor: number,
-		BarWidth: number,
-		ShowBarText: number,
-		HideAltPower: number,
+		HideHealth: Enum_EditModePersonalResourceDisplaySetting,
+		DeprecatedOnlyShowInCombat: Enum_EditModePersonalResourceDisplaySetting,
+		HidePower: Enum_EditModePersonalResourceDisplaySetting,
+		HideClassInfo: Enum_EditModePersonalResourceDisplaySetting,
+		HealthBarHeight: Enum_EditModePersonalResourceDisplaySetting,
+		PowerBarHeight: Enum_EditModePersonalResourceDisplaySetting,
+		Padding: Enum_EditModePersonalResourceDisplaySetting,
+		Opacity: Enum_EditModePersonalResourceDisplaySetting,
+		VisibleSetting: Enum_EditModePersonalResourceDisplaySetting,
+		Size: Enum_EditModePersonalResourceDisplaySetting,
+		HideClassInfoOnPlayerFrame: Enum_EditModePersonalResourceDisplaySetting,
+		ShowClassColor: Enum_EditModePersonalResourceDisplaySetting,
+		BarWidth: Enum_EditModePersonalResourceDisplaySetting,
+		ShowBarText: Enum_EditModePersonalResourceDisplaySetting,
+		HideAltPower: Enum_EditModePersonalResourceDisplaySetting,
 	},
 	EditModePresetLayouts: {
-		Modern: number,
-		Classic: number,
-		Gamepad: number,
+		Modern: Enum_EditModePresetLayouts,
+		Classic: Enum_EditModePresetLayouts,
+		Gamepad: Enum_EditModePresetLayouts,
 	},
 	EditModeRaidWarningSetting: {
-		None: number,
+		None: Enum_EditModeRaidWarningSetting,
 	},
 	EditModeSettingDisplayType: {
-		Dropdown: number,
-		Checkbox: number,
-		Slider: number,
+		Dropdown: Enum_EditModeSettingDisplayType,
+		Checkbox: Enum_EditModeSettingDisplayType,
+		Slider: Enum_EditModeSettingDisplayType,
 	},
 	EditModeStatusTrackingBarSetting: {
-		Height: number,
-		Width: number,
-		TextSize: number,
-		Size: number,
+		Height: Enum_EditModeStatusTrackingBarSetting,
+		Width: Enum_EditModeStatusTrackingBarSetting,
+		TextSize: Enum_EditModeStatusTrackingBarSetting,
+		Size: Enum_EditModeStatusTrackingBarSetting,
 	},
 	EditModeStatusTrackingBarSystemIndices: {
-		StatusTrackingBar1: number,
-		StatusTrackingBar2: number,
+		StatusTrackingBar1: Enum_EditModeStatusTrackingBarSystemIndices,
+		StatusTrackingBar2: Enum_EditModeStatusTrackingBarSystemIndices,
 	},
 	EditModeSwingTimerSetting: {
-		Scale: number,
-		Opacity: number,
-		Visibility: number,
-		Width: number,
-		Height: number,
-		ShowBarTitle: number,
-		ShowTime: number,
+		Scale: Enum_EditModeSwingTimerSetting,
+		Opacity: Enum_EditModeSwingTimerSetting,
+		Visibility: Enum_EditModeSwingTimerSetting,
+		Width: Enum_EditModeSwingTimerSetting,
+		Height: Enum_EditModeSwingTimerSetting,
+		ShowBarTitle: Enum_EditModeSwingTimerSetting,
+		ShowTime: Enum_EditModeSwingTimerSetting,
 	},
 	EditModeSwingTimerSystemIndices: {
-		MainHand: number,
-		OffHand: number,
-		Ranged: number,
+		MainHand: Enum_EditModeSwingTimerSystemIndices,
+		OffHand: Enum_EditModeSwingTimerSystemIndices,
+		Ranged: Enum_EditModeSwingTimerSystemIndices,
 	},
 	EditModeSwingTimerVisibility: {
-		Always: number,
-		InCombat: number,
-		Hidden: number,
+		Always: Enum_EditModeSwingTimerVisibility,
+		InCombat: Enum_EditModeSwingTimerVisibility,
+		Hidden: Enum_EditModeSwingTimerVisibility,
 	},
 	EditModeSystem: {
-		ActionBar: number,
-		CastBar: number,
-		Minimap: number,
-		UnitFrame: number,
-		EncounterBar: number,
-		ExtraAbilities: number,
-		AuraFrame: number,
-		TalkingHeadFrame: number,
-		ChatFrame: number,
-		VehicleLeaveButton: number,
-		LootFrame: number,
-		HudTooltip: number,
-		ObjectiveTracker: number,
-		MicroMenu: number,
-		Bags: number,
-		StatusTrackingBar: number,
-		DurabilityFrame: number,
-		TimerBars: number,
-		VehicleSeatIndicator: number,
-		ArchaeologyBar: number,
-		CooldownViewer: number,
-		PersonalResourceDisplay: number,
-		EncounterEvents: number,
-		DamageMeter: number,
-		RaidWarning: number,
-		TotemActionBar: number,
-		MainActionBarEndCap: number,
-		GroupFinder: number,
-		LossOfControl: number,
-		SwingTimer: number,
-		GamepadMainActionBar: number,
+		ActionBar: Enum_EditModeSystem,
+		CastBar: Enum_EditModeSystem,
+		Minimap: Enum_EditModeSystem,
+		UnitFrame: Enum_EditModeSystem,
+		EncounterBar: Enum_EditModeSystem,
+		ExtraAbilities: Enum_EditModeSystem,
+		AuraFrame: Enum_EditModeSystem,
+		TalkingHeadFrame: Enum_EditModeSystem,
+		ChatFrame: Enum_EditModeSystem,
+		VehicleLeaveButton: Enum_EditModeSystem,
+		LootFrame: Enum_EditModeSystem,
+		HudTooltip: Enum_EditModeSystem,
+		ObjectiveTracker: Enum_EditModeSystem,
+		MicroMenu: Enum_EditModeSystem,
+		Bags: Enum_EditModeSystem,
+		StatusTrackingBar: Enum_EditModeSystem,
+		DurabilityFrame: Enum_EditModeSystem,
+		TimerBars: Enum_EditModeSystem,
+		VehicleSeatIndicator: Enum_EditModeSystem,
+		ArchaeologyBar: Enum_EditModeSystem,
+		CooldownViewer: Enum_EditModeSystem,
+		PersonalResourceDisplay: Enum_EditModeSystem,
+		EncounterEvents: Enum_EditModeSystem,
+		DamageMeter: Enum_EditModeSystem,
+		RaidWarning: Enum_EditModeSystem,
+		TotemActionBar: Enum_EditModeSystem,
+		MainActionBarEndCap: Enum_EditModeSystem,
+		GroupFinder: Enum_EditModeSystem,
+		LossOfControl: Enum_EditModeSystem,
+		SwingTimer: Enum_EditModeSystem,
+		GamepadMainActionBar: Enum_EditModeSystem,
 	},
 	EditModeTimerBarsSetting: {
-		Size: number,
+		Size: Enum_EditModeTimerBarsSetting,
 	},
 	EditModeUnitFrameSetting: {
-		HidePortrait: number,
-		CastBarUnderneath: number,
-		BuffsOnTop: number,
-		UseLargerFrame: number,
-		UseRaidStylePartyFrames: number,
-		ShowPartyFrameBackground: number,
-		UseHorizontalGroups: number,
-		CastBarOnSide: number,
-		ShowCastTime: number,
-		ViewRaidSize: number,
-		FrameWidth: number,
-		FrameHeight: number,
-		DisplayBorder: number,
-		RaidGroupDisplayType: number,
-		SortPlayersBy: number,
-		RowSize: number,
-		FrameSize: number,
-		ViewArenaSize: number,
-		AuraOrganizationType: number,
-		DebuffIconSize: number,
-		Opacity: number,
-		BigDefensiveIconSize: number,
-		BuffIconSize: number,
+		HidePortrait: Enum_EditModeUnitFrameSetting,
+		CastBarUnderneath: Enum_EditModeUnitFrameSetting,
+		BuffsOnTop: Enum_EditModeUnitFrameSetting,
+		UseLargerFrame: Enum_EditModeUnitFrameSetting,
+		UseRaidStylePartyFrames: Enum_EditModeUnitFrameSetting,
+		ShowPartyFrameBackground: Enum_EditModeUnitFrameSetting,
+		UseHorizontalGroups: Enum_EditModeUnitFrameSetting,
+		CastBarOnSide: Enum_EditModeUnitFrameSetting,
+		ShowCastTime: Enum_EditModeUnitFrameSetting,
+		ViewRaidSize: Enum_EditModeUnitFrameSetting,
+		FrameWidth: Enum_EditModeUnitFrameSetting,
+		FrameHeight: Enum_EditModeUnitFrameSetting,
+		DisplayBorder: Enum_EditModeUnitFrameSetting,
+		RaidGroupDisplayType: Enum_EditModeUnitFrameSetting,
+		SortPlayersBy: Enum_EditModeUnitFrameSetting,
+		RowSize: Enum_EditModeUnitFrameSetting,
+		FrameSize: Enum_EditModeUnitFrameSetting,
+		ViewArenaSize: Enum_EditModeUnitFrameSetting,
+		AuraOrganizationType: Enum_EditModeUnitFrameSetting,
+		DebuffIconSize: Enum_EditModeUnitFrameSetting,
+		Opacity: Enum_EditModeUnitFrameSetting,
+		BigDefensiveIconSize: Enum_EditModeUnitFrameSetting,
+		BuffIconSize: Enum_EditModeUnitFrameSetting,
 	},
 	EditModeUnitFrameSystemIndices: {
-		Player: number,
-		Target: number,
-		Focus: number,
-		Party: number,
-		Raid: number,
-		Boss: number,
-		Arena: number,
-		Pet: number,
+		Player: Enum_EditModeUnitFrameSystemIndices,
+		Target: Enum_EditModeUnitFrameSystemIndices,
+		Focus: Enum_EditModeUnitFrameSystemIndices,
+		Party: Enum_EditModeUnitFrameSystemIndices,
+		Raid: Enum_EditModeUnitFrameSystemIndices,
+		Boss: Enum_EditModeUnitFrameSystemIndices,
+		Arena: Enum_EditModeUnitFrameSystemIndices,
+		Pet: Enum_EditModeUnitFrameSystemIndices,
 	},
 	EditModeVehicleSeatIndicatorSetting: {
-		Size: number,
+		Size: Enum_EditModeVehicleSeatIndicatorSetting,
 	},
 	EncounterEventCastState: {
-		Casting: number,
-		NotCasting: number,
-		Expired: number,
+		Casting: Enum_EncounterEventCastState,
+		NotCasting: Enum_EncounterEventCastState,
+		Expired: Enum_EncounterEventCastState,
 	},
 	EncounterEventColorTrigger: {
-		TextWarning: number,
-		TimelineEvent: number,
-		TimelineEventHighlight: number,
+		TextWarning: Enum_EncounterEventColorTrigger,
+		TimelineEvent: Enum_EncounterEventColorTrigger,
+		TimelineEventHighlight: Enum_EncounterEventColorTrigger,
 	},
 	EncounterEventIconmask: {
 		DeadlyEffect: number,
@@ -23898,102 +26295,102 @@ declare Enum: {
 		DpsRole: number,
 	},
 	EncounterEventSeverity: {
-		Low: number,
-		Medium: number,
-		High: number,
+		Low: Enum_EncounterEventSeverity,
+		Medium: Enum_EncounterEventSeverity,
+		High: Enum_EncounterEventSeverity,
 	},
 	EncounterEventSoundTrigger: {
-		OnTextWarningShown: number,
-		OnTimelineEventFinished: number,
-		OnTimelineEventHighlight: number,
+		OnTextWarningShown: Enum_EncounterEventSoundTrigger,
+		OnTimelineEventFinished: Enum_EncounterEventSoundTrigger,
+		OnTimelineEventHighlight: Enum_EncounterEventSoundTrigger,
 	},
 	EncounterEventsIconDirection: {
-		Left: number,
-		Top: number,
-		Bottom: number,
-		Right: number,
+		Left: Enum_EncounterEventsIconDirection,
+		Top: Enum_EncounterEventsIconDirection,
+		Bottom: Enum_EncounterEventsIconDirection,
+		Right: Enum_EncounterEventsIconDirection,
 	},
 	EncounterEventsOrientation: {
-		Horizontal: number,
-		Vertical: number,
+		Horizontal: Enum_EncounterEventsOrientation,
+		Vertical: Enum_EncounterEventsOrientation,
 	},
 	EncounterEventsTooltipAnchor: {
-		Hidden: number,
-		Default: number,
-		Cursor: number,
+		Hidden: Enum_EncounterEventsTooltipAnchor,
+		Default: Enum_EncounterEventsTooltipAnchor,
+		Cursor: Enum_EncounterEventsTooltipAnchor,
 	},
 	EncounterEventsViewType: {
-		Timeline: number,
-		Bars: number,
+		Timeline: Enum_EncounterEventsViewType,
+		Bars: Enum_EncounterEventsViewType,
 	},
 	EncounterEventsVisibility: {
-		Always: number,
-		InEncounter: number,
-		DeprecatedHidden: number,
+		Always: Enum_EncounterEventsVisibility,
+		InEncounter: Enum_EncounterEventsVisibility,
+		DeprecatedHidden: Enum_EncounterEventsVisibility,
 	},
 	EncounterLootDropRollState: {
-		NeedMainSpec: number,
-		NeedOffSpec: number,
-		Transmog: number,
-		Greed: number,
-		NoRoll: number,
-		Pass: number,
+		NeedMainSpec: Enum_EncounterLootDropRollState,
+		NeedOffSpec: Enum_EncounterLootDropRollState,
+		Transmog: Enum_EncounterLootDropRollState,
+		Greed: Enum_EncounterLootDropRollState,
+		NoRoll: Enum_EncounterLootDropRollState,
+		Pass: Enum_EncounterLootDropRollState,
 	},
 	EncounterTimelineEventSortDirection: {
-		Descending: number,
-		Ascending: number,
+		Descending: Enum_EncounterTimelineEventSortDirection,
+		Ascending: Enum_EncounterTimelineEventSortDirection,
 	},
 	EncounterTimelineEventSource: {
-		Encounter: number,
-		Script: number,
-		EditMode: number,
+		Encounter: Enum_EncounterTimelineEventSource,
+		Script: Enum_EncounterTimelineEventSource,
+		EditMode: Enum_EncounterTimelineEventSource,
 	},
 	EncounterTimelineEventState: {
-		Active: number,
-		Paused: number,
-		Finished: number,
-		Canceled: number,
+		Active: Enum_EncounterTimelineEventState,
+		Paused: Enum_EncounterTimelineEventState,
+		Finished: Enum_EncounterTimelineEventState,
+		Canceled: Enum_EncounterTimelineEventState,
 	},
 	EncounterTimelineIconSet: {
-		TankAlert: number,
-		HealerAlert: number,
-		DamageAlert: number,
-		Deadly: number,
-		Dispel: number,
-		Enrage: number,
+		TankAlert: Enum_EncounterTimelineIconSet,
+		HealerAlert: Enum_EncounterTimelineIconSet,
+		DamageAlert: Enum_EncounterTimelineIconSet,
+		Deadly: Enum_EncounterTimelineIconSet,
+		Dispel: Enum_EncounterTimelineIconSet,
+		Enrage: Enum_EncounterTimelineIconSet,
 	},
 	EncounterTimelineTrack: {
-		Queued: number,
-		Short: number,
-		Medium: number,
-		Long: number,
-		Indeterminate: number,
+		Queued: Enum_EncounterTimelineTrack,
+		Short: Enum_EncounterTimelineTrack,
+		Medium: Enum_EncounterTimelineTrack,
+		Long: Enum_EncounterTimelineTrack,
+		Indeterminate: Enum_EncounterTimelineTrack,
 	},
 	EncounterTimelineTrackType: {
-		Hidden: number,
-		Sorted: number,
-		Linear: number,
+		Hidden: Enum_EncounterTimelineTrackType,
+		Sorted: Enum_EncounterTimelineTrackType,
+		Linear: Enum_EncounterTimelineTrackType,
 	},
 	EncounterTimelineViewType: {
-		None: number,
-		Timeline: number,
-		Bars: number,
+		None: Enum_EncounterTimelineViewType,
+		Timeline: Enum_EncounterTimelineViewType,
+		Bars: Enum_EncounterTimelineViewType,
 	},
 	EndOfMatchType: {
-		None: number,
-		Plunderstorm: number,
+		None: Enum_EndOfMatchType,
+		Plunderstorm: Enum_EndOfMatchType,
 	},
 	EnvironmentalDamageFlags: {
 		OneTime: number,
 		DmgIsPct: number,
 	},
 	Environmentaldamagetype: {
-		Fatigue: number,
-		Drowning: number,
-		Falling: number,
-		Lava: number,
-		Slime: number,
-		Fire: number,
+		Fatigue: Enum_Environmentaldamagetype,
+		Drowning: Enum_Environmentaldamagetype,
+		Falling: Enum_Environmentaldamagetype,
+		Lava: Enum_Environmentaldamagetype,
+		Slime: Enum_Environmentaldamagetype,
+		Fire: Enum_Environmentaldamagetype,
 	},
 	EventRealmQueues: {
 		None: number,
@@ -24003,64 +26400,64 @@ declare Enum: {
 		PlunderstormTraining: number,
 	},
 	EventToastDisplayType: {
-		NormalSingleLine: number,
-		NormalBlockText: number,
-		NormalTitleAndSubTitle: number,
-		NormalTextWithIcon: number,
-		LargeTextWithIcon: number,
-		NormalTextWithIconAndRarity: number,
-		Scenario: number,
-		ChallengeMode: number,
-		ScenarioClickExpand: number,
-		WeeklyRewardUnlock: number,
-		WeeklyRewardUpgrade: number,
-		FlightpointDiscovered: number,
-		CapstoneUnlocked: number,
-		SingleLineWithIcon: number,
-		Scoreboard: number,
-		HouseUpgradeAvailable: number,
+		NormalSingleLine: Enum_EventToastDisplayType,
+		NormalBlockText: Enum_EventToastDisplayType,
+		NormalTitleAndSubTitle: Enum_EventToastDisplayType,
+		NormalTextWithIcon: Enum_EventToastDisplayType,
+		LargeTextWithIcon: Enum_EventToastDisplayType,
+		NormalTextWithIconAndRarity: Enum_EventToastDisplayType,
+		Scenario: Enum_EventToastDisplayType,
+		ChallengeMode: Enum_EventToastDisplayType,
+		ScenarioClickExpand: Enum_EventToastDisplayType,
+		WeeklyRewardUnlock: Enum_EventToastDisplayType,
+		WeeklyRewardUpgrade: Enum_EventToastDisplayType,
+		FlightpointDiscovered: Enum_EventToastDisplayType,
+		CapstoneUnlocked: Enum_EventToastDisplayType,
+		SingleLineWithIcon: Enum_EventToastDisplayType,
+		Scoreboard: Enum_EventToastDisplayType,
+		HouseUpgradeAvailable: Enum_EventToastDisplayType,
 	},
 	EventToastEventType: {
-		LevelUp: number,
-		LevelUpSpell: number,
-		LevelUpDungeon: number,
-		LevelUpRaid: number,
-		LevelUpPvP: number,
-		PetBattleNewAbility: number,
-		PetBattleFinalRound: number,
-		PetBattleCapture: number,
-		BattlePetLevelChanged: number,
-		BattlePetLevelUpAbility: number,
-		QuestBossEmote: number,
-		MythicPlusWeeklyRecord: number,
-		QuestTurnedIn: number,
-		WorldStateChange: number,
-		Scenario: number,
-		LevelUpOther: number,
-		PlayerAuraAdded: number,
-		PlayerAuraRemoved: number,
-		SpellScript: number,
-		CriteriaUpdated: number,
-		PvPTierUpdate: number,
-		SpellLearned: number,
-		TreasureItem: number,
-		WeeklyRewardUnlock: number,
-		WeeklyRewardUpgrade: number,
-		FlightpointDiscovered: number,
-		HouseUpgradeAvailable: number,
-		RenownFactionLeveledUp: number,
+		LevelUp: Enum_EventToastEventType,
+		LevelUpSpell: Enum_EventToastEventType,
+		LevelUpDungeon: Enum_EventToastEventType,
+		LevelUpRaid: Enum_EventToastEventType,
+		LevelUpPvP: Enum_EventToastEventType,
+		PetBattleNewAbility: Enum_EventToastEventType,
+		PetBattleFinalRound: Enum_EventToastEventType,
+		PetBattleCapture: Enum_EventToastEventType,
+		BattlePetLevelChanged: Enum_EventToastEventType,
+		BattlePetLevelUpAbility: Enum_EventToastEventType,
+		QuestBossEmote: Enum_EventToastEventType,
+		MythicPlusWeeklyRecord: Enum_EventToastEventType,
+		QuestTurnedIn: Enum_EventToastEventType,
+		WorldStateChange: Enum_EventToastEventType,
+		Scenario: Enum_EventToastEventType,
+		LevelUpOther: Enum_EventToastEventType,
+		PlayerAuraAdded: Enum_EventToastEventType,
+		PlayerAuraRemoved: Enum_EventToastEventType,
+		SpellScript: Enum_EventToastEventType,
+		CriteriaUpdated: Enum_EventToastEventType,
+		PvPTierUpdate: Enum_EventToastEventType,
+		SpellLearned: Enum_EventToastEventType,
+		TreasureItem: Enum_EventToastEventType,
+		WeeklyRewardUnlock: Enum_EventToastEventType,
+		WeeklyRewardUpgrade: Enum_EventToastEventType,
+		FlightpointDiscovered: Enum_EventToastEventType,
+		HouseUpgradeAvailable: Enum_EventToastEventType,
+		RenownFactionLeveledUp: Enum_EventToastEventType,
 	},
 	EventToastFlags: {
 		DisableRightClickDismiss: number,
 	},
 	EvictionType: {
-		Outsider: number,
-		OutsiderParty: number,
-		JoinParty: number,
-		LeaveParty: number,
-		ServerExpiryNormal: number,
-		ServerExpiryAggressive: number,
-		ServerExpiryParty: number,
+		Outsider: Enum_EvictionType,
+		OutsiderParty: Enum_EvictionType,
+		JoinParty: Enum_EvictionType,
+		LeaveParty: Enum_EvictionType,
+		ServerExpiryNormal: Enum_EvictionType,
+		ServerExpiryAggressive: Enum_EvictionType,
+		ServerExpiryParty: Enum_EvictionType,
 	},
 	ExcludedCensorSources: {
 		None: number,
@@ -24075,8 +26472,8 @@ declare Enum: {
 		All: number,
 	},
 	ExpansionLandingPageType: {
-		None: number,
-		Midnight: number,
+		None: Enum_ExpansionLandingPageType,
+		Midnight: Enum_ExpansionLandingPageType,
 	},
 	ExpansionLevel: {
 		None: number,
@@ -24094,35 +26491,35 @@ declare Enum: {
 		LastTitan: number,
 	},
 	FlightPathFaction: {
-		Neutral: number,
-		Horde: number,
-		Alliance: number,
+		Neutral: Enum_FlightPathFaction,
+		Horde: Enum_FlightPathFaction,
+		Alliance: Enum_FlightPathFaction,
 	},
 	FlightPathState: {
-		Current: number,
-		Reachable: number,
-		Unreachable: number,
+		Current: Enum_FlightPathState,
+		Reachable: Enum_FlightPathState,
+		Unreachable: Enum_FlightPathState,
 	},
 	FollowerAbilityCastResult: {
-		Success: number,
-		Failure: number,
-		NoPendingCast: number,
-		InvalidTarget: number,
-		InvalidFollowerSpell: number,
-		RerollNotAllowed: number,
-		SingleMissionDuration: number,
-		MustTargetFollower: number,
-		MustTargetTrait: number,
-		InvalidFollowerType: number,
-		MustBeUnique: number,
-		CannotTargetLimitedUseFollower: number,
-		MustTargetLimitedUseFollower: number,
-		AlreadyAtMaxDurability: number,
-		CannotTargetNonAutoMissionFollower: number,
+		Success: Enum_FollowerAbilityCastResult,
+		Failure: Enum_FollowerAbilityCastResult,
+		NoPendingCast: Enum_FollowerAbilityCastResult,
+		InvalidTarget: Enum_FollowerAbilityCastResult,
+		InvalidFollowerSpell: Enum_FollowerAbilityCastResult,
+		RerollNotAllowed: Enum_FollowerAbilityCastResult,
+		SingleMissionDuration: Enum_FollowerAbilityCastResult,
+		MustTargetFollower: Enum_FollowerAbilityCastResult,
+		MustTargetTrait: Enum_FollowerAbilityCastResult,
+		InvalidFollowerType: Enum_FollowerAbilityCastResult,
+		MustBeUnique: Enum_FollowerAbilityCastResult,
+		CannotTargetLimitedUseFollower: Enum_FollowerAbilityCastResult,
+		MustTargetLimitedUseFollower: Enum_FollowerAbilityCastResult,
+		AlreadyAtMaxDurability: Enum_FollowerAbilityCastResult,
+		CannotTargetNonAutoMissionFollower: Enum_FollowerAbilityCastResult,
 	},
 	FontStringScaleAnimationMode: {
-		FontSize: number,
-		Vertex: number,
+		FontSize: Enum_FontStringScaleAnimationMode,
+		Vertex: Enum_FontStringScaleAnimationMode,
 	},
 	ForbiddenAspect: {
 		SetToDefaults: number,
@@ -24142,325 +26539,325 @@ declare Enum: {
 		AddAnimations: number,
 	},
 	ForeverExperiencePreset: {
-		Classic: number,
-		Enhanced: number,
+		Classic: Enum_ForeverExperiencePreset,
+		Enhanced: Enum_ForeverExperiencePreset,
 	},
 	FragmentID: {
-		MirrorState: number,
-		AuthMirrorState: number,
-		EntityPosition: number,
-		CgObject: number,
-		JamDispatcher: number,
-		HeartbeatData: number,
-		FTransportLink: number,
-		ClientObservablesData: number,
-		TimerQueues: number,
-		TransferSuspensionData: number,
-		DeferredMessages: number,
-		FPersistableJamServers: number,
-		FPlayerJamServers: number,
-		FLootObjectList: number,
-		FPlayerOwnershipLink: number,
-		FUnitAreaTriggerLink: number,
-		Actor: number,
-		FPhaseShiftData: number,
-		FVendor: number,
-		MirroredObjectC: number,
-		FMeshObjectData: number,
-		FHousingDecor: number,
-		FHousingRoom: number,
-		FHousingRoomComponentMesh: number,
-		FHousingPlayerHouse: number,
-		FHousingHouseDecorSet: number,
-		FHousingHouseRoomSet: number,
-		FHousingDecorProxy: number,
-		FJamHousingCornerstone: number,
-		FHousingDecorActor: number,
-		FHousingPlotAreaTrigger: number,
-		FNeighborhoodMirrorData: number,
-		FMirroredPositionData: number,
-		FPlayerHouseInfo: number,
-		FHousingStorageMirrorData: number,
-		FHousingFixture: number,
-		FHousingHouseFixtureSet: number,
-		Timer: number,
-		FPlayerInitiativeInfo: number,
-		FNeighborhoodStateData: number,
-		FUnitAIGroupLink: number,
-		FPathingDynamicLinks: number,
-		FPathingDoor: number,
-		FWorldStateListenerData: number,
-		FMapObject: number,
-		TagItem: number,
-		TagContainer: number,
-		TagAzeriteEmpoweredItem: number,
-		TagAzeriteItem: number,
-		TagUnit: number,
-		TagPlayer: number,
-		TagGameObject: number,
-		TagDynamicObject: number,
-		TagCorpse: number,
-		TagAreaTrigger: number,
-		TagSceneObject: number,
-		TagConversation: number,
-		TagAIGroup: number,
-		TagScenario: number,
-		TagLootObject: number,
-		TagActivePlayer: number,
-		TagActiveClientS: number,
-		TagActiveObjectC: number,
-		TagVisibleObjectC: number,
-		TagUnitVehicle: number,
-		TagHousingRoom: number,
-		TagMeshObject: number,
-		TagHousingSubdivisionObject: number,
-		TagHousingPoolObject: number,
-		TagHouseExteriorPiece: number,
-		TagHouseExteriorRoot: number,
-		TagHousingDecorProxyGameObject: number,
-		TestFragment_1: number,
-		TestFragment_2: number,
-		TestFragment_3: number,
-		TestFragment_4: number,
-		TestFragment_5: number,
-		ReservedArchetypeSeparator: number,
+		MirrorState: Enum_FragmentID,
+		AuthMirrorState: Enum_FragmentID,
+		EntityPosition: Enum_FragmentID,
+		CgObject: Enum_FragmentID,
+		JamDispatcher: Enum_FragmentID,
+		HeartbeatData: Enum_FragmentID,
+		FTransportLink: Enum_FragmentID,
+		ClientObservablesData: Enum_FragmentID,
+		TimerQueues: Enum_FragmentID,
+		TransferSuspensionData: Enum_FragmentID,
+		DeferredMessages: Enum_FragmentID,
+		FPersistableJamServers: Enum_FragmentID,
+		FPlayerJamServers: Enum_FragmentID,
+		FLootObjectList: Enum_FragmentID,
+		FPlayerOwnershipLink: Enum_FragmentID,
+		FUnitAreaTriggerLink: Enum_FragmentID,
+		Actor: Enum_FragmentID,
+		FPhaseShiftData: Enum_FragmentID,
+		FVendor: Enum_FragmentID,
+		MirroredObjectC: Enum_FragmentID,
+		FMeshObjectData: Enum_FragmentID,
+		FHousingDecor: Enum_FragmentID,
+		FHousingRoom: Enum_FragmentID,
+		FHousingRoomComponentMesh: Enum_FragmentID,
+		FHousingPlayerHouse: Enum_FragmentID,
+		FHousingHouseDecorSet: Enum_FragmentID,
+		FHousingHouseRoomSet: Enum_FragmentID,
+		FHousingDecorProxy: Enum_FragmentID,
+		FJamHousingCornerstone: Enum_FragmentID,
+		FHousingDecorActor: Enum_FragmentID,
+		FHousingPlotAreaTrigger: Enum_FragmentID,
+		FNeighborhoodMirrorData: Enum_FragmentID,
+		FMirroredPositionData: Enum_FragmentID,
+		FPlayerHouseInfo: Enum_FragmentID,
+		FHousingStorageMirrorData: Enum_FragmentID,
+		FHousingFixture: Enum_FragmentID,
+		FHousingHouseFixtureSet: Enum_FragmentID,
+		Timer: Enum_FragmentID,
+		FPlayerInitiativeInfo: Enum_FragmentID,
+		FNeighborhoodStateData: Enum_FragmentID,
+		FUnitAIGroupLink: Enum_FragmentID,
+		FPathingDynamicLinks: Enum_FragmentID,
+		FPathingDoor: Enum_FragmentID,
+		FWorldStateListenerData: Enum_FragmentID,
+		FMapObject: Enum_FragmentID,
+		TagItem: Enum_FragmentID,
+		TagContainer: Enum_FragmentID,
+		TagAzeriteEmpoweredItem: Enum_FragmentID,
+		TagAzeriteItem: Enum_FragmentID,
+		TagUnit: Enum_FragmentID,
+		TagPlayer: Enum_FragmentID,
+		TagGameObject: Enum_FragmentID,
+		TagDynamicObject: Enum_FragmentID,
+		TagCorpse: Enum_FragmentID,
+		TagAreaTrigger: Enum_FragmentID,
+		TagSceneObject: Enum_FragmentID,
+		TagConversation: Enum_FragmentID,
+		TagAIGroup: Enum_FragmentID,
+		TagScenario: Enum_FragmentID,
+		TagLootObject: Enum_FragmentID,
+		TagActivePlayer: Enum_FragmentID,
+		TagActiveClientS: Enum_FragmentID,
+		TagActiveObjectC: Enum_FragmentID,
+		TagVisibleObjectC: Enum_FragmentID,
+		TagUnitVehicle: Enum_FragmentID,
+		TagHousingRoom: Enum_FragmentID,
+		TagMeshObject: Enum_FragmentID,
+		TagHousingSubdivisionObject: Enum_FragmentID,
+		TagHousingPoolObject: Enum_FragmentID,
+		TagHouseExteriorPiece: Enum_FragmentID,
+		TagHouseExteriorRoot: Enum_FragmentID,
+		TagHousingDecorProxyGameObject: Enum_FragmentID,
+		TestFragment_1: Enum_FragmentID,
+		TestFragment_2: Enum_FragmentID,
+		TestFragment_3: Enum_FragmentID,
+		TestFragment_4: Enum_FragmentID,
+		TestFragment_5: Enum_FragmentID,
+		ReservedArchetypeSeparator: Enum_FragmentID,
 	},
 	FrameTutorialAccount: {
-		HudRevampBagChanges: number,
-		PerksProgramActivitiesIntro: number,
-		EditModeManager: number,
-		TransmogSetsTab: number,
-		MountCollectionDragonriding: number,
-		LFGList: number,
-		HeirloomJournalLevel: number,
-		TimerunnersAdvantage: number,
-		AccountWideReputation: number,
-		TransferableCurrencies: number,
-		BindToAccountUntilEquip: number,
-		CompletedQuestsFilter: number,
-		CompletedQuestsFilterSeen: number,
-		ConcentrationCurrency: number,
-		MapLegendOpened: number,
-		NpcCraftingOrders: number,
-		NpcCraftingOrderCreateButton: number,
-		NpcCraftingOrderTabNew: number,
-		LocalStoriesFilterSeen: number,
-		EventSchedulerTabSeen: number,
-		AssistedCombatRotationDragSpell: number,
-		AssistedCombatRotationActionButton: number,
-		HousingDecorCleanup: number,
-		HousingDecorPlace: number,
-		HousingDecorClippingGrid: number,
-		HousingDecorCustomization: number,
-		HousingDecorLayout: number,
-		HousingHouseFinderMap: number,
-		HousingHouseFinderVisitHouse: number,
-		HousingItemAcquisition: number,
-		HousingNewPip: number,
-		PerksProgramActivitiesOpen: number,
-		EnconterJournalTutorialsTabSeen: number,
-		HousingMarketTab: number,
-		HousingTeleportButton: number,
-		RPETalentStarterBuild: number,
-		HousingInvalidCollision: number,
-		HousingModesUnlocked: number,
-		HousingExpertMode: number,
-		HousingCleanupMode: number,
-		TransmogOutfits: number,
-		TransmogSets: number,
-		TransmogCustomSets: number,
-		TransmogSituations: number,
-		TransmogWeaponOptions: number,
-		TransmogTrialOfStyle: number,
-		TransmogCustomSetsMigration: number,
-		HousingEndeavorsTabSeen: number,
-		RunesOfPower: number,
-		HousingPetBeds: number,
-		Reserved1: number,
+		HudRevampBagChanges: Enum_FrameTutorialAccount,
+		PerksProgramActivitiesIntro: Enum_FrameTutorialAccount,
+		EditModeManager: Enum_FrameTutorialAccount,
+		TransmogSetsTab: Enum_FrameTutorialAccount,
+		MountCollectionDragonriding: Enum_FrameTutorialAccount,
+		LFGList: Enum_FrameTutorialAccount,
+		HeirloomJournalLevel: Enum_FrameTutorialAccount,
+		TimerunnersAdvantage: Enum_FrameTutorialAccount,
+		AccountWideReputation: Enum_FrameTutorialAccount,
+		TransferableCurrencies: Enum_FrameTutorialAccount,
+		BindToAccountUntilEquip: Enum_FrameTutorialAccount,
+		CompletedQuestsFilter: Enum_FrameTutorialAccount,
+		CompletedQuestsFilterSeen: Enum_FrameTutorialAccount,
+		ConcentrationCurrency: Enum_FrameTutorialAccount,
+		MapLegendOpened: Enum_FrameTutorialAccount,
+		NpcCraftingOrders: Enum_FrameTutorialAccount,
+		NpcCraftingOrderCreateButton: Enum_FrameTutorialAccount,
+		NpcCraftingOrderTabNew: Enum_FrameTutorialAccount,
+		LocalStoriesFilterSeen: Enum_FrameTutorialAccount,
+		EventSchedulerTabSeen: Enum_FrameTutorialAccount,
+		AssistedCombatRotationDragSpell: Enum_FrameTutorialAccount,
+		AssistedCombatRotationActionButton: Enum_FrameTutorialAccount,
+		HousingDecorCleanup: Enum_FrameTutorialAccount,
+		HousingDecorPlace: Enum_FrameTutorialAccount,
+		HousingDecorClippingGrid: Enum_FrameTutorialAccount,
+		HousingDecorCustomization: Enum_FrameTutorialAccount,
+		HousingDecorLayout: Enum_FrameTutorialAccount,
+		HousingHouseFinderMap: Enum_FrameTutorialAccount,
+		HousingHouseFinderVisitHouse: Enum_FrameTutorialAccount,
+		HousingItemAcquisition: Enum_FrameTutorialAccount,
+		HousingNewPip: Enum_FrameTutorialAccount,
+		PerksProgramActivitiesOpen: Enum_FrameTutorialAccount,
+		EnconterJournalTutorialsTabSeen: Enum_FrameTutorialAccount,
+		HousingMarketTab: Enum_FrameTutorialAccount,
+		HousingTeleportButton: Enum_FrameTutorialAccount,
+		RPETalentStarterBuild: Enum_FrameTutorialAccount,
+		HousingInvalidCollision: Enum_FrameTutorialAccount,
+		HousingModesUnlocked: Enum_FrameTutorialAccount,
+		HousingExpertMode: Enum_FrameTutorialAccount,
+		HousingCleanupMode: Enum_FrameTutorialAccount,
+		TransmogOutfits: Enum_FrameTutorialAccount,
+		TransmogSets: Enum_FrameTutorialAccount,
+		TransmogCustomSets: Enum_FrameTutorialAccount,
+		TransmogSituations: Enum_FrameTutorialAccount,
+		TransmogWeaponOptions: Enum_FrameTutorialAccount,
+		TransmogTrialOfStyle: Enum_FrameTutorialAccount,
+		TransmogCustomSetsMigration: Enum_FrameTutorialAccount,
+		HousingEndeavorsTabSeen: Enum_FrameTutorialAccount,
+		RunesOfPower: Enum_FrameTutorialAccount,
+		HousingPetBeds: Enum_FrameTutorialAccount,
+		Reserved1: Enum_FrameTutorialAccount,
 	},
 	GameMode: {
-		Standard: number,
-		Plunderstorm: number,
-		WoWHack: number,
+		Standard: Enum_GameMode,
+		Plunderstorm: Enum_GameMode,
+		WoWHack: Enum_GameMode,
 	},
 	GamePadPowerLevel: {
-		Critical: number,
-		Low: number,
-		Medium: number,
-		High: number,
-		Wired: number,
-		Unknown: number,
+		Critical: Enum_GamePadPowerLevel,
+		Low: Enum_GamePadPowerLevel,
+		Medium: Enum_GamePadPowerLevel,
+		High: Enum_GamePadPowerLevel,
+		Wired: Enum_GamePadPowerLevel,
+		Unknown: Enum_GamePadPowerLevel,
 	},
 	GameRule: {
-		NoDebuffLimit: number,
-		CharNameReservationEnabled: number,
-		MaxCharReservationsPerRealm: number,
-		MaxAccountCharReservationsPerContentset: number,
-		EtaRealmLaunchTime: number,
-		TrivialGroupXPPercent: number,
-		CharReservationsPerRealmReopenThreshold: number,
-		DisablePct: number,
-		HardcoreRuleset: number,
-		ReplaceAbsentGmSeconds: number,
-		ReplaceGmRankLastOnlineSeconds: number,
-		GameMode: number,
-		CharacterlessLogin: number,
-		VanillaNpcKnockback: number,
-		Runecarving: number,
-		TalentRespecCostMin: number,
-		TalentRespecCostMax: number,
-		TalentRespecCostStep: number,
-		VanillaRageGenerationModifier: number,
-		SelfFoundAllowed: number,
-		DisableHonorDecay: number,
-		MaxLootDropLevel: number,
-		MicrobarScale: number,
-		MaxUnitNameDistance: number,
-		MaxNameplateDistance: number,
-		UserAddonsDisabled: number,
-		UserScriptsDisabled: number,
-		NonPlayerNameplateScale: number,
-		ForcedPartyFrameScale: number,
-		CustomActionbarOverlayHeightOffset: number,
-		ForcedChatLanguage: number,
-		LandingPageFactionID: number,
-		CollectionsPanelDisabled: number,
-		CharacterPanelDisabled: number,
-		ProfessionsPanelDisabled: number,
-		TalentsPanelDisabled: number,
-		AchievementsPanelDisabled: number,
-		CommunitiesPanelDisabled: number,
-		EncounterJournalDisabled: number,
-		FinderPanelDisabled: number,
-		StoreDisabled: number,
-		HelpPanelDisabled: number,
-		GuildsDisabled: number,
-		QuestLogMicrobuttonDisabled: number,
-		MapPlunderstormCircle: number,
-		AfterDeathSpectatingUI: number,
-		FrontEndChat: number,
-		UniversalNameplateOcclusion: number,
-		FastAreaTriggerTick: number,
-		AllPlayersAreFastMovers: number,
-		IgnoreChrclassDisabledFlag: number,
-		CharacterCreateUseFixedBackgroundModel: number,
-		ForceAlteredFormsOn: number,
-		PlayerNameplateDifficultyIcon: number,
-		PlayerNameplateAlternateHealthColor: number,
-		AlwaysAllowAlliedRaces: number,
-		ActionbarIconIntroDisabled: number,
-		ReleaseSpiritGhostDisabled: number,
-		DeleteItemConfirmationDisabled: number,
-		ChatLinkLevelToastsDisabled: number,
-		BagsUIDisabled: number,
-		PetBattlesDisabled: number,
-		PerksProgramActivityTrackingDisabled: number,
-		MaximizeWorldMapDisabled: number,
-		WorldMapTrackingOptionsDisabled: number,
-		WorldMapTrackingPinDisabled: number,
-		WorldMapHelpPlateDisabled: number,
-		QuestLogPanelDisabled: number,
-		QuestLogSuperTrackingDisabled: number,
-		TutorialFrameDisabled: number,
-		IngameMailNotificationDisabled: number,
-		IngameCalendarDisabled: number,
-		IngameTrackingDisabled: number,
-		IngameWhoListDisabled: number,
-		RaceAlteredFormsDisabled: number,
-		IngameFriendsListDisabled: number,
-		MacrosDisabled: number,
-		CompactRaidFrameManagerDisabled: number,
-		EditModeDisabled: number,
-		InstanceDifficultyBannerDisabled: number,
-		FullCharacterCreateDisabled: number,
-		TargetFrameBuffsDisabled: number,
-		UnitFramePvPContextualDisabled: number,
-		ActionCombatTargetLockEnabled: number,
-		BlockWhileSheathedAllowed: number,
-		AeLootDisabled: number,
-		BinarySpellPushbackResist: number,
-		VanillaAccountMailInstant: number,
-		ClearMailOnRealmTransfer: number,
-		PremadeGroupFinderStyle: number,
-		PlunderstormAreaSelection: number,
-		GroupFinderCapabilities: number,
-		WorldMapLegendDisabled: number,
-		WorldMapFrameStrata: number,
-		MerchantFilterDisabled: number,
-		HousingDashboardDisabled: number,
-		AutoAttacksDisabled: number,
-		ObjectiveTrackerDisabled: number,
-		PlayerCastBarDisabled: number,
-		TargetCastBarDisabled: number,
-		NameplateCastBarDisabled: number,
-		SummoningStones: number,
-		TransmogEnabled: number,
-		SingleTargetComboPoints: number,
-		DisableRealmSelection: number,
-		DisableCampsites: number,
-		UseSimpleCharacterSelectList: number,
-		HideFaction: number,
-		DisableVas: number,
-		PersonalResourceDisplayDisabled: number,
-		TargetFrameDisabled: number,
-		PlayerFrameDisabled: number,
-		MailGameRule: number,
-		ForcedMultiActionBarSetting: number,
-		HideAllMultiActionBars: number,
-		TimerunningAllowed: number,
-		MaxCharactersPerContentSet: number,
-		MinUndeleteLevelRequired: number,
-		DoesNotCountTowardAccountCharacterMax: number,
-		WorldMapDisabled: number,
-		MinimapDisabled: number,
-		RepairArmorDisabled: number,
-		EjSuggestedContentDisabled: number,
-		EjDungeonsDisabled: number,
-		EjRaidsDisabled: number,
-		EjItemSetsDisabled: number,
-		GdapiCharacterProfileDisabled: number,
-		HousingEnabled: number,
-		RestrictedAchievementCategoryID: number,
-		EjJourneysDisabled: number,
-		LootMethodStyle: number,
-		ExperienceBarDisabled: number,
-		HideUnavailableTransmogSlots: number,
-		HideTransmogZeroCost: number,
-		DisableQuickJoin: number,
-		DisableRaidGroups: number,
-		UseGameTableVariation: number,
-		ActionButtonTypeOverlayStrategy: number,
-		RecommendLeastPopulatedRealm: number,
-		BagSpaceOverride: number,
-		UnflaggedPlayersCanAttackPvPFlaggedPlayers: number,
-		CreatureDamageMultiplierAllowedSources: number,
-		EnableAmmoSystem: number,
-		DisallowAbandoningLastPet: number,
-		ThrownWeaponsUseDurability: number,
-		AutoLearnPetSpells: number,
-		PvPInitialRatingOverride: number,
-		RPEDisabled: number,
-		QuestLootRoundRobin: number,
-		StandardQuestXPDecayLevelOffset: number,
-		MinimumXPDecayCoefficient: number,
-		ReagentBagsFitItemsOfTheirBagFamily: number,
-		FishingClassicDifficulty: number,
-		CraftFromBankRestricted: number,
-		PvPRuleset: number,
-		RPRuleset: number,
-		DynamicDistrictAffinityAssignmentAlgorithm: number,
-		TrackAchievementsDisabled: number,
-		EnableDifficultyMessages: number,
-		DontAllowPartialTicks: number,
-		EnableMaxBuffLevelDifference: number,
-		PreventXPAndLootForExcessiveOutsideHelp: number,
-		ManaRegenBonusStatMeansMp5: number,
-		CannotSkinCreaturesTooHighLevelForYourSkinningSkill: number,
-		RangedAttackDelay: number,
-		AllowEmptyLoot: number,
-		WeaponSwapIgnoresCombatSwapCd: number,
-		PreventUnlootableItemsFromDropping: number,
-		RequirePvPFlagForPvPKillCredit: number,
+		NoDebuffLimit: Enum_GameRule,
+		CharNameReservationEnabled: Enum_GameRule,
+		MaxCharReservationsPerRealm: Enum_GameRule,
+		MaxAccountCharReservationsPerContentset: Enum_GameRule,
+		EtaRealmLaunchTime: Enum_GameRule,
+		TrivialGroupXPPercent: Enum_GameRule,
+		CharReservationsPerRealmReopenThreshold: Enum_GameRule,
+		DisablePct: Enum_GameRule,
+		HardcoreRuleset: Enum_GameRule,
+		ReplaceAbsentGmSeconds: Enum_GameRule,
+		ReplaceGmRankLastOnlineSeconds: Enum_GameRule,
+		GameMode: Enum_GameRule,
+		CharacterlessLogin: Enum_GameRule,
+		VanillaNpcKnockback: Enum_GameRule,
+		Runecarving: Enum_GameRule,
+		TalentRespecCostMin: Enum_GameRule,
+		TalentRespecCostMax: Enum_GameRule,
+		TalentRespecCostStep: Enum_GameRule,
+		VanillaRageGenerationModifier: Enum_GameRule,
+		SelfFoundAllowed: Enum_GameRule,
+		DisableHonorDecay: Enum_GameRule,
+		MaxLootDropLevel: Enum_GameRule,
+		MicrobarScale: Enum_GameRule,
+		MaxUnitNameDistance: Enum_GameRule,
+		MaxNameplateDistance: Enum_GameRule,
+		UserAddonsDisabled: Enum_GameRule,
+		UserScriptsDisabled: Enum_GameRule,
+		NonPlayerNameplateScale: Enum_GameRule,
+		ForcedPartyFrameScale: Enum_GameRule,
+		CustomActionbarOverlayHeightOffset: Enum_GameRule,
+		ForcedChatLanguage: Enum_GameRule,
+		LandingPageFactionID: Enum_GameRule,
+		CollectionsPanelDisabled: Enum_GameRule,
+		CharacterPanelDisabled: Enum_GameRule,
+		ProfessionsPanelDisabled: Enum_GameRule,
+		TalentsPanelDisabled: Enum_GameRule,
+		AchievementsPanelDisabled: Enum_GameRule,
+		CommunitiesPanelDisabled: Enum_GameRule,
+		EncounterJournalDisabled: Enum_GameRule,
+		FinderPanelDisabled: Enum_GameRule,
+		StoreDisabled: Enum_GameRule,
+		HelpPanelDisabled: Enum_GameRule,
+		GuildsDisabled: Enum_GameRule,
+		QuestLogMicrobuttonDisabled: Enum_GameRule,
+		MapPlunderstormCircle: Enum_GameRule,
+		AfterDeathSpectatingUI: Enum_GameRule,
+		FrontEndChat: Enum_GameRule,
+		UniversalNameplateOcclusion: Enum_GameRule,
+		FastAreaTriggerTick: Enum_GameRule,
+		AllPlayersAreFastMovers: Enum_GameRule,
+		IgnoreChrclassDisabledFlag: Enum_GameRule,
+		CharacterCreateUseFixedBackgroundModel: Enum_GameRule,
+		ForceAlteredFormsOn: Enum_GameRule,
+		PlayerNameplateDifficultyIcon: Enum_GameRule,
+		PlayerNameplateAlternateHealthColor: Enum_GameRule,
+		AlwaysAllowAlliedRaces: Enum_GameRule,
+		ActionbarIconIntroDisabled: Enum_GameRule,
+		ReleaseSpiritGhostDisabled: Enum_GameRule,
+		DeleteItemConfirmationDisabled: Enum_GameRule,
+		ChatLinkLevelToastsDisabled: Enum_GameRule,
+		BagsUIDisabled: Enum_GameRule,
+		PetBattlesDisabled: Enum_GameRule,
+		PerksProgramActivityTrackingDisabled: Enum_GameRule,
+		MaximizeWorldMapDisabled: Enum_GameRule,
+		WorldMapTrackingOptionsDisabled: Enum_GameRule,
+		WorldMapTrackingPinDisabled: Enum_GameRule,
+		WorldMapHelpPlateDisabled: Enum_GameRule,
+		QuestLogPanelDisabled: Enum_GameRule,
+		QuestLogSuperTrackingDisabled: Enum_GameRule,
+		TutorialFrameDisabled: Enum_GameRule,
+		IngameMailNotificationDisabled: Enum_GameRule,
+		IngameCalendarDisabled: Enum_GameRule,
+		IngameTrackingDisabled: Enum_GameRule,
+		IngameWhoListDisabled: Enum_GameRule,
+		RaceAlteredFormsDisabled: Enum_GameRule,
+		IngameFriendsListDisabled: Enum_GameRule,
+		MacrosDisabled: Enum_GameRule,
+		CompactRaidFrameManagerDisabled: Enum_GameRule,
+		EditModeDisabled: Enum_GameRule,
+		InstanceDifficultyBannerDisabled: Enum_GameRule,
+		FullCharacterCreateDisabled: Enum_GameRule,
+		TargetFrameBuffsDisabled: Enum_GameRule,
+		UnitFramePvPContextualDisabled: Enum_GameRule,
+		ActionCombatTargetLockEnabled: Enum_GameRule,
+		BlockWhileSheathedAllowed: Enum_GameRule,
+		AeLootDisabled: Enum_GameRule,
+		BinarySpellPushbackResist: Enum_GameRule,
+		VanillaAccountMailInstant: Enum_GameRule,
+		ClearMailOnRealmTransfer: Enum_GameRule,
+		PremadeGroupFinderStyle: Enum_GameRule,
+		PlunderstormAreaSelection: Enum_GameRule,
+		GroupFinderCapabilities: Enum_GameRule,
+		WorldMapLegendDisabled: Enum_GameRule,
+		WorldMapFrameStrata: Enum_GameRule,
+		MerchantFilterDisabled: Enum_GameRule,
+		HousingDashboardDisabled: Enum_GameRule,
+		AutoAttacksDisabled: Enum_GameRule,
+		ObjectiveTrackerDisabled: Enum_GameRule,
+		PlayerCastBarDisabled: Enum_GameRule,
+		TargetCastBarDisabled: Enum_GameRule,
+		NameplateCastBarDisabled: Enum_GameRule,
+		SummoningStones: Enum_GameRule,
+		TransmogEnabled: Enum_GameRule,
+		SingleTargetComboPoints: Enum_GameRule,
+		DisableRealmSelection: Enum_GameRule,
+		DisableCampsites: Enum_GameRule,
+		UseSimpleCharacterSelectList: Enum_GameRule,
+		HideFaction: Enum_GameRule,
+		DisableVas: Enum_GameRule,
+		PersonalResourceDisplayDisabled: Enum_GameRule,
+		TargetFrameDisabled: Enum_GameRule,
+		PlayerFrameDisabled: Enum_GameRule,
+		MailGameRule: Enum_GameRule,
+		ForcedMultiActionBarSetting: Enum_GameRule,
+		HideAllMultiActionBars: Enum_GameRule,
+		TimerunningAllowed: Enum_GameRule,
+		MaxCharactersPerContentSet: Enum_GameRule,
+		MinUndeleteLevelRequired: Enum_GameRule,
+		DoesNotCountTowardAccountCharacterMax: Enum_GameRule,
+		WorldMapDisabled: Enum_GameRule,
+		MinimapDisabled: Enum_GameRule,
+		RepairArmorDisabled: Enum_GameRule,
+		EjSuggestedContentDisabled: Enum_GameRule,
+		EjDungeonsDisabled: Enum_GameRule,
+		EjRaidsDisabled: Enum_GameRule,
+		EjItemSetsDisabled: Enum_GameRule,
+		GdapiCharacterProfileDisabled: Enum_GameRule,
+		HousingEnabled: Enum_GameRule,
+		RestrictedAchievementCategoryID: Enum_GameRule,
+		EjJourneysDisabled: Enum_GameRule,
+		LootMethodStyle: Enum_GameRule,
+		ExperienceBarDisabled: Enum_GameRule,
+		HideUnavailableTransmogSlots: Enum_GameRule,
+		HideTransmogZeroCost: Enum_GameRule,
+		DisableQuickJoin: Enum_GameRule,
+		DisableRaidGroups: Enum_GameRule,
+		UseGameTableVariation: Enum_GameRule,
+		ActionButtonTypeOverlayStrategy: Enum_GameRule,
+		RecommendLeastPopulatedRealm: Enum_GameRule,
+		BagSpaceOverride: Enum_GameRule,
+		UnflaggedPlayersCanAttackPvPFlaggedPlayers: Enum_GameRule,
+		CreatureDamageMultiplierAllowedSources: Enum_GameRule,
+		EnableAmmoSystem: Enum_GameRule,
+		DisallowAbandoningLastPet: Enum_GameRule,
+		ThrownWeaponsUseDurability: Enum_GameRule,
+		AutoLearnPetSpells: Enum_GameRule,
+		PvPInitialRatingOverride: Enum_GameRule,
+		RPEDisabled: Enum_GameRule,
+		QuestLootRoundRobin: Enum_GameRule,
+		StandardQuestXPDecayLevelOffset: Enum_GameRule,
+		MinimumXPDecayCoefficient: Enum_GameRule,
+		ReagentBagsFitItemsOfTheirBagFamily: Enum_GameRule,
+		FishingClassicDifficulty: Enum_GameRule,
+		CraftFromBankRestricted: Enum_GameRule,
+		PvPRuleset: Enum_GameRule,
+		RPRuleset: Enum_GameRule,
+		DynamicDistrictAffinityAssignmentAlgorithm: Enum_GameRule,
+		TrackAchievementsDisabled: Enum_GameRule,
+		EnableDifficultyMessages: Enum_GameRule,
+		DontAllowPartialTicks: Enum_GameRule,
+		EnableMaxBuffLevelDifference: Enum_GameRule,
+		PreventXPAndLootForExcessiveOutsideHelp: Enum_GameRule,
+		ManaRegenBonusStatMeansMp5: Enum_GameRule,
+		CannotSkinCreaturesTooHighLevelForYourSkinningSkill: Enum_GameRule,
+		RangedAttackDelay: Enum_GameRule,
+		AllowEmptyLoot: Enum_GameRule,
+		WeaponSwapIgnoresCombatSwapCd: Enum_GameRule,
+		PreventUnlootableItemsFromDropping: Enum_GameRule,
+		RequirePvPFlagForPvPKillCredit: Enum_GameRule,
 	},
 	GameRuleFlags: {
 		None: number,
@@ -24468,58 +26865,58 @@ declare Enum: {
 		RequiresDefault: number,
 	},
 	GameRuleType: {
-		Int: number,
-		Float: number,
-		Bool: number,
+		Int: Enum_GameRuleType,
+		Float: Enum_GameRuleType,
+		Bool: Enum_GameRuleType,
 	},
 	GamepadPossessBarOverride: {
-		SpecialPageTopBar: number,
-		Page1LeftBar: number,
-		Page1RightBar: number,
-		Page1BottomBar: number,
-		Page2TopBar: number,
-		Page2LeftBar: number,
-		Page2RightBar: number,
-		Page2BottomBar: number,
-		Page3TopBar: number,
-		Page3LeftBar: number,
-		Page3RightBar: number,
-		Page3BottomBar: number,
+		SpecialPageTopBar: Enum_GamepadPossessBarOverride,
+		Page1LeftBar: Enum_GamepadPossessBarOverride,
+		Page1RightBar: Enum_GamepadPossessBarOverride,
+		Page1BottomBar: Enum_GamepadPossessBarOverride,
+		Page2TopBar: Enum_GamepadPossessBarOverride,
+		Page2LeftBar: Enum_GamepadPossessBarOverride,
+		Page2RightBar: Enum_GamepadPossessBarOverride,
+		Page2BottomBar: Enum_GamepadPossessBarOverride,
+		Page3TopBar: Enum_GamepadPossessBarOverride,
+		Page3LeftBar: Enum_GamepadPossessBarOverride,
+		Page3RightBar: Enum_GamepadPossessBarOverride,
+		Page3BottomBar: Enum_GamepadPossessBarOverride,
 	},
 	GamepadStanceBarOverride: {
-		None: number,
-		Page1LeftBar: number,
-		Page1RightBar: number,
-		Page1BottomBar: number,
-		Page2TopBar: number,
-		Page2LeftBar: number,
-		Page2RightBar: number,
-		Page2BottomBar: number,
-		Page3TopBar: number,
-		Page3LeftBar: number,
-		Page3RightBar: number,
-		Page3BottomBar: number,
+		None: Enum_GamepadStanceBarOverride,
+		Page1LeftBar: Enum_GamepadStanceBarOverride,
+		Page1RightBar: Enum_GamepadStanceBarOverride,
+		Page1BottomBar: Enum_GamepadStanceBarOverride,
+		Page2TopBar: Enum_GamepadStanceBarOverride,
+		Page2LeftBar: Enum_GamepadStanceBarOverride,
+		Page2RightBar: Enum_GamepadStanceBarOverride,
+		Page2BottomBar: Enum_GamepadStanceBarOverride,
+		Page3TopBar: Enum_GamepadStanceBarOverride,
+		Page3LeftBar: Enum_GamepadStanceBarOverride,
+		Page3RightBar: Enum_GamepadStanceBarOverride,
+		Page3BottomBar: Enum_GamepadStanceBarOverride,
 	},
 	GamepadTargetingFilters: {
-		Hostile: number,
-		Friendly: number,
-		All: number,
+		Hostile: Enum_GamepadTargetingFilters,
+		Friendly: Enum_GamepadTargetingFilters,
+		All: Enum_GamepadTargetingFilters,
 	},
 	GarrAutoBoardIndex: {
-		None: number,
-		AllyLeftBack: number,
-		AllyRightBack: number,
-		AllyLeftFront: number,
-		AllyCenterFront: number,
-		AllyRightFront: number,
-		EnemyLeftFront: number,
-		EnemyCenterLeftFront: number,
-		EnemyCenterRightFront: number,
-		EnemyRightFront: number,
-		EnemyLeftBack: number,
-		EnemyCenterLeftBack: number,
-		EnemyCenterRightBack: number,
-		EnemyRightBack: number,
+		None: Enum_GarrAutoBoardIndex,
+		AllyLeftBack: Enum_GarrAutoBoardIndex,
+		AllyRightBack: Enum_GarrAutoBoardIndex,
+		AllyLeftFront: Enum_GarrAutoBoardIndex,
+		AllyCenterFront: Enum_GarrAutoBoardIndex,
+		AllyRightFront: Enum_GarrAutoBoardIndex,
+		EnemyLeftFront: Enum_GarrAutoBoardIndex,
+		EnemyCenterLeftFront: Enum_GarrAutoBoardIndex,
+		EnemyCenterRightFront: Enum_GarrAutoBoardIndex,
+		EnemyRightFront: Enum_GarrAutoBoardIndex,
+		EnemyLeftBack: Enum_GarrAutoBoardIndex,
+		EnemyCenterLeftBack: Enum_GarrAutoBoardIndex,
+		EnemyCenterRightBack: Enum_GarrAutoBoardIndex,
+		EnemyRightBack: Enum_GarrAutoBoardIndex,
 	},
 	GarrAutoCombatSpellTutorialFlag: {
 		None: number,
@@ -24542,12 +26939,12 @@ declare Enum: {
 		EnvironmentalEffect: number,
 	},
 	GarrAutoCombatantRole: {
-		None: number,
-		Melee: number,
-		RangedPhysical: number,
-		RangedMagic: number,
-		HealSupport: number,
-		Tank: number,
+		None: Enum_GarrAutoCombatantRole,
+		Melee: Enum_GarrAutoCombatantRole,
+		RangedPhysical: Enum_GarrAutoCombatantRole,
+		RangedMagic: Enum_GarrAutoCombatantRole,
+		HealSupport: Enum_GarrAutoCombatantRole,
+		Tank: Enum_GarrAutoCombatantRole,
 	},
 	GarrAutoEventFlags: {
 		None: number,
@@ -24556,16 +26953,16 @@ declare Enum: {
 		Environment: number,
 	},
 	GarrAutoMissionEventType: {
-		MeleeDamage: number,
-		RangeDamage: number,
-		SpellMeleeDamage: number,
-		SpellRangeDamage: number,
-		Heal: number,
-		PeriodicDamage: number,
-		PeriodicHeal: number,
-		ApplyAura: number,
-		RemoveAura: number,
-		Died: number,
+		MeleeDamage: Enum_GarrAutoMissionEventType,
+		RangeDamage: Enum_GarrAutoMissionEventType,
+		SpellMeleeDamage: Enum_GarrAutoMissionEventType,
+		SpellRangeDamage: Enum_GarrAutoMissionEventType,
+		Heal: Enum_GarrAutoMissionEventType,
+		PeriodicDamage: Enum_GarrAutoMissionEventType,
+		PeriodicHeal: Enum_GarrAutoMissionEventType,
+		ApplyAura: Enum_GarrAutoMissionEventType,
+		RemoveAura: Enum_GarrAutoMissionEventType,
+		Died: Enum_GarrAutoMissionEventType,
 	},
 	GarrAutoPreviewTargetType: {
 		None: number,
@@ -24575,165 +26972,165 @@ declare Enum: {
 		Debuff: number,
 	},
 	GarrFollowerMissionCompleteState: {
-		Alive: number,
-		KilledByMissionFailure: number,
-		SavedByPreventDeath: number,
-		OutOfDurability: number,
+		Alive: Enum_GarrFollowerMissionCompleteState,
+		KilledByMissionFailure: Enum_GarrFollowerMissionCompleteState,
+		SavedByPreventDeath: Enum_GarrFollowerMissionCompleteState,
+		OutOfDurability: Enum_GarrFollowerMissionCompleteState,
 	},
 	GarrFollowerQuality: {
-		None: number,
-		Common: number,
-		Uncommon: number,
-		Rare: number,
-		Epic: number,
-		Legendary: number,
-		Title: number,
+		None: Enum_GarrFollowerQuality,
+		Common: Enum_GarrFollowerQuality,
+		Uncommon: Enum_GarrFollowerQuality,
+		Rare: Enum_GarrFollowerQuality,
+		Epic: Enum_GarrFollowerQuality,
+		Legendary: Enum_GarrFollowerQuality,
+		Title: Enum_GarrFollowerQuality,
 	},
 	GarrTalentCostType: {
-		Initial: number,
-		Respec: number,
-		MakePermanent: number,
-		TreeReset: number,
+		Initial: Enum_GarrTalentCostType,
+		Respec: Enum_GarrTalentCostType,
+		MakePermanent: Enum_GarrTalentCostType,
+		TreeReset: Enum_GarrTalentCostType,
 	},
 	GarrTalentFeatureSubtype: {
-		Generic: number,
-		Bastion: number,
-		Revendreth: number,
-		Ardenweald: number,
-		Maldraxxus: number,
+		Generic: Enum_GarrTalentFeatureSubtype,
+		Bastion: Enum_GarrTalentFeatureSubtype,
+		Revendreth: Enum_GarrTalentFeatureSubtype,
+		Ardenweald: Enum_GarrTalentFeatureSubtype,
+		Maldraxxus: Enum_GarrTalentFeatureSubtype,
 	},
 	GarrTalentFeatureType: {
-		Generic: number,
-		AnimaDiversion: number,
-		TravelPortals: number,
-		Adventures: number,
-		ReservoirUpgrades: number,
-		SanctumUnique: number,
-		SoulBinds: number,
-		AnimaDiversionMap: number,
-		Cyphers: number,
+		Generic: Enum_GarrTalentFeatureType,
+		AnimaDiversion: Enum_GarrTalentFeatureType,
+		TravelPortals: Enum_GarrTalentFeatureType,
+		Adventures: Enum_GarrTalentFeatureType,
+		ReservoirUpgrades: Enum_GarrTalentFeatureType,
+		SanctumUnique: Enum_GarrTalentFeatureType,
+		SoulBinds: Enum_GarrTalentFeatureType,
+		AnimaDiversionMap: Enum_GarrTalentFeatureType,
+		Cyphers: Enum_GarrTalentFeatureType,
 	},
 	GarrTalentResearchCostSource: {
-		Talent: number,
-		Tree: number,
+		Talent: Enum_GarrTalentResearchCostSource,
+		Tree: Enum_GarrTalentResearchCostSource,
 	},
 	GarrTalentSocketType: {
-		None: number,
-		Spell: number,
-		Conduit: number,
+		None: Enum_GarrTalentSocketType,
+		Spell: Enum_GarrTalentSocketType,
+		Conduit: Enum_GarrTalentSocketType,
 	},
 	GarrTalentTreeType: {
-		Tiers: number,
-		Classic: number,
+		Tiers: Enum_GarrTalentTreeType,
+		Classic: Enum_GarrTalentTreeType,
 	},
 	GarrTalentType: {
-		Standard: number,
-		Minor: number,
-		Major: number,
-		Socket: number,
+		Standard: Enum_GarrTalentType,
+		Minor: Enum_GarrTalentType,
+		Major: Enum_GarrTalentType,
+		Socket: Enum_GarrTalentType,
 	},
 	GarrTalentUI: {
-		Generic: number,
-		CovenantSanctum: number,
-		SoulBinds: number,
-		AnimaDiversionMap: number,
+		Generic: Enum_GarrTalentUI,
+		CovenantSanctum: Enum_GarrTalentUI,
+		SoulBinds: Enum_GarrTalentUI,
+		AnimaDiversionMap: Enum_GarrTalentUI,
 	},
 	GarrisonFollowerType: {
-		FollowerType_6_0_GarrisonFollower: number,
-		FollowerType_6_0_Boat: number,
-		FollowerType_7_0_GarrisonFollower: number,
-		FollowerType_8_0_GarrisonFollower: number,
-		FollowerType_9_0_GarrisonFollower: number,
+		FollowerType_6_0_GarrisonFollower: Enum_GarrisonFollowerType,
+		FollowerType_6_0_Boat: Enum_GarrisonFollowerType,
+		FollowerType_7_0_GarrisonFollower: Enum_GarrisonFollowerType,
+		FollowerType_8_0_GarrisonFollower: Enum_GarrisonFollowerType,
+		FollowerType_9_0_GarrisonFollower: Enum_GarrisonFollowerType,
 	},
 	GarrisonTalentAvailability: {
-		Available: number,
-		Unavailable: number,
-		UnavailableAnotherIsResearching: number,
-		UnavailableNotEnoughResources: number,
-		UnavailableNotEnoughGold: number,
-		UnavailableTierUnavailable: number,
-		UnavailablePlayerCondition: number,
-		UnavailableAlreadyHave: number,
-		UnavailableRequiresPrerequisiteTalent: number,
+		Available: Enum_GarrisonTalentAvailability,
+		Unavailable: Enum_GarrisonTalentAvailability,
+		UnavailableAnotherIsResearching: Enum_GarrisonTalentAvailability,
+		UnavailableNotEnoughResources: Enum_GarrisonTalentAvailability,
+		UnavailableNotEnoughGold: Enum_GarrisonTalentAvailability,
+		UnavailableTierUnavailable: Enum_GarrisonTalentAvailability,
+		UnavailablePlayerCondition: Enum_GarrisonTalentAvailability,
+		UnavailableAlreadyHave: Enum_GarrisonTalentAvailability,
+		UnavailableRequiresPrerequisiteTalent: Enum_GarrisonTalentAvailability,
 	},
 	GarrisonType: {
-		Type_6_0_Garrison: number,
-		Type_7_0_Garrison: number,
-		Type_8_0_Garrison: number,
-		Type_9_0_Garrison: number,
+		Type_6_0_Garrison: Enum_GarrisonType,
+		Type_7_0_Garrison: Enum_GarrisonType,
+		Type_8_0_Garrison: Enum_GarrisonType,
+		Type_9_0_Garrison: Enum_GarrisonType,
 	},
 	GossipNpcOption: {
-		None: number,
-		Vendor: number,
-		Taxinode: number,
-		Trainer: number,
-		SpiritHealer: number,
-		Binder: number,
-		Banker: number,
-		PetitionVendor: number,
-		GuildTabardVendor: number,
-		Battlemaster: number,
-		Auctioneer: number,
-		TalentMaster: number,
-		Stablemaster: number,
-		PetSpecializationMaster: number,
-		GuildBanker: number,
-		Spellclick: number,
-		DisableXPGain: number,
-		EnableXPGain: number,
-		Mailbox: number,
-		WorldPvPQueue: number,
-		LFGDungeon: number,
-		ArtifactRespec: number,
-		CemeterySelect: number,
-		SpecializationMaster: number,
-		GlyphMaster: number,
-		QueueScenario: number,
-		GarrisonArchitect: number,
-		GarrisonMissionNpc: number,
-		ShipmentCrafter: number,
-		GarrisonTradeskillNpc: number,
-		GarrisonRecruitment: number,
-		AdventureMap: number,
-		GarrisonTalent: number,
-		ContributionCollector: number,
-		Transmogrify: number,
-		AzeriteRespec: number,
-		IslandsMissionNpc: number,
-		UIItemInteraction: number,
-		WorldMap: number,
-		Soulbind: number,
-		ChromieTimeNpc: number,
-		CovenantPreviewNpc: number,
-		RuneforgeLegendaryCrafting: number,
-		NewPlayerGuide: number,
-		RuneforgeLegendaryUpgrade: number,
-		CovenantRenownNpc: number,
-		BlackMarketAuctionHouse: number,
-		PerksProgramVendor: number,
-		ProfessionsCraftingOrder: number,
-		ProfessionsOpen: number,
-		ProfessionsCustomerOrder: number,
-		TraitSystem: number,
-		BarbersChoice: number,
-		MajorFactionRenown: number,
-		PersonalTabardVendor: number,
-		ForgeMaster: number,
-		CharacterBanker: number,
-		AccountBanker: number,
-		ProfessionRespec: number,
-		RenameNeighborhood: number,
-		HousingCreateGuildNeighborhood: number,
-		HousingGetNeighborhoodCharter: number,
-		GuildRename: number,
-		HousingOpenCharterConfirmation: number,
-		ItemUpgrade: number,
-		HouseFinder: number,
-		TieredEntrance: number,
-		PetUntrainer: number,
-		TransmogOptIn: number,
-		TransmogOptOut: number,
-		RewardsShop: number,
+		None: Enum_GossipNpcOption,
+		Vendor: Enum_GossipNpcOption,
+		Taxinode: Enum_GossipNpcOption,
+		Trainer: Enum_GossipNpcOption,
+		SpiritHealer: Enum_GossipNpcOption,
+		Binder: Enum_GossipNpcOption,
+		Banker: Enum_GossipNpcOption,
+		PetitionVendor: Enum_GossipNpcOption,
+		GuildTabardVendor: Enum_GossipNpcOption,
+		Battlemaster: Enum_GossipNpcOption,
+		Auctioneer: Enum_GossipNpcOption,
+		TalentMaster: Enum_GossipNpcOption,
+		Stablemaster: Enum_GossipNpcOption,
+		PetSpecializationMaster: Enum_GossipNpcOption,
+		GuildBanker: Enum_GossipNpcOption,
+		Spellclick: Enum_GossipNpcOption,
+		DisableXPGain: Enum_GossipNpcOption,
+		EnableXPGain: Enum_GossipNpcOption,
+		Mailbox: Enum_GossipNpcOption,
+		WorldPvPQueue: Enum_GossipNpcOption,
+		LFGDungeon: Enum_GossipNpcOption,
+		ArtifactRespec: Enum_GossipNpcOption,
+		CemeterySelect: Enum_GossipNpcOption,
+		SpecializationMaster: Enum_GossipNpcOption,
+		GlyphMaster: Enum_GossipNpcOption,
+		QueueScenario: Enum_GossipNpcOption,
+		GarrisonArchitect: Enum_GossipNpcOption,
+		GarrisonMissionNpc: Enum_GossipNpcOption,
+		ShipmentCrafter: Enum_GossipNpcOption,
+		GarrisonTradeskillNpc: Enum_GossipNpcOption,
+		GarrisonRecruitment: Enum_GossipNpcOption,
+		AdventureMap: Enum_GossipNpcOption,
+		GarrisonTalent: Enum_GossipNpcOption,
+		ContributionCollector: Enum_GossipNpcOption,
+		Transmogrify: Enum_GossipNpcOption,
+		AzeriteRespec: Enum_GossipNpcOption,
+		IslandsMissionNpc: Enum_GossipNpcOption,
+		UIItemInteraction: Enum_GossipNpcOption,
+		WorldMap: Enum_GossipNpcOption,
+		Soulbind: Enum_GossipNpcOption,
+		ChromieTimeNpc: Enum_GossipNpcOption,
+		CovenantPreviewNpc: Enum_GossipNpcOption,
+		RuneforgeLegendaryCrafting: Enum_GossipNpcOption,
+		NewPlayerGuide: Enum_GossipNpcOption,
+		RuneforgeLegendaryUpgrade: Enum_GossipNpcOption,
+		CovenantRenownNpc: Enum_GossipNpcOption,
+		BlackMarketAuctionHouse: Enum_GossipNpcOption,
+		PerksProgramVendor: Enum_GossipNpcOption,
+		ProfessionsCraftingOrder: Enum_GossipNpcOption,
+		ProfessionsOpen: Enum_GossipNpcOption,
+		ProfessionsCustomerOrder: Enum_GossipNpcOption,
+		TraitSystem: Enum_GossipNpcOption,
+		BarbersChoice: Enum_GossipNpcOption,
+		MajorFactionRenown: Enum_GossipNpcOption,
+		PersonalTabardVendor: Enum_GossipNpcOption,
+		ForgeMaster: Enum_GossipNpcOption,
+		CharacterBanker: Enum_GossipNpcOption,
+		AccountBanker: Enum_GossipNpcOption,
+		ProfessionRespec: Enum_GossipNpcOption,
+		RenameNeighborhood: Enum_GossipNpcOption,
+		HousingCreateGuildNeighborhood: Enum_GossipNpcOption,
+		HousingGetNeighborhoodCharter: Enum_GossipNpcOption,
+		GuildRename: Enum_GossipNpcOption,
+		HousingOpenCharterConfirmation: Enum_GossipNpcOption,
+		ItemUpgrade: Enum_GossipNpcOption,
+		HouseFinder: Enum_GossipNpcOption,
+		TieredEntrance: Enum_GossipNpcOption,
+		PetUntrainer: Enum_GossipNpcOption,
+		TransmogOptIn: Enum_GossipNpcOption,
+		TransmogOptOut: Enum_GossipNpcOption,
+		RewardsShop: Enum_GossipNpcOption,
 	},
 	GossipNpcOptionDisplayFlags: {
 		ForceInteractionOnSingleChoice: number,
@@ -24744,123 +27141,123 @@ declare Enum: {
 		PlayMovieLabelPrepend: number,
 	},
 	GossipOptionRewardType: {
-		Item: number,
-		Currency: number,
+		Item: Enum_GossipOptionRewardType,
+		Currency: Enum_GossipOptionRewardType,
 	},
 	GossipOptionStatus: {
-		Available: number,
-		Unavailable: number,
-		Locked: number,
-		AlreadyComplete: number,
+		Available: Enum_GossipOptionStatus,
+		Unavailable: Enum_GossipOptionStatus,
+		Locked: Enum_GossipOptionStatus,
+		AlreadyComplete: Enum_GossipOptionStatus,
 	},
 	GossipOptionUIWidgetSetTypes: {
-		Modifiers: number,
-		Background: number,
+		Modifiers: Enum_GossipOptionUIWidgetSetTypes,
+		Background: Enum_GossipOptionUIWidgetSetTypes,
 	},
 	GraphicsValidationResult: {
-		Supported: number,
-		Illegal: number,
-		Unsupported: number,
-		Graphics: number,
-		DualCore: number,
-		QuadCore: number,
-		CpuMem_2: number,
-		CpuMem_4: number,
-		CpuMem_8: number,
-		Needs_5_0: number,
-		Needs_6_0: number,
-		NeedsRt: number,
-		NeedsDx12: number,
-		NeedsDx12Vrs2: number,
-		NeedsAppleGpu: number,
-		NeedsAmdGpu: number,
-		NeedsIntelGpu: number,
-		NeedsNvidiaGpu: number,
-		NeedsQualcommGpu: number,
-		NeedsMacOs_10_13: number,
-		NeedsMacOs_10_14: number,
-		NeedsMacOs_10_15: number,
-		NeedsMacOs_11_0: number,
-		NeedsMacOs_12_0: number,
-		NeedsMacOs_13_0: number,
-		NeedsWindows_10: number,
-		NeedsWindows_11: number,
-		MacOsUnsupported: number,
-		WindowsUnsupported: number,
-		LegacyUnsupported: number,
-		Dx11Unsupported: number,
-		Dx12Win7Unsupported: number,
-		RemoteDesktopUnsupported: number,
-		WineUnsupported: number,
-		NvapiWineUnsupported: number,
-		AppleGpuUnsupported: number,
-		AmdGpuUnsupported: number,
-		IntelGpuUnsupported: number,
-		NvidiaGpuUnsupported: number,
-		QualcommGpuUnsupported: number,
-		GpuDriver: number,
-		CompatMode: number,
-		Unknown: number,
+		Supported: Enum_GraphicsValidationResult,
+		Illegal: Enum_GraphicsValidationResult,
+		Unsupported: Enum_GraphicsValidationResult,
+		Graphics: Enum_GraphicsValidationResult,
+		DualCore: Enum_GraphicsValidationResult,
+		QuadCore: Enum_GraphicsValidationResult,
+		CpuMem_2: Enum_GraphicsValidationResult,
+		CpuMem_4: Enum_GraphicsValidationResult,
+		CpuMem_8: Enum_GraphicsValidationResult,
+		Needs_5_0: Enum_GraphicsValidationResult,
+		Needs_6_0: Enum_GraphicsValidationResult,
+		NeedsRt: Enum_GraphicsValidationResult,
+		NeedsDx12: Enum_GraphicsValidationResult,
+		NeedsDx12Vrs2: Enum_GraphicsValidationResult,
+		NeedsAppleGpu: Enum_GraphicsValidationResult,
+		NeedsAmdGpu: Enum_GraphicsValidationResult,
+		NeedsIntelGpu: Enum_GraphicsValidationResult,
+		NeedsNvidiaGpu: Enum_GraphicsValidationResult,
+		NeedsQualcommGpu: Enum_GraphicsValidationResult,
+		NeedsMacOs_10_13: Enum_GraphicsValidationResult,
+		NeedsMacOs_10_14: Enum_GraphicsValidationResult,
+		NeedsMacOs_10_15: Enum_GraphicsValidationResult,
+		NeedsMacOs_11_0: Enum_GraphicsValidationResult,
+		NeedsMacOs_12_0: Enum_GraphicsValidationResult,
+		NeedsMacOs_13_0: Enum_GraphicsValidationResult,
+		NeedsWindows_10: Enum_GraphicsValidationResult,
+		NeedsWindows_11: Enum_GraphicsValidationResult,
+		MacOsUnsupported: Enum_GraphicsValidationResult,
+		WindowsUnsupported: Enum_GraphicsValidationResult,
+		LegacyUnsupported: Enum_GraphicsValidationResult,
+		Dx11Unsupported: Enum_GraphicsValidationResult,
+		Dx12Win7Unsupported: Enum_GraphicsValidationResult,
+		RemoteDesktopUnsupported: Enum_GraphicsValidationResult,
+		WineUnsupported: Enum_GraphicsValidationResult,
+		NvapiWineUnsupported: Enum_GraphicsValidationResult,
+		AppleGpuUnsupported: Enum_GraphicsValidationResult,
+		AmdGpuUnsupported: Enum_GraphicsValidationResult,
+		IntelGpuUnsupported: Enum_GraphicsValidationResult,
+		NvidiaGpuUnsupported: Enum_GraphicsValidationResult,
+		QualcommGpuUnsupported: Enum_GraphicsValidationResult,
+		GpuDriver: Enum_GraphicsValidationResult,
+		CompatMode: Enum_GraphicsValidationResult,
+		Unknown: Enum_GraphicsValidationResult,
 	},
 	GroupBuffItemFlags: {
 		HideByDefault: number,
 	},
 	GuildErrorType: {
-		Success: number,
-		UnknownError: number,
-		AlreadyInGuild: number,
-		TargetAlreadyInGuild: number,
-		InvitedToGuild: number,
-		TargetInvitedToGuild: number,
-		NameInvalid: number,
-		NameAlreadyExists: number,
-		NoPermisson: number,
-		NotInGuild: number,
-		TargetNotInGuild: number,
-		PlayerNotFound: number,
-		WrongFaction: number,
-		TargetTooHigh: number,
-		TargetTooLow: number,
-		TooManyRanks: number,
-		TooFewRanks: number,
-		RanksLocked: number,
-		RankInUse: number,
-		Ignored: number,
-		Busy: number,
-		TargetLevelTooLow: number,
-		TargetLevelTooHigh: number,
-		TooManyMembers: number,
-		InvalidBankTab: number,
-		WithdrawLimit: number,
-		NotEnoughMoney: number,
-		TeamNotFound: number,
-		BankTabFull: number,
-		BadItem: number,
-		TeamsLocked: number,
-		TooMuchMoney: number,
-		WrongBankTab: number,
-		TooManyCreate: number,
-		RankRequiresAuthenticator: number,
-		BankTabLocked: number,
-		TrialAccount: number,
-		VeteranAccount: number,
-		UndeletableDueToLevel: number,
-		LockedForMove: number,
-		GuildRepTooLow: number,
-		CantInviteSelf: number,
-		HasRestriction: number,
-		BankNotFound: number,
-		NewLeaderWrongFaction: number,
-		GuildBankNotAvailable: number,
-		NewLeaderWrongRealm: number,
-		DeleteNoAppropriateLeader: number,
-		RealmMismatch: number,
-		InCooldown: number,
-		ReservationExpired: number,
-		HousingEvictError: number,
-		Throttled: number,
-		BankSelfFound: number,
-		InviteBadSuperDistrict: number,
+		Success: Enum_GuildErrorType,
+		UnknownError: Enum_GuildErrorType,
+		AlreadyInGuild: Enum_GuildErrorType,
+		TargetAlreadyInGuild: Enum_GuildErrorType,
+		InvitedToGuild: Enum_GuildErrorType,
+		TargetInvitedToGuild: Enum_GuildErrorType,
+		NameInvalid: Enum_GuildErrorType,
+		NameAlreadyExists: Enum_GuildErrorType,
+		NoPermisson: Enum_GuildErrorType,
+		NotInGuild: Enum_GuildErrorType,
+		TargetNotInGuild: Enum_GuildErrorType,
+		PlayerNotFound: Enum_GuildErrorType,
+		WrongFaction: Enum_GuildErrorType,
+		TargetTooHigh: Enum_GuildErrorType,
+		TargetTooLow: Enum_GuildErrorType,
+		TooManyRanks: Enum_GuildErrorType,
+		TooFewRanks: Enum_GuildErrorType,
+		RanksLocked: Enum_GuildErrorType,
+		RankInUse: Enum_GuildErrorType,
+		Ignored: Enum_GuildErrorType,
+		Busy: Enum_GuildErrorType,
+		TargetLevelTooLow: Enum_GuildErrorType,
+		TargetLevelTooHigh: Enum_GuildErrorType,
+		TooManyMembers: Enum_GuildErrorType,
+		InvalidBankTab: Enum_GuildErrorType,
+		WithdrawLimit: Enum_GuildErrorType,
+		NotEnoughMoney: Enum_GuildErrorType,
+		TeamNotFound: Enum_GuildErrorType,
+		BankTabFull: Enum_GuildErrorType,
+		BadItem: Enum_GuildErrorType,
+		TeamsLocked: Enum_GuildErrorType,
+		TooMuchMoney: Enum_GuildErrorType,
+		WrongBankTab: Enum_GuildErrorType,
+		TooManyCreate: Enum_GuildErrorType,
+		RankRequiresAuthenticator: Enum_GuildErrorType,
+		BankTabLocked: Enum_GuildErrorType,
+		TrialAccount: Enum_GuildErrorType,
+		VeteranAccount: Enum_GuildErrorType,
+		UndeletableDueToLevel: Enum_GuildErrorType,
+		LockedForMove: Enum_GuildErrorType,
+		GuildRepTooLow: Enum_GuildErrorType,
+		CantInviteSelf: Enum_GuildErrorType,
+		HasRestriction: Enum_GuildErrorType,
+		BankNotFound: Enum_GuildErrorType,
+		NewLeaderWrongFaction: Enum_GuildErrorType,
+		GuildBankNotAvailable: Enum_GuildErrorType,
+		NewLeaderWrongRealm: Enum_GuildErrorType,
+		DeleteNoAppropriateLeader: Enum_GuildErrorType,
+		RealmMismatch: Enum_GuildErrorType,
+		InCooldown: Enum_GuildErrorType,
+		ReservationExpired: Enum_GuildErrorType,
+		HousingEvictError: Enum_GuildErrorType,
+		Throttled: Enum_GuildErrorType,
+		BankSelfFound: Enum_GuildErrorType,
+		InviteBadSuperDistrict: Enum_GuildErrorType,
 	},
 	HolidayCalendarFlags: {
 		Alliance: number,
@@ -24877,24 +27274,24 @@ declare Enum: {
 		StagesUseDatetimes: number,
 	},
 	HouseEditingContext: {
-		None: number,
-		Decor: number,
-		Room: number,
-		Fixture: number,
+		None: Enum_HouseEditingContext,
+		Decor: Enum_HouseEditingContext,
+		Room: Enum_HouseEditingContext,
+		Fixture: Enum_HouseEditingContext,
 	},
 	HouseEditorMode: {
-		None: number,
-		BasicDecor: number,
-		ExpertDecor: number,
-		Layout: number,
-		Customize: number,
-		Cleanup: number,
-		ExteriorCustomization: number,
+		None: Enum_HouseEditorMode,
+		BasicDecor: Enum_HouseEditorMode,
+		ExpertDecor: Enum_HouseEditorMode,
+		Layout: Enum_HouseEditorMode,
+		Customize: Enum_HouseEditorMode,
+		Cleanup: Enum_HouseEditorMode,
+		ExteriorCustomization: Enum_HouseEditorMode,
 	},
 	HouseEditorPlayerType: {
-		None: number,
-		Owner: number,
-		Visitor: number,
+		None: Enum_HouseEditorPlayerType,
+		Owner: Enum_HouseEditorPlayerType,
+		Visitor: Enum_HouseEditorPlayerType,
 	},
 	HouseExteriorWMODataFlags: {
 		None: number,
@@ -24915,20 +27312,20 @@ declare Enum: {
 		Relinquished: number,
 	},
 	HouseLevelRewardType: {
-		Value: number,
-		Object: number,
+		Value: Enum_HouseLevelRewardType,
+		Object: Enum_HouseLevelRewardType,
 	},
 	HouseLevelRewardValueType: {
-		ExteriorDecor: number,
-		InteriorDecor: number,
-		Rooms: number,
-		Fixtures: number,
+		ExteriorDecor: Enum_HouseLevelRewardValueType,
+		InteriorDecor: Enum_HouseLevelRewardValueType,
+		Rooms: Enum_HouseLevelRewardValueType,
+		Fixtures: Enum_HouseLevelRewardValueType,
 	},
 	HouseOwnerError: {
-		None: number,
-		Faction: number,
-		Guild: number,
-		GenericPermission: number,
+		None: Enum_HouseOwnerError,
+		Faction: Enum_HouseOwnerError,
+		Guild: Enum_HouseOwnerError,
+		GenericPermission: Enum_HouseOwnerError,
 	},
 	HouseSettingFlags: {
 		None: number,
@@ -24949,35 +27346,35 @@ declare Enum: {
 		BlueprintExportParty: number,
 	},
 	HouseVisitType: {
-		Unknown: number,
-		Friend: number,
-		Guild: number,
-		Party: number,
+		Unknown: Enum_HouseVisitType,
+		Friend: Enum_HouseVisitType,
+		Guild: Enum_HouseVisitType,
+		Party: Enum_HouseVisitType,
 	},
 	HousingBasicModeTargetType: {
-		None: number,
-		Decor: number,
-		House: number,
+		None: Enum_HousingBasicModeTargetType,
+		Decor: Enum_HousingBasicModeTargetType,
+		House: Enum_HousingBasicModeTargetType,
 	},
 	HousingBlueprintContentType: {
-		None: number,
-		HouseType: number,
-		Room: number,
-		Decor: number,
-		Dye: number,
-		Fixture: number,
-		Other: number,
+		None: Enum_HousingBlueprintContentType,
+		HouseType: Enum_HousingBlueprintContentType,
+		Room: Enum_HousingBlueprintContentType,
+		Decor: Enum_HousingBlueprintContentType,
+		Dye: Enum_HousingBlueprintContentType,
+		Fixture: Enum_HousingBlueprintContentType,
+		Other: Enum_HousingBlueprintContentType,
 	},
 	HousingBlueprintFlag: {
 		None: number,
 		AutomaticBackup: number,
 	},
 	HousingBlueprintType: {
-		None: number,
-		House: number,
-		Room: number,
-		Interior: number,
-		Exterior: number,
+		None: Enum_HousingBlueprintType,
+		House: Enum_HousingBlueprintType,
+		Room: Enum_HousingBlueprintType,
+		Interior: Enum_HousingBlueprintType,
+		Exterior: Enum_HousingBlueprintType,
 	},
 	HousingBlueprintUnmetRequirementFlags: {
 		InsufficientBudget: number,
@@ -24990,49 +27387,49 @@ declare Enum: {
 		HouseSizeLocked: number,
 	},
 	HousingBudgetType: {
-		RoomPlacement: number,
-		DecorPlacement: number,
-		PetDecor: number,
+		RoomPlacement: Enum_HousingBudgetType,
+		DecorPlacement: Enum_HousingBudgetType,
+		PetDecor: Enum_HousingBudgetType,
 	},
 	HousingCatalogEntryModelScenePresets: {
-		DecorDefault: number,
-		DecorFlat: number,
-		DecorTiny: number,
-		DecorSmall: number,
-		DecorMedium: number,
-		DecorLarge: number,
-		DecorHuge: number,
-		DecorCeiling: number,
-		DecorWall: number,
-		DecorHorizontalSurface: number,
+		DecorDefault: Enum_HousingCatalogEntryModelScenePresets,
+		DecorFlat: Enum_HousingCatalogEntryModelScenePresets,
+		DecorTiny: Enum_HousingCatalogEntryModelScenePresets,
+		DecorSmall: Enum_HousingCatalogEntryModelScenePresets,
+		DecorMedium: Enum_HousingCatalogEntryModelScenePresets,
+		DecorLarge: Enum_HousingCatalogEntryModelScenePresets,
+		DecorHuge: Enum_HousingCatalogEntryModelScenePresets,
+		DecorCeiling: Enum_HousingCatalogEntryModelScenePresets,
+		DecorWall: Enum_HousingCatalogEntryModelScenePresets,
+		DecorHorizontalSurface: Enum_HousingCatalogEntryModelScenePresets,
 	},
 	HousingCatalogEntrySize: {
-		None: number,
-		Tiny: number,
-		Small: number,
-		Medium: number,
-		Large: number,
-		Huge: number,
+		None: Enum_HousingCatalogEntrySize,
+		Tiny: Enum_HousingCatalogEntrySize,
+		Small: Enum_HousingCatalogEntrySize,
+		Medium: Enum_HousingCatalogEntrySize,
+		Large: Enum_HousingCatalogEntrySize,
+		Huge: Enum_HousingCatalogEntrySize,
 	},
 	HousingCatalogEntryType: {
-		Invalid: number,
-		Decor: number,
-		Room: number,
+		Invalid: Enum_HousingCatalogEntryType,
+		Decor: Enum_HousingCatalogEntryType,
+		Room: Enum_HousingCatalogEntryType,
 	},
 	HousingCatalogSortType: {
-		DateAdded: number,
-		Alphabetical: number,
+		DateAdded: Enum_HousingCatalogSortType,
+		Alphabetical: Enum_HousingCatalogSortType,
 	},
 	HousingCleanupModeTargetType: {
-		None: number,
-		Decor: number,
-		HouseExterior: number,
+		None: Enum_HousingCleanupModeTargetType,
+		Decor: Enum_HousingCleanupModeTargetType,
+		HouseExterior: Enum_HousingCleanupModeTargetType,
 	},
 	HousingCustomizeModeTargetType: {
-		None: number,
-		Decor: number,
-		RoomComponent: number,
-		ExteriorHouse: number,
+		None: Enum_HousingCustomizeModeTargetType,
+		Decor: Enum_HousingCustomizeModeTargetType,
+		RoomComponent: Enum_HousingCustomizeModeTargetType,
+		ExteriorHouse: Enum_HousingCustomizeModeTargetType,
 	},
 	HousingDecorActionFlags: {
 		None: number,
@@ -25050,10 +27447,10 @@ declare Enum: {
 		PreviewDecor: number,
 	},
 	HousingDecorModelType: {
-		None: number,
-		M2: number,
-		WMO: number,
-		M3: number,
+		None: Enum_HousingDecorModelType,
+		M2: Enum_HousingDecorModelType,
+		WMO: Enum_HousingDecorModelType,
+		M3: Enum_HousingDecorModelType,
 	},
 	HousingDecorPlacementRestriction: {
 		TooFarAway: number,
@@ -25065,49 +27462,49 @@ declare Enum: {
 		InvalidLightOverlap: number,
 	},
 	HousingDecorTheme: {
-		None: number,
-		Folk: number,
-		Rugged: number,
-		Generic: number,
-		NightElf: number,
-		BloodElf: number,
+		None: Enum_HousingDecorTheme,
+		Folk: Enum_HousingDecorTheme,
+		Rugged: Enum_HousingDecorTheme,
+		Generic: Enum_HousingDecorTheme,
+		NightElf: Enum_HousingDecorTheme,
+		BloodElf: Enum_HousingDecorTheme,
 	},
 	HousingDecorType: {
-		None: number,
-		Floor: number,
-		Wall: number,
-		Ceiling: number,
-		Flooring: number,
+		None: Enum_HousingDecorType,
+		Floor: Enum_HousingDecorType,
+		Wall: Enum_HousingDecorType,
+		Ceiling: Enum_HousingDecorType,
+		Flooring: Enum_HousingDecorType,
 	},
 	HousingExpertModeTargetType: {
-		None: number,
-		Decor: number,
-		House: number,
+		None: Enum_HousingExpertModeTargetType,
+		Decor: Enum_HousingExpertModeTargetType,
+		House: Enum_HousingExpertModeTargetType,
 	},
 	HousingExpertSubmodeRestriction: {
-		None: number,
-		NotInExpertMode: number,
-		NoHouseExteriorScale: number,
-		NoWMOScale: number,
+		None: Enum_HousingExpertSubmodeRestriction,
+		NotInExpertMode: Enum_HousingExpertSubmodeRestriction,
+		NoHouseExteriorScale: Enum_HousingExpertSubmodeRestriction,
+		NoWMOScale: Enum_HousingExpertSubmodeRestriction,
 	},
 	HousingFavorUpdateSource: {
-		Unknown: number,
-		DecorCollection: number,
-		DeferredRewards: number,
-		RetroactiveDecor: number,
-		NewHouseDecorFavor: number,
-		InitiativeTask: number,
-		InitiativeChest: number,
-		Quest: number,
+		Unknown: Enum_HousingFavorUpdateSource,
+		DecorCollection: Enum_HousingFavorUpdateSource,
+		DeferredRewards: Enum_HousingFavorUpdateSource,
+		RetroactiveDecor: Enum_HousingFavorUpdateSource,
+		NewHouseDecorFavor: Enum_HousingFavorUpdateSource,
+		InitiativeTask: Enum_HousingFavorUpdateSource,
+		InitiativeChest: Enum_HousingFavorUpdateSource,
+		Quest: Enum_HousingFavorUpdateSource,
 	},
 	HousingFavorUpdateType: {
-		Add: number,
-		InitiativeAdd: number,
-		Set: number,
+		Add: Enum_HousingFavorUpdateType,
+		InitiativeAdd: Enum_HousingFavorUpdateType,
+		Set: Enum_HousingFavorUpdateType,
 	},
 	HousingFixtureDecorAction: {
-		Store: number,
-		Detach: number,
+		Store: Enum_HousingFixtureDecorAction,
+		Detach: Enum_HousingFixtureDecorAction,
 	},
 	HousingFixtureFlags: {
 		None: number,
@@ -25115,27 +27512,27 @@ declare Enum: {
 		UnlockedByDefault: number,
 	},
 	HousingFixtureSize: {
-		None: number,
-		Any: number,
-		Small: number,
-		Medium: number,
-		Large: number,
+		None: Enum_HousingFixtureSize,
+		Any: Enum_HousingFixtureSize,
+		Small: Enum_HousingFixtureSize,
+		Medium: Enum_HousingFixtureSize,
+		Large: Enum_HousingFixtureSize,
 	},
 	HousingFixtureType: {
-		None: number,
-		Base: number,
-		Roof: number,
-		Door: number,
-		Window: number,
-		RoofDetail: number,
-		RoofWindow: number,
-		Tower: number,
-		Chimney: number,
+		None: Enum_HousingFixtureType,
+		Base: Enum_HousingFixtureType,
+		Roof: Enum_HousingFixtureType,
+		Door: Enum_HousingFixtureType,
+		Window: Enum_HousingFixtureType,
+		RoofDetail: Enum_HousingFixtureType,
+		RoofWindow: Enum_HousingFixtureType,
+		Tower: Enum_HousingFixtureType,
+		Chimney: Enum_HousingFixtureType,
 	},
 	HousingHouseScope: {
-		None: number,
-		Interior: number,
-		Exterior: number,
+		None: Enum_HousingHouseScope,
+		Interior: Enum_HousingHouseScope,
+		Exterior: Enum_HousingHouseScope,
 	},
 	HousingIncrementType: {
 		Left: number,
@@ -25150,11 +27547,11 @@ declare Enum: {
 		ScaleDown: number,
 	},
 	HousingItemToastType: {
-		Room: number,
-		Fixture: number,
-		Customization: number,
-		Decor: number,
-		HouseType: number,
+		Room: Enum_HousingItemToastType,
+		Fixture: Enum_HousingItemToastType,
+		Customization: Enum_HousingItemToastType,
+		Decor: Enum_HousingItemToastType,
+		HouseType: Enum_HousingItemToastType,
 	},
 	HousingLayoutCameraDirection: {
 		None: number,
@@ -25164,200 +27561,200 @@ declare Enum: {
 		Right: number,
 	},
 	HousingLayoutPinType: {
-		Door: number,
-		Room: number,
+		Door: Enum_HousingLayoutPinType,
+		Room: Enum_HousingLayoutPinType,
 	},
 	HousingLayoutRestriction: {
-		None: number,
-		RoomNotFound: number,
-		NotInsideHouse: number,
-		NotHouseOwner: number,
-		IsBaseRoom: number,
-		RoomNotLeaf: number,
-		StairwellConnection: number,
-		LastRoom: number,
-		UnreachableRoom: number,
-		SingleDoor: number,
+		None: Enum_HousingLayoutRestriction,
+		RoomNotFound: Enum_HousingLayoutRestriction,
+		NotInsideHouse: Enum_HousingLayoutRestriction,
+		NotHouseOwner: Enum_HousingLayoutRestriction,
+		IsBaseRoom: Enum_HousingLayoutRestriction,
+		RoomNotLeaf: Enum_HousingLayoutRestriction,
+		StairwellConnection: Enum_HousingLayoutRestriction,
+		LastRoom: Enum_HousingLayoutRestriction,
+		UnreachableRoom: Enum_HousingLayoutRestriction,
+		SingleDoor: Enum_HousingLayoutRestriction,
 	},
 	HousingLayoutStairDirection: {
-		Up: number,
-		Down: number,
+		Up: Enum_HousingLayoutStairDirection,
+		Down: Enum_HousingLayoutStairDirection,
 	},
 	HousingPetBehaviorType: {
-		Stationary: number,
-		Wander: number,
+		Stationary: Enum_HousingPetBehaviorType,
+		Wander: Enum_HousingPetBehaviorType,
 	},
 	HousingPlotOwnerType: {
-		None: number,
-		Stranger: number,
-		Friend: number,
-		Self: number,
+		None: Enum_HousingPlotOwnerType,
+		Stranger: Enum_HousingPlotOwnerType,
+		Friend: Enum_HousingPlotOwnerType,
+		Self: Enum_HousingPlotOwnerType,
 	},
 	HousingPrecisionSubmode: {
-		Translate: number,
-		Rotate: number,
-		Scale: number,
+		Translate: Enum_HousingPrecisionSubmode,
+		Rotate: Enum_HousingPrecisionSubmode,
+		Scale: Enum_HousingPrecisionSubmode,
 	},
 	HousingResult: {
-		Success: number,
-		AccountBanned: number,
-		ActionLockedByCombat: number,
-		BlueprintCodeInvalid: number,
-		BlueprintDyeFailed: number,
-		BlueprintGenericExportError: number,
-		BlueprintGenericImportError: number,
-		BlueprintLocationInvalid: number,
-		BlueprintNameInvalid: number,
-		BlueprintNotFound: number,
-		BlueprintRequirementsUnmet: number,
-		BlueprintRoomPlacementRequired: number,
-		BlueprintTypeInvalid: number,
-		BlueprintTypeLocationInvalid: number,
-		BlueprintStorageLimit: number,
-		BlueprintVersionInvalid: number,
-		BoundsFailureChildren: number,
-		BoundsFailurePlot: number,
-		BoundsFailureRoom: number,
-		BoundToStartingArea: number,
-		CannotAfford: number,
-		CharterComplete: number,
-		CollisionInvalid: number,
-		DbError: number,
-		DecorCannotBeRedeemed: number,
-		DecorItemNotDestroyable: number,
-		DecorNotFound: number,
-		DecorNotFoundInStorage: number,
-		DuplicateCharterSignature: number,
-		FilterRejected: number,
-		FixtureCantDeleteDoor: number,
-		FixtureHookEmpty: number,
-		FixtureHookOccupied: number,
-		FixtureHouseTypeMismatch: number,
-		FixtureNotFound: number,
-		FixtureSizeMismatch: number,
-		FixtureTypeMismatch: number,
-		GenericFailure: number,
-		GuildMoreAccountsNeeded: number,
-		GuildMoreActivePlayersNeeded: number,
-		GuildNotLoaded: number,
-		HouseEditLockFailed: number,
-		HouseExteriorAlreadyThatSize: number,
-		HouseExteriorAlreadyThatType: number,
-		HouseExteriorRootNotFound: number,
-		HouseExteriorTypeNeighborhoodMismatch: number,
-		HouseExteriorTypeNotFound: number,
-		HouseExteriorTypeSizeMismatch: number,
-		HouseExteriorSizeNotAvailable: number,
-		HookNotChildOfFixture: number,
-		HouseNotFound: number,
-		IncorrectFaction: number,
-		InvalidDecorItem: number,
-		InvalidDistance: number,
-		InvalidExteriorDocument: number,
-		InvalidGuild: number,
-		InvalidHouse: number,
-		InvalidInstance: number,
-		InvalidInteraction: number,
-		InvalidInteriorDocument: number,
-		InvalidLightOverlap: number,
-		InvalidMap: number,
-		InvalidNeighborhoodName: number,
-		InvalidRoomLayout: number,
-		InsufficientRoomBudget: number,
-		LockedByOtherPlayer: number,
-		LockOperationFailed: number,
-		MaxPlacedDecorReached: number,
-		MaxPetDecorReached: number,
-		MaxPreviewDecorReached: number,
-		MaxStorageDecorReached: number,
-		MessageTooLong: number,
-		MissingCoreFixture: number,
-		MissingDye: number,
-		MissingExpansionAccess: number,
-		MissingFactionMap: number,
-		MissingPrivateNeighborhoodInvite: number,
-		MoreHouseSlotsNeeded: number,
-		MoreSignaturesNeeded: number,
-		NeighborhoodNotFound: number,
-		NoNeighborhoodOwnershipRequests: number,
-		NotInDecorEditMode: number,
-		NotInFixtureEditMode: number,
-		NotInLayoutEditMode: number,
-		NotInsideHouse: number,
-		NotOnOwnedPlot: number,
-		OperationAborted: number,
-		OwnerNotInGuild: number,
-		PermissionDenied: number,
-		PlacementTargetInvalid: number,
-		PlayerNotFound: number,
-		PlayerNotInInstance: number,
-		PlotNotFound: number,
-		PlotNotVacant: number,
-		PlotReservationCooldown: number,
-		PlotReserved: number,
-		RoomNotFound: number,
-		RoomPlacementOutOfBounds: number,
-		RoomUpdateFailed: number,
-		RpcFailure: number,
-		ServiceNotAvailable: number,
-		StaticDataNotFound: number,
-		TimeoutLimit: number,
-		TimerunningNotAllowed: number,
-		TokenRequired: number,
-		TooManyRequests: number,
-		TransactionFailure: number,
-		UncollectedExteriorFixture: number,
-		UncollectedHouseType: number,
-		UncollectedRoom: number,
-		UncollectedRoomMaterial: number,
-		UncollectedRoomTheme: number,
-		UnlockOperationFailed: number,
+		Success: Enum_HousingResult,
+		AccountBanned: Enum_HousingResult,
+		ActionLockedByCombat: Enum_HousingResult,
+		BlueprintCodeInvalid: Enum_HousingResult,
+		BlueprintDyeFailed: Enum_HousingResult,
+		BlueprintGenericExportError: Enum_HousingResult,
+		BlueprintGenericImportError: Enum_HousingResult,
+		BlueprintLocationInvalid: Enum_HousingResult,
+		BlueprintNameInvalid: Enum_HousingResult,
+		BlueprintNotFound: Enum_HousingResult,
+		BlueprintRequirementsUnmet: Enum_HousingResult,
+		BlueprintRoomPlacementRequired: Enum_HousingResult,
+		BlueprintTypeInvalid: Enum_HousingResult,
+		BlueprintTypeLocationInvalid: Enum_HousingResult,
+		BlueprintStorageLimit: Enum_HousingResult,
+		BlueprintVersionInvalid: Enum_HousingResult,
+		BoundsFailureChildren: Enum_HousingResult,
+		BoundsFailurePlot: Enum_HousingResult,
+		BoundsFailureRoom: Enum_HousingResult,
+		BoundToStartingArea: Enum_HousingResult,
+		CannotAfford: Enum_HousingResult,
+		CharterComplete: Enum_HousingResult,
+		CollisionInvalid: Enum_HousingResult,
+		DbError: Enum_HousingResult,
+		DecorCannotBeRedeemed: Enum_HousingResult,
+		DecorItemNotDestroyable: Enum_HousingResult,
+		DecorNotFound: Enum_HousingResult,
+		DecorNotFoundInStorage: Enum_HousingResult,
+		DuplicateCharterSignature: Enum_HousingResult,
+		FilterRejected: Enum_HousingResult,
+		FixtureCantDeleteDoor: Enum_HousingResult,
+		FixtureHookEmpty: Enum_HousingResult,
+		FixtureHookOccupied: Enum_HousingResult,
+		FixtureHouseTypeMismatch: Enum_HousingResult,
+		FixtureNotFound: Enum_HousingResult,
+		FixtureSizeMismatch: Enum_HousingResult,
+		FixtureTypeMismatch: Enum_HousingResult,
+		GenericFailure: Enum_HousingResult,
+		GuildMoreAccountsNeeded: Enum_HousingResult,
+		GuildMoreActivePlayersNeeded: Enum_HousingResult,
+		GuildNotLoaded: Enum_HousingResult,
+		HouseEditLockFailed: Enum_HousingResult,
+		HouseExteriorAlreadyThatSize: Enum_HousingResult,
+		HouseExteriorAlreadyThatType: Enum_HousingResult,
+		HouseExteriorRootNotFound: Enum_HousingResult,
+		HouseExteriorTypeNeighborhoodMismatch: Enum_HousingResult,
+		HouseExteriorTypeNotFound: Enum_HousingResult,
+		HouseExteriorTypeSizeMismatch: Enum_HousingResult,
+		HouseExteriorSizeNotAvailable: Enum_HousingResult,
+		HookNotChildOfFixture: Enum_HousingResult,
+		HouseNotFound: Enum_HousingResult,
+		IncorrectFaction: Enum_HousingResult,
+		InvalidDecorItem: Enum_HousingResult,
+		InvalidDistance: Enum_HousingResult,
+		InvalidExteriorDocument: Enum_HousingResult,
+		InvalidGuild: Enum_HousingResult,
+		InvalidHouse: Enum_HousingResult,
+		InvalidInstance: Enum_HousingResult,
+		InvalidInteraction: Enum_HousingResult,
+		InvalidInteriorDocument: Enum_HousingResult,
+		InvalidLightOverlap: Enum_HousingResult,
+		InvalidMap: Enum_HousingResult,
+		InvalidNeighborhoodName: Enum_HousingResult,
+		InvalidRoomLayout: Enum_HousingResult,
+		InsufficientRoomBudget: Enum_HousingResult,
+		LockedByOtherPlayer: Enum_HousingResult,
+		LockOperationFailed: Enum_HousingResult,
+		MaxPlacedDecorReached: Enum_HousingResult,
+		MaxPetDecorReached: Enum_HousingResult,
+		MaxPreviewDecorReached: Enum_HousingResult,
+		MaxStorageDecorReached: Enum_HousingResult,
+		MessageTooLong: Enum_HousingResult,
+		MissingCoreFixture: Enum_HousingResult,
+		MissingDye: Enum_HousingResult,
+		MissingExpansionAccess: Enum_HousingResult,
+		MissingFactionMap: Enum_HousingResult,
+		MissingPrivateNeighborhoodInvite: Enum_HousingResult,
+		MoreHouseSlotsNeeded: Enum_HousingResult,
+		MoreSignaturesNeeded: Enum_HousingResult,
+		NeighborhoodNotFound: Enum_HousingResult,
+		NoNeighborhoodOwnershipRequests: Enum_HousingResult,
+		NotInDecorEditMode: Enum_HousingResult,
+		NotInFixtureEditMode: Enum_HousingResult,
+		NotInLayoutEditMode: Enum_HousingResult,
+		NotInsideHouse: Enum_HousingResult,
+		NotOnOwnedPlot: Enum_HousingResult,
+		OperationAborted: Enum_HousingResult,
+		OwnerNotInGuild: Enum_HousingResult,
+		PermissionDenied: Enum_HousingResult,
+		PlacementTargetInvalid: Enum_HousingResult,
+		PlayerNotFound: Enum_HousingResult,
+		PlayerNotInInstance: Enum_HousingResult,
+		PlotNotFound: Enum_HousingResult,
+		PlotNotVacant: Enum_HousingResult,
+		PlotReservationCooldown: Enum_HousingResult,
+		PlotReserved: Enum_HousingResult,
+		RoomNotFound: Enum_HousingResult,
+		RoomPlacementOutOfBounds: Enum_HousingResult,
+		RoomUpdateFailed: Enum_HousingResult,
+		RpcFailure: Enum_HousingResult,
+		ServiceNotAvailable: Enum_HousingResult,
+		StaticDataNotFound: Enum_HousingResult,
+		TimeoutLimit: Enum_HousingResult,
+		TimerunningNotAllowed: Enum_HousingResult,
+		TokenRequired: Enum_HousingResult,
+		TooManyRequests: Enum_HousingResult,
+		TransactionFailure: Enum_HousingResult,
+		UncollectedExteriorFixture: Enum_HousingResult,
+		UncollectedHouseType: Enum_HousingResult,
+		UncollectedRoom: Enum_HousingResult,
+		UncollectedRoomMaterial: Enum_HousingResult,
+		UncollectedRoomTheme: Enum_HousingResult,
+		UnlockOperationFailed: Enum_HousingResult,
 	},
 	HousingRoomComponentCeilingType: {
-		Flat: number,
-		Vaulted: number,
+		Flat: Enum_HousingRoomComponentCeilingType,
+		Vaulted: Enum_HousingRoomComponentCeilingType,
 	},
 	HousingRoomComponentDoorType: {
-		None: number,
-		Doorway: number,
-		Threshold: number,
+		None: Enum_HousingRoomComponentDoorType,
+		Doorway: Enum_HousingRoomComponentDoorType,
+		Threshold: Enum_HousingRoomComponentDoorType,
 	},
 	HousingRoomComponentFlags: {
 		None: number,
 		HiddenInLayoutMode: number,
 	},
 	HousingRoomComponentFloorType: {
-		Floor: number,
+		Floor: Enum_HousingRoomComponentFloorType,
 	},
 	HousingRoomComponentOptionFlags: {
 		None: number,
 		IsDefault: number,
 	},
 	HousingRoomComponentOptionType: {
-		Cosmetic: number,
-		DoorwayWall: number,
-		Doorway: number,
+		Cosmetic: Enum_HousingRoomComponentOptionType,
+		DoorwayWall: Enum_HousingRoomComponentOptionType,
+		Doorway: Enum_HousingRoomComponentOptionType,
 	},
 	HousingRoomComponentStairType: {
-		None: number,
-		StartToEnd: number,
-		StartToMiddle: number,
-		MiddleToMiddle: number,
-		MiddleToEnd: number,
+		None: Enum_HousingRoomComponentStairType,
+		StartToEnd: Enum_HousingRoomComponentStairType,
+		StartToMiddle: Enum_HousingRoomComponentStairType,
+		MiddleToMiddle: Enum_HousingRoomComponentStairType,
+		MiddleToEnd: Enum_HousingRoomComponentStairType,
 	},
 	HousingRoomComponentTextureFlags: {
 		None: number,
 		UnlockedByDefault: number,
 	},
 	HousingRoomComponentType: {
-		None: number,
-		Wall: number,
-		Floor: number,
-		Ceiling: number,
-		Stairs: number,
-		Pillar: number,
-		DoorwayWall: number,
-		Doorway: number,
+		None: Enum_HousingRoomComponentType,
+		Wall: Enum_HousingRoomComponentType,
+		Floor: Enum_HousingRoomComponentType,
+		Ceiling: Enum_HousingRoomComponentType,
+		Stairs: Enum_HousingRoomComponentType,
+		Pillar: Enum_HousingRoomComponentType,
+		DoorwayWall: Enum_HousingRoomComponentType,
+		Doorway: Enum_HousingRoomComponentType,
 	},
 	HousingRoomFlags: {
 		None: number,
@@ -25367,23 +27764,23 @@ declare Enum: {
 		HasCustomGeometry: number,
 	},
 	HousingShowcaseType: {
-		None: number,
-		PublicSubmission: number,
-		PrivateVisitCode: number,
+		None: Enum_HousingShowcaseType,
+		PublicSubmission: Enum_HousingShowcaseType,
+		PrivateVisitCode: Enum_HousingShowcaseType,
 	},
 	HousingTeleportReason: {
-		None: number,
-		Cheat: number,
-		UnspecifiedSpellcast: number,
-		Booted: number,
-		Homestone: number,
-		Visit: number,
-		Friend: number,
-		GuildMember: number,
-		PartyMember: number,
-		ExitingHouse: number,
-		Portal: number,
-		Tutorial: number,
+		None: Enum_HousingTeleportReason,
+		Cheat: Enum_HousingTeleportReason,
+		UnspecifiedSpellcast: Enum_HousingTeleportReason,
+		Booted: Enum_HousingTeleportReason,
+		Homestone: Enum_HousingTeleportReason,
+		Visit: Enum_HousingTeleportReason,
+		Friend: Enum_HousingTeleportReason,
+		GuildMember: Enum_HousingTeleportReason,
+		PartyMember: Enum_HousingTeleportReason,
+		ExitingHouse: Enum_HousingTeleportReason,
+		Portal: Enum_HousingTeleportReason,
+		Tutorial: Enum_HousingTeleportReason,
 	},
 	HousingThemeFlags: {
 		None: number,
@@ -25391,40 +27788,40 @@ declare Enum: {
 		ShowInStyleSelector: number,
 	},
 	HousingThrottleType: {
-		General: number,
-		Decoration: number,
+		General: Enum_HousingThrottleType,
+		Decoration: Enum_HousingThrottleType,
 	},
 	IconAndTextShiftTextType: {
-		None: number,
-		ShiftText: number,
+		None: Enum_IconAndTextShiftTextType,
+		ShiftText: Enum_IconAndTextShiftTextType,
 	},
 	IconAndTextWidgetState: {
-		Hidden: number,
-		Shown: number,
-		ShownWithDynamicIconFlashing: number,
-		ShownWithDynamicIconNotFlashing: number,
+		Hidden: Enum_IconAndTextWidgetState,
+		Shown: Enum_IconAndTextWidgetState,
+		ShownWithDynamicIconFlashing: Enum_IconAndTextWidgetState,
+		ShownWithDynamicIconNotFlashing: Enum_IconAndTextWidgetState,
 	},
 	IconState: {
-		Hidden: number,
-		ShowState1: number,
-		ShowState2: number,
+		Hidden: Enum_IconState,
+		ShowState1: Enum_IconState,
+		ShowState2: Enum_IconState,
 	},
 	ImageSharingResult: {
-		Failure: number,
-		Success: number,
-		NotConfigured: number,
-		RetrievedExisting: number,
-		PlatformApiError: number,
-		MissingFieldApiError: number,
-		AccountDataRequestFailure: number,
-		GetAccountDataRequestFailure: number,
-		SetAccountDataRequestFailure: number,
-		RefreshTokenExpired: number,
-		FailedToCreateHeader: number,
-		EncryptionFailure: number,
-		InvalidOAuthExpiration: number,
-		InvalidRefreshExpiration: number,
-		EncryptionSecretNotSet: number,
+		Failure: Enum_ImageSharingResult,
+		Success: Enum_ImageSharingResult,
+		NotConfigured: Enum_ImageSharingResult,
+		RetrievedExisting: Enum_ImageSharingResult,
+		PlatformApiError: Enum_ImageSharingResult,
+		MissingFieldApiError: Enum_ImageSharingResult,
+		AccountDataRequestFailure: Enum_ImageSharingResult,
+		GetAccountDataRequestFailure: Enum_ImageSharingResult,
+		SetAccountDataRequestFailure: Enum_ImageSharingResult,
+		RefreshTokenExpired: Enum_ImageSharingResult,
+		FailedToCreateHeader: Enum_ImageSharingResult,
+		EncryptionFailure: Enum_ImageSharingResult,
+		InvalidOAuthExpiration: Enum_ImageSharingResult,
+		InvalidRefreshExpiration: Enum_ImageSharingResult,
+		EncryptionSecretNotSet: Enum_ImageSharingResult,
 	},
 	InitiativeMilestoneFlags: {
 		FinalMilestone: number,
@@ -25433,388 +27830,388 @@ declare Enum: {
 		PermanentWorldState: number,
 	},
 	InputContext: {
-		None: number,
-		Keyboard: number,
-		Mouse: number,
-		GamePad: number,
+		None: Enum_InputContext,
+		Keyboard: Enum_InputContext,
+		Mouse: Enum_InputContext,
+		GamePad: Enum_InputContext,
 	},
 	InputDeviceInterfaceType: {
-		Mkb: number,
-		Gamepad: number,
+		Mkb: Enum_InputDeviceInterfaceType,
+		Gamepad: Enum_InputDeviceInterfaceType,
 	},
 	InvalidPlotScreenshotReason: {
-		None: number,
-		OutOfBounds: number,
-		Facing: number,
-		NoNeighborhoodFound: number,
-		NoActivePlayer: number,
+		None: Enum_InvalidPlotScreenshotReason,
+		OutOfBounds: Enum_InvalidPlotScreenshotReason,
+		Facing: Enum_InvalidPlotScreenshotReason,
+		NoNeighborhoodFound: Enum_InvalidPlotScreenshotReason,
+		NoActivePlayer: Enum_InvalidPlotScreenshotReason,
 	},
 	InventoryType: {
-		IndexNonEquipType: number,
-		IndexHeadType: number,
-		IndexNeckType: number,
-		IndexShoulderType: number,
-		IndexBodyType: number,
-		IndexChestType: number,
-		IndexWaistType: number,
-		IndexLegsType: number,
-		IndexFeetType: number,
-		IndexWristType: number,
-		IndexHandType: number,
-		IndexFingerType: number,
-		IndexTrinketType: number,
-		IndexWeaponType: number,
-		IndexShieldType: number,
-		IndexRangedType: number,
-		IndexCloakType: number,
-		Index2HweaponType: number,
-		IndexBagType: number,
-		IndexTabardType: number,
-		IndexRobeType: number,
-		IndexWeaponmainhandType: number,
-		IndexWeaponoffhandType: number,
-		IndexHoldableType: number,
-		IndexAmmoType: number,
-		IndexThrownType: number,
-		IndexRangedrightType: number,
-		IndexQuiverType: number,
-		IndexRelicType: number,
-		IndexProfessionToolType: number,
-		IndexProfessionGearType: number,
-		IndexEquipablespellOffensiveType: number,
-		IndexEquipablespellUtilityType: number,
-		IndexEquipablespellDefensiveType: number,
-		IndexEquipablespellWeaponType: number,
+		IndexNonEquipType: Enum_InventoryType,
+		IndexHeadType: Enum_InventoryType,
+		IndexNeckType: Enum_InventoryType,
+		IndexShoulderType: Enum_InventoryType,
+		IndexBodyType: Enum_InventoryType,
+		IndexChestType: Enum_InventoryType,
+		IndexWaistType: Enum_InventoryType,
+		IndexLegsType: Enum_InventoryType,
+		IndexFeetType: Enum_InventoryType,
+		IndexWristType: Enum_InventoryType,
+		IndexHandType: Enum_InventoryType,
+		IndexFingerType: Enum_InventoryType,
+		IndexTrinketType: Enum_InventoryType,
+		IndexWeaponType: Enum_InventoryType,
+		IndexShieldType: Enum_InventoryType,
+		IndexRangedType: Enum_InventoryType,
+		IndexCloakType: Enum_InventoryType,
+		Index2HweaponType: Enum_InventoryType,
+		IndexBagType: Enum_InventoryType,
+		IndexTabardType: Enum_InventoryType,
+		IndexRobeType: Enum_InventoryType,
+		IndexWeaponmainhandType: Enum_InventoryType,
+		IndexWeaponoffhandType: Enum_InventoryType,
+		IndexHoldableType: Enum_InventoryType,
+		IndexAmmoType: Enum_InventoryType,
+		IndexThrownType: Enum_InventoryType,
+		IndexRangedrightType: Enum_InventoryType,
+		IndexQuiverType: Enum_InventoryType,
+		IndexRelicType: Enum_InventoryType,
+		IndexProfessionToolType: Enum_InventoryType,
+		IndexProfessionGearType: Enum_InventoryType,
+		IndexEquipablespellOffensiveType: Enum_InventoryType,
+		IndexEquipablespellUtilityType: Enum_InventoryType,
+		IndexEquipablespellDefensiveType: Enum_InventoryType,
+		IndexEquipablespellWeaponType: Enum_InventoryType,
 	},
 	ItemArmorSubclass: {
-		Generic: number,
-		Cloth: number,
-		Leather: number,
-		Mail: number,
-		Plate: number,
-		Cosmetic: number,
-		Shield: number,
-		Libram: number,
-		Idol: number,
-		Totem: number,
-		Sigil: number,
-		Relic: number,
+		Generic: Enum_ItemArmorSubclass,
+		Cloth: Enum_ItemArmorSubclass,
+		Leather: Enum_ItemArmorSubclass,
+		Mail: Enum_ItemArmorSubclass,
+		Plate: Enum_ItemArmorSubclass,
+		Cosmetic: Enum_ItemArmorSubclass,
+		Shield: Enum_ItemArmorSubclass,
+		Libram: Enum_ItemArmorSubclass,
+		Idol: Enum_ItemArmorSubclass,
+		Totem: Enum_ItemArmorSubclass,
+		Sigil: Enum_ItemArmorSubclass,
+		Relic: Enum_ItemArmorSubclass,
 	},
 	ItemBind: {
-		None: number,
-		OnAcquire: number,
-		OnEquip: number,
-		OnUse: number,
-		Quest: number,
-		Unused1: number,
-		Unused2: number,
-		ToWoWAccount: number,
-		ToBnetAccount: number,
-		ToBnetAccountUntilEquipped: number,
+		None: Enum_ItemBind,
+		OnAcquire: Enum_ItemBind,
+		OnEquip: Enum_ItemBind,
+		OnUse: Enum_ItemBind,
+		Quest: Enum_ItemBind,
+		Unused1: Enum_ItemBind,
+		Unused2: Enum_ItemBind,
+		ToWoWAccount: Enum_ItemBind,
+		ToBnetAccount: Enum_ItemBind,
+		ToBnetAccountUntilEquipped: Enum_ItemBind,
 	},
 	ItemClass: {
-		Consumable: number,
-		Container: number,
-		Weapon: number,
-		Gem: number,
-		Armor: number,
-		Reagent: number,
-		Projectile: number,
-		Tradegoods: number,
-		ItemEnhancement: number,
-		Recipe: number,
-		CurrencyTokenObsolete: number,
-		Quiver: number,
-		Questitem: number,
-		Key: number,
-		PermanentObsolete: number,
-		Miscellaneous: number,
-		Glyph: number,
-		Battlepet: number,
-		WoWToken: number,
-		Profession: number,
-		Housing: number,
+		Consumable: Enum_ItemClass,
+		Container: Enum_ItemClass,
+		Weapon: Enum_ItemClass,
+		Gem: Enum_ItemClass,
+		Armor: Enum_ItemClass,
+		Reagent: Enum_ItemClass,
+		Projectile: Enum_ItemClass,
+		Tradegoods: Enum_ItemClass,
+		ItemEnhancement: Enum_ItemClass,
+		Recipe: Enum_ItemClass,
+		CurrencyTokenObsolete: Enum_ItemClass,
+		Quiver: Enum_ItemClass,
+		Questitem: Enum_ItemClass,
+		Key: Enum_ItemClass,
+		PermanentObsolete: Enum_ItemClass,
+		Miscellaneous: Enum_ItemClass,
+		Glyph: Enum_ItemClass,
+		Battlepet: Enum_ItemClass,
+		WoWToken: Enum_ItemClass,
+		Profession: Enum_ItemClass,
+		Housing: Enum_ItemClass,
 	},
 	ItemCollectionType: {
-		None: number,
-		Toy: number,
-		Heirloom: number,
-		Transmog: number,
-		TransmogSetFavorite: number,
-		RuneforgeLegendaryAbility: number,
-		TransmogIllusion: number,
-		WarbandScene: number,
-		Room: number,
-		ExteriorFixture: number,
-		RoomTheme: number,
-		RoomMaterial: number,
-		TransmogOutfit: number,
-		HouseType: number,
+		None: Enum_ItemCollectionType,
+		Toy: Enum_ItemCollectionType,
+		Heirloom: Enum_ItemCollectionType,
+		Transmog: Enum_ItemCollectionType,
+		TransmogSetFavorite: Enum_ItemCollectionType,
+		RuneforgeLegendaryAbility: Enum_ItemCollectionType,
+		TransmogIllusion: Enum_ItemCollectionType,
+		WarbandScene: Enum_ItemCollectionType,
+		Room: Enum_ItemCollectionType,
+		ExteriorFixture: Enum_ItemCollectionType,
+		RoomTheme: Enum_ItemCollectionType,
+		RoomMaterial: Enum_ItemCollectionType,
+		TransmogOutfit: Enum_ItemCollectionType,
+		HouseType: Enum_ItemCollectionType,
 	},
 	ItemCommodityStatus: {
-		Unknown: number,
-		Item: number,
-		Commodity: number,
+		Unknown: Enum_ItemCommodityStatus,
+		Item: Enum_ItemCommodityStatus,
+		Commodity: Enum_ItemCommodityStatus,
 	},
 	ItemConsumableSubclass: {
-		Generic: number,
-		Potion: number,
-		Elixir: number,
-		Flasksphials: number,
-		Scroll: number,
-		Fooddrink: number,
-		Itemenhancement: number,
-		Bandage: number,
-		Other: number,
-		VantusRune: number,
-		UtilityCurio: number,
-		CombatCurio: number,
-		Relic: number,
-		Draught: number,
-		Device: number,
-		ItemenhancementTemporary: number,
+		Generic: Enum_ItemConsumableSubclass,
+		Potion: Enum_ItemConsumableSubclass,
+		Elixir: Enum_ItemConsumableSubclass,
+		Flasksphials: Enum_ItemConsumableSubclass,
+		Scroll: Enum_ItemConsumableSubclass,
+		Fooddrink: Enum_ItemConsumableSubclass,
+		Itemenhancement: Enum_ItemConsumableSubclass,
+		Bandage: Enum_ItemConsumableSubclass,
+		Other: Enum_ItemConsumableSubclass,
+		VantusRune: Enum_ItemConsumableSubclass,
+		UtilityCurio: Enum_ItemConsumableSubclass,
+		CombatCurio: Enum_ItemConsumableSubclass,
+		Relic: Enum_ItemConsumableSubclass,
+		Draught: Enum_ItemConsumableSubclass,
+		Device: Enum_ItemConsumableSubclass,
+		ItemenhancementTemporary: Enum_ItemConsumableSubclass,
 	},
 	ItemContainerSubclass: {
-		Bag: number,
-		Soul: number,
-		Herb: number,
-		Enchanting: number,
-		Engineering: number,
-		Gem: number,
-		Mining: number,
-		Leatherworking: number,
-		Inscription: number,
-		Tacklebox: number,
-		Cooking: number,
-		Reagent: number,
+		Bag: Enum_ItemContainerSubclass,
+		Soul: Enum_ItemContainerSubclass,
+		Herb: Enum_ItemContainerSubclass,
+		Enchanting: Enum_ItemContainerSubclass,
+		Engineering: Enum_ItemContainerSubclass,
+		Gem: Enum_ItemContainerSubclass,
+		Mining: Enum_ItemContainerSubclass,
+		Leatherworking: Enum_ItemContainerSubclass,
+		Inscription: Enum_ItemContainerSubclass,
+		Tacklebox: Enum_ItemContainerSubclass,
+		Cooking: Enum_ItemContainerSubclass,
+		Reagent: Enum_ItemContainerSubclass,
 	},
 	ItemConversionFlags: {
 		UseInputItemStats: number,
 	},
 	ItemCreationContext: {
-		None: number,
-		DungeonNormal: number,
-		DungeonHeroic: number,
-		RaidNormal: number,
-		RaidFinder: number,
-		RaidHeroic: number,
-		RaidMythic: number,
-		PvPUnranked_1: number,
-		PvPRanked_1: number,
-		ScenarioNormal: number,
-		ScenarioHeroic: number,
-		QuestReward: number,
-		Store: number,
-		TradeSkill: number,
-		Vendor: number,
-		BlackMarket: number,
-		ChallengeMode_1: number,
-		DungeonLevelUp_1: number,
-		DungeonLevelUp_2: number,
-		DungeonLevelUp_3: number,
-		DungeonLevelUp_4: number,
-		ForceNone: number,
-		TimewalkerLevelUp: number,
-		DungeonMythic: number,
-		PvPHonorReward: number,
-		WorldQuest_1: number,
-		WorldQuest_2: number,
-		WorldQuest_3: number,
-		WorldQuest_4: number,
-		WorldQuest_5: number,
-		WorldQuest_6: number,
-		MissionReward_1: number,
-		MissionReward_2: number,
-		ChallengeMode_2: number,
-		ChallengeMode_3: number,
-		ChallengeModeJackpot: number,
-		WorldQuest_7: number,
-		WorldQuest_8: number,
-		PvPRanked_2: number,
-		PvPRanked_3: number,
-		PvPRanked_4: number,
-		PvPUnranked_2: number,
-		WorldQuest_9: number,
-		WorldQuest_10: number,
-		PvPRanked_5: number,
-		PvPRanked_6: number,
-		PvPRanked_7: number,
-		PvPUnranked_3: number,
-		PvPUnranked_4: number,
-		PvPUnranked_5: number,
-		PvPUnranked_6: number,
-		PvPUnranked_7: number,
-		PvPRanked_8: number,
-		WorldQuest_11: number,
-		WorldQuest_12: number,
-		WorldQuest_13: number,
-		PvPRankedJackpot: number,
-		TournamentRealm_1: number,
-		Relinquished: number,
-		LegendaryForge: number,
-		QuestBonusLoot: number,
-		CharacterBoost_1: number,
-		CharacterBoost_2: number,
-		LegendaryCrafting_1: number,
-		LegendaryCrafting_2: number,
-		LegendaryCrafting_3: number,
-		LegendaryCrafting_4: number,
-		LegendaryCrafting_5: number,
-		LegendaryCrafting_6: number,
-		LegendaryCrafting_7: number,
-		LegendaryCrafting_8: number,
-		LegendaryCrafting_9: number,
-		WeeklyRewardsAdditional: number,
-		WeeklyRewardsConcession: number,
-		WorldQuestJackpot: number,
-		NewCharacter: number,
-		WarMode: number,
-		PvPBrawl_1: number,
-		PvPBrawl_2: number,
-		Torghast: number,
-		CorpseRecovery: number,
-		WorldBoss: number,
-		RaidNormalExtended: number,
-		RaidFinderExtended: number,
-		RaidHeroicExtended: number,
-		RaidMythicExtended: number,
-		CharacterBoost_3: number,
-		ChallengeMode_4: number,
-		PvPRanked_9: number,
-		RaidNormalExtended_2: number,
-		RaidFinderExtended_2: number,
-		RaidHeroicExtended_2: number,
-		RaidMythicExtended_2: number,
-		RaidNormalExtended_3: number,
-		RaidFinderExtended_3: number,
-		RaidHeroicExtended_3: number,
-		RaidMythicExtended_3: number,
-		TemplateCharacter_1: number,
-		TemplateCharacter_2: number,
-		TemplateCharacter_3: number,
-		TemplateCharacter_4: number,
-		DungeonNormalJackpot: number,
-		DungeonHeroicJackpot: number,
-		DungeonMythicJackpot: number,
-		Delves_1: number,
-		Timerunning: number,
-		Delves_2: number,
-		Delves_3: number,
-		DelvesJackpot: number,
-		DelvesKey_1: number,
-		DelvesKey_2: number,
-		DelvesKey_3: number,
-		DelvesKey_4: number,
-		DelvesKey_5: number,
-		DelvesKey_6: number,
-		DelvesKey_7: number,
-		DelvesKey_8: number,
-		DelvesBounty_1: number,
-		DelvesBounty_2: number,
-		DelvesBounty_3: number,
-		DelvesBounty_4: number,
-		DelvesBounty_5: number,
-		DelvesBounty_6: number,
-		DelvesBounty_7: number,
-		DelvesBounty_8: number,
-		DelvesLevelUp_1: number,
-		DelvesLevelUp_2: number,
-		DelvesLevelUp_3: number,
-		DelvesLevelUp_4: number,
-		DelvesBonus_1: number,
-		DelvesBonus_2: number,
-		DelvesBonus_3: number,
-		DelvesBonus_4: number,
-		DelvesBonus_5: number,
-		DelvesBonus_6: number,
-		DelvesBonus_7: number,
-		DelvesBonus_8: number,
-		DelvesBonus_9: number,
-		DelvesBonus_10: number,
-		DungeonBonus_1: number,
-		DungeonBonus_2: number,
-		DungeonBonus_3: number,
-		DungeonBonus_4: number,
-		DungeonBonus_5: number,
-		DungeonBonus_6: number,
-		DungeonBonus_7: number,
-		DungeonBonus_8: number,
-		DungeonBonus_9: number,
-		DungeonBonus_10: number,
-		RaidBonus_1: number,
-		RaidBonus_2: number,
-		RaidBonus_3: number,
-		RaidBonus_4: number,
-		RaidBonus_5: number,
-		RaidBonus_6: number,
-		RaidBonus_7: number,
-		RaidBonus_8: number,
-		RaidBonus_9: number,
-		RaidBonus_10: number,
-		DungeonHardMode_1: number,
-		DungeonHardMode_2: number,
-		DungeonHardMode_3: number,
-		TournamentRealm_2: number,
-		TournamentRealm_3: number,
-		TournamentRealm_4: number,
-		Warbound_1: number,
-		Warbound_2: number,
-		Warbound_3: number,
-		Warbound_4: number,
-		Warbound_5: number,
-		Warbound_6: number,
-		Warbound_7: number,
-		Warbound_8: number,
-		Warbound_9: number,
-		Warbound_10: number,
-		Warbound_11: number,
-		Warbound_12: number,
-		Warbound_13: number,
-		Warbound_14: number,
-		Warbound_15: number,
-		Warbound_16: number,
-		Warbound_17: number,
-		Warbound_18: number,
-		Warbound_19: number,
-		Warbound_20: number,
-		Endeavors: number,
-		TimewalkerMaxLevel: number,
-		BonusRoll_1: number,
-		BonusRoll_2: number,
-		BonusRoll_3: number,
-		BonusRoll_4: number,
-		BonusRoll_5: number,
+		None: Enum_ItemCreationContext,
+		DungeonNormal: Enum_ItemCreationContext,
+		DungeonHeroic: Enum_ItemCreationContext,
+		RaidNormal: Enum_ItemCreationContext,
+		RaidFinder: Enum_ItemCreationContext,
+		RaidHeroic: Enum_ItemCreationContext,
+		RaidMythic: Enum_ItemCreationContext,
+		PvPUnranked_1: Enum_ItemCreationContext,
+		PvPRanked_1: Enum_ItemCreationContext,
+		ScenarioNormal: Enum_ItemCreationContext,
+		ScenarioHeroic: Enum_ItemCreationContext,
+		QuestReward: Enum_ItemCreationContext,
+		Store: Enum_ItemCreationContext,
+		TradeSkill: Enum_ItemCreationContext,
+		Vendor: Enum_ItemCreationContext,
+		BlackMarket: Enum_ItemCreationContext,
+		ChallengeMode_1: Enum_ItemCreationContext,
+		DungeonLevelUp_1: Enum_ItemCreationContext,
+		DungeonLevelUp_2: Enum_ItemCreationContext,
+		DungeonLevelUp_3: Enum_ItemCreationContext,
+		DungeonLevelUp_4: Enum_ItemCreationContext,
+		ForceNone: Enum_ItemCreationContext,
+		TimewalkerLevelUp: Enum_ItemCreationContext,
+		DungeonMythic: Enum_ItemCreationContext,
+		PvPHonorReward: Enum_ItemCreationContext,
+		WorldQuest_1: Enum_ItemCreationContext,
+		WorldQuest_2: Enum_ItemCreationContext,
+		WorldQuest_3: Enum_ItemCreationContext,
+		WorldQuest_4: Enum_ItemCreationContext,
+		WorldQuest_5: Enum_ItemCreationContext,
+		WorldQuest_6: Enum_ItemCreationContext,
+		MissionReward_1: Enum_ItemCreationContext,
+		MissionReward_2: Enum_ItemCreationContext,
+		ChallengeMode_2: Enum_ItemCreationContext,
+		ChallengeMode_3: Enum_ItemCreationContext,
+		ChallengeModeJackpot: Enum_ItemCreationContext,
+		WorldQuest_7: Enum_ItemCreationContext,
+		WorldQuest_8: Enum_ItemCreationContext,
+		PvPRanked_2: Enum_ItemCreationContext,
+		PvPRanked_3: Enum_ItemCreationContext,
+		PvPRanked_4: Enum_ItemCreationContext,
+		PvPUnranked_2: Enum_ItemCreationContext,
+		WorldQuest_9: Enum_ItemCreationContext,
+		WorldQuest_10: Enum_ItemCreationContext,
+		PvPRanked_5: Enum_ItemCreationContext,
+		PvPRanked_6: Enum_ItemCreationContext,
+		PvPRanked_7: Enum_ItemCreationContext,
+		PvPUnranked_3: Enum_ItemCreationContext,
+		PvPUnranked_4: Enum_ItemCreationContext,
+		PvPUnranked_5: Enum_ItemCreationContext,
+		PvPUnranked_6: Enum_ItemCreationContext,
+		PvPUnranked_7: Enum_ItemCreationContext,
+		PvPRanked_8: Enum_ItemCreationContext,
+		WorldQuest_11: Enum_ItemCreationContext,
+		WorldQuest_12: Enum_ItemCreationContext,
+		WorldQuest_13: Enum_ItemCreationContext,
+		PvPRankedJackpot: Enum_ItemCreationContext,
+		TournamentRealm_1: Enum_ItemCreationContext,
+		Relinquished: Enum_ItemCreationContext,
+		LegendaryForge: Enum_ItemCreationContext,
+		QuestBonusLoot: Enum_ItemCreationContext,
+		CharacterBoost_1: Enum_ItemCreationContext,
+		CharacterBoost_2: Enum_ItemCreationContext,
+		LegendaryCrafting_1: Enum_ItemCreationContext,
+		LegendaryCrafting_2: Enum_ItemCreationContext,
+		LegendaryCrafting_3: Enum_ItemCreationContext,
+		LegendaryCrafting_4: Enum_ItemCreationContext,
+		LegendaryCrafting_5: Enum_ItemCreationContext,
+		LegendaryCrafting_6: Enum_ItemCreationContext,
+		LegendaryCrafting_7: Enum_ItemCreationContext,
+		LegendaryCrafting_8: Enum_ItemCreationContext,
+		LegendaryCrafting_9: Enum_ItemCreationContext,
+		WeeklyRewardsAdditional: Enum_ItemCreationContext,
+		WeeklyRewardsConcession: Enum_ItemCreationContext,
+		WorldQuestJackpot: Enum_ItemCreationContext,
+		NewCharacter: Enum_ItemCreationContext,
+		WarMode: Enum_ItemCreationContext,
+		PvPBrawl_1: Enum_ItemCreationContext,
+		PvPBrawl_2: Enum_ItemCreationContext,
+		Torghast: Enum_ItemCreationContext,
+		CorpseRecovery: Enum_ItemCreationContext,
+		WorldBoss: Enum_ItemCreationContext,
+		RaidNormalExtended: Enum_ItemCreationContext,
+		RaidFinderExtended: Enum_ItemCreationContext,
+		RaidHeroicExtended: Enum_ItemCreationContext,
+		RaidMythicExtended: Enum_ItemCreationContext,
+		CharacterBoost_3: Enum_ItemCreationContext,
+		ChallengeMode_4: Enum_ItemCreationContext,
+		PvPRanked_9: Enum_ItemCreationContext,
+		RaidNormalExtended_2: Enum_ItemCreationContext,
+		RaidFinderExtended_2: Enum_ItemCreationContext,
+		RaidHeroicExtended_2: Enum_ItemCreationContext,
+		RaidMythicExtended_2: Enum_ItemCreationContext,
+		RaidNormalExtended_3: Enum_ItemCreationContext,
+		RaidFinderExtended_3: Enum_ItemCreationContext,
+		RaidHeroicExtended_3: Enum_ItemCreationContext,
+		RaidMythicExtended_3: Enum_ItemCreationContext,
+		TemplateCharacter_1: Enum_ItemCreationContext,
+		TemplateCharacter_2: Enum_ItemCreationContext,
+		TemplateCharacter_3: Enum_ItemCreationContext,
+		TemplateCharacter_4: Enum_ItemCreationContext,
+		DungeonNormalJackpot: Enum_ItemCreationContext,
+		DungeonHeroicJackpot: Enum_ItemCreationContext,
+		DungeonMythicJackpot: Enum_ItemCreationContext,
+		Delves_1: Enum_ItemCreationContext,
+		Timerunning: Enum_ItemCreationContext,
+		Delves_2: Enum_ItemCreationContext,
+		Delves_3: Enum_ItemCreationContext,
+		DelvesJackpot: Enum_ItemCreationContext,
+		DelvesKey_1: Enum_ItemCreationContext,
+		DelvesKey_2: Enum_ItemCreationContext,
+		DelvesKey_3: Enum_ItemCreationContext,
+		DelvesKey_4: Enum_ItemCreationContext,
+		DelvesKey_5: Enum_ItemCreationContext,
+		DelvesKey_6: Enum_ItemCreationContext,
+		DelvesKey_7: Enum_ItemCreationContext,
+		DelvesKey_8: Enum_ItemCreationContext,
+		DelvesBounty_1: Enum_ItemCreationContext,
+		DelvesBounty_2: Enum_ItemCreationContext,
+		DelvesBounty_3: Enum_ItemCreationContext,
+		DelvesBounty_4: Enum_ItemCreationContext,
+		DelvesBounty_5: Enum_ItemCreationContext,
+		DelvesBounty_6: Enum_ItemCreationContext,
+		DelvesBounty_7: Enum_ItemCreationContext,
+		DelvesBounty_8: Enum_ItemCreationContext,
+		DelvesLevelUp_1: Enum_ItemCreationContext,
+		DelvesLevelUp_2: Enum_ItemCreationContext,
+		DelvesLevelUp_3: Enum_ItemCreationContext,
+		DelvesLevelUp_4: Enum_ItemCreationContext,
+		DelvesBonus_1: Enum_ItemCreationContext,
+		DelvesBonus_2: Enum_ItemCreationContext,
+		DelvesBonus_3: Enum_ItemCreationContext,
+		DelvesBonus_4: Enum_ItemCreationContext,
+		DelvesBonus_5: Enum_ItemCreationContext,
+		DelvesBonus_6: Enum_ItemCreationContext,
+		DelvesBonus_7: Enum_ItemCreationContext,
+		DelvesBonus_8: Enum_ItemCreationContext,
+		DelvesBonus_9: Enum_ItemCreationContext,
+		DelvesBonus_10: Enum_ItemCreationContext,
+		DungeonBonus_1: Enum_ItemCreationContext,
+		DungeonBonus_2: Enum_ItemCreationContext,
+		DungeonBonus_3: Enum_ItemCreationContext,
+		DungeonBonus_4: Enum_ItemCreationContext,
+		DungeonBonus_5: Enum_ItemCreationContext,
+		DungeonBonus_6: Enum_ItemCreationContext,
+		DungeonBonus_7: Enum_ItemCreationContext,
+		DungeonBonus_8: Enum_ItemCreationContext,
+		DungeonBonus_9: Enum_ItemCreationContext,
+		DungeonBonus_10: Enum_ItemCreationContext,
+		RaidBonus_1: Enum_ItemCreationContext,
+		RaidBonus_2: Enum_ItemCreationContext,
+		RaidBonus_3: Enum_ItemCreationContext,
+		RaidBonus_4: Enum_ItemCreationContext,
+		RaidBonus_5: Enum_ItemCreationContext,
+		RaidBonus_6: Enum_ItemCreationContext,
+		RaidBonus_7: Enum_ItemCreationContext,
+		RaidBonus_8: Enum_ItemCreationContext,
+		RaidBonus_9: Enum_ItemCreationContext,
+		RaidBonus_10: Enum_ItemCreationContext,
+		DungeonHardMode_1: Enum_ItemCreationContext,
+		DungeonHardMode_2: Enum_ItemCreationContext,
+		DungeonHardMode_3: Enum_ItemCreationContext,
+		TournamentRealm_2: Enum_ItemCreationContext,
+		TournamentRealm_3: Enum_ItemCreationContext,
+		TournamentRealm_4: Enum_ItemCreationContext,
+		Warbound_1: Enum_ItemCreationContext,
+		Warbound_2: Enum_ItemCreationContext,
+		Warbound_3: Enum_ItemCreationContext,
+		Warbound_4: Enum_ItemCreationContext,
+		Warbound_5: Enum_ItemCreationContext,
+		Warbound_6: Enum_ItemCreationContext,
+		Warbound_7: Enum_ItemCreationContext,
+		Warbound_8: Enum_ItemCreationContext,
+		Warbound_9: Enum_ItemCreationContext,
+		Warbound_10: Enum_ItemCreationContext,
+		Warbound_11: Enum_ItemCreationContext,
+		Warbound_12: Enum_ItemCreationContext,
+		Warbound_13: Enum_ItemCreationContext,
+		Warbound_14: Enum_ItemCreationContext,
+		Warbound_15: Enum_ItemCreationContext,
+		Warbound_16: Enum_ItemCreationContext,
+		Warbound_17: Enum_ItemCreationContext,
+		Warbound_18: Enum_ItemCreationContext,
+		Warbound_19: Enum_ItemCreationContext,
+		Warbound_20: Enum_ItemCreationContext,
+		Endeavors: Enum_ItemCreationContext,
+		TimewalkerMaxLevel: Enum_ItemCreationContext,
+		BonusRoll_1: Enum_ItemCreationContext,
+		BonusRoll_2: Enum_ItemCreationContext,
+		BonusRoll_3: Enum_ItemCreationContext,
+		BonusRoll_4: Enum_ItemCreationContext,
+		BonusRoll_5: Enum_ItemCreationContext,
 	},
 	ItemDiscoverySource: {
-		Unknown: number,
-		ItemCreated: number,
-		SpellVisualKit: number,
-		Quest: number,
-		LootItem: number,
-		VendorItem: number,
-		MailItem: number,
-		GameObjectKey: number,
-		PlayerCollection: number,
-		GuildReward: number,
-		SpellLearned: number,
-		SpellTrainer: number,
-		Miscellaneous: number,
+		Unknown: Enum_ItemDiscoverySource,
+		ItemCreated: Enum_ItemDiscoverySource,
+		SpellVisualKit: Enum_ItemDiscoverySource,
+		Quest: Enum_ItemDiscoverySource,
+		LootItem: Enum_ItemDiscoverySource,
+		VendorItem: Enum_ItemDiscoverySource,
+		MailItem: Enum_ItemDiscoverySource,
+		GameObjectKey: Enum_ItemDiscoverySource,
+		PlayerCollection: Enum_ItemDiscoverySource,
+		GuildReward: Enum_ItemDiscoverySource,
+		SpellLearned: Enum_ItemDiscoverySource,
+		SpellTrainer: Enum_ItemDiscoverySource,
+		Miscellaneous: Enum_ItemDiscoverySource,
 	},
 	ItemDisplayTextDisplayStyle: {
-		WorldQuestReward: number,
-		ItemNameAndInfoText: number,
-		ItemNameOnlyCentered: number,
-		PlayerChoiceReward: number,
+		WorldQuestReward: Enum_ItemDisplayTextDisplayStyle,
+		ItemNameAndInfoText: Enum_ItemDisplayTextDisplayStyle,
+		ItemNameOnlyCentered: Enum_ItemDisplayTextDisplayStyle,
+		PlayerChoiceReward: Enum_ItemDisplayTextDisplayStyle,
 	},
 	ItemDisplayTooltipEnabledType: {
-		Enabled: number,
-		Disabled: number,
+		Enabled: Enum_ItemDisplayTooltipEnabledType,
+		Disabled: Enum_ItemDisplayTooltipEnabledType,
 	},
 	ItemEnchantType: {
-		None: number,
-		Permanent: number,
-		Temporary: number,
-		Imbue: number,
+		None: Enum_ItemEnchantType,
+		Permanent: Enum_ItemEnchantType,
+		Temporary: Enum_ItemEnchantType,
+		Imbue: Enum_ItemEnchantType,
 	},
 	ItemGemColor: {
 		Meta: number,
@@ -25850,241 +28247,241 @@ declare Enum: {
 		Fiber: number,
 	},
 	ItemGemSubclass: {
-		Intellect: number,
-		Agility: number,
-		Strength: number,
-		Stamina: number,
-		Spirit: number,
-		Criticalstrike: number,
-		Mastery: number,
-		Haste: number,
-		Versatility: number,
-		Other: number,
-		Multiplestats: number,
-		Artifactrelic: number,
+		Intellect: Enum_ItemGemSubclass,
+		Agility: Enum_ItemGemSubclass,
+		Strength: Enum_ItemGemSubclass,
+		Stamina: Enum_ItemGemSubclass,
+		Spirit: Enum_ItemGemSubclass,
+		Criticalstrike: Enum_ItemGemSubclass,
+		Mastery: Enum_ItemGemSubclass,
+		Haste: Enum_ItemGemSubclass,
+		Versatility: Enum_ItemGemSubclass,
+		Other: Enum_ItemGemSubclass,
+		Multiplestats: Enum_ItemGemSubclass,
+		Artifactrelic: Enum_ItemGemSubclass,
 	},
 	ItemHousingSubclass: {
-		Decor: number,
-		Dye: number,
-		Room: number,
-		RoomCustomization: number,
-		ExteriorCustomization: number,
-		ServiceItem: number,
+		Decor: Enum_ItemHousingSubclass,
+		Dye: Enum_ItemHousingSubclass,
+		Room: Enum_ItemHousingSubclass,
+		RoomCustomization: Enum_ItemHousingSubclass,
+		ExteriorCustomization: Enum_ItemHousingSubclass,
+		ServiceItem: Enum_ItemHousingSubclass,
 	},
 	ItemMiscellaneousSubclass: {
-		Junk: number,
-		Reagent: number,
-		CompanionPet: number,
-		Holiday: number,
-		Other: number,
-		Mount: number,
-		MountEquipment: number,
+		Junk: Enum_ItemMiscellaneousSubclass,
+		Reagent: Enum_ItemMiscellaneousSubclass,
+		CompanionPet: Enum_ItemMiscellaneousSubclass,
+		Holiday: Enum_ItemMiscellaneousSubclass,
+		Other: Enum_ItemMiscellaneousSubclass,
+		Mount: Enum_ItemMiscellaneousSubclass,
+		MountEquipment: Enum_ItemMiscellaneousSubclass,
 	},
 	ItemModification: {
-		TransmogrifyItemModifiedAppearanceIDSpecAll: number,
-		TransmogrifyItemModifiedAppearanceIDSpec_0: number,
-		IncrementLevelObsolete: number,
-		BattlePetSpecies: number,
-		BattlePetBreed: number,
-		BattlePetLevel: number,
-		BattlePetCreaturedisplayid: number,
-		TransmogrifyOverrideEnchantVisualIDSpecAll: number,
-		ArtifactAppearanceID: number,
-		TimewalkerLevel: number,
-		TransmogrifyOverrideEnchantVisualIDSpec_0: number,
-		TransmogrifyItemModifiedAppearanceIDSpec_1: number,
-		TransmogrifyOverrideEnchantVisualIDSpec_1: number,
-		TransmogrifyItemModifiedAppearanceIDSpec_2: number,
-		TransmogrifyOverrideEnchantVisualIDSpec_2: number,
-		TransmogrifyItemModifiedAppearanceIDSpec_3: number,
-		TransmogrifyOverrideEnchantVisualIDSpec_3: number,
-		KeystoneMapChallengeModeID: number,
-		KeystonePowerLevel: number,
-		KeystoneAffix0: number,
-		KeystoneAffix01: number,
-		KeystoneAffix02: number,
-		KeystoneAffix03: number,
-		LegionArtifactKnowledgeObsolete: number,
-		ArtifactTier: number,
-		TransmogrifyItemModifiedAppearanceIDSpec_4: number,
-		PvPRating: number,
-		TransmogrifyOverrideEnchantVisualIDSpec_4: number,
-		ContentTuningID: number,
-		ChangeModifiedCraftingStat_1: number,
-		ChangeModifiedCraftingStat_2: number,
-		TransmogrifySecondaryItemModifiedAppearanceIDSpecAll: number,
-		TransmogrifySecondaryItemModifiedAppearanceIDSpec_0: number,
-		TransmogrifySecondaryItemModifiedAppearanceIDSpec_1: number,
-		TransmogrifySecondaryItemModifiedAppearanceIDSpec_2: number,
-		TransmogrifySecondaryItemModifiedAppearanceIDSpec_3: number,
-		TransmogrifySecondaryItemModifiedAppearanceIDSpec_4: number,
-		SoulbindConduitRank: number,
-		CraftingQualityID: number,
-		CraftingSkillLineAbilityID: number,
-		CraftingDataID: number,
-		CraftingSkillReagents: number,
-		CraftingSkillWatermark: number,
-		CraftingReagentSlot_0: number,
-		CraftingReagentSlot_1: number,
-		CraftingReagentSlot_2: number,
-		CraftingReagentSlot_3: number,
-		CraftingReagentSlot_4: number,
-		CraftingReagentSlot_5: number,
-		CraftingReagentSlot_6: number,
-		CraftingReagentSlot_7: number,
-		CraftingReagentSlot_8: number,
-		CraftingReagentSlot_9: number,
-		CraftingReagentSlot_10: number,
-		CraftingReagentSlot_11: number,
-		CraftingReagentSlot_12: number,
-		CraftingReagentSlot_13: number,
-		CraftingReagentSlot_14: number,
-		Reforge: number,
-		DbidHigh: number,
-		DbidLow: number,
-		CurrencyWalletID: number,
-		CurrencyWalletQuantity: number,
-		CurrencyWalletVersion: number,
-		RedirectedBaseStats: number,
+		TransmogrifyItemModifiedAppearanceIDSpecAll: Enum_ItemModification,
+		TransmogrifyItemModifiedAppearanceIDSpec_0: Enum_ItemModification,
+		IncrementLevelObsolete: Enum_ItemModification,
+		BattlePetSpecies: Enum_ItemModification,
+		BattlePetBreed: Enum_ItemModification,
+		BattlePetLevel: Enum_ItemModification,
+		BattlePetCreaturedisplayid: Enum_ItemModification,
+		TransmogrifyOverrideEnchantVisualIDSpecAll: Enum_ItemModification,
+		ArtifactAppearanceID: Enum_ItemModification,
+		TimewalkerLevel: Enum_ItemModification,
+		TransmogrifyOverrideEnchantVisualIDSpec_0: Enum_ItemModification,
+		TransmogrifyItemModifiedAppearanceIDSpec_1: Enum_ItemModification,
+		TransmogrifyOverrideEnchantVisualIDSpec_1: Enum_ItemModification,
+		TransmogrifyItemModifiedAppearanceIDSpec_2: Enum_ItemModification,
+		TransmogrifyOverrideEnchantVisualIDSpec_2: Enum_ItemModification,
+		TransmogrifyItemModifiedAppearanceIDSpec_3: Enum_ItemModification,
+		TransmogrifyOverrideEnchantVisualIDSpec_3: Enum_ItemModification,
+		KeystoneMapChallengeModeID: Enum_ItemModification,
+		KeystonePowerLevel: Enum_ItemModification,
+		KeystoneAffix0: Enum_ItemModification,
+		KeystoneAffix01: Enum_ItemModification,
+		KeystoneAffix02: Enum_ItemModification,
+		KeystoneAffix03: Enum_ItemModification,
+		LegionArtifactKnowledgeObsolete: Enum_ItemModification,
+		ArtifactTier: Enum_ItemModification,
+		TransmogrifyItemModifiedAppearanceIDSpec_4: Enum_ItemModification,
+		PvPRating: Enum_ItemModification,
+		TransmogrifyOverrideEnchantVisualIDSpec_4: Enum_ItemModification,
+		ContentTuningID: Enum_ItemModification,
+		ChangeModifiedCraftingStat_1: Enum_ItemModification,
+		ChangeModifiedCraftingStat_2: Enum_ItemModification,
+		TransmogrifySecondaryItemModifiedAppearanceIDSpecAll: Enum_ItemModification,
+		TransmogrifySecondaryItemModifiedAppearanceIDSpec_0: Enum_ItemModification,
+		TransmogrifySecondaryItemModifiedAppearanceIDSpec_1: Enum_ItemModification,
+		TransmogrifySecondaryItemModifiedAppearanceIDSpec_2: Enum_ItemModification,
+		TransmogrifySecondaryItemModifiedAppearanceIDSpec_3: Enum_ItemModification,
+		TransmogrifySecondaryItemModifiedAppearanceIDSpec_4: Enum_ItemModification,
+		SoulbindConduitRank: Enum_ItemModification,
+		CraftingQualityID: Enum_ItemModification,
+		CraftingSkillLineAbilityID: Enum_ItemModification,
+		CraftingDataID: Enum_ItemModification,
+		CraftingSkillReagents: Enum_ItemModification,
+		CraftingSkillWatermark: Enum_ItemModification,
+		CraftingReagentSlot_0: Enum_ItemModification,
+		CraftingReagentSlot_1: Enum_ItemModification,
+		CraftingReagentSlot_2: Enum_ItemModification,
+		CraftingReagentSlot_3: Enum_ItemModification,
+		CraftingReagentSlot_4: Enum_ItemModification,
+		CraftingReagentSlot_5: Enum_ItemModification,
+		CraftingReagentSlot_6: Enum_ItemModification,
+		CraftingReagentSlot_7: Enum_ItemModification,
+		CraftingReagentSlot_8: Enum_ItemModification,
+		CraftingReagentSlot_9: Enum_ItemModification,
+		CraftingReagentSlot_10: Enum_ItemModification,
+		CraftingReagentSlot_11: Enum_ItemModification,
+		CraftingReagentSlot_12: Enum_ItemModification,
+		CraftingReagentSlot_13: Enum_ItemModification,
+		CraftingReagentSlot_14: Enum_ItemModification,
+		Reforge: Enum_ItemModification,
+		DbidHigh: Enum_ItemModification,
+		DbidLow: Enum_ItemModification,
+		CurrencyWalletID: Enum_ItemModification,
+		CurrencyWalletQuantity: Enum_ItemModification,
+		CurrencyWalletVersion: Enum_ItemModification,
+		RedirectedBaseStats: Enum_ItemModification,
 	},
 	ItemProfessionSubclass: {
-		Blacksmithing: number,
-		Leatherworking: number,
-		Alchemy: number,
-		Herbalism: number,
-		Cooking: number,
-		Mining: number,
-		Tailoring: number,
-		Engineering: number,
-		Enchanting: number,
-		Fishing: number,
-		Skinning: number,
-		Jewelcrafting: number,
-		Inscription: number,
-		Archaeology: number,
+		Blacksmithing: Enum_ItemProfessionSubclass,
+		Leatherworking: Enum_ItemProfessionSubclass,
+		Alchemy: Enum_ItemProfessionSubclass,
+		Herbalism: Enum_ItemProfessionSubclass,
+		Cooking: Enum_ItemProfessionSubclass,
+		Mining: Enum_ItemProfessionSubclass,
+		Tailoring: Enum_ItemProfessionSubclass,
+		Engineering: Enum_ItemProfessionSubclass,
+		Enchanting: Enum_ItemProfessionSubclass,
+		Fishing: Enum_ItemProfessionSubclass,
+		Skinning: Enum_ItemProfessionSubclass,
+		Jewelcrafting: Enum_ItemProfessionSubclass,
+		Inscription: Enum_ItemProfessionSubclass,
+		Archaeology: Enum_ItemProfessionSubclass,
 	},
 	ItemQuality: {
-		Poor: number,
-		Common: number,
-		Uncommon: number,
-		Rare: number,
-		Epic: number,
-		Legendary: number,
-		Artifact: number,
-		Heirloom: number,
-		WoWToken: number,
+		Poor: Enum_ItemQuality,
+		Common: Enum_ItemQuality,
+		Uncommon: Enum_ItemQuality,
+		Rare: Enum_ItemQuality,
+		Epic: Enum_ItemQuality,
+		Legendary: Enum_ItemQuality,
+		Artifact: Enum_ItemQuality,
+		Heirloom: Enum_ItemQuality,
+		WoWToken: Enum_ItemQuality,
 	},
 	ItemQuiverSubclass: {
-		ObsoleteQuiver: number,
-		ObsoleteBolts: number,
-		Quiver: number,
-		Ammopouch: number,
+		ObsoleteQuiver: Enum_ItemQuiverSubclass,
+		ObsoleteBolts: Enum_ItemQuiverSubclass,
+		Quiver: Enum_ItemQuiverSubclass,
+		Ammopouch: Enum_ItemQuiverSubclass,
 	},
 	ItemReagentSubclass: {
-		Reagent: number,
-		Keystone: number,
-		ContextToken: number,
+		Reagent: Enum_ItemReagentSubclass,
+		Keystone: Enum_ItemReagentSubclass,
+		ContextToken: Enum_ItemReagentSubclass,
 	},
 	ItemRecipeSubclass: {
-		Book: number,
-		Leatherworking: number,
-		Tailoring: number,
-		Engineering: number,
-		Blacksmithing: number,
-		Cooking: number,
-		Alchemy: number,
-		FirstAid: number,
-		Enchanting: number,
-		Fishing: number,
-		Jewelcrafting: number,
-		Inscription: number,
+		Book: Enum_ItemRecipeSubclass,
+		Leatherworking: Enum_ItemRecipeSubclass,
+		Tailoring: Enum_ItemRecipeSubclass,
+		Engineering: Enum_ItemRecipeSubclass,
+		Blacksmithing: Enum_ItemRecipeSubclass,
+		Cooking: Enum_ItemRecipeSubclass,
+		Alchemy: Enum_ItemRecipeSubclass,
+		FirstAid: Enum_ItemRecipeSubclass,
+		Enchanting: Enum_ItemRecipeSubclass,
+		Fishing: Enum_ItemRecipeSubclass,
+		Jewelcrafting: Enum_ItemRecipeSubclass,
+		Inscription: Enum_ItemRecipeSubclass,
 	},
 	ItemRecraftFlags: {
 		Invalid: number,
 	},
 	ItemRedundancySlot: {
-		Head: number,
-		Neck: number,
-		Shoulder: number,
-		Chest: number,
-		Waist: number,
-		Legs: number,
-		Feet: number,
-		Wrist: number,
-		Hand: number,
-		Finger: number,
-		Trinket: number,
-		Cloak: number,
-		Twohand: number,
-		MainhandWeapon: number,
-		OnehandWeapon: number,
-		OnehandWeaponSecond: number,
-		Offhand: number,
+		Head: Enum_ItemRedundancySlot,
+		Neck: Enum_ItemRedundancySlot,
+		Shoulder: Enum_ItemRedundancySlot,
+		Chest: Enum_ItemRedundancySlot,
+		Waist: Enum_ItemRedundancySlot,
+		Legs: Enum_ItemRedundancySlot,
+		Feet: Enum_ItemRedundancySlot,
+		Wrist: Enum_ItemRedundancySlot,
+		Hand: Enum_ItemRedundancySlot,
+		Finger: Enum_ItemRedundancySlot,
+		Trinket: Enum_ItemRedundancySlot,
+		Cloak: Enum_ItemRedundancySlot,
+		Twohand: Enum_ItemRedundancySlot,
+		MainhandWeapon: Enum_ItemRedundancySlot,
+		OnehandWeapon: Enum_ItemRedundancySlot,
+		OnehandWeaponSecond: Enum_ItemRedundancySlot,
+		Offhand: Enum_ItemRedundancySlot,
 	},
 	ItemSlotFilterType: {
-		Head: number,
-		Neck: number,
-		Shoulder: number,
-		Cloak: number,
-		Chest: number,
-		Wrist: number,
-		Hand: number,
-		Waist: number,
-		Legs: number,
-		Feet: number,
-		MainHand: number,
-		OffHand: number,
-		Finger: number,
-		Trinket: number,
-		Other: number,
-		NoFilter: number,
+		Head: Enum_ItemSlotFilterType,
+		Neck: Enum_ItemSlotFilterType,
+		Shoulder: Enum_ItemSlotFilterType,
+		Cloak: Enum_ItemSlotFilterType,
+		Chest: Enum_ItemSlotFilterType,
+		Wrist: Enum_ItemSlotFilterType,
+		Hand: Enum_ItemSlotFilterType,
+		Waist: Enum_ItemSlotFilterType,
+		Legs: Enum_ItemSlotFilterType,
+		Feet: Enum_ItemSlotFilterType,
+		MainHand: Enum_ItemSlotFilterType,
+		OffHand: Enum_ItemSlotFilterType,
+		Finger: Enum_ItemSlotFilterType,
+		Trinket: Enum_ItemSlotFilterType,
+		Other: Enum_ItemSlotFilterType,
+		NoFilter: Enum_ItemSlotFilterType,
 	},
 	ItemSocketInfoUIType: {
-		Default: number,
+		Default: Enum_ItemSocketInfoUIType,
 	},
 	ItemSocketType: {
-		None: number,
-		Meta: number,
-		Red: number,
-		Yellow: number,
-		Blue: number,
-		Hydraulic: number,
-		Cogwheel: number,
-		Prismatic: number,
-		Iron: number,
-		Blood: number,
-		Shadow: number,
-		Fel: number,
-		Arcane: number,
-		Frost: number,
-		Fire: number,
-		Water: number,
-		Life: number,
-		Wind: number,
-		Holy: number,
-		PunchcardRed: number,
-		PunchcardYellow: number,
-		PunchcardBlue: number,
-		Domination: number,
-		Cypher: number,
-		Tinker: number,
-		Primordial: number,
-		Fragrance: number,
-		SingingThunder: number,
-		SingingSea: number,
-		SingingWind: number,
-		Fiber: number,
+		None: Enum_ItemSocketType,
+		Meta: Enum_ItemSocketType,
+		Red: Enum_ItemSocketType,
+		Yellow: Enum_ItemSocketType,
+		Blue: Enum_ItemSocketType,
+		Hydraulic: Enum_ItemSocketType,
+		Cogwheel: Enum_ItemSocketType,
+		Prismatic: Enum_ItemSocketType,
+		Iron: Enum_ItemSocketType,
+		Blood: Enum_ItemSocketType,
+		Shadow: Enum_ItemSocketType,
+		Fel: Enum_ItemSocketType,
+		Arcane: Enum_ItemSocketType,
+		Frost: Enum_ItemSocketType,
+		Fire: Enum_ItemSocketType,
+		Water: Enum_ItemSocketType,
+		Life: Enum_ItemSocketType,
+		Wind: Enum_ItemSocketType,
+		Holy: Enum_ItemSocketType,
+		PunchcardRed: Enum_ItemSocketType,
+		PunchcardYellow: Enum_ItemSocketType,
+		PunchcardBlue: Enum_ItemSocketType,
+		Domination: Enum_ItemSocketType,
+		Cypher: Enum_ItemSocketType,
+		Tinker: Enum_ItemSocketType,
+		Primordial: Enum_ItemSocketType,
+		Fragrance: Enum_ItemSocketType,
+		SingingThunder: Enum_ItemSocketType,
+		SingingSea: Enum_ItemSocketType,
+		SingingWind: Enum_ItemSocketType,
+		Fiber: Enum_ItemSocketType,
 	},
 	ItemSoundType: {
-		Pickup: number,
-		Drop: number,
-		Use: number,
-		Close: number,
+		Pickup: Enum_ItemSoundType,
+		Drop: Enum_ItemSoundType,
+		Use: Enum_ItemSoundType,
+		Close: Enum_ItemSoundType,
 	},
 	ItemSubclassDisplay: {
-		HideSubclassInTooltips: number,
-		HideSubclassInAuction: number,
-		ShowItemCount: number,
+		HideSubclassInTooltips: Enum_ItemSubclassDisplay,
+		HideSubclassInAuction: Enum_ItemSubclassDisplay,
+		ShowItemCount: Enum_ItemSubclassDisplay,
 	},
 	ItemSubclassFlag: {
 		WeaponsubclassCanparry: number,
@@ -26100,33 +28497,33 @@ declare Enum: {
 		ArmorsubclassLfgscalingarmor: number,
 	},
 	ItemTryOnReason: {
-		Success: number,
-		WrongRace: number,
-		NotEquippable: number,
-		DataPending: number,
+		Success: Enum_ItemTryOnReason,
+		WrongRace: Enum_ItemTryOnReason,
+		NotEquippable: Enum_ItemTryOnReason,
+		DataPending: Enum_ItemTryOnReason,
 	},
 	ItemWeaponSubclass: {
-		Axe1H: number,
-		Axe2H: number,
-		Bows: number,
-		Guns: number,
-		Mace1H: number,
-		Mace2H: number,
-		Polearm: number,
-		Sword1H: number,
-		Sword2H: number,
-		Warglaive: number,
-		Staff: number,
-		Bearclaw: number,
-		Catclaw: number,
-		Unarmed: number,
-		Generic: number,
-		Dagger: number,
-		Thrown: number,
-		Obsolete3: number,
-		Crossbow: number,
-		Wand: number,
-		Fishingpole: number,
+		Axe1H: Enum_ItemWeaponSubclass,
+		Axe2H: Enum_ItemWeaponSubclass,
+		Bows: Enum_ItemWeaponSubclass,
+		Guns: Enum_ItemWeaponSubclass,
+		Mace1H: Enum_ItemWeaponSubclass,
+		Mace2H: Enum_ItemWeaponSubclass,
+		Polearm: Enum_ItemWeaponSubclass,
+		Sword1H: Enum_ItemWeaponSubclass,
+		Sword2H: Enum_ItemWeaponSubclass,
+		Warglaive: Enum_ItemWeaponSubclass,
+		Staff: Enum_ItemWeaponSubclass,
+		Bearclaw: Enum_ItemWeaponSubclass,
+		Catclaw: Enum_ItemWeaponSubclass,
+		Unarmed: Enum_ItemWeaponSubclass,
+		Generic: Enum_ItemWeaponSubclass,
+		Dagger: Enum_ItemWeaponSubclass,
+		Thrown: Enum_ItemWeaponSubclass,
+		Obsolete3: Enum_ItemWeaponSubclass,
+		Crossbow: Enum_ItemWeaponSubclass,
+		Wand: Enum_ItemWeaponSubclass,
+		Fishingpole: Enum_ItemWeaponSubclass,
 	},
 	Itemclassfilterflags: {
 		Consumable: number,
@@ -26154,21 +28551,21 @@ declare Enum: {
 		RequiresPvPTalentsActive: number,
 	},
 	JailersTowerType: {
-		TwistingCorridors: number,
-		SkoldusHalls: number,
-		FractureChambers: number,
-		Soulforges: number,
-		Coldheart: number,
-		Mortregar: number,
-		UpperReaches: number,
-		ArkobanHall: number,
-		TormentChamberJaina: number,
-		TormentChamberThrall: number,
-		TormentChamberAnduin: number,
-		AdamantVaults: number,
-		ForgottenCatacombs: number,
-		Ossuary: number,
-		BossRush: number,
+		TwistingCorridors: Enum_JailersTowerType,
+		SkoldusHalls: Enum_JailersTowerType,
+		FractureChambers: Enum_JailersTowerType,
+		Soulforges: Enum_JailersTowerType,
+		Coldheart: Enum_JailersTowerType,
+		Mortregar: Enum_JailersTowerType,
+		UpperReaches: Enum_JailersTowerType,
+		ArkobanHall: Enum_JailersTowerType,
+		TormentChamberJaina: Enum_JailersTowerType,
+		TormentChamberThrall: Enum_JailersTowerType,
+		TormentChamberAnduin: Enum_JailersTowerType,
+		AdamantVaults: Enum_JailersTowerType,
+		ForgottenCatacombs: Enum_JailersTowerType,
+		Ossuary: Enum_JailersTowerType,
+		BossRush: Enum_JailersTowerType,
 	},
 	JournalEncounterFlags: {
 		Obsolete: number,
@@ -26206,10 +28603,10 @@ declare Enum: {
 		Primary: number,
 	},
 	JournalEncounterSecTypes: {
-		Generic: number,
-		Creature: number,
-		Ability: number,
-		Overview: number,
+		Generic: Enum_JournalEncounterSecTypes,
+		Creature: Enum_JournalEncounterSecTypes,
+		Ability: Enum_JournalEncounterSecTypes,
+		Overview: Enum_JournalEncounterSecTypes,
 	},
 	JournalEncounterSectionFlags: {
 		StartExpanded: number,
@@ -26221,41 +28618,41 @@ declare Enum: {
 		DoNotDisplayInstance: number,
 	},
 	JournalLinkTypes: {
-		Instance: number,
-		Encounter: number,
-		Section: number,
-		Tier: number,
+		Instance: Enum_JournalLinkTypes,
+		Encounter: Enum_JournalLinkTypes,
+		Section: Enum_JournalLinkTypes,
+		Tier: Enum_JournalLinkTypes,
 	},
 	KioskExperience: {
-		One: number,
-		Two: number,
+		One: Enum_KioskExperience,
+		Two: Enum_KioskExperience,
 	},
 	LFGEntryGeneralPlaystyle: {
-		None: number,
-		Learning: number,
-		FunRelaxed: number,
-		FunSerious: number,
-		Expert: number,
+		None: Enum_LFGEntryGeneralPlaystyle,
+		Learning: Enum_LFGEntryGeneralPlaystyle,
+		FunRelaxed: Enum_LFGEntryGeneralPlaystyle,
+		FunSerious: Enum_LFGEntryGeneralPlaystyle,
+		Expert: Enum_LFGEntryGeneralPlaystyle,
 	},
 	LFGEntryPlaystyle: {
-		None: number,
-		Standard: number,
-		Casual: number,
-		Hardcore: number,
+		None: Enum_LFGEntryPlaystyle,
+		Standard: Enum_LFGEntryPlaystyle,
+		Casual: Enum_LFGEntryPlaystyle,
+		Hardcore: Enum_LFGEntryPlaystyle,
 	},
 	LFGEntryVoiceMode: {
-		None: number,
-		Legacy: number,
-		Discord: number,
-		Custom: number,
+		None: Enum_LFGEntryVoiceMode,
+		Legacy: Enum_LFGEntryVoiceMode,
+		Discord: Enum_LFGEntryVoiceMode,
+		Custom: Enum_LFGEntryVoiceMode,
 	},
 	LFGListDisplayType: {
-		RoleCount: number,
-		RoleEnumerate: number,
-		ClassEnumerate: number,
-		HideAll: number,
-		PlayerCount: number,
-		Comment: number,
+		RoleCount: Enum_LFGListDisplayType,
+		RoleEnumerate: Enum_LFGListDisplayType,
+		ClassEnumerate: Enum_LFGListDisplayType,
+		HideAll: Enum_LFGListDisplayType,
+		PlayerCount: Enum_LFGListDisplayType,
+		Comment: Enum_LFGListDisplayType,
 	},
 	LFGListFilter: {
 		Recommended: number,
@@ -26268,31 +28665,31 @@ declare Enum: {
 		NotCurrentSeason: number,
 	},
 	LFGRole: {
-		Tank: number,
-		Healer: number,
-		Damage: number,
+		Tank: Enum_LFGRole,
+		Healer: Enum_LFGRole,
+		Damage: Enum_LFGRole,
 	},
 	LFGSlotInvalidReason: {
-		None: number,
-		ExpansionTooLow: number,
-		LevelTooLow: number,
-		LevelTooHigh: number,
-		GearTooLow: number,
-		GearTooHigh: number,
-		RaidLocked: number,
-		LevelTargetTooLow: number,
-		LevelTargetTooHigh: number,
-		AreaNotExplored: number,
-		WrongFaction: number,
-		NoValidRoles: number,
-		EngagedInPvP: number,
-		NoSpec: number,
-		CannotRunAnyChildDungeon: number,
-		Restricted: number,
-		ChromieTime: number,
-		Npe: number,
-		Timerunning: number,
-		PlayerConditionFailed: number,
+		None: Enum_LFGSlotInvalidReason,
+		ExpansionTooLow: Enum_LFGSlotInvalidReason,
+		LevelTooLow: Enum_LFGSlotInvalidReason,
+		LevelTooHigh: Enum_LFGSlotInvalidReason,
+		GearTooLow: Enum_LFGSlotInvalidReason,
+		GearTooHigh: Enum_LFGSlotInvalidReason,
+		RaidLocked: Enum_LFGSlotInvalidReason,
+		LevelTargetTooLow: Enum_LFGSlotInvalidReason,
+		LevelTargetTooHigh: Enum_LFGSlotInvalidReason,
+		AreaNotExplored: Enum_LFGSlotInvalidReason,
+		WrongFaction: Enum_LFGSlotInvalidReason,
+		NoValidRoles: Enum_LFGSlotInvalidReason,
+		EngagedInPvP: Enum_LFGSlotInvalidReason,
+		NoSpec: Enum_LFGSlotInvalidReason,
+		CannotRunAnyChildDungeon: Enum_LFGSlotInvalidReason,
+		Restricted: Enum_LFGSlotInvalidReason,
+		ChromieTime: Enum_LFGSlotInvalidReason,
+		Npe: Enum_LFGSlotInvalidReason,
+		Timerunning: Enum_LFGSlotInvalidReason,
+		PlayerConditionFailed: Enum_LFGSlotInvalidReason,
 	},
 	LanguageFlag: {
 		IsExotic: number,
@@ -26300,38 +28697,38 @@ declare Enum: {
 		HideLanguageNameInChat: number,
 	},
 	LeavePartyConfirmReason: {
-		QuestSync: number,
-		RestrictedChallengeMode: number,
+		QuestSync: Enum_LeavePartyConfirmReason,
+		RestrictedChallengeMode: Enum_LeavePartyConfirmReason,
 	},
 	LgVendorPurchaseSettlementState: {
-		Settled: number,
-		NotSettled: number,
+		Settled: Enum_LgVendorPurchaseSettlementState,
+		NotSettled: Enum_LgVendorPurchaseSettlementState,
 	},
 	LgVendorPurchaseSqlResults: {
-		Failed: number,
-		Success: number,
-		InsufficientFunds: number,
-		AlreadyOwned: number,
-		InsufficientSpent: number,
-		NotOwned: number,
-		RefundExpired: number,
-		NoRecord: number,
-		InvalidState: number,
+		Failed: Enum_LgVendorPurchaseSqlResults,
+		Success: Enum_LgVendorPurchaseSqlResults,
+		InsufficientFunds: Enum_LgVendorPurchaseSqlResults,
+		AlreadyOwned: Enum_LgVendorPurchaseSqlResults,
+		InsufficientSpent: Enum_LgVendorPurchaseSqlResults,
+		NotOwned: Enum_LgVendorPurchaseSqlResults,
+		RefundExpired: Enum_LgVendorPurchaseSqlResults,
+		NoRecord: Enum_LgVendorPurchaseSqlResults,
+		InvalidState: Enum_LgVendorPurchaseSqlResults,
 	},
 	LgVendorPurchaseState: {
-		NotOwned: number,
-		Owned: number,
+		NotOwned: Enum_LgVendorPurchaseState,
+		Owned: Enum_LgVendorPurchaseState,
 	},
 	LightRadiusIndicatorType: {
-		Always: number,
-		Overlap: number,
-		Never: number,
+		Always: Enum_LightRadiusIndicatorType,
+		Overlap: Enum_LightRadiusIndicatorType,
+		Never: Enum_LightRadiusIndicatorType,
 	},
 	LimitedInputType: {
-		MouseMove: number,
-		MouseDown: number,
-		MouseUp: number,
-		MouseWheel: number,
+		MouseMove: Enum_LimitedInputType,
+		MouseDown: Enum_LimitedInputType,
+		MouseUp: Enum_LimitedInputType,
+		MouseWheel: Enum_LimitedInputType,
 	},
 	LinkedCurrencyFlags: {
 		IgnoreAdd: number,
@@ -26340,154 +28737,154 @@ declare Enum: {
 		AddIgnoresMax: number,
 	},
 	LoadConfigResult: {
-		Error: number,
-		NoChangesNecessary: number,
-		LoadInProgress: number,
-		Ready: number,
+		Error: Enum_LoadConfigResult,
+		NoChangesNecessary: Enum_LoadConfigResult,
+		LoadInProgress: Enum_LoadConfigResult,
+		Ready: Enum_LoadConfigResult,
 	},
 	LocaleTransform: {
-		Canonicalize: number,
-		AddLikelySubtags: number,
-		RemoveLikelySubtags: number,
-		Language: number,
-		Script: number,
-		Region: number,
-		Variant: number,
-		ParentLocale: number,
+		Canonicalize: Enum_LocaleTransform,
+		AddLikelySubtags: Enum_LocaleTransform,
+		RemoveLikelySubtags: Enum_LocaleTransform,
+		Language: Enum_LocaleTransform,
+		Script: Enum_LocaleTransform,
+		Region: Enum_LocaleTransform,
+		Variant: Enum_LocaleTransform,
+		ParentLocale: Enum_LocaleTransform,
 	},
 	LogPriority: {
-		Fatal: number,
-		Error: number,
-		Warning: number,
-		Normal: number,
-		Debug: number,
-		Spam: number,
+		Fatal: Enum_LogPriority,
+		Error: Enum_LogPriority,
+		Warning: Enum_LogPriority,
+		Normal: Enum_LogPriority,
+		Debug: Enum_LogPriority,
+		Spam: Enum_LogPriority,
 	},
 	LogicLogicop: {
-		None: number,
-		And: number,
-		Or: number,
-		Xor: number,
+		None: Enum_LogicLogicop,
+		And: Enum_LogicLogicop,
+		Or: Enum_LogicLogicop,
+		Xor: Enum_LogicLogicop,
 	},
 	LogicMathop: {
-		None: number,
-		Plus: number,
-		Minus: number,
-		Times: number,
-		Div: number,
-		Mod: number,
+		None: Enum_LogicMathop,
+		Plus: Enum_LogicMathop,
+		Minus: Enum_LogicMathop,
+		Times: Enum_LogicMathop,
+		Div: Enum_LogicMathop,
+		Mod: Enum_LogicMathop,
 	},
 	LogicRelop: {
-		None: number,
-		Equal: number,
-		Notequal: number,
-		Lt: number,
-		Lteq: number,
-		Gt: number,
-		Gteq: number,
+		None: Enum_LogicRelop,
+		Equal: Enum_LogicRelop,
+		Notequal: Enum_LogicRelop,
+		Lt: Enum_LogicRelop,
+		Lteq: Enum_LogicRelop,
+		Gt: Enum_LogicRelop,
+		Gteq: Enum_LogicRelop,
 	},
 	LoginTicketLicenses: {
-		GmLicense: number,
+		GmLicense: Enum_LoginTicketLicenses,
 	},
 	LootMethod: {
-		Freeforall: number,
-		Roundrobin: number,
-		Masterlooter: number,
-		Group: number,
-		Needbeforegreed: number,
-		Personal: number,
+		Freeforall: Enum_LootMethod,
+		Roundrobin: Enum_LootMethod,
+		Masterlooter: Enum_LootMethod,
+		Group: Enum_LootMethod,
+		Needbeforegreed: Enum_LootMethod,
+		Personal: Enum_LootMethod,
 	},
 	LootMethodStyles: {
-		Mainline: number,
-		Vanilla: number,
+		Mainline: Enum_LootMethodStyles,
+		Vanilla: Enum_LootMethodStyles,
 	},
 	LootRollDisabledReason: {
-		None: number,
-		NotAllowed: number,
-		UniqueRestriction: number,
-		NotDisenchantable: number,
-		InsufficientEnchantSkill: number,
-		GreedOnly: number,
-		HasBetterExactItem: number,
-		MissingProfession: number,
+		None: Enum_LootRollDisabledReason,
+		NotAllowed: Enum_LootRollDisabledReason,
+		UniqueRestriction: Enum_LootRollDisabledReason,
+		NotDisenchantable: Enum_LootRollDisabledReason,
+		InsufficientEnchantSkill: Enum_LootRollDisabledReason,
+		GreedOnly: Enum_LootRollDisabledReason,
+		HasBetterExactItem: Enum_LootRollDisabledReason,
+		MissingProfession: Enum_LootRollDisabledReason,
 	},
 	LootRollType: {
-		Pass: number,
-		Need: number,
-		Greed: number,
-		Disenchant: number,
-		Transmog: number,
+		Pass: Enum_LootRollType,
+		Need: Enum_LootRollType,
+		Greed: Enum_LootRollType,
+		Disenchant: Enum_LootRollType,
+		Transmog: Enum_LootRollType,
 	},
 	LootSlotType: {
-		None: number,
-		Item: number,
-		Money: number,
-		Currency: number,
+		None: Enum_LootSlotType,
+		Item: Enum_LootSlotType,
+		Money: Enum_LootSlotType,
+		Currency: Enum_LootSlotType,
 	},
 	LuaCurveType: {
-		Linear: number,
-		Step: number,
-		Cosine: number,
-		Cubic: number,
+		Linear: Enum_LuaCurveType,
+		Step: Enum_LuaCurveType,
+		Cosine: Enum_LuaCurveType,
+		Cubic: Enum_LuaCurveType,
 	},
 	MajorFactionFeatureAbility: {
-		Generic: number,
-		Fishing: number,
-		Hunts: number,
+		Generic: Enum_MajorFactionFeatureAbility,
+		Fishing: Enum_MajorFactionFeatureAbility,
+		Hunts: Enum_MajorFactionFeatureAbility,
 	},
 	MajorFactionType: {
-		None: number,
-		DragonscaleExpedition: number,
-		MaruukCentaur: number,
-		IskaaraTuskarr: number,
-		ValdrakkenAccord: number,
+		None: Enum_MajorFactionType,
+		DragonscaleExpedition: Enum_MajorFactionType,
+		MaruukCentaur: Enum_MajorFactionType,
+		IskaaraTuskarr: Enum_MajorFactionType,
+		ValdrakkenAccord: Enum_MajorFactionType,
 	},
 	ManipulatorEventType: {
-		Start: number,
-		Move: number,
-		Complete: number,
-		Delete: number,
+		Start: Enum_ManipulatorEventType,
+		Move: Enum_ManipulatorEventType,
+		Complete: Enum_ManipulatorEventType,
+		Delete: Enum_ManipulatorEventType,
 	},
 	MapCanvasPosition: {
-		None: number,
-		BottomLeft: number,
-		BottomRight: number,
-		TopLeft: number,
-		TopRight: number,
+		None: Enum_MapCanvasPosition,
+		BottomLeft: Enum_MapCanvasPosition,
+		BottomRight: Enum_MapCanvasPosition,
+		TopLeft: Enum_MapCanvasPosition,
+		TopRight: Enum_MapCanvasPosition,
 	},
 	MapIconUIWidgetSetType: {
-		Tooltip: number,
-		BehindIcon: number,
-		AdventureMapDetails: number,
+		Tooltip: Enum_MapIconUIWidgetSetType,
+		BehindIcon: Enum_MapIconUIWidgetSetType,
+		AdventureMapDetails: Enum_MapIconUIWidgetSetType,
 	},
 	MapOverlayDisplayLocation: {
-		Default: number,
-		BottomLeft: number,
-		TopLeft: number,
-		BottomRight: number,
-		TopRight: number,
-		Hidden: number,
+		Default: Enum_MapOverlayDisplayLocation,
+		BottomLeft: Enum_MapOverlayDisplayLocation,
+		TopLeft: Enum_MapOverlayDisplayLocation,
+		BottomRight: Enum_MapOverlayDisplayLocation,
+		TopRight: Enum_MapOverlayDisplayLocation,
+		Hidden: Enum_MapOverlayDisplayLocation,
 	},
 	MapPinAnimationType: {
-		None: number,
-		Pulse: number,
+		None: Enum_MapPinAnimationType,
+		Pulse: Enum_MapPinAnimationType,
 	},
 	MapobjEventTypes: {
-		PlayAnim: number,
-		SetAnimSpeed: number,
+		PlayAnim: Enum_MapobjEventTypes,
+		SetAnimSpeed: Enum_MapobjEventTypes,
 	},
 	MatchDetailType: {
-		Placement: number,
-		Kills: number,
-		PlunderAcquired: number,
+		Placement: Enum_MatchDetailType,
+		Kills: Enum_MatchDetailType,
+		PlunderAcquired: Enum_MatchDetailType,
 	},
 	MicroMenuOrder: {
-		Default: number,
-		Reverse: number,
+		Default: Enum_MicroMenuOrder,
+		Reverse: Enum_MicroMenuOrder,
 	},
 	MicroMenuOrientation: {
-		Horizontal: number,
-		Vertical: number,
+		Horizontal: Enum_MicroMenuOrientation,
+		Vertical: Enum_MicroMenuOrientation,
 	},
 	MinimapTrackingFilter: {
 		Unfiltered: number,
@@ -26518,53 +28915,53 @@ declare Enum: {
 		VendorAmmo: number,
 	},
 	ModelBlendOperation: {
-		None: number,
-		Anim: number,
+		None: Enum_ModelBlendOperation,
+		Anim: Enum_ModelBlendOperation,
 	},
 	ModelLightType: {
-		Directional: number,
-		Point: number,
+		Directional: Enum_ModelLightType,
+		Point: Enum_ModelLightType,
 	},
 	ModelSceneSetting: {
-		AlignLightToOrbitDelta: number,
+		AlignLightToOrbitDelta: Enum_ModelSceneSetting,
 	},
 	ModelSceneType: {
-		MountJournal: number,
-		PetJournalCard: number,
-		ShopCard: number,
-		EncounterJournal: number,
-		PetJournalLoadout: number,
-		ArtifactTier2: number,
-		ArtifactTier2ForgingScene: number,
-		ArtifactTier2SlamEffect: number,
-		CommentatorVictoryFanfare: number,
-		ArtifactRelicTalentEffect: number,
-		PvPWarModeOrb: number,
-		PvPWarModeFire: number,
-		PartyPose: number,
-		AzeriteItemLevelUpToast: number,
-		AzeritePowers: number,
-		AzeriteRewardGlow: number,
-		HeartOfAzeroth: number,
-		WorldMapThreat: number,
-		Soulbinds: number,
-		JailersTowerAnimaGlow: number,
+		MountJournal: Enum_ModelSceneType,
+		PetJournalCard: Enum_ModelSceneType,
+		ShopCard: Enum_ModelSceneType,
+		EncounterJournal: Enum_ModelSceneType,
+		PetJournalLoadout: Enum_ModelSceneType,
+		ArtifactTier2: Enum_ModelSceneType,
+		ArtifactTier2ForgingScene: Enum_ModelSceneType,
+		ArtifactTier2SlamEffect: Enum_ModelSceneType,
+		CommentatorVictoryFanfare: Enum_ModelSceneType,
+		ArtifactRelicTalentEffect: Enum_ModelSceneType,
+		PvPWarModeOrb: Enum_ModelSceneType,
+		PvPWarModeFire: Enum_ModelSceneType,
+		PartyPose: Enum_ModelSceneType,
+		AzeriteItemLevelUpToast: Enum_ModelSceneType,
+		AzeritePowers: Enum_ModelSceneType,
+		AzeriteRewardGlow: Enum_ModelSceneType,
+		HeartOfAzeroth: Enum_ModelSceneType,
+		WorldMapThreat: Enum_ModelSceneType,
+		Soulbinds: Enum_ModelSceneType,
+		JailersTowerAnimaGlow: Enum_ModelSceneType,
 	},
 	ModelSoundOverrideType: {
-		UseParent: number,
-		UseOverride: number,
-		Mute: number,
+		UseParent: Enum_ModelSoundOverrideType,
+		UseOverride: Enum_ModelSoundOverrideType,
+		Mute: Enum_ModelSoundOverrideType,
 	},
 	ModelSoundTagType: {
-		Oneshot: number,
-		Looping: number,
+		Oneshot: Enum_ModelSoundTagType,
+		Looping: Enum_ModelSoundTagType,
 	},
 	MountType: {
-		Ground: number,
-		Flying: number,
-		Aquatic: number,
-		Dragonriding: number,
-		RideAlong: number,
+		Ground: Enum_MountType,
+		Flying: Enum_MountType,
+		Aquatic: Enum_MountType,
+		Dragonriding: Enum_MountType,
+		RideAlong: Enum_MountType,
 	},
 	MountTypeFlag: {
 		IsFlyingMount: number,
@@ -26573,89 +28970,89 @@ declare Enum: {
 		IsRideAlongMount: number,
 	},
 	NamePartType: {
-		Firstname: number,
-		Surname: number,
-		Combined: number,
+		Firstname: Enum_NamePartType,
+		Surname: Enum_NamePartType,
+		Combined: Enum_NamePartType,
 	},
 	NamePlateCastBarDisplay: {
-		None: number,
-		SpellName: number,
-		SpellIcon: number,
-		SpellTarget: number,
-		HighlightImportantCasts: number,
-		HighlightWhenCastTarget: number,
+		None: Enum_NamePlateCastBarDisplay,
+		SpellName: Enum_NamePlateCastBarDisplay,
+		SpellIcon: Enum_NamePlateCastBarDisplay,
+		SpellTarget: Enum_NamePlateCastBarDisplay,
+		HighlightImportantCasts: Enum_NamePlateCastBarDisplay,
+		HighlightWhenCastTarget: Enum_NamePlateCastBarDisplay,
 	},
 	NamePlateEnemyNpcAuraDisplay: {
-		None: number,
-		Buffs: number,
-		Debuffs: number,
-		CrowdControl: number,
+		None: Enum_NamePlateEnemyNpcAuraDisplay,
+		Buffs: Enum_NamePlateEnemyNpcAuraDisplay,
+		Debuffs: Enum_NamePlateEnemyNpcAuraDisplay,
+		CrowdControl: Enum_NamePlateEnemyNpcAuraDisplay,
 	},
 	NamePlateEnemyPlayerAuraDisplay: {
-		None: number,
-		Buffs: number,
-		Debuffs: number,
-		LossOfControl: number,
+		None: Enum_NamePlateEnemyPlayerAuraDisplay,
+		Buffs: Enum_NamePlateEnemyPlayerAuraDisplay,
+		Debuffs: Enum_NamePlateEnemyPlayerAuraDisplay,
+		LossOfControl: Enum_NamePlateEnemyPlayerAuraDisplay,
 	},
 	NamePlateFriendlyPlayerAuraDisplay: {
-		None: number,
-		Buffs: number,
-		Debuffs: number,
-		LossOfControl: number,
+		None: Enum_NamePlateFriendlyPlayerAuraDisplay,
+		Buffs: Enum_NamePlateFriendlyPlayerAuraDisplay,
+		Debuffs: Enum_NamePlateFriendlyPlayerAuraDisplay,
+		LossOfControl: Enum_NamePlateFriendlyPlayerAuraDisplay,
 	},
 	NamePlateInfoDisplay: {
-		None: number,
-		CurrentHealthPercent: number,
-		CurrentHealthValue: number,
-		RarityIcon: number,
+		None: Enum_NamePlateInfoDisplay,
+		CurrentHealthPercent: Enum_NamePlateInfoDisplay,
+		CurrentHealthValue: Enum_NamePlateInfoDisplay,
+		RarityIcon: Enum_NamePlateInfoDisplay,
 	},
 	NamePlateSimplifiedType: {
-		None: number,
-		Minion: number,
-		MinusMob: number,
-		FriendlyPlayer: number,
-		FriendlyNpc: number,
+		None: Enum_NamePlateSimplifiedType,
+		Minion: Enum_NamePlateSimplifiedType,
+		MinusMob: Enum_NamePlateSimplifiedType,
+		FriendlyPlayer: Enum_NamePlateSimplifiedType,
+		FriendlyNpc: Enum_NamePlateSimplifiedType,
 	},
 	NamePlateSize: {
-		Small: number,
-		Medium: number,
-		Large: number,
-		ExtraLarge: number,
-		Huge: number,
+		Small: Enum_NamePlateSize,
+		Medium: Enum_NamePlateSize,
+		Large: Enum_NamePlateSize,
+		ExtraLarge: Enum_NamePlateSize,
+		Huge: Enum_NamePlateSize,
 	},
 	NamePlateStackType: {
-		None: number,
-		Enemy: number,
-		Friendly: number,
+		None: Enum_NamePlateStackType,
+		Enemy: Enum_NamePlateStackType,
+		Friendly: Enum_NamePlateStackType,
 	},
 	NamePlateStyle: {
-		Modern: number,
-		Thin: number,
-		Block: number,
-		HealthFocus: number,
-		CastFocus: number,
-		Legacy: number,
-		Classic: number,
+		Modern: Enum_NamePlateStyle,
+		Thin: Enum_NamePlateStyle,
+		Block: Enum_NamePlateStyle,
+		HealthFocus: Enum_NamePlateStyle,
+		CastFocus: Enum_NamePlateStyle,
+		Legacy: Enum_NamePlateStyle,
+		Classic: Enum_NamePlateStyle,
 	},
 	NamePlateThreatDisplay: {
-		None: number,
-		Progressive: number,
-		Flash: number,
-		HealthBarColor: number,
+		None: Enum_NamePlateThreatDisplay,
+		Progressive: Enum_NamePlateThreatDisplay,
+		Flash: Enum_NamePlateThreatDisplay,
+		HealthBarColor: Enum_NamePlateThreatDisplay,
 	},
 	NamePlateType: {
-		Friendly: number,
-		Enemy: number,
+		Friendly: Enum_NamePlateType,
+		Enemy: Enum_NamePlateType,
 	},
 	NamegenType: {
-		CharacterName: number,
-		Surname: number,
+		CharacterName: Enum_NamegenType,
+		Surname: Enum_NamegenType,
 	},
 	NavigationState: {
-		Invalid: number,
-		Occluded: number,
-		InRange: number,
-		Disabled: number,
+		Invalid: Enum_NavigationState,
+		Occluded: Enum_NavigationState,
+		InRange: Enum_NavigationState,
+		Disabled: Enum_NavigationState,
 	},
 	NeighborhoodFlags: {
 		None: number,
@@ -26663,12 +29060,12 @@ declare Enum: {
 		OpenToPublic: number,
 	},
 	NeighborhoodInitiativeChestResult: {
-		NiSuccess: number,
-		NiUnspecifiedFailure: number,
-		NiNoHouseFound: number,
-		NiNoRewards: number,
-		NiThrottled: number,
-		NiServiceDisabled: number,
+		NiSuccess: Enum_NeighborhoodInitiativeChestResult,
+		NiUnspecifiedFailure: Enum_NeighborhoodInitiativeChestResult,
+		NiNoHouseFound: Enum_NeighborhoodInitiativeChestResult,
+		NiNoRewards: Enum_NeighborhoodInitiativeChestResult,
+		NiThrottled: Enum_NeighborhoodInitiativeChestResult,
+		NiServiceDisabled: Enum_NeighborhoodInitiativeChestResult,
 	},
 	NeighborhoodInitiativeFlags: {
 		Disabled: number,
@@ -26676,38 +29073,38 @@ declare Enum: {
 		NoRepeat: number,
 	},
 	NeighborhoodInitiativeNeighborhoodTypes: {
-		NiNeighborhoodTypeSingleton: number,
-		NiNeighborhoodTypePool: number,
+		NiNeighborhoodTypeSingleton: Enum_NeighborhoodInitiativeNeighborhoodTypes,
+		NiNeighborhoodTypePool: Enum_NeighborhoodInitiativeNeighborhoodTypes,
 	},
 	NeighborhoodInitiativeTaskType: {
-		Single: number,
-		RepeatableFinite: number,
-		RepeatableInfinite: number,
+		Single: Enum_NeighborhoodInitiativeTaskType,
+		RepeatableFinite: Enum_NeighborhoodInitiativeTaskType,
+		RepeatableInfinite: Enum_NeighborhoodInitiativeTaskType,
 	},
 	NeighborhoodInitiativeUpdateStatus: {
-		Started: number,
-		MilestoneCompleted: number,
-		Completed: number,
-		Failed: number,
+		Started: Enum_NeighborhoodInitiativeUpdateStatus,
+		MilestoneCompleted: Enum_NeighborhoodInitiativeUpdateStatus,
+		Completed: Enum_NeighborhoodInitiativeUpdateStatus,
+		Failed: Enum_NeighborhoodInitiativeUpdateStatus,
 	},
 	NeighborhoodInitiativesCompletionStates: {
-		NiCompletionStateNotCompleted: number,
-		NiCompletionStatePlayerCompleted: number,
-		NiCompletionStateSystemAbandoned: number,
+		NiCompletionStateNotCompleted: Enum_NeighborhoodInitiativesCompletionStates,
+		NiCompletionStatePlayerCompleted: Enum_NeighborhoodInitiativesCompletionStates,
+		NiCompletionStateSystemAbandoned: Enum_NeighborhoodInitiativesCompletionStates,
 	},
 	NeighborhoodInviteResult: {
-		Success: number,
-		DbError: number,
-		RpcFailure: number,
-		GenericFailure: number,
-		Permission: number,
-		Faction: number,
-		PendingInvitation: number,
-		InviteLimit: number,
-		NotEnoughPlots: number,
-		NotFound: number,
-		TooManyRequests: number,
-		AlreadyInNeighborhood: number,
+		Success: Enum_NeighborhoodInviteResult,
+		DbError: Enum_NeighborhoodInviteResult,
+		RpcFailure: Enum_NeighborhoodInviteResult,
+		GenericFailure: Enum_NeighborhoodInviteResult,
+		Permission: Enum_NeighborhoodInviteResult,
+		Faction: Enum_NeighborhoodInviteResult,
+		PendingInvitation: Enum_NeighborhoodInviteResult,
+		InviteLimit: Enum_NeighborhoodInviteResult,
+		NotEnoughPlots: Enum_NeighborhoodInviteResult,
+		NotFound: Enum_NeighborhoodInviteResult,
+		TooManyRequests: Enum_NeighborhoodInviteResult,
+		AlreadyInNeighborhood: Enum_NeighborhoodInviteResult,
 	},
 	NeighborhoodMapFlags: {
 		None: number,
@@ -26716,347 +29113,347 @@ declare Enum: {
 		CanSystemGenerate: number,
 	},
 	NeighborhoodOwnerType: {
-		None: number,
-		Guild: number,
-		Charter: number,
+		None: Enum_NeighborhoodOwnerType,
+		Guild: Enum_NeighborhoodOwnerType,
+		Charter: Enum_NeighborhoodOwnerType,
 	},
 	NeighborhoodType: {
-		Open: number,
-		Private: number,
-		Public: number,
+		Open: Enum_NeighborhoodType,
+		Private: Enum_NeighborhoodType,
+		Public: Enum_NeighborhoodType,
 	},
 	NewCharGear: {
-		Start: number,
-		Preview: number,
+		Start: Enum_NewCharGear,
+		Preview: Enum_NewCharGear,
 	},
 	NoRPEReason: {
-		HasRPE: number,
-		LowLevel: number,
-		Timerunner: number,
-		IneligibleMap: number,
-		RecentlyActive: number,
-		RecentlyBoosted: number,
-		UpgradeInProgress: number,
-		FactionOrRaceChange: number,
-		BNetToken: number,
-		PlayerLocked: number,
-		RPEDisabled: number,
+		HasRPE: Enum_NoRPEReason,
+		LowLevel: Enum_NoRPEReason,
+		Timerunner: Enum_NoRPEReason,
+		IneligibleMap: Enum_NoRPEReason,
+		RecentlyActive: Enum_NoRPEReason,
+		RecentlyBoosted: Enum_NoRPEReason,
+		UpgradeInProgress: Enum_NoRPEReason,
+		FactionOrRaceChange: Enum_NoRPEReason,
+		BNetToken: Enum_NoRPEReason,
+		PlayerLocked: Enum_NoRPEReason,
+		RPEDisabled: Enum_NoRPEReason,
 	},
 	NodeOpFailureReason: {
-		None: number,
-		MissingEdgeConnection: number,
-		RequiredForEdge: number,
-		MissingRequiredEdge: number,
-		HasMutuallyExclusiveEdge: number,
-		NotEnoughSourcedCurrencySpent: number,
-		NotEnoughCurrencySpent: number,
-		NotEnoughGoldSpent: number,
-		MissingAchievement: number,
-		MissingQuest: number,
-		WrongSpec: number,
-		WrongSelection: number,
-		MaxRank: number,
-		DataError: number,
-		NotEnoughSourcedCurrency: number,
-		NotEnoughCurrency: number,
-		NotEnoughGold: number,
-		SameSelection: number,
-		NodeNotFound: number,
-		EntryNotFound: number,
-		RequiredForCondition: number,
-		WrongTreeID: number,
-		LevelTooLow: number,
-		TreeFlaggedNoRefund: number,
-		NodeNeverPurchasable: number,
-		AccountDataNoMatch: number,
-		NotEnoughRanksInEntry: number,
+		None: Enum_NodeOpFailureReason,
+		MissingEdgeConnection: Enum_NodeOpFailureReason,
+		RequiredForEdge: Enum_NodeOpFailureReason,
+		MissingRequiredEdge: Enum_NodeOpFailureReason,
+		HasMutuallyExclusiveEdge: Enum_NodeOpFailureReason,
+		NotEnoughSourcedCurrencySpent: Enum_NodeOpFailureReason,
+		NotEnoughCurrencySpent: Enum_NodeOpFailureReason,
+		NotEnoughGoldSpent: Enum_NodeOpFailureReason,
+		MissingAchievement: Enum_NodeOpFailureReason,
+		MissingQuest: Enum_NodeOpFailureReason,
+		WrongSpec: Enum_NodeOpFailureReason,
+		WrongSelection: Enum_NodeOpFailureReason,
+		MaxRank: Enum_NodeOpFailureReason,
+		DataError: Enum_NodeOpFailureReason,
+		NotEnoughSourcedCurrency: Enum_NodeOpFailureReason,
+		NotEnoughCurrency: Enum_NodeOpFailureReason,
+		NotEnoughGold: Enum_NodeOpFailureReason,
+		SameSelection: Enum_NodeOpFailureReason,
+		NodeNotFound: Enum_NodeOpFailureReason,
+		EntryNotFound: Enum_NodeOpFailureReason,
+		RequiredForCondition: Enum_NodeOpFailureReason,
+		WrongTreeID: Enum_NodeOpFailureReason,
+		LevelTooLow: Enum_NodeOpFailureReason,
+		TreeFlaggedNoRefund: Enum_NodeOpFailureReason,
+		NodeNeverPurchasable: Enum_NodeOpFailureReason,
+		AccountDataNoMatch: Enum_NodeOpFailureReason,
+		NotEnoughRanksInEntry: Enum_NodeOpFailureReason,
 	},
 	NormalizationForm: {
-		Nfc: number,
-		Nfd: number,
-		Nfkc: number,
-		Nfkd: number,
+		Nfc: Enum_NormalizationForm,
+		Nfd: Enum_NormalizationForm,
+		Nfkc: Enum_NormalizationForm,
+		Nfkd: Enum_NormalizationForm,
 	},
 	NpcCraftingOrderSetFlags: {
 		AllowMultiple: number,
 		AllowDuplicate: number,
 	},
 	NumberStyle: {
-		Decimal: number,
-		Integer: number,
-		Percent: number,
-		Currency: number,
+		Decimal: Enum_NumberStyle,
+		Integer: Enum_NumberStyle,
+		Percent: Enum_NumberStyle,
+		Currency: Enum_NumberStyle,
 	},
 	NumericRuleFormatRounding: {
-		Nearest: number,
-		Up: number,
-		Down: number,
+		Nearest: Enum_NumericRuleFormatRounding,
+		Up: Enum_NumericRuleFormatRounding,
+		Down: Enum_NumericRuleFormatRounding,
 	},
 	OnUpdateMode: {
-		Disabled: number,
-		RunWhenVisible: number,
-		RunWhenVisibleOnce: number,
-		RunOnce: number,
-		RunAlways: number,
+		Disabled: Enum_OnUpdateMode,
+		RunWhenVisible: Enum_OnUpdateMode,
+		RunWhenVisibleOnce: Enum_OnUpdateMode,
+		RunOnce: Enum_OnUpdateMode,
+		RunAlways: Enum_OnUpdateMode,
 	},
 	PartyPlaylistEntry: {
-		SoloGameMode: number,
-		DuoGameMode: number,
-		TrioGameMode: number,
-		TrainingGameMode: number,
+		SoloGameMode: Enum_PartyPlaylistEntry,
+		DuoGameMode: Enum_PartyPlaylistEntry,
+		TrioGameMode: Enum_PartyPlaylistEntry,
+		TrainingGameMode: Enum_PartyPlaylistEntry,
 	},
 	PartyPoseFlags: {
 		HideLeaveInstanceButton: number,
 	},
 	PartyRequestJoinRelation: {
-		None: number,
-		Friend: number,
-		Guild: number,
-		Club: number,
-		RecentAllies: number,
+		None: Enum_PartyRequestJoinRelation,
+		Friend: Enum_PartyRequestJoinRelation,
+		Guild: Enum_PartyRequestJoinRelation,
+		Club: Enum_PartyRequestJoinRelation,
+		RecentAllies: Enum_PartyRequestJoinRelation,
 	},
 	PerksVendorCategoryType: {
-		Transmog: number,
-		Mount: number,
-		Pet: number,
-		Toy: number,
-		Illusion: number,
-		Transmogset: number,
-		WarbandScene: number,
-		Stipend: number,
-		Activity: number,
-		GmAdjustment: number,
-		Achievement: number,
-		RefundUnused: number,
+		Transmog: Enum_PerksVendorCategoryType,
+		Mount: Enum_PerksVendorCategoryType,
+		Pet: Enum_PerksVendorCategoryType,
+		Toy: Enum_PerksVendorCategoryType,
+		Illusion: Enum_PerksVendorCategoryType,
+		Transmogset: Enum_PerksVendorCategoryType,
+		WarbandScene: Enum_PerksVendorCategoryType,
+		Stipend: Enum_PerksVendorCategoryType,
+		Activity: Enum_PerksVendorCategoryType,
+		GmAdjustment: Enum_PerksVendorCategoryType,
+		Achievement: Enum_PerksVendorCategoryType,
+		RefundUnused: Enum_PerksVendorCategoryType,
 	},
 	PermanentChatChannelType: {
-		None: number,
-		Zone: number,
-		Communities: number,
-		Custom: number,
+		None: Enum_PermanentChatChannelType,
+		Zone: Enum_PermanentChatChannelType,
+		Communities: Enum_PermanentChatChannelType,
+		Custom: Enum_PermanentChatChannelType,
 	},
 	PersonalResourceDisplayVisibleSetting: {
-		Always: number,
-		InCombat: number,
-		Hidden: number,
+		Always: Enum_PersonalResourceDisplayVisibleSetting,
+		InCombat: Enum_PersonalResourceDisplayVisibleSetting,
+		Hidden: Enum_PersonalResourceDisplayVisibleSetting,
 	},
 	PetActionFeedback: {
-		Success: number,
-		Dead: number,
-		InvalidTarget: number,
-		FriendlyTarget: number,
-		NoPath: number,
+		Success: Enum_PetActionFeedback,
+		Dead: Enum_PetActionFeedback,
+		InvalidTarget: Enum_PetActionFeedback,
+		FriendlyTarget: Enum_PetActionFeedback,
+		NoPath: Enum_PetActionFeedback,
 	},
 	PetActionbuttonType: {
-		None: number,
-		Spell: number,
-		Slot1Obsolete: number,
-		Slot2Obsolete: number,
-		Slot3Obsolete: number,
-		Slot4Obsolete: number,
-		Mode: number,
-		Orders: number,
-		Slot1: number,
-		Slot2: number,
-		Slot3: number,
-		Slot4: number,
-		Slot5: number,
-		Slot6: number,
-		Slot7: number,
-		Slot8: number,
-		Slot9: number,
-		Slot10: number,
-		Slot11: number,
-		Slot12: number,
-		Slot13: number,
-		Slot14: number,
-		Slot15: number,
-		Slot16: number,
-		Slot17: number,
-		Slot18: number,
-		Max: number,
-		VehicleAction: number,
+		None: Enum_PetActionbuttonType,
+		Spell: Enum_PetActionbuttonType,
+		Slot1Obsolete: Enum_PetActionbuttonType,
+		Slot2Obsolete: Enum_PetActionbuttonType,
+		Slot3Obsolete: Enum_PetActionbuttonType,
+		Slot4Obsolete: Enum_PetActionbuttonType,
+		Mode: Enum_PetActionbuttonType,
+		Orders: Enum_PetActionbuttonType,
+		Slot1: Enum_PetActionbuttonType,
+		Slot2: Enum_PetActionbuttonType,
+		Slot3: Enum_PetActionbuttonType,
+		Slot4: Enum_PetActionbuttonType,
+		Slot5: Enum_PetActionbuttonType,
+		Slot6: Enum_PetActionbuttonType,
+		Slot7: Enum_PetActionbuttonType,
+		Slot8: Enum_PetActionbuttonType,
+		Slot9: Enum_PetActionbuttonType,
+		Slot10: Enum_PetActionbuttonType,
+		Slot11: Enum_PetActionbuttonType,
+		Slot12: Enum_PetActionbuttonType,
+		Slot13: Enum_PetActionbuttonType,
+		Slot14: Enum_PetActionbuttonType,
+		Slot15: Enum_PetActionbuttonType,
+		Slot16: Enum_PetActionbuttonType,
+		Slot17: Enum_PetActionbuttonType,
+		Slot18: Enum_PetActionbuttonType,
+		Max: Enum_PetActionbuttonType,
+		VehicleAction: Enum_PetActionbuttonType,
 	},
 	PetBattleQueueStatus: {
-		None: number,
-		Queued: number,
-		QueuedUpdate: number,
-		AlreadyQueued: number,
-		JoinFailed: number,
-		JoinFailedSlots: number,
-		JoinFailedJournalLock: number,
-		JoinFailedNeutral: number,
-		MatchAccepted: number,
-		MatchDeclined: number,
-		MatchOpponentDeclined: number,
-		ProposalTimedOut: number,
-		Removed: number,
-		RequeuedAfterInternalError: number,
-		RequeuedAfterOpponentRemoved: number,
-		Matchmaking: number,
-		LostConnection: number,
-		Shutdown: number,
-		Suspended: number,
-		Unsuspended: number,
-		InBattle: number,
-		NoBattlingHere: number,
+		None: Enum_PetBattleQueueStatus,
+		Queued: Enum_PetBattleQueueStatus,
+		QueuedUpdate: Enum_PetBattleQueueStatus,
+		AlreadyQueued: Enum_PetBattleQueueStatus,
+		JoinFailed: Enum_PetBattleQueueStatus,
+		JoinFailedSlots: Enum_PetBattleQueueStatus,
+		JoinFailedJournalLock: Enum_PetBattleQueueStatus,
+		JoinFailedNeutral: Enum_PetBattleQueueStatus,
+		MatchAccepted: Enum_PetBattleQueueStatus,
+		MatchDeclined: Enum_PetBattleQueueStatus,
+		MatchOpponentDeclined: Enum_PetBattleQueueStatus,
+		ProposalTimedOut: Enum_PetBattleQueueStatus,
+		Removed: Enum_PetBattleQueueStatus,
+		RequeuedAfterInternalError: Enum_PetBattleQueueStatus,
+		RequeuedAfterOpponentRemoved: Enum_PetBattleQueueStatus,
+		Matchmaking: Enum_PetBattleQueueStatus,
+		LostConnection: Enum_PetBattleQueueStatus,
+		Shutdown: Enum_PetBattleQueueStatus,
+		Suspended: Enum_PetBattleQueueStatus,
+		Unsuspended: Enum_PetBattleQueueStatus,
+		InBattle: Enum_PetBattleQueueStatus,
+		NoBattlingHere: Enum_PetBattleQueueStatus,
 	},
 	PetJournalError: {
-		None: number,
-		PetIsDead: number,
-		JournalIsLocked: number,
-		InvalidFaction: number,
-		NoFavoritesToSummon: number,
-		NoValidRandomSummon: number,
+		None: Enum_PetJournalError,
+		PetIsDead: Enum_PetJournalError,
+		JournalIsLocked: Enum_PetJournalError,
+		InvalidFaction: Enum_PetJournalError,
+		NoFavoritesToSummon: Enum_PetJournalError,
+		NoValidRandomSummon: Enum_PetJournalError,
 	},
 	PetMode: {
-		Passive: number,
-		Defensive: number,
-		Aggressive: number,
-		Assist: number,
+		Passive: Enum_PetMode,
+		Defensive: Enum_PetMode,
+		Aggressive: Enum_PetMode,
+		Assist: Enum_PetMode,
 	},
 	PetOrders: {
-		Wait: number,
-		Follow: number,
-		Attack: number,
-		Dismiss: number,
-		MoveTo: number,
+		Wait: Enum_PetOrders,
+		Follow: Enum_PetOrders,
+		Attack: Enum_PetOrders,
+		Dismiss: Enum_PetOrders,
+		MoveTo: Enum_PetOrders,
 	},
 	PetOverride: {
-		None: number,
-		AICombatControl: number,
-		AICombatPassive: number,
-		OwnerMounted: number,
+		None: Enum_PetOverride,
+		AICombatControl: Enum_PetOverride,
+		AICombatPassive: Enum_PetOverride,
+		OwnerMounted: Enum_PetOverride,
 	},
 	PetbattleSlot: {
-		Slot_0: number,
-		Slot_1: number,
-		Slot_2: number,
+		Slot_0: Enum_PetbattleSlot,
+		Slot_1: Enum_PetbattleSlot,
+		Slot_2: Enum_PetbattleSlot,
 	},
 	PetbattleState: {
-		Created: number,
-		WaitingPreBattle: number,
-		RoundInProgress: number,
-		WaitingForFrontPets: number,
-		CreatedFailed: number,
-		FinalRound: number,
-		Finished: number,
+		Created: Enum_PetbattleState,
+		WaitingPreBattle: Enum_PetbattleState,
+		RoundInProgress: Enum_PetbattleState,
+		WaitingForFrontPets: Enum_PetbattleState,
+		CreatedFailed: Enum_PetbattleState,
+		FinalRound: Enum_PetbattleState,
+		Finished: Enum_PetbattleState,
 	},
 	Pettameresult: {
-		Ok: number,
-		Invalidcreature: number,
-		Toomany: number,
-		Creaturealreadyowned: number,
-		Nottameable: number,
-		Anothersummonactive: number,
-		Unitscanttame: number,
-		Nopetavailable: number,
-		Internalerror: number,
-		Toohighlevel: number,
-		Dead: number,
-		Notdead: number,
-		Cantcontrolexotic: number,
-		Invalidslot: number,
-		EliteToohighlevel: number,
-		Numresults: number,
+		Ok: Enum_Pettameresult,
+		Invalidcreature: Enum_Pettameresult,
+		Toomany: Enum_Pettameresult,
+		Creaturealreadyowned: Enum_Pettameresult,
+		Nottameable: Enum_Pettameresult,
+		Anothersummonactive: Enum_Pettameresult,
+		Unitscanttame: Enum_Pettameresult,
+		Nopetavailable: Enum_Pettameresult,
+		Internalerror: Enum_Pettameresult,
+		Toohighlevel: Enum_Pettameresult,
+		Dead: Enum_Pettameresult,
+		Notdead: Enum_Pettameresult,
+		Cantcontrolexotic: Enum_Pettameresult,
+		Invalidslot: Enum_Pettameresult,
+		EliteToohighlevel: Enum_Pettameresult,
+		Numresults: Enum_Pettameresult,
 	},
 	PhaseReason: {
-		Phasing: number,
-		Sharding: number,
-		WarMode: number,
-		ChromieTime: number,
-		TimerunningHwt: number,
-		RuleSet: number,
+		Phasing: Enum_PhaseReason,
+		Sharding: Enum_PhaseReason,
+		WarMode: Enum_PhaseReason,
+		ChromieTime: Enum_PhaseReason,
+		TimerunningHwt: Enum_PhaseReason,
+		RuleSet: Enum_PhaseReason,
 	},
 	PhotoSharingStatus: {
-		Disabled: number,
-		NotConfigured: number,
-		Configured: number,
-		Expired: number,
-		ParentalControl: number,
-		TrialOrVeteran: number,
-		AADCRestricted: number,
-		Error: number,
-		FailedToClear: number,
+		Disabled: Enum_PhotoSharingStatus,
+		NotConfigured: Enum_PhotoSharingStatus,
+		Configured: Enum_PhotoSharingStatus,
+		Expired: Enum_PhotoSharingStatus,
+		ParentalControl: Enum_PhotoSharingStatus,
+		TrialOrVeteran: Enum_PhotoSharingStatus,
+		AADCRestricted: Enum_PhotoSharingStatus,
+		Error: Enum_PhotoSharingStatus,
+		FailedToClear: Enum_PhotoSharingStatus,
 	},
 	PhotoSharingUploadStatus: {
-		Disabled: number,
-		Failed: number,
-		Success: number,
-		Locked: number,
-		ListPagesApiCallFailed: number,
-		ListPagesBadRequest: number,
-		ListPagesUnauthorized: number,
-		ListPagesForbidden: number,
-		ListPagesNotFound: number,
-		ListPagesTooManyRequests: number,
-		ListPagesGenericFailure: number,
-		ListPagesEmptyBoardID: number,
-		ListPagesInvalidBookmark: number,
-		CreatePageApiCallFailed: number,
-		CreatePageBadRequest: number,
-		CreatePageUnauthorized: number,
-		CreatePageForbidden: number,
-		CreatePageNotFound: number,
-		CreatePageTooManyRequests: number,
-		CreatePageGenericFailure: number,
-		CreatePageNoBoardIDFound: number,
-		CreatePostApiCallFailed: number,
-		CreatePostBadRequest: number,
-		CreatePostUnauthorized: number,
-		CreatePostForbidden: number,
-		CreatePostNotFound: number,
-		CreatePostTooManyRequests: number,
-		CreatePostGenericFailure: number,
-		CreatePostNoIDFound: number,
-		CreatePostThrottled: number,
+		Disabled: Enum_PhotoSharingUploadStatus,
+		Failed: Enum_PhotoSharingUploadStatus,
+		Success: Enum_PhotoSharingUploadStatus,
+		Locked: Enum_PhotoSharingUploadStatus,
+		ListPagesApiCallFailed: Enum_PhotoSharingUploadStatus,
+		ListPagesBadRequest: Enum_PhotoSharingUploadStatus,
+		ListPagesUnauthorized: Enum_PhotoSharingUploadStatus,
+		ListPagesForbidden: Enum_PhotoSharingUploadStatus,
+		ListPagesNotFound: Enum_PhotoSharingUploadStatus,
+		ListPagesTooManyRequests: Enum_PhotoSharingUploadStatus,
+		ListPagesGenericFailure: Enum_PhotoSharingUploadStatus,
+		ListPagesEmptyBoardID: Enum_PhotoSharingUploadStatus,
+		ListPagesInvalidBookmark: Enum_PhotoSharingUploadStatus,
+		CreatePageApiCallFailed: Enum_PhotoSharingUploadStatus,
+		CreatePageBadRequest: Enum_PhotoSharingUploadStatus,
+		CreatePageUnauthorized: Enum_PhotoSharingUploadStatus,
+		CreatePageForbidden: Enum_PhotoSharingUploadStatus,
+		CreatePageNotFound: Enum_PhotoSharingUploadStatus,
+		CreatePageTooManyRequests: Enum_PhotoSharingUploadStatus,
+		CreatePageGenericFailure: Enum_PhotoSharingUploadStatus,
+		CreatePageNoBoardIDFound: Enum_PhotoSharingUploadStatus,
+		CreatePostApiCallFailed: Enum_PhotoSharingUploadStatus,
+		CreatePostBadRequest: Enum_PhotoSharingUploadStatus,
+		CreatePostUnauthorized: Enum_PhotoSharingUploadStatus,
+		CreatePostForbidden: Enum_PhotoSharingUploadStatus,
+		CreatePostNotFound: Enum_PhotoSharingUploadStatus,
+		CreatePostTooManyRequests: Enum_PhotoSharingUploadStatus,
+		CreatePostGenericFailure: Enum_PhotoSharingUploadStatus,
+		CreatePostNoIDFound: Enum_PhotoSharingUploadStatus,
+		CreatePostThrottled: Enum_PhotoSharingUploadStatus,
 	},
 	PingMode: {
-		KeyDown: number,
-		ClickDrag: number,
+		KeyDown: Enum_PingMode,
+		ClickDrag: Enum_PingMode,
 	},
 	PingResult: {
-		Success: number,
-		FailedGeneric: number,
-		FailedSpamming: number,
-		FailedDisabledByLeader: number,
-		FailedDisabledBySettings: number,
-		FailedOutOfPingArea: number,
-		FailedSquelched: number,
-		FailedUnspecified: number,
-		FailedSilent: number,
+		Success: Enum_PingResult,
+		FailedGeneric: Enum_PingResult,
+		FailedSpamming: Enum_PingResult,
+		FailedDisabledByLeader: Enum_PingResult,
+		FailedDisabledBySettings: Enum_PingResult,
+		FailedOutOfPingArea: Enum_PingResult,
+		FailedSquelched: Enum_PingResult,
+		FailedUnspecified: Enum_PingResult,
+		FailedSilent: Enum_PingResult,
 	},
 	PingSetTargetState: {
-		Ok: number,
-		Failed: number,
-		FailedSilent: number,
+		Ok: Enum_PingSetTargetState,
+		Failed: Enum_PingSetTargetState,
+		FailedSilent: Enum_PingSetTargetState,
 	},
 	PingSubjectType: {
-		Attack: number,
-		Warning: number,
-		Assist: number,
-		OnMyWay: number,
-		AlertThreat: number,
-		AlertNotThreat: number,
-		ActionReady: number,
-		ActionOnCooldown: number,
-		ActionUnavailable: number,
-		ActionNotReady: number,
+		Attack: Enum_PingSubjectType,
+		Warning: Enum_PingSubjectType,
+		Assist: Enum_PingSubjectType,
+		OnMyWay: Enum_PingSubjectType,
+		AlertThreat: Enum_PingSubjectType,
+		AlertNotThreat: Enum_PingSubjectType,
+		ActionReady: Enum_PingSubjectType,
+		ActionOnCooldown: Enum_PingSubjectType,
+		ActionUnavailable: Enum_PingSubjectType,
+		ActionNotReady: Enum_PingSubjectType,
 	},
 	PingTargetOption: {
-		All: number,
-		Environment: number,
-		Units: number,
+		All: Enum_PingTargetOption,
+		Environment: Enum_PingTargetOption,
+		Units: Enum_PingTargetOption,
 	},
 	PingTargetType: {
-		Unit: number,
-		Point: number,
-		Action: number,
+		Unit: Enum_PingTargetType,
+		Point: Enum_PingTargetType,
+		Action: Enum_PingTargetType,
 	},
 	PingTextureType: {
-		Center: number,
-		Expand: number,
-		Rotation: number,
+		Center: Enum_PingTextureType,
+		Expand: Enum_PingTextureType,
+		Rotation: Enum_PingTextureType,
 	},
 	PingTypeFlags: {
 		DefaultPing: number,
@@ -27073,16 +29470,16 @@ declare Enum: {
 		ShowChoicesAsColumns: number,
 	},
 	PlayerChoiceLayout: {
-		Default: number,
-		Grid: number,
-		List: number,
-		Columns: number,
+		Default: Enum_PlayerChoiceLayout,
+		Grid: Enum_PlayerChoiceLayout,
+		List: Enum_PlayerChoiceLayout,
+		Columns: Enum_PlayerChoiceLayout,
 	},
 	PlayerChoiceRarity: {
-		Common: number,
-		Uncommon: number,
-		Rare: number,
-		Epic: number,
+		Common: Enum_PlayerChoiceRarity,
+		Uncommon: Enum_PlayerChoiceRarity,
+		Rare: Enum_PlayerChoiceRarity,
+		Epic: Enum_PlayerChoiceRarity,
 	},
 	PlayerChoiceResponseFlags: {
 		None: number,
@@ -27097,14 +29494,14 @@ declare Enum: {
 		ShowAnswerSelected: number,
 	},
 	PlayerClubRequestStatus: {
-		None: number,
-		Pending: number,
-		AutoApproved: number,
-		Declined: number,
-		Approved: number,
-		Joined: number,
-		JoinedAnother: number,
-		Canceled: number,
+		None: Enum_PlayerClubRequestStatus,
+		Pending: Enum_PlayerClubRequestStatus,
+		AutoApproved: Enum_PlayerClubRequestStatus,
+		Declined: Enum_PlayerClubRequestStatus,
+		Approved: Enum_PlayerClubRequestStatus,
+		Joined: Enum_PlayerClubRequestStatus,
+		JoinedAnother: Enum_PlayerClubRequestStatus,
+		Canceled: Enum_PlayerClubRequestStatus,
 	},
 	PlayerCompanionInfoFlags: {
 		IgnoreSeasonInScenarios: number,
@@ -27127,182 +29524,182 @@ declare Enum: {
 		Log: number,
 	},
 	PlayerDataElementType: {
-		Int: number,
-		Float: number,
+		Int: Enum_PlayerDataElementType,
+		Float: Enum_PlayerDataElementType,
 	},
 	PlayerInteractionType: {
-		None: number,
-		TradePartner: number,
-		Item: number,
-		Gossip: number,
-		QuestGiver: number,
-		Merchant: number,
-		TaxiNode: number,
-		Trainer: number,
-		Banker: number,
-		AlliedRaceDetailsGiver: number,
-		GuildBanker: number,
-		Registrar: number,
-		Vendor: number,
-		PetitionVendor: number,
-		GuildTabardVendor: number,
-		TalentMaster: number,
-		SpecializationMaster: number,
-		MailInfo: number,
-		SpiritHealer: number,
-		AreaSpiritHealer: number,
-		Binder: number,
-		Auctioneer: number,
-		StableMaster: number,
-		BattleMaster: number,
-		Transmogrifier: number,
-		LFGDungeon: number,
-		VoidStorageBanker: number,
-		BlackMarketAuctioneer: number,
-		AdventureMap: number,
-		WorldMap: number,
-		GarrArchitect: number,
-		GarrTradeskill: number,
-		GarrMission: number,
-		ShipmentCrafter: number,
-		GarrRecruitment: number,
-		GarrTalent: number,
-		Trophy: number,
-		PlayerChoice: number,
-		ArtifactForge: number,
-		ObliterumForge: number,
-		ScrappingMachine: number,
-		ContributionCollector: number,
-		AzeriteRespec: number,
-		IslandQueue: number,
-		ItemInteraction: number,
-		ChromieTime: number,
-		CovenantPreview: number,
-		AnimaDiversion: number,
-		LegendaryCrafting: number,
-		WeeklyRewards: number,
-		Soulbind: number,
-		CovenantSanctum: number,
-		NewPlayerGuide: number,
-		ItemUpgrade: number,
-		AdventureJournal: number,
-		Renown: number,
-		AzeriteForge: number,
-		PerksProgramVendor: number,
-		ProfessionsCraftingOrder: number,
-		Professions: number,
-		ProfessionsCustomerOrder: number,
-		TraitSystem: number,
-		BarbersChoice: number,
-		JailersTowerBuffs: number,
-		MajorFactionRenown: number,
-		PersonalTabardVendor: number,
-		ForgeMaster: number,
-		CharacterBanker: number,
-		AccountBanker: number,
-		ProfessionRespec: number,
-		CornerstoneInteraction: number,
-		RenameNeighborhood: number,
-		HousingBulletinBoard: number,
-		HousingPedestal: number,
-		CreateGuildNeighborhood: number,
-		NeighborhoodCharter: number,
-		GuildRename: number,
-		OpenNeighborhoodCharterConfirmation: number,
-		OpenHouseFinder: number,
-		TieredEntrance: number,
-		PetUntrainer: number,
-		RewardsShop: number,
+		None: Enum_PlayerInteractionType,
+		TradePartner: Enum_PlayerInteractionType,
+		Item: Enum_PlayerInteractionType,
+		Gossip: Enum_PlayerInteractionType,
+		QuestGiver: Enum_PlayerInteractionType,
+		Merchant: Enum_PlayerInteractionType,
+		TaxiNode: Enum_PlayerInteractionType,
+		Trainer: Enum_PlayerInteractionType,
+		Banker: Enum_PlayerInteractionType,
+		AlliedRaceDetailsGiver: Enum_PlayerInteractionType,
+		GuildBanker: Enum_PlayerInteractionType,
+		Registrar: Enum_PlayerInteractionType,
+		Vendor: Enum_PlayerInteractionType,
+		PetitionVendor: Enum_PlayerInteractionType,
+		GuildTabardVendor: Enum_PlayerInteractionType,
+		TalentMaster: Enum_PlayerInteractionType,
+		SpecializationMaster: Enum_PlayerInteractionType,
+		MailInfo: Enum_PlayerInteractionType,
+		SpiritHealer: Enum_PlayerInteractionType,
+		AreaSpiritHealer: Enum_PlayerInteractionType,
+		Binder: Enum_PlayerInteractionType,
+		Auctioneer: Enum_PlayerInteractionType,
+		StableMaster: Enum_PlayerInteractionType,
+		BattleMaster: Enum_PlayerInteractionType,
+		Transmogrifier: Enum_PlayerInteractionType,
+		LFGDungeon: Enum_PlayerInteractionType,
+		VoidStorageBanker: Enum_PlayerInteractionType,
+		BlackMarketAuctioneer: Enum_PlayerInteractionType,
+		AdventureMap: Enum_PlayerInteractionType,
+		WorldMap: Enum_PlayerInteractionType,
+		GarrArchitect: Enum_PlayerInteractionType,
+		GarrTradeskill: Enum_PlayerInteractionType,
+		GarrMission: Enum_PlayerInteractionType,
+		ShipmentCrafter: Enum_PlayerInteractionType,
+		GarrRecruitment: Enum_PlayerInteractionType,
+		GarrTalent: Enum_PlayerInteractionType,
+		Trophy: Enum_PlayerInteractionType,
+		PlayerChoice: Enum_PlayerInteractionType,
+		ArtifactForge: Enum_PlayerInteractionType,
+		ObliterumForge: Enum_PlayerInteractionType,
+		ScrappingMachine: Enum_PlayerInteractionType,
+		ContributionCollector: Enum_PlayerInteractionType,
+		AzeriteRespec: Enum_PlayerInteractionType,
+		IslandQueue: Enum_PlayerInteractionType,
+		ItemInteraction: Enum_PlayerInteractionType,
+		ChromieTime: Enum_PlayerInteractionType,
+		CovenantPreview: Enum_PlayerInteractionType,
+		AnimaDiversion: Enum_PlayerInteractionType,
+		LegendaryCrafting: Enum_PlayerInteractionType,
+		WeeklyRewards: Enum_PlayerInteractionType,
+		Soulbind: Enum_PlayerInteractionType,
+		CovenantSanctum: Enum_PlayerInteractionType,
+		NewPlayerGuide: Enum_PlayerInteractionType,
+		ItemUpgrade: Enum_PlayerInteractionType,
+		AdventureJournal: Enum_PlayerInteractionType,
+		Renown: Enum_PlayerInteractionType,
+		AzeriteForge: Enum_PlayerInteractionType,
+		PerksProgramVendor: Enum_PlayerInteractionType,
+		ProfessionsCraftingOrder: Enum_PlayerInteractionType,
+		Professions: Enum_PlayerInteractionType,
+		ProfessionsCustomerOrder: Enum_PlayerInteractionType,
+		TraitSystem: Enum_PlayerInteractionType,
+		BarbersChoice: Enum_PlayerInteractionType,
+		JailersTowerBuffs: Enum_PlayerInteractionType,
+		MajorFactionRenown: Enum_PlayerInteractionType,
+		PersonalTabardVendor: Enum_PlayerInteractionType,
+		ForgeMaster: Enum_PlayerInteractionType,
+		CharacterBanker: Enum_PlayerInteractionType,
+		AccountBanker: Enum_PlayerInteractionType,
+		ProfessionRespec: Enum_PlayerInteractionType,
+		CornerstoneInteraction: Enum_PlayerInteractionType,
+		RenameNeighborhood: Enum_PlayerInteractionType,
+		HousingBulletinBoard: Enum_PlayerInteractionType,
+		HousingPedestal: Enum_PlayerInteractionType,
+		CreateGuildNeighborhood: Enum_PlayerInteractionType,
+		NeighborhoodCharter: Enum_PlayerInteractionType,
+		GuildRename: Enum_PlayerInteractionType,
+		OpenNeighborhoodCharterConfirmation: Enum_PlayerInteractionType,
+		OpenHouseFinder: Enum_PlayerInteractionType,
+		TieredEntrance: Enum_PlayerInteractionType,
+		PetUntrainer: Enum_PlayerInteractionType,
+		RewardsShop: Enum_PlayerInteractionType,
 	},
 	PlayerMentorshipApplicationResult: {
-		Success: number,
-		AlreadyMentor: number,
-		Ineligible: number,
+		Success: Enum_PlayerMentorshipApplicationResult,
+		AlreadyMentor: Enum_PlayerMentorshipApplicationResult,
+		Ineligible: Enum_PlayerMentorshipApplicationResult,
 	},
 	PlayerMentorshipStatus: {
-		None: number,
-		Newcomer: number,
-		Mentor: number,
+		None: Enum_PlayerMentorshipStatus,
+		Newcomer: Enum_PlayerMentorshipStatus,
+		Mentor: Enum_PlayerMentorshipStatus,
 	},
 	PlayerSwingType: {
-		MainHand: number,
-		OffHand: number,
-		Ranged: number,
+		MainHand: Enum_PlayerSwingType,
+		OffHand: Enum_PlayerSwingType,
+		Ranged: Enum_PlayerSwingType,
 	},
 	PlunderstormQueueState: {
-		None: number,
-		Queued: number,
-		Proposed: number,
-		Suspended: number,
+		None: Enum_PlunderstormQueueState,
+		Queued: Enum_PlunderstormQueueState,
+		Proposed: Enum_PlunderstormQueueState,
+		Suspended: Enum_PlunderstormQueueState,
 	},
 	PluralType: {
-		Cardinal: number,
-		Ordinal: number,
+		Cardinal: Enum_PluralType,
+		Ordinal: Enum_PluralType,
 	},
 	PowerType: {
-		Mana: number,
-		Rage: number,
-		Focus: number,
-		Energy: number,
-		ComboPoints: number,
-		Runes: number,
-		RunicPower: number,
-		SoulShards: number,
-		LunarPower: number,
-		HolyPower: number,
-		Alternate: number,
-		Maelstrom: number,
-		Chi: number,
-		Insanity: number,
-		BurningEmbers: number,
-		DemonicFury: number,
-		ArcaneCharges: number,
-		Fury: number,
-		Pain: number,
-		Essence: number,
-		RuneBlood: number,
-		RuneFrost: number,
-		RuneUnholy: number,
-		AlternateQuest: number,
-		AlternateEncounter: number,
-		AlternateMount: number,
-		Balance: number,
-		Happiness: number,
-		ShadowOrbs: number,
-		RuneChromatic: number,
+		Mana: Enum_PowerType,
+		Rage: Enum_PowerType,
+		Focus: Enum_PowerType,
+		Energy: Enum_PowerType,
+		ComboPoints: Enum_PowerType,
+		Runes: Enum_PowerType,
+		RunicPower: Enum_PowerType,
+		SoulShards: Enum_PowerType,
+		LunarPower: Enum_PowerType,
+		HolyPower: Enum_PowerType,
+		Alternate: Enum_PowerType,
+		Maelstrom: Enum_PowerType,
+		Chi: Enum_PowerType,
+		Insanity: Enum_PowerType,
+		BurningEmbers: Enum_PowerType,
+		DemonicFury: Enum_PowerType,
+		ArcaneCharges: Enum_PowerType,
+		Fury: Enum_PowerType,
+		Pain: Enum_PowerType,
+		Essence: Enum_PowerType,
+		RuneBlood: Enum_PowerType,
+		RuneFrost: Enum_PowerType,
+		RuneUnholy: Enum_PowerType,
+		AlternateQuest: Enum_PowerType,
+		AlternateEncounter: Enum_PowerType,
+		AlternateMount: Enum_PowerType,
+		Balance: Enum_PowerType,
+		Happiness: Enum_PowerType,
+		ShadowOrbs: Enum_PowerType,
+		RuneChromatic: Enum_PowerType,
 	},
 	PowerTypeSign: {
-		None: number,
-		Positive: number,
-		Negative: number,
+		None: Enum_PowerTypeSign,
+		Positive: Enum_PowerTypeSign,
+		Negative: Enum_PowerTypeSign,
 	},
 	PowerTypeSlot: {
-		Slot_0: number,
-		Slot_1: number,
-		Slot_2: number,
-		Slot_3: number,
-		Slot_4: number,
-		Slot_5: number,
-		Slot_6: number,
-		Slot_7: number,
-		Slot_8: number,
-		Slot_9: number,
+		Slot_0: Enum_PowerTypeSlot,
+		Slot_1: Enum_PowerTypeSlot,
+		Slot_2: Enum_PowerTypeSlot,
+		Slot_3: Enum_PowerTypeSlot,
+		Slot_4: Enum_PowerTypeSlot,
+		Slot_5: Enum_PowerTypeSlot,
+		Slot_6: Enum_PowerTypeSlot,
+		Slot_7: Enum_PowerTypeSlot,
+		Slot_8: Enum_PowerTypeSlot,
+		Slot_9: Enum_PowerTypeSlot,
 	},
 	PremadeGroupFinderStyle: {
-		Disabled: number,
-		Mainline: number,
-		Vanilla: number,
+		Disabled: Enum_PremadeGroupFinderStyle,
+		Mainline: Enum_PremadeGroupFinderStyle,
+		Vanilla: Enum_PremadeGroupFinderStyle,
 	},
 	PreyHuntProgressState: {
-		Cold: number,
-		Warm: number,
-		Hot: number,
-		Final: number,
+		Cold: Enum_PreyHuntProgressState,
+		Warm: Enum_PreyHuntProgressState,
+		Hot: Enum_PreyHuntProgressState,
+		Final: Enum_PreyHuntProgressState,
 	},
 	ProceduralSpawnInteractionMode: {
-		None: number,
-		Paint: number,
-		Manipulate: number,
+		None: Enum_ProceduralSpawnInteractionMode,
+		Paint: Enum_ProceduralSpawnInteractionMode,
+		Manipulate: Enum_ProceduralSpawnInteractionMode,
 	},
 	ProceduralSpawnVolumeChunkFlags: {
 		None: number,
@@ -27313,269 +29710,269 @@ declare Enum: {
 		IsMajorBonus: number,
 	},
 	Profession: {
-		FirstAid: number,
-		Blacksmithing: number,
-		Leatherworking: number,
-		Alchemy: number,
-		Herbalism: number,
-		Cooking: number,
-		Mining: number,
-		Tailoring: number,
-		Engineering: number,
-		Enchanting: number,
-		Fishing: number,
-		Skinning: number,
-		Jewelcrafting: number,
-		Inscription: number,
-		Archaeology: number,
+		FirstAid: Enum_Profession,
+		Blacksmithing: Enum_Profession,
+		Leatherworking: Enum_Profession,
+		Alchemy: Enum_Profession,
+		Herbalism: Enum_Profession,
+		Cooking: Enum_Profession,
+		Mining: Enum_Profession,
+		Tailoring: Enum_Profession,
+		Engineering: Enum_Profession,
+		Enchanting: Enum_Profession,
+		Fishing: Enum_Profession,
+		Skinning: Enum_Profession,
+		Jewelcrafting: Enum_Profession,
+		Inscription: Enum_Profession,
+		Archaeology: Enum_Profession,
 	},
 	ProfessionActionType: {
-		Craft: number,
-		Gather: number,
+		Craft: Enum_ProfessionActionType,
+		Gather: Enum_ProfessionActionType,
 	},
 	ProfessionEffect: {
-		Skill: number,
-		StatInspiration: number,
-		StatResourcefulness: number,
-		StatFinesse: number,
-		StatDeftness: number,
-		StatPerception: number,
-		StatCraftingSpeed: number,
-		StatMulticraft: number,
-		UnlockReagentSlot: number,
-		ModInspiration: number,
-		ModResourcefulness: number,
-		ModFinesse: number,
-		ModDeftness: number,
-		ModPerception: number,
-		ModCraftingSpeed: number,
-		ModMulticraft: number,
-		ModUnused_1: number,
-		ModUnused_2: number,
-		ModCraftExtraQuantity: number,
-		ModGatherExtraQuantity: number,
-		ModCraftCritSize: number,
-		ModCraftReductionQuantity: number,
-		DecreaseDifficulty: number,
-		IncreaseDifficulty: number,
-		ModSkillGain: number,
-		AccumulateRanksByLabel: number,
-		StatIngenuity: number,
-		ModConcentration: number,
-		Tokenizer: number,
-		ModIngenuity: number,
-		ConcentrationRefund: number,
+		Skill: Enum_ProfessionEffect,
+		StatInspiration: Enum_ProfessionEffect,
+		StatResourcefulness: Enum_ProfessionEffect,
+		StatFinesse: Enum_ProfessionEffect,
+		StatDeftness: Enum_ProfessionEffect,
+		StatPerception: Enum_ProfessionEffect,
+		StatCraftingSpeed: Enum_ProfessionEffect,
+		StatMulticraft: Enum_ProfessionEffect,
+		UnlockReagentSlot: Enum_ProfessionEffect,
+		ModInspiration: Enum_ProfessionEffect,
+		ModResourcefulness: Enum_ProfessionEffect,
+		ModFinesse: Enum_ProfessionEffect,
+		ModDeftness: Enum_ProfessionEffect,
+		ModPerception: Enum_ProfessionEffect,
+		ModCraftingSpeed: Enum_ProfessionEffect,
+		ModMulticraft: Enum_ProfessionEffect,
+		ModUnused_1: Enum_ProfessionEffect,
+		ModUnused_2: Enum_ProfessionEffect,
+		ModCraftExtraQuantity: Enum_ProfessionEffect,
+		ModGatherExtraQuantity: Enum_ProfessionEffect,
+		ModCraftCritSize: Enum_ProfessionEffect,
+		ModCraftReductionQuantity: Enum_ProfessionEffect,
+		DecreaseDifficulty: Enum_ProfessionEffect,
+		IncreaseDifficulty: Enum_ProfessionEffect,
+		ModSkillGain: Enum_ProfessionEffect,
+		AccumulateRanksByLabel: Enum_ProfessionEffect,
+		StatIngenuity: Enum_ProfessionEffect,
+		ModConcentration: Enum_ProfessionEffect,
+		Tokenizer: Enum_ProfessionEffect,
+		ModIngenuity: Enum_ProfessionEffect,
+		ConcentrationRefund: Enum_ProfessionEffect,
 	},
 	ProfessionRating: {
-		Inspiration: number,
-		Resourcefulness: number,
-		Finesse: number,
-		Deftness: number,
-		Perception: number,
-		CraftingSpeed: number,
-		Multicraft: number,
-		Ingenuity: number,
-		Unused_2: number,
+		Inspiration: Enum_ProfessionRating,
+		Resourcefulness: Enum_ProfessionRating,
+		Finesse: Enum_ProfessionRating,
+		Deftness: Enum_ProfessionRating,
+		Perception: Enum_ProfessionRating,
+		CraftingSpeed: Enum_ProfessionRating,
+		Multicraft: Enum_ProfessionRating,
+		Ingenuity: Enum_ProfessionRating,
+		Unused_2: Enum_ProfessionRating,
 	},
 	ProfessionRatingType: {
-		Craft: number,
-		Gather: number,
+		Craft: Enum_ProfessionRatingType,
+		Gather: Enum_ProfessionRatingType,
 	},
 	ProfessionsSpecPathState: {
-		Locked: number,
-		Progressing: number,
-		Completed: number,
+		Locked: Enum_ProfessionsSpecPathState,
+		Progressing: Enum_ProfessionsSpecPathState,
+		Completed: Enum_ProfessionsSpecPathState,
 	},
 	ProfessionsSpecPerkState: {
-		Unearned: number,
-		Pending: number,
-		Earned: number,
+		Unearned: Enum_ProfessionsSpecPerkState,
+		Pending: Enum_ProfessionsSpecPerkState,
+		Earned: Enum_ProfessionsSpecPerkState,
 	},
 	ProfessionsSpecTabState: {
-		Locked: number,
-		Unlocked: number,
-		Unlockable: number,
+		Locked: Enum_ProfessionsSpecTabState,
+		Unlocked: Enum_ProfessionsSpecTabState,
+		Unlockable: Enum_ProfessionsSpecTabState,
 	},
 	PurchaseHouseDisabledReason: {
-		None: number,
-		WrongFaction: number,
-		WrongGuild: number,
-		NotInvited: number,
-		NoExpansion: number,
-		Reserved: number,
-		GuildLockout: number,
-		CharterLockout: number,
-		MaxHouses: number,
-		NoGameTimeRemaining: number,
+		None: Enum_PurchaseHouseDisabledReason,
+		WrongFaction: Enum_PurchaseHouseDisabledReason,
+		WrongGuild: Enum_PurchaseHouseDisabledReason,
+		NotInvited: Enum_PurchaseHouseDisabledReason,
+		NoExpansion: Enum_PurchaseHouseDisabledReason,
+		Reserved: Enum_PurchaseHouseDisabledReason,
+		GuildLockout: Enum_PurchaseHouseDisabledReason,
+		CharterLockout: Enum_PurchaseHouseDisabledReason,
+		MaxHouses: Enum_PurchaseHouseDisabledReason,
+		NoGameTimeRemaining: Enum_PurchaseHouseDisabledReason,
 	},
 	PurchaseResult: {
-		Ok: number,
-		ErrorRiskDenied: number,
-		ErrorOrderFailed: number,
-		ErrorClientTimeout: number,
-		ErrorClientDeclined: number,
-		ErrorFailedToCreatePurchaseRecord: number,
-		ErrorFailedToGetPurchaseID: number,
-		ErrorFailedToSaveMopAndRiskStatus: number,
-		ErrorFailedToSaveMopAndRiskResponse: number,
-		ErrorClientGone: number,
-		ErrorFailedToSavePlaceOrderStatus: number,
-		ErrorBattlepayTimeoutMopAndRisk: number,
-		ErrorCurrencyInvalidInRegion: number,
-		ErrorBattlepayTemporarilyUnavailable: number,
-		ErrorBattlepayDisabled: number,
-		ErrorServerRestarted: number,
-		ErrorInvalidProduct: number,
-		ErrorInvalidRegionGroupMask: number,
-		ErrorProductInvalidInRegion: number,
-		ErrorDistributionObjectNotFound: number,
-		ErrorDistributionObjectAlreadyAssigned: number,
-		ErrorRiskResponseMissingScore: number,
-		ErrorMopAndRiskAmqpRpcFailed: number,
-		ErrorMopAndRiskRpcErrorFromBattlepay: number,
-		ErrorMopAndRiskUnexpectedResponseFromBattlepay: number,
-		ErrorMopAndRiskNoValidPaymentMethods: number,
-		ErrorOrderCanceledPriceChange: number,
-		ErrorBuyingProductNotAllowedInGlueScreen: number,
-		ErrorMopAndRiskNotEnoughBalance: number,
-		ErrorPlaceOrderNotEnoughBalance: number,
-		ErrorProgrammerManualFail: number,
-		ErrorThrottledByUserServer: number,
-		ErrorBuyingProductNotAllowedInWorld: number,
-		ErrorBlockedByParentalControls: number,
-		ErrorNoStorePurchaseFlagIsSet: number,
-		ErrorDistributionObjectInvalidChoice: number,
-		ErrorInvalidCreditCardExpiryDate: number,
-		ErrorAuthorizingPayment: number,
-		ErrorPaymentProviderDeniedPayment: number,
-		ErrorOverSpendingLimit: number,
-		ErrorClientTimeoutChallenge: number,
-		ErrorClientDeclinedChallenge: number,
-		ErrorDistributionObjectInvalidTarget: number,
-		ErrorFixedLicenseProductAlreadyExists: number,
-		ErrorDistributionObjectTrialBlocked: number,
-		ErrorDistributionObjectExpansionBlocked: number,
-		ErrorOwnsConsumableToken: number,
-		ErrorTooManyTokens: number,
-		ErrorCommerceServerDisabled: number,
-		ErrorFailedToWriteVasPurchaseID: number,
-		ErrorFailedToWriteVasLicenseID: number,
-		ErrorCharacterUpgradeOperationInProgress: number,
-		ErrorInvalidPlatform: number,
-		ErrorInvalidDeviceID: number,
-		ErrorFailedToSaveValidatePurchaseStatus: number,
-		ErrorFailedToSaveValidatePurchaseResponse: number,
-		ErrorBattlepayTimeoutValidatePurchase: number,
-		ErrorProductNotPurchasable: number,
-		ErrorFailedToSaveClientCheckoutStatus: number,
-		ErrorFailedOldPurchaseFlow: number,
-		ErrorClientCheckoutTimeout: number,
-		ErrorFailedToSaveValidationHashStatus: number,
-		ErrorBattlepayTimeoutValidationHash: number,
-		ErrorClientCheckoutCanceledOrFailed: number,
-		ErrorCouldNotGetValidationHash: number,
-		ErrorDistributionObjectWrongGameAccount: number,
-		ErrorClientRestricted: number,
-		ErrorFailedToSaveRedeemTokenStatus: number,
-		ErrorInvalidPurchaseID: number,
-		ErrorTokenRedemptionOrderFailed: number,
-		ErrorVasTransactionCreateFailed: number,
-		ErrorInManualReview: number,
+		Ok: Enum_PurchaseResult,
+		ErrorRiskDenied: Enum_PurchaseResult,
+		ErrorOrderFailed: Enum_PurchaseResult,
+		ErrorClientTimeout: Enum_PurchaseResult,
+		ErrorClientDeclined: Enum_PurchaseResult,
+		ErrorFailedToCreatePurchaseRecord: Enum_PurchaseResult,
+		ErrorFailedToGetPurchaseID: Enum_PurchaseResult,
+		ErrorFailedToSaveMopAndRiskStatus: Enum_PurchaseResult,
+		ErrorFailedToSaveMopAndRiskResponse: Enum_PurchaseResult,
+		ErrorClientGone: Enum_PurchaseResult,
+		ErrorFailedToSavePlaceOrderStatus: Enum_PurchaseResult,
+		ErrorBattlepayTimeoutMopAndRisk: Enum_PurchaseResult,
+		ErrorCurrencyInvalidInRegion: Enum_PurchaseResult,
+		ErrorBattlepayTemporarilyUnavailable: Enum_PurchaseResult,
+		ErrorBattlepayDisabled: Enum_PurchaseResult,
+		ErrorServerRestarted: Enum_PurchaseResult,
+		ErrorInvalidProduct: Enum_PurchaseResult,
+		ErrorInvalidRegionGroupMask: Enum_PurchaseResult,
+		ErrorProductInvalidInRegion: Enum_PurchaseResult,
+		ErrorDistributionObjectNotFound: Enum_PurchaseResult,
+		ErrorDistributionObjectAlreadyAssigned: Enum_PurchaseResult,
+		ErrorRiskResponseMissingScore: Enum_PurchaseResult,
+		ErrorMopAndRiskAmqpRpcFailed: Enum_PurchaseResult,
+		ErrorMopAndRiskRpcErrorFromBattlepay: Enum_PurchaseResult,
+		ErrorMopAndRiskUnexpectedResponseFromBattlepay: Enum_PurchaseResult,
+		ErrorMopAndRiskNoValidPaymentMethods: Enum_PurchaseResult,
+		ErrorOrderCanceledPriceChange: Enum_PurchaseResult,
+		ErrorBuyingProductNotAllowedInGlueScreen: Enum_PurchaseResult,
+		ErrorMopAndRiskNotEnoughBalance: Enum_PurchaseResult,
+		ErrorPlaceOrderNotEnoughBalance: Enum_PurchaseResult,
+		ErrorProgrammerManualFail: Enum_PurchaseResult,
+		ErrorThrottledByUserServer: Enum_PurchaseResult,
+		ErrorBuyingProductNotAllowedInWorld: Enum_PurchaseResult,
+		ErrorBlockedByParentalControls: Enum_PurchaseResult,
+		ErrorNoStorePurchaseFlagIsSet: Enum_PurchaseResult,
+		ErrorDistributionObjectInvalidChoice: Enum_PurchaseResult,
+		ErrorInvalidCreditCardExpiryDate: Enum_PurchaseResult,
+		ErrorAuthorizingPayment: Enum_PurchaseResult,
+		ErrorPaymentProviderDeniedPayment: Enum_PurchaseResult,
+		ErrorOverSpendingLimit: Enum_PurchaseResult,
+		ErrorClientTimeoutChallenge: Enum_PurchaseResult,
+		ErrorClientDeclinedChallenge: Enum_PurchaseResult,
+		ErrorDistributionObjectInvalidTarget: Enum_PurchaseResult,
+		ErrorFixedLicenseProductAlreadyExists: Enum_PurchaseResult,
+		ErrorDistributionObjectTrialBlocked: Enum_PurchaseResult,
+		ErrorDistributionObjectExpansionBlocked: Enum_PurchaseResult,
+		ErrorOwnsConsumableToken: Enum_PurchaseResult,
+		ErrorTooManyTokens: Enum_PurchaseResult,
+		ErrorCommerceServerDisabled: Enum_PurchaseResult,
+		ErrorFailedToWriteVasPurchaseID: Enum_PurchaseResult,
+		ErrorFailedToWriteVasLicenseID: Enum_PurchaseResult,
+		ErrorCharacterUpgradeOperationInProgress: Enum_PurchaseResult,
+		ErrorInvalidPlatform: Enum_PurchaseResult,
+		ErrorInvalidDeviceID: Enum_PurchaseResult,
+		ErrorFailedToSaveValidatePurchaseStatus: Enum_PurchaseResult,
+		ErrorFailedToSaveValidatePurchaseResponse: Enum_PurchaseResult,
+		ErrorBattlepayTimeoutValidatePurchase: Enum_PurchaseResult,
+		ErrorProductNotPurchasable: Enum_PurchaseResult,
+		ErrorFailedToSaveClientCheckoutStatus: Enum_PurchaseResult,
+		ErrorFailedOldPurchaseFlow: Enum_PurchaseResult,
+		ErrorClientCheckoutTimeout: Enum_PurchaseResult,
+		ErrorFailedToSaveValidationHashStatus: Enum_PurchaseResult,
+		ErrorBattlepayTimeoutValidationHash: Enum_PurchaseResult,
+		ErrorClientCheckoutCanceledOrFailed: Enum_PurchaseResult,
+		ErrorCouldNotGetValidationHash: Enum_PurchaseResult,
+		ErrorDistributionObjectWrongGameAccount: Enum_PurchaseResult,
+		ErrorClientRestricted: Enum_PurchaseResult,
+		ErrorFailedToSaveRedeemTokenStatus: Enum_PurchaseResult,
+		ErrorInvalidPurchaseID: Enum_PurchaseResult,
+		ErrorTokenRedemptionOrderFailed: Enum_PurchaseResult,
+		ErrorVasTransactionCreateFailed: Enum_PurchaseResult,
+		ErrorInManualReview: Enum_PurchaseResult,
 	},
 	PvPFaction: {
-		Horde: number,
-		Alliance: number,
+		Horde: Enum_PvPFaction,
+		Alliance: Enum_PvPFaction,
 	},
 	PvPMatchState: {
-		Inactive: number,
-		Waiting: number,
-		StartUp: number,
-		Engaged: number,
-		PostRound: number,
-		Complete: number,
+		Inactive: Enum_PvPMatchState,
+		Waiting: Enum_PvPMatchState,
+		StartUp: Enum_PvPMatchState,
+		Engaged: Enum_PvPMatchState,
+		PostRound: Enum_PvPMatchState,
+		Complete: Enum_PvPMatchState,
 	},
 	PvPMatchmakingType: {
-		Battleground: number,
-		Arena: number,
+		Battleground: Enum_PvPMatchmakingType,
+		Arena: Enum_PvPMatchmakingType,
 	},
 	PvPRanks: {
-		RankNone: number,
-		RankPariah: number,
-		RankOutlaw: number,
-		RankExiled: number,
-		RankDishonored: number,
-		Rank_1: number,
-		Rank_2: number,
-		Rank_3: number,
-		Rank_4: number,
-		Rank_5: number,
-		Rank_6: number,
-		Rank_7: number,
-		Rank_8: number,
-		Rank_9: number,
-		Rank_10: number,
-		Rank_11: number,
-		Rank_12: number,
-		Rank_13: number,
-		Rank_14: number,
+		RankNone: Enum_PvPRanks,
+		RankPariah: Enum_PvPRanks,
+		RankOutlaw: Enum_PvPRanks,
+		RankExiled: Enum_PvPRanks,
+		RankDishonored: Enum_PvPRanks,
+		Rank_1: Enum_PvPRanks,
+		Rank_2: Enum_PvPRanks,
+		Rank_3: Enum_PvPRanks,
+		Rank_4: Enum_PvPRanks,
+		Rank_5: Enum_PvPRanks,
+		Rank_6: Enum_PvPRanks,
+		Rank_7: Enum_PvPRanks,
+		Rank_8: Enum_PvPRanks,
+		Rank_9: Enum_PvPRanks,
+		Rank_10: Enum_PvPRanks,
+		Rank_11: Enum_PvPRanks,
+		Rank_12: Enum_PvPRanks,
+		Rank_13: Enum_PvPRanks,
+		Rank_14: Enum_PvPRanks,
 	},
 	PvPUnitClassification: {
-		FlagCarrierHorde: number,
-		FlagCarrierAlliance: number,
-		FlagCarrierNeutral: number,
-		CartRunnerHorde: number,
-		CartRunnerAlliance: number,
-		AssassinHorde: number,
-		AssassinAlliance: number,
-		OrbCarrierBlue: number,
-		OrbCarrierGreen: number,
-		OrbCarrierOrange: number,
-		OrbCarrierPurple: number,
+		FlagCarrierHorde: Enum_PvPUnitClassification,
+		FlagCarrierAlliance: Enum_PvPUnitClassification,
+		FlagCarrierNeutral: Enum_PvPUnitClassification,
+		CartRunnerHorde: Enum_PvPUnitClassification,
+		CartRunnerAlliance: Enum_PvPUnitClassification,
+		AssassinHorde: Enum_PvPUnitClassification,
+		AssassinAlliance: Enum_PvPUnitClassification,
+		OrbCarrierBlue: Enum_PvPUnitClassification,
+		OrbCarrierGreen: Enum_PvPUnitClassification,
+		OrbCarrierOrange: Enum_PvPUnitClassification,
+		OrbCarrierPurple: Enum_PvPUnitClassification,
 	},
 	QuestClassification: {
-		Important: number,
-		Legendary: number,
-		Campaign: number,
-		Calling: number,
-		Meta: number,
-		Recurring: number,
-		Questline: number,
-		Normal: number,
-		BonusObjective: number,
-		Threat: number,
-		WorldQuest: number,
+		Important: Enum_QuestClassification,
+		Legendary: Enum_QuestClassification,
+		Campaign: Enum_QuestClassification,
+		Calling: Enum_QuestClassification,
+		Meta: Enum_QuestClassification,
+		Recurring: Enum_QuestClassification,
+		Questline: Enum_QuestClassification,
+		Normal: Enum_QuestClassification,
+		BonusObjective: Enum_QuestClassification,
+		Threat: Enum_QuestClassification,
+		WorldQuest: Enum_QuestClassification,
 	},
 	QuestCompleteSpellType: {
-		LegacyBehavior: number,
-		Follower: number,
-		Tradeskill: number,
-		Ability: number,
-		Aura: number,
-		Spell: number,
-		Unlock: number,
-		Companion: number,
-		QuestlineUnlock: number,
-		QuestlineReward: number,
-		QuestlineUnlockPart: number,
-		PossibleReward: number,
+		LegacyBehavior: Enum_QuestCompleteSpellType,
+		Follower: Enum_QuestCompleteSpellType,
+		Tradeskill: Enum_QuestCompleteSpellType,
+		Ability: Enum_QuestCompleteSpellType,
+		Aura: Enum_QuestCompleteSpellType,
+		Spell: Enum_QuestCompleteSpellType,
+		Unlock: Enum_QuestCompleteSpellType,
+		Companion: Enum_QuestCompleteSpellType,
+		QuestlineUnlock: Enum_QuestCompleteSpellType,
+		QuestlineReward: Enum_QuestCompleteSpellType,
+		QuestlineUnlockPart: Enum_QuestCompleteSpellType,
+		PossibleReward: Enum_QuestCompleteSpellType,
 	},
 	QuestFrequency: {
-		Default: number,
-		Daily: number,
-		Weekly: number,
-		ResetByScheduler: number,
+		Default: Enum_QuestFrequency,
+		Daily: Enum_QuestFrequency,
+		Weekly: Enum_QuestFrequency,
+		ResetByScheduler: Enum_QuestFrequency,
 	},
 	QuestLineFloorLocation: {
-		Above: number,
-		Below: number,
-		Same: number,
+		Above: Enum_QuestLineFloorLocation,
+		Below: Enum_QuestLineFloorLocation,
+		Same: Enum_QuestLineFloorLocation,
 	},
 	QuestRepeatability: {
-		None: number,
-		Daily: number,
-		Weekly: number,
-		Turnin: number,
-		World: number,
+		None: Enum_QuestRepeatability,
+		Daily: Enum_QuestRepeatability,
+		Weekly: Enum_QuestRepeatability,
+		Turnin: Enum_QuestRepeatability,
+		World: Enum_QuestRepeatability,
 	},
 	QuestRewardContextFlags: {
 		None: number,
@@ -27583,223 +29980,223 @@ declare Enum: {
 		RepeatCompletionBonus: number,
 	},
 	QuestSessionCommand: {
-		None: number,
-		Start: number,
-		Stop: number,
-		SessionActiveNoCommand: number,
+		None: Enum_QuestSessionCommand,
+		Start: Enum_QuestSessionCommand,
+		Stop: Enum_QuestSessionCommand,
+		SessionActiveNoCommand: Enum_QuestSessionCommand,
 	},
 	QuestSessionResult: {
-		Ok: number,
-		NotInParty: number,
-		InvalidOwner: number,
-		AlreadyActive: number,
-		NotActive: number,
-		InRaid: number,
-		OwnerRefused: number,
-		Timeout: number,
-		Disabled: number,
-		Started: number,
-		Stopped: number,
-		Joined: number,
-		Left: number,
-		OwnerLeft: number,
-		ReadyCheckFailed: number,
-		PartyDestroyed: number,
-		MemberTimeout: number,
-		AlreadyMember: number,
-		NotOwner: number,
-		AlreadyOwner: number,
-		AlreadyJoined: number,
-		NotMember: number,
-		Busy: number,
-		JoinRejected: number,
-		Logout: number,
-		Empty: number,
-		QuestNotCompleted: number,
-		Resync: number,
-		Restricted: number,
-		InPetBattle: number,
-		InvalidPublicParty: number,
-		Unknown: number,
-		InCombat: number,
-		MemberInCombat: number,
-		RestrictedCrossFaction: number,
+		Ok: Enum_QuestSessionResult,
+		NotInParty: Enum_QuestSessionResult,
+		InvalidOwner: Enum_QuestSessionResult,
+		AlreadyActive: Enum_QuestSessionResult,
+		NotActive: Enum_QuestSessionResult,
+		InRaid: Enum_QuestSessionResult,
+		OwnerRefused: Enum_QuestSessionResult,
+		Timeout: Enum_QuestSessionResult,
+		Disabled: Enum_QuestSessionResult,
+		Started: Enum_QuestSessionResult,
+		Stopped: Enum_QuestSessionResult,
+		Joined: Enum_QuestSessionResult,
+		Left: Enum_QuestSessionResult,
+		OwnerLeft: Enum_QuestSessionResult,
+		ReadyCheckFailed: Enum_QuestSessionResult,
+		PartyDestroyed: Enum_QuestSessionResult,
+		MemberTimeout: Enum_QuestSessionResult,
+		AlreadyMember: Enum_QuestSessionResult,
+		NotOwner: Enum_QuestSessionResult,
+		AlreadyOwner: Enum_QuestSessionResult,
+		AlreadyJoined: Enum_QuestSessionResult,
+		NotMember: Enum_QuestSessionResult,
+		Busy: Enum_QuestSessionResult,
+		JoinRejected: Enum_QuestSessionResult,
+		Logout: Enum_QuestSessionResult,
+		Empty: Enum_QuestSessionResult,
+		QuestNotCompleted: Enum_QuestSessionResult,
+		Resync: Enum_QuestSessionResult,
+		Restricted: Enum_QuestSessionResult,
+		InPetBattle: Enum_QuestSessionResult,
+		InvalidPublicParty: Enum_QuestSessionResult,
+		Unknown: Enum_QuestSessionResult,
+		InCombat: Enum_QuestSessionResult,
+		MemberInCombat: Enum_QuestSessionResult,
+		RestrictedCrossFaction: Enum_QuestSessionResult,
 	},
 	QuestTag: {
-		Group: number,
-		PvP: number,
-		Raid: number,
-		Dungeon: number,
-		Legendary: number,
-		Heroic: number,
-		Raid10: number,
-		Raid25: number,
-		Scenario: number,
-		Account: number,
-		CombatAlly: number,
-		Delve: number,
+		Group: Enum_QuestTag,
+		PvP: Enum_QuestTag,
+		Raid: Enum_QuestTag,
+		Dungeon: Enum_QuestTag,
+		Legendary: Enum_QuestTag,
+		Heroic: Enum_QuestTag,
+		Raid10: Enum_QuestTag,
+		Raid25: Enum_QuestTag,
+		Scenario: Enum_QuestTag,
+		Account: Enum_QuestTag,
+		CombatAlly: Enum_QuestTag,
+		Delve: Enum_QuestTag,
 	},
 	QuestTagType: {
-		Tag: number,
-		Profession: number,
-		Normal: number,
-		PvP: number,
-		PetBattle: number,
-		Bounty: number,
-		Dungeon: number,
-		Invasion: number,
-		Raid: number,
-		Contribution: number,
-		RatedReward: number,
-		InvasionWrapper: number,
-		FactionAssault: number,
-		Islands: number,
-		Threat: number,
-		CovenantCalling: number,
-		DragonRiderRacing: number,
-		Capstone: number,
-		WorldBoss: number,
-		Prey: number,
+		Tag: Enum_QuestTagType,
+		Profession: Enum_QuestTagType,
+		Normal: Enum_QuestTagType,
+		PvP: Enum_QuestTagType,
+		PetBattle: Enum_QuestTagType,
+		Bounty: Enum_QuestTagType,
+		Dungeon: Enum_QuestTagType,
+		Invasion: Enum_QuestTagType,
+		Raid: Enum_QuestTagType,
+		Contribution: Enum_QuestTagType,
+		RatedReward: Enum_QuestTagType,
+		InvasionWrapper: Enum_QuestTagType,
+		FactionAssault: Enum_QuestTagType,
+		Islands: Enum_QuestTagType,
+		Threat: Enum_QuestTagType,
+		CovenantCalling: Enum_QuestTagType,
+		DragonRiderRacing: Enum_QuestTagType,
+		Capstone: Enum_QuestTagType,
+		WorldBoss: Enum_QuestTagType,
+		Prey: Enum_QuestTagType,
 	},
 	QuestTreasurePickerType: {
-		Visible: number,
-		Hidden: number,
-		Select: number,
+		Visible: Enum_QuestTreasurePickerType,
+		Hidden: Enum_QuestTreasurePickerType,
+		Select: Enum_QuestTreasurePickerType,
 	},
 	QuestWatchType: {
-		Automatic: number,
-		Manual: number,
+		Automatic: Enum_QuestWatchType,
+		Manual: Enum_QuestWatchType,
 	},
 	RafLinkType: {
-		None: number,
-		Recruit: number,
-		Friend: number,
-		Both: number,
+		None: Enum_RafLinkType,
+		Recruit: Enum_RafLinkType,
+		Friend: Enum_RafLinkType,
+		Both: Enum_RafLinkType,
 	},
 	RafRecruitActivityState: {
-		Incomplete: number,
-		Complete: number,
-		RewardClaimed: number,
+		Incomplete: Enum_RafRecruitActivityState,
+		Complete: Enum_RafRecruitActivityState,
+		RewardClaimed: Enum_RafRecruitActivityState,
 	},
 	RafRecruitSubStatus: {
-		Trial: number,
-		Active: number,
-		Inactive: number,
+		Trial: Enum_RafRecruitSubStatus,
+		Active: Enum_RafRecruitSubStatus,
+		Inactive: Enum_RafRecruitSubStatus,
 	},
 	RafRewardType: {
-		Pet: number,
-		Mount: number,
-		Appearance: number,
-		Title: number,
-		GameTime: number,
-		AppearanceSet: number,
-		Illusion: number,
-		Invalid: number,
+		Pet: Enum_RafRewardType,
+		Mount: Enum_RafRewardType,
+		Appearance: Enum_RafRewardType,
+		Title: Enum_RafRewardType,
+		GameTime: Enum_RafRewardType,
+		AppearanceSet: Enum_RafRewardType,
+		Illusion: Enum_RafRewardType,
+		Invalid: Enum_RafRewardType,
 	},
 	RaidAuraOrganizationType: {
-		Legacy: number,
-		BuffsTopDebuffsBottom: number,
-		BuffsRightDebuffsLeft: number,
+		Legacy: Enum_RaidAuraOrganizationType,
+		BuffsTopDebuffsBottom: Enum_RaidAuraOrganizationType,
+		BuffsRightDebuffsLeft: Enum_RaidAuraOrganizationType,
 	},
 	RaidDispelDisplayType: {
-		Disabled: number,
-		DispellableByMe: number,
-		DisplayAll: number,
+		Disabled: Enum_RaidDispelDisplayType,
+		DispellableByMe: Enum_RaidDispelDisplayType,
+		DisplayAll: Enum_RaidDispelDisplayType,
 	},
 	RaidDispelOverlayType: {
-		Disabled: number,
-		UseDebuffColor: number,
-		UseBlack: number,
+		Disabled: Enum_RaidDispelOverlayType,
+		UseDebuffColor: Enum_RaidDispelOverlayType,
+		UseBlack: Enum_RaidDispelOverlayType,
 	},
 	RaidGroupDisplayType: {
-		SeparateGroupsVertical: number,
-		SeparateGroupsHorizontal: number,
-		CombineGroupsVertical: number,
-		CombineGroupsHorizontal: number,
+		SeparateGroupsVertical: Enum_RaidGroupDisplayType,
+		SeparateGroupsHorizontal: Enum_RaidGroupDisplayType,
+		CombineGroupsVertical: Enum_RaidGroupDisplayType,
+		CombineGroupsHorizontal: Enum_RaidGroupDisplayType,
 	},
 	RaidMarkerSpellids: {
-		RaidMarker_0: number,
-		RaidMarker_1: number,
-		RaidMarker_2: number,
-		RaidMarker_3: number,
-		RaidMarker_4: number,
-		RaidMarker_5: number,
-		RaidMarker_6: number,
-		RaidMarker_7: number,
+		RaidMarker_0: Enum_RaidMarkerSpellids,
+		RaidMarker_1: Enum_RaidMarkerSpellids,
+		RaidMarker_2: Enum_RaidMarkerSpellids,
+		RaidMarker_3: Enum_RaidMarkerSpellids,
+		RaidMarker_4: Enum_RaidMarkerSpellids,
+		RaidMarker_5: Enum_RaidMarkerSpellids,
+		RaidMarker_6: Enum_RaidMarkerSpellids,
+		RaidMarker_7: Enum_RaidMarkerSpellids,
 	},
 	RcoCloseReason: {
-		Fulfill: number,
-		Expire: number,
-		Cancel: number,
-		Reject: number,
-		GmCancel: number,
-		CrafterFulfill: number,
-		Invalid: number,
+		Fulfill: Enum_RcoCloseReason,
+		Expire: Enum_RcoCloseReason,
+		Cancel: Enum_RcoCloseReason,
+		Reject: Enum_RcoCloseReason,
+		GmCancel: Enum_RcoCloseReason,
+		CrafterFulfill: Enum_RcoCloseReason,
+		Invalid: Enum_RcoCloseReason,
 	},
 	RecentAlliesInteractionCategoryFilter: {
-		Professions: number,
-		PvP: number,
-		Raiding: number,
-		Dungeons: number,
-		Delves: number,
-		Questing: number,
+		Professions: Enum_RecentAlliesInteractionCategoryFilter,
+		PvP: Enum_RecentAlliesInteractionCategoryFilter,
+		Raiding: Enum_RecentAlliesInteractionCategoryFilter,
+		Dungeons: Enum_RecentAlliesInteractionCategoryFilter,
+		Delves: Enum_RecentAlliesInteractionCategoryFilter,
+		Questing: Enum_RecentAlliesInteractionCategoryFilter,
 	},
 	RecentAllyPinResult: {
-		Success: number,
-		ServerError: number,
+		Success: Enum_RecentAllyPinResult,
+		ServerError: Enum_RecentAllyPinResult,
 	},
 	RecipeRequirementType: {
-		SpellFocus: number,
-		Totem: number,
-		Area: number,
+		SpellFocus: Enum_RecipeRequirementType,
+		Totem: Enum_RecipeRequirementType,
+		Area: Enum_RecipeRequirementType,
 	},
 	RecruitAFriendFailure: {
-		Success: number,
-		NotLinked: number,
-		NotNow: number,
-		NoTarget: number,
-		NotInParty: number,
-		SummonLevelMax: number,
-		SummonCooldown: number,
-		InsufExpanLvl: number,
-		Offline: number,
-		MapIncomingTransferNotAllowed: number,
-		NotInClassic: number,
+		Success: Enum_RecruitAFriendFailure,
+		NotLinked: Enum_RecruitAFriendFailure,
+		NotNow: Enum_RecruitAFriendFailure,
+		NoTarget: Enum_RecruitAFriendFailure,
+		NotInParty: Enum_RecruitAFriendFailure,
+		SummonLevelMax: Enum_RecruitAFriendFailure,
+		SummonCooldown: Enum_RecruitAFriendFailure,
+		InsufExpanLvl: Enum_RecruitAFriendFailure,
+		Offline: Enum_RecruitAFriendFailure,
+		MapIncomingTransferNotAllowed: Enum_RecruitAFriendFailure,
+		NotInClassic: Enum_RecruitAFriendFailure,
 	},
 	RecruitAFriendRewardsVersion: {
-		InvalidVersion: number,
-		UnusedVersionOne: number,
-		VersionTwo: number,
-		VersionThree: number,
+		InvalidVersion: Enum_RecruitAFriendRewardsVersion,
+		UnusedVersionOne: Enum_RecruitAFriendRewardsVersion,
+		VersionTwo: Enum_RecruitAFriendRewardsVersion,
+		VersionThree: Enum_RecruitAFriendRewardsVersion,
 	},
 	RegisterAddonMessagePrefixResult: {
-		Success: number,
-		DuplicatePrefix: number,
-		InvalidPrefix: number,
-		MaxPrefixes: number,
+		Success: Enum_RegisterAddonMessagePrefixResult,
+		DuplicatePrefix: Enum_RegisterAddonMessagePrefixResult,
+		InvalidPrefix: Enum_RegisterAddonMessagePrefixResult,
+		MaxPrefixes: Enum_RegisterAddonMessagePrefixResult,
 	},
 	RelativeContentDifficulty: {
-		Trivial: number,
-		Easy: number,
-		Fair: number,
-		Difficult: number,
-		Impossible: number,
+		Trivial: Enum_RelativeContentDifficulty,
+		Easy: Enum_RelativeContentDifficulty,
+		Fair: Enum_RelativeContentDifficulty,
+		Difficult: Enum_RelativeContentDifficulty,
+		Impossible: Enum_RelativeContentDifficulty,
 	},
 	ReleaseType: {
-		Original: number,
-		Classic: number,
+		Original: Enum_ReleaseType,
+		Classic: Enum_ReleaseType,
 	},
 	RenownRewardDisplayType: {
-		None: number,
-		Item: number,
-		Spell: number,
-		Mount: number,
-		Transmog: number,
-		TransmogSet: number,
-		TransmogIllusion: number,
-		Title: number,
-		GarrFollower: number,
-		Currency: number,
+		None: Enum_RenownRewardDisplayType,
+		Item: Enum_RenownRewardDisplayType,
+		Spell: Enum_RenownRewardDisplayType,
+		Mount: Enum_RenownRewardDisplayType,
+		Transmog: Enum_RenownRewardDisplayType,
+		TransmogSet: Enum_RenownRewardDisplayType,
+		TransmogIllusion: Enum_RenownRewardDisplayType,
+		Title: Enum_RenownRewardDisplayType,
+		GarrFollower: Enum_RenownRewardDisplayType,
+		Currency: Enum_RenownRewardDisplayType,
 	},
 	RenownRewardsFlags: {
 		Milestone: number,
@@ -27808,17 +30205,17 @@ declare Enum: {
 		AccountUnlock: number,
 	},
 	ReportEvidenceType: {
-		Invalid: number,
-		HouseScreenshot: number,
-		HouseLayoutJson: number,
+		Invalid: Enum_ReportEvidenceType,
+		HouseScreenshot: Enum_ReportEvidenceType,
+		HouseLayoutJson: Enum_ReportEvidenceType,
 	},
 	ReportMajorCategory: {
-		InappropriateCommunication: number,
-		GameplaySabotage: number,
-		Cheating: number,
-		InappropriateName: number,
-		InappropriateDecor: number,
-		InappropriateBlueprint: number,
+		InappropriateCommunication: Enum_ReportMajorCategory,
+		GameplaySabotage: Enum_ReportMajorCategory,
+		Cheating: Enum_ReportMajorCategory,
+		InappropriateName: Enum_ReportMajorCategory,
+		InappropriateDecor: Enum_ReportMajorCategory,
+		InappropriateBlueprint: Enum_ReportMajorCategory,
 	},
 	ReportMinorCategory: {
 		TextChat: number,
@@ -27844,42 +30241,42 @@ declare Enum: {
 		HousingBlueprint: number,
 	},
 	ReportSubComplaintTypes: {
-		Inappropriate: number,
-		Advertising: number,
+		Inappropriate: Enum_ReportSubComplaintTypes,
+		Advertising: Enum_ReportSubComplaintTypes,
 	},
 	ReportThrottleType: {
-		Invalid: number,
-		General: number,
-		Expensive: number,
+		Invalid: Enum_ReportThrottleType,
+		General: Enum_ReportThrottleType,
+		Expensive: Enum_ReportThrottleType,
 	},
 	ReportType: {
-		Chat: number,
-		InWorld: number,
-		ClubFinderPosting: number,
-		ClubFinderApplicant: number,
-		GroupFinderPosting: number,
-		GroupFinderApplicant: number,
-		ClubMember: number,
-		GroupMember: number,
-		Friend: number,
-		Pet: number,
-		BattlePet: number,
-		Calendar: number,
-		Mail: number,
-		PvP: number,
-		PvPScoreboard: number,
-		PvPGroupMember: number,
-		CraftingOrder: number,
-		RecentAlly: number,
-		HousingDecor: number,
-		Neighborhood: number,
-		NeighborhoodRoster: number,
-		HousingBlueprint: number,
+		Chat: Enum_ReportType,
+		InWorld: Enum_ReportType,
+		ClubFinderPosting: Enum_ReportType,
+		ClubFinderApplicant: Enum_ReportType,
+		GroupFinderPosting: Enum_ReportType,
+		GroupFinderApplicant: Enum_ReportType,
+		ClubMember: Enum_ReportType,
+		GroupMember: Enum_ReportType,
+		Friend: Enum_ReportType,
+		Pet: Enum_ReportType,
+		BattlePet: Enum_ReportType,
+		Calendar: Enum_ReportType,
+		Mail: Enum_ReportType,
+		PvP: Enum_ReportType,
+		PvPScoreboard: Enum_ReportType,
+		PvPGroupMember: Enum_ReportType,
+		CraftingOrder: Enum_ReportType,
+		RecentAlly: Enum_ReportType,
+		HousingDecor: Enum_ReportType,
+		Neighborhood: Enum_ReportType,
+		NeighborhoodRoster: Enum_ReportType,
+		HousingBlueprint: Enum_ReportType,
 	},
 	ReputationSortType: {
-		None: number,
-		Account: number,
-		Character: number,
+		None: Enum_ReputationSortType,
+		Account: Enum_ReputationSortType,
+		Character: Enum_ReputationSortType,
 	},
 	ReservationFlags: {
 		None: number,
@@ -27888,143 +30285,143 @@ declare Enum: {
 		Plotless: number,
 	},
 	ResidentType: {
-		Resident: number,
-		Manager: number,
-		Owner: number,
+		Resident: Enum_ResidentType,
+		Manager: Enum_ResidentType,
+		Owner: Enum_ResidentType,
 	},
 	RespecType: {
-		Talents: number,
-		Glyphs: number,
-		SetPrimarySpecialization: number,
-		PetTalents: number,
-		Legacy: number,
-		Specialization: number,
+		Talents: Enum_RespecType,
+		Glyphs: Enum_RespecType,
+		SetPrimarySpecialization: Enum_RespecType,
+		PetTalents: Enum_RespecType,
+		Legacy: Enum_RespecType,
+		Specialization: Enum_RespecType,
 	},
 	RestrictPingsTo: {
-		None: number,
-		Lead: number,
-		Assist: number,
-		TankHealer: number,
+		None: Enum_RestrictPingsTo,
+		Lead: Enum_RestrictPingsTo,
+		Assist: Enum_RestrictPingsTo,
+		TankHealer: Enum_RestrictPingsTo,
 	},
 	RetroactiveDecorRewardFlags: {
 		None: number,
 		AllCriteriaRequired: number,
 	},
 	RolodexContactMigrationResult: {
-		ContactAdded: number,
-		ContactUpdated: number,
+		ContactAdded: Enum_RolodexContactMigrationResult,
+		ContactUpdated: Enum_RolodexContactMigrationResult,
 	},
 	RolodexContextLevelType: {
-		None: number,
-		Difficulty: number,
-		KeystoneLevel: number,
-		DelveTier: number,
+		None: Enum_RolodexContextLevelType,
+		Difficulty: Enum_RolodexContextLevelType,
+		KeystoneLevel: Enum_RolodexContextLevelType,
+		DelveTier: Enum_RolodexContextLevelType,
 	},
 	RolodexDbFlags: {
 		None: number,
 		PromotedFromContact: number,
 	},
 	RolodexType: {
-		None: number,
-		PartyMember: number,
-		RaidMember: number,
-		Trade: number,
-		Whisper: number,
-		PublicOrderFilledByOther: number,
-		PublicOrderFilledByYou: number,
-		PersonalOrderFilledByOther: number,
-		PersonalOrderFilledByYou: number,
-		GuildOrderFilledByOther: number,
-		GuildOrderFilledByYou: number,
-		CreatureKill: number,
-		CompleteDungeon: number,
-		KillRaidBoss: number,
-		KillLfrBoss: number,
-		CompleteDelve: number,
-		CompleteArena: number,
-		CompleteBg: number,
-		Duel: number,
-		PetBattle: number,
-		PvPKill: number,
-		LegacyFriend: number,
+		None: Enum_RolodexType,
+		PartyMember: Enum_RolodexType,
+		RaidMember: Enum_RolodexType,
+		Trade: Enum_RolodexType,
+		Whisper: Enum_RolodexType,
+		PublicOrderFilledByOther: Enum_RolodexType,
+		PublicOrderFilledByYou: Enum_RolodexType,
+		PersonalOrderFilledByOther: Enum_RolodexType,
+		PersonalOrderFilledByYou: Enum_RolodexType,
+		GuildOrderFilledByOther: Enum_RolodexType,
+		GuildOrderFilledByYou: Enum_RolodexType,
+		CreatureKill: Enum_RolodexType,
+		CompleteDungeon: Enum_RolodexType,
+		KillRaidBoss: Enum_RolodexType,
+		KillLfrBoss: Enum_RolodexType,
+		CompleteDelve: Enum_RolodexType,
+		CompleteArena: Enum_RolodexType,
+		CompleteBg: Enum_RolodexType,
+		Duel: Enum_RolodexType,
+		PetBattle: Enum_RolodexType,
+		PvPKill: Enum_RolodexType,
+		LegacyFriend: Enum_RolodexType,
 	},
 	RolodexTypeFlags: {
 		None: number,
 		HiddenFromHistory: number,
 	},
 	RoomConnectionType: {
-		None: number,
-		All: number,
+		None: Enum_RoomConnectionType,
+		All: Enum_RoomConnectionType,
 	},
 	RuneforgePowerFilter: {
-		All: number,
-		Relevant: number,
-		Available: number,
-		Unavailable: number,
+		All: Enum_RuneforgePowerFilter,
+		Relevant: Enum_RuneforgePowerFilter,
+		Available: Enum_RuneforgePowerFilter,
+		Unavailable: Enum_RuneforgePowerFilter,
 	},
 	RuneforgePowerState: {
-		Available: number,
-		Unavailable: number,
-		Invalid: number,
+		Available: Enum_RuneforgePowerState,
+		Unavailable: Enum_RuneforgePowerState,
+		Invalid: Enum_RuneforgePowerState,
 	},
 	ScreenLocationType: {
-		Center: number,
-		Left: number,
-		Right: number,
-		Top: number,
-		Bottom: number,
-		TopLeft: number,
-		TopRight: number,
-		LeftOutside: number,
-		RightOutside: number,
-		LeftRight: number,
-		TopBottom: number,
-		LeftRightOutside: number,
+		Center: Enum_ScreenLocationType,
+		Left: Enum_ScreenLocationType,
+		Right: Enum_ScreenLocationType,
+		Top: Enum_ScreenLocationType,
+		Bottom: Enum_ScreenLocationType,
+		TopLeft: Enum_ScreenLocationType,
+		TopRight: Enum_ScreenLocationType,
+		LeftOutside: Enum_ScreenLocationType,
+		RightOutside: Enum_ScreenLocationType,
+		LeftRight: Enum_ScreenLocationType,
+		TopBottom: Enum_ScreenLocationType,
+		LeftRightOutside: Enum_ScreenLocationType,
 	},
 	ScreenshotSource: {
-		Automatic: number,
-		PlayerReport: number,
-		Cheat: number,
+		Automatic: Enum_ScreenshotSource,
+		PlayerReport: Enum_ScreenshotSource,
+		Cheat: Enum_ScreenshotSource,
 	},
 	ScriptBindingType: {
-		Precall: number,
-		Extrinsic: number,
-		Postcall: number,
+		Precall: Enum_ScriptBindingType,
+		Extrinsic: Enum_ScriptBindingType,
+		Postcall: Enum_ScriptBindingType,
 	},
 	ScriptObjectAccessRestriction: {
-		DenyTaintedAccessWhenAurasAreSecret: number,
+		DenyTaintedAccessWhenAurasAreSecret: Enum_ScriptObjectAccessRestriction,
 	},
 	ScriptObjectMetatable: {
-		Public: number,
-		Forbidden: number,
+		Public: Enum_ScriptObjectMetatable,
+		Forbidden: Enum_ScriptObjectMetatable,
 	},
 	ScriptObjectPartition: {
-		Public: number,
-		Forbidden: number,
+		Public: Enum_ScriptObjectPartition,
+		Forbidden: Enum_ScriptObjectPartition,
 	},
 	ScriptObjectPropagationPath: {
-		Hierarchy: number,
-		Layout: number,
+		Hierarchy: Enum_ScriptObjectPropagationPath,
+		Layout: Enum_ScriptObjectPropagationPath,
 	},
 	ScriptedAnimationBehavior: {
-		None: number,
-		TargetShake: number,
-		TargetKnockBack: number,
-		SourceRecoil: number,
-		SourceCollideWithTarget: number,
-		UIParentShake: number,
+		None: Enum_ScriptedAnimationBehavior,
+		TargetShake: Enum_ScriptedAnimationBehavior,
+		TargetKnockBack: Enum_ScriptedAnimationBehavior,
+		SourceRecoil: Enum_ScriptedAnimationBehavior,
+		SourceCollideWithTarget: Enum_ScriptedAnimationBehavior,
+		UIParentShake: Enum_ScriptedAnimationBehavior,
 	},
 	ScriptedAnimationFlags: {
 		UseTargetAsSource: number,
 	},
 	ScriptedAnimationTrajectory: {
-		AtSource: number,
-		AtTarget: number,
-		Straight: number,
-		CurveLeft: number,
-		CurveRight: number,
-		CurveRandom: number,
-		HalfwayBetween: number,
+		AtSource: Enum_ScriptedAnimationTrajectory,
+		AtTarget: Enum_ScriptedAnimationTrajectory,
+		Straight: Enum_ScriptedAnimationTrajectory,
+		CurveLeft: Enum_ScriptedAnimationTrajectory,
+		CurveRight: Enum_ScriptedAnimationTrajectory,
+		CurveRandom: Enum_ScriptedAnimationTrajectory,
+		HalfwayBetween: Enum_ScriptedAnimationTrajectory,
 	},
 	ScrubStringFlags: {
 		None: number,
@@ -28033,16 +30430,16 @@ declare Enum: {
 		StripControlCodes: number,
 	},
 	SdToggleUsageLocation: {
-		BeforeLogin: number,
-		CharacterCreation: number,
-		BarberShop: number,
-		OptionsMenu: number,
+		BeforeLogin: Enum_SdToggleUsageLocation,
+		CharacterCreation: Enum_SdToggleUsageLocation,
+		BarberShop: Enum_SdToggleUsageLocation,
+		OptionsMenu: Enum_SdToggleUsageLocation,
 	},
 	SdToggleUsageLocationUI: {
-		BeforeLogin: number,
-		CharacterCreation: number,
-		BarberShop: number,
-		OptionsMenu: number,
+		BeforeLogin: Enum_SdToggleUsageLocationUI,
+		CharacterCreation: Enum_SdToggleUsageLocationUI,
+		BarberShop: Enum_SdToggleUsageLocationUI,
+		OptionsMenu: Enum_SdToggleUsageLocationUI,
 	},
 	SeasonID: {
 		NoSeason: number,
@@ -28053,29 +30450,29 @@ declare Enum: {
 		FreshHardcore: number,
 	},
 	SecondsFormatterAbbreviation: {
-		None: number,
-		Truncate: number,
-		OneLetter: number,
+		None: Enum_SecondsFormatterAbbreviation,
+		Truncate: Enum_SecondsFormatterAbbreviation,
+		OneLetter: Enum_SecondsFormatterAbbreviation,
 	},
 	SecondsFormatterInterval: {
-		Seconds: number,
-		Minutes: number,
-		Hours: number,
-		Days: number,
+		Seconds: Enum_SecondsFormatterInterval,
+		Minutes: Enum_SecondsFormatterInterval,
+		Hours: Enum_SecondsFormatterInterval,
+		Days: Enum_SecondsFormatterInterval,
 	},
 	SecondsFormatterIntervalWhitespace: {
-		Preserve: number,
-		Strip: number,
-		StripIgnoreLocale: number,
+		Preserve: Enum_SecondsFormatterIntervalWhitespace,
+		Strip: Enum_SecondsFormatterIntervalWhitespace,
+		StripIgnoreLocale: Enum_SecondsFormatterIntervalWhitespace,
 	},
 	SecondsFormatterRounding: {
-		RoundUp: number,
-		Truncate: number,
+		RoundUp: Enum_SecondsFormatterRounding,
+		Truncate: Enum_SecondsFormatterRounding,
 	},
 	SecrecyLevel: {
-		NeverSecret: number,
-		AlwaysSecret: number,
-		ContextuallySecret: number,
+		NeverSecret: Enum_SecrecyLevel,
+		AlwaysSecret: Enum_SecrecyLevel,
+		ContextuallySecret: Enum_SecrecyLevel,
 	},
 	SecretAspect: {
 		Attributes: number,
@@ -28111,57 +30508,57 @@ declare Enum: {
 		FrameStrata: number,
 	},
 	SelfResurrectOptionType: {
-		Spell: number,
-		Item: number,
+		Spell: Enum_SelfResurrectOptionType,
+		Item: Enum_SelfResurrectOptionType,
 	},
 	SendAddonMessageResult: {
-		Success: number,
-		InvalidPrefix: number,
-		InvalidMessage: number,
-		AddonMessageThrottle: number,
-		InvalidChatType: number,
-		NotInGroup: number,
-		TargetRequired: number,
-		InvalidChannel: number,
-		ChannelThrottle: number,
-		GeneralError: number,
-		NotInGuild: number,
-		AddOnMessageLockdown: number,
-		TargetOffline: number,
+		Success: Enum_SendAddonMessageResult,
+		InvalidPrefix: Enum_SendAddonMessageResult,
+		InvalidMessage: Enum_SendAddonMessageResult,
+		AddonMessageThrottle: Enum_SendAddonMessageResult,
+		InvalidChatType: Enum_SendAddonMessageResult,
+		NotInGroup: Enum_SendAddonMessageResult,
+		TargetRequired: Enum_SendAddonMessageResult,
+		InvalidChannel: Enum_SendAddonMessageResult,
+		ChannelThrottle: Enum_SendAddonMessageResult,
+		GeneralError: Enum_SendAddonMessageResult,
+		NotInGuild: Enum_SendAddonMessageResult,
+		AddOnMessageLockdown: Enum_SendAddonMessageResult,
+		TargetOffline: Enum_SendAddonMessageResult,
 	},
 	SendReportResult: {
-		Success: number,
-		GeneralError: number,
-		TooManyReports: number,
-		RequiresChatLine: number,
-		RequiresChatLineOrVoice: number,
-		RequiresScreenshot: number,
+		Success: Enum_SendReportResult,
+		GeneralError: Enum_SendReportResult,
+		TooManyReports: Enum_SendReportResult,
+		RequiresChatLine: Enum_SendReportResult,
+		RequiresChatLineOrVoice: Enum_SendReportResult,
+		RequiresScreenshot: Enum_SendReportResult,
 	},
 	SharedStringFlag: {
 		InternalOnly: number,
 	},
 	ShutdownSessionReason: {
-		SessionEnded: number,
-		RestartSessionCommand: number,
-		ForceLogoutCommand: number,
-		RealmSelectCommand: number,
-		AccountLoginCommand: number,
-		LuaScript: number,
-		Error: number,
+		SessionEnded: Enum_ShutdownSessionReason,
+		RestartSessionCommand: Enum_ShutdownSessionReason,
+		ForceLogoutCommand: Enum_ShutdownSessionReason,
+		RealmSelectCommand: Enum_ShutdownSessionReason,
+		AccountLoginCommand: Enum_ShutdownSessionReason,
+		LuaScript: Enum_ShutdownSessionReason,
+		Error: Enum_ShutdownSessionReason,
 	},
 	Si3UISoundSubType: {
-		Default: number,
-		Cinematic: number,
-		RacialCinematic: number,
-		Script: number,
-		ScriptAmbience: number,
-		ScriptDialog: number,
-		ScriptMaster: number,
-		ScriptMusic: number,
-		ScriptTalkingHead: number,
-		VocalError: number,
-		ScriptVoice: number,
-		ScriptGameplaySfx: number,
+		Default: Enum_Si3UISoundSubType,
+		Cinematic: Enum_Si3UISoundSubType,
+		RacialCinematic: Enum_Si3UISoundSubType,
+		Script: Enum_Si3UISoundSubType,
+		ScriptAmbience: Enum_Si3UISoundSubType,
+		ScriptDialog: Enum_Si3UISoundSubType,
+		ScriptMaster: Enum_Si3UISoundSubType,
+		ScriptMusic: Enum_Si3UISoundSubType,
+		ScriptTalkingHead: Enum_Si3UISoundSubType,
+		VocalError: Enum_Si3UISoundSubType,
+		ScriptVoice: Enum_Si3UISoundSubType,
+		ScriptGameplaySfx: Enum_Si3UISoundSubType,
 	},
 	Siflag: {
 		None: number,
@@ -28184,33 +30581,33 @@ declare Enum: {
 		Onlyplayunderwater: number,
 	},
 	SimpleOrderStatus: {
-		Invalid: number,
-		Creating: number,
-		InProgress: number,
-		Success: number,
-		Failed: number,
+		Invalid: Enum_SimpleOrderStatus,
+		Creating: Enum_SimpleOrderStatus,
+		InProgress: Enum_SimpleOrderStatus,
+		Success: Enum_SimpleOrderStatus,
+		Failed: Enum_SimpleOrderStatus,
 	},
 	SkinningState: {
-		None: number,
-		Reserved: number,
-		Skinning: number,
-		Looting: number,
-		Skinned: number,
+		None: Enum_SkinningState,
+		Reserved: Enum_SkinningState,
+		Skinning: Enum_SkinningState,
+		Looting: Enum_SkinningState,
+		Skinned: Enum_SkinningState,
 	},
 	SleevesGeoRange: {
-		None: number,
-		Default: number,
-		Flared: number,
-		Puffy: number,
-		PandaCollar: number,
+		None: Enum_SleevesGeoRange,
+		Default: Enum_SleevesGeoRange,
+		Flared: Enum_SleevesGeoRange,
+		Puffy: Enum_SleevesGeoRange,
+		PandaCollar: Enum_SleevesGeoRange,
 	},
 	SlotRegion: {
-		Invalid: number,
-		PlayerEquip: number,
-		PlayerBags: number,
-		PlayerInv: number,
-		CharacterBank: number,
-		AccountBank: number,
+		Invalid: Enum_SlotRegion,
+		PlayerEquip: Enum_SlotRegion,
+		PlayerBags: Enum_SlotRegion,
+		PlayerInv: Enum_SlotRegion,
+		CharacterBank: Enum_SlotRegion,
+		AccountBank: Enum_SlotRegion,
 	},
 	SlotRegionMask: {
 		Invalid: number,
@@ -28221,30 +30618,30 @@ declare Enum: {
 		AccountBank: number,
 	},
 	SocialSystemType: {
-		Friends: number,
-		QuickJoin: number,
-		RaidList: number,
-		RecruitAFriend: number,
-		RecentAllies: number,
+		Friends: Enum_SocialSystemType,
+		QuickJoin: Enum_SocialSystemType,
+		RaidList: Enum_SocialSystemType,
+		RecruitAFriend: Enum_SocialSystemType,
+		RecentAllies: Enum_SocialSystemType,
 	},
 	SocialUIBlockType: {
-		None: number,
-		Ignore: number,
-		BattleNetInviteBlock: number,
+		None: Enum_SocialUIBlockType,
+		Ignore: Enum_SocialUIBlockType,
+		BattleNetInviteBlock: Enum_SocialUIBlockType,
 	},
 	SocialUIPresenceType: {
-		Unknown: number,
-		Online: number,
-		Offline: number,
-		Away: number,
-		Busy: number,
-		AppearOffline: number,
+		Unknown: Enum_SocialUIPresenceType,
+		Online: Enum_SocialUIPresenceType,
+		Offline: Enum_SocialUIPresenceType,
+		Away: Enum_SocialUIPresenceType,
+		Busy: Enum_SocialUIPresenceType,
+		AppearOffline: Enum_SocialUIPresenceType,
 	},
 	SocialWhoOrigin: {
-		Unknown: number,
-		Social: number,
-		Chat: number,
-		Item: number,
+		Unknown: Enum_SocialWhoOrigin,
+		Social: Enum_SocialWhoOrigin,
+		Chat: Enum_SocialWhoOrigin,
+		Item: Enum_SocialWhoOrigin,
 	},
 	SoftTargetEnableFlags: {
 		None: number,
@@ -28253,267 +30650,267 @@ declare Enum: {
 		Any: number,
 	},
 	SortPlayersBy: {
-		Role: number,
-		Group: number,
-		Alphabetical: number,
+		Role: Enum_SortPlayersBy,
+		Group: Enum_SortPlayersBy,
+		Alphabetical: Enum_SortPlayersBy,
 	},
 	SoulbindConduitFlags: {
 		VisibleToGetallsoulbindconduitScript: number,
 	},
 	SoulbindConduitInstallResult: {
-		Success: number,
-		InvalidItem: number,
-		InvalidConduit: number,
-		InvalidTalent: number,
-		DuplicateConduit: number,
-		ForgeNotInProximity: number,
-		SocketNotEmpty: number,
+		Success: Enum_SoulbindConduitInstallResult,
+		InvalidItem: Enum_SoulbindConduitInstallResult,
+		InvalidConduit: Enum_SoulbindConduitInstallResult,
+		InvalidTalent: Enum_SoulbindConduitInstallResult,
+		DuplicateConduit: Enum_SoulbindConduitInstallResult,
+		ForgeNotInProximity: Enum_SoulbindConduitInstallResult,
+		SocketNotEmpty: Enum_SoulbindConduitInstallResult,
 	},
 	SoulbindConduitTransactionType: {
-		Install: number,
-		Uninstall: number,
+		Install: Enum_SoulbindConduitTransactionType,
+		Uninstall: Enum_SoulbindConduitTransactionType,
 	},
 	SoulbindConduitType: {
-		Finesse: number,
-		Potency: number,
-		Endurance: number,
-		Flex: number,
+		Finesse: Enum_SoulbindConduitType,
+		Potency: Enum_SoulbindConduitType,
+		Endurance: Enum_SoulbindConduitType,
+		Flex: Enum_SoulbindConduitType,
 	},
 	SoulbindNodeState: {
-		Unavailable: number,
-		Unselected: number,
-		Selectable: number,
-		Selected: number,
+		Unavailable: Enum_SoulbindNodeState,
+		Unselected: Enum_SoulbindNodeState,
+		Selectable: Enum_SoulbindNodeState,
+		Selected: Enum_SoulbindNodeState,
 	},
 	SoundBusFlag: {
 		Disablepositionallpf: number,
 	},
 	SpecGroup: {
-		Primary: number,
-		Secondary: number,
+		Primary: Enum_SpecGroup,
+		Secondary: Enum_SpecGroup,
 	},
 	SpecializationSpellsFlag: {
 		DevOnly: number,
 	},
 	SpecializationSystem: {
-		TalentTab: number,
-		ChrSpecialization: number,
+		TalentTab: Enum_SpecializationSystem,
+		ChrSpecialization: Enum_SpecializationSystem,
 	},
 	SpellAuraVisibilityType: {
-		RaidInCombat: number,
-		RaidOutOfCombat: number,
-		EnemyTarget: number,
+		RaidInCombat: Enum_SpellAuraVisibilityType,
+		RaidOutOfCombat: Enum_SpellAuraVisibilityType,
+		EnemyTarget: Enum_SpellAuraVisibilityType,
 	},
 	SpellBookItemType: {
-		None: number,
-		Spell: number,
-		FutureSpell: number,
-		PetAction: number,
-		Flyout: number,
+		None: Enum_SpellBookItemType,
+		Spell: Enum_SpellBookItemType,
+		FutureSpell: Enum_SpellBookItemType,
+		PetAction: Enum_SpellBookItemType,
+		Flyout: Enum_SpellBookItemType,
 	},
 	SpellBookSkillLineIndex: {
-		General: number,
-		Class: number,
-		MainSpec: number,
-		OffSpecStart: number,
+		General: Enum_SpellBookSkillLineIndex,
+		Class: Enum_SpellBookSkillLineIndex,
+		MainSpec: Enum_SpellBookSkillLineIndex,
+		OffSpecStart: Enum_SpellBookSkillLineIndex,
 	},
 	SpellBookSpellBank: {
-		Player: number,
-		Pet: number,
+		Player: Enum_SpellBookSpellBank,
+		Pet: Enum_SpellBookSpellBank,
 	},
 	SpellDiminishCategory: {
-		Root: number,
-		Taunt: number,
-		Stun: number,
-		AoEKnockback: number,
-		Incapacitate: number,
-		Disorient: number,
-		Silence: number,
-		Disarm: number,
+		Root: Enum_SpellDiminishCategory,
+		Taunt: Enum_SpellDiminishCategory,
+		Stun: Enum_SpellDiminishCategory,
+		AoEKnockback: Enum_SpellDiminishCategory,
+		Incapacitate: Enum_SpellDiminishCategory,
+		Disorient: Enum_SpellDiminishCategory,
+		Silence: Enum_SpellDiminishCategory,
+		Disarm: Enum_SpellDiminishCategory,
 	},
 	SpellDiminishRuleset: {
-		None: number,
-		PvE: number,
-		PvP: number,
+		None: Enum_SpellDiminishRuleset,
+		PvE: Enum_SpellDiminishRuleset,
+		PvP: Enum_SpellDiminishRuleset,
 	},
 	SpellDisplayBorderColor: {
-		None: number,
-		Black: number,
-		White: number,
-		Red: number,
-		Yellow: number,
-		Orange: number,
-		Purple: number,
-		Green: number,
-		Blue: number,
+		None: Enum_SpellDisplayBorderColor,
+		Black: Enum_SpellDisplayBorderColor,
+		White: Enum_SpellDisplayBorderColor,
+		Red: Enum_SpellDisplayBorderColor,
+		Yellow: Enum_SpellDisplayBorderColor,
+		Orange: Enum_SpellDisplayBorderColor,
+		Purple: Enum_SpellDisplayBorderColor,
+		Green: Enum_SpellDisplayBorderColor,
+		Blue: Enum_SpellDisplayBorderColor,
 	},
 	SpellDisplayIconDisplayType: {
-		Buff: number,
-		Debuff: number,
-		Circular: number,
-		NoBorder: number,
+		Buff: Enum_SpellDisplayIconDisplayType,
+		Debuff: Enum_SpellDisplayIconDisplayType,
+		Circular: Enum_SpellDisplayIconDisplayType,
+		NoBorder: Enum_SpellDisplayIconDisplayType,
 	},
 	SpellDisplayTextShownStateType: {
-		Shown: number,
-		Hidden: number,
+		Shown: Enum_SpellDisplayTextShownStateType,
+		Hidden: Enum_SpellDisplayTextShownStateType,
 	},
 	SpellDisplayTint: {
-		None: number,
-		Red: number,
+		None: Enum_SpellDisplayTint,
+		Red: Enum_SpellDisplayTint,
 	},
 	SplashScreenType: {
-		WhatsNew: number,
-		SeasonRollOver: number,
+		WhatsNew: Enum_SplashScreenType,
+		SeasonRollOver: Enum_SplashScreenType,
 	},
 	StableResult: {
-		MaxSlots: number,
-		InsufficientFunds: number,
-		NotStableMaster: number,
-		InvalidSlot: number,
-		NoPet: number,
-		AlreadyStabled: number,
-		AlreadySummoned: number,
-		NotFound: number,
-		StableSuccess: number,
-		UnstableSuccess: number,
-		ReviveSuccess: number,
-		CantControlExotic: number,
-		InternalError: number,
-		CheckForLuaHack: number,
-		BuySlotSuccess: number,
-		FavoriteToggle: number,
-		PetRenamed: number,
+		MaxSlots: Enum_StableResult,
+		InsufficientFunds: Enum_StableResult,
+		NotStableMaster: Enum_StableResult,
+		InvalidSlot: Enum_StableResult,
+		NoPet: Enum_StableResult,
+		AlreadyStabled: Enum_StableResult,
+		AlreadySummoned: Enum_StableResult,
+		NotFound: Enum_StableResult,
+		StableSuccess: Enum_StableResult,
+		UnstableSuccess: Enum_StableResult,
+		ReviveSuccess: Enum_StableResult,
+		CantControlExotic: Enum_StableResult,
+		InternalError: Enum_StableResult,
+		CheckForLuaHack: Enum_StableResult,
+		BuySlotSuccess: Enum_StableResult,
+		FavoriteToggle: Enum_StableResult,
+		PetRenamed: Enum_StableResult,
 	},
 	StartTimerType: {
-		PvPBeginTimer: number,
-		ChallengeModeCountdown: number,
-		PlayerCountdown: number,
-		PlunderstormCountdown: number,
+		PvPBeginTimer: Enum_StartTimerType,
+		ChallengeModeCountdown: Enum_StartTimerType,
+		PlayerCountdown: Enum_StartTimerType,
+		PlunderstormCountdown: Enum_StartTimerType,
 	},
 	StatusBarColorTintValue: {
-		None: number,
-		Black: number,
-		White: number,
-		Red: number,
-		Yellow: number,
-		Orange: number,
-		Purple: number,
-		Green: number,
-		Blue: number,
+		None: Enum_StatusBarColorTintValue,
+		Black: Enum_StatusBarColorTintValue,
+		White: Enum_StatusBarColorTintValue,
+		Red: Enum_StatusBarColorTintValue,
+		Yellow: Enum_StatusBarColorTintValue,
+		Orange: Enum_StatusBarColorTintValue,
+		Purple: Enum_StatusBarColorTintValue,
+		Green: Enum_StatusBarColorTintValue,
+		Blue: Enum_StatusBarColorTintValue,
 	},
 	StatusBarFillStyle: {
-		Standard: number,
-		StandardNoRangeFill: number,
-		Center: number,
-		Reverse: number,
+		Standard: Enum_StatusBarFillStyle,
+		StandardNoRangeFill: Enum_StatusBarFillStyle,
+		Center: Enum_StatusBarFillStyle,
+		Reverse: Enum_StatusBarFillStyle,
 	},
 	StatusBarInterpolation: {
-		Immediate: number,
-		ExponentialEaseOut: number,
+		Immediate: Enum_StatusBarInterpolation,
+		ExponentialEaseOut: Enum_StatusBarInterpolation,
 	},
 	StatusBarOverrideBarTextShownType: {
-		Never: number,
-		Always: number,
-		OnlyOnMouseover: number,
-		OnlyNotOnMouseover: number,
+		Never: Enum_StatusBarOverrideBarTextShownType,
+		Always: Enum_StatusBarOverrideBarTextShownType,
+		OnlyOnMouseover: Enum_StatusBarOverrideBarTextShownType,
+		OnlyNotOnMouseover: Enum_StatusBarOverrideBarTextShownType,
 	},
 	StatusBarRenderMode: {
-		Linear: number,
-		Radial: number,
+		Linear: Enum_StatusBarRenderMode,
+		Radial: Enum_StatusBarRenderMode,
 	},
 	StatusBarTimerDirection: {
-		ElapsedTime: number,
-		RemainingTime: number,
+		ElapsedTime: Enum_StatusBarTimerDirection,
+		RemainingTime: Enum_StatusBarTimerDirection,
 	},
 	StatusBarValueTextType: {
-		Hidden: number,
-		Percentage: number,
-		Value: number,
-		Time: number,
-		TimeShowOneLevelOnly: number,
-		ValueOverMax: number,
-		ValueOverMaxNormalized: number,
+		Hidden: Enum_StatusBarValueTextType,
+		Percentage: Enum_StatusBarValueTextType,
+		Value: Enum_StatusBarValueTextType,
+		Time: Enum_StatusBarValueTextType,
+		TimeShowOneLevelOnly: Enum_StatusBarValueTextType,
+		ValueOverMax: Enum_StatusBarValueTextType,
+		ValueOverMaxNormalized: Enum_StatusBarValueTextType,
 	},
 	SubcontainerType: {
-		Bag: number,
-		Equipped: number,
-		Bankgeneric: number,
-		Bankbag: number,
-		Mail: number,
-		Auction: number,
-		Keyring: number,
-		GuildBank0: number,
-		GuildBank1: number,
-		GuildBank2: number,
-		GuildBank3: number,
-		GuildBank4: number,
-		GuildBank5: number,
-		GuildOverflow: number,
-		Equipablespells: number,
-		CurrencytokenOboslete: number,
-		GuildBank6: number,
-		GuildBank7: number,
-		GuildBank8: number,
-		GuildBank9: number,
-		GuildBank10: number,
-		GuildBank11: number,
-		Reagentbank: number,
-		Childequipmentstorage: number,
-		Quarantine: number,
-		CreatedImmediately: number,
-		BuybackSlots: number,
-		CachedReward: number,
-		EquippedBags: number,
-		EquippedProfession1: number,
-		EquippedProfession2: number,
-		EquippedCooking: number,
-		EquippedFishing: number,
-		EquippedReagentbag: number,
-		CraftingOrder: number,
-		CraftingOrderReagents: number,
-		AccountBankTabs: number,
-		CurrencyTransfer: number,
-		CharacterBankTabs: number,
-		HousingDecorConversion: number,
-		Reserved: number,
+		Bag: Enum_SubcontainerType,
+		Equipped: Enum_SubcontainerType,
+		Bankgeneric: Enum_SubcontainerType,
+		Bankbag: Enum_SubcontainerType,
+		Mail: Enum_SubcontainerType,
+		Auction: Enum_SubcontainerType,
+		Keyring: Enum_SubcontainerType,
+		GuildBank0: Enum_SubcontainerType,
+		GuildBank1: Enum_SubcontainerType,
+		GuildBank2: Enum_SubcontainerType,
+		GuildBank3: Enum_SubcontainerType,
+		GuildBank4: Enum_SubcontainerType,
+		GuildBank5: Enum_SubcontainerType,
+		GuildOverflow: Enum_SubcontainerType,
+		Equipablespells: Enum_SubcontainerType,
+		CurrencytokenOboslete: Enum_SubcontainerType,
+		GuildBank6: Enum_SubcontainerType,
+		GuildBank7: Enum_SubcontainerType,
+		GuildBank8: Enum_SubcontainerType,
+		GuildBank9: Enum_SubcontainerType,
+		GuildBank10: Enum_SubcontainerType,
+		GuildBank11: Enum_SubcontainerType,
+		Reagentbank: Enum_SubcontainerType,
+		Childequipmentstorage: Enum_SubcontainerType,
+		Quarantine: Enum_SubcontainerType,
+		CreatedImmediately: Enum_SubcontainerType,
+		BuybackSlots: Enum_SubcontainerType,
+		CachedReward: Enum_SubcontainerType,
+		EquippedBags: Enum_SubcontainerType,
+		EquippedProfession1: Enum_SubcontainerType,
+		EquippedProfession2: Enum_SubcontainerType,
+		EquippedCooking: Enum_SubcontainerType,
+		EquippedFishing: Enum_SubcontainerType,
+		EquippedReagentbag: Enum_SubcontainerType,
+		CraftingOrder: Enum_SubcontainerType,
+		CraftingOrderReagents: Enum_SubcontainerType,
+		AccountBankTabs: Enum_SubcontainerType,
+		CurrencyTransfer: Enum_SubcontainerType,
+		CharacterBankTabs: Enum_SubcontainerType,
+		HousingDecorConversion: Enum_SubcontainerType,
+		Reserved: Enum_SubcontainerType,
 	},
 	SubscriptionInterstitialResponseType: {
-		Clicked: number,
-		Closed: number,
-		WebRedirect: number,
+		Clicked: Enum_SubscriptionInterstitialResponseType,
+		Closed: Enum_SubscriptionInterstitialResponseType,
+		WebRedirect: Enum_SubscriptionInterstitialResponseType,
 	},
 	SubscriptionInterstitialType: {
-		Standard: number,
-		LeftNpeArea: number,
-		MaxLevel: number,
-		SubscriptionPeriod: number,
+		Standard: Enum_SubscriptionInterstitialType,
+		LeftNpeArea: Enum_SubscriptionInterstitialType,
+		MaxLevel: Enum_SubscriptionInterstitialType,
+		SubscriptionPeriod: Enum_SubscriptionInterstitialType,
 	},
 	SummonReason: {
-		Spell: number,
-		Scenario: number,
+		Spell: Enum_SummonReason,
+		Scenario: Enum_SummonReason,
 	},
 	SummonStatus: {
-		None: number,
-		Pending: number,
-		Accepted: number,
-		Declined: number,
+		None: Enum_SummonStatus,
+		Pending: Enum_SummonStatus,
+		Accepted: Enum_SummonStatus,
+		Declined: Enum_SummonStatus,
 	},
 	SuperTrackingMapPinType: {
-		AreaPOI: number,
-		QuestOffer: number,
-		TaxiNode: number,
-		DigSite: number,
-		HousingPlot: number,
+		AreaPOI: Enum_SuperTrackingMapPinType,
+		QuestOffer: Enum_SuperTrackingMapPinType,
+		TaxiNode: Enum_SuperTrackingMapPinType,
+		DigSite: Enum_SuperTrackingMapPinType,
+		HousingPlot: Enum_SuperTrackingMapPinType,
 	},
 	SuperTrackingType: {
-		Quest: number,
-		UserWaypoint: number,
-		Corpse: number,
-		Scenario: number,
-		Content: number,
-		PartyMember: number,
-		MapPin: number,
-		Vignette: number,
+		Quest: Enum_SuperTrackingType,
+		UserWaypoint: Enum_SuperTrackingType,
+		Corpse: Enum_SuperTrackingType,
+		Scenario: Enum_SuperTrackingType,
+		Content: Enum_SuperTrackingType,
+		PartyMember: Enum_SuperTrackingType,
+		MapPin: Enum_SuperTrackingType,
+		Vignette: Enum_SuperTrackingType,
 	},
 	SurveyDeliveryFlags: {
 		None: number,
@@ -28524,23 +30921,23 @@ declare Enum: {
 		PvPLossOnly: number,
 	},
 	SurveyDeliveryMoment: {
-		Login: number,
-		ProfessionTable: number,
-		QuestTurnIn: number,
-		ChestLooted: number,
-		MythicPlusCompleted: number,
-		EncounterEnd: number,
-		AchievementCompleted: number,
-		BattlegroundEnd: number,
+		Login: Enum_SurveyDeliveryMoment,
+		ProfessionTable: Enum_SurveyDeliveryMoment,
+		QuestTurnIn: Enum_SurveyDeliveryMoment,
+		ChestLooted: Enum_SurveyDeliveryMoment,
+		MythicPlusCompleted: Enum_SurveyDeliveryMoment,
+		EncounterEnd: Enum_SurveyDeliveryMoment,
+		AchievementCompleted: Enum_SurveyDeliveryMoment,
+		BattlegroundEnd: Enum_SurveyDeliveryMoment,
 	},
 	TableSecurityOption: {
-		DisallowTaintedAccess: number,
-		DisallowSecretKeys: number,
-		SecretWrapContents: number,
+		DisallowTaintedAccess: Enum_TableSecurityOption,
+		DisallowSecretKeys: Enum_TableSecurityOption,
+		SecretWrapContents: Enum_TableSecurityOption,
 	},
 	TieredEntranceRewardType: {
-		Item: number,
-		Currency: number,
+		Item: Enum_TieredEntranceRewardType,
+		Currency: Enum_TieredEntranceRewardType,
 	},
 	TieredEntranceTierFlag: {
 		None: number,
@@ -28548,13 +30945,13 @@ declare Enum: {
 		DisableTraitSystem: number,
 	},
 	TieredEntranceType: {
-		Invalid: number,
-		Delve: number,
-		Sites: number,
-		WorldTier: number,
-		Lairs: number,
-		Placeholder_5: number,
-		Placeholder_6: number,
+		Invalid: Enum_TieredEntranceType,
+		Delve: Enum_TieredEntranceType,
+		Sites: Enum_TieredEntranceType,
+		WorldTier: Enum_TieredEntranceType,
+		Lairs: Enum_TieredEntranceType,
+		Placeholder_5: Enum_TieredEntranceType,
+		Placeholder_6: Enum_TieredEntranceType,
 	},
 	TimeEventFlag: {
 		GlueScreenShortcut: number,
@@ -28562,202 +30959,202 @@ declare Enum: {
 		GlobalLaunch: number,
 	},
 	TitleIconVersion: {
-		Small: number,
-		Medium: number,
-		Large: number,
+		Small: Enum_TitleIconVersion,
+		Medium: Enum_TitleIconVersion,
+		Large: Enum_TitleIconVersion,
 	},
 	TooltipComparisonMethod: {
-		Single: number,
-		WithBothHands: number,
-		WithBagMainHandItem: number,
-		WithBagOffHandItem: number,
+		Single: Enum_TooltipComparisonMethod,
+		WithBothHands: Enum_TooltipComparisonMethod,
+		WithBagMainHandItem: Enum_TooltipComparisonMethod,
+		WithBagOffHandItem: Enum_TooltipComparisonMethod,
 	},
 	TooltipDataItemBinding: {
-		Quest: number,
-		Account: number,
-		BnetAccount: number,
-		Soulbound: number,
-		BindToAccount: number,
-		BindToBnetAccount: number,
-		BindOnPickup: number,
-		BindOnEquip: number,
-		BindOnUse: number,
-		AccountUntilEquipped: number,
-		BindToAccountUntilEquipped: number,
+		Quest: Enum_TooltipDataItemBinding,
+		Account: Enum_TooltipDataItemBinding,
+		BnetAccount: Enum_TooltipDataItemBinding,
+		Soulbound: Enum_TooltipDataItemBinding,
+		BindToAccount: Enum_TooltipDataItemBinding,
+		BindToBnetAccount: Enum_TooltipDataItemBinding,
+		BindOnPickup: Enum_TooltipDataItemBinding,
+		BindOnEquip: Enum_TooltipDataItemBinding,
+		BindOnUse: Enum_TooltipDataItemBinding,
+		AccountUntilEquipped: Enum_TooltipDataItemBinding,
+		BindToAccountUntilEquipped: Enum_TooltipDataItemBinding,
 	},
 	TooltipDataLineType: {
-		None: number,
-		Blank: number,
-		UnitName: number,
-		GemSocket: number,
-		AzeriteEssenceSlot: number,
-		AzeriteEssencePower: number,
-		LearnableSpell: number,
-		UnitThreat: number,
-		QuestObjective: number,
-		AzeriteItemPowerDescription: number,
-		RuneforgeLegendaryPowerDescription: number,
-		SellPrice: number,
-		ProfessionCraftingQuality: number,
-		SpellName: number,
-		CurrencyTotal: number,
-		ItemEnchantmentPermanent: number,
-		UnitOwner: number,
-		QuestTitle: number,
-		QuestPlayer: number,
-		NestedBlock: number,
-		ItemBinding: number,
-		EquipSlot: number,
-		ItemName: number,
-		Separator: number,
-		ToyName: number,
-		ToyText: number,
-		ToyEffect: number,
-		ToyDuration: number,
-		ToyDescription: number,
-		ToySource: number,
-		GemSocketEnchantment: number,
-		ItemLevel: number,
-		ItemUpgradeLevel: number,
-		SpellPassive: number,
-		SpellDescription: number,
-		ItemQuality: number,
-		TradeTimeRemaining: number,
-		FlavorText: number,
-		ItemSpellTriggerLearn: number,
-		LearnTransmogSet: number,
-		LearnTransmogIllusion: number,
-		ErrorLine: number,
-		DisabledLine: number,
-		UsageRequirement: number,
-		ItemSpellTriggerOnUse: number,
-		ItemSpellTriggerOnEquip: number,
-		ItemSpellTriggerOnProc: number,
-		UnitLevel: number,
-		UnitType: number,
-		UnitDead: number,
-		UnitCriteriaProgress: number,
-		AuraCaster: number,
+		None: Enum_TooltipDataLineType,
+		Blank: Enum_TooltipDataLineType,
+		UnitName: Enum_TooltipDataLineType,
+		GemSocket: Enum_TooltipDataLineType,
+		AzeriteEssenceSlot: Enum_TooltipDataLineType,
+		AzeriteEssencePower: Enum_TooltipDataLineType,
+		LearnableSpell: Enum_TooltipDataLineType,
+		UnitThreat: Enum_TooltipDataLineType,
+		QuestObjective: Enum_TooltipDataLineType,
+		AzeriteItemPowerDescription: Enum_TooltipDataLineType,
+		RuneforgeLegendaryPowerDescription: Enum_TooltipDataLineType,
+		SellPrice: Enum_TooltipDataLineType,
+		ProfessionCraftingQuality: Enum_TooltipDataLineType,
+		SpellName: Enum_TooltipDataLineType,
+		CurrencyTotal: Enum_TooltipDataLineType,
+		ItemEnchantmentPermanent: Enum_TooltipDataLineType,
+		UnitOwner: Enum_TooltipDataLineType,
+		QuestTitle: Enum_TooltipDataLineType,
+		QuestPlayer: Enum_TooltipDataLineType,
+		NestedBlock: Enum_TooltipDataLineType,
+		ItemBinding: Enum_TooltipDataLineType,
+		EquipSlot: Enum_TooltipDataLineType,
+		ItemName: Enum_TooltipDataLineType,
+		Separator: Enum_TooltipDataLineType,
+		ToyName: Enum_TooltipDataLineType,
+		ToyText: Enum_TooltipDataLineType,
+		ToyEffect: Enum_TooltipDataLineType,
+		ToyDuration: Enum_TooltipDataLineType,
+		ToyDescription: Enum_TooltipDataLineType,
+		ToySource: Enum_TooltipDataLineType,
+		GemSocketEnchantment: Enum_TooltipDataLineType,
+		ItemLevel: Enum_TooltipDataLineType,
+		ItemUpgradeLevel: Enum_TooltipDataLineType,
+		SpellPassive: Enum_TooltipDataLineType,
+		SpellDescription: Enum_TooltipDataLineType,
+		ItemQuality: Enum_TooltipDataLineType,
+		TradeTimeRemaining: Enum_TooltipDataLineType,
+		FlavorText: Enum_TooltipDataLineType,
+		ItemSpellTriggerLearn: Enum_TooltipDataLineType,
+		LearnTransmogSet: Enum_TooltipDataLineType,
+		LearnTransmogIllusion: Enum_TooltipDataLineType,
+		ErrorLine: Enum_TooltipDataLineType,
+		DisabledLine: Enum_TooltipDataLineType,
+		UsageRequirement: Enum_TooltipDataLineType,
+		ItemSpellTriggerOnUse: Enum_TooltipDataLineType,
+		ItemSpellTriggerOnEquip: Enum_TooltipDataLineType,
+		ItemSpellTriggerOnProc: Enum_TooltipDataLineType,
+		UnitLevel: Enum_TooltipDataLineType,
+		UnitType: Enum_TooltipDataLineType,
+		UnitDead: Enum_TooltipDataLineType,
+		UnitCriteriaProgress: Enum_TooltipDataLineType,
+		AuraCaster: Enum_TooltipDataLineType,
 	},
 	TooltipDataType: {
-		Item: number,
-		Spell: number,
-		Unit: number,
-		Corpse: number,
-		Object: number,
-		Currency: number,
-		BattlePet: number,
-		UnitAura: number,
-		AzeriteEssence: number,
-		CompanionPet: number,
-		Mount: number,
-		PetAction: number,
-		Achievement: number,
-		EnhancedConduit: number,
-		EquipmentSet: number,
-		InstanceLock: number,
-		PvPBrawl: number,
-		RecipeRankInfo: number,
-		Totem: number,
-		Toy: number,
-		CorruptionCleanser: number,
-		MinimapMouseover: number,
-		Flyout: number,
-		Quest: number,
-		QuestPartyProgress: number,
-		Macro: number,
-		Debug: number,
-		Outfit: number,
+		Item: Enum_TooltipDataType,
+		Spell: Enum_TooltipDataType,
+		Unit: Enum_TooltipDataType,
+		Corpse: Enum_TooltipDataType,
+		Object: Enum_TooltipDataType,
+		Currency: Enum_TooltipDataType,
+		BattlePet: Enum_TooltipDataType,
+		UnitAura: Enum_TooltipDataType,
+		AzeriteEssence: Enum_TooltipDataType,
+		CompanionPet: Enum_TooltipDataType,
+		Mount: Enum_TooltipDataType,
+		PetAction: Enum_TooltipDataType,
+		Achievement: Enum_TooltipDataType,
+		EnhancedConduit: Enum_TooltipDataType,
+		EquipmentSet: Enum_TooltipDataType,
+		InstanceLock: Enum_TooltipDataType,
+		PvPBrawl: Enum_TooltipDataType,
+		RecipeRankInfo: Enum_TooltipDataType,
+		Totem: Enum_TooltipDataType,
+		Toy: Enum_TooltipDataType,
+		CorruptionCleanser: Enum_TooltipDataType,
+		MinimapMouseover: Enum_TooltipDataType,
+		Flyout: Enum_TooltipDataType,
+		Quest: Enum_TooltipDataType,
+		QuestPartyProgress: Enum_TooltipDataType,
+		Macro: Enum_TooltipDataType,
+		Debug: Enum_TooltipDataType,
+		Outfit: Enum_TooltipDataType,
 	},
 	TooltipDataUsageRequirementType: {
-		RaceClass: number,
-		Faction: number,
-		Skill: number,
-		PvPMedal: number,
-		Reputation: number,
-		Level: number,
-		Guild: number,
-		Achievement: number,
-		PvPRank: number,
-		EquippedItem: number,
-		ShapeshiftForm: number,
-		ArenaRating: number,
-		EarnCurrency: number,
-		Specialization: number,
-		NotAlreadyKnown: number,
-		NotInArena: number,
-		NotInRatedBg: number,
+		RaceClass: Enum_TooltipDataUsageRequirementType,
+		Faction: Enum_TooltipDataUsageRequirementType,
+		Skill: Enum_TooltipDataUsageRequirementType,
+		PvPMedal: Enum_TooltipDataUsageRequirementType,
+		Reputation: Enum_TooltipDataUsageRequirementType,
+		Level: Enum_TooltipDataUsageRequirementType,
+		Guild: Enum_TooltipDataUsageRequirementType,
+		Achievement: Enum_TooltipDataUsageRequirementType,
+		PvPRank: Enum_TooltipDataUsageRequirementType,
+		EquippedItem: Enum_TooltipDataUsageRequirementType,
+		ShapeshiftForm: Enum_TooltipDataUsageRequirementType,
+		ArenaRating: Enum_TooltipDataUsageRequirementType,
+		EarnCurrency: Enum_TooltipDataUsageRequirementType,
+		Specialization: Enum_TooltipDataUsageRequirementType,
+		NotAlreadyKnown: Enum_TooltipDataUsageRequirementType,
+		NotInArena: Enum_TooltipDataUsageRequirementType,
+		NotInRatedBg: Enum_TooltipDataUsageRequirementType,
 	},
 	TooltipSide: {
-		Left: number,
-		Right: number,
-		Top: number,
-		Bottom: number,
+		Left: Enum_TooltipSide,
+		Right: Enum_TooltipSide,
+		Top: Enum_TooltipSide,
+		Bottom: Enum_TooltipSide,
 	},
 	TooltipTextureAnchor: {
-		LeftTop: number,
-		LeftCenter: number,
-		LeftBottom: number,
-		RightTop: number,
-		RightCenter: number,
-		RightBottom: number,
-		All: number,
+		LeftTop: Enum_TooltipTextureAnchor,
+		LeftCenter: Enum_TooltipTextureAnchor,
+		LeftBottom: Enum_TooltipTextureAnchor,
+		RightTop: Enum_TooltipTextureAnchor,
+		RightCenter: Enum_TooltipTextureAnchor,
+		RightBottom: Enum_TooltipTextureAnchor,
+		All: Enum_TooltipTextureAnchor,
 	},
 	TooltipTextureRelativeRegion: {
-		LeftLine: number,
-		RightLine: number,
+		LeftLine: Enum_TooltipTextureRelativeRegion,
+		RightLine: Enum_TooltipTextureRelativeRegion,
 	},
 	TrackedSpellCategory: {
-		None: number,
-		Offensive: number,
-		Defensive: number,
-		Debuff: number,
-		RacialAbility: number,
+		None: Enum_TrackedSpellCategory,
+		Offensive: Enum_TrackedSpellCategory,
+		Defensive: Enum_TrackedSpellCategory,
+		Debuff: Enum_TrackedSpellCategory,
+		RacialAbility: Enum_TrackedSpellCategory,
 	},
 	TrackedSpellsResult: {
-		Success: number,
-		PlayerNotFound: number,
-		NoCooldownInfo: number,
-		MismatchedCooldownInfo: number,
+		Success: Enum_TrackedSpellsResult,
+		PlayerNotFound: Enum_TrackedSpellsResult,
+		NoCooldownInfo: Enum_TrackedSpellsResult,
+		MismatchedCooldownInfo: Enum_TrackedSpellsResult,
 	},
 	TradeskillOrderDuration: {
-		Short: number,
-		Medium: number,
-		Long: number,
+		Short: Enum_TradeskillOrderDuration,
+		Medium: Enum_TradeskillOrderDuration,
+		Long: Enum_TradeskillOrderDuration,
 	},
 	TradeskillOrderRecipient: {
-		Public: number,
-		Guild: number,
-		Private: number,
+		Public: Enum_TradeskillOrderRecipient,
+		Guild: Enum_TradeskillOrderRecipient,
+		Private: Enum_TradeskillOrderRecipient,
 	},
 	TradeskillOrderStatus: {
-		Unclaimed: number,
-		Started: number,
-		Completed: number,
-		Expired: number,
+		Unclaimed: Enum_TradeskillOrderStatus,
+		Started: Enum_TradeskillOrderStatus,
+		Completed: Enum_TradeskillOrderStatus,
+		Expired: Enum_TradeskillOrderStatus,
 	},
 	TradeskillRecipeType: {
-		Item: number,
-		Salvage: number,
-		Enchant: number,
-		Gathering: number,
+		Item: Enum_TradeskillRecipeType,
+		Salvage: Enum_TradeskillRecipeType,
+		Enchant: Enum_TradeskillRecipeType,
+		Gathering: Enum_TradeskillRecipeType,
 	},
 	TradeskillRelativeDifficulty: {
-		Optimal: number,
-		Medium: number,
-		Easy: number,
-		Trivial: number,
+		Optimal: Enum_TradeskillRelativeDifficulty,
+		Medium: Enum_TradeskillRelativeDifficulty,
+		Easy: Enum_TradeskillRelativeDifficulty,
+		Trivial: Enum_TradeskillRelativeDifficulty,
 	},
 	TradeskillSlotDataType: {
-		Reagent: number,
-		ModifiedReagent: number,
-		Currency: number,
+		Reagent: Enum_TradeskillSlotDataType,
+		ModifiedReagent: Enum_TradeskillSlotDataType,
+		Currency: Enum_TradeskillSlotDataType,
 	},
 	TrainerType: {
-		General: number,
-		TalentsObsolete: number,
-		Tradeskills: number,
-		Pet: number,
+		General: Enum_TrainerType,
+		TalentsObsolete: Enum_TrainerType,
+		Tradeskills: Enum_TrainerType,
+		Pet: Enum_TrainerType,
 	},
 	TraitCombatConfigFlags: {
 		ActiveForSpec: number,
@@ -28771,25 +31168,25 @@ declare Enum: {
 		IsSufficient: number,
 	},
 	TraitConditionType: {
-		Available: number,
-		Visible: number,
-		Granted: number,
-		Increased: number,
-		DisplayError: number,
-		RanksAllowed: number,
+		Available: Enum_TraitConditionType,
+		Visible: Enum_TraitConditionType,
+		Granted: Enum_TraitConditionType,
+		Increased: Enum_TraitConditionType,
+		DisplayError: Enum_TraitConditionType,
+		RanksAllowed: Enum_TraitConditionType,
 	},
 	TraitConfigDbState: {
-		Ready: number,
-		Created: number,
-		Removed: number,
-		Deleted: number,
+		Ready: Enum_TraitConfigDbState,
+		Created: Enum_TraitConfigDbState,
+		Removed: Enum_TraitConfigDbState,
+		Deleted: Enum_TraitConfigDbState,
 	},
 	TraitConfigType: {
-		Invalid: number,
-		Combat: number,
-		Profession: number,
-		Generic: number,
-		CamelotCombat: number,
+		Invalid: Enum_TraitConfigType,
+		Combat: Enum_TraitConfigType,
+		Profession: Enum_TraitConfigType,
+		Generic: Enum_TraitConfigType,
+		CamelotCombat: Enum_TraitConfigType,
 	},
 	TraitCurrencyFlag: {
 		ShowQuantityAsSpent: number,
@@ -28798,46 +31195,46 @@ declare Enum: {
 		UseSpecIcon: number,
 	},
 	TraitCurrencyType: {
-		Gold: number,
-		CurrencyTypesBased: number,
-		TraitSourced: number,
-		TraitSourcedPlayerDataElement: number,
+		Gold: Enum_TraitCurrencyType,
+		CurrencyTypesBased: Enum_TraitCurrencyType,
+		TraitSourced: Enum_TraitCurrencyType,
+		TraitSourcedPlayerDataElement: Enum_TraitCurrencyType,
 	},
 	TraitDefinitionSubType: {
-		DragonflightRed: number,
-		DragonflightBlue: number,
-		DragonflightGreen: number,
-		DragonflightBronze: number,
-		DragonflightBlack: number,
+		DragonflightRed: Enum_TraitDefinitionSubType,
+		DragonflightBlue: Enum_TraitDefinitionSubType,
+		DragonflightGreen: Enum_TraitDefinitionSubType,
+		DragonflightBronze: Enum_TraitDefinitionSubType,
+		DragonflightBlack: Enum_TraitDefinitionSubType,
 	},
 	TraitEdgeType: {
-		VisualOnly: number,
-		DeprecatedRankConnection: number,
-		SufficientForAvailability: number,
-		RequiredForAvailability: number,
-		MutuallyExclusive: number,
-		DeprecatedSelectionOption: number,
+		VisualOnly: Enum_TraitEdgeType,
+		DeprecatedRankConnection: Enum_TraitEdgeType,
+		SufficientForAvailability: Enum_TraitEdgeType,
+		RequiredForAvailability: Enum_TraitEdgeType,
+		MutuallyExclusive: Enum_TraitEdgeType,
+		DeprecatedSelectionOption: Enum_TraitEdgeType,
 	},
 	TraitEdgeVisualStyle: {
-		None: number,
-		Straight: number,
+		None: Enum_TraitEdgeVisualStyle,
+		Straight: Enum_TraitEdgeVisualStyle,
 	},
 	TraitNodeEntryType: {
-		SpendHex: number,
-		SpendSquare: number,
-		SpendCircle: number,
-		SpendSmallCircle: number,
-		DeprecatedSelect: number,
-		DragAndDrop: number,
-		SpendDiamond: number,
-		ProfPath: number,
-		ProfPerk: number,
-		ProfPathUnlock: number,
-		RedButton: number,
-		ArmorSet: number,
-		SpendInfinite: number,
-		SpendCapstoneCircle: number,
-		SpendCapstoneSquare: number,
+		SpendHex: Enum_TraitNodeEntryType,
+		SpendSquare: Enum_TraitNodeEntryType,
+		SpendCircle: Enum_TraitNodeEntryType,
+		SpendSmallCircle: Enum_TraitNodeEntryType,
+		DeprecatedSelect: Enum_TraitNodeEntryType,
+		DragAndDrop: Enum_TraitNodeEntryType,
+		SpendDiamond: Enum_TraitNodeEntryType,
+		ProfPath: Enum_TraitNodeEntryType,
+		ProfPerk: Enum_TraitNodeEntryType,
+		ProfPathUnlock: Enum_TraitNodeEntryType,
+		RedButton: Enum_TraitNodeEntryType,
+		ArmorSet: Enum_TraitNodeEntryType,
+		SpendInfinite: Enum_TraitNodeEntryType,
+		SpendCapstoneCircle: Enum_TraitNodeEntryType,
+		SpendCapstoneSquare: Enum_TraitNodeEntryType,
 	},
 	TraitNodeFlag: {
 		ShowMultipleIcons: number,
@@ -28854,15 +31251,15 @@ declare Enum: {
 		AvailableByDefault: number,
 	},
 	TraitNodeType: {
-		Single: number,
-		Tiered: number,
-		Selection: number,
-		SubTreeSelection: number,
+		Single: Enum_TraitNodeType,
+		Tiered: Enum_TraitNodeType,
+		Selection: Enum_TraitNodeType,
+		SubTreeSelection: Enum_TraitNodeType,
 	},
 	TraitPointsOperationType: {
-		None: number,
-		Set: number,
-		Multiply: number,
+		None: Enum_TraitPointsOperationType,
+		Set: Enum_TraitPointsOperationType,
+		Multiply: Enum_TraitPointsOperationType,
 	},
 	TraitSystemFlag: {
 		AllowMultipleLoadoutsPerTree: number,
@@ -28871,86 +31268,86 @@ declare Enum: {
 		AllowEditInChallengeMode: number,
 	},
 	TraitSystemVariationType: {
-		None: number,
-		Spec: number,
+		None: Enum_TraitSystemVariationType,
+		Spec: Enum_TraitSystemVariationType,
 	},
 	TraitTreeFlag: {
 		CannotRefund: number,
 		HideSingleRankNumbers: number,
 	},
 	TraitVendorResetFailureReason: {
-		None: number,
-		DataError: number,
-		ClassPointDeficit: number,
+		None: Enum_TraitVendorResetFailureReason,
+		DataError: Enum_TraitVendorResetFailureReason,
+		ClassPointDeficit: Enum_TraitVendorResetFailureReason,
 	},
 	TransformManipulatorAxis: {
-		X: number,
-		Y: number,
-		Z: number,
+		X: Enum_TransformManipulatorAxis,
+		Y: Enum_TransformManipulatorAxis,
+		Z: Enum_TransformManipulatorAxis,
 	},
 	TransformManipulatorControlState: {
-		Default: number,
-		Hidden: number,
-		Dimmed: number,
-		ExternallyHighlighted: number,
-		Hovered: number,
-		Selected: number,
-		Moving: number,
+		Default: Enum_TransformManipulatorControlState,
+		Hidden: Enum_TransformManipulatorControlState,
+		Dimmed: Enum_TransformManipulatorControlState,
+		ExternallyHighlighted: Enum_TransformManipulatorControlState,
+		Hovered: Enum_TransformManipulatorControlState,
+		Selected: Enum_TransformManipulatorControlState,
+		Moving: Enum_TransformManipulatorControlState,
 	},
 	TransformManipulatorDirection: {
-		Positive: number,
-		Negative: number,
+		Positive: Enum_TransformManipulatorDirection,
+		Negative: Enum_TransformManipulatorDirection,
 	},
 	TransformManipulatorEvent: {
-		Start: number,
-		Change: number,
-		Complete: number,
-		Cancel: number,
-		Hover: number,
-		MouseDown: number,
-		MouseUp: number,
+		Start: Enum_TransformManipulatorEvent,
+		Change: Enum_TransformManipulatorEvent,
+		Complete: Enum_TransformManipulatorEvent,
+		Cancel: Enum_TransformManipulatorEvent,
+		Hover: Enum_TransformManipulatorEvent,
+		MouseDown: Enum_TransformManipulatorEvent,
+		MouseUp: Enum_TransformManipulatorEvent,
 	},
 	TransformManipulatorMode: {
-		Translate: number,
-		Rotate: number,
-		Scale: number,
+		Translate: Enum_TransformManipulatorMode,
+		Rotate: Enum_TransformManipulatorMode,
+		Scale: Enum_TransformManipulatorMode,
 	},
 	TransmogCameraVariation: {
-		None: number,
-		CloakBackpack: number,
-		RightShoulder: number,
+		None: Enum_TransmogCameraVariation,
+		CloakBackpack: Enum_TransmogCameraVariation,
+		RightShoulder: Enum_TransmogCameraVariation,
 	},
 	TransmogCollectionType: {
-		None: number,
-		Head: number,
-		Shoulder: number,
-		Back: number,
-		Chest: number,
-		Shirt: number,
-		Tabard: number,
-		Wrist: number,
-		Hands: number,
-		Waist: number,
-		Legs: number,
-		Feet: number,
-		Wand: number,
-		OneHAxe: number,
-		OneHSword: number,
-		OneHMace: number,
-		Dagger: number,
-		Fist: number,
-		Shield: number,
-		Holdable: number,
-		TwoHAxe: number,
-		TwoHSword: number,
-		TwoHMace: number,
-		Staff: number,
-		Polearm: number,
-		Bow: number,
-		Gun: number,
-		Crossbow: number,
-		Warglaives: number,
-		Paired: number,
+		None: Enum_TransmogCollectionType,
+		Head: Enum_TransmogCollectionType,
+		Shoulder: Enum_TransmogCollectionType,
+		Back: Enum_TransmogCollectionType,
+		Chest: Enum_TransmogCollectionType,
+		Shirt: Enum_TransmogCollectionType,
+		Tabard: Enum_TransmogCollectionType,
+		Wrist: Enum_TransmogCollectionType,
+		Hands: Enum_TransmogCollectionType,
+		Waist: Enum_TransmogCollectionType,
+		Legs: Enum_TransmogCollectionType,
+		Feet: Enum_TransmogCollectionType,
+		Wand: Enum_TransmogCollectionType,
+		OneHAxe: Enum_TransmogCollectionType,
+		OneHSword: Enum_TransmogCollectionType,
+		OneHMace: Enum_TransmogCollectionType,
+		Dagger: Enum_TransmogCollectionType,
+		Fist: Enum_TransmogCollectionType,
+		Shield: Enum_TransmogCollectionType,
+		Holdable: Enum_TransmogCollectionType,
+		TwoHAxe: Enum_TransmogCollectionType,
+		TwoHSword: Enum_TransmogCollectionType,
+		TwoHMace: Enum_TransmogCollectionType,
+		Staff: Enum_TransmogCollectionType,
+		Polearm: Enum_TransmogCollectionType,
+		Bow: Enum_TransmogCollectionType,
+		Gun: Enum_TransmogCollectionType,
+		Crossbow: Enum_TransmogCollectionType,
+		Warglaives: Enum_TransmogCollectionType,
+		Paired: Enum_TransmogCollectionType,
 	},
 	TransmogIllusionFlags: {
 		HideUntilCollected: number,
@@ -28959,8 +31356,8 @@ declare Enum: {
 		HiddenIllusion: number,
 	},
 	TransmogModification: {
-		Main: number,
-		Secondary: number,
+		Main: Enum_TransmogModification,
+		Secondary: Enum_TransmogModification,
 	},
 	TransmogOutfitCostModifiersApplied: {
 		DebugOnlyFreeDiscountApplied: number,
@@ -28972,11 +31369,11 @@ declare Enum: {
 		IsCachedLocally: number,
 	},
 	TransmogOutfitDisplayType: {
-		Unassigned: number,
-		Assigned: number,
-		Equipped: number,
-		Hidden: number,
-		Disabled: number,
+		Unassigned: Enum_TransmogOutfitDisplayType,
+		Assigned: Enum_TransmogOutfitDisplayType,
+		Equipped: Enum_TransmogOutfitDisplayType,
+		Hidden: Enum_TransmogOutfitDisplayType,
+		Disabled: Enum_TransmogOutfitDisplayType,
 	},
 	TransmogOutfitEntryFlags: {
 		AutomaticallyAwardedOnLogin: number,
@@ -28987,56 +31384,56 @@ declare Enum: {
 		IsDefaultEquipped: number,
 	},
 	TransmogOutfitEntrySource: {
-		StampedSource: number,
-		AutomaticallyAwarded: number,
-		PlayerPurchased: number,
+		StampedSource: Enum_TransmogOutfitEntrySource,
+		AutomaticallyAwarded: Enum_TransmogOutfitEntrySource,
+		PlayerPurchased: Enum_TransmogOutfitEntrySource,
 	},
 	TransmogOutfitEquipAction: {
-		Equip: number,
-		EquipAndLock: number,
-		Remove: number,
-		RemoveAndLock: number,
-		Unlock: number,
-		Lock: number,
+		Equip: Enum_TransmogOutfitEquipAction,
+		EquipAndLock: Enum_TransmogOutfitEquipAction,
+		Remove: Enum_TransmogOutfitEquipAction,
+		RemoveAndLock: Enum_TransmogOutfitEquipAction,
+		Unlock: Enum_TransmogOutfitEquipAction,
+		Lock: Enum_TransmogOutfitEquipAction,
 	},
 	TransmogOutfitSetType: {
-		Equipped: number,
-		Outfit: number,
-		CustomSet: number,
+		Equipped: Enum_TransmogOutfitSetType,
+		Outfit: Enum_TransmogOutfitSetType,
+		CustomSet: Enum_TransmogOutfitSetType,
 	},
 	TransmogOutfitSlot: {
-		Head: number,
-		ShoulderRight: number,
-		ShoulderLeft: number,
-		Back: number,
-		Chest: number,
-		Tabard: number,
-		Body: number,
-		Wrist: number,
-		Hand: number,
-		Waist: number,
-		Legs: number,
-		Feet: number,
-		WeaponMainHand: number,
-		WeaponOffHand: number,
-		WeaponRanged: number,
+		Head: Enum_TransmogOutfitSlot,
+		ShoulderRight: Enum_TransmogOutfitSlot,
+		ShoulderLeft: Enum_TransmogOutfitSlot,
+		Back: Enum_TransmogOutfitSlot,
+		Chest: Enum_TransmogOutfitSlot,
+		Tabard: Enum_TransmogOutfitSlot,
+		Body: Enum_TransmogOutfitSlot,
+		Wrist: Enum_TransmogOutfitSlot,
+		Hand: Enum_TransmogOutfitSlot,
+		Waist: Enum_TransmogOutfitSlot,
+		Legs: Enum_TransmogOutfitSlot,
+		Feet: Enum_TransmogOutfitSlot,
+		WeaponMainHand: Enum_TransmogOutfitSlot,
+		WeaponOffHand: Enum_TransmogOutfitSlot,
+		WeaponRanged: Enum_TransmogOutfitSlot,
 	},
 	TransmogOutfitSlotError: {
-		Ok: number,
-		NoItem: number,
-		NotSoulbound: number,
-		Legendary: number,
-		InvalidItemType: number,
-		InvalidDestination: number,
-		Mismatch: number,
-		SameItem: number,
-		InvalidSource: number,
-		InvalidSourceQuality: number,
-		CannotUseItem: number,
-		InvalidSlotForRace: number,
-		NoIllusion: number,
-		InvalidSlotForForm: number,
-		IncompatibleWithMainHand: number,
+		Ok: Enum_TransmogOutfitSlotError,
+		NoItem: Enum_TransmogOutfitSlotError,
+		NotSoulbound: Enum_TransmogOutfitSlotError,
+		Legendary: Enum_TransmogOutfitSlotError,
+		InvalidItemType: Enum_TransmogOutfitSlotError,
+		InvalidDestination: Enum_TransmogOutfitSlotError,
+		Mismatch: Enum_TransmogOutfitSlotError,
+		SameItem: Enum_TransmogOutfitSlotError,
+		InvalidSource: Enum_TransmogOutfitSlotError,
+		InvalidSourceQuality: Enum_TransmogOutfitSlotError,
+		CannotUseItem: Enum_TransmogOutfitSlotError,
+		InvalidSlotForRace: Enum_TransmogOutfitSlotError,
+		NoIllusion: Enum_TransmogOutfitSlotError,
+		InvalidSlotForForm: Enum_TransmogOutfitSlotError,
+		IncompatibleWithMainHand: Enum_TransmogOutfitSlotError,
 	},
 	TransmogOutfitSlotFlags: {
 		CannotBeHidden: number,
@@ -29044,22 +31441,22 @@ declare Enum: {
 		IsSecondarySlot: number,
 	},
 	TransmogOutfitSlotOption: {
-		None: number,
-		OneHandedWeapon: number,
-		TwoHandedWeapon: number,
-		RangedWeapon: number,
-		OffHand: number,
-		Shield: number,
-		DeprecatedReuseMe: number,
-		FuryTwoHandedWeapon: number,
-		ArtifactSpecOne: number,
-		ArtifactSpecTwo: number,
-		ArtifactSpecThree: number,
-		ArtifactSpecFour: number,
-		ArmorCloth: number,
-		ArmorLeather: number,
-		ArmorMail: number,
-		ArmorPlate: number,
+		None: Enum_TransmogOutfitSlotOption,
+		OneHandedWeapon: Enum_TransmogOutfitSlotOption,
+		TwoHandedWeapon: Enum_TransmogOutfitSlotOption,
+		RangedWeapon: Enum_TransmogOutfitSlotOption,
+		OffHand: Enum_TransmogOutfitSlotOption,
+		Shield: Enum_TransmogOutfitSlotOption,
+		DeprecatedReuseMe: Enum_TransmogOutfitSlotOption,
+		FuryTwoHandedWeapon: Enum_TransmogOutfitSlotOption,
+		ArtifactSpecOne: Enum_TransmogOutfitSlotOption,
+		ArtifactSpecTwo: Enum_TransmogOutfitSlotOption,
+		ArtifactSpecThree: Enum_TransmogOutfitSlotOption,
+		ArtifactSpecFour: Enum_TransmogOutfitSlotOption,
+		ArmorCloth: Enum_TransmogOutfitSlotOption,
+		ArmorLeather: Enum_TransmogOutfitSlotOption,
+		ArmorMail: Enum_TransmogOutfitSlotOption,
+		ArmorPlate: Enum_TransmogOutfitSlotOption,
 	},
 	TransmogOutfitSlotOptionFlags: {
 		IllusionNotAllowed: number,
@@ -29067,28 +31464,28 @@ declare Enum: {
 		DisablesOffhandSlot: number,
 	},
 	TransmogOutfitSlotOptionSheatheCategory: {
-		Default: number,
-		Back: number,
-		Side: number,
-		Hide: number,
+		Default: Enum_TransmogOutfitSlotOptionSheatheCategory,
+		Back: Enum_TransmogOutfitSlotOptionSheatheCategory,
+		Side: Enum_TransmogOutfitSlotOptionSheatheCategory,
+		Hide: Enum_TransmogOutfitSlotOptionSheatheCategory,
 	},
 	TransmogOutfitSlotPosition: {
-		Left: number,
-		Right: number,
-		Bottom: number,
+		Left: Enum_TransmogOutfitSlotPosition,
+		Right: Enum_TransmogOutfitSlotPosition,
+		Bottom: Enum_TransmogOutfitSlotPosition,
 	},
 	TransmogOutfitSlotSaveFlags: {
 		AppearanceIsNotValid: number,
 	},
 	TransmogOutfitSlotWarning: {
-		Ok: number,
-		InvalidEquippedDestinationItem: number,
-		WrongWeaponCategoryEquipped: number,
-		WrongArmorTypeEquipped: number,
-		EquippedItemLowLevel: number,
-		PendingWeaponChanges: number,
-		WeaponDoesNotSupportIllusions: number,
-		NothingEquipped: number,
+		Ok: Enum_TransmogOutfitSlotWarning,
+		InvalidEquippedDestinationItem: Enum_TransmogOutfitSlotWarning,
+		WrongWeaponCategoryEquipped: Enum_TransmogOutfitSlotWarning,
+		WrongArmorTypeEquipped: Enum_TransmogOutfitSlotWarning,
+		EquippedItemLowLevel: Enum_TransmogOutfitSlotWarning,
+		PendingWeaponChanges: Enum_TransmogOutfitSlotWarning,
+		WeaponDoesNotSupportIllusions: Enum_TransmogOutfitSlotWarning,
+		NothingEquipped: Enum_TransmogOutfitSlotWarning,
 	},
 	TransmogOutfitTransactionFlags: {
 		UpdateMetadata: number,
@@ -29103,60 +31500,60 @@ declare Enum: {
 		AddOutfitAndUpdateSlots: number,
 	},
 	TransmogOutfitTransactionType: {
-		UpdateMetadata: number,
-		UpdateOutfitInfo: number,
-		CreateOutfitInfo: number,
-		UpdateSlots: number,
-		UpdateSituations: number,
+		UpdateMetadata: Enum_TransmogOutfitTransactionType,
+		UpdateOutfitInfo: Enum_TransmogOutfitTransactionType,
+		CreateOutfitInfo: Enum_TransmogOutfitTransactionType,
+		UpdateSlots: Enum_TransmogOutfitTransactionType,
+		UpdateSituations: Enum_TransmogOutfitTransactionType,
 	},
 	TransmogPendingType: {
-		Apply: number,
-		Revert: number,
-		ToggleOn: number,
-		ToggleOff: number,
+		Apply: Enum_TransmogPendingType,
+		Revert: Enum_TransmogPendingType,
+		ToggleOn: Enum_TransmogPendingType,
+		ToggleOff: Enum_TransmogPendingType,
 	},
 	TransmogSearchType: {
-		Items: number,
-		BaseSets: number,
-		UsableSets: number,
+		Items: Enum_TransmogSearchType,
+		BaseSets: Enum_TransmogSearchType,
+		UsableSets: Enum_TransmogSearchType,
 	},
 	TransmogSettingsUpdateType: {
-		None: number,
-		OptOut: number,
+		None: Enum_TransmogSettingsUpdateType,
+		OptOut: Enum_TransmogSettingsUpdateType,
 	},
 	TransmogSituation: {
-		AllSpecs: number,
-		Spec: number,
-		AllLocations: number,
-		LocationRested: number,
-		LocationHouse: number,
-		LocationCharacterSelect: number,
-		LocationWorld: number,
-		LocationDelves: number,
-		LocationDungeons: number,
-		LocationRaids: number,
-		LocationArenas: number,
-		LocationBattlegrounds: number,
-		AllMovement: number,
-		MovementUnmounted: number,
-		MovementSwimming: number,
-		MovementGroundMount: number,
-		MovementFlyingMount: number,
-		AllEquipmentSets: number,
-		EquipmentSets: number,
-		AllRacialForms: number,
-		FormNative: number,
-		FormNonNative: number,
-		AllWeather: number,
-		WeatherClear: number,
-		WeatherRain: number,
-		WeatherSnow: number,
-		WeatherSand: number,
-		AllTime: number,
-		TimeMorning: number,
-		TimeDay: number,
-		TimeEvening: number,
-		TimeNight: number,
+		AllSpecs: Enum_TransmogSituation,
+		Spec: Enum_TransmogSituation,
+		AllLocations: Enum_TransmogSituation,
+		LocationRested: Enum_TransmogSituation,
+		LocationHouse: Enum_TransmogSituation,
+		LocationCharacterSelect: Enum_TransmogSituation,
+		LocationWorld: Enum_TransmogSituation,
+		LocationDelves: Enum_TransmogSituation,
+		LocationDungeons: Enum_TransmogSituation,
+		LocationRaids: Enum_TransmogSituation,
+		LocationArenas: Enum_TransmogSituation,
+		LocationBattlegrounds: Enum_TransmogSituation,
+		AllMovement: Enum_TransmogSituation,
+		MovementUnmounted: Enum_TransmogSituation,
+		MovementSwimming: Enum_TransmogSituation,
+		MovementGroundMount: Enum_TransmogSituation,
+		MovementFlyingMount: Enum_TransmogSituation,
+		AllEquipmentSets: Enum_TransmogSituation,
+		EquipmentSets: Enum_TransmogSituation,
+		AllRacialForms: Enum_TransmogSituation,
+		FormNative: Enum_TransmogSituation,
+		FormNonNative: Enum_TransmogSituation,
+		AllWeather: Enum_TransmogSituation,
+		WeatherClear: Enum_TransmogSituation,
+		WeatherRain: Enum_TransmogSituation,
+		WeatherSnow: Enum_TransmogSituation,
+		WeatherSand: Enum_TransmogSituation,
+		AllTime: Enum_TransmogSituation,
+		TimeMorning: Enum_TransmogSituation,
+		TimeDay: Enum_TransmogSituation,
+		TimeEvening: Enum_TransmogSituation,
+		TimeNight: Enum_TransmogSituation,
 	},
 	TransmogSituationFlags: {
 		IsPlayerFacing: number,
@@ -29171,18 +31568,18 @@ declare Enum: {
 		DynamicallyCreatesGroups: number,
 	},
 	TransmogSituationTrigger: {
-		None: number,
-		Manual: number,
-		TransmogUpdate: number,
-		Location: number,
-		Movement: number,
-		Specialization: number,
-		EquipmentSet: number,
-		Forms: number,
-		EventOutfit: number,
-		Weather: number,
-		TimeOfDay: number,
-		SettingsUpdate: number,
+		None: Enum_TransmogSituationTrigger,
+		Manual: Enum_TransmogSituationTrigger,
+		TransmogUpdate: Enum_TransmogSituationTrigger,
+		Location: Enum_TransmogSituationTrigger,
+		Movement: Enum_TransmogSituationTrigger,
+		Specialization: Enum_TransmogSituationTrigger,
+		EquipmentSet: Enum_TransmogSituationTrigger,
+		Forms: Enum_TransmogSituationTrigger,
+		EventOutfit: Enum_TransmogSituationTrigger,
+		Weather: Enum_TransmogSituationTrigger,
+		TimeOfDay: Enum_TransmogSituationTrigger,
+		SettingsUpdate: Enum_TransmogSituationTrigger,
 	},
 	TransmogSituationTriggerFlags: {
 		CanLockOutfit: number,
@@ -29192,91 +31589,91 @@ declare Enum: {
 		DisabledTrigger: number,
 	},
 	TransmogSituationTriggerType: {
-		None: number,
-		Manual: number,
-		Automatic: number,
-		TransmogUpdate: number,
+		None: Enum_TransmogSituationTriggerType,
+		Manual: Enum_TransmogSituationTriggerType,
+		Automatic: Enum_TransmogSituationTriggerType,
+		TransmogUpdate: Enum_TransmogSituationTriggerType,
 	},
 	TransmogSlot: {
-		Head: number,
-		Shoulder: number,
-		Back: number,
-		Chest: number,
-		Body: number,
-		Tabard: number,
-		Wrist: number,
-		Hand: number,
-		Waist: number,
-		Legs: number,
-		Feet: number,
-		Mainhand: number,
-		Offhand: number,
-		Ranged: number,
+		Head: Enum_TransmogSlot,
+		Shoulder: Enum_TransmogSlot,
+		Back: Enum_TransmogSlot,
+		Chest: Enum_TransmogSlot,
+		Body: Enum_TransmogSlot,
+		Tabard: Enum_TransmogSlot,
+		Wrist: Enum_TransmogSlot,
+		Hand: Enum_TransmogSlot,
+		Waist: Enum_TransmogSlot,
+		Legs: Enum_TransmogSlot,
+		Feet: Enum_TransmogSlot,
+		Mainhand: Enum_TransmogSlot,
+		Offhand: Enum_TransmogSlot,
+		Ranged: Enum_TransmogSlot,
 	},
 	TransmogSource: {
-		None: number,
-		JournalEncounter: number,
-		Quest: number,
-		Vendor: number,
-		WorldDrop: number,
-		HiddenUntilCollected: number,
-		CantCollect: number,
-		Achievement: number,
-		Profession: number,
-		NotValidForTransmog: number,
-		TradingPost: number,
+		None: Enum_TransmogSource,
+		JournalEncounter: Enum_TransmogSource,
+		Quest: Enum_TransmogSource,
+		Vendor: Enum_TransmogSource,
+		WorldDrop: Enum_TransmogSource,
+		HiddenUntilCollected: Enum_TransmogSource,
+		CantCollect: Enum_TransmogSource,
+		Achievement: Enum_TransmogSource,
+		Profession: Enum_TransmogSource,
+		NotValidForTransmog: Enum_TransmogSource,
+		TradingPost: Enum_TransmogSource,
 	},
 	TransmogTimeOfDayCategory: {
-		Morning: number,
-		Midday: number,
-		Evening: number,
-		Night: number,
+		Morning: Enum_TransmogTimeOfDayCategory,
+		Midday: Enum_TransmogTimeOfDayCategory,
+		Evening: Enum_TransmogTimeOfDayCategory,
+		Night: Enum_TransmogTimeOfDayCategory,
 	},
 	TransmogType: {
-		Appearance: number,
-		Illusion: number,
+		Appearance: Enum_TransmogType,
+		Illusion: Enum_TransmogType,
 	},
 	TransmogUseErrorType: {
-		None: number,
-		PlayerCondition: number,
-		Skill: number,
-		Ability: number,
-		Reputation: number,
-		Holiday: number,
-		HotRecheckFailed: number,
-		Class: number,
-		Race: number,
-		Faction: number,
-		ItemProficiency: number,
+		None: Enum_TransmogUseErrorType,
+		PlayerCondition: Enum_TransmogUseErrorType,
+		Skill: Enum_TransmogUseErrorType,
+		Ability: Enum_TransmogUseErrorType,
+		Reputation: Enum_TransmogUseErrorType,
+		Holiday: Enum_TransmogUseErrorType,
+		HotRecheckFailed: Enum_TransmogUseErrorType,
+		Class: Enum_TransmogUseErrorType,
+		Race: Enum_TransmogUseErrorType,
+		Faction: Enum_TransmogUseErrorType,
+		ItemProficiency: Enum_TransmogUseErrorType,
 	},
 	TtsBoolSetting: {
-		PlaySoundSeparatingChatLineBreaks: number,
-		AddCharacterNameToSpeech: number,
-		PlayActivitySoundWhenNotFocused: number,
-		AlternateSystemVoice: number,
-		NarrateMyMessages: number,
+		PlaySoundSeparatingChatLineBreaks: Enum_TtsBoolSetting,
+		AddCharacterNameToSpeech: Enum_TtsBoolSetting,
+		PlayActivitySoundWhenNotFocused: Enum_TtsBoolSetting,
+		AlternateSystemVoice: Enum_TtsBoolSetting,
+		NarrateMyMessages: Enum_TtsBoolSetting,
 	},
 	TtsVoiceType: {
-		Standard: number,
-		Alternate: number,
+		Standard: Enum_TtsVoiceType,
+		Alternate: Enum_TtsVoiceType,
 	},
 	TugOfWarMarkerArrowShownState: {
-		Never: number,
-		Always: number,
-		FlashOnMove: number,
+		Never: Enum_TugOfWarMarkerArrowShownState,
+		Always: Enum_TugOfWarMarkerArrowShownState,
+		FlashOnMove: Enum_TugOfWarMarkerArrowShownState,
 	},
 	TugOfWarStyleValue: {
-		DefaultYellow: number,
-		ArchaeologyBrown: number,
+		DefaultYellow: Enum_TugOfWarStyleValue,
+		ArchaeologyBrown: Enum_TugOfWarStyleValue,
 	},
 	TurnStrafeStyle: {
-		Modern: number,
-		Legacy: number,
-		Custom: number,
+		Modern: Enum_TurnStrafeStyle,
+		Legacy: Enum_TurnStrafeStyle,
+		Custom: Enum_TurnStrafeStyle,
 	},
 	UIActionType: {
-		DefaultAction: number,
-		UpdateMapSystem: number,
+		DefaultAction: Enum_UIActionType,
+		UpdateMapSystem: Enum_UIActionType,
 	},
 	UICovenantDisplayInfoFlags: {
 		DisplayCovenantAsJourney: number,
@@ -29285,32 +31682,32 @@ declare Enum: {
 		HideRenownLevelUpToast: number,
 	},
 	UICursorType: {
-		Default: number,
-		Item: number,
-		Money: number,
-		Spell: number,
-		PetAction: number,
-		Merchant: number,
-		ActionBar: number,
-		Macro: number,
-		Ammo: number,
-		Pet: number,
-		GuildBank: number,
-		GuildBankMoney: number,
-		EquipmentSet: number,
-		Currency: number,
-		Flyout: number,
-		VoidItem: number,
-		BattlePet: number,
-		Mount: number,
-		Toy: number,
-		ConduitCollectionItem: number,
-		PerksProgramVendorItem: number,
-		Outfit: number,
+		Default: Enum_UICursorType,
+		Item: Enum_UICursorType,
+		Money: Enum_UICursorType,
+		Spell: Enum_UICursorType,
+		PetAction: Enum_UICursorType,
+		Merchant: Enum_UICursorType,
+		ActionBar: Enum_UICursorType,
+		Macro: Enum_UICursorType,
+		Ammo: Enum_UICursorType,
+		Pet: Enum_UICursorType,
+		GuildBank: Enum_UICursorType,
+		GuildBankMoney: Enum_UICursorType,
+		EquipmentSet: Enum_UICursorType,
+		Currency: Enum_UICursorType,
+		Flyout: Enum_UICursorType,
+		VoidItem: Enum_UICursorType,
+		BattlePet: Enum_UICursorType,
+		Mount: Enum_UICursorType,
+		Toy: Enum_UICursorType,
+		ConduitCollectionItem: Enum_UICursorType,
+		PerksProgramVendorItem: Enum_UICursorType,
+		Outfit: Enum_UICursorType,
 	},
 	UIFrameType: {
-		JailersTowerBuffs: number,
-		InterruptTutorial: number,
+		JailersTowerBuffs: Enum_UIFrameType,
+		InterruptTutorial: Enum_UIFrameType,
 	},
 	UIItemInteractionFlags: {
 		DisplayWithInset: number,
@@ -29321,11 +31718,11 @@ declare Enum: {
 		UsesCharges: number,
 	},
 	UIItemInteractionType: {
-		None: number,
-		CastSpell: number,
-		CleanseCorruption: number,
-		RunecarverScrapping: number,
-		ItemConversion: number,
+		None: Enum_UIItemInteractionType,
+		CastSpell: Enum_UIItemInteractionType,
+		CleanseCorruption: Enum_UIItemInteractionType,
+		RunecarverScrapping: Enum_UIItemInteractionType,
+		ItemConversion: Enum_UIItemInteractionType,
 	},
 	UIMapFlag: {
 		NoHighlight: number,
@@ -29355,19 +31752,19 @@ declare Enum: {
 		ShowIconsAcrossFloors: number,
 	},
 	UIMapSystem: {
-		World: number,
-		Taxi: number,
-		Adventure: number,
-		Minimap: number,
+		World: Enum_UIMapSystem,
+		Taxi: Enum_UIMapSystem,
+		Adventure: Enum_UIMapSystem,
+		Minimap: Enum_UIMapSystem,
 	},
 	UIMapType: {
-		Cosmic: number,
-		World: number,
-		Continent: number,
-		Zone: number,
-		Dungeon: number,
-		Micro: number,
-		Orphan: number,
+		Cosmic: Enum_UIMapType,
+		World: Enum_UIMapType,
+		Continent: Enum_UIMapType,
+		Zone: Enum_UIMapType,
+		Dungeon: Enum_UIMapType,
+		Micro: Enum_UIMapType,
+		Orphan: Enum_UIMapType,
 	},
 	UIModelSceneActorFlag: {
 		Deprecated1: number,
@@ -29376,8 +31773,8 @@ declare Enum: {
 		UseCenterForOriginZ: number,
 	},
 	UIModelSceneContext: {
-		None: number,
-		PerksProgram: number,
+		None: Enum_UIModelSceneContext,
+		PerksProgram: Enum_UIModelSceneContext,
 	},
 	UIModelSceneFlags: {
 		SheatheWeapon: number,
@@ -29386,205 +31783,205 @@ declare Enum: {
 		NoCameraSpin: number,
 	},
 	UISystemType: {
-		InGameNavigation: number,
+		InGameNavigation: Enum_UISystemType,
 	},
 	UITextureSliceMode: {
-		Stretched: number,
-		Tiled: number,
+		Stretched: Enum_UITextureSliceMode,
+		Tiled: Enum_UITextureSliceMode,
 	},
 	UIWidgetBlendModeType: {
-		Opaque: number,
-		Additive: number,
+		Opaque: Enum_UIWidgetBlendModeType,
+		Additive: Enum_UIWidgetBlendModeType,
 	},
 	UIWidgetButtonEnabledState: {
-		Disabled: number,
-		Enabled: number,
+		Disabled: Enum_UIWidgetButtonEnabledState,
+		Enabled: Enum_UIWidgetButtonEnabledState,
 	},
 	UIWidgetButtonIconType: {
-		Exit: number,
-		Speak: number,
-		Undo: number,
-		Checkmark: number,
-		RedX: number,
+		Exit: Enum_UIWidgetButtonIconType,
+		Speak: Enum_UIWidgetButtonIconType,
+		Undo: Enum_UIWidgetButtonIconType,
+		Checkmark: Enum_UIWidgetButtonIconType,
+		RedX: Enum_UIWidgetButtonIconType,
 	},
 	UIWidgetFlag: {
 		UniversalWidget: number,
 	},
 	UIWidgetFontType: {
-		Normal: number,
-		Shadow: number,
-		Outline: number,
+		Normal: Enum_UIWidgetFontType,
+		Shadow: Enum_UIWidgetFontType,
+		Outline: Enum_UIWidgetFontType,
 	},
 	UIWidgetHorizontalDirection: {
-		LeftToRight: number,
-		RightToLeft: number,
+		LeftToRight: Enum_UIWidgetHorizontalDirection,
+		RightToLeft: Enum_UIWidgetHorizontalDirection,
 	},
 	UIWidgetLayoutDirection: {
-		Default: number,
-		Vertical: number,
-		Horizontal: number,
-		Overlap: number,
-		HorizontalForceNewRow: number,
+		Default: Enum_UIWidgetLayoutDirection,
+		Vertical: Enum_UIWidgetLayoutDirection,
+		Horizontal: Enum_UIWidgetLayoutDirection,
+		Overlap: Enum_UIWidgetLayoutDirection,
+		HorizontalForceNewRow: Enum_UIWidgetLayoutDirection,
 	},
 	UIWidgetModelSceneLayer: {
-		None: number,
-		Front: number,
-		Back: number,
+		None: Enum_UIWidgetModelSceneLayer,
+		Front: Enum_UIWidgetModelSceneLayer,
+		Back: Enum_UIWidgetModelSceneLayer,
 	},
 	UIWidgetMotionType: {
-		Instant: number,
-		Smooth: number,
+		Instant: Enum_UIWidgetMotionType,
+		Smooth: Enum_UIWidgetMotionType,
 	},
 	UIWidgetOverrideState: {
-		Inactive: number,
-		Active: number,
+		Inactive: Enum_UIWidgetOverrideState,
+		Active: Enum_UIWidgetOverrideState,
 	},
 	UIWidgetRewardShownState: {
-		Hidden: number,
-		ShownEarned: number,
-		ShownUnearned: number,
+		Hidden: Enum_UIWidgetRewardShownState,
+		ShownEarned: Enum_UIWidgetRewardShownState,
+		ShownUnearned: Enum_UIWidgetRewardShownState,
 	},
 	UIWidgetScale: {
-		OneHundred: number,
-		Ninty: number,
-		Eighty: number,
-		Seventy: number,
-		Sixty: number,
-		Fifty: number,
-		OneHundredTen: number,
-		OneHundredTwenty: number,
-		OneHundredThirty: number,
-		OneHundredForty: number,
-		OneHundredFifty: number,
-		OneHundredSixty: number,
-		OneHundredSeventy: number,
-		OneHundredEighty: number,
-		OneHundredNinety: number,
-		TwoHundred: number,
+		OneHundred: Enum_UIWidgetScale,
+		Ninty: Enum_UIWidgetScale,
+		Eighty: Enum_UIWidgetScale,
+		Seventy: Enum_UIWidgetScale,
+		Sixty: Enum_UIWidgetScale,
+		Fifty: Enum_UIWidgetScale,
+		OneHundredTen: Enum_UIWidgetScale,
+		OneHundredTwenty: Enum_UIWidgetScale,
+		OneHundredThirty: Enum_UIWidgetScale,
+		OneHundredForty: Enum_UIWidgetScale,
+		OneHundredFifty: Enum_UIWidgetScale,
+		OneHundredSixty: Enum_UIWidgetScale,
+		OneHundredSeventy: Enum_UIWidgetScale,
+		OneHundredEighty: Enum_UIWidgetScale,
+		OneHundredNinety: Enum_UIWidgetScale,
+		TwoHundred: Enum_UIWidgetScale,
 	},
 	UIWidgetSetLayoutDirection: {
-		Vertical: number,
-		Horizontal: number,
-		Overlap: number,
+		Vertical: Enum_UIWidgetSetLayoutDirection,
+		Horizontal: Enum_UIWidgetSetLayoutDirection,
+		Overlap: Enum_UIWidgetSetLayoutDirection,
 	},
 	UIWidgetSpellButtonCooldownType: {
-		HideCooldown: number,
-		ShowCooldown: number,
-		ShowCooldownAndDisableOnCooldown: number,
+		HideCooldown: Enum_UIWidgetSpellButtonCooldownType,
+		ShowCooldown: Enum_UIWidgetSpellButtonCooldownType,
+		ShowCooldownAndDisableOnCooldown: Enum_UIWidgetSpellButtonCooldownType,
 	},
 	UIWidgetTextFormatType: {
-		None: number,
-		TimeOneLevel: number,
-		TimeTwoLevel: number,
-		LeadingZeroesWithSixDigits: number,
+		None: Enum_UIWidgetTextFormatType,
+		TimeOneLevel: Enum_UIWidgetTextFormatType,
+		TimeTwoLevel: Enum_UIWidgetTextFormatType,
+		LeadingZeroesWithSixDigits: Enum_UIWidgetTextFormatType,
 	},
 	UIWidgetTextSizeType: {
-		Small12Pt: number,
-		Medium16Pt: number,
-		Large24Pt: number,
-		Huge27Pt: number,
-		Standard14Pt: number,
-		Small10Pt: number,
-		Small11Pt: number,
-		Medium18Pt: number,
-		Large20Pt: number,
+		Small12Pt: Enum_UIWidgetTextSizeType,
+		Medium16Pt: Enum_UIWidgetTextSizeType,
+		Large24Pt: Enum_UIWidgetTextSizeType,
+		Huge27Pt: Enum_UIWidgetTextSizeType,
+		Standard14Pt: Enum_UIWidgetTextSizeType,
+		Small10Pt: Enum_UIWidgetTextSizeType,
+		Small11Pt: Enum_UIWidgetTextSizeType,
+		Medium18Pt: Enum_UIWidgetTextSizeType,
+		Large20Pt: Enum_UIWidgetTextSizeType,
 	},
 	UIWidgetTextureAndTextSizeType: {
-		Small: number,
-		Medium: number,
-		Large: number,
-		Huge: number,
-		Standard: number,
-		Medium2: number,
+		Small: Enum_UIWidgetTextureAndTextSizeType,
+		Medium: Enum_UIWidgetTextureAndTextSizeType,
+		Large: Enum_UIWidgetTextureAndTextSizeType,
+		Huge: Enum_UIWidgetTextureAndTextSizeType,
+		Standard: Enum_UIWidgetTextureAndTextSizeType,
+		Medium2: Enum_UIWidgetTextureAndTextSizeType,
 	},
 	UIWidgetTooltipLocation: {
-		Default: number,
-		BottomLeft: number,
-		Left: number,
-		TopLeft: number,
-		Top: number,
-		TopRight: number,
-		Right: number,
-		BottomRight: number,
-		Bottom: number,
+		Default: Enum_UIWidgetTooltipLocation,
+		BottomLeft: Enum_UIWidgetTooltipLocation,
+		Left: Enum_UIWidgetTooltipLocation,
+		TopLeft: Enum_UIWidgetTooltipLocation,
+		Top: Enum_UIWidgetTooltipLocation,
+		TopRight: Enum_UIWidgetTooltipLocation,
+		Right: Enum_UIWidgetTooltipLocation,
+		BottomRight: Enum_UIWidgetTooltipLocation,
+		Bottom: Enum_UIWidgetTooltipLocation,
 	},
 	UIWidgetUpdateAnimType: {
-		None: number,
-		Flash: number,
-		FlashAndAnimateNumber: number,
+		None: Enum_UIWidgetUpdateAnimType,
+		Flash: Enum_UIWidgetUpdateAnimType,
+		FlashAndAnimateNumber: Enum_UIWidgetUpdateAnimType,
 	},
 	UIWidgetVisualizationType: {
-		IconAndText: number,
-		CaptureBar: number,
-		StatusBar: number,
-		DoubleStatusBar: number,
-		IconTextAndBackground: number,
-		DoubleIconAndText: number,
-		StackedResourceTracker: number,
-		IconTextAndCurrencies: number,
-		TextWithState: number,
-		HorizontalCurrencies: number,
-		BulletTextList: number,
-		ScenarioHeaderCurrenciesAndBackground: number,
-		TextureAndText: number,
-		SpellDisplay: number,
-		DoubleStateIconRow: number,
-		TextureAndTextRow: number,
-		ZoneControl: number,
-		CaptureZone: number,
-		TextureWithAnimation: number,
-		DiscreteProgressSteps: number,
-		ScenarioHeaderTimer: number,
-		TextColumnRow: number,
-		Spacer: number,
-		UnitPowerBar: number,
-		FillUpFrames: number,
-		TextWithSubtext: number,
-		MapPinAnimation: number,
-		ItemDisplay: number,
-		TugOfWar: number,
-		ScenarioHeaderDelves: number,
-		ButtonHeader: number,
-		PreyHuntProgress: number,
+		IconAndText: Enum_UIWidgetVisualizationType,
+		CaptureBar: Enum_UIWidgetVisualizationType,
+		StatusBar: Enum_UIWidgetVisualizationType,
+		DoubleStatusBar: Enum_UIWidgetVisualizationType,
+		IconTextAndBackground: Enum_UIWidgetVisualizationType,
+		DoubleIconAndText: Enum_UIWidgetVisualizationType,
+		StackedResourceTracker: Enum_UIWidgetVisualizationType,
+		IconTextAndCurrencies: Enum_UIWidgetVisualizationType,
+		TextWithState: Enum_UIWidgetVisualizationType,
+		HorizontalCurrencies: Enum_UIWidgetVisualizationType,
+		BulletTextList: Enum_UIWidgetVisualizationType,
+		ScenarioHeaderCurrenciesAndBackground: Enum_UIWidgetVisualizationType,
+		TextureAndText: Enum_UIWidgetVisualizationType,
+		SpellDisplay: Enum_UIWidgetVisualizationType,
+		DoubleStateIconRow: Enum_UIWidgetVisualizationType,
+		TextureAndTextRow: Enum_UIWidgetVisualizationType,
+		ZoneControl: Enum_UIWidgetVisualizationType,
+		CaptureZone: Enum_UIWidgetVisualizationType,
+		TextureWithAnimation: Enum_UIWidgetVisualizationType,
+		DiscreteProgressSteps: Enum_UIWidgetVisualizationType,
+		ScenarioHeaderTimer: Enum_UIWidgetVisualizationType,
+		TextColumnRow: Enum_UIWidgetVisualizationType,
+		Spacer: Enum_UIWidgetVisualizationType,
+		UnitPowerBar: Enum_UIWidgetVisualizationType,
+		FillUpFrames: Enum_UIWidgetVisualizationType,
+		TextWithSubtext: Enum_UIWidgetVisualizationType,
+		MapPinAnimation: Enum_UIWidgetVisualizationType,
+		ItemDisplay: Enum_UIWidgetVisualizationType,
+		TugOfWar: Enum_UIWidgetVisualizationType,
+		ScenarioHeaderDelves: Enum_UIWidgetVisualizationType,
+		ButtonHeader: Enum_UIWidgetVisualizationType,
+		PreyHuntProgress: Enum_UIWidgetVisualizationType,
 	},
 	UnitAuraSortDirection: {
-		Normal: number,
-		Reverse: number,
+		Normal: Enum_UnitAuraSortDirection,
+		Reverse: Enum_UnitAuraSortDirection,
 	},
 	UnitAuraSortRule: {
-		Unsorted: number,
-		Default: number,
-		BigDefensive: number,
-		Expiration: number,
-		ExpirationOnly: number,
-		Name: number,
-		NameOnly: number,
+		Unsorted: Enum_UnitAuraSortRule,
+		Default: Enum_UnitAuraSortRule,
+		BigDefensive: Enum_UnitAuraSortRule,
+		Expiration: Enum_UnitAuraSortRule,
+		ExpirationOnly: Enum_UnitAuraSortRule,
+		Name: Enum_UnitAuraSortRule,
+		NameOnly: Enum_UnitAuraSortRule,
 	},
 	UnitAuraSoundTrigger: {
-		Added: number,
-		ApplicationsIncreased: number,
-		Removed: number,
+		Added: Enum_UnitAuraSoundTrigger,
+		ApplicationsIncreased: Enum_UnitAuraSoundTrigger,
+		Removed: Enum_UnitAuraSoundTrigger,
 	},
 	UnitDamageAbsorbClampMode: {
-		MissingHealth: number,
-		MissingHealthWithoutIncomingHeals: number,
-		MaximumHealth: number,
+		MissingHealth: Enum_UnitDamageAbsorbClampMode,
+		MissingHealthWithoutIncomingHeals: Enum_UnitDamageAbsorbClampMode,
+		MaximumHealth: Enum_UnitDamageAbsorbClampMode,
 	},
 	UnitHealAbsorbClampMode: {
-		CurrentHealth: number,
-		MaximumHealth: number,
+		CurrentHealth: Enum_UnitHealAbsorbClampMode,
+		MaximumHealth: Enum_UnitHealAbsorbClampMode,
 	},
 	UnitHealAbsorbMode: {
-		ReducedByIncomingHeals: number,
-		Total: number,
+		ReducedByIncomingHeals: Enum_UnitHealAbsorbMode,
+		Total: Enum_UnitHealAbsorbMode,
 	},
 	UnitIncomingHealClampMode: {
-		MissingHealth: number,
-		MaximumHealth: number,
+		MissingHealth: Enum_UnitIncomingHealClampMode,
+		MaximumHealth: Enum_UnitIncomingHealClampMode,
 	},
 	UnitMaximumHealthMode: {
-		Default: number,
-		WithAbsorbs: number,
+		Default: Enum_UnitMaximumHealthMode,
+		WithAbsorbs: Enum_UnitMaximumHealthMode,
 	},
 	UnitMirrorPetFlags: {
 		Renameable: number,
@@ -29594,566 +31991,566 @@ declare Enum: {
 		ExtraPet: number,
 	},
 	UnitSex: {
-		Male: number,
-		Female: number,
-		None: number,
-		Both: number,
-		Neutral: number,
+		Male: Enum_UnitSex,
+		Female: Enum_UnitSex,
+		None: Enum_UnitSex,
+		Both: Enum_UnitSex,
+		Neutral: Enum_UnitSex,
 	},
 	UnitTokenType: {
-		None: number,
-		Player: number,
-		Pet: number,
-		Vehicle: number,
-		Mouseover: number,
-		Target: number,
-		TargetTarget: number,
-		SoftEnemy: number,
-		SoftFriend: number,
-		SoftInteract: number,
-		Focus: number,
-		FocusTarget: number,
-		AnyTarget: number,
-		AnyInteract: number,
-		AnyLeftInteract: number,
-		AnyEnemy: number,
-		AnyFriend: number,
-		Npc: number,
-		QuestNpc: number,
-		Raid1: number,
-		Raid2: number,
-		Raid3: number,
-		Raid4: number,
-		Raid5: number,
-		Raid6: number,
-		Raid7: number,
-		Raid8: number,
-		Raid9: number,
-		Raid10: number,
-		Raid11: number,
-		Raid12: number,
-		Raid13: number,
-		Raid14: number,
-		Raid15: number,
-		Raid16: number,
-		Raid17: number,
-		Raid18: number,
-		Raid19: number,
-		Raid20: number,
-		Raid21: number,
-		Raid22: number,
-		Raid23: number,
-		Raid24: number,
-		Raid25: number,
-		Raid26: number,
-		Raid27: number,
-		Raid28: number,
-		Raid29: number,
-		Raid30: number,
-		Raid31: number,
-		Raid32: number,
-		Raid33: number,
-		Raid34: number,
-		Raid35: number,
-		Raid36: number,
-		Raid37: number,
-		Raid38: number,
-		Raid39: number,
-		Raid40: number,
-		RaidPet1: number,
-		RaidPet2: number,
-		RaidPet3: number,
-		RaidPet4: number,
-		RaidPet5: number,
-		RaidPet6: number,
-		RaidPet7: number,
-		RaidPet8: number,
-		RaidPet9: number,
-		RaidPet10: number,
-		RaidPet11: number,
-		RaidPet12: number,
-		RaidPet13: number,
-		RaidPet14: number,
-		RaidPet15: number,
-		RaidPet16: number,
-		RaidPet17: number,
-		RaidPet18: number,
-		RaidPet19: number,
-		RaidPet20: number,
-		RaidPet21: number,
-		RaidPet22: number,
-		RaidPet23: number,
-		RaidPet24: number,
-		RaidPet25: number,
-		RaidPet26: number,
-		RaidPet27: number,
-		RaidPet28: number,
-		RaidPet29: number,
-		RaidPet30: number,
-		RaidPet31: number,
-		RaidPet32: number,
-		RaidPet33: number,
-		RaidPet34: number,
-		RaidPet35: number,
-		RaidPet36: number,
-		RaidPet37: number,
-		RaidPet38: number,
-		RaidPet39: number,
-		RaidPet40: number,
-		Party1: number,
-		Party2: number,
-		Party3: number,
-		Party4: number,
-		PartyPet1: number,
-		PartyPet2: number,
-		PartyPet3: number,
-		PartyPet4: number,
-		NamePlate1: number,
-		NamePlate2: number,
-		NamePlate3: number,
-		NamePlate4: number,
-		NamePlate5: number,
-		NamePlate6: number,
-		NamePlate7: number,
-		NamePlate8: number,
-		NamePlate9: number,
-		NamePlate10: number,
-		NamePlate11: number,
-		NamePlate12: number,
-		NamePlate13: number,
-		NamePlate14: number,
-		NamePlate15: number,
-		NamePlate16: number,
-		NamePlate17: number,
-		NamePlate18: number,
-		NamePlate19: number,
-		NamePlate20: number,
-		NamePlate21: number,
-		NamePlate22: number,
-		NamePlate23: number,
-		NamePlate24: number,
-		NamePlate25: number,
-		NamePlate26: number,
-		NamePlate27: number,
-		NamePlate28: number,
-		NamePlate29: number,
-		NamePlate30: number,
-		NamePlate31: number,
-		NamePlate32: number,
-		NamePlate33: number,
-		NamePlate34: number,
-		NamePlate35: number,
-		NamePlate36: number,
-		NamePlate37: number,
-		NamePlate38: number,
-		NamePlate39: number,
-		NamePlate40: number,
-		NamePlate41: number,
-		NamePlate42: number,
-		NamePlate43: number,
-		NamePlate44: number,
-		NamePlate45: number,
-		NamePlate46: number,
-		NamePlate47: number,
-		NamePlate48: number,
-		NamePlate49: number,
-		NamePlate50: number,
-		NamePlate51: number,
-		NamePlate52: number,
-		NamePlate53: number,
-		NamePlate54: number,
-		NamePlate55: number,
-		NamePlate56: number,
-		NamePlate57: number,
-		NamePlate58: number,
-		NamePlate59: number,
-		NamePlate60: number,
-		NamePlate61: number,
-		NamePlate62: number,
-		NamePlate63: number,
-		NamePlate64: number,
-		NamePlate65: number,
-		NamePlate66: number,
-		NamePlate67: number,
-		NamePlate68: number,
-		NamePlate69: number,
-		NamePlate70: number,
-		NamePlate71: number,
-		NamePlate72: number,
-		NamePlate73: number,
-		NamePlate74: number,
-		NamePlate75: number,
-		NamePlate76: number,
-		NamePlate77: number,
-		NamePlate78: number,
-		NamePlate79: number,
-		NamePlate80: number,
-		NamePlate81: number,
-		NamePlate82: number,
-		NamePlate83: number,
-		NamePlate84: number,
-		NamePlate85: number,
-		NamePlate86: number,
-		NamePlate87: number,
-		NamePlate88: number,
-		NamePlate89: number,
-		NamePlate90: number,
-		NamePlate91: number,
-		NamePlate92: number,
-		NamePlate93: number,
-		NamePlate94: number,
-		NamePlate95: number,
-		NamePlate96: number,
-		NamePlate97: number,
-		NamePlate98: number,
-		NamePlate99: number,
-		NamePlate100: number,
-		NamePlate101: number,
-		NamePlate102: number,
-		NamePlate103: number,
-		NamePlate104: number,
-		NamePlate105: number,
-		NamePlate106: number,
-		NamePlate107: number,
-		NamePlate108: number,
-		NamePlate109: number,
-		NamePlate110: number,
-		NamePlate111: number,
-		NamePlate112: number,
-		NamePlate113: number,
-		NamePlate114: number,
-		NamePlate115: number,
-		NamePlate116: number,
-		NamePlate117: number,
-		NamePlate118: number,
-		NamePlate119: number,
-		NamePlate120: number,
-		NamePlate121: number,
-		NamePlate122: number,
-		NamePlate123: number,
-		NamePlate124: number,
-		NamePlate125: number,
-		NamePlate126: number,
-		NamePlate127: number,
-		NamePlate128: number,
-		NamePlate129: number,
-		NamePlate130: number,
-		NamePlate131: number,
-		NamePlate132: number,
-		NamePlate133: number,
-		NamePlate134: number,
-		NamePlate135: number,
-		NamePlate136: number,
-		NamePlate137: number,
-		NamePlate138: number,
-		NamePlate139: number,
-		NamePlate140: number,
-		NamePlate141: number,
-		NamePlate142: number,
-		NamePlate143: number,
-		NamePlate144: number,
-		NamePlate145: number,
-		NamePlate146: number,
-		NamePlate147: number,
-		NamePlate148: number,
-		NamePlate149: number,
-		NamePlate150: number,
-		Boss1: number,
-		Boss2: number,
-		Boss3: number,
-		Boss4: number,
-		Boss5: number,
-		Arena1: number,
-		Arena2: number,
-		Arena3: number,
-		Arena4: number,
-		Arena5: number,
-		ArenaPet1: number,
-		ArenaPet2: number,
-		ArenaPet3: number,
-		ArenaPet4: number,
-		ArenaPet5: number,
-		SpectatedA1: number,
-		SpectatedA2: number,
-		SpectatedA3: number,
-		SpectatedA4: number,
-		SpectatedA5: number,
-		SpectatedA6: number,
-		SpectatedA7: number,
-		SpectatedA8: number,
-		SpectatedA9: number,
-		SpectatedA10: number,
-		SpectatedA11: number,
-		SpectatedA12: number,
-		SpectatedA13: number,
-		SpectatedA14: number,
-		SpectatedA15: number,
-		SpectatedB1: number,
-		SpectatedB2: number,
-		SpectatedB3: number,
-		SpectatedB4: number,
-		SpectatedB5: number,
-		SpectatedB6: number,
-		SpectatedB7: number,
-		SpectatedB8: number,
-		SpectatedB9: number,
-		SpectatedB10: number,
-		SpectatedB11: number,
-		SpectatedB12: number,
-		SpectatedB13: number,
-		SpectatedB14: number,
-		SpectatedB15: number,
-		SpectatedPetA1: number,
-		SpectatedPetA2: number,
-		SpectatedPetA3: number,
-		SpectatedPetA4: number,
-		SpectatedPetA5: number,
-		SpectatedPetA6: number,
-		SpectatedPetA7: number,
-		SpectatedPetA8: number,
-		SpectatedPetA9: number,
-		SpectatedPetA10: number,
-		SpectatedPetA11: number,
-		SpectatedPetA12: number,
-		SpectatedPetA13: number,
-		SpectatedPetA14: number,
-		SpectatedPetA15: number,
-		SpectatedPetB1: number,
-		SpectatedPetB2: number,
-		SpectatedPetB3: number,
-		SpectatedPetB4: number,
-		SpectatedPetB5: number,
-		SpectatedPetB6: number,
-		SpectatedPetB7: number,
-		SpectatedPetB8: number,
-		SpectatedPetB9: number,
-		SpectatedPetB10: number,
-		SpectatedPetB11: number,
-		SpectatedPetB12: number,
-		SpectatedPetB13: number,
-		SpectatedPetB14: number,
-		SpectatedPetB15: number,
-		Commentator1: number,
-		Commentator2: number,
-		Commentator3: number,
-		Commentator4: number,
-		Commentator5: number,
-		Commentator6: number,
-		Commentator7: number,
-		Commentator8: number,
-		Commentator9: number,
-		Commentator10: number,
-		Commentator11: number,
-		Commentator12: number,
-		Commentator13: number,
-		Commentator14: number,
-		Commentator15: number,
-		Commentator16: number,
-		Commentator17: number,
-		Commentator18: number,
-		Commentator19: number,
-		Commentator20: number,
-		Commentator21: number,
-		Commentator22: number,
-		Commentator23: number,
-		Commentator24: number,
-		Commentator25: number,
-		Commentator26: number,
-		Commentator27: number,
-		Commentator28: number,
-		Commentator29: number,
-		Commentator30: number,
+		None: Enum_UnitTokenType,
+		Player: Enum_UnitTokenType,
+		Pet: Enum_UnitTokenType,
+		Vehicle: Enum_UnitTokenType,
+		Mouseover: Enum_UnitTokenType,
+		Target: Enum_UnitTokenType,
+		TargetTarget: Enum_UnitTokenType,
+		SoftEnemy: Enum_UnitTokenType,
+		SoftFriend: Enum_UnitTokenType,
+		SoftInteract: Enum_UnitTokenType,
+		Focus: Enum_UnitTokenType,
+		FocusTarget: Enum_UnitTokenType,
+		AnyTarget: Enum_UnitTokenType,
+		AnyInteract: Enum_UnitTokenType,
+		AnyLeftInteract: Enum_UnitTokenType,
+		AnyEnemy: Enum_UnitTokenType,
+		AnyFriend: Enum_UnitTokenType,
+		Npc: Enum_UnitTokenType,
+		QuestNpc: Enum_UnitTokenType,
+		Raid1: Enum_UnitTokenType,
+		Raid2: Enum_UnitTokenType,
+		Raid3: Enum_UnitTokenType,
+		Raid4: Enum_UnitTokenType,
+		Raid5: Enum_UnitTokenType,
+		Raid6: Enum_UnitTokenType,
+		Raid7: Enum_UnitTokenType,
+		Raid8: Enum_UnitTokenType,
+		Raid9: Enum_UnitTokenType,
+		Raid10: Enum_UnitTokenType,
+		Raid11: Enum_UnitTokenType,
+		Raid12: Enum_UnitTokenType,
+		Raid13: Enum_UnitTokenType,
+		Raid14: Enum_UnitTokenType,
+		Raid15: Enum_UnitTokenType,
+		Raid16: Enum_UnitTokenType,
+		Raid17: Enum_UnitTokenType,
+		Raid18: Enum_UnitTokenType,
+		Raid19: Enum_UnitTokenType,
+		Raid20: Enum_UnitTokenType,
+		Raid21: Enum_UnitTokenType,
+		Raid22: Enum_UnitTokenType,
+		Raid23: Enum_UnitTokenType,
+		Raid24: Enum_UnitTokenType,
+		Raid25: Enum_UnitTokenType,
+		Raid26: Enum_UnitTokenType,
+		Raid27: Enum_UnitTokenType,
+		Raid28: Enum_UnitTokenType,
+		Raid29: Enum_UnitTokenType,
+		Raid30: Enum_UnitTokenType,
+		Raid31: Enum_UnitTokenType,
+		Raid32: Enum_UnitTokenType,
+		Raid33: Enum_UnitTokenType,
+		Raid34: Enum_UnitTokenType,
+		Raid35: Enum_UnitTokenType,
+		Raid36: Enum_UnitTokenType,
+		Raid37: Enum_UnitTokenType,
+		Raid38: Enum_UnitTokenType,
+		Raid39: Enum_UnitTokenType,
+		Raid40: Enum_UnitTokenType,
+		RaidPet1: Enum_UnitTokenType,
+		RaidPet2: Enum_UnitTokenType,
+		RaidPet3: Enum_UnitTokenType,
+		RaidPet4: Enum_UnitTokenType,
+		RaidPet5: Enum_UnitTokenType,
+		RaidPet6: Enum_UnitTokenType,
+		RaidPet7: Enum_UnitTokenType,
+		RaidPet8: Enum_UnitTokenType,
+		RaidPet9: Enum_UnitTokenType,
+		RaidPet10: Enum_UnitTokenType,
+		RaidPet11: Enum_UnitTokenType,
+		RaidPet12: Enum_UnitTokenType,
+		RaidPet13: Enum_UnitTokenType,
+		RaidPet14: Enum_UnitTokenType,
+		RaidPet15: Enum_UnitTokenType,
+		RaidPet16: Enum_UnitTokenType,
+		RaidPet17: Enum_UnitTokenType,
+		RaidPet18: Enum_UnitTokenType,
+		RaidPet19: Enum_UnitTokenType,
+		RaidPet20: Enum_UnitTokenType,
+		RaidPet21: Enum_UnitTokenType,
+		RaidPet22: Enum_UnitTokenType,
+		RaidPet23: Enum_UnitTokenType,
+		RaidPet24: Enum_UnitTokenType,
+		RaidPet25: Enum_UnitTokenType,
+		RaidPet26: Enum_UnitTokenType,
+		RaidPet27: Enum_UnitTokenType,
+		RaidPet28: Enum_UnitTokenType,
+		RaidPet29: Enum_UnitTokenType,
+		RaidPet30: Enum_UnitTokenType,
+		RaidPet31: Enum_UnitTokenType,
+		RaidPet32: Enum_UnitTokenType,
+		RaidPet33: Enum_UnitTokenType,
+		RaidPet34: Enum_UnitTokenType,
+		RaidPet35: Enum_UnitTokenType,
+		RaidPet36: Enum_UnitTokenType,
+		RaidPet37: Enum_UnitTokenType,
+		RaidPet38: Enum_UnitTokenType,
+		RaidPet39: Enum_UnitTokenType,
+		RaidPet40: Enum_UnitTokenType,
+		Party1: Enum_UnitTokenType,
+		Party2: Enum_UnitTokenType,
+		Party3: Enum_UnitTokenType,
+		Party4: Enum_UnitTokenType,
+		PartyPet1: Enum_UnitTokenType,
+		PartyPet2: Enum_UnitTokenType,
+		PartyPet3: Enum_UnitTokenType,
+		PartyPet4: Enum_UnitTokenType,
+		NamePlate1: Enum_UnitTokenType,
+		NamePlate2: Enum_UnitTokenType,
+		NamePlate3: Enum_UnitTokenType,
+		NamePlate4: Enum_UnitTokenType,
+		NamePlate5: Enum_UnitTokenType,
+		NamePlate6: Enum_UnitTokenType,
+		NamePlate7: Enum_UnitTokenType,
+		NamePlate8: Enum_UnitTokenType,
+		NamePlate9: Enum_UnitTokenType,
+		NamePlate10: Enum_UnitTokenType,
+		NamePlate11: Enum_UnitTokenType,
+		NamePlate12: Enum_UnitTokenType,
+		NamePlate13: Enum_UnitTokenType,
+		NamePlate14: Enum_UnitTokenType,
+		NamePlate15: Enum_UnitTokenType,
+		NamePlate16: Enum_UnitTokenType,
+		NamePlate17: Enum_UnitTokenType,
+		NamePlate18: Enum_UnitTokenType,
+		NamePlate19: Enum_UnitTokenType,
+		NamePlate20: Enum_UnitTokenType,
+		NamePlate21: Enum_UnitTokenType,
+		NamePlate22: Enum_UnitTokenType,
+		NamePlate23: Enum_UnitTokenType,
+		NamePlate24: Enum_UnitTokenType,
+		NamePlate25: Enum_UnitTokenType,
+		NamePlate26: Enum_UnitTokenType,
+		NamePlate27: Enum_UnitTokenType,
+		NamePlate28: Enum_UnitTokenType,
+		NamePlate29: Enum_UnitTokenType,
+		NamePlate30: Enum_UnitTokenType,
+		NamePlate31: Enum_UnitTokenType,
+		NamePlate32: Enum_UnitTokenType,
+		NamePlate33: Enum_UnitTokenType,
+		NamePlate34: Enum_UnitTokenType,
+		NamePlate35: Enum_UnitTokenType,
+		NamePlate36: Enum_UnitTokenType,
+		NamePlate37: Enum_UnitTokenType,
+		NamePlate38: Enum_UnitTokenType,
+		NamePlate39: Enum_UnitTokenType,
+		NamePlate40: Enum_UnitTokenType,
+		NamePlate41: Enum_UnitTokenType,
+		NamePlate42: Enum_UnitTokenType,
+		NamePlate43: Enum_UnitTokenType,
+		NamePlate44: Enum_UnitTokenType,
+		NamePlate45: Enum_UnitTokenType,
+		NamePlate46: Enum_UnitTokenType,
+		NamePlate47: Enum_UnitTokenType,
+		NamePlate48: Enum_UnitTokenType,
+		NamePlate49: Enum_UnitTokenType,
+		NamePlate50: Enum_UnitTokenType,
+		NamePlate51: Enum_UnitTokenType,
+		NamePlate52: Enum_UnitTokenType,
+		NamePlate53: Enum_UnitTokenType,
+		NamePlate54: Enum_UnitTokenType,
+		NamePlate55: Enum_UnitTokenType,
+		NamePlate56: Enum_UnitTokenType,
+		NamePlate57: Enum_UnitTokenType,
+		NamePlate58: Enum_UnitTokenType,
+		NamePlate59: Enum_UnitTokenType,
+		NamePlate60: Enum_UnitTokenType,
+		NamePlate61: Enum_UnitTokenType,
+		NamePlate62: Enum_UnitTokenType,
+		NamePlate63: Enum_UnitTokenType,
+		NamePlate64: Enum_UnitTokenType,
+		NamePlate65: Enum_UnitTokenType,
+		NamePlate66: Enum_UnitTokenType,
+		NamePlate67: Enum_UnitTokenType,
+		NamePlate68: Enum_UnitTokenType,
+		NamePlate69: Enum_UnitTokenType,
+		NamePlate70: Enum_UnitTokenType,
+		NamePlate71: Enum_UnitTokenType,
+		NamePlate72: Enum_UnitTokenType,
+		NamePlate73: Enum_UnitTokenType,
+		NamePlate74: Enum_UnitTokenType,
+		NamePlate75: Enum_UnitTokenType,
+		NamePlate76: Enum_UnitTokenType,
+		NamePlate77: Enum_UnitTokenType,
+		NamePlate78: Enum_UnitTokenType,
+		NamePlate79: Enum_UnitTokenType,
+		NamePlate80: Enum_UnitTokenType,
+		NamePlate81: Enum_UnitTokenType,
+		NamePlate82: Enum_UnitTokenType,
+		NamePlate83: Enum_UnitTokenType,
+		NamePlate84: Enum_UnitTokenType,
+		NamePlate85: Enum_UnitTokenType,
+		NamePlate86: Enum_UnitTokenType,
+		NamePlate87: Enum_UnitTokenType,
+		NamePlate88: Enum_UnitTokenType,
+		NamePlate89: Enum_UnitTokenType,
+		NamePlate90: Enum_UnitTokenType,
+		NamePlate91: Enum_UnitTokenType,
+		NamePlate92: Enum_UnitTokenType,
+		NamePlate93: Enum_UnitTokenType,
+		NamePlate94: Enum_UnitTokenType,
+		NamePlate95: Enum_UnitTokenType,
+		NamePlate96: Enum_UnitTokenType,
+		NamePlate97: Enum_UnitTokenType,
+		NamePlate98: Enum_UnitTokenType,
+		NamePlate99: Enum_UnitTokenType,
+		NamePlate100: Enum_UnitTokenType,
+		NamePlate101: Enum_UnitTokenType,
+		NamePlate102: Enum_UnitTokenType,
+		NamePlate103: Enum_UnitTokenType,
+		NamePlate104: Enum_UnitTokenType,
+		NamePlate105: Enum_UnitTokenType,
+		NamePlate106: Enum_UnitTokenType,
+		NamePlate107: Enum_UnitTokenType,
+		NamePlate108: Enum_UnitTokenType,
+		NamePlate109: Enum_UnitTokenType,
+		NamePlate110: Enum_UnitTokenType,
+		NamePlate111: Enum_UnitTokenType,
+		NamePlate112: Enum_UnitTokenType,
+		NamePlate113: Enum_UnitTokenType,
+		NamePlate114: Enum_UnitTokenType,
+		NamePlate115: Enum_UnitTokenType,
+		NamePlate116: Enum_UnitTokenType,
+		NamePlate117: Enum_UnitTokenType,
+		NamePlate118: Enum_UnitTokenType,
+		NamePlate119: Enum_UnitTokenType,
+		NamePlate120: Enum_UnitTokenType,
+		NamePlate121: Enum_UnitTokenType,
+		NamePlate122: Enum_UnitTokenType,
+		NamePlate123: Enum_UnitTokenType,
+		NamePlate124: Enum_UnitTokenType,
+		NamePlate125: Enum_UnitTokenType,
+		NamePlate126: Enum_UnitTokenType,
+		NamePlate127: Enum_UnitTokenType,
+		NamePlate128: Enum_UnitTokenType,
+		NamePlate129: Enum_UnitTokenType,
+		NamePlate130: Enum_UnitTokenType,
+		NamePlate131: Enum_UnitTokenType,
+		NamePlate132: Enum_UnitTokenType,
+		NamePlate133: Enum_UnitTokenType,
+		NamePlate134: Enum_UnitTokenType,
+		NamePlate135: Enum_UnitTokenType,
+		NamePlate136: Enum_UnitTokenType,
+		NamePlate137: Enum_UnitTokenType,
+		NamePlate138: Enum_UnitTokenType,
+		NamePlate139: Enum_UnitTokenType,
+		NamePlate140: Enum_UnitTokenType,
+		NamePlate141: Enum_UnitTokenType,
+		NamePlate142: Enum_UnitTokenType,
+		NamePlate143: Enum_UnitTokenType,
+		NamePlate144: Enum_UnitTokenType,
+		NamePlate145: Enum_UnitTokenType,
+		NamePlate146: Enum_UnitTokenType,
+		NamePlate147: Enum_UnitTokenType,
+		NamePlate148: Enum_UnitTokenType,
+		NamePlate149: Enum_UnitTokenType,
+		NamePlate150: Enum_UnitTokenType,
+		Boss1: Enum_UnitTokenType,
+		Boss2: Enum_UnitTokenType,
+		Boss3: Enum_UnitTokenType,
+		Boss4: Enum_UnitTokenType,
+		Boss5: Enum_UnitTokenType,
+		Arena1: Enum_UnitTokenType,
+		Arena2: Enum_UnitTokenType,
+		Arena3: Enum_UnitTokenType,
+		Arena4: Enum_UnitTokenType,
+		Arena5: Enum_UnitTokenType,
+		ArenaPet1: Enum_UnitTokenType,
+		ArenaPet2: Enum_UnitTokenType,
+		ArenaPet3: Enum_UnitTokenType,
+		ArenaPet4: Enum_UnitTokenType,
+		ArenaPet5: Enum_UnitTokenType,
+		SpectatedA1: Enum_UnitTokenType,
+		SpectatedA2: Enum_UnitTokenType,
+		SpectatedA3: Enum_UnitTokenType,
+		SpectatedA4: Enum_UnitTokenType,
+		SpectatedA5: Enum_UnitTokenType,
+		SpectatedA6: Enum_UnitTokenType,
+		SpectatedA7: Enum_UnitTokenType,
+		SpectatedA8: Enum_UnitTokenType,
+		SpectatedA9: Enum_UnitTokenType,
+		SpectatedA10: Enum_UnitTokenType,
+		SpectatedA11: Enum_UnitTokenType,
+		SpectatedA12: Enum_UnitTokenType,
+		SpectatedA13: Enum_UnitTokenType,
+		SpectatedA14: Enum_UnitTokenType,
+		SpectatedA15: Enum_UnitTokenType,
+		SpectatedB1: Enum_UnitTokenType,
+		SpectatedB2: Enum_UnitTokenType,
+		SpectatedB3: Enum_UnitTokenType,
+		SpectatedB4: Enum_UnitTokenType,
+		SpectatedB5: Enum_UnitTokenType,
+		SpectatedB6: Enum_UnitTokenType,
+		SpectatedB7: Enum_UnitTokenType,
+		SpectatedB8: Enum_UnitTokenType,
+		SpectatedB9: Enum_UnitTokenType,
+		SpectatedB10: Enum_UnitTokenType,
+		SpectatedB11: Enum_UnitTokenType,
+		SpectatedB12: Enum_UnitTokenType,
+		SpectatedB13: Enum_UnitTokenType,
+		SpectatedB14: Enum_UnitTokenType,
+		SpectatedB15: Enum_UnitTokenType,
+		SpectatedPetA1: Enum_UnitTokenType,
+		SpectatedPetA2: Enum_UnitTokenType,
+		SpectatedPetA3: Enum_UnitTokenType,
+		SpectatedPetA4: Enum_UnitTokenType,
+		SpectatedPetA5: Enum_UnitTokenType,
+		SpectatedPetA6: Enum_UnitTokenType,
+		SpectatedPetA7: Enum_UnitTokenType,
+		SpectatedPetA8: Enum_UnitTokenType,
+		SpectatedPetA9: Enum_UnitTokenType,
+		SpectatedPetA10: Enum_UnitTokenType,
+		SpectatedPetA11: Enum_UnitTokenType,
+		SpectatedPetA12: Enum_UnitTokenType,
+		SpectatedPetA13: Enum_UnitTokenType,
+		SpectatedPetA14: Enum_UnitTokenType,
+		SpectatedPetA15: Enum_UnitTokenType,
+		SpectatedPetB1: Enum_UnitTokenType,
+		SpectatedPetB2: Enum_UnitTokenType,
+		SpectatedPetB3: Enum_UnitTokenType,
+		SpectatedPetB4: Enum_UnitTokenType,
+		SpectatedPetB5: Enum_UnitTokenType,
+		SpectatedPetB6: Enum_UnitTokenType,
+		SpectatedPetB7: Enum_UnitTokenType,
+		SpectatedPetB8: Enum_UnitTokenType,
+		SpectatedPetB9: Enum_UnitTokenType,
+		SpectatedPetB10: Enum_UnitTokenType,
+		SpectatedPetB11: Enum_UnitTokenType,
+		SpectatedPetB12: Enum_UnitTokenType,
+		SpectatedPetB13: Enum_UnitTokenType,
+		SpectatedPetB14: Enum_UnitTokenType,
+		SpectatedPetB15: Enum_UnitTokenType,
+		Commentator1: Enum_UnitTokenType,
+		Commentator2: Enum_UnitTokenType,
+		Commentator3: Enum_UnitTokenType,
+		Commentator4: Enum_UnitTokenType,
+		Commentator5: Enum_UnitTokenType,
+		Commentator6: Enum_UnitTokenType,
+		Commentator7: Enum_UnitTokenType,
+		Commentator8: Enum_UnitTokenType,
+		Commentator9: Enum_UnitTokenType,
+		Commentator10: Enum_UnitTokenType,
+		Commentator11: Enum_UnitTokenType,
+		Commentator12: Enum_UnitTokenType,
+		Commentator13: Enum_UnitTokenType,
+		Commentator14: Enum_UnitTokenType,
+		Commentator15: Enum_UnitTokenType,
+		Commentator16: Enum_UnitTokenType,
+		Commentator17: Enum_UnitTokenType,
+		Commentator18: Enum_UnitTokenType,
+		Commentator19: Enum_UnitTokenType,
+		Commentator20: Enum_UnitTokenType,
+		Commentator21: Enum_UnitTokenType,
+		Commentator22: Enum_UnitTokenType,
+		Commentator23: Enum_UnitTokenType,
+		Commentator24: Enum_UnitTokenType,
+		Commentator25: Enum_UnitTokenType,
+		Commentator26: Enum_UnitTokenType,
+		Commentator27: Enum_UnitTokenType,
+		Commentator28: Enum_UnitTokenType,
+		Commentator29: Enum_UnitTokenType,
+		Commentator30: Enum_UnitTokenType,
 	},
 	UrlTextureResult: {
-		Found: number,
-		NotFound: number,
-		Requested: number,
-		NotAllowed: number,
+		Found: Enum_UrlTextureResult,
+		NotFound: Enum_UrlTextureResult,
+		Requested: Enum_UrlTextureResult,
+		NotAllowed: Enum_UrlTextureResult,
 	},
 	ValidateNameResult: {
-		Success: number,
-		Failure: number,
-		NoName: number,
-		TooShort: number,
-		TooLong: number,
-		InvalidCharacter: number,
-		MixedLanguages: number,
-		Profane: number,
-		Reserved: number,
-		InvalidApostrophe: number,
-		MultipleApostrophes: number,
-		ThreeConsecutive: number,
-		InvalidSpace: number,
-		ConsecutiveSpaces: number,
-		RussianConsecutiveSilentCharacters: number,
-		RussianSilentCharacterAtBeginningOrEnd: number,
-		DeclensionDoesntMatchBaseName: number,
-		SpacesDisallowed: number,
+		Success: Enum_ValidateNameResult,
+		Failure: Enum_ValidateNameResult,
+		NoName: Enum_ValidateNameResult,
+		TooShort: Enum_ValidateNameResult,
+		TooLong: Enum_ValidateNameResult,
+		InvalidCharacter: Enum_ValidateNameResult,
+		MixedLanguages: Enum_ValidateNameResult,
+		Profane: Enum_ValidateNameResult,
+		Reserved: Enum_ValidateNameResult,
+		InvalidApostrophe: Enum_ValidateNameResult,
+		MultipleApostrophes: Enum_ValidateNameResult,
+		ThreeConsecutive: Enum_ValidateNameResult,
+		InvalidSpace: Enum_ValidateNameResult,
+		ConsecutiveSpaces: Enum_ValidateNameResult,
+		RussianConsecutiveSilentCharacters: Enum_ValidateNameResult,
+		RussianSilentCharacterAtBeginningOrEnd: Enum_ValidateNameResult,
+		DeclensionDoesntMatchBaseName: Enum_ValidateNameResult,
+		SpacesDisallowed: Enum_ValidateNameResult,
 	},
 	VasPurchaseProgress: {
-		Invalid: number,
-		PrePurchase: number,
-		PaymentPending: number,
-		ApplyingLicense: number,
-		WaitingOnQueue: number,
-		Ready: number,
-		ProcessingFactionChange: number,
-		Complete: number,
+		Invalid: Enum_VasPurchaseProgress,
+		PrePurchase: Enum_VasPurchaseProgress,
+		PaymentPending: Enum_VasPurchaseProgress,
+		ApplyingLicense: Enum_VasPurchaseProgress,
+		WaitingOnQueue: Enum_VasPurchaseProgress,
+		Ready: Enum_VasPurchaseProgress,
+		ProcessingFactionChange: Enum_VasPurchaseProgress,
+		Complete: Enum_VasPurchaseProgress,
 	},
 	ViewArenaSize: {
-		Two: number,
-		Three: number,
+		Two: Enum_ViewArenaSize,
+		Three: Enum_ViewArenaSize,
 	},
 	ViewRaidSize: {
-		Ten: number,
-		TwentyFive: number,
-		Forty: number,
+		Ten: Enum_ViewRaidSize,
+		TwentyFive: Enum_ViewRaidSize,
+		Forty: Enum_ViewRaidSize,
 	},
 	VignetteObjectiveType: {
-		None: number,
-		Defeat: number,
-		DefeatShowRemainingHealth: number,
+		None: Enum_VignetteObjectiveType,
+		Defeat: Enum_VignetteObjectiveType,
+		DefeatShowRemainingHealth: Enum_VignetteObjectiveType,
 	},
 	VignetteType: {
-		Normal: number,
-		PvPBounty: number,
-		Torghast: number,
-		Treasure: number,
-		FyrakkFlight: number,
+		Normal: Enum_VignetteType,
+		PvPBounty: Enum_VignetteType,
+		Torghast: Enum_VignetteType,
+		Treasure: Enum_VignetteType,
+		FyrakkFlight: Enum_VignetteType,
 	},
 	VisualAlertType: {
-		MarchingAnts: number,
-		MarchingAntsCyan: number,
-		MarchingAntsRed: number,
-		MarchingAntsGreen: number,
-		MarchingAntsBlue: number,
-		Flash: number,
-		FlashCyan: number,
-		FlashRed: number,
-		FlashGreen: number,
-		FlashBlue: number,
+		MarchingAnts: Enum_VisualAlertType,
+		MarchingAntsCyan: Enum_VisualAlertType,
+		MarchingAntsRed: Enum_VisualAlertType,
+		MarchingAntsGreen: Enum_VisualAlertType,
+		MarchingAntsBlue: Enum_VisualAlertType,
+		Flash: Enum_VisualAlertType,
+		FlashCyan: Enum_VisualAlertType,
+		FlashRed: Enum_VisualAlertType,
+		FlashGreen: Enum_VisualAlertType,
+		FlashBlue: Enum_VisualAlertType,
 	},
 	Vocalerrorsounds: {
-		Inventoryfull: number,
-		Outofammo: number,
-		NoequipLevel: number,
-		NoequipEver: number,
-		BoundNodrop: number,
-		Itemcooling: number,
-		Cantdrinkmore: number,
-		Canteatmore: number,
-		Cantinvite: number,
-		Inviteebusy: number,
-		Targettoofar: number,
-		Invalidtarget: number,
-		Spellcooling: number,
-		CantlearnLevel: number,
-		Locked: number,
-		Nomana: number,
-		Notwhiledead: number,
-		Cantloot: number,
-		Cantcreate: number,
-		Declinegroup: number,
-		Alreadyingroup: number,
-		Alreadyinguild: number,
-		Cantaffordbankslot: number,
-		Toomanybankslots: number,
-		CanteatMoving: number,
-		Notabag: number,
-		Cantputbag: number,
-		Wrongslot: number,
-		Ammoonlyinbag: number,
-		Bagfull: number,
-		Itemmaxcount: number,
-		CantlootDidntkill: number,
-		CantlootWrongfacing: number,
-		CantlootLocked: number,
-		CantlootNotstandingObsolete: number,
-		CantlootToofar: number,
-		Cantattackrongdirection: number,
-		CantattackNotstandingObsolete: number,
-		CantattackNotarget: number,
-		Notenoughgold: number,
-		Notenoughmoney: number,
-		Cantequip2HSkill: number,
-		Cantequip2Hequipped: number,
-		Cantequip2HNoskill: number,
-		Notequippable: number,
-		Genericnotarget: number,
-		CantcastOutofrange: number,
-		Potioncooling: number,
-		Proficiencyneeded: number,
-		Mustequippitem: number,
-		Abilitycooling: number,
-		Cantuseitem: number,
-		Chestinuse: number,
-		FoodcoolingObsolete: number,
-		CanttaxiNomoney: number,
-		Cantuselocked: number,
-		Noequipslotavailable: number,
-		Cantusetoofar: number,
-		Cantswap: number,
-		CanttradeSoulbound: number,
-		Cantflyhere: number,
-		Itemlocked: number,
-		Guildpermissions: number,
-		Norage: number,
-		Noenergy: number,
-		Noessence: number,
-		Invaliditemtarget: number,
-		ExhaustedObsolete: number,
+		Inventoryfull: Enum_Vocalerrorsounds,
+		Outofammo: Enum_Vocalerrorsounds,
+		NoequipLevel: Enum_Vocalerrorsounds,
+		NoequipEver: Enum_Vocalerrorsounds,
+		BoundNodrop: Enum_Vocalerrorsounds,
+		Itemcooling: Enum_Vocalerrorsounds,
+		Cantdrinkmore: Enum_Vocalerrorsounds,
+		Canteatmore: Enum_Vocalerrorsounds,
+		Cantinvite: Enum_Vocalerrorsounds,
+		Inviteebusy: Enum_Vocalerrorsounds,
+		Targettoofar: Enum_Vocalerrorsounds,
+		Invalidtarget: Enum_Vocalerrorsounds,
+		Spellcooling: Enum_Vocalerrorsounds,
+		CantlearnLevel: Enum_Vocalerrorsounds,
+		Locked: Enum_Vocalerrorsounds,
+		Nomana: Enum_Vocalerrorsounds,
+		Notwhiledead: Enum_Vocalerrorsounds,
+		Cantloot: Enum_Vocalerrorsounds,
+		Cantcreate: Enum_Vocalerrorsounds,
+		Declinegroup: Enum_Vocalerrorsounds,
+		Alreadyingroup: Enum_Vocalerrorsounds,
+		Alreadyinguild: Enum_Vocalerrorsounds,
+		Cantaffordbankslot: Enum_Vocalerrorsounds,
+		Toomanybankslots: Enum_Vocalerrorsounds,
+		CanteatMoving: Enum_Vocalerrorsounds,
+		Notabag: Enum_Vocalerrorsounds,
+		Cantputbag: Enum_Vocalerrorsounds,
+		Wrongslot: Enum_Vocalerrorsounds,
+		Ammoonlyinbag: Enum_Vocalerrorsounds,
+		Bagfull: Enum_Vocalerrorsounds,
+		Itemmaxcount: Enum_Vocalerrorsounds,
+		CantlootDidntkill: Enum_Vocalerrorsounds,
+		CantlootWrongfacing: Enum_Vocalerrorsounds,
+		CantlootLocked: Enum_Vocalerrorsounds,
+		CantlootNotstandingObsolete: Enum_Vocalerrorsounds,
+		CantlootToofar: Enum_Vocalerrorsounds,
+		Cantattackrongdirection: Enum_Vocalerrorsounds,
+		CantattackNotstandingObsolete: Enum_Vocalerrorsounds,
+		CantattackNotarget: Enum_Vocalerrorsounds,
+		Notenoughgold: Enum_Vocalerrorsounds,
+		Notenoughmoney: Enum_Vocalerrorsounds,
+		Cantequip2HSkill: Enum_Vocalerrorsounds,
+		Cantequip2Hequipped: Enum_Vocalerrorsounds,
+		Cantequip2HNoskill: Enum_Vocalerrorsounds,
+		Notequippable: Enum_Vocalerrorsounds,
+		Genericnotarget: Enum_Vocalerrorsounds,
+		CantcastOutofrange: Enum_Vocalerrorsounds,
+		Potioncooling: Enum_Vocalerrorsounds,
+		Proficiencyneeded: Enum_Vocalerrorsounds,
+		Mustequippitem: Enum_Vocalerrorsounds,
+		Abilitycooling: Enum_Vocalerrorsounds,
+		Cantuseitem: Enum_Vocalerrorsounds,
+		Chestinuse: Enum_Vocalerrorsounds,
+		FoodcoolingObsolete: Enum_Vocalerrorsounds,
+		CanttaxiNomoney: Enum_Vocalerrorsounds,
+		Cantuselocked: Enum_Vocalerrorsounds,
+		Noequipslotavailable: Enum_Vocalerrorsounds,
+		Cantusetoofar: Enum_Vocalerrorsounds,
+		Cantswap: Enum_Vocalerrorsounds,
+		CanttradeSoulbound: Enum_Vocalerrorsounds,
+		Cantflyhere: Enum_Vocalerrorsounds,
+		Itemlocked: Enum_Vocalerrorsounds,
+		Guildpermissions: Enum_Vocalerrorsounds,
+		Norage: Enum_Vocalerrorsounds,
+		Noenergy: Enum_Vocalerrorsounds,
+		Noessence: Enum_Vocalerrorsounds,
+		Invaliditemtarget: Enum_Vocalerrorsounds,
+		ExhaustedObsolete: Enum_Vocalerrorsounds,
 	},
 	VoiceChannelErrorReason: {
-		Unknown: number,
-		IsBattleNetChannel: number,
+		Unknown: Enum_VoiceChannelErrorReason,
+		IsBattleNetChannel: Enum_VoiceChannelErrorReason,
 	},
 	VoiceChatStatusCode: {
-		Success: number,
-		OperationPending: number,
-		TooManyRequests: number,
-		LoginProhibited: number,
-		ClientNotInitialized: number,
-		ClientNotLoggedIn: number,
-		ClientAlreadyLoggedIn: number,
-		ChannelNameTooShort: number,
-		ChannelNameTooLong: number,
-		ChannelAlreadyExists: number,
-		AlreadyInChannel: number,
-		TargetNotFound: number,
-		Failure: number,
-		ServiceLost: number,
-		UnableToLaunchProxy: number,
-		ProxyConnectionTimeOut: number,
-		ProxyConnectionUnableToConnect: number,
-		ProxyConnectionUnexpectedDisconnect: number,
-		Disabled: number,
-		UnsupportedChatChannelType: number,
-		InvalidCommunityStream: number,
-		PlayerSilenced: number,
-		PlayerVoiceChatParentalDisabled: number,
-		InvalidInputDevice: number,
-		InvalidOutputDevice: number,
-		PlayerVoiceChatAgeVerificationRestricted: number,
+		Success: Enum_VoiceChatStatusCode,
+		OperationPending: Enum_VoiceChatStatusCode,
+		TooManyRequests: Enum_VoiceChatStatusCode,
+		LoginProhibited: Enum_VoiceChatStatusCode,
+		ClientNotInitialized: Enum_VoiceChatStatusCode,
+		ClientNotLoggedIn: Enum_VoiceChatStatusCode,
+		ClientAlreadyLoggedIn: Enum_VoiceChatStatusCode,
+		ChannelNameTooShort: Enum_VoiceChatStatusCode,
+		ChannelNameTooLong: Enum_VoiceChatStatusCode,
+		ChannelAlreadyExists: Enum_VoiceChatStatusCode,
+		AlreadyInChannel: Enum_VoiceChatStatusCode,
+		TargetNotFound: Enum_VoiceChatStatusCode,
+		Failure: Enum_VoiceChatStatusCode,
+		ServiceLost: Enum_VoiceChatStatusCode,
+		UnableToLaunchProxy: Enum_VoiceChatStatusCode,
+		ProxyConnectionTimeOut: Enum_VoiceChatStatusCode,
+		ProxyConnectionUnableToConnect: Enum_VoiceChatStatusCode,
+		ProxyConnectionUnexpectedDisconnect: Enum_VoiceChatStatusCode,
+		Disabled: Enum_VoiceChatStatusCode,
+		UnsupportedChatChannelType: Enum_VoiceChatStatusCode,
+		InvalidCommunityStream: Enum_VoiceChatStatusCode,
+		PlayerSilenced: Enum_VoiceChatStatusCode,
+		PlayerVoiceChatParentalDisabled: Enum_VoiceChatStatusCode,
+		InvalidInputDevice: Enum_VoiceChatStatusCode,
+		InvalidOutputDevice: Enum_VoiceChatStatusCode,
+		PlayerVoiceChatAgeVerificationRestricted: Enum_VoiceChatStatusCode,
 	},
 	VoiceProviderID: {
-		Legacy: number,
-		Discord: number,
+		Legacy: Enum_VoiceProviderID,
+		Discord: Enum_VoiceProviderID,
 	},
 	VoiceTtsStatusCode: {
-		Success: number,
-		InvalidEngineType: number,
-		EngineAllocationFailed: number,
-		NotSupported: number,
-		MaxCharactersExceeded: number,
-		UtteranceBelowMinimumDuration: number,
-		InputTextEnqueued: number,
-		SdkNotInitialized: number,
-		DestinationQueueFull: number,
-		EnqueueNotNecessary: number,
-		UtteranceNotFound: number,
-		ManagerNotFound: number,
-		InvalidArgument: number,
-		InternalError: number,
+		Success: Enum_VoiceTtsStatusCode,
+		InvalidEngineType: Enum_VoiceTtsStatusCode,
+		EngineAllocationFailed: Enum_VoiceTtsStatusCode,
+		NotSupported: Enum_VoiceTtsStatusCode,
+		MaxCharactersExceeded: Enum_VoiceTtsStatusCode,
+		UtteranceBelowMinimumDuration: Enum_VoiceTtsStatusCode,
+		InputTextEnqueued: Enum_VoiceTtsStatusCode,
+		SdkNotInitialized: Enum_VoiceTtsStatusCode,
+		DestinationQueueFull: Enum_VoiceTtsStatusCode,
+		EnqueueNotNecessary: Enum_VoiceTtsStatusCode,
+		UtteranceNotFound: Enum_VoiceTtsStatusCode,
+		ManagerNotFound: Enum_VoiceTtsStatusCode,
+		InvalidArgument: Enum_VoiceTtsStatusCode,
+		InternalError: Enum_VoiceTtsStatusCode,
 	},
 	WarbandSceneFlags: {
 		DoNotInclude: number,
@@ -30163,185 +32560,185 @@ declare Enum: {
 		IsDefault: number,
 	},
 	WeaponSlot: {
-		MainHand: number,
-		OffHand: number,
-		Ranged: number,
+		MainHand: Enum_WeaponSlot,
+		OffHand: Enum_WeaponSlot,
+		Ranged: Enum_WeaponSlot,
 	},
 	WeatherType: {
-		Clear: number,
-		Rain: number,
-		Snow: number,
-		Sandstorm: number,
-		Miscellaneous: number,
+		Clear: Enum_WeatherType,
+		Rain: Enum_WeatherType,
+		Snow: Enum_WeatherType,
+		Sandstorm: Enum_WeatherType,
+		Miscellaneous: Enum_WeatherType,
 	},
 	WeeklyRewardChestActivityType: {
-		Scenario: number,
-		LFGDungeons: number,
-		World: number,
+		Scenario: Enum_WeeklyRewardChestActivityType,
+		LFGDungeons: Enum_WeeklyRewardChestActivityType,
+		World: Enum_WeeklyRewardChestActivityType,
 	},
 	WeeklyRewardChestClaimRewardResult: {
-		Success: number,
-		InvalidThreshold: number,
-		PlayerNotFound: number,
-		InvalidSlot: number,
-		TooManyItems: number,
-		DbError: number,
-		LockFailure: number,
-		CountExceeded: number,
+		Success: Enum_WeeklyRewardChestClaimRewardResult,
+		InvalidThreshold: Enum_WeeklyRewardChestClaimRewardResult,
+		PlayerNotFound: Enum_WeeklyRewardChestClaimRewardResult,
+		InvalidSlot: Enum_WeeklyRewardChestClaimRewardResult,
+		TooManyItems: Enum_WeeklyRewardChestClaimRewardResult,
+		DbError: Enum_WeeklyRewardChestClaimRewardResult,
+		LockFailure: Enum_WeeklyRewardChestClaimRewardResult,
+		CountExceeded: Enum_WeeklyRewardChestClaimRewardResult,
 	},
 	WeeklyRewardChestThresholdType: {
-		None: number,
-		Activities: number,
-		RankedPvP: number,
-		Raid: number,
-		AlsoReceive: number,
-		Concession: number,
-		World: number,
+		None: Enum_WeeklyRewardChestThresholdType,
+		Activities: Enum_WeeklyRewardChestThresholdType,
+		RankedPvP: Enum_WeeklyRewardChestThresholdType,
+		Raid: Enum_WeeklyRewardChestThresholdType,
+		AlsoReceive: Enum_WeeklyRewardChestThresholdType,
+		Concession: Enum_WeeklyRewardChestThresholdType,
+		World: Enum_WeeklyRewardChestThresholdType,
 	},
 	WeeklyRewardProgressResult: {
-		Success: number,
-		NoSeason: number,
-		TimedOut: number,
-		DbError: number,
-		NoPlayer: number,
+		Success: Enum_WeeklyRewardProgressResult,
+		NoSeason: Enum_WeeklyRewardProgressResult,
+		TimedOut: Enum_WeeklyRewardProgressResult,
+		DbError: Enum_WeeklyRewardProgressResult,
+		NoPlayer: Enum_WeeklyRewardProgressResult,
 	},
 	WidgetAnimationType: {
-		None: number,
-		Fade: number,
+		None: Enum_WidgetAnimationType,
+		Fade: Enum_WidgetAnimationType,
 	},
 	WidgetCurrencyClass: {
-		Currency: number,
-		Item: number,
+		Currency: Enum_WidgetCurrencyClass,
+		Item: Enum_WidgetCurrencyClass,
 	},
 	WidgetEnabledState: {
-		Disabled: number,
-		Yellow: number,
-		Red: number,
-		White: number,
-		Green: number,
-		Artifact: number,
-		Black: number,
-		BrightBlue: number,
+		Disabled: Enum_WidgetEnabledState,
+		Yellow: Enum_WidgetEnabledState,
+		Red: Enum_WidgetEnabledState,
+		White: Enum_WidgetEnabledState,
+		Green: Enum_WidgetEnabledState,
+		Artifact: Enum_WidgetEnabledState,
+		Black: Enum_WidgetEnabledState,
+		BrightBlue: Enum_WidgetEnabledState,
 	},
 	WidgetGlowAnimType: {
-		None: number,
-		Pulse: number,
+		None: Enum_WidgetGlowAnimType,
+		Pulse: Enum_WidgetGlowAnimType,
 	},
 	WidgetIconSizeType: {
-		Small: number,
-		Medium: number,
-		Large: number,
-		Standard: number,
+		Small: Enum_WidgetIconSizeType,
+		Medium: Enum_WidgetIconSizeType,
+		Large: Enum_WidgetIconSizeType,
+		Standard: Enum_WidgetIconSizeType,
 	},
 	WidgetIconSourceType: {
-		Spell: number,
-		Item: number,
+		Spell: Enum_WidgetIconSourceType,
+		Item: Enum_WidgetIconSourceType,
 	},
 	WidgetOpacityType: {
-		OneHundred: number,
-		Ninety: number,
-		Eighty: number,
-		Seventy: number,
-		Sixty: number,
-		Fifty: number,
-		Forty: number,
-		Thirty: number,
-		Twenty: number,
-		Ten: number,
-		Zero: number,
+		OneHundred: Enum_WidgetOpacityType,
+		Ninety: Enum_WidgetOpacityType,
+		Eighty: Enum_WidgetOpacityType,
+		Seventy: Enum_WidgetOpacityType,
+		Sixty: Enum_WidgetOpacityType,
+		Fifty: Enum_WidgetOpacityType,
+		Forty: Enum_WidgetOpacityType,
+		Thirty: Enum_WidgetOpacityType,
+		Twenty: Enum_WidgetOpacityType,
+		Ten: Enum_WidgetOpacityType,
+		Zero: Enum_WidgetOpacityType,
 	},
 	WidgetShowGlowState: {
-		HideGlow: number,
-		ShowGlow: number,
+		HideGlow: Enum_WidgetShowGlowState,
+		ShowGlow: Enum_WidgetShowGlowState,
 	},
 	WidgetShownState: {
-		Hidden: number,
-		Shown: number,
+		Hidden: Enum_WidgetShownState,
+		Shown: Enum_WidgetShownState,
 	},
 	WidgetTextHorizontalAlignmentType: {
-		Left: number,
-		Center: number,
-		Right: number,
+		Left: Enum_WidgetTextHorizontalAlignmentType,
+		Center: Enum_WidgetTextHorizontalAlignmentType,
+		Right: Enum_WidgetTextHorizontalAlignmentType,
 	},
 	WidgetUnitPowerBarFlashMomentType: {
-		FlashWhenMax: number,
-		FlashWhenMin: number,
-		NeverFlash: number,
+		FlashWhenMax: Enum_WidgetUnitPowerBarFlashMomentType,
+		FlashWhenMin: Enum_WidgetUnitPowerBarFlashMomentType,
+		NeverFlash: Enum_WidgetUnitPowerBarFlashMomentType,
 	},
 	WoWClientCursorSize: {
-		Standard: number,
-		Medium: number,
-		Large: number,
-		ExtraLarge: number,
-		Massive: number,
+		Standard: Enum_WoWClientCursorSize,
+		Medium: Enum_WoWClientCursorSize,
+		Large: Enum_WoWClientCursorSize,
+		ExtraLarge: Enum_WoWClientCursorSize,
+		Massive: Enum_WoWClientCursorSize,
 	},
 	WoWEntitlementType: {
-		Item: number,
-		Mount: number,
-		Battlepet: number,
-		Toy: number,
-		Appearance: number,
-		AppearanceSet: number,
-		GameTime: number,
-		Title: number,
-		Illusion: number,
-		Invalid: number,
+		Item: Enum_WoWEntitlementType,
+		Mount: Enum_WoWEntitlementType,
+		Battlepet: Enum_WoWEntitlementType,
+		Toy: Enum_WoWEntitlementType,
+		Appearance: Enum_WoWEntitlementType,
+		AppearanceSet: Enum_WoWEntitlementType,
+		GameTime: Enum_WoWEntitlementType,
+		Title: Enum_WoWEntitlementType,
+		Illusion: Enum_WoWEntitlementType,
+		Invalid: Enum_WoWEntitlementType,
 	},
 	WoWLabsAreaType: {
-		PlunderstormDropSparse: number,
-		PlunderstormDropMedium: number,
-		PlunderstormDropDense: number,
+		PlunderstormDropSparse: Enum_WoWLabsAreaType,
+		PlunderstormDropMedium: Enum_WoWLabsAreaType,
+		PlunderstormDropDense: Enum_WoWLabsAreaType,
 	},
 	WorldCursorAnchorType: {
-		None: number,
-		Default: number,
-		Cursor: number,
-		Nameplate: number,
+		None: Enum_WorldCursorAnchorType,
+		Default: Enum_WorldCursorAnchorType,
+		Cursor: Enum_WorldCursorAnchorType,
+		Nameplate: Enum_WorldCursorAnchorType,
 	},
 	WorldElapsedTimerTypes: {
-		None: number,
-		ChallengeMode: number,
-		ProvingGround: number,
+		None: Enum_WorldElapsedTimerTypes,
+		ChallengeMode: Enum_WorldElapsedTimerTypes,
+		ProvingGround: Enum_WorldElapsedTimerTypes,
 	},
 	WorldQuestQuality: {
-		Common: number,
-		Rare: number,
-		Epic: number,
+		Common: Enum_WorldQuestQuality,
+		Rare: Enum_WorldQuestQuality,
+		Epic: Enum_WorldQuestQuality,
 	},
 	WorldTierDifficulty: {
-		Normal: number,
-		Heroic: number,
-		Mythic: number,
+		Normal: Enum_WorldTierDifficulty,
+		Heroic: Enum_WorldTierDifficulty,
+		Mythic: Enum_WorldTierDifficulty,
 	},
 	ZoneControlActiveState: {
-		Inactive: number,
-		Active: number,
+		Inactive: Enum_ZoneControlActiveState,
+		Active: Enum_ZoneControlActiveState,
 	},
 	ZoneControlDangerFlashType: {
-		ShowOnGoodStates: number,
-		ShowOnBadStates: number,
-		ShowOnBoth: number,
-		ShowOnNeither: number,
+		ShowOnGoodStates: Enum_ZoneControlDangerFlashType,
+		ShowOnBadStates: Enum_ZoneControlDangerFlashType,
+		ShowOnBoth: Enum_ZoneControlDangerFlashType,
+		ShowOnNeither: Enum_ZoneControlDangerFlashType,
 	},
 	ZoneControlFillType: {
-		SingleFillClockwise: number,
-		SingleFillCounterClockwise: number,
-		DoubleFillClockwise: number,
-		DoubleFillCounterClockwise: number,
+		SingleFillClockwise: Enum_ZoneControlFillType,
+		SingleFillCounterClockwise: Enum_ZoneControlFillType,
+		DoubleFillClockwise: Enum_ZoneControlFillType,
+		DoubleFillCounterClockwise: Enum_ZoneControlFillType,
 	},
 	ZoneControlLeadingEdgeType: {
-		NoLeadingEdge: number,
-		UseLeadingEdge: number,
+		NoLeadingEdge: Enum_ZoneControlLeadingEdgeType,
+		UseLeadingEdge: Enum_ZoneControlLeadingEdgeType,
 	},
 	ZoneControlMode: {
-		BothStatesAreGood: number,
-		State1IsGood: number,
-		State2IsGood: number,
-		NeitherStateIsGood: number,
+		BothStatesAreGood: Enum_ZoneControlMode,
+		State1IsGood: Enum_ZoneControlMode,
+		State2IsGood: Enum_ZoneControlMode,
+		NeitherStateIsGood: Enum_ZoneControlMode,
 	},
 	ZoneControlState: {
-		State1: number,
-		State2: number,
+		State1: Enum_ZoneControlState,
+		State2: Enum_ZoneControlState,
 	},
 }
 declare EnumUtil: {
@@ -31324,7 +33721,7 @@ declare function GetCriteriaSpell(...: unknown): (...unknown)
 declare function GetCurrenciesString(currencies: { number } | { { [any]: any } }): string
 declare function GetCurrencyString(currencyID: number, overrideAmount: number?, colorCode: string?, abbreviate: boolean?): string
 declare function GetCurrentArenaSeason(): number
-declare function GetCurrentBindingSet(): number
+declare function GetCurrentBindingSet(): Enum_BindingSet
 declare function GetCurrentCinematicSummary(): string
 declare function GetCurrentEnvironment(...: unknown): (...unknown)
 declare function GetCurrentEventID(): number?
@@ -31424,7 +33821,7 @@ declare function GetGuildAchievementMemberInfo(achievementID: number, index: num
 declare function GetGuildAchievementMembers(achievementID: number): ()
 declare function GetGuildAchievementNumMembers(achievementID: number): number
 declare function GetGuildBankBonusDepositMoney(...: unknown): (...unknown)
-declare function GetGuildBankItemInfo(tab: number, slot: number): (number, number, boolean, boolean, number)
+declare function GetGuildBankItemInfo(tab: number, slot: number): (number, number, boolean, boolean, Enum_ItemQuality)
 declare function GetGuildBankItemLink(tab: number, slot: number): string
 declare function GetGuildBankMoney(): number
 declare function GetGuildBankMoneyTransaction(index: number): (string, string, number, number, number, number, number)
@@ -31469,7 +33866,7 @@ declare function GetIconForRole(...: unknown): (...unknown)
 declare function GetIconForRoleEnum(...: unknown): (...unknown)
 declare function GetInboxHeaderInfo(index: number): (string, string, string, string, number, number, number, number, boolean, boolean, boolean, boolean, boolean)
 declare function GetInboxInvoiceInfo(index: number): (string?, string?, string?, number, number, number, number, number, number, number, number, boolean)
-declare function GetInboxItem(index: number, itemIndex: number): (string, number, string, number, number, boolean)
+declare function GetInboxItem(index: number, itemIndex: number): (string, number, string, number, Enum_ItemQuality, boolean)
 declare function GetInboxItemLink(message: number, attachment: number): string
 declare function GetInboxNumItems(): (number, number)
 declare function GetInboxText(index: number): (string, string, string, boolean, boolean, boolean)
@@ -31561,10 +33958,10 @@ declare function GetLocale(): string
 declare function GetLooseMacroIcons(...: unknown): (...unknown)
 declare function GetLooseMacroItemIcons(...: unknown): (...unknown)
 declare function GetLootInfo(): { { [any]: any } }
-declare function GetLootRollItemInfo(rollID: number): (string, string, number, number, boolean, boolean, boolean, boolean, number, number, number, number, boolean)
+declare function GetLootRollItemInfo(rollID: number): (string, string, number, Enum_ItemQuality, boolean, boolean, boolean, boolean, number, number, number, number, boolean)
 declare function GetLootRollItemLink(id: number): string
 declare function GetLootRollTimeLeft(rollID: number): number?
-declare function GetLootSlotInfo(slot: number): (string, string, number, number, number, boolean, boolean, number, boolean, boolean)
+declare function GetLootSlotInfo(slot: number): (string, string, number, number, Enum_ItemQuality, boolean, boolean, number, boolean, boolean)
 declare function GetLootSlotLink(index: number): string
 declare function GetLootSlotType(slotIndex: number): number
 declare function GetLootSourceInfo(lootSlot: number): (string, number)
@@ -31772,7 +34169,7 @@ declare function GetPlayerTradeMoney(): number
 declare function GetPossessInfo(index: number): (string, number, boolean)
 declare function GetPowerBarColor(...: unknown): (...unknown)
 declare function GetPowerRegen(): (number, number)
-declare function GetPowerRegenForPowerType(powerType: number): (number, number)
+declare function GetPowerRegenForPowerType(powerType: Enum_PowerType): (number, number)
 declare function GetPrevCompleatedTutorial(...: unknown): (...unknown)
 declare function GetPreviousAchievement(achievementID: number): number
 declare function GetPreviousArenaSeason(...: unknown): (...unknown)
@@ -31812,7 +34209,7 @@ declare function GetQuestLogQuestType(...: unknown): (...unknown)
 declare function GetQuestLogRewardArtifactXP(...: unknown): (...unknown)
 declare function GetQuestLogRewardFactionInfo(...: unknown): (...unknown)
 declare function GetQuestLogRewardHonor(...: unknown): (...unknown)
-declare function GetQuestLogRewardInfo(itemIndex: number, questID: number?): (string, string, number, number, boolean, number, number)
+declare function GetQuestLogRewardInfo(itemIndex: number, questID: number?): (string, string, number, Enum_ItemQuality, boolean, number, number)
 declare function GetQuestLogRewardMoney(questID: number?): number
 declare function GetQuestLogRewardSkillPoints(...: unknown): (...unknown)
 declare function GetQuestLogRewardTitle(...: unknown): (...unknown)
@@ -31984,7 +34381,7 @@ declare function GetTotemInfo(slot: number): (boolean?, string?, number?, number
 declare function GetTotemTimeLeft(slot: number): number?
 declare function GetTradePlayerItemInfo(id: number): (string, number, number, Enum_ItemQuality, string, boolean)
 declare function GetTradePlayerItemLink(index: number): string
-declare function GetTradeTargetItemInfo(index: number): (string, string, number, number, number, string)
+declare function GetTradeTargetItemInfo(index: number): (string, string, number, Enum_ItemQuality, number, string)
 declare function GetTradeTargetItemLink(index: number): string
 declare function GetTrainerGreetingText(): string
 declare function GetTrainerSelectionIndex(): number
@@ -33129,7 +35526,7 @@ declare LinkUtil: {
 declare function ListChannelByName(channel: number | string): ()
 declare function ListChannels(...: unknown): (...unknown)
 declare function LoadAddOnWithErrorHandling(...: unknown): (...unknown)
-declare function LoadBindings(bindingSet: number): ()
+declare function LoadBindings(bindingSet: Enum_BindingSet): ()
 declare function LoadMicroButtonTextures(...: unknown): (...unknown)
 declare function LoadURLIndex(index: number, param: number?): ()
 declare LocaleUtil: {

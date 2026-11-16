@@ -7,6 +7,12 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed
 
+- **Breaking:** each non-flag enum is an opaque type of its own (`Enum_ItemQuality`, 799 of them) instead of
+  `number`. A function that takes an enum accepts only that enum's values, not a bare number or another enum's value,
+  and two values of one enum compare with `==`, `<` and `<=`. Flag enums, bag indices, expansion levels and Mythic+
+  season IDs stay numbers. The 25 functions and 3 events whose documentation types an enum's values as a plain number
+  carry the enum (`GetLootSlotInfo`, `GetCurrentBindingSet`, `LoadBindings`, `CONFIRM_SUMMON`), and the generator
+  fails when a `number` slot named like an opaque enum has no rule (`generator/rules/enums.luau`).
 - Structures are no longer declared as another, unrelated structure plus extra fields just because they happen to
   contain its fields: `SpecializationInfoResult` was `AlliedRaceRacialAbility & { ... }`. They are written out in
   full. The 32 UI widget visualization infos instead share a new `UIWidgetVisualizationInfoBase` with the 12 layout

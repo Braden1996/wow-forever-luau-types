@@ -2,9 +2,20 @@
 -- What the generator reads from upstream and how it maps it. Changing this file (or generator/rules/)
 -- changes the output: run `moon run generator:generate` and commit the regenerated files with it.
 
+local enums = require("./rules/enums")
 local stdlib = require("./rules/stdlib")
 local types = require("./rules/types")
 local widgets = require("./rules/widgets")
+
+-- Two rule tables keyed by API, as one; a key in both is a mistake (the rules would disagree).
+local function merged<T>(a: { [string]: T }, b: { [string]: T }): { [string]: T }
+	local out = table.clone(a)
+	for key, value in b do
+		assert(out[key] == nil, "a rule for " .. key .. " is in two rule files")
+		out[key] = value
+	end
+	return out
+end
 
 local config = {
 	-- Output files, relative to the repository root.
@@ -64,11 +75,16 @@ local config = {
 	docWidgetAliases = widgets.docWidgetAliases,
 	widgetParentOverrides = widgets.widgetParentOverrides,
 	scriptObjectParents = widgets.scriptObjectParents,
-	paramTypeOverrides = widgets.paramTypeOverrides,
-	resultTypeOverrides = widgets.resultTypeOverrides,
+	paramTypeOverrides = merged(widgets.paramTypeOverrides, enums.enumParams),
+	resultTypeOverrides = merged(widgets.resultTypeOverrides, enums.enumResults),
 	factoryMethods = widgets.factoryMethods,
 	scriptMethods = widgets.scriptMethods,
 	widgetMixins = widgets.widgetMixins,
+
+	-- Enums (generator/rules/enums.luau).
+	flagEnumPatterns = enums.flagEnumPatterns,
+	numericEnums = enums.numericEnums,
+	notEnumSlots = enums.notEnumSlots,
 
 	-- Type names (generator/rules/types.luau).
 	structBases = types.structBases,
