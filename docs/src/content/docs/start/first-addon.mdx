@@ -1,0 +1,329 @@
+---
+title: "Tutorial: your first addon"
+description: Build a small WoW Forever addon in strict Luau, step by step, from the TOC file to playing it in game.
+---
+
+import { Aside, FileTree, Steps } from "@astrojs/starlight/components";
+import Sym from "../../../components/api/sym.astro";
+
+This tutorial builds **MyAddon**, a small addon that counts your logins, saves the count between sessions, and shows
+it in a window you can drag around. A `/myaddon` slash command shows and hides the window. Along the way you will
+see the checker catch the mistakes that would otherwise only show up after a `/reload`.
+
+It starts from the [addon template](/wow-forever-luau-types/start/addon-template/), which already has the tools and
+the build set up. The template's two source files are explained first; then you add a third file with the window and
+the slash command.
+
+## Before you start
+
+You need:
+
+- **WoW: Forever** installed, to try the addon in game.
+- **[mise](https://mise.jdx.dev)**, which installs the pinned type checker (luau-lsp) and compiler (darklua).
+- **An editor with luau-lsp**: VS Code with the Luau Language Server extension, or Zed with the "Luau" extension.
+  [Editor setup](/wow-forever-luau-types/start/editor-setup/) covers both.
+
+## 1. Create the addon
+
+<Steps>
+
+1. **Copy the template** into a folder named after your addon:
+
+   ```sh
+   npx degit Braden1996/wow-forever-luau-types/templates/addon MyAddon
+   cd MyAddon
+   ```
+
+   This tutorial keeps the name `MyAddon`. For your own addon, rename it everywhere, as the
+   [template page](/wow-forever-luau-types/start/addon-template/) describes.
+
+2. **Install the tools** and download the definitions:
+
+   ```sh
+   mise trust
+   mise install
+   mise run types
+   ```
+
+3. **Check that it works:** `mise run check` should finish with no diagnostics.
+
+</Steps>
+
+The folder now looks like this:
+
+<FileTree>
+
+- MyAddon/
+  - MyAddon.toc what WoW reads first
+  - src/
+    - Core.luau the shared namespace and saved data
+    - Events.luau typed event handlers
+  - types/
+    - addon.d.luau your addon's own types
+    - wow-forever.d.luau the WoW API definitions (downloaded)
+  - build/ the Lua 5.1 that WoW runs (generated)
+  - mise.toml the tools and tasks
+
+</FileTree>
+
+## 2. The TOC file
+
+WoW finds an addon by its folder in `Interface/AddOns/` and the `.toc` file with the same name inside it. The TOC
+says which client version the addon is for, what to save between sessions, and which files to load, in order:
+
+```text
+## Interface: 16001
+## Title: MyAddon
+## Notes: A strict-Luau addon for WoW: Forever.
+## Version: 0.1.0
+## SavedVariables: MyAddonDB
+
+build/Core.lua
+build/Events.lua
+```
+
+- `16001` is the interface number of WoW: Forever 1.60.1. A wrong number marks the addon "out of date".
+- `MyAddonDB` is a global that WoW saves when you log out and restores before the addon's `ADDON_LOADED` event.
+- The files are the compiled `build/*.lua`, not the `src/*.luau` you write. WoW runs Lua 5.1, and darklua compiles
+  your Luau to it.
+
+## 3. Your addon's types
+
+`types/addon.d.luau` describes what is yours rather than WoW's: the saved data and the namespace that every file of
+the addon shares. luau-lsp loads it next to the WoW definitions.
+
+```luau
+export type MyAddonDB = {
+	enabled: boolean,
+	logins: number,
+}
+
+declare MyAddonDB: MyAddonDB?
+
+export type MyAddonNamespace = {
+	version: string,
+	db: MyAddonDB?,
+	print: (message: string) -> (),
+	load: () -> (),
+}
+```
+
+`MyAddonDB` is declared optional (`MyAddonDB?`). On the very first login nothing has been saved yet, and before
+`ADDON_LOADED` WoW has not restored it, so it really can be `nil`. The checker will make you handle that.
+
+## 4. The core file
+
+WoW passes every file of an addon two values: the addon's name and a table shared by all its files. `Core.luau`
+names their types on its first line, then fills in the namespace:
+
+```luau
+--!strict
+local ADDON: string, ns: MyAddonNamespace = ...
+
+ns.version = C_AddOns.GetAddOnMetadata(ADDON, "Version")
+
+function ns.print(message: string)
+	DEFAULT_CHAT_FRAME:AddMessage(format("|cff33ff99%s|r: %s", ADDON, message))
+end
+
+function ns.load()
+	local db = MyAddonDB or { enabled = true, logins = 0 }
+	db.logins += 1
+	_G.MyAddonDB = db
+	ns.db = db
+	ns.print(format("v%s loaded (login %d)", ns.version, db.logins))
+end
+```
+
+- `--!strict` turns on strict checking for the file.
+- `MyAddonDB or { ... }` handles the first login, when nothing is saved yet. After that line, `db` is never `nil`.
+- The saved data is written through `_G`: Luau treats declared globals as read-only, and `_G.MyAddonDB` is the same
+  global.
+
+If you forget the `nil` case, the checker tells you:
+
+```luau
+--!strict
+MyAddonDB.logins += 1 -- error: MyAddonDB may be nil
+```
+
+## 5. Events
+
+The game tells addons what happens through events. `Events.luau` listens for two of them: `ADDON_LOADED`, when the
+saved data is ready, and `PLAYER_LEVEL_UP`.
+
+```luau
+--!strict
+local ADDON: string, ns: MyAddonNamespace = ...
+
+local onAddonLoaded: EventHandler<"ADDON_LOADED"> = function(addOnName: string)
+	if addOnName == ADDON then
+		ns.load()
+	end
+end
+
+local onLevelUp: EventHandler<"PLAYER_LEVEL_UP"> = function(level: number)
+	ns.print(format("Reached level %d", level))
+end
+
+local handlers: { [FrameEvent]: (...any) -> () } = {
+	ADDON_LOADED = onAddonLoaded,
+	PLAYER_LEVEL_UP = onLevelUp,
+}
+
+local frame = CreateFrame("Frame")
+for event in pairs(handlers) do
+	frame:RegisterEvent(event)
+end
+frame:SetScript("OnEvent", function(_self: Frame, event: FrameEvent, ...: any)
+	local handler = handlers[event]
+	if handler then
+		handler(...)
+	end
+end)
+```
+
+- `EventHandler<"PLAYER_LEVEL_UP">` is the type of that event's handler, taken from Blizzard's documentation. The
+  checker compares your parameters with it.
+- The table is keyed by <Sym type="FrameEvent" />, the list of every event the WoW Forever client sends. A misspelt
+  event name is an error, not a handler that silently never runs.
+
+Both mistakes are caught before you start the game:
+
+```luau
+--!strict
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_LEVELUP") -- error: not an event the client sends
+
+local onLevelUp: EventHandler<"PLAYER_LEVEL_UP"> = function(level: string) -- error: the level is a number
+	print(level)
+end
+```
+
+The [events guide](/wow-forever-luau-types/guides/events/) has more on handlers and payloads.
+
+## 6. A window and a slash command
+
+Now add something to see. Create `src/UI.luau`:
+
+```luau
+--!strict
+local ADDON: string, ns: MyAddonNamespace = ...
+
+-- A frame in the middle of the screen that you can drag with the left mouse button.
+local frame = CreateFrame("Frame", "MyAddonFrame", UIParent)
+frame:SetSize(200, 60)
+frame:SetPoint("CENTER")
+frame:SetMovable(true)
+frame:EnableMouse(true)
+frame:RegisterForDrag("LeftButton")
+frame:SetScript("OnDragStart", function(self: Frame)
+	self:StartMoving()
+end)
+frame:SetScript("OnDragStop", function(self: Frame)
+	self:StopMovingOrSizing()
+end)
+frame:Hide()
+
+-- A dark background and a line of text.
+local background = frame:CreateTexture(nil, "BACKGROUND")
+background:SetAllPoints()
+background:SetColorTexture(0, 0, 0, 0.6)
+
+local label = frame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+label:SetPoint("CENTER")
+
+local function refresh()
+	local db = ns.db
+	if db then
+		label:SetText(format("%s: %d logins", ADDON, db.logins))
+	end
+end
+
+frame:SetScript("OnShow", refresh)
+
+-- /myaddon shows or hides the window; /myaddon reset sets the count back to 0.
+_G.SLASH_MYADDON1 = "/myaddon"
+SlashCmdList.MYADDON = function(msg: string)
+	local db = ns.db
+	if not db then
+		ns.print("not loaded yet")
+		return
+	end
+	if msg == "reset" then
+		db.logins = 0
+		refresh()
+	elseif frame:IsShown() then
+		frame:Hide()
+	else
+		frame:Show()
+	end
+end
+```
+
+- `CreateFrame("Frame", ...)` returns a <Sym type="Frame" />, so only a frame's methods are offered.
+  `CreateFrame("Button")` would return a <Sym type="Button" />, which also has `OnClick`.
+- `CreateTexture` and `CreateFontString` return a <Sym type="Texture" /> and a <Sym type="FontString" />.
+- `ns.db` is optional in the namespace type, so `refresh` and the slash command check it before reading it.
+- A slash command is two things: a `SLASH_<NAME>1` global with the command, and a function in `SlashCmdList` under
+  the same name.
+
+Each value that WoW only accepts from a fixed list is checked against that list: anchor points, draw layers, script
+names and more.
+
+```luau
+--!strict
+local frame = CreateFrame("Frame", nil, UIParent)
+frame:SetPoint("CENTRE") -- error: the anchor point is "CENTER"
+frame:SetScript("OnClick", function() end) -- error: a plain Frame has no OnClick
+frame:CreateTexture(nil, "FOREGROUND") -- error: not a draw layer
+```
+
+Finally, tell the build and WoW about the new file. Add its line to the `build` task in `mise.toml`:
+
+```toml
+[tasks.build]
+run = [
+  "darklua process src/Core.luau build/Core.lua",
+  "darklua process src/Events.luau build/Events.lua",
+  "darklua process src/UI.luau build/UI.lua",
+]
+```
+
+And load it last in `MyAddon.toc`, after the files it depends on:
+
+```text
+build/Core.lua
+build/Events.lua
+build/UI.lua
+```
+
+## 7. Check, build and play
+
+<Steps>
+
+1. **Check:** `mise run check` type-checks every file in `src/` and fails on any diagnostic.
+
+2. **Build:** `mise run build` compiles each `src/*.luau` to `build/*.lua`. The types are removed; what is left is
+   plain Lua 5.1.
+
+3. **Install:** copy `MyAddon.toc` and the `build/` folder into the game's AddOns folder, so that you have
+   `Interface/AddOns/MyAddon/MyAddon.toc` and `Interface/AddOns/MyAddon/build/`. Nothing else is needed in game.
+
+4. **Play:** start the game, or type `/reload` if it is already running. The chat shows
+   `MyAddon: v0.1.0 loaded (login 1)`. Type `/myaddon` to show the window, and drag it where you like.
+
+</Steps>
+
+<Aside type="tip" title="Something does not load?">
+  WoW reports Lua errors only if you ask it to: type `/console scriptErrors 1` once. If the addon is missing from the
+  AddOns list on the character screen, the folder name and the `.toc` name probably differ.
+</Aside>
+
+## Next
+
+- [Strict patterns](/wow-forever-luau-types/guides/strict-patterns/): nil checks, casts and the shared namespace in
+  more depth.
+- [Widgets](/wow-forever-luau-types/guides/widgets/): frame types, scripts and inheritance.
+- [SavedVariables](/wow-forever-luau-types/guides/saved-variables/): saved data, slash commands and your own declarations.
+- [API reference](/wow-forever-luau-types/api/): every function, widget, event and enum the client has.

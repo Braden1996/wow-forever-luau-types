@@ -39,6 +39,7 @@ export default defineConfig({
           items: [
             { label: "Introduction", link: "/" },
             { slug: "start/getting-started" },
+            { slug: "start/first-addon" },
             { slug: "start/addon-template" },
             { slug: "start/editor-setup" },
           ],
