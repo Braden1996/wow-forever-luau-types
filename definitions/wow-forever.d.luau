@@ -286,80 +286,80 @@ export type EventPayloads = {
 	CHARACTER_ITEM_FIXUP_NOTIFICATION: (fixupVersion: number) -> (),
 	CHARACTER_POINTS_CHANGED: (change: number) -> (),
 	CHARACTER_UPGRADE_SPELL_TIER_SET: (tierIndex: number) -> (),
-	CHAT_COMBAT_MSG_ARENA_POINTS_GAIN: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
+	CHAT_COMBAT_MSG_ARENA_POINTS_GAIN: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
 	CHAT_DISABLED_CHANGED: (disabled: boolean) -> (),
 	CHAT_DISABLED_CHANGE_FAILED: (disabled: boolean) -> (),
 	CHAT_LOGGING_CHANGED: (whichLog: number, isEnabled: boolean) -> (),
-	CHAT_MSG_ACHIEVEMENT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
+	CHAT_MSG_ACHIEVEMENT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
 	CHAT_MSG_ADDON: (prefix: string, text: string, channel: string, sender: string, target: string, zoneChannelID: number, localID: number, name: string, instanceID: number) -> (),
 	CHAT_MSG_ADDON_LOGGED: (prefix: string, text: string, channel: string, sender: string, target: string, zoneChannelID: number, localID: number, name: string, instanceID: number) -> (),
-	CHAT_MSG_AFK: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_BG_SYSTEM_ALLIANCE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_BG_SYSTEM_HORDE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_BG_SYSTEM_NEUTRAL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_BN: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_BN_INLINE_TOAST_ALERT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_BN_INLINE_TOAST_BROADCAST: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_BN_INLINE_TOAST_BROADCAST_INFORM: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_BN_INLINE_TOAST_CONVERSATION: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_BN_WHISPER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_BN_WHISPER_INFORM: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_BN_WHISPER_PLAYER_OFFLINE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_CHANNEL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_CHANNEL_JOIN: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_CHANNEL_LEAVE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
+	CHAT_MSG_AFK: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_BG_SYSTEM_ALLIANCE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_BG_SYSTEM_HORDE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_BG_SYSTEM_NEUTRAL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_BN: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_BN_INLINE_TOAST_ALERT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_BN_INLINE_TOAST_BROADCAST: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_BN_INLINE_TOAST_BROADCAST_INFORM: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_BN_INLINE_TOAST_CONVERSATION: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_BN_WHISPER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_BN_WHISPER_INFORM: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_BN_WHISPER_PLAYER_OFFLINE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_CHANNEL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_CHANNEL_JOIN: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_CHANNEL_LEAVE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
 	CHAT_MSG_CHANNEL_LEAVE_PREVENTED: (channelName: string) -> (),
-	CHAT_MSG_CHANNEL_LIST: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_CHANNEL_NOTICE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_CHANNEL_NOTICE_USER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_COLLECTED_APPEARANCE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_COMBAT_FACTION_CHANGE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_COMBAT_HONOR_GAIN: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_COMBAT_MISC_INFO: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_COMBAT_XP_GAIN: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_COMMUNITIES_CHANNEL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_CURRENCY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_DND: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_EMOTE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_FILTERED: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_GUILD: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_GUILD_ACHIEVEMENT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_GUILD_DISCORD: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_GUILD_ITEM_LOOTED: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_IGNORED: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_INSTANCE_CHAT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_INSTANCE_CHAT_LEADER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_LOOT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_MONEY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_MONSTER_EMOTE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_MONSTER_PARTY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_MONSTER_SAY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_MONSTER_WHISPER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_MONSTER_YELL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_OFFICER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_OPENING: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_PARTY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_PARTY_LEADER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_PET_BATTLE_COMBAT_LOG: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_PET_BATTLE_INFO: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_PET_INFO: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_PING: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_RAID: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_RAID_BOSS_EMOTE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_RAID_BOSS_WHISPER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_RAID_LEADER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_RAID_WARNING: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_RESTRICTED: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_SAY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_SKILL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_SYSTEM: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_TARGETICONS: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_TEXT_EMOTE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_TRADESKILLS: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_VOICE_TEXT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_WHISPER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_WHISPER_INFORM: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
-	CHAT_MSG_YELL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: unknown) -> (),
+	CHAT_MSG_CHANNEL_LIST: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_CHANNEL_NOTICE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_CHANNEL_NOTICE_USER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_COLLECTED_APPEARANCE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_COMBAT_FACTION_CHANGE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_COMBAT_HONOR_GAIN: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_COMBAT_MISC_INFO: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_COMBAT_XP_GAIN: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_COMMUNITIES_CHANNEL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_CURRENCY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_DND: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_EMOTE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_FILTERED: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_GUILD: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_GUILD_ACHIEVEMENT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_GUILD_DISCORD: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_GUILD_ITEM_LOOTED: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_IGNORED: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_INSTANCE_CHAT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_INSTANCE_CHAT_LEADER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_LOOT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_MONEY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_MONSTER_EMOTE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_MONSTER_PARTY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_MONSTER_SAY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_MONSTER_WHISPER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_MONSTER_YELL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_OFFICER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_OPENING: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_PARTY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_PARTY_LEADER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_PET_BATTLE_COMBAT_LOG: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_PET_BATTLE_INFO: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_PET_INFO: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_PING: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_RAID: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_RAID_BOSS_EMOTE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_RAID_BOSS_WHISPER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_RAID_LEADER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_RAID_WARNING: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_RESTRICTED: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_SAY: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_SKILL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_SYSTEM: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_TARGETICONS: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_TEXT_EMOTE: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_TRADESKILLS: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_VOICE_TEXT: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_WHISPER: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_WHISPER_INFORM: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
+	CHAT_MSG_YELL: (text: string, playerName: string, languageName: string, channelName: string, playerName2: string, specialFlags: string, zoneChannelID: number, channelIndex: number, channelBaseName: string, languageID: number, lineID: number, guid: WOWGUID, bnSenderID: number, isMobile: boolean, isSubtitle: boolean, hideSenderInLetterbox: boolean, suppressRaidIcons: boolean, discordInfo: DiscordChatInfo) -> (),
 	CHAT_REGIONAL_SEND_FAILED: () -> (),
 	CHAT_REGIONAL_STATUS_CHANGED: (isServiceAvailable: boolean) -> (),
 	CHAT_SERVER_DISCONNECTED: (isInitialMessage: boolean?) -> (),
@@ -404,11 +404,11 @@ export type EventPayloads = {
 	CLUB_INVITATION_ADDED_FOR_SELF: (invitation: ClubSelfInvitationInfo) -> (),
 	CLUB_INVITATION_REMOVED_FOR_SELF: (invitationId: ClubInvitationId) -> (),
 	CLUB_MEMBERS_UPDATED: (clubId: ClubId) -> (),
-	CLUB_MEMBER_ADDED: (clubId: ClubId, memberId: unknown) -> (),
-	CLUB_MEMBER_PRESENCE_UPDATED: (clubId: ClubId, memberId: unknown, presence: Enum_ClubMemberPresence) -> (),
-	CLUB_MEMBER_REMOVED: (clubId: ClubId, memberId: unknown) -> (),
-	CLUB_MEMBER_ROLE_UPDATED: (clubId: ClubId, memberId: unknown, roleId: number) -> (),
-	CLUB_MEMBER_UPDATED: (clubId: ClubId, memberId: unknown) -> (),
+	CLUB_MEMBER_ADDED: (clubId: ClubId, memberId: number) -> (),
+	CLUB_MEMBER_PRESENCE_UPDATED: (clubId: ClubId, memberId: number, presence: Enum_ClubMemberPresence) -> (),
+	CLUB_MEMBER_REMOVED: (clubId: ClubId, memberId: number) -> (),
+	CLUB_MEMBER_ROLE_UPDATED: (clubId: ClubId, memberId: number, roleId: number) -> (),
+	CLUB_MEMBER_UPDATED: (clubId: ClubId, memberId: number) -> (),
 	CLUB_MESSAGE_ADDED: (clubId: ClubId, streamId: ClubStreamId, messageId: ClubMessageIdentifier) -> (),
 	CLUB_MESSAGE_HISTORY_RECEIVED: (clubId: ClubId, streamId: ClubStreamId, downloadedRange: ClubMessageRange, contiguousRange: ClubMessageRange) -> (),
 	CLUB_MESSAGE_UPDATED: (clubId: ClubId, streamId: ClubStreamId, messageId: ClubMessageIdentifier) -> (),
@@ -427,7 +427,7 @@ export type EventPayloads = {
 	CLUB_UPDATED: (clubId: ClubId) -> (),
 	COLOR_OVERRIDES_RESET: () -> (),
 	COLOR_OVERRIDE_UPDATED: (overrideType: Enum_ColorOverride) -> (),
-	COMBAT_LOG_APPLY_FILTER_SETTINGS: (filterSettings: LuaValueVariant) -> (),
+	COMBAT_LOG_APPLY_FILTER_SETTINGS: (filterSettings: unknown) -> (),
 	COMBAT_LOG_ENTRIES_CLEARED: () -> (),
 	COMBAT_LOG_EVENT: () -> (),
 	COMBAT_LOG_EVENT_INTERNAL_UNFILTERED: () -> (),
@@ -708,7 +708,7 @@ export type EventPayloads = {
 	GOSSIP_ENTER_CODE: (gossipID: number) -> (),
 	GOSSIP_OPTIONS_REFRESHED: () -> (),
 	GOSSIP_SHOW: (uiTextureKit: textureKit?) -> (),
-	GROUP_BUFF_VISUAL_ALERTS_CHANGED: (visualAlerts: { unknown }) -> (),
+	GROUP_BUFF_VISUAL_ALERTS_CHANGED: (visualAlerts: { GroupBuffVisualAlertInfo }) -> (),
 	GROUP_FORMED: (category: number, partyGUID: WOWGUID) -> (),
 	GROUP_INVITE_CONFIRMATION: () -> (),
 	GROUP_JOINED: (category: number, partyGUID: WOWGUID) -> (),
@@ -780,9 +780,9 @@ export type EventPayloads = {
 	HOUSING_BASIC_MODE_SELECTED_TARGET_CHANGED: (hasSelectedTarget: boolean, targetType: Enum_HousingBasicModeTargetType, isPreview: boolean) -> (),
 	HOUSING_BLUEPRINTS_AVAILABILITY_CHANGED: () -> (),
 	HOUSING_BLUEPRINT_COLLECTION_FAILURE: (result: Enum_HousingResult) -> (),
-	HOUSING_BLUEPRINT_COLLECTION_RECEIVED: (collection: unknown) -> (),
+	HOUSING_BLUEPRINT_COLLECTION_RECEIVED: (collection: HousingBlueprintCollection) -> (),
 	HOUSING_BLUEPRINT_CONTENTS_FAILURE: (blueprintShareCode: string, result: Enum_HousingResult) -> (),
-	HOUSING_BLUEPRINT_CONTENTS_RECEIVED: (contentInfo: unknown) -> (),
+	HOUSING_BLUEPRINT_CONTENTS_RECEIVED: (contentInfo: HousingBlueprintContentInfo) -> (),
 	HOUSING_BLUEPRINT_DELETE_FAILURE: (blueprintID: BigUInteger, result: Enum_HousingResult) -> (),
 	HOUSING_BLUEPRINT_DELETE_SUCCESS: (blueprintID: BigUInteger) -> (),
 	HOUSING_BLUEPRINT_EXPORT_FAILURE: (result: Enum_HousingResult) -> (),
@@ -1671,24 +1671,24 @@ export type EventPayloads = {
 	UNIT_RANGEDDAMAGE: (unitTarget: string) -> (),
 	UNIT_RANGED_ATTACK_POWER: (unitTarget: string) -> (),
 	UNIT_RESISTANCES: (unitTarget: string) -> (),
-	UNIT_SPELLCAST_CHANNEL_START: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: unknown) -> (),
-	UNIT_SPELLCAST_CHANNEL_STOP: (unitTarget: string, castGUID: WOWGUID, spellID: number, interruptedBy: WOWGUID, castBarID: unknown) -> (),
-	UNIT_SPELLCAST_CHANNEL_UPDATE: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: unknown) -> (),
-	UNIT_SPELLCAST_DELAYED: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: unknown) -> (),
-	UNIT_SPELLCAST_EMPOWER_START: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: unknown) -> (),
-	UNIT_SPELLCAST_EMPOWER_STOP: (unitTarget: string, castGUID: WOWGUID, spellID: number, complete: boolean, interruptedBy: WOWGUID, castBarID: unknown) -> (),
-	UNIT_SPELLCAST_EMPOWER_UPDATE: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: unknown) -> (),
-	UNIT_SPELLCAST_FAILED: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: unknown) -> (),
-	UNIT_SPELLCAST_FAILED_QUIET: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: unknown) -> (),
-	UNIT_SPELLCAST_INTERRUPTED: (unitTarget: string, castGUID: WOWGUID, spellID: number, interruptedBy: WOWGUID, castBarID: unknown) -> (),
+	UNIT_SPELLCAST_CHANNEL_START: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: number?) -> (),
+	UNIT_SPELLCAST_CHANNEL_STOP: (unitTarget: string, castGUID: WOWGUID, spellID: number, interruptedBy: WOWGUID, castBarID: number?) -> (),
+	UNIT_SPELLCAST_CHANNEL_UPDATE: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: number?) -> (),
+	UNIT_SPELLCAST_DELAYED: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: number?) -> (),
+	UNIT_SPELLCAST_EMPOWER_START: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: number?) -> (),
+	UNIT_SPELLCAST_EMPOWER_STOP: (unitTarget: string, castGUID: WOWGUID, spellID: number, complete: boolean, interruptedBy: WOWGUID, castBarID: number?) -> (),
+	UNIT_SPELLCAST_EMPOWER_UPDATE: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: number?) -> (),
+	UNIT_SPELLCAST_FAILED: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: number?) -> (),
+	UNIT_SPELLCAST_FAILED_QUIET: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: number?) -> (),
+	UNIT_SPELLCAST_INTERRUPTED: (unitTarget: string, castGUID: WOWGUID, spellID: number, interruptedBy: WOWGUID, castBarID: number?) -> (),
 	UNIT_SPELLCAST_INTERRUPTIBLE: (unitTarget: string) -> (),
 	UNIT_SPELLCAST_NOT_INTERRUPTIBLE: (unitTarget: string) -> (),
 	UNIT_SPELLCAST_RETICLE_CLEAR: (unitTarget: string, castGUID: WOWGUID, spellID: number) -> (),
 	UNIT_SPELLCAST_RETICLE_TARGET: (unitTarget: string, castGUID: WOWGUID, spellID: number) -> (),
 	UNIT_SPELLCAST_SENT: (unitTarget: string, target: string, castGUID: WOWGUID, spellID: number) -> (),
-	UNIT_SPELLCAST_START: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: unknown) -> (),
-	UNIT_SPELLCAST_STOP: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: unknown) -> (),
-	UNIT_SPELLCAST_SUCCEEDED: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: unknown) -> (),
+	UNIT_SPELLCAST_START: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: number?) -> (),
+	UNIT_SPELLCAST_STOP: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: number?) -> (),
+	UNIT_SPELLCAST_SUCCEEDED: (unitTarget: string, castGUID: WOWGUID, spellID: number, castBarID: number?) -> (),
 	UNIT_SPELL_DIMINISH_CATEGORY_STATE_UPDATED: (unitTarget: string, trackerInfo: SpellDiminishTrackerInfo) -> (),
 	UNIT_SPELL_HASTE: (unitTarget: string) -> (),
 	UNIT_STATS: (unitTarget: string) -> (),
@@ -1761,27 +1761,27 @@ export type EventPayloads = {
 	VOICE_CHAT_AUDIO_CAPTURE_ENERGY: (isSpeaking: boolean, energy: number) -> (),
 	VOICE_CHAT_AUDIO_CAPTURE_STARTED: () -> (),
 	VOICE_CHAT_AUDIO_CAPTURE_STOPPED: () -> (),
-	VOICE_CHAT_CHANNEL_ACTIVATED: (channelID: unknown) -> (),
-	VOICE_CHAT_CHANNEL_DEACTIVATED: (channelID: unknown) -> (),
-	VOICE_CHAT_CHANNEL_DISPLAY_NAME_CHANGED: (channelID: unknown, channelDisplayName: string) -> (),
-	VOICE_CHAT_CHANNEL_JOINED: (status: Enum_VoiceChatStatusCode, channelID: unknown, channelType: Enum_ChatChannelType, clubId: ClubId?, streamId: ClubStreamId?) -> (),
-	VOICE_CHAT_CHANNEL_MEMBER_ACTIVE_STATE_CHANGED: (memberID: unknown, channelID: unknown, isActive: boolean) -> (),
-	VOICE_CHAT_CHANNEL_MEMBER_ADDED: (memberID: unknown, channelID: unknown) -> (),
-	VOICE_CHAT_CHANNEL_MEMBER_ENERGY_CHANGED: (memberID: unknown, channelID: unknown, speakingEnergy: number) -> (),
-	VOICE_CHAT_CHANNEL_MEMBER_GUID_UPDATED: (memberID: unknown, channelID: unknown) -> (),
-	VOICE_CHAT_CHANNEL_MEMBER_MUTE_FOR_ALL_CHANGED: (memberID: unknown, channelID: unknown, isMutedForAll: boolean) -> (),
-	VOICE_CHAT_CHANNEL_MEMBER_MUTE_FOR_ME_CHANGED: (memberID: unknown, channelID: unknown, isMutedForMe: boolean) -> (),
-	VOICE_CHAT_CHANNEL_MEMBER_REMOVED: (memberID: unknown, channelID: unknown) -> (),
-	VOICE_CHAT_CHANNEL_MEMBER_SILENCED_CHANGED: (memberID: unknown, channelID: unknown, isSilenced: boolean) -> (),
-	VOICE_CHAT_CHANNEL_MEMBER_SPEAKING_STATE_CHANGED: (memberID: unknown, channelID: unknown, isSpeaking: boolean) -> (),
-	VOICE_CHAT_CHANNEL_MEMBER_STT_MESSAGE: (memberID: unknown, channelID: unknown, message: string, language: string) -> (),
-	VOICE_CHAT_CHANNEL_MEMBER_VOLUME_CHANGED: (memberID: unknown, channelID: unknown, volume: number) -> (),
-	VOICE_CHAT_CHANNEL_MUTE_STATE_CHANGED: (channelID: unknown, isMuted: boolean) -> (),
-	VOICE_CHAT_CHANNEL_PTT_CHANGED: (channelID: unknown, pushToTalkSetting: string) -> (),
-	VOICE_CHAT_CHANNEL_REMOVED: (channelID: unknown) -> (),
-	VOICE_CHAT_CHANNEL_TRANSCRIBING_CHANGED: (channelID: unknown, isTranscribing: boolean) -> (),
-	VOICE_CHAT_CHANNEL_TRANSMIT_CHANGED: (channelID: unknown, isTransmitting: boolean) -> (),
-	VOICE_CHAT_CHANNEL_VOLUME_CHANGED: (channelID: unknown, volume: number) -> (),
+	VOICE_CHAT_CHANNEL_ACTIVATED: (channelID: number) -> (),
+	VOICE_CHAT_CHANNEL_DEACTIVATED: (channelID: number) -> (),
+	VOICE_CHAT_CHANNEL_DISPLAY_NAME_CHANGED: (channelID: number, channelDisplayName: string) -> (),
+	VOICE_CHAT_CHANNEL_JOINED: (status: Enum_VoiceChatStatusCode, channelID: number, channelType: Enum_ChatChannelType, clubId: ClubId?, streamId: ClubStreamId?) -> (),
+	VOICE_CHAT_CHANNEL_MEMBER_ACTIVE_STATE_CHANGED: (memberID: number, channelID: number, isActive: boolean) -> (),
+	VOICE_CHAT_CHANNEL_MEMBER_ADDED: (memberID: number, channelID: number) -> (),
+	VOICE_CHAT_CHANNEL_MEMBER_ENERGY_CHANGED: (memberID: number, channelID: number, speakingEnergy: number) -> (),
+	VOICE_CHAT_CHANNEL_MEMBER_GUID_UPDATED: (memberID: number, channelID: number) -> (),
+	VOICE_CHAT_CHANNEL_MEMBER_MUTE_FOR_ALL_CHANGED: (memberID: number, channelID: number, isMutedForAll: boolean) -> (),
+	VOICE_CHAT_CHANNEL_MEMBER_MUTE_FOR_ME_CHANGED: (memberID: number, channelID: number, isMutedForMe: boolean) -> (),
+	VOICE_CHAT_CHANNEL_MEMBER_REMOVED: (memberID: number, channelID: number) -> (),
+	VOICE_CHAT_CHANNEL_MEMBER_SILENCED_CHANGED: (memberID: number, channelID: number, isSilenced: boolean) -> (),
+	VOICE_CHAT_CHANNEL_MEMBER_SPEAKING_STATE_CHANGED: (memberID: number, channelID: number, isSpeaking: boolean) -> (),
+	VOICE_CHAT_CHANNEL_MEMBER_STT_MESSAGE: (memberID: number, channelID: number, message: string, language: string) -> (),
+	VOICE_CHAT_CHANNEL_MEMBER_VOLUME_CHANGED: (memberID: number, channelID: number, volume: number) -> (),
+	VOICE_CHAT_CHANNEL_MUTE_STATE_CHANGED: (channelID: number, isMuted: boolean) -> (),
+	VOICE_CHAT_CHANNEL_PTT_CHANGED: (channelID: number, pushToTalkSetting: string) -> (),
+	VOICE_CHAT_CHANNEL_REMOVED: (channelID: number) -> (),
+	VOICE_CHAT_CHANNEL_TRANSCRIBING_CHANGED: (channelID: number, isTranscribing: boolean) -> (),
+	VOICE_CHAT_CHANNEL_TRANSMIT_CHANGED: (channelID: number, isTransmitting: boolean) -> (),
+	VOICE_CHAT_CHANNEL_VOLUME_CHANGED: (channelID: number, volume: number) -> (),
 	VOICE_CHAT_COMMUNICATION_MODE_CHANGED: (communicationMode: Enum_CommunicationMode) -> (),
 	VOICE_CHAT_CONNECTION_SUCCESS: () -> (),
 	VOICE_CHAT_DEAFENED_CHANGED: (isDeafened: boolean) -> (),
@@ -1858,8 +1858,6 @@ export type ClubInvitationId = string
 export type ClubStreamId = string
 export type ConnectionIptype = number
 export type CooldownFrame = Cooldown
-export type CraftingOrderRequestCallback = FunctionContainer | ((result: Enum_CraftingOrderResult, orderType: Enum_CraftingOrderType, displayBuckets: boolean, expectMoreRows: boolean, offset: number, isSorted: boolean) -> ())
-export type CraftingOrderRequestMyOrdersCallback = FunctionContainer | ((result: Enum_CraftingOrderResult, expectMoreRows: boolean, offset: number, isSorted: boolean) -> ())
 export type CurveType = string
 export type DrawLayer = "BACKGROUND" | "BORDER" | "ARTWORK" | "OVERLAY" | "HIGHLIGHT"
 export type DurationSeconds = number
@@ -1903,7 +1901,6 @@ export type MouseButton = mouseButton
 export type Nameplate = Frame
 export type NotificationDbId = string
 export type Orientation = string
-export type PinUpdatedCallback = FunctionContainer | (() -> ())
 export type PlayerLocation = PlayerLocationMixin
 export type QuestObjectiveType = number
 export type RecruitAcceptanceID = string
@@ -2089,6 +2086,8 @@ export type textureCoordTranslation = TextureCoordTranslation
 export type translation = Translation
 export type unitpositionframe = UnitPositionFrame
 export type vertexcolor = VertexColor
+export type CraftingOrderRequestCallback = (result: Enum_CraftingOrderResult, orderType: Enum_CraftingOrderType, displayBuckets: boolean, expectMoreRows: boolean, offset: number, isSorted: boolean) -> ()
+export type CraftingOrderRequestMyOrdersCallback = (result: Enum_CraftingOrderResult, expectMoreRows: boolean, offset: number, isSorted: boolean) -> ()
 export type EventCallbackType = () -> ()
 export type FixturePointUpdatedCallback = () -> ()
 export type FrameEventCallbackType = () -> ()
@@ -2097,13 +2096,15 @@ export type HousingCatalogSearchResultsUpdatedCallback = () -> ()
 export type InputCommandCallback = (keystate: string) -> ()
 export type MacroExecuteLineCallback = (macroLine: string) -> ()
 export type PendingPingOffScreenCallback = () -> ()
+export type PinUpdatedCallback = () -> ()
 export type PingCooldownStartedCallback = (info: PingCooldownInfo) -> ()
 export type PingPinFrameAddedCallback = (region: ScriptRegion, uiTextureKit: textureKit, isWorldPoint: boolean, actionInfo: PingActionUIInfo?) -> ()
 export type PingPinFrameRemovedCallback = (region: ScriptRegion) -> ()
 export type PingPinFrameScreenClampStateUpdatedCallback = (region: ScriptRegion, state: boolean) -> ()
 export type PingRadialWheelCreatedCallback = (region: ScriptRegion) -> ()
-export type SendMacroPingCallback = (macroInfo: unknown) -> ()
+export type SendMacroPingCallback = (macroInfo: PingMacroInfo) -> ()
 export type TickerCallback = (cb: TimerCallback) -> ()
+export type TimedSignalMapCallback = (key: number) -> ()
 export type TimerCallback = () -> ()
 export type TogglePingListenerCallback = (down: boolean) -> ()
 
@@ -3160,8 +3161,10 @@ export type AddPrivateAuraAnchorArgs = {
 	iconInfo: PrivateAuraIconInfo?,
 	isContainer: boolean,
 	parent: Frame,
-	showCountdownFrame: boolean,
+	showCooldownEdge: boolean,
+	showCooldownFrame: boolean,
 	showCountdownNumbers: boolean,
+	showDispelIcon: boolean,
 	unitToken: string,
 }
 export type AddonMessageParams = {
@@ -3241,11 +3244,12 @@ export type AnimaDiversionNodeInfo = {
 }
 export type AppearanceSourceInfo = {
 	canDisplayOnPlayer: boolean,
-	categoryID: Enum_TransmogCollectionType?,
-	invType: number?,
+	categoryID: Enum_TransmogCollectionType,
+	invType: number,
 	inventorySlot: number?,
 	isCollected: boolean,
 	isHideVisual: boolean?,
+	isValidForEquippedItem: boolean?,
 	isValidSourceForPlayer: boolean,
 	itemID: number,
 	itemModID: number,
@@ -3418,7 +3422,7 @@ export type AuraContainerTooltipTextureSliceOptions = {
 	color: ColorMixin?,
 	drawLayer: DrawLayer?,
 	drawLayerSublevel: number,
-	sliceMargins: unknown?,
+	sliceMargins: UITextureSliceMargins?,
 	sliceMode: Enum_UITextureSliceMode?,
 }
 export type AuraData = {
@@ -3860,20 +3864,14 @@ export type CalendarEventTypeDisplayInfo = {
 	displayString: string,
 	eventType: Enum_CalendarEventType,
 }
-export type CalendarGuildEventInfo = {
+export type CalendarGuildEventInfo = CalendarTime & {
 	calendarType: string,
 	clubID: ClubId,
 	eventID: CalendarEventID,
 	eventType: Enum_CalendarEventType,
-	hour: number,
 	inviteStatus: Enum_CalendarStatus,
-	minute: number,
-	month: number,
-	monthDay: number,
 	texture: fileID,
 	title: string,
-	weekday: number,
-	year: number,
 }
 export type CalendarGuildFilterInfo = {
 	maxLevel: number,
@@ -4167,8 +4165,8 @@ export type CharCustomizationChoice = {
 	lockedText: string?,
 	name: string,
 	soundKit: number?,
-	swatchColor1: colorRGB?,
-	swatchColor2: colorRGB?,
+	swatchColor1: ColorMixin?,
+	swatchColor2: ColorMixin?,
 }
 export type CharCustomizationOption = {
 	choices: { CharCustomizationChoice },
@@ -4193,6 +4191,15 @@ export type CharacterCurrencyData = {
 	fullCharacterName: string,
 	quantity: number,
 }
+export type CharacterProperties = {
+	blockCode: string,
+	codePoint: number,
+	generalCategory: string,
+	isAlphabetic: boolean,
+	isDigit: boolean,
+	isWhitespace: boolean,
+	scriptCode: string,
+}
 export type ChatChannelInfo = {
 	channelType: Enum_PermanentChatChannelType,
 	instanceID: number,
@@ -4206,7 +4213,7 @@ export type ChatMessageEventParams = {
 	channelBaseName: string,
 	channelIndex: number,
 	channelName: string,
-	discordInfo: unknown,
+	discordInfo: DiscordChatInfo,
 	guid: WOWGUID,
 	hideSenderInLetterbox: boolean,
 	isMobile: boolean,
@@ -4273,7 +4280,7 @@ export type ClubInfo = {
 	socialQueueingEnabled: boolean?,
 }
 export type ClubInvitationCandidateInfo = {
-	memberId: unknown,
+	memberId: number,
 	name: string,
 	priority: number,
 	status: Enum_ClubInvitationCandidateStatus,
@@ -4291,7 +4298,7 @@ export type ClubMemberInfo = {
 	bnetAccountId: number?,
 	classID: number?,
 	clubType: Enum_ClubType?,
-	discordInfo: unknown?,
+	discordInfo: DiscordChatInfo?,
 	faction: Enum_PvPFaction?,
 	guid: WOWGUID?,
 	guildRank: string?,
@@ -4303,7 +4310,7 @@ export type ClubMemberInfo = {
 	lastOnlineMonth: number?,
 	lastOnlineYear: number?,
 	level: number?,
-	memberId: unknown,
+	memberId: number,
 	memberNote: string?,
 	name: string?,
 	officerNote: string?,
@@ -4740,31 +4747,31 @@ export type CovenantSoulbindInfo = {
 	uiTextureKit: textureKit,
 }
 export type CraftingCurrencyResultData = {
-	currencyID: number?,
-	firstCraftReward: boolean?,
-	operationID: number?,
-	quantity: number?,
-	showCurrencyText: boolean?,
+	currencyID: number,
+	firstCraftReward: boolean,
+	operationID: number,
+	quantity: number,
+	showCurrencyText: boolean,
 }
 export type CraftingItemResultData = {
-	bonusCraft: boolean?,
-	concentrationCurrencyID: number?,
-	concentrationSpent: number?,
+	bonusCraft: boolean,
+	concentrationCurrencyID: number,
+	concentrationSpent: number,
 	craftingQuality: number?,
-	critBonusSkill: number?,
-	firstCraftReward: boolean?,
-	hasIngenuityProc: boolean?,
+	critBonusSkill: number,
+	firstCraftReward: boolean,
+	hasIngenuityProc: boolean,
 	hyperlink: string,
-	ingenuityRefund: number?,
-	isCrit: boolean?,
-	isEnchant: boolean?,
+	ingenuityRefund: number,
+	isCrit: boolean,
+	isEnchant: boolean,
 	itemGUID: WOWGUID,
-	itemID: number?,
-	multicraft: number?,
-	operationID: number?,
-	qualityProgress: number?,
-	quantity: number?,
-	recraftable: boolean?,
+	itemID: number,
+	multicraft: number,
+	operationID: number,
+	qualityProgress: number,
+	quantity: number,
+	recraftable: boolean,
 	resourcesReturned: { CraftingResourceReturnInfo }?,
 }
 export type CraftingItemSlotModification = {
@@ -4806,7 +4813,7 @@ export type CraftingOrderBucketInfo = {
 	tipAmountMax: WOWMONEY,
 }
 export type CraftingOrderClaimsRemainingInfo = {
-	claimsRemaining: number?,
+	claimsRemaining: number,
 	secondsToRecharge: number?,
 }
 export type CraftingOrderCustomerCategory = {
@@ -4954,6 +4961,7 @@ export type CraftingQualityInfo = {
 	iconDissolve: textureAtlas,
 	iconInventory: textureAtlas,
 	iconMixed: textureAtlas,
+	iconQuestObjective: textureAtlas,
 	iconSmall: textureAtlas,
 	quality: number,
 }
@@ -4973,7 +4981,7 @@ export type CraftingReagentSlotInfo = {
 }
 export type CraftingReagentSlotSchematic = {
 	dataSlotIndex: number,
-	dataSlotType: Enum_TradeskillSlotDataType?,
+	dataSlotType: Enum_TradeskillSlotDataType,
 	hiddenInCraftingForm: boolean,
 	orderSource: Enum_CraftingOrderReagentSource?,
 	quantityRequired: number,
@@ -5005,7 +5013,7 @@ export type CraftingRecipeSchematic = {
 	quantityMin: number,
 	reagentSlotSchematics: { CraftingReagentSlotSchematic },
 	recipeID: number,
-	recipeType: Enum_TradeskillRecipeType?,
+	recipeType: Enum_TradeskillRecipeType,
 }
 export type CraftingRecipeSkillLineInfo = {
 	expansionSkillLineID: number,
@@ -5111,6 +5119,10 @@ export type CurrencyInfo = {
 	transferPercentage: number?,
 	useTotalEarnedForMaxQty: boolean,
 }
+export type CurrencyParseResult = {
+	amount: number,
+	currencyCode: string,
+}
 export type CurrencyTransferTransaction = {
 	currencyType: number,
 	destinationCharacterGUID: WOWGUID,
@@ -5184,14 +5196,14 @@ export type CustomAuraButtonDurationBarOptions = {
 	interpolation: Enum_StatusBarInterpolation?,
 }
 export type CustomAuraButtonDurationTextOptions = {
-	binding: unknown?,
-	textColor: unknown?,
-	textFormat: unknown?,
+	binding: DurationTextBindingObject?,
+	textColor: DurationTextBindingColorOptions?,
+	textFormat: DurationTextBindingFormatOptions?,
 	textFormatter: NumericFormatter?,
 }
 export type DBColorExport = {
 	baseTag: string,
-	color: colorRGBA,
+	color: ColorMixin,
 }
 export type DamageMeterAvailableCombatSession = {
 	durationSeconds: number?,
@@ -5281,6 +5293,22 @@ export type DigSiteMapInfo = {
 	position: Vector2DMixin,
 	researchSiteID: number,
 	textureIndex: number,
+}
+export type DiscordChatInfo = {
+	forwardedMessage: string,
+	fromDiscord: boolean,
+	globalName: string,
+	hasAttachment: boolean,
+	hasEmbed: boolean,
+	hasEmoji: boolean,
+	hasError: boolean,
+	hasForwardedMessage: boolean,
+	hasPoll: boolean,
+	hasSticker: boolean,
+	lastOnlineGUID: WOWGUID,
+	lastOnlineName: string,
+	type: Enum_DiscordDisplayNameType,
+	userID: unknown,
 }
 export type DiscreteProgressStepsVisualizationInfo = TextureWithAnimationVisualizationInfo & {
 	numSteps: number,
@@ -5394,6 +5422,18 @@ export type DurationObject = {
 	SetTimeSpan: (self: DurationObject, startTime: FrameTime, endTime: FrameTime) -> (),
 	SetToDefaults: (self: DurationObject) -> (),
 }
+export type DurationTextBindingColorOptions = {
+	curve: LuaColorCurveObject,
+	property: Enum_DurationTextBindingProperty,
+}
+export type DurationTextBindingFormatComponent = {
+	formatter: NumericFormatter,
+	property: Enum_DurationTextBindingProperty,
+}
+export type DurationTextBindingFormatOptions = {
+	components: { DurationTextBindingFormatComponent },
+	formatString: stringView,
+}
 export type DyeColorCategoryDisplayInfo = {
 	ID: number,
 	name: string,
@@ -5405,8 +5445,8 @@ export type DyeColorDisplayInfo = {
 	name: string,
 	numOwned: number,
 	sortOrder: number,
-	swatchColorEnd: colorRGB,
-	swatchColorStart: colorRGB,
+	swatchColorEnd: ColorMixin,
+	swatchColorStart: ColorMixin,
 }
 export type EditModeAnchorInfo = {
 	offsetX: number,
@@ -5477,7 +5517,6 @@ export type ElementMenuDescriptionProxy = SharedMenuDescriptionProxy & {
 	ShouldRespondIfSubmenu: (self: ElementMenuDescriptionProxy) -> boolean,
 }
 export type EncounterEventInfo = {
-	color: colorRGB?,
 	enabled: boolean,
 	encounterEventID: number,
 	iconFileID: number,
@@ -5486,9 +5525,9 @@ export type EncounterEventInfo = {
 	spellID: number,
 }
 export type EncounterEventSoundInfo = {
-	channel: UISoundSubType?,
+	channel: UISoundSubType,
 	file: FileAsset,
-	volume: number?,
+	volume: number,
 }
 export type EncounterJournalItemInfo = {
 	armorType: string?,
@@ -6030,13 +6069,7 @@ export type GarrisonTalentTreeInfo = {
 	title: string,
 	treeID: number,
 }
-export type GatheringOperationBonusStatInfo = {
-	bonusRatingPct: number,
-	bonusStatName: string,
-	bonusStatValue: number,
-	ratingDescription: string,
-	ratingPct: number,
-}
+export type GatheringOperationBonusStatInfo = CraftingOperationBonusStatInfo
 export type GatheringOperationInfo = {
 	baseSkill: number,
 	bonusSkill: number,
@@ -6112,6 +6145,10 @@ export type GroupBuffItem = {
 	name: string,
 	spellID: number,
 }
+export type GroupBuffVisualAlertInfo = {
+	spellID: number,
+	visualValue: Enum_VisualAlertType,
+}
 export type GroupCurrencyInfo = {
 	currencyInfos: { TreeCurrencyInfo },
 	traitNodeGroupID: number,
@@ -6172,9 +6209,9 @@ export type GuildRenameStatus = {
 	result: Enum_GuildErrorType,
 }
 export type GuildTabardInfo = {
-	backgroundColor: colorRGB,
-	borderColor: colorRGB,
-	emblemColor: colorRGB,
+	backgroundColor: ColorMixin,
+	borderColor: ColorMixin,
+	emblemColor: ColorMixin,
 	emblemFileID: number,
 	emblemStyle: number,
 }
@@ -6221,9 +6258,10 @@ export type HouseExteriorSizeOptionsInfo = {
 }
 export type HouseExteriorTypeOption = {
 	houseExteriorTypeID: number,
+	isInvalid: boolean,
 	isLocked: boolean,
-	lockReasonString: string,
 	name: string,
+	reasonString: string,
 }
 export type HouseExteriorTypeOptionsInfo = {
 	options: { HouseExteriorTypeOption },
@@ -6273,6 +6311,52 @@ export type HouseholdMemberInfo = {
 	characterName: string,
 	classID: number,
 }
+export type HousingBlueprintBudgetEntry = {
+	budgetType: Enum_HousingBudgetType,
+	cost: number,
+	current: number?,
+	max: number?,
+}
+export type HousingBlueprintBudgetInfo = {
+	exteriorBudgets: { [Enum_HousingBudgetType]: HousingBlueprintBudgetEntry },
+	interiorBudgets: { [Enum_HousingBudgetType]: HousingBlueprintBudgetEntry },
+}
+export type HousingBlueprintCollection = {
+	groups: { HousingBlueprintGroup },
+}
+export type HousingBlueprintContentEntry = {
+	contentType: Enum_HousingBlueprintContentType,
+	invalid: boolean,
+	name: string,
+	numMissing: number,
+	recordID: number,
+	tooltip: string?,
+	total: number,
+}
+export type HousingBlueprintContentGroup = {
+	contentType: Enum_HousingBlueprintContentType,
+	entries: { HousingBlueprintContentEntry },
+}
+export type HousingBlueprintContentInfo = {
+	blockingRequirementFlags: Enum_HousingBlueprintUnmetRequirementFlags,
+	budgetInfo: HousingBlueprintBudgetInfo,
+	contentGroups: { HousingBlueprintContentGroup },
+	shareCode: string,
+	targetHouseGUID: WOWGUID?,
+	unmetRequirementFlags: Enum_HousingBlueprintUnmetRequirementFlags,
+}
+export type HousingBlueprintGroup = {
+	entries: { HousingBlueprintInfo },
+	name: string,
+}
+export type HousingBlueprintInfo = {
+	blueprintID: BigUInteger,
+	blueprintType: Enum_HousingBlueprintType,
+	creationTime: time_t,
+	isAutoSave: boolean,
+	name: string,
+	shareCode: string,
+}
 export type HousingBundleDecorEntryInfo = {
 	decorID: number,
 	quantity: number,
@@ -6301,7 +6385,7 @@ export type HousingCatalogEntryInfo = {
 	asset: ModelAsset?,
 	canCustomize: boolean,
 	categoryIDs: { number },
-	dataTagsByID: LuaValueVariant,
+	dataTagsByID: unknown,
 	destroyableInstanceCount: number,
 	entryType: Enum_HousingCatalogEntryType,
 	firstAcquisitionBonus: number,
@@ -6373,9 +6457,10 @@ export type HousingDecorDyeSlot = {
 	orderIndex: number,
 }
 export type HousingDecorInstanceInfo = {
+	canAttachPet: boolean,
 	canBeCustomized: boolean,
 	canBeRemoved: boolean,
-	dataTagsByID: LuaValueVariant,
+	dataTagsByID: unknown,
 	decorGUID: WOWGUID,
 	decorID: number,
 	dyeSlots: { HousingDecorDyeSlot },
@@ -6400,9 +6485,10 @@ export type HousingFeaturedSmallProductInfo = {
 export type HousingFixtureOption = {
 	colorID: number,
 	fixtureID: number,
+	isInvalid: boolean,
 	isLocked: boolean,
-	lockReasonString: string,
 	name: string,
+	reasonString: string,
 	typeID: number,
 	typeName: string,
 }
@@ -7248,12 +7334,12 @@ export type MissionRewards = {
 	title: string,
 }
 export type ModelLight = {
-	ambientColor: colorRGB?,
-	ambientIntensity: number?,
-	diffuseColor: colorRGB?,
-	diffuseIntensity: number?,
-	omnidirectional: boolean?,
-	point: vector3,
+	ambientColor: ColorMixin?,
+	ambientIntensity: number,
+	diffuseColor: ColorMixin?,
+	diffuseIntensity: number,
+	omnidirectional: boolean,
+	point: Vector3DMixin,
 }
 export type ModifiedInstanceInfo = {
 	description: string,
@@ -7375,7 +7461,7 @@ export type NeighborhoodInfo = {
 	locationName: string?,
 	neighborhoodGUID: WOWGUID,
 	neighborhoodName: string,
-	neighborhoodOwnerType: Enum_NeighborhoodOwnerType?,
+	neighborhoodOwnerType: Enum_NeighborhoodOwnerType,
 	neighborhoodType: Enum_NeighborhoodType,
 	ownerGUID: WOWGUID,
 	ownerName: string?,
@@ -7396,19 +7482,16 @@ export type NeighborhoodInitiativeInfo = {
 	title: string,
 }
 export type NeighborhoodPlotMapInfo = {
-	mapPosition: vector2,
+	mapPosition: Vector2DMixin,
 	ownerName: string?,
-	ownerType: Enum_HousingPlotOwnerType?,
+	ownerType: Enum_HousingPlotOwnerType,
 	plotCost: number?,
 	plotDataID: number,
 	plotID: number,
 }
-export type NeighborhoodRosterMemberInfo = {
-	isOnline: boolean,
-	playerGUID: WOWGUID,
+export type NeighborhoodRosterMemberInfo = NeighborhoodRosterMemberUpdateInfo & {
 	plotID: number,
 	residentName: string,
-	residentType: Enum_ResidentType,
 	subdivision: number?,
 }
 export type NeighborhoodRosterMemberUpdateInfo = {
@@ -7435,7 +7518,7 @@ export type NumberAbbrevOptions = {
 }
 export type NumberAbbreviationBreakpoint = {
 	abbreviation: string,
-	abbreviationIsGlobal: boolean?,
+	abbreviationIsGlobal: boolean,
 	breakpoint: number,
 	fractionDivisor: number,
 	significandDivisor: number,
@@ -7445,14 +7528,14 @@ export type NumericRuleFormatBreakpoint = {
 	format: string,
 	max: number?,
 	min: number?,
-	rounding: Enum_NumericRuleFormatRounding?,
+	rounding: Enum_NumericRuleFormatRounding,
 	step: number?,
 	threshold: number,
 }
 export type NumericRuleFormatComponent = {
 	div: number?,
 	mod: number?,
-	rounding: Enum_NumericRuleFormatRounding?,
+	rounding: Enum_NumericRuleFormatRounding,
 	step: number?,
 }
 export type OngoingEventInfo = {
@@ -7727,6 +7810,12 @@ export type PingActionUIInfo = {
 export type PingCooldownInfo = {
 	endTimeMs: number,
 	startTimeMs: number,
+}
+export type PingMacroInfo = {
+	itemID: number?,
+	spellID: number?,
+	targetToken: string?,
+	type: Enum_PingSubjectType?,
 }
 export type PingTypeInfo = {
 	orderIndex: number,
@@ -8416,7 +8505,7 @@ export type RuneforgeLegendaryComponentInfo = {
 	powerID: number,
 }
 export type RuneforgeLegendaryCraftDescription = {
-	baseItem: ItemLocation,
+	baseItem: ItemLocationMixin,
 	modifiers: { number },
 	runeforgePowerID: number,
 }
@@ -8818,7 +8907,7 @@ export type SpecializationInfoResult = AlliedRaceRacialAbility & {
 	role: string,
 }
 export type SpecializationTabInfo = {
-	enabled: boolean?,
+	enabled: boolean,
 	errorReason: string,
 }
 export type SpellBookItemInfo = {
@@ -9153,13 +9242,17 @@ export type TieredEntranceTierInfo = {
 	tierDescription: string,
 	unlocked: boolean,
 }
+export type TimedSignalMapEntry = {
+	key: number,
+	time: FrameTime,
+}
 export type TooltipComparisonItem = {
 	guid: WOWGUID?,
 	hyperlink: string?,
 	overrideItemLevel: number,
 }
 export type TooltipComparisonLine = {
-	color: colorRGB,
+	color: ColorMixin,
 	text: string,
 }
 export type TooltipData = {
@@ -9177,7 +9270,7 @@ export type TooltipData = {
 }
 export type TooltipDataArg = {
 	boolVal: boolean?,
-	colorVal: colorRGB?,
+	colorVal: ColorMixin?,
 	field: string,
 	floatVal: number?,
 	guidVal: WOWGUID?,
@@ -9228,25 +9321,25 @@ export type TradeSkillRecipeInfo = {
 	abilityAllVerb: string?,
 	abilityVerb: string?,
 	alternateVerb: string?,
-	alwaysUsesLowestQuality: boolean?,
-	canCreateMultiple: boolean?,
+	alwaysUsesLowestQuality: boolean,
+	canCreateMultiple: boolean,
 	canSkillUp: boolean,
 	categoryID: number,
-	craftable: boolean?,
+	craftable: boolean,
 	currentRecipeExperience: number?,
 	disabled: boolean,
 	disabledReason: string?,
 	earnedExperience: number?,
 	favorite: boolean,
 	firstCraft: boolean,
-	hasSingleItemOutput: boolean?,
+	hasSingleItemOutput: boolean,
 	hyperlink: string?,
 	icon: number?,
-	isDummyRecipe: boolean?,
-	isEnchantingRecipe: boolean?,
-	isGatheringRecipe: boolean?,
-	isRecraft: boolean?,
-	isSalvageRecipe: boolean?,
+	isDummyRecipe: boolean,
+	isEnchantingRecipe: boolean,
+	isGatheringRecipe: boolean,
+	isRecraft: boolean,
+	isSalvageRecipe: boolean,
 	itemLevel: number,
 	learned: boolean,
 	maxQuality: number?,
@@ -9263,7 +9356,7 @@ export type TradeSkillRecipeInfo = {
 	relativeDifficulty: Enum_TradeskillRelativeDifficulty?,
 	skillLineAbilityID: number,
 	sourceType: number?,
-	supportsCraftingStats: boolean?,
+	supportsCraftingStats: boolean,
 	supportsQualities: boolean,
 	unlockedRecipeLevel: number?,
 }
@@ -9338,7 +9431,7 @@ export type TraitNodeInfo = {
 	cascadeRepurchaseEntryID: number?,
 	conditionIDs: { number },
 	currentRank: number,
-	entryIDToRanksIncreased: LuaValueVariant,
+	entryIDToRanksIncreased: unknown,
 	entryIDs: { number },
 	entryIDsWithCommittedRanks: { number },
 	flags: number,
@@ -9699,6 +9792,7 @@ export type UITextureSliceData = {
 	marginTop: number,
 	sliceMode: Enum_UITextureSliceMode,
 }
+export type UITextureSliceMargins = AuraContainerTooltipAnchorOffsets
 export type UIWidgetCurrencyInfo = {
 	iconFileID: fileID,
 	iconSizeType: Enum_WidgetIconSizeType,
@@ -9832,14 +9926,22 @@ export type UiMapPoint = {
 	uiMapID: number,
 	z: number?,
 }
+export type UnitAuraSoundInfo = {
+	outputChannel: string?,
+	soundFileID: number?,
+	soundFileName: string?,
+	spellID: number,
+	throttleSeconds: number?,
+	unitToken: string,
+}
 export type UnitAuraUpdateInfo = {
 	addedAuras: { AuraData }?,
-	isFullUpdate: boolean?,
+	isFullUpdate: boolean,
 	removedAuraInstanceIDs: { number }?,
 	updatedAuraInstanceIDs: { number }?,
 }
 export type UnitCastingInfoResult = {
-	castBarID: unknown?,
+	castBarID: number?,
 	castID: WOWGUID,
 	castingSpellID: number,
 	delayTimeMs: number,
@@ -9852,7 +9954,7 @@ export type UnitCastingInfoResult = {
 	textureID: fileID,
 }
 export type UnitChannelInfoResult = {
-	castBarID: unknown?,
+	castBarID: number?,
 	displayName: string,
 	endTimeMs: number,
 	isEmpowered: boolean,
@@ -9881,12 +9983,12 @@ export type UnitHealAbsorbInfo = {
 	clamped: boolean,
 }
 export type UnitHealPredictionValues = {
-	health: number?,
-	healthMax: number?,
-	totalDamageAbsorbs: number?,
-	totalHealAbsorbs: number?,
-	totalIncomingHeals: number?,
-	totalIncomingHealsFromHealer: number?,
+	health: number,
+	healthMax: number,
+	totalDamageAbsorbs: number,
+	totalHealAbsorbs: number,
+	totalIncomingHeals: number,
+	totalIncomingHealsFromHealer: number,
 }
 export type UnitIncomingHealInfo = {
 	amount: number,
@@ -9933,8 +10035,10 @@ export type UnitPrivateAuraAnchorInfo = {
 	iconWidth: uiUnit?,
 	isContainer: boolean?,
 	parent: Frame,
-	showCountdownFrame: boolean,
+	showCooldownEdge: boolean,
+	showCooldownFrame: boolean,
 	showCountdownNumbers: boolean,
+	showDispelIcon: boolean,
 	unitToken: string,
 }
 export type UnitPrivateAuraAppliedSoundInfo = {
@@ -10038,7 +10142,7 @@ export type VoiceAudioDevice = {
 	isSystemDefault: boolean,
 }
 export type VoiceChatChannel = {
-	channelID: unknown,
+	channelID: number,
 	channelType: Enum_ChatChannelType,
 	clubId: ClubId,
 	isActive: boolean,
@@ -10056,7 +10160,7 @@ export type VoiceChatMember = {
 	isMutedForAll: boolean,
 	isSilenced: boolean,
 	isSpeaking: boolean,
-	memberID: unknown,
+	memberID: number,
 }
 export type VoiceChatProcess = {
 	channels: { VoiceChatChannel },
@@ -10398,7 +10502,7 @@ declare extern type Animation extends Object with
 	function GetStartDelay(self): number
 	function GetTarget(self): CScriptObject
 	function HasScript(self, scriptName: AnimationScriptType): boolean
-	function HookScript(self, scriptTypeName: AnimationScriptType, script: ((self: Animation, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: AnimationScriptType, script: (self: Animation, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsDelaying(self): boolean
 	function IsDone(self): boolean
 	function IsPaused(self): boolean
@@ -10429,7 +10533,7 @@ declare extern type Alpha extends Animation with
 	function GetScript(self, scriptTypeName: AlphaScriptType, bindingType: Enum_ScriptBindingType?): ((self: Alpha, ...any) -> ())?
 	function GetToAlpha(self): number
 	function HasScript(self, scriptName: AlphaScriptType): boolean
-	function HookScript(self, scriptTypeName: AlphaScriptType, script: ((self: Alpha, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: AlphaScriptType, script: (self: Alpha, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetFromAlpha(self, normalizedAlpha: number): ()
 	function SetScript(self, scriptTypeName: AlphaScriptType, script: ((self: Alpha, ...any) -> ())?): ()
 	function SetToAlpha(self, normalizedAlpha: number): ()
@@ -10447,7 +10551,7 @@ declare extern type AnimationGroup extends Object with
 	function GetProgress(self): number
 	function GetScript(self, scriptTypeName: AnimationGroupScriptType, bindingType: Enum_ScriptBindingType?): ((self: AnimationGroup, ...any) -> ())?
 	function HasScript(self, scriptName: AnimationGroupScriptType): boolean
-	function HookScript(self, scriptTypeName: AnimationGroupScriptType, script: ((self: AnimationGroup, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: AnimationGroupScriptType, script: (self: AnimationGroup, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsDone(self): boolean
 	function IsPaused(self): boolean
 	function IsPendingFinish(self): boolean
@@ -10504,7 +10608,7 @@ declare extern type ScriptRegion extends Object with
 	function GetWidth(self, ignoreRect: boolean?): uiUnit
 	function HasScript(self, scriptName: ScriptRegionScriptType): boolean
 	function Hide(self): ()
-	function HookScript(self, scriptTypeName: ScriptRegionScriptType, script: ((self: ScriptRegion, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: ScriptRegionScriptType, script: (self: ScriptRegion, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function Intersects(self, region: ScriptRegion): boolean
 	function IsAnchoringRestricted(self): boolean
 	function IsAnchoringSecret(self): boolean
@@ -10600,7 +10704,7 @@ declare extern type Frame extends ScriptRegion with
 	function HasFixedFrameLevel(self): boolean
 	function HasFixedFrameStrata(self): boolean
 	function HasScript(self, scriptName: FrameScriptType): boolean
-	function HookScript(self, scriptTypeName: FrameScriptType, script: ((self: Frame, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: FrameScriptType, script: (self: Frame, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function InterceptStartDrag(self, delegate: Frame): boolean
 	function IsClampedToScreen(self): boolean
 	function IsDrawLayerEnabled(self, layer: DrawLayer): boolean
@@ -10677,7 +10781,7 @@ declare extern type Blob extends Frame with
 	function GetMapID(self): number
 	function GetScript(self, scriptTypeName: BlobScriptType, bindingType: Enum_ScriptBindingType?): ((self: Blob, ...any) -> ())?
 	function HasScript(self, scriptName: BlobScriptType): boolean
-	function HookScript(self, scriptTypeName: BlobScriptType, script: ((self: Blob, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: BlobScriptType, script: (self: Blob, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetBorderAlpha(self, alpha: number): ()
 	function SetBorderScalar(self, scalar: number): ()
 	function SetBorderTexture(self, asset: FileAsset): ()
@@ -10692,7 +10796,7 @@ end
 declare extern type ArchaeologyDigSiteFrame extends Blob with
 	function GetScript(self, scriptTypeName: ArchaeologyDigSiteFrameScriptType, bindingType: Enum_ScriptBindingType?): ((self: ArchaeologyDigSiteFrame, ...any) -> ())?
 	function HasScript(self, scriptName: ArchaeologyDigSiteFrameScriptType): boolean
-	function HookScript(self, scriptTypeName: ArchaeologyDigSiteFrameScriptType, script: ((self: ArchaeologyDigSiteFrame, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: ArchaeologyDigSiteFrameScriptType, script: (self: ArchaeologyDigSiteFrame, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetScript(self, scriptTypeName: ArchaeologyDigSiteFrameScriptType, script: ((self: ArchaeologyDigSiteFrame, ...any) -> ())?): ()
 end
 
@@ -10702,7 +10806,7 @@ declare extern type Browser extends Frame with
 	function DeleteCookies(self): ()
 	function GetScript(self, scriptTypeName: BrowserScriptType, bindingType: Enum_ScriptBindingType?): ((self: Browser, ...any) -> ())?
 	function HasScript(self, scriptName: BrowserScriptType): boolean
-	function HookScript(self, scriptTypeName: BrowserScriptType, script: ((self: Browser, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: BrowserScriptType, script: (self: Browser, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function NavigateBack(self): ()
 	function NavigateForward(self): ()
 	function NavigateHome(self, urlType: string): ()
@@ -10739,7 +10843,7 @@ declare extern type Button extends Frame with
 	function GetTextHeight(self): uiUnit
 	function GetTextWidth(self): uiUnit
 	function HasScript(self, scriptName: ButtonScriptType): boolean
-	function HookScript(self, scriptTypeName: ButtonScriptType, script: ((self: Button, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: ButtonScriptType, script: (self: Button, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsEnabled(self): boolean
 	function RegisterForClicks(self, ...: ClickButton): ()
 	function RegisterForMouse(self, ...: ClickButton): ()
@@ -10770,7 +10874,7 @@ declare extern type CheckButton extends Button with
 	function GetDisabledCheckedTexture(self): Texture
 	function GetScript(self, scriptTypeName: CheckButtonScriptType, bindingType: Enum_ScriptBindingType?): ((self: CheckButton, ...any) -> ())?
 	function HasScript(self, scriptName: CheckButtonScriptType): boolean
-	function HookScript(self, scriptTypeName: CheckButtonScriptType, script: ((self: CheckButton, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: CheckButtonScriptType, script: (self: CheckButton, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetChecked(self, checked: boolean?): ()
 	function SetCheckedTexture(self, asset: TextureAsset): ()
 	function SetDisabledCheckedTexture(self, asset: TextureAsset): ()
@@ -10784,7 +10888,7 @@ declare extern type Checkout extends Frame with
 	function CopyExternalLink(self): ()
 	function GetScript(self, scriptTypeName: CheckoutScriptType, bindingType: Enum_ScriptBindingType?): ((self: Checkout, ...any) -> ())?
 	function HasScript(self, scriptName: CheckoutScriptType): boolean
-	function HookScript(self, scriptTypeName: CheckoutScriptType, script: ((self: Checkout, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: CheckoutScriptType, script: (self: Checkout, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function OpenCheckout(self, checkoutID: number): boolean?
 	function OpenExternalLink(self): ()
 	function SetFocus(self): ()
@@ -10824,7 +10928,7 @@ declare extern type Model extends Frame with
 	function HasAttachmentPoints(self): boolean
 	function HasCustomCamera(self): boolean
 	function HasScript(self, scriptName: ModelScriptType): boolean
-	function HookScript(self, scriptTypeName: ModelScriptType, script: ((self: Model, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: ModelScriptType, script: (self: Model, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsUsingModelCenterToTransform(self): boolean
 	function MakeCurrentCameraCustom(self): ()
 	function ReplaceIconTexture(self, asset: FileAsset): ()
@@ -10874,7 +10978,7 @@ declare extern type PlayerModel extends Model with
 	function GetScript(self, scriptTypeName: PlayerModelScriptType, bindingType: Enum_ScriptBindingType?): ((self: PlayerModel, ...any) -> ())?
 	function HasAnimation(self, anim: AnimationDataEnum): boolean
 	function HasScript(self, scriptName: PlayerModelScriptType): boolean
-	function HookScript(self, scriptTypeName: PlayerModelScriptType, script: ((self: PlayerModel, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: PlayerModelScriptType, script: (self: PlayerModel, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function PlayAnimKit(self, animKit: number, loop: boolean?): ()
 	function RefreshCamera(self): ()
 	function RefreshUnit(self): ()
@@ -10899,7 +11003,7 @@ declare extern type CinematicModel extends PlayerModel with
 	function EquipItem(self, itemID: number): ()
 	function GetScript(self, scriptTypeName: CinematicModelScriptType, bindingType: Enum_ScriptBindingType?): ((self: CinematicModel, ...any) -> ())?
 	function HasScript(self, scriptName: CinematicModelScriptType): boolean
-	function HookScript(self, scriptTypeName: CinematicModelScriptType, script: ((self: CinematicModel, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: CinematicModelScriptType, script: (self: CinematicModel, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function InitializeCamera(self, scaleFactor: number?): ()
 	function InitializePanCamera(self, scaleFactor: number?): ()
 	function SetAnimOffset(self, offset: number): ()
@@ -10930,7 +11034,7 @@ declare extern type ColorSelect extends Frame with
 	function GetColorWheelThumbTexture(self): Texture
 	function GetScript(self, scriptTypeName: ColorSelectScriptType, bindingType: Enum_ScriptBindingType?): ((self: ColorSelect, ...any) -> ())?
 	function HasScript(self, scriptName: ColorSelectScriptType): boolean
-	function HookScript(self, scriptTypeName: ColorSelectScriptType, script: ((self: ColorSelect, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: ColorSelectScriptType, script: (self: ColorSelect, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetColorAlpha(self, alpha: number): ()
 	function SetColorAlphaTexture(self, texture: Texture): ()
 	function SetColorAlphaThumbTexture(self, texture: TextureAsset): ()
@@ -10971,7 +11075,7 @@ declare extern type Cooldown extends Frame with
 	function GetScript(self, scriptTypeName: CooldownScriptType, bindingType: Enum_ScriptBindingType?): ((self: Cooldown, ...any) -> ())?
 	function GetUseAuraDisplayTime(self): boolean
 	function HasScript(self, scriptName: CooldownScriptType): boolean
-	function HookScript(self, scriptTypeName: CooldownScriptType, script: ((self: Cooldown, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: CooldownScriptType, script: (self: Cooldown, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsPaused(self): boolean
 	function Pause(self): ()
 	function Resume(self): ()
@@ -11015,7 +11119,7 @@ declare extern type DressUpModel extends PlayerModel with
 	function GetUseTransmogChoices(self): boolean
 	function GetUseTransmogSkin(self): boolean
 	function HasScript(self, scriptName: DressUpModelScriptType): boolean
-	function HookScript(self, scriptTypeName: DressUpModelScriptType, script: ((self: DressUpModel, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: DressUpModelScriptType, script: (self: DressUpModel, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsGeoReady(self): boolean
 	function IsSlotAllowed(self, slot: number): boolean
 	function IsSlotVisible(self, slot: number): boolean
@@ -11068,7 +11172,7 @@ declare extern type EditBox extends Frame with
 	function HasScript(self, scriptName: EditBoxScriptType): boolean
 	function HasText(self): boolean
 	function HighlightText(self, start: number?, stop: number?): ()
-	function HookScript(self, scriptTypeName: EditBoxScriptType, script: ((self: EditBox, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: EditBoxScriptType, script: (self: EditBox, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function Insert(self, text: string): ()
 	function IsAlphabeticOnly(self): boolean
 	function IsAutoFocus(self): boolean
@@ -11125,7 +11229,7 @@ declare extern type FlipBook extends Animation with
 	function GetFlipBookRows(self): number
 	function GetScript(self, scriptTypeName: FlipBookScriptType, bindingType: Enum_ScriptBindingType?): ((self: FlipBook, ...any) -> ())?
 	function HasScript(self, scriptName: FlipBookScriptType): boolean
-	function HookScript(self, scriptTypeName: FlipBookScriptType, script: ((self: FlipBook, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: FlipBookScriptType, script: (self: FlipBook, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetFlipBookColumns(self, columns: number): ()
 	function SetFlipBookFrameHeight(self, height: number): ()
 	function SetFlipBookFrameWidth(self, width: number): ()
@@ -11143,7 +11247,7 @@ declare extern type FogOfWarFrame extends Frame with
 	function GetScript(self, scriptTypeName: FogOfWarFrameScriptType, bindingType: Enum_ScriptBindingType?): ((self: FogOfWarFrame, ...any) -> ())?
 	function GetUiMapID(self): number
 	function HasScript(self, scriptName: FogOfWarFrameScriptType): boolean
-	function HookScript(self, scriptTypeName: FogOfWarFrameScriptType, script: ((self: FogOfWarFrame, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: FogOfWarFrameScriptType, script: (self: FogOfWarFrame, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetFogOfWarBackgroundAtlas(self, atlas: textureAtlas): ()
 	function SetFogOfWarBackgroundTexture(self, asset: FileAsset, horizontalTile: boolean, verticalTile: boolean): ()
 	function SetFogOfWarMaskAtlas(self, atlas: textureAtlas): ()
@@ -11207,7 +11311,7 @@ declare extern type Region extends ScriptRegion with
 	function GetScript(self, scriptTypeName: RegionScriptType, bindingType: Enum_ScriptBindingType?): ((self: Region, ...any) -> ())?
 	function GetVertexColor(self): (number?, number?, number?, number?)
 	function HasScript(self, scriptName: RegionScriptType): boolean
-	function HookScript(self, scriptTypeName: RegionScriptType, script: ((self: Region, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: RegionScriptType, script: (self: Region, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetDrawLayer(self, layer: DrawLayer, sublevel: number?): ()
 	function SetRotation(self, radians: number): ()
 	function SetScript(self, scriptTypeName: RegionScriptType, script: ((self: Region, ...any) -> ())?): ()
@@ -11248,7 +11352,7 @@ declare extern type FontString extends Region with
 	function GetUnboundedStringWidthForText(self, text: string): uiUnit
 	function GetWrappedWidth(self): uiUnit
 	function HasScript(self, scriptName: FontStringScriptType): boolean
-	function HookScript(self, scriptTypeName: FontStringScriptType, script: ((self: FontString, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: FontStringScriptType, script: (self: FontString, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsTruncated(self): boolean
 	function OnColorsUpdated(self): ()
 	function SetAlphaGradient(self, start: number, length: number): boolean
@@ -11280,14 +11384,14 @@ end
 declare extern type GameTooltip extends Frame with
 	function AddAtlas(self, atlas: string, textureInfoTable: TextureInfoTable | number, maxx: number?, miny: number?, maxy: number?): ()
 	function AddDoubleLine(self, textL: string, textR: string?, rL: number?, gL: number?, bL: number?, rR: number?, gR: number?, bR: number?): ()
-	function AddFontStrings(self, leftFontString: FontString?, rightFontString: FontString?): ()
+	function AddFontStrings(self, leftFontString: FontString, rightFontString: FontString): ()
 	function AddLine(self, tooltipText: string, r: number?, g: number?, b: number?, wrapText: boolean?): ()
-	function AddTexture(self, texture: unknown): ()
+	function AddTexture(self, ...: unknown): (...unknown)
 	function AppendText(self, text: string): ()
-	function ClearLines(self): ()
+	function ClearLines(self, ...: unknown): (...unknown)
 	function ClearPadding(self): ()
-	function CopyTooltip(self): ()
-	function FadeOut(self): ()
+	function CopyTooltip(self, ...: unknown): (...unknown)
+	function FadeOut(self, ...: unknown): (...unknown)
 	function GetAnchorType(self): string
 	function GetCustomLineSpacing(self): number
 	function GetLeftLine(self, line: number): FontString
@@ -11297,20 +11401,20 @@ declare extern type GameTooltip extends Frame with
 	function GetRightLine(self, line: number): FontString
 	function GetScript(self, scriptTypeName: GameTooltipScriptType, bindingType: Enum_ScriptBindingType?): ((self: GameTooltip, ...any) -> ())?
 	function HasScript(self, scriptName: GameTooltipScriptType): boolean
-	function HookScript(self, scriptTypeName: GameTooltipScriptType, script: ((self: GameTooltip, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: GameTooltipScriptType, script: (self: GameTooltip, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsOwned(self, frame: Frame): boolean
 	function NumLines(self): number
 	function SetAllowShowWithNoLines(self, bool: boolean): ()
-	function SetAnchorType(self, anchorType: unknown, Xoffset: unknown, Yoffset: unknown): ()
-	function SetCustomLineSpacing(self, spacing: unknown): ()
-	function SetCustomWordWrapMinWidth(self, width: unknown): ()
-	function SetFrameStack(self, showhidden: unknown): ()
+	function SetAnchorType(self, ...: unknown): (...unknown)
+	function SetCustomLineSpacing(self, ...: unknown): (...unknown)
+	function SetCustomWordWrapMinWidth(self, ...: unknown): (...unknown)
+	function SetFrameStack(self, ...: unknown): (...unknown)
 	function SetMinimumWidth(self, width: number, force: boolean?): ()
-	function SetObjectTooltipPosition(self): ()
+	function SetObjectTooltipPosition(self, ...: unknown): (...unknown)
 	function SetOwner(self, owner: Frame, anchor: TooltipAnchor, x: number?, y: number?): ()
 	function SetPadding(self, right: number, bottom: number, left: number?, top: number?): ()
 	function SetScript(self, scriptTypeName: GameTooltipScriptType, script: ((self: GameTooltip, ...any) -> ())?): ()
-	function SetShrinkToFitWrapped(self): ()
+	function SetShrinkToFitWrapped(self, ...: unknown): (...unknown)
 	function SetText(self, text: string, colorR: number?, colorG: number?, colorB: number?, alpha: number?, wrap: boolean?): ()
 end
 
@@ -11339,7 +11443,7 @@ declare extern type TextureBase extends Region with
 	function GetVertTile(self): boolean
 	function GetVertexOffset(self, vertexIndex: number): (uiUnit, uiUnit)
 	function HasScript(self, scriptName: TextureBaseScriptType): boolean
-	function HookScript(self, scriptTypeName: TextureBaseScriptType, script: ((self: TextureBase, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: TextureBaseScriptType, script: (self: TextureBase, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsBlockingLoadRequested(self): boolean
 	function IsDesaturated(self): boolean
 	function IsSnappingToPixelGrid(self): boolean
@@ -11378,7 +11482,7 @@ declare extern type Line extends TextureBase with
 	function GetStartPoint(self): (FramePoint, ScriptRegion, uiUnit, uiUnit)
 	function GetThickness(self): uiUnit
 	function HasScript(self, scriptName: LineScriptType): boolean
-	function HookScript(self, scriptTypeName: LineScriptType, script: ((self: Line, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: LineScriptType, script: (self: Line, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetEndPoint(self, relativePoint: FramePoint, relativeTo: ScriptRegion, offsetX: uiUnit?, offsetY: uiUnit?): ()
 	function SetHitRectThickness(self, thickness: uiUnit): ()
 	function SetScript(self, scriptTypeName: LineScriptType, script: ((self: Line, ...any) -> ())?): ()
@@ -11393,7 +11497,7 @@ declare extern type LineScale extends Animation with
 	function GetScaleTo(self): (number, number)
 	function GetScript(self, scriptTypeName: LineScaleScriptType, bindingType: Enum_ScriptBindingType?): ((self: LineScale, ...any) -> ())?
 	function HasScript(self, scriptName: LineScaleScriptType): boolean
-	function HookScript(self, scriptTypeName: LineScaleScriptType, script: ((self: LineScale, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: LineScaleScriptType, script: (self: LineScale, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetOrigin(self, point: FramePoint, originX: number, originY: number): ()
 	function SetScale(self, scaleX: number, scaleY: number): ()
 	function SetScaleFrom(self, scaleX: number, scaleY: number): ()
@@ -11405,7 +11509,7 @@ declare extern type LineTranslation extends Animation with
 	function GetOffset(self): (uiUnit, uiUnit)
 	function GetScript(self, scriptTypeName: LineTranslationScriptType, bindingType: Enum_ScriptBindingType?): ((self: LineTranslation, ...any) -> ())?
 	function HasScript(self, scriptName: LineTranslationScriptType): boolean
-	function HookScript(self, scriptTypeName: LineTranslationScriptType, script: ((self: LineTranslation, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: LineTranslationScriptType, script: (self: LineTranslation, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetOffset(self, offsetX: uiUnit, offsetY: uiUnit): ()
 	function SetScript(self, scriptTypeName: LineTranslationScriptType, script: ((self: LineTranslation, ...any) -> ())?): ()
 end
@@ -11413,7 +11517,7 @@ end
 declare extern type MaskTexture extends TextureBase with
 	function GetScript(self, scriptTypeName: MaskTextureScriptType, bindingType: Enum_ScriptBindingType?): ((self: MaskTexture, ...any) -> ())?
 	function HasScript(self, scriptName: MaskTextureScriptType): boolean
-	function HookScript(self, scriptTypeName: MaskTextureScriptType, script: ((self: MaskTexture, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: MaskTextureScriptType, script: (self: MaskTexture, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetScript(self, scriptTypeName: MaskTextureScriptType, script: ((self: MaskTexture, ...any) -> ())?): ()
 end
 
@@ -11438,7 +11542,7 @@ declare extern type MessageFrame extends Frame with
 	function GetTimeVisible(self): number
 	function HasMessageByID(self, messageID: number): boolean
 	function HasScript(self, scriptName: MessageFrameScriptType): boolean
-	function HookScript(self, scriptTypeName: MessageFrameScriptType, script: ((self: MessageFrame, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: MessageFrameScriptType, script: (self: MessageFrame, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function ResetMessageFadeByID(self, messageID: number): ()
 	function SetFadeDuration(self, fadeDurationSeconds: number): ()
 	function SetFadePower(self, fadePower: number): ()
@@ -11463,34 +11567,34 @@ declare extern type Minimap extends Frame with
 	function GetZoom(self): number
 	function GetZoomLevels(self): number
 	function HasScript(self, scriptName: MinimapScriptType): boolean
-	function HookScript(self, scriptTypeName: MinimapScriptType, script: ((self: Minimap, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
-	function PingLocation(self, locationX: number?, locationY: number?): ()
-	function SetArchBlobInsideAlpha(self, alpha: number?): ()
-	function SetArchBlobInsideTexture(self, asset: TextureAsset?): ()
-	function SetArchBlobOutsideAlpha(self, alpha: number?): ()
-	function SetArchBlobOutsideTexture(self, asset: TextureAsset?): ()
-	function SetArchBlobRingAlpha(self, alpha: number?): ()
-	function SetArchBlobRingScalar(self, scalar: number?): ()
-	function SetArchBlobRingTexture(self, asset: TextureAsset?): ()
+	function HookScript(self, scriptTypeName: MinimapScriptType, script: (self: Minimap, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
+	function PingLocation(self, locationX: number, locationY: number): ()
+	function SetArchBlobInsideAlpha(self, alpha: number): ()
+	function SetArchBlobInsideTexture(self, asset: TextureAsset): ()
+	function SetArchBlobOutsideAlpha(self, alpha: number): ()
+	function SetArchBlobOutsideTexture(self, asset: TextureAsset): ()
+	function SetArchBlobRingAlpha(self, alpha: number): ()
+	function SetArchBlobRingScalar(self, scalar: number): ()
+	function SetArchBlobRingTexture(self, asset: TextureAsset): ()
 	function SetIconScale(self, scale: number): ()
-	function SetMaskTexture(self, asset: TextureAsset?): ()
-	function SetQuestBlobInsideAlpha(self, alpha: number?): ()
-	function SetQuestBlobInsideTexture(self, asset: TextureAsset?): ()
-	function SetQuestBlobOutsideAlpha(self, alpha: number?): ()
-	function SetQuestBlobOutsideTexture(self, asset: TextureAsset?): ()
-	function SetQuestBlobRingAlpha(self, alpha: number?): ()
-	function SetQuestBlobRingScalar(self, scalar: number?): ()
-	function SetQuestBlobRingTexture(self, asset: TextureAsset?): ()
+	function SetMaskTexture(self, asset: TextureAsset): ()
+	function SetQuestBlobInsideAlpha(self, alpha: number): ()
+	function SetQuestBlobInsideTexture(self, asset: TextureAsset): ()
+	function SetQuestBlobOutsideAlpha(self, alpha: number): ()
+	function SetQuestBlobOutsideTexture(self, asset: TextureAsset): ()
+	function SetQuestBlobRingAlpha(self, alpha: number): ()
+	function SetQuestBlobRingScalar(self, scalar: number): ()
+	function SetQuestBlobRingTexture(self, asset: TextureAsset): ()
 	function SetScript(self, scriptTypeName: MinimapScriptType, script: ((self: Minimap, ...any) -> ())?): ()
-	function SetTaskBlobInsideAlpha(self, alpha: number?): ()
-	function SetTaskBlobInsideTexture(self, asset: TextureAsset?): ()
-	function SetTaskBlobOutsideAlpha(self, alpha: number?): ()
-	function SetTaskBlobOutsideTexture(self, asset: TextureAsset?): ()
-	function SetTaskBlobRingAlpha(self, alpha: number?): ()
-	function SetTaskBlobRingScalar(self, scalar: number?): ()
-	function SetTaskBlobRingTexture(self, asset: TextureAsset?): ()
+	function SetTaskBlobInsideAlpha(self, alpha: number): ()
+	function SetTaskBlobInsideTexture(self, asset: TextureAsset): ()
+	function SetTaskBlobOutsideAlpha(self, alpha: number): ()
+	function SetTaskBlobOutsideTexture(self, asset: TextureAsset): ()
+	function SetTaskBlobRingAlpha(self, alpha: number): ()
+	function SetTaskBlobRingScalar(self, scalar: number): ()
+	function SetTaskBlobRingTexture(self, asset: TextureAsset): ()
 	function SetUsingSoftCursor(self, usingSoftCursor: boolean): ()
-	function SetZoom(self, zoomFactor: number?): ()
+	function SetZoom(self, zoomFactor: number): ()
 	function UpdateBlips(self): ()
 	function UpdateMouseoverAtPoint(self, pointX: number, pointY: number): ()
 end
@@ -11521,7 +11625,7 @@ declare extern type ModelScene extends Frame with
 	function GetViewInsets(self): unknown
 	function GetViewTranslation(self): (number, number)
 	function HasScript(self, scriptName: ModelSceneScriptType): boolean
-	function HookScript(self, scriptTypeName: ModelSceneScriptType, script: ((self: ModelScene, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: ModelSceneScriptType, script: (self: ModelScene, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsLightVisible(self): boolean
 	function Project3DPointTo2D(self, pointX: number, pointY: number, pointZ: number): (number?, number?, number?)
 	function SetAllowOverlappedModels(self, allowOverlappedModels: boolean): ()
@@ -11637,7 +11741,7 @@ declare extern type MovieFrame extends Frame with
 	function EnableSubtitles(self, enable: boolean): ()
 	function GetScript(self, scriptTypeName: MovieFrameScriptType, bindingType: Enum_ScriptBindingType?): ((self: MovieFrame, ...any) -> ())?
 	function HasScript(self, scriptName: MovieFrameScriptType): boolean
-	function HookScript(self, scriptTypeName: MovieFrameScriptType, script: ((self: MovieFrame, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: MovieFrameScriptType, script: (self: MovieFrame, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetScript(self, scriptTypeName: MovieFrameScriptType, script: ((self: MovieFrame, ...any) -> ())?): ()
 	function StartMovie(self, movieID: number, looping: boolean?): (boolean, number)
 	function StartMovieByName(self, movieName: string, looping: boolean?, resolution: number?): (boolean, number)
@@ -11650,7 +11754,7 @@ declare extern type OffScreenFrame extends Frame with
 	function GetMaxSnapshots(self): number
 	function GetScript(self, scriptTypeName: OffScreenFrameScriptType, bindingType: Enum_ScriptBindingType?): ((self: OffScreenFrame, ...any) -> ())?
 	function HasScript(self, scriptName: OffScreenFrameScriptType): boolean
-	function HookScript(self, scriptTypeName: OffScreenFrameScriptType, script: ((self: OffScreenFrame, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: OffScreenFrameScriptType, script: (self: OffScreenFrame, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsSnapshotValid(self, snapshotID: number): boolean
 	function SetMaxSnapshots(self, maxSnapshots: number): ()
 	function SetScript(self, scriptTypeName: OffScreenFrameScriptType, script: ((self: OffScreenFrame, ...any) -> ())?): ()
@@ -11666,7 +11770,7 @@ declare extern type Path extends Animation with
 	function GetMaxControlPointOrder(self): number
 	function GetScript(self, scriptTypeName: PathScriptType, bindingType: Enum_ScriptBindingType?): ((self: Path, ...any) -> ())?
 	function HasScript(self, scriptName: PathScriptType): boolean
-	function HookScript(self, scriptTypeName: PathScriptType, script: ((self: Path, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: PathScriptType, script: (self: Path, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetCurveType(self, curveType: CurveType): ()
 	function SetScript(self, scriptTypeName: PathScriptType, script: ((self: Path, ...any) -> ())?): ()
 end
@@ -11676,7 +11780,7 @@ declare extern type QuestPOIFrame extends Blob with
 	function GetScript(self, scriptTypeName: QuestPOIFrameScriptType, bindingType: Enum_ScriptBindingType?): ((self: QuestPOIFrame, ...any) -> ())?
 	function GetTooltipIndex(self, index: number): number
 	function HasScript(self, scriptName: QuestPOIFrameScriptType): boolean
-	function HookScript(self, scriptTypeName: QuestPOIFrameScriptType, script: ((self: QuestPOIFrame, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: QuestPOIFrameScriptType, script: (self: QuestPOIFrame, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetScript(self, scriptTypeName: QuestPOIFrameScriptType, script: ((self: QuestPOIFrame, ...any) -> ())?): ()
 	function UpdateMouseOverTooltip(self, x: number, y: number): (number?, number?)
 end
@@ -11686,7 +11790,7 @@ declare extern type RadialProgress extends Animation with
 	function GetScript(self, scriptTypeName: RadialProgressScriptType, bindingType: Enum_ScriptBindingType?): ((self: RadialProgress, ...any) -> ())?
 	function GetToPercent(self): number
 	function HasScript(self, scriptName: RadialProgressScriptType): boolean
-	function HookScript(self, scriptTypeName: RadialProgressScriptType, script: ((self: RadialProgress, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: RadialProgressScriptType, script: (self: RadialProgress, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetFromPercent(self, percent: number): ()
 	function SetScript(self, scriptTypeName: RadialProgressScriptType, script: ((self: RadialProgress, ...any) -> ())?): ()
 	function SetToPercent(self, percent: number): ()
@@ -11698,7 +11802,7 @@ declare extern type Rotation extends Animation with
 	function GetRadians(self): number
 	function GetScript(self, scriptTypeName: RotationScriptType, bindingType: Enum_ScriptBindingType?): ((self: Rotation, ...any) -> ())?
 	function HasScript(self, scriptName: RotationScriptType): boolean
-	function HookScript(self, scriptTypeName: RotationScriptType, script: ((self: Rotation, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: RotationScriptType, script: (self: Rotation, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetDegrees(self, angle: number): ()
 	function SetOrigin(self, point: FramePoint, originX: number, originY: number): ()
 	function SetRadians(self, angle: number): ()
@@ -11712,7 +11816,7 @@ declare extern type Scale extends Animation with
 	function GetScaleTo(self): (number, number)
 	function GetScript(self, scriptTypeName: ScaleScriptType, bindingType: Enum_ScriptBindingType?): ((self: Scale, ...any) -> ())?
 	function HasScript(self, scriptName: ScaleScriptType): boolean
-	function HookScript(self, scriptTypeName: ScaleScriptType, script: ((self: Scale, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: ScaleScriptType, script: (self: Scale, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetOrigin(self, point: FramePoint, originX: number, originY: number): ()
 	function SetScale(self, scaleX: number, scaleY: number): ()
 	function SetScaleFrom(self, scaleX: number, scaleY: number): ()
@@ -11724,7 +11828,7 @@ declare extern type ScenarioPOIFrame extends Blob with
 	function GetScenarioTooltipText(self): string?
 	function GetScript(self, scriptTypeName: ScenarioPOIFrameScriptType, bindingType: Enum_ScriptBindingType?): ((self: ScenarioPOIFrame, ...any) -> ())?
 	function HasScript(self, scriptName: ScenarioPOIFrameScriptType): boolean
-	function HookScript(self, scriptTypeName: ScenarioPOIFrameScriptType, script: ((self: ScenarioPOIFrame, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: ScenarioPOIFrameScriptType, script: (self: ScenarioPOIFrame, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetScript(self, scriptTypeName: ScenarioPOIFrameScriptType, script: ((self: ScenarioPOIFrame, ...any) -> ())?): ()
 	function UpdateMouseOverTooltip(self, x: number, y: number): boolean
 end
@@ -11744,7 +11848,7 @@ declare extern type ScrollFrame extends Frame with
 	function GetVerticalScroll(self): uiUnit
 	function GetVerticalScrollRange(self): uiUnit
 	function HasScript(self, scriptName: ScrollFrameScriptType): boolean
-	function HookScript(self, scriptTypeName: ScrollFrameScriptType, script: ((self: ScrollFrame, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: ScrollFrameScriptType, script: (self: ScrollFrame, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetHorizontalScroll(self, offset: uiUnit): ()
 	function SetScript(self, scriptTypeName: ScrollFrameScriptType, script: ((self: ScrollFrame, ...any) -> ())?): ()
 	function SetScrollChild(self, scrollChild: Frame): ()
@@ -11767,7 +11871,7 @@ declare extern type SimpleHTML extends Frame with
 	function GetTextColor(self, textType: HTMLTextType): (number, number, number, number)
 	function GetTextData(self): { HTMLContentNode }
 	function HasScript(self, scriptName: SimpleHTMLScriptType): boolean
-	function HookScript(self, scriptTypeName: SimpleHTMLScriptType, script: ((self: SimpleHTML, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: SimpleHTMLScriptType, script: (self: SimpleHTML, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetFont(self, textType: HTMLTextType, fontFile: string, height: uiFontHeight, flags: TBFFlags): ()
 	function SetFontObject(self, textType: HTMLTextType, font: Font): ()
 	function SetHyperlinkFormat(self, format: string): ()
@@ -11794,7 +11898,7 @@ declare extern type Slider extends Frame with
 	function GetValue(self): number
 	function GetValueStep(self): number
 	function HasScript(self, scriptName: SliderScriptType): boolean
-	function HookScript(self, scriptTypeName: SliderScriptType, script: ((self: Slider, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: SliderScriptType, script: (self: Slider, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsDraggingThumb(self): boolean
 	function IsEnabled(self): boolean
 	function SetEnabled(self, enabled: boolean): ()
@@ -11823,7 +11927,7 @@ declare extern type StatusBar extends Frame with
 	function GetTimerDuration(self): LuaDurationObject
 	function GetValue(self): number
 	function HasScript(self, scriptName: StatusBarScriptType): boolean
-	function HookScript(self, scriptTypeName: StatusBarScriptType, script: ((self: StatusBar, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: StatusBarScriptType, script: (self: StatusBar, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function IsInterpolating(self): boolean
 	function IsStatusBarDesaturated(self): boolean
 	function SetColorFill(self, colorR: number, colorG: number, colorB: number, a: SingleColorValue?): ()
@@ -11856,7 +11960,7 @@ declare extern type TabardModel extends PlayerModel with
 	function GetUpperEmblemFile(self): fileID
 	function GetUpperEmblemTexture(self, texture: Texture): ()
 	function HasScript(self, scriptName: TabardModelScriptType): boolean
-	function HookScript(self, scriptTypeName: TabardModelScriptType, script: ((self: TabardModel, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: TabardModelScriptType, script: (self: TabardModel, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function InitializeTabardColors(self): ()
 	function IsGuildTabard(self): boolean
 	function Save(self): ()
@@ -11869,7 +11973,7 @@ declare extern type Texture extends TextureBase with
 	function GetNumMaskTextures(self): size
 	function GetScript(self, scriptTypeName: TextureScriptType, bindingType: Enum_ScriptBindingType?): ((self: Texture, ...any) -> ())?
 	function HasScript(self, scriptName: TextureScriptType): boolean
-	function HookScript(self, scriptTypeName: TextureScriptType, script: ((self: Texture, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: TextureScriptType, script: (self: Texture, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function RemoveMaskTexture(self, mask: MaskTexture): ()
 	function SetScript(self, scriptTypeName: TextureScriptType, script: ((self: Texture, ...any) -> ())?): ()
 end
@@ -11878,7 +11982,7 @@ declare extern type TextureCoordTranslation extends Animation with
 	function GetOffset(self): (number, number)
 	function GetScript(self, scriptTypeName: TextureCoordTranslationScriptType, bindingType: Enum_ScriptBindingType?): ((self: TextureCoordTranslation, ...any) -> ())?
 	function HasScript(self, scriptName: TextureCoordTranslationScriptType): boolean
-	function HookScript(self, scriptTypeName: TextureCoordTranslationScriptType, script: ((self: TextureCoordTranslation, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: TextureCoordTranslationScriptType, script: (self: TextureCoordTranslation, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetOffset(self, offsetU: number, offsetV: number): ()
 	function SetScript(self, scriptTypeName: TextureCoordTranslationScriptType, script: ((self: TextureCoordTranslation, ...any) -> ())?): ()
 end
@@ -11887,7 +11991,7 @@ declare extern type Translation extends Animation with
 	function GetOffset(self): (uiUnit, uiUnit)
 	function GetScript(self, scriptTypeName: TranslationScriptType, bindingType: Enum_ScriptBindingType?): ((self: Translation, ...any) -> ())?
 	function HasScript(self, scriptName: TranslationScriptType): boolean
-	function HookScript(self, scriptTypeName: TranslationScriptType, script: ((self: Translation, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: TranslationScriptType, script: (self: Translation, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetOffset(self, offsetX: uiUnit, offsetY: uiUnit): ()
 	function SetScript(self, scriptTypeName: TranslationScriptType, script: ((self: Translation, ...any) -> ())?): ()
 end
@@ -11901,7 +12005,7 @@ declare extern type UnitPositionFrame extends Frame with
 	function GetScript(self, scriptTypeName: UnitPositionFrameScriptType, bindingType: Enum_ScriptBindingType?): ((self: UnitPositionFrame, ...any) -> ())?
 	function GetUiMapID(self): number
 	function HasScript(self, scriptName: UnitPositionFrameScriptType): boolean
-	function HookScript(self, scriptTypeName: UnitPositionFrameScriptType, script: ((self: UnitPositionFrame, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: UnitPositionFrameScriptType, script: (self: UnitPositionFrame, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetPlayerPingScale(self, scale: number): ()
 	function SetPlayerPingTexture(self, textureType: Enum_PingTextureType, asset: FileAsset, width: uiUnit?, height: uiUnit?): ()
 	function SetScript(self, scriptTypeName: UnitPositionFrameScriptType, script: ((self: UnitPositionFrame, ...any) -> ())?): ()
@@ -11917,7 +12021,7 @@ declare extern type VectorGraphics extends Region with
 	function GetScript(self, scriptTypeName: VectorGraphicsScriptType, bindingType: Enum_ScriptBindingType?): ((self: VectorGraphics, ...any) -> ())?
 	function HasSVG(self): boolean
 	function HasScript(self, scriptName: VectorGraphicsScriptType): boolean
-	function HookScript(self, scriptTypeName: VectorGraphicsScriptType, script: ((self: VectorGraphics, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: VectorGraphicsScriptType, script: (self: VectorGraphics, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetSVG(self, svgAsset: FileAsset): boolean
 	function SetScript(self, scriptTypeName: VectorGraphicsScriptType, script: ((self: VectorGraphics, ...any) -> ())?): ()
 end
@@ -11927,7 +12031,7 @@ declare extern type VertexColor extends Animation with
 	function GetScript(self, scriptTypeName: VertexColorScriptType, bindingType: Enum_ScriptBindingType?): ((self: VertexColor, ...any) -> ())?
 	function GetStartColor(self): ColorMixin
 	function HasScript(self, scriptName: VertexColorScriptType): boolean
-	function HookScript(self, scriptTypeName: VertexColorScriptType, script: ((self: VertexColor, ...any) -> ())?, bindingType: Enum_ScriptBindingType?): boolean
+	function HookScript(self, scriptTypeName: VertexColorScriptType, script: (self: VertexColor, ...any) -> (), bindingType: Enum_ScriptBindingType?): boolean
 	function SetEndColor(self, color: ColorMixin): ()
 	function SetScript(self, scriptTypeName: VertexColorScriptType, script: ((self: VertexColor, ...any) -> ())?): ()
 	function SetStartColor(self, color: ColorMixin): ()
@@ -11949,11 +12053,11 @@ declare extern type AbbreviatedNumberFormatter with
 end
 
 declare extern type DurationTextBindingObject with
-	function Assign(self, other: unknown): ()
+	function Assign(self, other: DurationTextBindingObject): ()
 	function CanFormatText(self): boolean
 	function CanUpdateFontString(self): boolean
 	function ClearTextColorCurve(self): ()
-	function Copy(self): unknown
+	function Copy(self): DurationTextBindingObject
 	function Disable(self): ()
 	function Enable(self): ()
 	function GetDuration(self): LuaDurationObject?
@@ -11973,7 +12077,7 @@ declare extern type DurationTextBindingObject with
 	function SetFontString(self, fontString: FontString): ()
 	function SetFormatter(self, formatter: NumericFormatter): ()
 	function SetTextColorCurve(self, curve: LuaColorCurveObject, property: Enum_DurationTextBindingProperty): ()
-	function SetTextFormat(self, formatString: stringView, components: { unknown }): ()
+	function SetTextFormat(self, formatString: stringView, components: { DurationTextBindingFormatComponent }): ()
 	function SetTimeModifier(self, modifier: Enum_DurationTimeModifier): ()
 	function SetToDefaults(self): ()
 	function SetUpdateInterval(self, updateInterval: number): ()
@@ -12030,7 +12134,13 @@ declare extern type HousingCatalogSearcher with
 	function ToggleUncollected(self): ()
 end
 
-declare extern type LuaColorCurveObject with
+declare extern type LuaCurveObjectBase with
+	function GetType(self): Enum_LuaCurveType
+	function HasSecretValues(self): boolean
+	function SetType(self, type: Enum_LuaCurveType): ()
+end
+
+declare extern type LuaColorCurveObject extends LuaCurveObjectBase with
 	function AddPoint(self, x: number, y: ColorMixin): ()
 	function ClearPoints(self): ()
 	function Copy(self): LuaColorCurveObject
@@ -12044,7 +12154,7 @@ declare extern type LuaColorCurveObject with
 	function SetToDefaults(self): ()
 end
 
-declare extern type LuaCurveObject with
+declare extern type LuaCurveObject extends LuaCurveObjectBase with
 	function AddPoint(self, pointX: number, pointY: number): ()
 	function ClearPoints(self): ()
 	function Copy(self): LuaCurveObject
@@ -12055,12 +12165,6 @@ declare extern type LuaCurveObject with
 	function RemovePoint(self, index: number): ()
 	function SetPoints(self, point: { vector2 }): ()
 	function SetToDefaults(self): ()
-end
-
-declare extern type LuaCurveObjectBase with
-	function GetType(self): Enum_LuaCurveType
-	function HasSecretValues(self): boolean
-	function SetType(self, type: Enum_LuaCurveType): ()
 end
 
 declare extern type LuaDurationClockObject with
@@ -12123,7 +12227,7 @@ declare extern type LuaLocaleContext with
 	function GetLocale(self): string
 	function GetSortKey(self, text: string, strength: Enum_CollationStrength): string?
 	function Length(self, text: string): number?
-	function ParseCurrency(self, text: string): unknown
+	function ParseCurrency(self, text: string): CurrencyParseResult?
 	function ParseNumber(self, text: string, style: Enum_NumberStyle): number?
 	function SelectPlural(self, number: number, pluralType: Enum_PluralType): string?
 	function SetLocale(self, locale: string): boolean
@@ -12271,14 +12375,14 @@ declare function AbbreviateLargeNumbers(number: number, options: NumberAbbrevOpt
 declare function AbbreviateNumbers(number: number, options: NumberAbbrevOptions?): string
 declare function AcceptAreaSpiritHeal(): ()
 declare function AcceptBattlefieldPort(index: number, accept: boolean): ()
-declare function AcceptDuel(): ()
-declare function AcceptGroup(): ()
+declare function AcceptDuel(...: unknown): (...unknown)
+declare function AcceptGroup(...: unknown): (...unknown)
 declare function AcceptGuild(): ()
-declare function AcceptProposal(): ()
-declare function AcceptQuest(): ()
+declare function AcceptProposal(...: unknown): (...unknown)
+declare function AcceptQuest(...: unknown): (...unknown)
 declare function AcceptResurrect(): ()
 declare function AcceptSpellConfirmationPrompt(spellID: number): ()
-declare function AcceptTrade(): ()
+declare function AcceptTrade(...: unknown): (...unknown)
 declare function Accumulate(...: unknown): (...unknown)
 declare function AccumulateOp(...: unknown): (...unknown)
 declare function AcheivementFullSearchResultsButton_OnClick(...: unknown): (...unknown)
@@ -12436,8 +12540,8 @@ declare AchievementUtil: {
 	IsCriteriaReputationGained: (...unknown) -> (...unknown),
 	IsFeatOfStrength: (...unknown) -> (...unknown),
 }
-declare function AcknowledgeAutoAcceptQuest(): ()
-declare function AcknowledgeSurvey(caseIndex: unknown): ()
+declare function AcknowledgeAutoAcceptQuest(...: unknown): (...unknown)
+declare function AcknowledgeSurvey(...: unknown): (...unknown)
 declare ActionBarActionEventsFrame: Frame
 declare function ActionBarBusy(...: unknown): (...unknown)
 declare ActionBarButtonEventsFrame: Frame
@@ -12603,7 +12707,7 @@ declare AnimaDiversionUtil: {
 	IsAnyNodeActive: (...unknown) -> (...unknown),
 	IsNodeActive: (...unknown) -> (...unknown),
 }
-declare function AntiAliasingSupported(): ()
+declare function AntiAliasingSupported(...: unknown): (...unknown)
 declare function ApplyDefaultScale(...: unknown): (...unknown)
 declare function ApplySecureDelegatesToTable(...: unknown): (...unknown)
 declare function ApproximatelyEqual(...: unknown): (...unknown)
@@ -12638,7 +12742,7 @@ declare function AreAllStandardHeldBagsOpen(...: unknown): (...unknown)
 declare function AreClassRolesSoftSuggestions(): boolean
 declare function AreColorsEqual(left: colorRGBA, right: colorRGBA): boolean
 declare function AreDangerousScriptsAllowed(): boolean
-declare function AreTalentsLocked(): ()
+declare function AreTalentsLocked(...: unknown): (...unknown)
 declare function AreVector2DEqual(left: Vector2DMixin, right: Vector2DMixin): boolean
 declare function AreVector3DEqual(left: Vector3DMixin, right: Vector3DMixin): boolean
 declare function AreVector4DEqual(...: unknown): (...unknown)
@@ -12659,9 +12763,9 @@ declare ArtifactLevelUpToast: Frame
 declare function ArtifactUI_CanViewArtifact(...: unknown): (...unknown)
 declare function ArtifactUI_HasPurchasedAnything(...: unknown): (...unknown)
 declare function ArtifactsModelTemplate_OnModelLoaded(...: unknown): (...unknown)
-declare function AscendStop(): ()
+declare function AscendStop(...: unknown): (...unknown)
 declare function AssistUnit(name: string?, exactMatch: boolean?): ()
-declare function AttachGlyphToSpell(spellID: unknown): ()
+declare function AttachGlyphToSpell(...: unknown): (...unknown)
 declare function AttackTarget(): ()
 declare function AuctionFrameFilter_OnEnter(...: unknown): (...unknown)
 declare function AuctionFrameFilter_OnLeave(...: unknown): (...unknown)
@@ -12765,7 +12869,7 @@ declare AuraUtil: {
 	UnitFrameDebuffComparator: (...unknown) -> (...unknown),
 	UnpackAuraData: (...unknown) -> (...unknown),
 }
-declare function AutoChooseCurrentGraphicsSetting(): ()
+declare function AutoChooseCurrentGraphicsSetting(...: unknown): (...unknown)
 declare AutoCommitTraitUtil: {
 	GetEdgeTemplateType: (...unknown) -> (...unknown),
 }
@@ -12797,7 +12901,7 @@ declare AutoFollowStatus: Frame
 declare function AutoFollowStatus_OnEvent(...: unknown): (...unknown)
 declare function AutoFollowStatus_OnLoad(...: unknown): (...unknown)
 declare function AutoFollowStatus_OnUpdate(...: unknown): (...unknown)
-declare function AutoLootMailItem(index: unknown): ()
+declare function AutoLootMailItem(...: unknown): (...unknown)
 declare function AutoStoreGuildBankItem(tab: number, slot: number): ()
 declare AzeriteEmpoweredItemUI: Frame
 declare function AzeriteEmpoweredItemUI_LoadUI(...: unknown): (...unknown)
@@ -12825,39 +12929,39 @@ declare AzeriteUtil: {
 	HasSelectedAnyAzeritePower: (...unknown) -> (...unknown),
 	IsAzeriteItemLocationBankTab: (...unknown) -> (...unknown),
 }
-declare function BNAcceptFriendInvite(ID: unknown): ()
-declare function BNCheckBattleTagInviteToGuildMember(fullname: unknown): ()
-declare function BNCheckBattleTagInviteToUnit(unit: unknown): ()
+declare function BNAcceptFriendInvite(...: unknown): (...unknown)
+declare function BNCheckBattleTagInviteToGuildMember(...: unknown): (...unknown)
+declare function BNCheckBattleTagInviteToUnit(...: unknown): (...unknown)
 declare function BNConnected(): boolean
-declare function BNDeclineFriendInvite(ID: unknown): ()
-declare function BNFeaturesEnabled(): ()
-declare function BNFeaturesEnabledAndConnected(): ()
-declare function BNGetBlockedInfo(index: unknown): ()
-declare function BNGetDisplayName(bnetIdAccount: unknown): ()
+declare function BNDeclineFriendInvite(...: unknown): (...unknown)
+declare function BNFeaturesEnabled(...: unknown): (...unknown)
+declare function BNFeaturesEnabledAndConnected(...: unknown): (...unknown)
+declare function BNGetBlockedInfo(...: unknown): (...unknown)
+declare function BNGetDisplayName(...: unknown): (...unknown)
 declare function BNGetFOFInfo(mutual: boolean, nonMutual: boolean, index: number): (number, string, boolean)
 declare function BNGetFriendIndex(presenceID: number): number
 declare function BNGetInfo(): (number?, string, number, string, boolean, boolean, boolean)
-declare function BNGetNumBlocked(): ()
-declare function BNGetNumFOF(ID: unknown, mutual: unknown, non: unknown): ()
-declare function BNGetNumFriendInvites(): ()
+declare function BNGetNumBlocked(...: unknown): (...unknown)
+declare function BNGetNumFOF(...: unknown): (...unknown)
+declare function BNGetNumFriendInvites(...: unknown): (...unknown)
 declare function BNGetNumFriends(): (number, number, number, number)
-declare function BNGetSelectedBlock(): ()
-declare function BNGetSelectedFriend(): ()
-declare function BNIsBlocked(ID: unknown): ()
-declare function BNIsFriend(presenceID: unknown): ()
-declare function BNIsSelf(presenceID: unknown): ()
-declare function BNRemoveFriend(ID: unknown): ()
-declare function BNRequestFOFInfo(bnetIDAccount: unknown): ()
-declare function BNRequestInviteFriend(presenceID: unknown, tank: unknown, heal: unknown, dps: unknown): ()
-declare function BNSendFriendInvite(text: unknown, noteText: unknown): ()
-declare function BNSendFriendInviteByID(ID: unknown, noteText: unknown): ()
+declare function BNGetSelectedBlock(...: unknown): (...unknown)
+declare function BNGetSelectedFriend(...: unknown): (...unknown)
+declare function BNIsBlocked(...: unknown): (...unknown)
+declare function BNIsFriend(...: unknown): (...unknown)
+declare function BNIsSelf(...: unknown): (...unknown)
+declare function BNRemoveFriend(...: unknown): (...unknown)
+declare function BNRequestFOFInfo(...: unknown): (...unknown)
+declare function BNRequestInviteFriend(...: unknown): (...unknown)
+declare function BNSendFriendInvite(...: unknown): (...unknown)
+declare function BNSendFriendInviteByID(...: unknown): (...unknown)
 declare function BNSetFriendFavoriteFlag(id: number, isFavorite: boolean): ()
 declare function BNSetFriendNote(bnetIDAccount: number, noteText: string): ()
-declare function BNSetSelectedBlock(index: unknown): ()
-declare function BNSetSelectedFriend(index: unknown): ()
-declare function BNSummonFriendByIndex(id: unknown): ()
+declare function BNSetSelectedBlock(...: unknown): (...unknown)
+declare function BNSetSelectedFriend(...: unknown): (...unknown)
+declare function BNSummonFriendByIndex(...: unknown): (...unknown)
 declare BNToastFrame: Frame
-declare function BNTokenFindName(target: unknown): ()
+declare function BNTokenFindName(...: unknown): (...unknown)
 declare function BNet_GetBNetAccountName(...: unknown): (...unknown)
 declare function BNet_GetBNetIDAccount(...: unknown): (...unknown)
 declare function BNet_GetBNetIDAccountFromCharacterName(...: unknown): (...unknown)
@@ -12901,10 +13005,10 @@ declare BattlefieldMapFrame: Frame
 declare BattlefieldMapTab: Frame
 declare function BattlefieldMap_LoadUI(...: unknown): (...unknown)
 declare function BattlefieldMap_ToggleUI(...: unknown): (...unknown)
-declare function BattlefieldMgrEntryInviteResponse(queueId: unknown, accept: unknown): ()
-declare function BattlefieldMgrExitRequest(queueId: unknown): ()
-declare function BattlefieldMgrQueueInviteResponse(queueId: unknown, accept: unknown): ()
-declare function BattlefieldMgrQueueRequest(): ()
+declare function BattlefieldMgrEntryInviteResponse(...: unknown): (...unknown)
+declare function BattlefieldMgrExitRequest(...: unknown): (...unknown)
+declare function BattlefieldMgrQueueInviteResponse(...: unknown): (...unknown)
+declare function BattlefieldMgrQueueRequest(...: unknown): (...unknown)
 declare BattlegroundChatFilters: Frame
 declare function BeginActionBarTransition(...: unknown): (...unknown)
 declare function BeginTrade(): ()
@@ -13035,7 +13139,7 @@ declare ButtonTrayUtil: {
 	TestDropdownTraySetup: (...unknown) -> (...unknown),
 	TestSliderTraySetup: (...unknown) -> (...unknown),
 }
-declare function BuyGuildBankTab(): ()
+declare function BuyGuildBankTab(...: unknown): (...unknown)
 declare function BuyGuildCharter(guildName: string): ()
 declare function BuyMerchantItem(index: number, quantity: number?): ()
 declare function BuyTrainerService(index: number): ()
@@ -13062,11 +13166,11 @@ declare C_AccountServices: {
 	GetPreferredLocales: (...unknown) -> (...unknown),
 	GetPreferredPlaySettings: (...unknown) -> (...unknown),
 	GetPreferredPlaySettingsFeatures: (...unknown) -> (...unknown),
-	IsAccountLockedPostSave: () -> (),
-	IsAccountSaveEnabled: () -> (),
-	IsAccountSaveInProgress: () -> (),
+	IsAccountLockedPostSave: (...unknown) -> (...unknown),
+	IsAccountSaveEnabled: (...unknown) -> (...unknown),
+	IsAccountSaveInProgress: (...unknown) -> (...unknown),
 	RequestPreferredPlaySettings: (...unknown) -> (...unknown),
-	SaveAccountData: () -> (),
+	SaveAccountData: (...unknown) -> (...unknown),
 	SetPreferredPlaySettings: (...unknown) -> (...unknown),
 }
 declare C_AccountStore: {
@@ -13180,7 +13284,7 @@ declare C_AddOnProfiler: {
 	GetTicksPerSecond: () -> BigInteger,
 	GetTopKAddOnsForMetric: (metric: Enum_AddOnProfilerMetric, k: number) -> { AddOnProfilerResult },
 	IsEnabled: () -> boolean,
-	MeasureCall: (func: LuaValueVariant, ...LuaValueVariant) -> (AddOnProfilerCallResults, ...LuaValueVariant),
+	MeasureCall: (func: unknown, ...unknown) -> (AddOnProfilerCallResults, ...unknown),
 }
 declare C_AddOns: {
 	DisableAddOn: (name: uiAddon, character: string?) -> (),
@@ -13193,7 +13297,7 @@ declare C_AddOns: {
 	GetAddOnEnableState: (name: uiAddon, character: string?) -> Enum_AddOnEnableState,
 	GetAddOnInfo: (name: uiAddon) -> (string, string, string, boolean, string, string),
 	GetAddOnInterfaceVersion: (name: uiAddon) -> number,
-	GetAddOnLocalTable: (name: uiAddon) -> LuaValueVariant,
+	GetAddOnLocalTable: (name: uiAddon) -> unknown,
 	GetAddOnMetadata: (name: uiAddon, variable: string) -> string,
 	GetAddOnName: (index: uiAddon) -> string,
 	GetAddOnNotes: (name: uiAddon) -> string,
@@ -13214,29 +13318,29 @@ declare C_AddOns: {
 	SetAddonVersionCheck: (enabled: boolean) -> (),
 }
 declare C_AdventureJournal: {
-	ActivateEntry: (index: unknown) -> (),
-	CanBeShown: () -> (),
-	GetNumAvailableSuggestions: () -> (),
-	GetPrimaryOffset: () -> (),
-	GetReward: () -> (),
-	GetSuggestions: (suggestions: unknown) -> (),
-	SetPrimaryOffset: (offset: unknown) -> (),
-	UpdateSuggestions: (levelUp: unknown) -> (),
+	ActivateEntry: (...unknown) -> (...unknown),
+	CanBeShown: (...unknown) -> (...unknown),
+	GetNumAvailableSuggestions: (...unknown) -> (...unknown),
+	GetPrimaryOffset: (...unknown) -> (...unknown),
+	GetReward: (...unknown) -> (...unknown),
+	GetSuggestions: (...unknown) -> (...unknown),
+	SetPrimaryOffset: (...unknown) -> (...unknown),
+	UpdateSuggestions: (...unknown) -> (...unknown),
 }
 declare C_AdventureMap: {
-	Close: () -> (),
+	Close: (...unknown) -> (...unknown),
 	GetAdventureMapTextureKit: () -> textureKit,
-	GetMapID: () -> (),
-	GetMapInsetDetailTileInfo: (insetIndex: unknown, tileIndex: unknown) -> (),
-	GetMapInsetInfo: (insetIndex: unknown) -> (),
+	GetMapID: (...unknown) -> (...unknown),
+	GetMapInsetDetailTileInfo: (...unknown) -> (...unknown),
+	GetMapInsetInfo: (...unknown) -> (...unknown),
 	GetNumMapInsets: () -> number,
 	GetNumQuestOffers: () -> number,
 	GetNumZoneChoices: () -> number,
-	GetQuestInfo: (questID: unknown) -> (),
-	GetQuestOfferInfo: (offerIndex: unknown) -> (),
+	GetQuestInfo: (...unknown) -> (...unknown),
+	GetQuestOfferInfo: (...unknown) -> (...unknown),
 	GetQuestPortraitInfo: (questID: number) -> AdventureMapQuestPortraitInfo?,
-	GetZoneChoiceInfo: (choiceIndex: unknown) -> (),
-	StartQuest: (questID: unknown) -> (),
+	GetZoneChoiceInfo: (...unknown) -> (...unknown),
+	StartQuest: (...unknown) -> (...unknown),
 }
 declare C_AlliedRaces: {
 	GetAllRacialAbilitiesFromID: (raceID: number) -> { AlliedRaceRacialAbility }?,
@@ -13266,8 +13370,8 @@ declare C_AreaPoiInfo: {
 	IsAreaPOITimed: (areaPoiID: number) -> (boolean, boolean?),
 }
 declare C_ArrowCalloutManager: {
-	AcknowledgeCallout: () -> (),
-	HideCallout: () -> (),
+	AcknowledgeCallout: (...unknown) -> (...unknown),
+	HideCallout: (...unknown) -> (...unknown),
 }
 declare C_ArtifactUI: {
 	AddPower: (powerID: number) -> boolean,
@@ -13604,14 +13708,14 @@ declare C_BehavioralMessaging: {
 	SendNotificationReceipt: (dbId: NotificationDbId, openTimeSeconds: number, readTimeSeconds: number) -> (),
 }
 declare C_BlackMarket: {
-	Close: () -> (),
+	Close: (...unknown) -> (...unknown),
 	GetHotItem: () -> (string, string, number, string, boolean, number, string, string, number, number, number, boolean, number, number, string, number, number),
 	GetItemInfoByID: (marketID: number) -> (string, string, number, string, boolean, number, string, string, number, number, number, boolean, number, number, string, number, number),
 	GetItemInfoByIndex: (index: number) -> (string, string, number, string, boolean, number, string, string, number, number, number, boolean, number, number, string, number, number),
 	GetNumItems: () -> number,
 	IsViewOnly: () -> boolean,
 	ItemPlaceBid: (marketID: number, bid: number) -> (),
-	RequestItems: () -> (),
+	RequestItems: (...unknown) -> (...unknown),
 }
 declare C_BlizzCon2026: {
 	GetExperience: () -> Enum_Bc26Experience,
@@ -13812,32 +13916,32 @@ declare C_ChallengeMode: {
 	StartChallengeMode: () -> boolean,
 }
 declare C_CharacterServices: {
-	ArePaidCharacterTransfersBetweenBnetAccountsEnabled: () -> (),
-	AssignFCMDistribution: () -> (),
+	ArePaidCharacterTransfersBetweenBnetAccountsEnabled: (...unknown) -> (...unknown),
+	AssignFCMDistribution: (...unknown) -> (...unknown),
 	AssignHCTDistribution: (...unknown) -> (...unknown),
-	AssignNameChangeDistribution: () -> (),
-	AssignPCTDistribution: () -> (),
-	AssignRaceOrFactionChangeDistribution: () -> (),
-	AssignUpgradeDistribution: () -> (),
-	CapitalizeCharName: () -> (),
-	GetActiveCharacterUpgradeBoostType: () -> (),
-	GetActiveClassTrialBoostType: () -> (),
-	GetAutomaticBoost: () -> (),
-	GetAutomaticBoostCharacter: () -> (),
-	GetCharacterServiceDisplayData: () -> (),
-	GetCharacterServiceDisplayDataByVASType: () -> (),
-	GetCharacterServiceDisplayInfo: () -> (),
+	AssignNameChangeDistribution: (...unknown) -> (...unknown),
+	AssignPCTDistribution: (...unknown) -> (...unknown),
+	AssignRaceOrFactionChangeDistribution: (...unknown) -> (...unknown),
+	AssignUpgradeDistribution: (...unknown) -> (...unknown),
+	CapitalizeCharName: (...unknown) -> (...unknown),
+	GetActiveCharacterUpgradeBoostType: (...unknown) -> (...unknown),
+	GetActiveClassTrialBoostType: (...unknown) -> (...unknown),
+	GetAutomaticBoost: (...unknown) -> (...unknown),
+	GetAutomaticBoostCharacter: (...unknown) -> (...unknown),
+	GetCharacterServiceDisplayData: (...unknown) -> (...unknown),
+	GetCharacterServiceDisplayDataByVASType: (...unknown) -> (...unknown),
+	GetCharacterServiceDisplayInfo: (...unknown) -> (...unknown),
 	GetHardcoreTransferSuperDistrictDestinations: (...unknown) -> (...unknown),
 	GetPaidCharacterTransferSuperDistrictDestinations: (...unknown) -> (...unknown),
-	GetVASDistributions: () -> (),
-	HasRequiredBoostForClassTrial: () -> (),
-	HasRequiredBoostForUnrevoke: () -> (),
+	GetVASDistributions: (...unknown) -> (...unknown),
+	HasRequiredBoostForClassTrial: (...unknown) -> (...unknown),
+	HasRequiredBoostForUnrevoke: (...unknown) -> (...unknown),
 	IsRealmlessRealmSelectionEnabled: (...unknown) -> (...unknown),
-	SetAutomaticBoost: () -> (),
-	SetAutomaticBoostCharacter: () -> (),
+	SetAutomaticBoost: (...unknown) -> (...unknown),
+	SetAutomaticBoostCharacter: (...unknown) -> (...unknown),
 }
 declare C_CharacterServicesPublic: {
-	ShouldSeeControlPopup: () -> (),
+	ShouldSeeControlPopup: (...unknown) -> (...unknown),
 }
 declare C_ChatBubbles: {
 	GetAllChatBubbles: (includeForbidden: boolean?) -> { ChatBubbleFrame },
@@ -13932,8 +14036,8 @@ declare C_ClassTalents: {
 	ViewLoadout: (entries: { ImportLoadoutEntryInfo }, importString: string?) -> boolean,
 }
 declare C_ClassTrial: {
-	GetClassTrialLogoutTimeSeconds: () -> (),
-	IsClassTrialCharacter: () -> (),
+	GetClassTrialLogoutTimeSeconds: (...unknown) -> (...unknown),
+	IsClassTrialCharacter: (...unknown) -> (...unknown),
 }
 declare C_ClickBindings: {
 	CanSpellBeClickBound: (spellID: SpellIdentifier) -> boolean,
@@ -13954,7 +14058,7 @@ declare C_Club: {
 	AddClubStreamChatChannel: (clubId: ClubId, streamId: ClubStreamId) -> (),
 	AdvanceStreamViewMarker: (clubId: ClubId, streamId: ClubStreamId) -> (),
 	AreMembersReady: (clubId: ClubId) -> boolean?,
-	AssignMemberRole: (clubId: ClubId, memberId: unknown, roleId: Enum_ClubRoleIdentifier) -> (),
+	AssignMemberRole: (clubId: ClubId, memberId: number, roleId: Enum_ClubRoleIdentifier) -> (),
 	CanResolvePlayerLocationFromClubMessageData: (clubId: ClubId, streamId: ClubStreamId, epoch: BigUInteger, position: BigUInteger) -> boolean?,
 	ClearAutoAdvanceStreamViewMarker: () -> (),
 	ClearClubPresenceSubscription: () -> (),
@@ -13976,12 +14080,12 @@ declare C_Club: {
 	FocusCommunityStreams: () -> (),
 	FocusMembers: (clubId: ClubId) -> (),
 	FocusStream: (clubId: ClubId, streamId: ClubStreamId) -> boolean?,
-	GetAssignableRoles: (clubId: ClubId, memberId: unknown) -> { Enum_ClubRoleIdentifier }?,
+	GetAssignableRoles: (clubId: ClubId, memberId: number) -> { Enum_ClubRoleIdentifier }?,
 	GetAvatarIdList: (clubType: Enum_ClubType) -> { number }?,
 	GetClubCapacity: () -> number?,
 	GetClubInfo: (clubId: ClubId) -> ClubInfo?,
 	GetClubLimits: (clubType: Enum_ClubType) -> ClubLimits?,
-	GetClubMembers: (clubId: ClubId, streamId: ClubStreamId?) -> { unknown }?,
+	GetClubMembers: (clubId: ClubId, streamId: ClubStreamId?) -> { number }?,
 	GetClubPrivileges: (clubId: ClubId) -> ClubPrivilegeInfo?,
 	GetClubStreamNotificationSettings: (clubId: ClubId) -> { ClubStreamNotificationSetting }?,
 	GetCommunityNameResultText: (result: Enum_ValidateNameResult) -> string?,
@@ -13992,7 +14096,7 @@ declare C_Club: {
 	GetInvitationsForClub: (clubId: ClubId) -> { ClubInvitationInfo }?,
 	GetInvitationsForSelf: () -> { ClubSelfInvitationInfo }?,
 	GetLastTicketResponse: (ticket: string) -> (Enum_ClubErrorType?, ClubInfo?, boolean?),
-	GetMemberInfo: (clubId: ClubId, memberId: unknown) -> ClubMemberInfo?,
+	GetMemberInfo: (clubId: ClubId, memberId: number) -> ClubMemberInfo?,
 	GetMemberInfoForSelf: (clubId: ClubId) -> ClubMemberInfo?,
 	GetMessageInfo: (clubId: ClubId, streamId: ClubStreamId, messageId: ClubMessageIdentifier) -> ClubMessageInfo?,
 	GetMessageRanges: (clubId: ClubId, streamId: ClubStreamId) -> { ClubMessageRange }?,
@@ -14008,22 +14112,22 @@ declare C_Club: {
 	IsEnabled: () -> boolean?,
 	IsRestricted: () -> Enum_ClubRestrictionReason?,
 	IsSubscribedToStream: (clubId: ClubId, streamId: ClubStreamId) -> boolean?,
-	KickMember: (clubId: ClubId, memberId: unknown) -> (),
+	KickMember: (clubId: ClubId, memberId: number) -> (),
 	LeaveClub: (clubId: ClubId) -> (),
 	RedeemTicket: (ticketId: string) -> (),
 	RequestInvitationsForClub: (clubId: ClubId) -> (),
 	RequestMoreMessagesBefore: (clubId: ClubId, streamId: ClubStreamId, messageId: ClubMessageIdentifier?, count: number?) -> boolean?,
 	RequestTicket: (ticketId: string) -> (),
 	RequestTickets: (clubId: ClubId) -> (),
-	RevokeInvitation: (clubId: ClubId, memberId: unknown) -> (),
-	SendBattleTagFriendRequest: (guildClubId: ClubId, memberId: unknown) -> (),
+	RevokeInvitation: (clubId: ClubId, memberId: number) -> (),
+	SendBattleTagFriendRequest: (guildClubId: ClubId, memberId: number) -> (),
 	SendCharacterInvitation: (clubId: ClubId, character: string) -> (),
-	SendInvitation: (clubId: ClubId, memberId: unknown) -> (),
+	SendInvitation: (clubId: ClubId, memberId: number) -> (),
 	SendMessage: (clubId: ClubId, streamId: ClubStreamId, message: string) -> (),
-	SendTitleFriendRequest: (guildClubId: ClubId, memberId: unknown) -> (),
+	SendTitleFriendRequest: (guildClubId: ClubId, memberId: number) -> (),
 	SetAutoAdvanceStreamViewMarker: (clubId: ClubId, streamId: ClubStreamId) -> (),
 	SetAvatarTexture: (texture: Texture, avatarId: number, clubType: Enum_ClubType) -> (),
-	SetClubMemberNote: (clubId: ClubId, memberId: unknown, note: string) -> (),
+	SetClubMemberNote: (clubId: ClubId, memberId: number, note: string) -> (),
 	SetClubPresenceSubscription: (clubId: ClubId) -> (),
 	SetClubStreamNotificationSettings: (clubId: ClubId, settings: { ClubStreamNotificationSetting }) -> (),
 	SetCommunityID: (communityID: BigUInteger) -> (),
@@ -14128,7 +14232,7 @@ declare C_CombatAudioAlert: {
 	SpeakText: (text: string, category: Enum_CombatAudioAlertCategory, allowOverlap: boolean?) -> number?,
 }
 declare C_CombatLog: {
-	ApplyFilterSettings: (filterSettings: LuaValueVariant) -> (),
+	ApplyFilterSettings: (filterSettings: unknown) -> (),
 	AreFilteredEventsEnabled: () -> boolean,
 	ClearEntries: () -> (),
 	DoesObjectMatchFilter: (mask: Enum_CombatLogObject, flags: Enum_CombatLogObject) -> boolean,
@@ -14566,14 +14670,14 @@ declare C_DeathRecap: {
 	HasRecapEvents: (recapID: number?) -> boolean,
 }
 declare C_Debug: {
-	DashboardIsEnabled: () -> (),
+	DashboardIsEnabled: (...unknown) -> (...unknown),
 	FrameXMLDebug: (newDebugLevel: number?) -> number,
-	GetAllPortLocsForMap: (uiMapID: unknown) -> (),
-	GetMapDebugObjects: (uiMapID: unknown) -> (),
-	TeleportToMapDebugObject: (pinIndex: unknown) -> (),
-	TeleportToMapLocation: (uiMapID: unknown, mapX: unknown, mapY: unknown) -> (),
-	ToggleDebugCharInfo: () -> (),
-	ToggleWindDebugMenu: () -> (),
+	GetAllPortLocsForMap: (...unknown) -> (...unknown),
+	GetMapDebugObjects: (...unknown) -> (...unknown),
+	TeleportToMapDebugObject: (...unknown) -> (...unknown),
+	TeleportToMapLocation: (...unknown) -> (...unknown),
+	ToggleDebugCharInfo: (...unknown) -> (...unknown),
+	ToggleWindDebugMenu: (...unknown) -> (...unknown),
 }
 declare C_DelvesUI: {
 	GetActiveDelveTier: () -> TieredEntranceTierInfo,
@@ -14642,7 +14746,7 @@ declare C_Discord: {
 }
 declare C_DurationUtil: {
 	CreateDuration: () -> LuaDurationObject,
-	CreateDurationTextBinding: () -> unknown,
+	CreateDurationTextBinding: () -> DurationTextBindingObject,
 	CreateManualClock: () -> LuaDurationManualClock,
 }
 declare C_DyeColor: {
@@ -14674,12 +14778,12 @@ declare C_EncodingUtil: {
 	DecodeBase64: (source: stringView, variant: Enum_Base64Variant?) -> string?,
 	DecodeHex: (source: string) -> string?,
 	DecompressString: (source: stringView, method: Enum_CompressionMethod?) -> string?,
-	DeserializeCBOR: (source: stringView) -> LuaValueVariant?,
-	DeserializeJSON: (source: string) -> LuaValueVariant?,
+	DeserializeCBOR: (source: stringView) -> unknown,
+	DeserializeJSON: (source: string) -> unknown,
 	EncodeBase64: (source: stringView, variant: Enum_Base64Variant?) -> string?,
 	EncodeHex: (source: stringView) -> string?,
-	SerializeCBOR: (value: LuaValueVariant?, options: CBORSerializationOptions?) -> string,
-	SerializeJSON: (value: LuaValueVariant?, options: JSONSerializationOptions?) -> string,
+	SerializeCBOR: (value: unknown, options: CBORSerializationOptions?) -> string,
+	SerializeJSON: (value: unknown, options: JSONSerializationOptions?) -> string,
 }
 declare C_EncounterEvents: {
 	GetEventColor: (encounterEventID: number, trigger: Enum_EncounterEventColorTrigger) -> ColorMixin?,
@@ -14948,29 +15052,29 @@ declare C_GamepadUI: {
 }
 declare C_Garrison: {
 	AddFollowerToMission: (missionID: number, followerID: GarrisonFollower, boardIndex: number?) -> boolean,
-	AllowMissionStartAboveSoftCap: (garrFollowerTypeID: unknown) -> (),
-	AreMissionFollowerRequirementsMet: (missionRecID: unknown) -> (),
-	AssignFollowerToBuilding: (plotInstanceID: unknown, followerID: unknown) -> (),
-	CanGenerateRecruits: () -> (),
-	CanOpenMissionChest: (missionID: unknown) -> (),
-	CanSetRecruitmentPreference: () -> (),
-	CanSpellTargetFollowerIDWithAddAbility: (followerID: unknown) -> (),
-	CanUpgradeGarrison: () -> (),
-	CancelConstruction: (plotInstanceID: unknown) -> (),
-	CastItemSpellOnFollowerAbility: (followerID: unknown, abilityID: unknown) -> (),
-	CastSpellOnFollower: (followerID: unknown) -> (),
-	CastSpellOnFollowerAbility: (followerID: unknown, abilityID: unknown) -> (),
-	CastSpellOnMission: (missionID: unknown) -> (),
-	ClearCompleteTalent: (garrisonType: unknown) -> (),
-	CloseArchitect: () -> (),
-	CloseGarrisonTradeskillNPC: () -> (),
-	CloseMissionNPC: () -> (),
-	CloseRecruitmentNPC: () -> (),
-	CloseTalentNPC: () -> (),
-	CloseTradeskillCrafter: () -> (),
-	GenerateRecruits: (mechanicTypeID: unknown, traitID: unknown) -> (),
-	GetAllBonusAbilityEffects: () -> (),
-	GetAllEncounterThreats: (garrFollowerTypeID: unknown) -> (),
+	AllowMissionStartAboveSoftCap: (...unknown) -> (...unknown),
+	AreMissionFollowerRequirementsMet: (...unknown) -> (...unknown),
+	AssignFollowerToBuilding: (...unknown) -> (...unknown),
+	CanGenerateRecruits: (...unknown) -> (...unknown),
+	CanOpenMissionChest: (...unknown) -> (...unknown),
+	CanSetRecruitmentPreference: (...unknown) -> (...unknown),
+	CanSpellTargetFollowerIDWithAddAbility: (...unknown) -> (...unknown),
+	CanUpgradeGarrison: (...unknown) -> (...unknown),
+	CancelConstruction: (...unknown) -> (...unknown),
+	CastItemSpellOnFollowerAbility: (...unknown) -> (...unknown),
+	CastSpellOnFollower: (...unknown) -> (...unknown),
+	CastSpellOnFollowerAbility: (...unknown) -> (...unknown),
+	CastSpellOnMission: (...unknown) -> (...unknown),
+	ClearCompleteTalent: (...unknown) -> (...unknown),
+	CloseArchitect: (...unknown) -> (...unknown),
+	CloseGarrisonTradeskillNPC: (...unknown) -> (...unknown),
+	CloseMissionNPC: (...unknown) -> (...unknown),
+	CloseRecruitmentNPC: (...unknown) -> (...unknown),
+	CloseTalentNPC: (...unknown) -> (...unknown),
+	CloseTradeskillCrafter: (...unknown) -> (...unknown),
+	GenerateRecruits: (...unknown) -> (...unknown),
+	GetAllBonusAbilityEffects: (...unknown) -> (...unknown),
+	GetAllEncounterThreats: (...unknown) -> (...unknown),
 	GetAutoCombatDamageClassValues: () -> { AutoCombatDamageClassString },
 	GetAutoMissionBoardState: (missionID: number) -> { AutoMissionTargetingInfo },
 	GetAutoMissionEnvironmentEffect: (missionID: number) -> AutoMissionEnvironmentEffect?,
@@ -14978,143 +15082,143 @@ declare C_Garrison: {
 	GetAutoMissionTargetingInfoForSpell: (missionID: number, autoCombatSpellID: number, casterBoardIndex: number) -> { AutoMissionTargetingInfo },
 	GetAutoTroops: (followerType: number) -> { AutoCombatTroopInfo },
 	GetAvailableMissions: ((garrFollowerTypeID: Enum_GarrisonFollowerType) -> { MissionInfo }) & ((missionList: { MissionInfo }, garrFollowerTypeID: Enum_GarrisonFollowerType) -> ()),
-	GetAvailableRecruits: () -> (),
+	GetAvailableRecruits: (...unknown) -> (...unknown),
 	GetBasicMissionInfo: (missionID: number) -> MissionInfo,
-	GetBuffedFollowersForMission: (missionID: unknown, displayingAbilities: unknown) -> (),
+	GetBuffedFollowersForMission: (...unknown) -> (...unknown),
 	GetBuildingInfo: (buildingID: number) -> (number, string, string, fileID, string, number, number, number, number, string, boolean, boolean, { [any]: any }, { number }, boolean, boolean, boolean),
-	GetBuildingLockInfo: () -> (),
-	GetBuildingSizes: () -> (),
-	GetBuildingSpecInfo: () -> (),
-	GetBuildingTimeRemaining: (plotInstanceID: unknown) -> (),
-	GetBuildingTooltip: (buildingID: unknown) -> (),
-	GetBuildingUpgradeInfo: (buildingID: unknown) -> (),
-	GetBuildings: (garrisonType: unknown) -> (),
-	GetBuildingsForPlot: (plotInstanceID: unknown) -> (),
-	GetBuildingsForSize: (garrisonType: unknown, uiCategoryID: unknown) -> (),
-	GetClassSpecCategoryInfo: (garrFollowerType: unknown) -> (),
-	GetCombatAllyMission: (garrFollowerTypeID: unknown) -> (),
+	GetBuildingLockInfo: (...unknown) -> (...unknown),
+	GetBuildingSizes: (...unknown) -> (...unknown),
+	GetBuildingSpecInfo: (...unknown) -> (...unknown),
+	GetBuildingTimeRemaining: (...unknown) -> (...unknown),
+	GetBuildingTooltip: (...unknown) -> (...unknown),
+	GetBuildingUpgradeInfo: (...unknown) -> (...unknown),
+	GetBuildings: (...unknown) -> (...unknown),
+	GetBuildingsForPlot: (...unknown) -> (...unknown),
+	GetBuildingsForSize: (...unknown) -> (...unknown),
+	GetClassSpecCategoryInfo: (...unknown) -> (...unknown),
+	GetCombatAllyMission: (...unknown) -> (...unknown),
 	GetCombatLogSpellInfo: (autoCombatSpellID: number) -> AutoCombatSpellInfo?,
-	GetCompleteMissions: (missionList: unknown, garrFollowerTypeID: unknown) -> (),
-	GetCompleteTalent: (garrisonType: unknown) -> (),
-	GetCurrencyTypes: (garrType: unknown) -> (),
+	GetCompleteMissions: (...unknown) -> (...unknown),
+	GetCompleteTalent: (...unknown) -> (...unknown),
+	GetCurrencyTypes: (...unknown) -> (...unknown),
 	GetCurrentCypherEquipmentLevel: () -> number,
 	GetCurrentGarrTalentTreeFriendshipFactionID: () -> number?,
 	GetCurrentGarrTalentTreeID: () -> number?,
 	GetCyphersToNextEquipmentLevel: () -> number?,
 	GetFollowerAbilities: (followerID: number | string) -> ({ AbilityInfo }, { AbilityInfo }?),
 	GetFollowerAbilityAtIndex: (followerID: string, index: number) -> number,
-	GetFollowerAbilityAtIndexByID: (garrFollowerID: unknown, index: unknown) -> (),
-	GetFollowerAbilityCounterMechanicInfo: (garrAbilityID: unknown) -> (),
-	GetFollowerAbilityCountersForMechanicTypes: (garrFollowerTypeID: unknown) -> (),
-	GetFollowerAbilityDescription: (garrAbilityID: unknown) -> (),
-	GetFollowerAbilityIcon: (garrAbilityID: unknown) -> (),
-	GetFollowerAbilityInfo: (garrAbilityID: unknown) -> (),
-	GetFollowerAbilityIsTrait: (garrAbilityID: unknown) -> (),
-	GetFollowerAbilityLink: (abilityID: unknown) -> (),
-	GetFollowerAbilityName: (garrAbilityID: unknown) -> (),
-	GetFollowerActivationCost: () -> (),
+	GetFollowerAbilityAtIndexByID: (...unknown) -> (...unknown),
+	GetFollowerAbilityCounterMechanicInfo: (...unknown) -> (...unknown),
+	GetFollowerAbilityCountersForMechanicTypes: (...unknown) -> (...unknown),
+	GetFollowerAbilityDescription: (...unknown) -> (...unknown),
+	GetFollowerAbilityIcon: (...unknown) -> (...unknown),
+	GetFollowerAbilityInfo: (...unknown) -> (...unknown),
+	GetFollowerAbilityIsTrait: (...unknown) -> (...unknown),
+	GetFollowerAbilityLink: (...unknown) -> (...unknown),
+	GetFollowerAbilityName: (...unknown) -> (...unknown),
+	GetFollowerActivationCost: (...unknown) -> (...unknown),
 	GetFollowerAutoCombatSpells: (garrFollowerID: GarrisonFollower, followerLevel: number) -> ({ AutoCombatSpellInfo }?, AutoCombatSpellInfo?),
 	GetFollowerAutoCombatStats: (garrFollowerID: GarrisonFollower) -> FollowerAutoCombatStatsInfo?,
-	GetFollowerBiasForMission: (missionID: unknown, followerID: unknown) -> (),
-	GetFollowerClassSpec: (followerID: unknown) -> (),
-	GetFollowerClassSpecAtlas: (garrSpecID: unknown) -> (),
-	GetFollowerClassSpecByID: (garrFollowerID: unknown) -> (),
-	GetFollowerClassSpecName: (garrFollowerID: unknown) -> (),
-	GetFollowerDisplayID: (followerID: unknown) -> (),
+	GetFollowerBiasForMission: (...unknown) -> (...unknown),
+	GetFollowerClassSpec: (...unknown) -> (...unknown),
+	GetFollowerClassSpecAtlas: (...unknown) -> (...unknown),
+	GetFollowerClassSpecByID: (...unknown) -> (...unknown),
+	GetFollowerClassSpecName: (...unknown) -> (...unknown),
+	GetFollowerDisplayID: (...unknown) -> (...unknown),
 	GetFollowerInfo: (followerID: number | string) -> GarrFollowerInfo,
-	GetFollowerInfoForBuilding: () -> (),
-	GetFollowerIsTroop: () -> (),
-	GetFollowerItemLevelAverage: (followerID: unknown) -> (),
+	GetFollowerInfoForBuilding: (...unknown) -> (...unknown),
+	GetFollowerIsTroop: (...unknown) -> (...unknown),
+	GetFollowerItemLevelAverage: (...unknown) -> (...unknown),
 	GetFollowerItems: (followerID: string) -> (number, number, number, number),
-	GetFollowerLevel: (followerID: unknown) -> (),
-	GetFollowerLevelXP: (followerID: unknown) -> (),
-	GetFollowerLink: (followerID: unknown) -> (),
-	GetFollowerLinkByID: (garrFollowerID: unknown) -> (),
+	GetFollowerLevel: (...unknown) -> (...unknown),
+	GetFollowerLevelXP: (...unknown) -> (...unknown),
+	GetFollowerLink: (...unknown) -> (...unknown),
+	GetFollowerLinkByID: (...unknown) -> (...unknown),
 	GetFollowerMissionCompleteInfo: (followerID: GarrisonFollower) -> FollowerMissionCompleteInfo,
-	GetFollowerMissionTimeLeft: (followerID: unknown) -> (),
-	GetFollowerMissionTimeLeftSeconds: (followerID: unknown) -> (),
-	GetFollowerModelItems: (followerID: unknown) -> (),
-	GetFollowerName: (followerID: unknown) -> (),
-	GetFollowerNameByID: (garrFollowerID: unknown) -> (),
-	GetFollowerPortraitIconID: (followerID: unknown) -> (),
-	GetFollowerPortraitIconIDByID: (garrFollowerID: unknown) -> (),
-	GetFollowerQuality: (followerID: unknown) -> (),
-	GetFollowerQualityTable: (garrFollowerTypeID: unknown) -> (),
-	GetFollowerRecentlyGainedAbilityIDs: (followerID: unknown) -> (),
-	GetFollowerRecentlyGainedTraitIDs: (followerID: unknown) -> (),
-	GetFollowerShipments: (garrTypeID: unknown) -> (),
-	GetFollowerSoftCap: (garrFollowerTypeID: unknown) -> (),
-	GetFollowerSourceTextByID: (garrFollowerID: unknown) -> (),
-	GetFollowerSpecializationAtIndex: (followerID: unknown, index: unknown) -> (),
-	GetFollowerStatus: (followerID: unknown) -> (),
-	GetFollowerTraitAtIndex: (followerID: unknown, index: unknown) -> (),
-	GetFollowerTraitAtIndexByID: (garrFollowerID: unknown, index: unknown) -> (),
-	GetFollowerTypeByID: (garrFollowerID: unknown) -> (),
-	GetFollowerTypeByMissionID: (missionID: unknown) -> (),
-	GetFollowerUnderBiasReason: (missionID: unknown, followerID: unknown) -> (),
-	GetFollowerXP: (followerID: unknown) -> (),
-	GetFollowerXPTable: (garrFollowerTypeID: unknown) -> (),
-	GetFollowerZoneSupportAbilities: () -> (),
+	GetFollowerMissionTimeLeft: (...unknown) -> (...unknown),
+	GetFollowerMissionTimeLeftSeconds: (...unknown) -> (...unknown),
+	GetFollowerModelItems: (...unknown) -> (...unknown),
+	GetFollowerName: (...unknown) -> (...unknown),
+	GetFollowerNameByID: (...unknown) -> (...unknown),
+	GetFollowerPortraitIconID: (...unknown) -> (...unknown),
+	GetFollowerPortraitIconIDByID: (...unknown) -> (...unknown),
+	GetFollowerQuality: (...unknown) -> (...unknown),
+	GetFollowerQualityTable: (...unknown) -> (...unknown),
+	GetFollowerRecentlyGainedAbilityIDs: (...unknown) -> (...unknown),
+	GetFollowerRecentlyGainedTraitIDs: (...unknown) -> (...unknown),
+	GetFollowerShipments: (...unknown) -> (...unknown),
+	GetFollowerSoftCap: (...unknown) -> (...unknown),
+	GetFollowerSourceTextByID: (...unknown) -> (...unknown),
+	GetFollowerSpecializationAtIndex: (...unknown) -> (...unknown),
+	GetFollowerStatus: (...unknown) -> (...unknown),
+	GetFollowerTraitAtIndex: (...unknown) -> (...unknown),
+	GetFollowerTraitAtIndexByID: (...unknown) -> (...unknown),
+	GetFollowerTypeByID: (...unknown) -> (...unknown),
+	GetFollowerTypeByMissionID: (...unknown) -> (...unknown),
+	GetFollowerUnderBiasReason: (...unknown) -> (...unknown),
+	GetFollowerXP: (...unknown) -> (...unknown),
+	GetFollowerXPTable: (...unknown) -> (...unknown),
+	GetFollowerZoneSupportAbilities: (...unknown) -> (...unknown),
 	GetFollowers: (followerType: Enum_GarrisonFollowerType?) -> { GarrFollowerInfo },
-	GetFollowersSpellsForMission: (missionID: unknown) -> (),
-	GetFollowersTraitsForMission: (missionID: unknown) -> (),
+	GetFollowersSpellsForMission: (...unknown) -> (...unknown),
+	GetFollowersTraitsForMission: (...unknown) -> (...unknown),
 	GetGarrisonInfo: (garrisonType: Enum_GarrisonType) -> (number?, string?, number?, number?),
 	GetGarrisonPlotsInstancesForMap: (uiMapID: number) -> { GarrisonPlotInstanceMapInfo },
 	GetGarrisonTalentTreeCurrencyTypes: (garrTalentTreeID: number) -> number?,
 	GetGarrisonTalentTreeType: (garrTalentTreeID: number) -> number,
-	GetGarrisonUpgradeCost: (followerType: unknown) -> (),
+	GetGarrisonUpgradeCost: (...unknown) -> (...unknown),
 	GetInProgressMissions: (garrFollowerTypeID: Enum_GarrisonFollowerType) -> { MissionInfo },
-	GetLandingPageGarrisonType: () -> (),
-	GetLandingPageItems: (garrTypeID: unknown, noSort: unknown) -> (),
-	GetLandingPageShipmentCount: () -> (),
+	GetLandingPageGarrisonType: (...unknown) -> (...unknown),
+	GetLandingPageItems: (...unknown) -> (...unknown),
+	GetLandingPageShipmentCount: (...unknown) -> (...unknown),
 	GetLandingPageShipmentInfo: (buildingID: number) -> (string, string, number, number, number, number, number, string, string, number, number, number),
 	GetLandingPageShipmentInfoByContainerID: (containerID: number) -> (string, number, number, number, number, number, number, string, string, number, number, number, number),
 	GetLooseShipments: (garrisonType: Enum_GarrisonType) -> { number },
 	GetMaxCypherEquipmentLevel: () -> number,
-	GetMissionBonusAbilityEffects: (missionID: unknown) -> (),
+	GetMissionBonusAbilityEffects: (...unknown) -> (...unknown),
 	GetMissionCompleteEncounters: (missionID: number) -> { GarrisonEnemyEncounterInfo },
-	GetMissionCost: (missionID: unknown) -> (),
+	GetMissionCost: (...unknown) -> (...unknown),
 	GetMissionDeploymentInfo: (missionID: number) -> MissionDeploymentInfo,
-	GetMissionDisplayIDs: (missionID: unknown) -> (),
+	GetMissionDisplayIDs: (...unknown) -> (...unknown),
 	GetMissionEncounterIconInfo: (missionID: number) -> MissionEncounterIconInfo,
-	GetMissionLink: (missionID: unknown) -> (),
-	GetMissionMaxFollowers: (garrMissionID: unknown) -> (),
-	GetMissionName: (garrMissionID: unknown) -> (),
-	GetMissionRewardInfo: (garrMissionID: unknown, missionDBID: unknown) -> (),
-	GetMissionSuccessChance: (missionID: unknown) -> (),
-	GetMissionTexture: (offeredGarrMissionTextureID: unknown) -> (),
-	GetMissionTimes: (missionID: unknown) -> (),
-	GetMissionUncounteredMechanics: (missionID: unknown) -> (),
-	GetNumActiveFollowers: () -> (),
-	GetNumFollowerActivationsRemaining: (garrTypeID: unknown) -> (),
-	GetNumFollowerDailyActivations: () -> (),
-	GetNumFollowers: () -> (),
-	GetNumFollowersForMechanic: (followerType: unknown, mechanicID: unknown) -> (),
-	GetNumFollowersOnMission: (missionID: unknown) -> (),
-	GetNumPendingShipments: () -> (),
-	GetNumShipmentCurrencies: () -> (),
-	GetNumShipmentReagents: () -> (),
-	GetOwnedBuildingInfo: (plotInstanceID: unknown) -> (),
+	GetMissionLink: (...unknown) -> (...unknown),
+	GetMissionMaxFollowers: (...unknown) -> (...unknown),
+	GetMissionName: (...unknown) -> (...unknown),
+	GetMissionRewardInfo: (...unknown) -> (...unknown),
+	GetMissionSuccessChance: (...unknown) -> (...unknown),
+	GetMissionTexture: (...unknown) -> (...unknown),
+	GetMissionTimes: (...unknown) -> (...unknown),
+	GetMissionUncounteredMechanics: (...unknown) -> (...unknown),
+	GetNumActiveFollowers: (...unknown) -> (...unknown),
+	GetNumFollowerActivationsRemaining: (...unknown) -> (...unknown),
+	GetNumFollowerDailyActivations: (...unknown) -> (...unknown),
+	GetNumFollowers: (...unknown) -> (...unknown),
+	GetNumFollowersForMechanic: (...unknown) -> (...unknown),
+	GetNumFollowersOnMission: (...unknown) -> (...unknown),
+	GetNumPendingShipments: (...unknown) -> (...unknown),
+	GetNumShipmentCurrencies: (...unknown) -> (...unknown),
+	GetNumShipmentReagents: (...unknown) -> (...unknown),
+	GetOwnedBuildingInfo: (...unknown) -> (...unknown),
 	GetOwnedBuildingInfoAbbrev: (plotID: number) -> (number, string, string, number, number, boolean, number, number, boolean, boolean, boolean),
-	GetPartyBuffs: (missionID: unknown) -> (),
-	GetPartyMentorLevels: (missionID: unknown) -> (),
-	GetPartyMissionInfo: (missionID: unknown) -> (),
-	GetPendingShipmentInfo: (index: unknown) -> (),
-	GetPlots: (followerType: unknown) -> (),
-	GetPlotsForBuilding: (buildingID: unknown) -> (),
-	GetPossibleFollowersForBuilding: (followerType: unknown, plotInstanceID: unknown) -> (),
-	GetRecruitAbilities: (index: unknown) -> (),
-	GetRecruiterAbilityCategories: () -> (),
-	GetRecruiterAbilityList: (traits: unknown) -> (),
-	GetRecruitmentPreferences: () -> (),
-	GetShipDeathAnimInfo: () -> (),
-	GetShipmentContainerInfo: () -> (),
-	GetShipmentItemInfo: () -> (),
-	GetShipmentReagentCurrencyInfo: (currencyIndex: unknown) -> (),
-	GetShipmentReagentInfo: (reagentIndex: unknown) -> (),
-	GetShipmentReagentItemLink: (reagentIndex: unknown) -> (),
-	GetSpecChangeCost: () -> (),
-	GetTabForPlot: (plotInstanceID: unknown) -> (),
+	GetPartyBuffs: (...unknown) -> (...unknown),
+	GetPartyMentorLevels: (...unknown) -> (...unknown),
+	GetPartyMissionInfo: (...unknown) -> (...unknown),
+	GetPendingShipmentInfo: (...unknown) -> (...unknown),
+	GetPlots: (...unknown) -> (...unknown),
+	GetPlotsForBuilding: (...unknown) -> (...unknown),
+	GetPossibleFollowersForBuilding: (...unknown) -> (...unknown),
+	GetRecruitAbilities: (...unknown) -> (...unknown),
+	GetRecruiterAbilityCategories: (...unknown) -> (...unknown),
+	GetRecruiterAbilityList: (...unknown) -> (...unknown),
+	GetRecruitmentPreferences: (...unknown) -> (...unknown),
+	GetShipDeathAnimInfo: (...unknown) -> (...unknown),
+	GetShipmentContainerInfo: (...unknown) -> (...unknown),
+	GetShipmentItemInfo: (...unknown) -> (...unknown),
+	GetShipmentReagentCurrencyInfo: (...unknown) -> (...unknown),
+	GetShipmentReagentInfo: (...unknown) -> (...unknown),
+	GetShipmentReagentItemLink: (...unknown) -> (...unknown),
+	GetSpecChangeCost: (...unknown) -> (...unknown),
+	GetTabForPlot: (...unknown) -> (...unknown),
 	GetTalentInfo: (talentID: number) -> GarrisonTalentInfo,
 	GetTalentPointsSpentInTalentTree: (garrTalentTreeID: number) -> number,
 	GetTalentTreeIDsByClassID: (garrType: number, classID: number) -> { number }?,
@@ -15123,57 +15227,57 @@ declare C_Garrison: {
 	GetTalentTreeTalentPointResearchInfo: (garrTalentID: number, researchRank: number, garrTalentTreeID: number, talentPointIndex: number, isRespec: boolean) -> (number, { GarrisonTalentCurrencyCostInfo }, number),
 	GetTalentUnlockWorldQuest: (talentID: number) -> number?,
 	HasAdventures: () -> boolean,
-	HasGarrison: (garrisonType: unknown) -> (),
+	HasGarrison: (...unknown) -> (...unknown),
 	HasShipyard: () -> boolean,
-	IsAboveFollowerSoftCap: (garrFollowerTypeID: unknown) -> (),
+	IsAboveFollowerSoftCap: (...unknown) -> (...unknown),
 	IsAtGarrisonMissionNPC: () -> boolean,
 	IsEnvironmentCountered: (missionID: number) -> boolean,
-	IsFollowerCollected: (garrFollowerID: unknown) -> (),
+	IsFollowerCollected: (...unknown) -> (...unknown),
 	IsFollowerOnCompletedMission: (followerID: GarrisonFollower) -> boolean,
-	IsInvasionAvailable: () -> (),
+	IsInvasionAvailable: (...unknown) -> (...unknown),
 	IsLandingPageMinimapButtonVisible: (garrType: number) -> boolean,
-	IsMechanicFullyCountered: (missionID: unknown, followerID: unknown, mechanicID: unknown) -> (),
-	IsOnGarrisonMap: () -> (),
-	IsOnShipmentQuestForNPC: () -> (),
-	IsOnShipyardMap: () -> (),
-	IsPlayerInGarrison: (garrType: unknown) -> (),
+	IsMechanicFullyCountered: (...unknown) -> (...unknown),
+	IsOnGarrisonMap: (...unknown) -> (...unknown),
+	IsOnShipmentQuestForNPC: (...unknown) -> (...unknown),
+	IsOnShipyardMap: (...unknown) -> (...unknown),
+	IsPlayerInGarrison: (...unknown) -> (...unknown),
 	IsTalentConditionMet: (talentID: number) -> (boolean, string?),
 	IsUsingPartyGarrison: () -> boolean,
-	IsVisitGarrisonAvailable: () -> (),
+	IsVisitGarrisonAvailable: (...unknown) -> (...unknown),
 	MarkMissionComplete: (missionID: number) -> (),
 	MissionBonusRoll: (missionID: number) -> (),
-	PlaceBuilding: (plotInstanceID: unknown, buildingID: unknown) -> (),
-	RecruitFollower: (followerIndex: unknown) -> (),
+	PlaceBuilding: (...unknown) -> (...unknown),
+	RecruitFollower: (...unknown) -> (...unknown),
 	RegenerateCombatLog: (missionID: number) -> boolean,
-	RemoveFollower: (dbID: unknown) -> (),
-	RemoveFollowerFromBuilding: () -> (),
+	RemoveFollower: (...unknown) -> (...unknown),
+	RemoveFollowerFromBuilding: (...unknown) -> (...unknown),
 	RemoveFollowerFromMission: (missionID: number, followerID: GarrisonFollower, boardIndex: number?) -> (),
-	RenameFollower: (followerID: unknown, name: unknown) -> (),
-	RequestClassSpecCategoryInfo: (garrFollowerTypeID: unknown) -> (),
-	RequestGarrisonUpgradeable: (followerType: unknown) -> (),
-	RequestLandingPageShipmentInfo: () -> (),
-	RequestShipmentCreation: () -> (),
-	RequestShipmentInfo: () -> (),
-	ResearchTalent: (garrTalentID: unknown) -> (),
+	RenameFollower: (...unknown) -> (...unknown),
+	RequestClassSpecCategoryInfo: (...unknown) -> (...unknown),
+	RequestGarrisonUpgradeable: (...unknown) -> (...unknown),
+	RequestLandingPageShipmentInfo: (...unknown) -> (...unknown),
+	RequestShipmentCreation: (...unknown) -> (...unknown),
+	RequestShipmentInfo: (...unknown) -> (...unknown),
+	ResearchTalent: (...unknown) -> (...unknown),
 	RushHealAllFollowers: (followerType: number) -> (),
 	RushHealFollower: (garrFollowerID: GarrisonFollower) -> (),
-	SearchForFollower: () -> (),
+	SearchForFollower: (...unknown) -> (...unknown),
 	SetAutoCombatSpellFastForward: (state: boolean) -> (),
-	SetBuildingActive: (plotInstanceID: unknown) -> (),
-	SetBuildingSpecialization: () -> (),
-	SetFollowerFavorite: () -> (),
-	SetFollowerInactive: (followerID: unknown, inactive: unknown) -> (),
-	SetRecruitmentPreferences: (mechanicTypeID: unknown, traitID: unknown) -> (),
+	SetBuildingActive: (...unknown) -> (...unknown),
+	SetBuildingSpecialization: (...unknown) -> (...unknown),
+	SetFollowerFavorite: (...unknown) -> (...unknown),
+	SetFollowerInactive: (...unknown) -> (...unknown),
+	SetRecruitmentPreferences: (...unknown) -> (...unknown),
 	SetUsingPartyGarrison: (enabled: boolean) -> (),
-	ShouldShowMapTab: (garrType: unknown) -> (),
-	ShowFollowerNameInErrorMessage: (missionRecID: unknown) -> (),
+	ShouldShowMapTab: (...unknown) -> (...unknown),
+	ShowFollowerNameInErrorMessage: (...unknown) -> (...unknown),
 	StartMission: (missionID: number) -> (),
-	SwapBuildings: (plotInstanceID1: unknown, plotInstanceID2: unknown) -> (),
-	TargetSpellHasFollowerItemLevelUpgrade: () -> (),
-	TargetSpellHasFollowerReroll: () -> (),
-	TargetSpellHasFollowerTemporaryAbility: () -> (),
-	UpgradeBuilding: (plotInstanceID: unknown) -> (),
-	UpgradeGarrison: (followerType: unknown) -> (),
+	SwapBuildings: (...unknown) -> (...unknown),
+	TargetSpellHasFollowerItemLevelUpgrade: (...unknown) -> (...unknown),
+	TargetSpellHasFollowerReroll: (...unknown) -> (...unknown),
+	TargetSpellHasFollowerTemporaryAbility: (...unknown) -> (...unknown),
+	UpgradeBuilding: (...unknown) -> (...unknown),
+	UpgradeGarrison: (...unknown) -> (...unknown),
 }
 declare C_GenericWidgetDisplay: {
 	Acknowledge: () -> (),
@@ -15251,29 +15355,29 @@ declare C_GuildInfo: {
 }
 declare C_Heirloom: {
 	CanHeirloomUpgradeFromPending: (itemID: number) -> boolean,
-	CreateHeirloom: (itemID: unknown) -> (),
-	GetClassAndSpecFilters: () -> (),
-	GetCollectedHeirloomFilter: () -> (),
+	CreateHeirloom: (...unknown) -> (...unknown),
+	GetClassAndSpecFilters: (...unknown) -> (...unknown),
+	GetCollectedHeirloomFilter: (...unknown) -> (...unknown),
 	GetHeirloomInfo: (itemID: number) -> (string, string, boolean, string, number, number, boolean, number, number, number),
-	GetHeirloomItemIDFromDisplayedIndex: (heirloomIndex: unknown) -> (),
+	GetHeirloomItemIDFromDisplayedIndex: (...unknown) -> (...unknown),
 	GetHeirloomItemIDs: () -> { number },
-	GetHeirloomLink: (itemID: unknown) -> (),
-	GetHeirloomMaxUpgradeLevel: (itemID: unknown) -> (),
-	GetHeirloomSourceFilter: (source: unknown) -> (),
-	GetNumDisplayedHeirlooms: () -> (),
-	GetNumHeirlooms: () -> (),
-	GetNumKnownHeirlooms: () -> (),
-	GetUncollectedHeirloomFilter: () -> (),
-	IsItemHeirloom: (itemID: unknown) -> (),
-	IsPendingHeirloomUpgrade: () -> (),
-	PlayerHasHeirloom: (itemID: unknown) -> (),
-	SetClassAndSpecFilters: (classID: unknown, specID: unknown) -> (),
-	SetCollectedHeirloomFilter: (boolean: unknown) -> (),
-	SetHeirloomSourceFilter: (source: unknown, filtered: unknown) -> (),
-	SetSearch: (searchValue: unknown) -> (),
-	SetUncollectedHeirloomFilter: (boolean: unknown) -> (),
-	ShouldShowHeirloomHelp: () -> (),
-	UpgradeHeirloom: (itemID: unknown) -> (),
+	GetHeirloomLink: (...unknown) -> (...unknown),
+	GetHeirloomMaxUpgradeLevel: (...unknown) -> (...unknown),
+	GetHeirloomSourceFilter: (...unknown) -> (...unknown),
+	GetNumDisplayedHeirlooms: (...unknown) -> (...unknown),
+	GetNumHeirlooms: (...unknown) -> (...unknown),
+	GetNumKnownHeirlooms: (...unknown) -> (...unknown),
+	GetUncollectedHeirloomFilter: (...unknown) -> (...unknown),
+	IsItemHeirloom: (...unknown) -> (...unknown),
+	IsPendingHeirloomUpgrade: (...unknown) -> (...unknown),
+	PlayerHasHeirloom: (...unknown) -> (...unknown),
+	SetClassAndSpecFilters: (...unknown) -> (...unknown),
+	SetCollectedHeirloomFilter: (...unknown) -> (...unknown),
+	SetHeirloomSourceFilter: (...unknown) -> (...unknown),
+	SetSearch: (...unknown) -> (...unknown),
+	SetUncollectedHeirloomFilter: (...unknown) -> (...unknown),
+	ShouldShowHeirloomHelp: (...unknown) -> (...unknown),
+	UpgradeHeirloom: (...unknown) -> (...unknown),
 }
 declare C_HeirloomInfo: {
 	AreAllCollectionFiltersChecked: () -> boolean,
@@ -15302,11 +15406,11 @@ declare C_HouseExterior: {
 	GetCoreFixtureOptionsInfo: (coreFixtureType: Enum_HousingFixtureType) -> HousingCoreFixtureInfo?,
 	GetCurrentHouseExteriorSize: () -> Enum_HousingFixtureSize?,
 	GetCurrentHouseExteriorType: () -> (number?, string?),
-	GetFixtureDebugInfoForGUID: () -> (),
+	GetFixtureDebugInfoForGUID: (...unknown) -> (...unknown),
 	GetHouseExteriorSizeOptions: () -> HouseExteriorSizeOptionsInfo?,
 	GetHouseExteriorTypeOptions: () -> HouseExteriorTypeOptionsInfo?,
-	GetHoveredFixtureDebugInfo: () -> (),
-	GetSelectedFixtureDebugInfo: () -> (),
+	GetHoveredFixtureDebugInfo: (...unknown) -> (...unknown),
+	GetSelectedFixtureDebugInfo: (...unknown) -> (...unknown),
 	GetSelectedFixturePointInfo: () -> HousingFixturePointInfo?,
 	HasHoveredFixture: () -> boolean,
 	HasSelectedFixturePoint: () -> boolean,
@@ -15441,7 +15545,7 @@ declare C_HousingCatalog: {
 	GetCartSizeLimit: () -> number,
 	GetCatalogCategoryAndSubcategoryNames: (subcategoryID: number) -> (string?, string?),
 	GetCatalogCategoryInfo: (categoryID: number) -> HousingCatalogCategoryInfo?,
-	GetCatalogEntryDebugInfoForID: () -> (),
+	GetCatalogEntryDebugInfoForID: (...unknown) -> (...unknown),
 	GetCatalogEntryInfo: (entryID: HousingCatalogEntryID) -> HousingCatalogEntryInfo?,
 	GetCatalogEntryInfoByItem: (itemInfo: ItemInfo) -> HousingCatalogEntryInfo?,
 	GetCatalogEntryInfoByRecordID: (entryType: Enum_HousingCatalogEntryType, recordID: number) -> HousingCatalogEntryInfo?,
@@ -15518,18 +15622,18 @@ declare C_HousingDecor: {
 	GetAllSpentPlacementBudgets: () -> ({ [Enum_HousingBudgetType]: number }?, { [Enum_HousingBudgetType]: number }?),
 	GetDecorAssignedPetName: (decorGUID: WOWGUID) -> string?,
 	GetDecorCanAttachPet: (decorID: number) -> boolean,
-	GetDecorDebugInfoForGUID: () -> (),
+	GetDecorDebugInfoForGUID: (...unknown) -> (...unknown),
 	GetDecorHyperlink: (decorID: number) -> string?,
 	GetDecorIcon: (decorID: number) -> fileID?,
 	GetDecorInstanceInfoForGUID: (decorGUID: WOWGUID) -> HousingDecorInstanceInfo?,
 	GetDecorName: (decorID: number) -> string?,
-	GetHoveredDecorDebugInfo: () -> (),
+	GetHoveredDecorDebugInfo: (...unknown) -> (...unknown),
 	GetHoveredDecorInfo: () -> HousingDecorInstanceInfo?,
 	GetMaxPetPlacementBudget: () -> number?,
 	GetMaxPlacementBudget: () -> number?,
 	GetNumDecorPlaced: () -> number,
 	GetNumPreviewDecor: () -> number,
-	GetSelectedDecorDebugInfo: () -> (),
+	GetSelectedDecorDebugInfo: (...unknown) -> (...unknown),
 	GetSelectedDecorInfo: () -> HousingDecorInstanceInfo?,
 	GetSpentPetPlacementBudget: () -> number?,
 	GetSpentPlacementBudget: () -> number?,
@@ -15682,7 +15786,7 @@ declare C_Intl: {
 	FormatDateTime: (unixTimeSeconds: number, dateStyle: Enum_DateTimeStyle, timeStyle: Enum_DateTimeStyle, timeZone: string) -> string?,
 	FormatNumber: (number: number, style: Enum_NumberStyle) -> string?,
 	FormatTime: (unixTimeSeconds: number, style: Enum_DateTimeStyle, timeZone: string) -> string?,
-	GetCharacterProperties: (text: string) -> unknown,
+	GetCharacterProperties: (text: string) -> CharacterProperties?,
 	GetCurrencyFractionDigits: (currencyCode: string) -> number?,
 	GetCurrencyName: (currencyCode: string, nameStyle: Enum_CurrencyNameStyle) -> string?,
 	GetCurrentLocale: () -> string,
@@ -15691,7 +15795,7 @@ declare C_Intl: {
 	IsNormalized: (text: string, form: Enum_NormalizationForm) -> boolean,
 	Length: (text: string) -> number?,
 	Normalize: (text: string, form: Enum_NormalizationForm) -> string?,
-	ParseCurrency: (text: string) -> unknown,
+	ParseCurrency: (text: string) -> CurrencyParseResult?,
 	ParseNumber: (text: string, style: Enum_NumberStyle) -> number?,
 	SelectPlural: (number: number, pluralType: Enum_PluralType) -> string?,
 	ToLower: (text: string) -> string?,
@@ -15782,8 +15886,8 @@ declare C_Item: {
 	GetItemSetInfo: (setID: number) -> string,
 	GetItemSpecInfo: (itemInfo: ItemInfo) -> { number }?,
 	GetItemSpell: (itemInfo: ItemInfo) -> (string?, number?),
-	GetItemStatDelta: (itemLink1: string, itemLink2: string) -> LuaValueVariant?,
-	GetItemStats: (itemLink: string) -> LuaValueVariant?,
+	GetItemStatDelta: (itemLink1: string, itemLink2: string) -> unknown,
+	GetItemStats: (itemLink: string) -> unknown,
 	GetItemSubClassInfo: (itemClassID: number, itemSubClassID: number) -> (string?, boolean?),
 	GetItemUniqueness: (itemInfo: ItemInfo) -> (number?, number?),
 	GetItemUniquenessByID: (itemInfo: ItemInfo) -> (boolean?, string?, number?, number?),
@@ -15924,28 +16028,28 @@ declare C_LFGInfo: {
 	IsLFREnabled: () -> boolean,
 }
 declare C_LFGList: {
-	AcceptInvite: (resultID: unknown) -> (),
+	AcceptInvite: (...unknown) -> (...unknown),
 	ApplyToGroup: (resultID: number, tankOK: boolean?, healerOK: boolean?, damageOK: boolean?) -> (),
 	CanActiveEntryUseAutoAccept: () -> boolean,
 	CanCreateQuestGroup: (questID: number) -> boolean,
 	CanCreateScenarioGroup: (scenarioID: number) -> boolean,
-	CancelApplication: (resultID: unknown) -> (),
+	CancelApplication: (...unknown) -> (...unknown),
 	ClearApplicationTextFields: () -> (),
 	ClearCreationTextFields: () -> (),
-	ClearSearchResults: () -> (),
+	ClearSearchResults: (...unknown) -> (...unknown),
 	ClearSearchTextFields: () -> (),
 	ConfirmCensoredActiveEntry: () -> (),
 	CopyActiveEntryInfoToCreationFields: () -> (),
 	CreateListing: (createData: LfgListingCreateData) -> boolean?,
 	CreateScenarioListing: (activityID: number, itemLevel: number, autoAccept: boolean, privateGroup: boolean, scenarioID: number) -> boolean,
-	DeclineApplicant: (applicantID: unknown) -> (),
-	DeclineInvite: (searchResultID: unknown) -> (),
+	DeclineApplicant: (...unknown) -> (...unknown),
+	DeclineInvite: (...unknown) -> (...unknown),
 	DoesCensoredTextMatch: (name: string, comment: string) -> boolean,
 	DoesEntryTitleMatchPrebuiltTitle: (activityID: number, groupID: number, playstyle: Enum_LFGEntryPlaystyle?, generalPlaystyle: Enum_LFGEntryGeneralPlaystyle?) -> boolean,
 	GetActiveEntryInfo: () -> LfgEntryData?,
 	GetActivityFullName: (activityID: number, questID: number?, showWarmode: boolean?) -> string,
 	GetActivityGroupInfo: (groupID: number) -> (string?, number?),
-	GetActivityIDForQuestID: (questID: unknown) -> (),
+	GetActivityIDForQuestID: (...unknown) -> (...unknown),
 	GetActivityInfoExpensive: (activityID: number) -> boolean,
 	GetActivityInfoTable: (activityID: number, questID: number?, showWarmode: boolean?) -> GroupFinderActivityInfo?,
 	GetAdvancedFilter: () -> AdvancedFilterOptions,
@@ -15956,55 +16060,55 @@ declare C_LFGList: {
 	GetApplicantMemberStats: (applicantID: number, memberIndex: number) -> { [any]: any },
 	GetApplicantPvpRatingInfoForListing: (localID: number, applicantIndex: number, activityID: number) -> PvpRatingInfo?,
 	GetApplicants: () -> { [any]: any },
-	GetApplicationInfo: (searchResultID: unknown) -> (),
-	GetApplications: () -> (),
+	GetApplicationInfo: (...unknown) -> (...unknown),
+	GetApplications: (...unknown) -> (...unknown),
 	GetAvailableActivities: (categoryID: number?, groupID: number?, filter: number?) -> { [any]: any },
 	GetAvailableActivityGroups: (categoryID: number, filter: number?) -> { number },
 	GetAvailableCategories: (filter: number?) -> { [any]: any },
-	GetAvailableLanguageSearchFilter: () -> (),
-	GetAvailableRoles: () -> (),
-	GetDefaultLanguageSearchFilter: () -> (),
+	GetAvailableLanguageSearchFilter: (...unknown) -> (...unknown),
+	GetAvailableRoles: (...unknown) -> (...unknown),
+	GetDefaultLanguageSearchFilter: (...unknown) -> (...unknown),
 	GetFilteredSearchResults: () -> (number, { number }),
 	GetGroupLeaverCountsByRole: () -> (number, number, number),
 	GetKeystoneForActivity: (activityID: number) -> number?,
-	GetLanguageSearchFilter: () -> (),
+	GetLanguageSearchFilter: (...unknown) -> (...unknown),
 	GetLfgCategoryInfo: (categoryID: number) -> LfgCategoryData?,
-	GetNumApplicants: () -> (),
-	GetNumApplications: () -> (),
-	GetNumInvitedApplicantMembers: () -> (),
-	GetNumPendingApplicantMembers: () -> (),
+	GetNumApplicants: (...unknown) -> (...unknown),
+	GetNumApplications: (...unknown) -> (...unknown),
+	GetNumInvitedApplicantMembers: (...unknown) -> (...unknown),
+	GetNumPendingApplicantMembers: (...unknown) -> (...unknown),
 	GetOwnedKeystoneActivityAndGroupAndLevel: (getTimewalking: boolean?) -> (number?, number?, number?),
 	GetPlaystyleString: (playstyle: Enum_LFGEntryPlaystyle, generalPlaystyle: Enum_LFGEntryGeneralPlaystyle, activityInfo: GroupFinderActivityInfo) -> string,
 	GetPremadeGroupFinderStyle: () -> Enum_PremadeGroupFinderStyle,
-	GetRoleCheckInfo: () -> (),
-	GetSearchResultEncounterInfo: (searchResultID: unknown) -> (),
+	GetRoleCheckInfo: (...unknown) -> (...unknown),
+	GetSearchResultEncounterInfo: (...unknown) -> (...unknown),
 	GetSearchResultFriends: (searchResultID: number) -> ({ string }, { string }, { string }),
 	GetSearchResultInfo: (searchResultID: number) -> LfgSearchResultData?,
 	GetSearchResultLeaderInfo: (searchResultID: number) -> LfgSearchResultPlayerInfo?,
-	GetSearchResultMemberCounts: (searchResultID: unknown) -> (),
+	GetSearchResultMemberCounts: (...unknown) -> (...unknown),
 	GetSearchResultPlayerInfo: (searchResultID: number, memberIndex: number) -> LfgSearchResultPlayerInfo?,
 	GetSearchResults: () -> (number, { number }),
 	HasActiveEntryInfo: () -> boolean,
-	HasActivityList: () -> (),
+	HasActivityList: (...unknown) -> (...unknown),
 	HasSearchResultInfo: (searchResultID: number) -> boolean,
 	InviteApplicant: (applicantID: number) -> (),
 	IsCensoredActiveEntryUnresolved: () -> boolean,
-	IsCurrentlyApplying: () -> (),
+	IsCurrentlyApplying: (...unknown) -> (...unknown),
 	IsPlayerAuthenticatedForLFG: (activityCategoryID: number?) -> boolean,
 	IsPlayerValidForEndgameFieldEdits: () -> boolean,
 	IsPremadeGroupFinderEnabled: () -> boolean,
 	ListingUsesEndgameEditRestrictions: (activityID: number) -> boolean,
-	RefreshApplicants: () -> (),
-	RemoveApplicant: (applicantID: unknown) -> (),
-	RemoveListing: () -> (),
+	RefreshApplicants: (...unknown) -> (...unknown),
+	RemoveApplicant: (...unknown) -> (...unknown),
+	RemoveListing: (...unknown) -> (...unknown),
 	ReportGroupAsAdvertisement: (searchResultID: number) -> (),
-	RequestAvailableActivities: () -> (),
+	RequestAvailableActivities: (...unknown) -> (...unknown),
 	RevealCensoredActiveEntry: () -> (),
 	RevealCensoredSearchResult: (searchResultID: number) -> (),
 	SaveAdvancedFilter: (options: AdvancedFilterOptions) -> (),
-	SaveLanguageSearchFilter: (enabled: unknown) -> (),
+	SaveLanguageSearchFilter: (...unknown) -> (...unknown),
 	Search: (categoryID: number, filter: number?, preferredFilters: number?, languageFilter: WowLocale?, searchCrossFactionListings: boolean?, advancedFilter: AdvancedFilterOptions?, activityIDsFilter: { number }?) -> (),
-	SetApplicantMemberRole: (applicantID: unknown, memberIndex: unknown, role: unknown) -> (),
+	SetApplicantMemberRole: (...unknown) -> (...unknown),
 	SetEntryTitle: (activityID: number, groupID: number, playstyle: Enum_LFGEntryPlaystyle?, generalPlaystyle: Enum_LFGEntryGeneralPlaystyle?) -> (),
 	SetSearchToActivity: (activityID: number) -> (),
 	SetSearchToQuestID: (questID: number) -> (),
@@ -16467,15 +16571,15 @@ declare C_PerksProgram: {
 	SetFrozenPerksVendorItem: () -> (),
 }
 declare C_PetBattles: {
-	AcceptPVPDuel: () -> (),
-	AcceptQueuedPVPMatch: () -> (),
+	AcceptPVPDuel: (...unknown) -> (...unknown),
+	AcceptQueuedPVPMatch: (...unknown) -> (...unknown),
 	CanAcceptQueuedPVPMatch: () -> boolean,
 	CanActivePetSwapOut: () -> boolean,
 	CanPetSwapIn: (petIndex: number) -> boolean,
-	CancelPVPDuel: () -> (),
+	CancelPVPDuel: (...unknown) -> (...unknown),
 	ChangePet: (petIndex: number) -> (),
-	DeclineQueuedPVPMatch: () -> (),
-	ForfeitGame: () -> (),
+	DeclineQueuedPVPMatch: (...unknown) -> (...unknown),
+	ForfeitGame: (...unknown) -> (...unknown),
 	GetAbilityEffectInfo: (abilityID: number, turnIndex: number, effectIndex: number, effectName: string) -> number,
 	GetAbilityInfo: (petOwner: number, petIndex: number, abilityIndex: number) -> (number, string, string, number, string, number, number, boolean),
 	GetAbilityInfoByID: (id: number) -> (number, string, string, number, string, number, number, boolean),
@@ -16517,12 +16621,12 @@ declare C_PetBattles: {
 	SetPendingReportBattlePetTarget: (petIndex: number) -> (),
 	SetPendingReportTargetFromUnit: (unit: UnitToken) -> (),
 	ShouldShowPetSelect: () -> boolean,
-	SkipTurn: () -> (),
-	StartPVPDuel: () -> (),
-	StartPVPMatchmaking: () -> (),
-	StopPVPMatchmaking: () -> (),
+	SkipTurn: (...unknown) -> (...unknown),
+	StartPVPDuel: (...unknown) -> (...unknown),
+	StartPVPMatchmaking: (...unknown) -> (...unknown),
+	StopPVPMatchmaking: (...unknown) -> (...unknown),
 	UseAbility: (actionIndex: number) -> (),
-	UseTrap: () -> (),
+	UseTrap: (...unknown) -> (...unknown),
 }
 declare C_PetInfo: {
 	CanPetEatItem: (itemID: number) -> boolean,
@@ -16542,9 +16646,9 @@ declare C_PetInfo: {
 }
 declare C_PetJournal: {
 	CagePetByID: (petID: string) -> (),
-	ClearFanfare: () -> (),
+	ClearFanfare: (...unknown) -> (...unknown),
 	ClearHoveredBattlePet: () -> (),
-	ClearRecentFanfares: () -> (),
+	ClearRecentFanfares: (...unknown) -> (...unknown),
 	ClearSearchFilter: () -> (),
 	DismissSummonedPet: (petID: WOWGUID) -> (),
 	FindPetIDByName: (petName: string) -> (number, string),
@@ -16558,7 +16662,7 @@ declare C_PetJournal: {
 	GetNumPetTypes: () -> number,
 	GetNumPets: () -> (number, number),
 	GetNumPetsInJournal: (creatureID: number) -> (number, number),
-	GetNumPetsNeedingFanfare: () -> (),
+	GetNumPetsNeedingFanfare: (...unknown) -> (...unknown),
 	GetOwnedBattlePetString: (speciesId: number) -> string,
 	GetOwnedPetIDs: () -> { WOWGUID },
 	GetPetAbilityInfo: (abilityID: number) -> (string?, fileID?, number?),
@@ -16572,21 +16676,21 @@ declare C_PetJournal: {
 	GetPetInfoTableByPetID: (petID: WOWGUID) -> PetJournalPetInfo?,
 	GetPetInfoTableBySpeciesID: (speciesID: number) -> PetJournalPetInfo?,
 	GetPetLoadOutInfo: (slot: number) -> (WOWGUID?, number?, number?, number?, boolean?),
-	GetPetModelSceneInfoBySpeciesID: (speciesID: unknown) -> (),
+	GetPetModelSceneInfoBySpeciesID: (...unknown) -> (...unknown),
 	GetPetSortParameter: () -> number,
 	GetPetStats: (petID: string) -> (number, number, number, number, number),
 	GetPetSummonInfo: (battlePetGUID: WOWGUID) -> (boolean, Enum_PetJournalError, string),
 	GetPetTeamAverageLevel: () -> number,
 	GetSearchFilter: () -> string,
-	GetSummonBattlePetCooldown: () -> (),
-	GetSummonRandomFavoritePetGUID: () -> (),
+	GetSummonBattlePetCooldown: (...unknown) -> (...unknown),
+	GetSummonRandomFavoritePetGUID: (...unknown) -> (...unknown),
 	GetSummonedPetGUID: () -> string,
 	HasFavoritePets: () -> boolean,
 	IsCurrentlySummoned: (petID: WOWGUID) -> boolean,
 	IsFilterChecked: (filter: number) -> boolean,
 	IsFindBattleEnabled: () -> boolean,
-	IsJournalReadOnly: () -> (),
-	IsJournalUnlocked: () -> (),
+	IsJournalReadOnly: (...unknown) -> (...unknown),
+	IsJournalUnlocked: (...unknown) -> (...unknown),
 	IsPetSourceChecked: (index: number) -> boolean,
 	IsPetTypeChecked: (index: number) -> boolean,
 	IsUsingDefaultFilters: () -> boolean,
@@ -16594,16 +16698,16 @@ declare C_PetJournal: {
 	PetIsCapturable: (petID: string) -> boolean,
 	PetIsFavorite: (petGUID: string) -> boolean,
 	PetIsHurt: (petID: string) -> boolean,
-	PetIsLockedForConvert: (petID: unknown) -> (),
+	PetIsLockedForConvert: (...unknown) -> (...unknown),
 	PetIsRevoked: (petID: string) -> boolean,
 	PetIsSlotted: (petID: string) -> boolean,
 	PetIsSummonable: (battlePetGUID: WOWGUID) -> boolean,
 	PetIsTradable: (petID: string) -> boolean,
-	PetIsUsable: (petID: unknown) -> (),
-	PetNeedsFanfare: () -> (),
+	PetIsUsable: (...unknown) -> (...unknown),
+	PetNeedsFanfare: (...unknown) -> (...unknown),
 	PetUsesRandomDisplay: (speciesID: number) -> boolean?,
 	PickupPet: (petID: string) -> (),
-	PickupSummonRandomPet: () -> (),
+	PickupSummonRandomPet: (...unknown) -> (...unknown),
 	ReleasePetByID: (petID: string) -> (),
 	SetAbility: (slotIndex: number, spellIndex: number, petSpellID: number) -> (),
 	SetAllPetSourcesChecked: (value: boolean) -> (),
@@ -16640,7 +16744,7 @@ declare C_Ping: {
 	GetDefaultPingOptions: () -> { PingTypeInfo },
 	GetTextureKitForType: (type: Enum_PingSubjectType) -> textureKit,
 	IsPingSystemEnabled: () -> boolean,
-	SendMacroPing: (macroInfo: unknown) -> (),
+	SendMacroPing: (macroInfo: PingMacroInfo) -> (),
 	TogglePingListener: (down: boolean) -> (),
 }
 declare C_PlayerChoice: {
@@ -17045,10 +17149,10 @@ declare C_RecruitAFriend: {
 	SummonFriend: (target: WOWGUID, name: string) -> (),
 }
 declare C_Reincarnation: {
-	GetReincarnatingCharacter: () -> (),
-	IsReincarnating: () -> (),
-	StartReincarnation: () -> (),
-	StopReincarnation: () -> (),
+	GetReincarnatingCharacter: (...unknown) -> (...unknown),
+	IsReincarnating: (...unknown) -> (...unknown),
+	StartReincarnation: (...unknown) -> (...unknown),
+	StopReincarnation: (...unknown) -> (...unknown),
 }
 declare C_RemixArtifactUI: {
 	ClearRemixArtifactItem: () -> (),
@@ -17117,15 +17221,15 @@ declare C_Roleset: {
 	GetActiveBlockedRolesets: () -> { string },
 }
 declare C_Scenario: {
-	GetBonusStepRewardQuestID: (stepIndex: unknown) -> (),
-	GetBonusSteps: () -> (),
-	GetInfo: () -> (),
+	GetBonusStepRewardQuestID: (...unknown) -> (...unknown),
+	GetBonusSteps: (...unknown) -> (...unknown),
+	GetInfo: (...unknown) -> (...unknown),
 	GetProvingGroundsInfo: () -> (number, number, number, number),
-	GetStepInfo: (bonusStepIndex: unknown) -> (),
-	GetSupersededObjectives: () -> (),
-	IsInScenario: () -> (),
-	ShouldShowCriteria: () -> (),
-	TreatScenarioAsDungeon: () -> (),
+	GetStepInfo: (...unknown) -> (...unknown),
+	GetSupersededObjectives: (...unknown) -> (...unknown),
+	IsInScenario: (...unknown) -> (...unknown),
+	ShouldShowCriteria: (...unknown) -> (...unknown),
+	TreatScenarioAsDungeon: (...unknown) -> (...unknown),
 }
 declare C_ScenarioInfo: {
 	GetCriteriaInfo: (criteriaIndex: number) -> ScenarioCriteriaInfo?,
@@ -17194,16 +17298,16 @@ declare C_SettingsUtil: {
 	OpenSettingsPanel: (openToCategoryID: number?, scrollToElementName: stringView?) -> (),
 }
 declare C_SharedCharacterServices: {
-	GetLastSeenCharacterUpgradePopup: () -> (),
-	GetLastSeenExpansionTrialPopup: () -> (),
-	GetUpgradeDistributions: () -> (),
-	HasFreePromotionalUpgrade: () -> (),
-	HasSeenFreePromotionalUpgradePopup: () -> (),
-	IsPurchaseIDPendingUpgrade: () -> (),
-	QueryClassTrialBoostResult: () -> (),
-	SetCharacterUpgradePopupSeen: (expansion_id: unknown) -> (),
-	SetExpansionTrialPopupSeen: (expansion_id: unknown) -> (),
-	SetPromotionalPopupSeen: (seen: unknown) -> (),
+	GetLastSeenCharacterUpgradePopup: (...unknown) -> (...unknown),
+	GetLastSeenExpansionTrialPopup: (...unknown) -> (...unknown),
+	GetUpgradeDistributions: (...unknown) -> (...unknown),
+	HasFreePromotionalUpgrade: (...unknown) -> (...unknown),
+	HasSeenFreePromotionalUpgradePopup: (...unknown) -> (...unknown),
+	IsPurchaseIDPendingUpgrade: (...unknown) -> (...unknown),
+	QueryClassTrialBoostResult: (...unknown) -> (...unknown),
+	SetCharacterUpgradePopupSeen: (...unknown) -> (...unknown),
+	SetExpansionTrialPopupSeen: (...unknown) -> (...unknown),
+	SetPromotionalPopupSeen: (...unknown) -> (...unknown),
 }
 declare C_SkillInfo: {
 	AbandonSkill: (skillLineID: number) -> (),
@@ -17327,12 +17431,12 @@ declare C_SpecializationInfo: {
 	SetSpecialization: (specIndex: number) -> boolean,
 }
 declare C_SpectatingUI: {
-	GetSpectateTargetInfo: () -> (),
-	GetSpectatingPlayerSpellItemQuality: () -> (),
-	IsSpectating: () -> (),
-	LeaveSpectateMode: () -> (),
-	SpectateChange: () -> (),
-	StartSpectating: () -> (),
+	GetSpectateTargetInfo: (...unknown) -> (...unknown),
+	GetSpectatingPlayerSpellItemQuality: (...unknown) -> (...unknown),
+	IsSpectating: (...unknown) -> (...unknown),
+	LeaveSpectateMode: (...unknown) -> (...unknown),
+	SpectateChange: (...unknown) -> (...unknown),
+	StartSpectating: (...unknown) -> (...unknown),
 }
 declare C_Spell: {
 	CancelAutoRepeatSpell: () -> boolean?,
@@ -17509,7 +17613,7 @@ declare C_StringUtil: {
 	EscapeLuaPatterns: (text: stringView) -> string,
 	EscapeQuotedCodes: (text: string) -> stringView,
 	FloorToNearestString: (number: number) -> string,
-	GetDefaultAbbreviationBreakpoints: () -> (),
+	GetDefaultAbbreviationBreakpoints: (...unknown) -> (...unknown),
 	RemoveContiguousSpaces: (text: stringView, maxAllowedSpaces: number) -> string,
 	RoundToNearestString: (number: number) -> string,
 	StripHyperlinks: (text: string, maintainColor: boolean?, maintainBrackets: boolean?, stripNewlines: boolean?, maintainAtlases: boolean?, maintainTextures: boolean?) -> stringView,
@@ -17580,12 +17684,12 @@ declare C_TTSSettings: {
 	ShouldOverrideMessage: (language: number, messageText: string) -> boolean,
 }
 declare C_TalkingHead: {
-	GetConversationsDeferred: () -> (),
-	GetCurrentLineAnimationInfo: () -> (),
-	GetCurrentLineInfo: () -> (),
-	IgnoreCurrentTalkingHead: () -> (),
-	IsCurrentTalkingHeadIgnored: () -> (),
-	SetConversationsDeferred: (deferred: unknown) -> (),
+	GetConversationsDeferred: (...unknown) -> (...unknown),
+	GetCurrentLineAnimationInfo: (...unknown) -> (...unknown),
+	GetCurrentLineInfo: (...unknown) -> (...unknown),
+	IgnoreCurrentTalkingHead: (...unknown) -> (...unknown),
+	IsCurrentTalkingHeadIgnored: (...unknown) -> (...unknown),
+	SetConversationsDeferred: (...unknown) -> (...unknown),
 }
 declare C_TaskQuest: {
 	DoesMapShowTaskQuestObjectives: (uiMapID: number) -> boolean,
@@ -17622,7 +17726,7 @@ declare C_Texture: {
 declare C_Timer: {
 	After: (seconds: number, callback: TimerCallback) -> (),
 	NewTicker: (seconds: number, callback: TickerCallback, iterations: number?) -> FunctionContainer,
-	NewTimedSignalMap: (callback: unknown) -> TimedSignalMap,
+	NewTimedSignalMap: (callback: TimedSignalMapCallback) -> TimedSignalMap,
 	NewTimer: (seconds: number, callback: TickerCallback) -> FunctionContainer,
 }
 declare C_TimerunningUI: {
@@ -17718,32 +17822,32 @@ declare C_TooltipInfo: {
 	GetWorldLootObject: (unitTokenString: string) -> TooltipData?,
 }
 declare C_ToyBox: {
-	ForceToyRefilter: () -> (),
-	GetCollectedShown: () -> (),
-	GetIsFavorite: (itemID: unknown) -> (),
-	GetNumFilteredToys: () -> (),
-	GetNumLearnedDisplayedToys: () -> (),
-	GetNumTotalDisplayedToys: () -> (),
+	ForceToyRefilter: (...unknown) -> (...unknown),
+	GetCollectedShown: (...unknown) -> (...unknown),
+	GetIsFavorite: (...unknown) -> (...unknown),
+	GetNumFilteredToys: (...unknown) -> (...unknown),
+	GetNumLearnedDisplayedToys: (...unknown) -> (...unknown),
+	GetNumTotalDisplayedToys: (...unknown) -> (...unknown),
 	GetNumToys: () -> number,
 	GetToyFromIndex: (index: number) -> number,
 	GetToyInfo: (itemID: number) -> (number, string, number, boolean, boolean, Enum_ItemQuality),
 	GetToyLink: (itemID: number) -> string?,
-	GetUncollectedShown: () -> (),
-	GetUnusableShown: () -> (),
-	HasFavorites: () -> (),
-	IsExpansionTypeFilterChecked: (expansionIndex: unknown) -> (),
-	IsSourceTypeFilterChecked: (sourceIndex: unknown) -> (),
-	IsToyUsable: (itemID: unknown) -> (),
-	PickupToyBoxItem: (itemID: unknown) -> (),
-	SetAllExpansionTypeFilters: (checked: unknown) -> (),
-	SetAllSourceTypeFilters: (checked: unknown) -> (),
-	SetCollectedShown: (checked: unknown) -> (),
-	SetExpansionTypeFilter: (expansionIndex: unknown, checked: unknown) -> (),
-	SetFilterString: (searchString: unknown) -> (),
-	SetIsFavorite: (itemID: unknown, value: unknown) -> (),
-	SetSourceTypeFilter: (sourceIndex: unknown, checked: unknown) -> (),
-	SetUncollectedShown: (checked: unknown) -> (),
-	SetUnusableShown: (checked: unknown) -> (),
+	GetUncollectedShown: (...unknown) -> (...unknown),
+	GetUnusableShown: (...unknown) -> (...unknown),
+	HasFavorites: (...unknown) -> (...unknown),
+	IsExpansionTypeFilterChecked: (...unknown) -> (...unknown),
+	IsSourceTypeFilterChecked: (...unknown) -> (...unknown),
+	IsToyUsable: (...unknown) -> (...unknown),
+	PickupToyBoxItem: (...unknown) -> (...unknown),
+	SetAllExpansionTypeFilters: (...unknown) -> (...unknown),
+	SetAllSourceTypeFilters: (...unknown) -> (...unknown),
+	SetCollectedShown: (...unknown) -> (...unknown),
+	SetExpansionTypeFilter: (...unknown) -> (...unknown),
+	SetFilterString: (...unknown) -> (...unknown),
+	SetIsFavorite: (...unknown) -> (...unknown),
+	SetSourceTypeFilter: (...unknown) -> (...unknown),
+	SetUncollectedShown: (...unknown) -> (...unknown),
+	SetUnusableShown: (...unknown) -> (...unknown),
 }
 declare C_ToyBoxInfo: {
 	ClearFanfare: (itemID: number) -> (),
@@ -17760,28 +17864,28 @@ declare C_TradeInfo: {
 	ShouldShowTradeOfferWarning: () -> boolean,
 }
 declare C_TradeSkillUI: {
-	AnyRecipeCategoriesFiltered: () -> (),
-	AreAnyInventorySlotsFiltered: () -> (),
-	CanObliterateCursorItem: () -> (),
+	AnyRecipeCategoriesFiltered: (...unknown) -> (...unknown),
+	AreAnyInventorySlotsFiltered: (...unknown) -> (...unknown),
+	CanObliterateCursorItem: (...unknown) -> (...unknown),
 	CanStoreEnchantInItem: (itemGUID: WOWGUID) -> boolean,
-	CanTradeSkillListLink: () -> (),
+	CanTradeSkillListLink: (...unknown) -> (...unknown),
 	CanTradeSkillShowCraftingUI: (tradeSkillSpellID: number) -> boolean,
 	CancelProfessionRespec: () -> (),
 	CheckRespecNPC: () -> boolean,
-	ClearInventorySlotFilter: () -> (),
-	ClearPendingObliterateItem: () -> (),
-	ClearRecipeCategoryFilter: () -> (),
-	ClearRecipeSourceTypeFilter: () -> (),
-	CloseObliterumForge: () -> (),
+	ClearInventorySlotFilter: (...unknown) -> (...unknown),
+	ClearPendingObliterateItem: (...unknown) -> (...unknown),
+	ClearRecipeCategoryFilter: (...unknown) -> (...unknown),
+	ClearRecipeSourceTypeFilter: (...unknown) -> (...unknown),
+	CloseObliterumForge: (...unknown) -> (...unknown),
 	CloseTradeSkill: () -> (),
 	ConfirmProfessionRespec: () -> (),
 	CraftEnchant: (recipeSpellID: number, numCasts: number?, craftingReagents: { CraftingReagentInfo }?, itemTarget: ItemLocationMixin?, applyConcentration: boolean?) -> (),
 	CraftRecipe: (recipeSpellID: number, numCasts: number?, craftingReagents: { CraftingReagentInfo }?, recipeLevel: number?, orderID: BigUInteger?, applyConcentration: boolean?) -> (),
 	CraftSalvage: (recipeSpellID: number, numCasts: number?, itemTarget: ItemLocationMixin, craftingReagents: { CraftingReagentInfo }?, applyConcentration: boolean?) -> (),
 	DoesRecraftingRecipeAcceptItem: (itemLocation: ItemLocationMixin, recipeID: number) -> boolean,
-	DropPendingObliterateItemFromCursor: () -> (),
-	GetAllFilterableInventorySlots: () -> (),
-	GetAllFilterableInventorySlotsCount: () -> (),
+	DropPendingObliterateItemFromCursor: (...unknown) -> (...unknown),
+	GetAllFilterableInventorySlots: (...unknown) -> (...unknown),
+	GetAllFilterableInventorySlotsCount: (...unknown) -> (...unknown),
 	GetAllProfessionTradeSkillLines: () -> { number },
 	GetAllRecipeIDs: () -> { number },
 	GetBaseProfessionInfo: () -> ProfessionInfo,
@@ -17798,9 +17902,9 @@ declare C_TradeSkillUI: {
 	GetDependentReagents: (reagent: CraftingReagent) -> { CraftingReagent },
 	GetEnchantItems: (recipeID: number, craftingReagents: { CraftingReagentInfo }?) -> { WOWGUID },
 	GetFactionSpecificOutputItem: (recipeSpellID: number) -> number?,
-	GetFilterableInventorySlotName: () -> (),
-	GetFilterableInventorySlots: () -> (),
-	GetFilteredRecipeIDs: () -> (),
+	GetFilterableInventorySlotName: (...unknown) -> (...unknown),
+	GetFilterableInventorySlots: (...unknown) -> (...unknown),
+	GetFilteredRecipeIDs: (...unknown) -> (...unknown),
 	GetGatheringOperationInfo: (recipeID: number) -> GatheringOperationInfo?,
 	GetHideUnownedFlags: (recipeID: number) -> (boolean, boolean),
 	GetItemCraftedQualityByItemInfo: (itemInfo: ItemInfo) -> number?,
@@ -17809,13 +17913,13 @@ declare C_TradeSkillUI: {
 	GetItemReagentQualityInfo: (itemInfo: ItemInfo) -> CraftingQualityInfo?,
 	GetItemSlotModifications: (itemGUID: WOWGUID) -> { CraftingItemSlotModification },
 	GetItemSlotModificationsForOrder: (orderID: BigUInteger) -> { CraftingItemSlotModification },
-	GetObliterateSpellID: () -> (),
-	GetOnlyShowFirstCraftRecipes: () -> (),
-	GetOnlyShowMakeableRecipes: () -> (),
-	GetOnlyShowSkillUpRecipes: () -> (),
+	GetObliterateSpellID: (...unknown) -> (...unknown),
+	GetOnlyShowFirstCraftRecipes: (...unknown) -> (...unknown),
+	GetOnlyShowMakeableRecipes: (...unknown) -> (...unknown),
+	GetOnlyShowSkillUpRecipes: (...unknown) -> (...unknown),
 	GetOriginalCraftRecipeID: (itemGUID: WOWGUID) -> (number?, number?),
-	GetPendingObliterateItemID: () -> (),
-	GetPendingObliterateItemLink: () -> (),
+	GetPendingObliterateItemID: (...unknown) -> (...unknown),
+	GetPendingObliterateItemLink: (...unknown) -> (...unknown),
 	GetProfessionByInventorySlot: (slot: number) -> Enum_Profession?,
 	GetProfessionChildSkillLineID: () -> number,
 	GetProfessionForCursorItem: () -> Enum_Profession?,
@@ -17829,21 +17933,21 @@ declare C_TradeSkillUI: {
 	GetQualitiesForRecipe: (recipeID: number) -> { number }?,
 	GetReagentDifficultyText: (craftingReagentIndex: number, craftingReagents: { CraftingReagentInfo }) -> string,
 	GetReagentSlotStatus: (mcrSlotID: number, recipeSpellID: number, skillLineAbilityID: number) -> (boolean, string),
-	GetRecipeCooldown: (recipeID: unknown) -> (),
+	GetRecipeCooldown: (...unknown) -> (...unknown),
 	GetRecipeDescription: (recipeID: number, craftingReagents: { CraftingReagentInfo }, allocationItemGUID: WOWGUID?) -> string,
 	GetRecipeInfo: (recipeSpellID: number, recipeLevel: number?) -> TradeSkillRecipeInfo?,
 	GetRecipeInfoForSkillLineAbility: (skillLineAbilityID: number, recipeLevel: number?) -> TradeSkillRecipeInfo?,
-	GetRecipeItemLevelFilter: () -> (),
+	GetRecipeItemLevelFilter: (...unknown) -> (...unknown),
 	GetRecipeItemLink: (recipeId: number) -> string,
-	GetRecipeItemNameFilter: () -> (),
+	GetRecipeItemNameFilter: (...unknown) -> (...unknown),
 	GetRecipeItemQualityInfo: (recipeID: number, quality: number) -> CraftingQualityInfo?,
-	GetRecipeLink: (recipeID: unknown) -> (),
+	GetRecipeLink: (...unknown) -> (...unknown),
 	GetRecipeOutputItemData: (recipeSpellID: number, reagents: { CraftingReagentInfo }?, allocationItemGUID: WOWGUID?, overrideQualityID: number?, recraftOrderID: BigUInteger?) -> CraftingRecipeOutputInfo,
 	GetRecipeQualityItemIDs: (recipeSpellID: number) -> { number }?,
 	GetRecipeQualityReagentLink: (recipeID: number, dataSlotIndex: number, qualityIndex: number) -> string,
 	GetRecipeRequirements: (recipeID: number) -> { CraftingRecipeRequirement },
 	GetRecipeSchematic: (recipeSpellID: number, isRecraft: boolean, recipeLevel: number?) -> CraftingRecipeSchematic,
-	GetRecipeSourceText: (recipeID: unknown) -> (),
+	GetRecipeSourceText: (...unknown) -> (...unknown),
 	GetRecipesTracked: (isRecraft: boolean) -> { number },
 	GetRecraftItems: (recipeID: number?) -> { WOWGUID },
 	GetRecraftRemovalWarnings: (itemGUID: WOWGUID, replacedReagents: { CraftingReagent }) -> { string },
@@ -17853,60 +17957,60 @@ declare C_TradeSkillUI: {
 	GetShowUnlearned: () -> boolean,
 	GetSkillLineForGear: (itemInfo: ItemInfo) -> number?,
 	GetSourceTypeFilter: () -> number,
-	GetSubCategories: (categoryID: unknown) -> (),
+	GetSubCategories: (...unknown) -> (...unknown),
 	GetTradeSkillDisplayName: (skillLineID: number) -> string,
 	GetTradeSkillLineForRecipe: (recipeID: number) -> (number, string, number),
 	GetTradeSkillListLink: () -> string?,
-	GetTradeSkillTexture: (tradeSkillID: unknown) -> (),
+	GetTradeSkillTexture: (...unknown) -> (...unknown),
 	HasFavoriteOrderRecipes: () -> boolean,
 	HasNoReagentCost: (recipeID: number) -> boolean,
-	IsAnyRecipeFromSource: (sourceType: unknown) -> (),
-	IsDataSourceChanging: () -> (),
+	IsAnyRecipeFromSource: (...unknown) -> (...unknown),
+	IsDataSourceChanging: (...unknown) -> (...unknown),
 	IsEnchantTargetValid: (recipeID: number, itemGUID: WOWGUID, craftingReagents: { CraftingReagentInfo }?) -> boolean,
 	IsGuildTradeSkillsEnabled: () -> boolean,
-	IsInventorySlotFiltered: (index: unknown) -> (),
+	IsInventorySlotFiltered: (...unknown) -> (...unknown),
 	IsNPCCrafting: () -> boolean,
 	IsNearProfessionSpellFocus: (profession: Enum_Profession) -> boolean,
 	IsOriginalCraftRecipeLearned: (itemGUID: WOWGUID) -> boolean,
-	IsRecipeCategoryFiltered: (categoryID: unknown, subCategoryID: unknown) -> (),
-	IsRecipeFavorite: (recipeID: unknown) -> (),
+	IsRecipeCategoryFiltered: (...unknown) -> (...unknown),
+	IsRecipeFavorite: (...unknown) -> (...unknown),
 	IsRecipeFirstCraft: (recipeID: number) -> boolean,
 	IsRecipeInBaseSkillLine: (recipeID: number) -> boolean,
 	IsRecipeInSkillLine: (recipeID: number, skillLineID: number) -> boolean,
 	IsRecipeProfessionLearned: (recipeID: number) -> boolean,
-	IsRecipeRepeating: () -> (),
-	IsRecipeSearchInProgress: () -> (),
-	IsRecipeSourceTypeFiltered: (sourceType: unknown) -> (),
+	IsRecipeRepeating: (...unknown) -> (...unknown),
+	IsRecipeSearchInProgress: (...unknown) -> (...unknown),
+	IsRecipeSourceTypeFiltered: (...unknown) -> (...unknown),
 	IsRecipeTracked: (recipeID: number, isRecraft: boolean) -> boolean,
 	IsRecraftItemEquipped: (recraftItemGUID: WOWGUID) -> boolean,
 	IsRecraftReagentValid: (itemGUID: WOWGUID, reagent: CraftingReagent) -> boolean,
 	IsRuneforging: () -> boolean,
 	IsTradeSkillGuild: () -> boolean,
-	IsTradeSkillGuildMember: () -> (),
+	IsTradeSkillGuildMember: (...unknown) -> (...unknown),
 	IsTradeSkillLinked: () -> boolean,
 	IsTradeSkillReady: () -> boolean,
-	ObliterateItem: () -> (),
+	ObliterateItem: (...unknown) -> (...unknown),
 	OpenRecipe: (recipeID: number) -> (),
 	OpenTradeSkill: (skillLineID: number) -> boolean,
 	RecraftLimitCategoryValid: (reagent: CraftingReagent) -> boolean,
 	RecraftRecipe: (itemGUID: WOWGUID, craftingReagents: { CraftingReagentInfo }?, removedModifications: { CraftingItemSlotModification }?, applyConcentration: boolean?) -> boolean,
 	RecraftRecipeForOrder: (orderID: BigUInteger, itemGUID: WOWGUID, craftingReagents: { CraftingReagentInfo }?, removedModifications: { CraftingItemSlotModification }?, applyConcentration: boolean?) -> boolean,
-	SetInventorySlotFilter: (index: unknown, enable: unknown, exclusive: unknown) -> (),
+	SetInventorySlotFilter: (...unknown) -> (...unknown),
 	SetOnlyShowAvailableForOrders: (flag: boolean) -> (),
-	SetOnlyShowFirstCraftRecipes: () -> (),
-	SetOnlyShowMakeableRecipes: (onlyMakable: unknown) -> (),
+	SetOnlyShowFirstCraftRecipes: (...unknown) -> (...unknown),
+	SetOnlyShowMakeableRecipes: (...unknown) -> (...unknown),
 	SetOnlyShowSkillUpRecipes: (flag: boolean) -> (),
 	SetProfessionChildSkillLineID: (skillLineID: number) -> (),
-	SetRecipeCategoryFilter: (categoryID: unknown, subCategoryID: unknown) -> (),
-	SetRecipeFavorite: (recipeID: unknown, favorite: unknown) -> (),
-	SetRecipeItemLevelFilter: (minLevel: unknown, maxLevel: unknown) -> (),
+	SetRecipeCategoryFilter: (...unknown) -> (...unknown),
+	SetRecipeFavorite: (...unknown) -> (...unknown),
+	SetRecipeItemLevelFilter: (...unknown) -> (...unknown),
 	SetRecipeItemNameFilter: (text: string?) -> (),
-	SetRecipeSourceTypeFilter: (sourceType: unknown, filtered: unknown) -> (),
+	SetRecipeSourceTypeFilter: (...unknown) -> (...unknown),
 	SetRecipeTracked: (recipeID: number, tracked: boolean, isRecraft: boolean) -> (),
 	SetShowLearned: (flag: boolean) -> (),
 	SetShowUnlearned: (flag: boolean) -> (),
 	SetSourceTypeFilter: (sourceTypeFilter: number) -> (),
-	StopRecipeRepeat: () -> (),
+	StopRecipeRepeat: (...unknown) -> (...unknown),
 }
 declare C_Trainer: {
 	GetCategorizeTrainerUI: () -> boolean,
@@ -18177,15 +18281,15 @@ declare C_TransmogSets: {
 	SetTransmogSetsClassFilter: (classID: number) -> (),
 }
 declare C_Trophy: {
-	MonumentChangeAppearanceToTrophyID: (trophyID: unknown) -> (),
-	MonumentCloseMonumentUI: () -> (),
-	MonumentGetCount: () -> (),
-	MonumentGetSelectedTrophyID: () -> (),
-	MonumentGetTrophyInfoByIndex: (index: unknown) -> (),
-	MonumentLoadList: () -> (),
-	MonumentLoadSelectedTrophyID: () -> (),
-	MonumentRevertAppearanceToSaved: () -> (),
-	MonumentSaveSelection: (trophyID: unknown) -> (),
+	MonumentChangeAppearanceToTrophyID: (...unknown) -> (...unknown),
+	MonumentCloseMonumentUI: (...unknown) -> (...unknown),
+	MonumentGetCount: (...unknown) -> (...unknown),
+	MonumentGetSelectedTrophyID: (...unknown) -> (...unknown),
+	MonumentGetTrophyInfoByIndex: (...unknown) -> (...unknown),
+	MonumentLoadList: (...unknown) -> (...unknown),
+	MonumentLoadSelectedTrophyID: (...unknown) -> (...unknown),
+	MonumentRevertAppearanceToSaved: (...unknown) -> (...unknown),
+	MonumentSaveSelection: (...unknown) -> (...unknown),
 }
 declare C_Tutorial: {
 	AbandonTutorialArea: () -> (),
@@ -18255,7 +18359,7 @@ declare C_UIWidgetManager: {
 	UnregisterUnitForWidgetUpdates: (unitToken: string, isGuid: boolean?) -> (),
 }
 declare C_UnitAuras: {
-	AddAuraSound: (trigger: Enum_UnitAuraSoundTrigger, sound: unknown) -> number?,
+	AddAuraSound: (trigger: Enum_UnitAuraSoundTrigger, sound: UnitAuraSoundInfo) -> number?,
 	AddBlockedAura: (unit: UnitTokenRestrictedForAddOns, auraInstanceID: number) -> (),
 	AddPrivateAuraAnchor: (args: AddPrivateAuraAnchorArgs) -> number?,
 	AuraIsBigDefensive: (spellID: SpellIdentifier) -> boolean,
@@ -18276,7 +18380,7 @@ declare C_UnitAuras: {
 	GetBuffDataByIndex: (unit: UnitTokenRestrictedForAddOns, index: number, filter: AuraFilters?) -> AuraData?,
 	GetCooldownAuraBySpellID: (spellID: SpellIdentifier) -> number?,
 	GetDebuffDataByIndex: (unit: UnitTokenRestrictedForAddOns, index: number, filter: AuraFilters?) -> AuraData?,
-	GetGroupBuffVisualAlerts: () -> { unknown },
+	GetGroupBuffVisualAlerts: () -> { GroupBuffVisualAlertInfo },
 	GetHiddenGroupBuffs: () -> { number },
 	GetPlayerAuraBySpellID: (spellID: SpellIdentifier) -> AuraData?,
 	GetRefreshCarryOverDuration: (auraInstanceUnit: UnitToken, auraInstanceID: number, spellID: SpellIdentifier?) -> number?,
@@ -18288,7 +18392,7 @@ declare C_UnitAuras: {
 	RemoveAuraSound: (auraSoundID: number) -> (),
 	RemovePrivateAuraAnchor: (anchorID: number) -> (),
 	ResetAuraDataProvider: () -> (),
-	SetGroupBuffVisualAlerts: (visualAlerts: { unknown }) -> (),
+	SetGroupBuffVisualAlerts: (visualAlerts: { GroupBuffVisualAlertInfo }) -> (),
 	SetHiddenGroupBuffs: (spellIDs: { number }) -> (),
 	SetPrivateWarningTextAnchor: (parent: Frame, anchor: AnchorBinding?) -> (),
 	SwitchAuraDataProvider: () -> (),
@@ -18320,21 +18424,21 @@ declare C_VignetteInfo: {
 	GetVignettes: () -> { WOWGUID },
 }
 declare C_VoiceChat: {
-	ActivateChannel: (channelID: unknown) -> (),
-	ActivateChannelTranscription: (channelID: unknown) -> (),
+	ActivateChannel: (channelID: number) -> (),
+	ActivateChannelTranscription: (channelID: number) -> (),
 	BeginLocalCapture: (listenToLocalUser: boolean) -> (),
 	CanAccessSettings: () -> boolean,
 	CanPlayerUseVoiceChat: () -> boolean,
 	CreateChannel: (channelDisplayName: string) -> Enum_VoiceChatStatusCode,
-	DeactivateChannel: (channelID: unknown) -> (),
-	DeactivateChannelTranscription: (channelID: unknown) -> (),
+	DeactivateChannel: (channelID: number) -> (),
+	DeactivateChannelTranscription: (channelID: number) -> (),
 	EndLocalCapture: () -> (),
-	GetActiveChannelID: () -> unknown,
+	GetActiveChannelID: () -> number?,
 	GetActiveChannelType: () -> Enum_ChatChannelType?,
 	GetActiveVoiceProviderID: () -> Enum_VoiceProviderID,
 	GetAvailableInputDevices: () -> { VoiceAudioDevice }?,
 	GetAvailableOutputDevices: () -> { VoiceAudioDevice }?,
-	GetChannel: (channelID: unknown) -> VoiceChatChannel?,
+	GetChannel: (channelID: number) -> VoiceChatChannel?,
 	GetChannelForChannelType: (channelType: Enum_ChatChannelType) -> VoiceChatChannel?,
 	GetChannelForCommunityStream: (clubId: ClubId, streamId: ClubStreamId) -> VoiceChatChannel?,
 	GetCommunicationMode: () -> Enum_CommunicationMode?,
@@ -18342,12 +18446,12 @@ declare C_VoiceChat: {
 	GetInputVolume: () -> number?,
 	GetJoinClubVoiceChannelError: (clubId: ClubId) -> Enum_VoiceChannelErrorReason?,
 	GetLocalPlayerActiveChannelMemberInfo: () -> VoiceChatMember?,
-	GetLocalPlayerMemberID: (channelID: unknown) -> unknown,
+	GetLocalPlayerMemberID: (channelID: number) -> number?,
 	GetMasterVolumeScale: () -> number,
-	GetMemberGUID: (memberID: unknown, channelID: unknown) -> WOWGUID,
-	GetMemberID: (channelID: unknown, memberGUID: WOWGUID) -> unknown,
-	GetMemberInfo: (memberID: unknown, channelID: unknown) -> VoiceChatMember?,
-	GetMemberName: (memberID: unknown, channelID: unknown) -> string?,
+	GetMemberGUID: (memberID: number, channelID: number) -> WOWGUID,
+	GetMemberID: (channelID: number, memberGUID: WOWGUID) -> number?,
+	GetMemberInfo: (memberID: number, channelID: number) -> VoiceChatMember?,
+	GetMemberName: (memberID: number, channelID: number) -> string?,
 	GetMemberVolume: (playerLocation: PlayerLocationMixin) -> number?,
 	GetOutputVolume: () -> number?,
 	GetPTTButtonPressedState: () -> boolean?,
@@ -18360,10 +18464,10 @@ declare C_VoiceChat: {
 	IsDeafened: () -> boolean?,
 	IsEnabled: () -> boolean,
 	IsLoggedIn: () -> boolean,
-	IsMemberLocalPlayer: (memberID: unknown, channelID: unknown) -> boolean,
+	IsMemberLocalPlayer: (memberID: number, channelID: number) -> boolean,
 	IsMemberMuted: (playerLocation: PlayerLocationMixin) -> boolean?,
-	IsMemberMutedForAll: (memberID: unknown, channelID: unknown) -> boolean?,
-	IsMemberSilenced: (memberID: unknown, channelID: unknown) -> boolean?,
+	IsMemberMutedForAll: (memberID: number, channelID: number) -> boolean?,
+	IsMemberSilenced: (memberID: number, channelID: number) -> boolean?,
 	IsMuted: () -> boolean?,
 	IsParentalDisabled: () -> boolean,
 	IsParentalMuted: () -> boolean,
@@ -18374,7 +18478,7 @@ declare C_VoiceChat: {
 	IsTranscribing: () -> boolean,
 	IsTranscriptionAllowed: () -> boolean,
 	IsVoiceChatConnected: () -> boolean,
-	LeaveChannel: (channelID: unknown) -> (),
+	LeaveChannel: (channelID: number) -> (),
 	Login: (channelType: Enum_ChatChannelType?) -> Enum_VoiceChatStatusCode,
 	Logout: () -> Enum_VoiceChatStatusCode,
 	MarkChannelsDiscovered: () -> (),
@@ -18392,7 +18496,7 @@ declare C_VoiceChat: {
 	SetMuted: (isMuted: boolean) -> (),
 	SetOutputDevice: (deviceID: string) -> (),
 	SetOutputVolume: (volume: number) -> (),
-	SetPortraitTexture: (textureObject: Texture, memberID: unknown, channelID: unknown) -> (),
+	SetPortraitTexture: (textureObject: Texture, memberID: number, channelID: number) -> (),
 	SetPushToTalkBinding: (keys: { string }) -> (),
 	SetVADSensitivity: (sensitivity: number) -> (),
 	ShouldDiscoverChannels: () -> boolean,
@@ -18440,35 +18544,35 @@ declare C_WeeklyRewards: {
 }
 declare C_Widget: {
 	IsFrameWidget: (object: Object?) -> boolean,
-	IsRenderableWidget: (object: unknown) -> (),
+	IsRenderableWidget: (...unknown) -> (...unknown),
 	IsWidget: (object: Object?) -> boolean,
 }
 declare C_WoWLabsMatchmaking: {
-	AcceptPartyInvite: () -> (),
-	CanEnterMatchmaking: () -> (),
-	ClearFastLogin: () -> (),
-	DeclinePartyInvite: () -> (),
-	GetAutoQueueOnLogout: () -> (),
-	GetCurrentParty: () -> (),
-	GetInQueueTimeStart: () -> (),
-	GetNumPartyInvites: () -> (),
-	GetPartyInviteByIndex: () -> (),
-	GetPartyPlaylistEntry: () -> (),
-	GetPartySize: () -> (),
-	IsAloneInWoWLabsParty: () -> (),
-	IsFastLogin: () -> (),
-	IsFindingMatch: () -> (),
-	IsPartyFull: () -> (),
-	IsPartyLeader: () -> (),
-	IsPlayer: () -> (),
-	IsPlayerReady: () -> (),
-	IsWowLabsMatchmakingMember: () -> (),
-	LeaveParty: () -> (),
-	RemovePlayerFromParty: () -> (),
-	SendPartyInvite: () -> (),
-	SetAutoQueueOnLogout: () -> (),
-	SetPartyPlaylistEntry: () -> (),
-	SetPlayerReady: () -> (),
+	AcceptPartyInvite: (...unknown) -> (...unknown),
+	CanEnterMatchmaking: (...unknown) -> (...unknown),
+	ClearFastLogin: (...unknown) -> (...unknown),
+	DeclinePartyInvite: (...unknown) -> (...unknown),
+	GetAutoQueueOnLogout: (...unknown) -> (...unknown),
+	GetCurrentParty: (...unknown) -> (...unknown),
+	GetInQueueTimeStart: (...unknown) -> (...unknown),
+	GetNumPartyInvites: (...unknown) -> (...unknown),
+	GetPartyInviteByIndex: (...unknown) -> (...unknown),
+	GetPartyPlaylistEntry: (...unknown) -> (...unknown),
+	GetPartySize: (...unknown) -> (...unknown),
+	IsAloneInWoWLabsParty: (...unknown) -> (...unknown),
+	IsFastLogin: (...unknown) -> (...unknown),
+	IsFindingMatch: (...unknown) -> (...unknown),
+	IsPartyFull: (...unknown) -> (...unknown),
+	IsPartyLeader: (...unknown) -> (...unknown),
+	IsPlayer: (...unknown) -> (...unknown),
+	IsPlayerReady: (...unknown) -> (...unknown),
+	IsWowLabsMatchmakingMember: (...unknown) -> (...unknown),
+	LeaveParty: (...unknown) -> (...unknown),
+	RemovePlayerFromParty: (...unknown) -> (...unknown),
+	SendPartyInvite: (...unknown) -> (...unknown),
+	SetAutoQueueOnLogout: (...unknown) -> (...unknown),
+	SetPartyPlaylistEntry: (...unknown) -> (...unknown),
+	SetPlayerReady: (...unknown) -> (...unknown),
 }
 declare C_WorldLootObject: {
 	DoesSlotMatchInventoryType: (slot: number, inventoryType: Enum_InventoryType) -> boolean,
@@ -18481,30 +18585,30 @@ declare C_WorldLootObject: {
 	OnWorldLootObjectClick: (unitToken: UnitToken, isLeftClick: boolean) -> (),
 }
 declare C_WowLabsDataManager: {
-	GetConfirmedWoWLabsArea: () -> (),
-	GetWoWLabsAreaInfo: () -> (),
-	IsInPrematch: () -> (),
-	PushCircleInfoToLua: () -> (),
-	QuerySelectedWoWLabsArea: () -> (),
-	QueryWoWLabsAreaInfo: () -> (),
-	SelectWoWLabsArea: () -> (),
+	GetConfirmedWoWLabsArea: (...unknown) -> (...unknown),
+	GetWoWLabsAreaInfo: (...unknown) -> (...unknown),
+	IsInPrematch: (...unknown) -> (...unknown),
+	PushCircleInfoToLua: (...unknown) -> (...unknown),
+	QuerySelectedWoWLabsArea: (...unknown) -> (...unknown),
+	QueryWoWLabsAreaInfo: (...unknown) -> (...unknown),
+	SelectWoWLabsArea: (...unknown) -> (...unknown),
 }
 declare C_WowSurvey: {
 	OpenSurvey: () -> (),
 	TriggerSurveyServe: (deliveryMoment: Enum_SurveyDeliveryMoment) -> (),
 }
 declare C_WowTokenPublic: {
-	BuyToken: () -> (),
-	GetCommerceSystemStatus: () -> (),
-	GetCurrentMarketPrice: () -> (),
-	GetGuaranteedPrice: () -> (),
-	GetListedAuctionableTokenInfo: (index: unknown) -> (),
-	GetNumListedAuctionableTokens: () -> (),
-	IsAuctionableWowToken: (itemID: unknown) -> (),
-	IsConsumableWowToken: () -> (),
-	UpdateListedAuctionableTokens: () -> (),
-	UpdateMarketPrice: () -> (),
-	UpdateTokenCount: () -> (),
+	BuyToken: (...unknown) -> (...unknown),
+	GetCommerceSystemStatus: (...unknown) -> (...unknown),
+	GetCurrentMarketPrice: (...unknown) -> (...unknown),
+	GetGuaranteedPrice: (...unknown) -> (...unknown),
+	GetListedAuctionableTokenInfo: (...unknown) -> (...unknown),
+	GetNumListedAuctionableTokens: (...unknown) -> (...unknown),
+	IsAuctionableWowToken: (...unknown) -> (...unknown),
+	IsConsumableWowToken: (...unknown) -> (...unknown),
+	UpdateListedAuctionableTokens: (...unknown) -> (...unknown),
+	UpdateMarketPrice: (...unknown) -> (...unknown),
+	UpdateTokenCount: (...unknown) -> (...unknown),
 }
 declare C_WowTokenUI: {
 	ShouldDisplayInAuctionHouse: () -> boolean,
@@ -18728,7 +18832,7 @@ declare function CallMethodOnNearestAncestor(...: unknown): (...unknown)
 declare function CallRestrictedClosure(...: unknown): (...unknown)
 declare CallbackRegistryMixin: CallbackRegistryMixin
 declare function CallingPOI_OnEnter(...: unknown): (...unknown)
-declare function CameraOrSelectOrMoveStart(): ()
+declare function CameraOrSelectOrMoveStart(...: unknown): (...unknown)
 declare function CameraOrSelectOrMoveStop(stickyFlag: boolean?): ()
 declare function CameraZoomIn(increment: number): ()
 declare function CameraZoomOut(increment: number): ()
@@ -18738,8 +18842,8 @@ declare CampaignUtil: {
 	BuildChapterProgressText: (...unknown) -> (...unknown),
 	GetSingleChapterText: (...unknown) -> (...unknown),
 }
-declare function CanAffordMerchantItem(index: unknown): ()
-declare function CanAutoSetGamePadCursorControl(): ()
+declare function CanAffordMerchantItem(...: unknown): (...unknown)
+declare function CanAutoSetGamePadCursorControl(...: unknown): (...unknown)
 declare function CanBeRaidTarget(target: UnitToken): boolean
 declare function CanCancelScene(): boolean
 declare function CanChangePlayerDifficulty(): (boolean?, boolean?)
@@ -18747,23 +18851,23 @@ declare function CanComplainInboxItem(mailID: number): boolean?
 declare function CanCooperateWithGameAccount(...: unknown): (...unknown)
 declare function CanCreateFilters(...: unknown): (...unknown)
 declare function CanDualWield(): boolean
-declare function CanEditGuildBankTabInfo(): ()
-declare function CanEditGuildEvent(): ()
-declare function CanEditGuildInfo(): ()
-declare function CanEditGuildTabInfo(tab: unknown): ()
+declare function CanEditGuildBankTabInfo(...: unknown): (...unknown)
+declare function CanEditGuildEvent(...: unknown): (...unknown)
+declare function CanEditGuildInfo(...: unknown): (...unknown)
+declare function CanEditGuildTabInfo(...: unknown): (...unknown)
 declare function CanEditMOTD(): boolean
-declare function CanEditPublicNote(): ()
+declare function CanEditPublicNote(...: unknown): (...unknown)
 declare function CanEjectPassengerFromSeat(virtualSeatIndex: number): boolean
-declare function CanExitVehicle(): ()
-declare function CanGamePadControlCursor(): ()
+declare function CanExitVehicle(...: unknown): (...unknown)
+declare function CanGamePadControlCursor(...: unknown): (...unknown)
 declare function CanGroupWithAccount(...: unknown): (...unknown)
-declare function CanGuildBankRepair(): ()
+declare function CanGuildBankRepair(...: unknown): (...unknown)
 declare function CanGuildDemote(): boolean
 declare function CanGuildInvite(): boolean
 declare function CanGuildPromote(): boolean
-declare function CanGuildRemove(): ()
-declare function CanHearthAndResurrectFromArea(): ()
-declare function CanInitiateWarGame(): ()
+declare function CanGuildRemove(...: unknown): (...unknown)
+declare function CanHearthAndResurrectFromArea(...: unknown): (...unknown)
+declare function CanInitiateWarGame(...: unknown): (...unknown)
 declare function CanInspect(targetGUID: UnitToken): boolean
 declare function CanItemBeSocketedToArtifact(itemID: number): boolean
 declare function CanJoinBattlefieldAsGroup(): boolean
@@ -18771,10 +18875,10 @@ declare function CanLootUnit(targetUnit: WOWGUID): (boolean?, boolean?)
 declare function CanMapChangeDifficulty(mapID: number?): boolean
 declare function CanMerchantRepair(): boolean
 declare function CanOpenPanels(...: unknown): (...unknown)
-declare function CanPartyLFGBackfill(): ()
+declare function CanPartyLFGBackfill(...: unknown): (...unknown)
 declare function CanPortGraveyard(): boolean
 declare function CanReplaceGuildMaster(): boolean
-declare function CanResetTutorials(): ()
+declare function CanResetTutorials(...: unknown): (...unknown)
 declare function CanScanResearchSite(): boolean
 declare function CanShowAchievementUI(): boolean
 declare function CanShowCenterUIPanel(...: unknown): (...unknown)
@@ -18783,28 +18887,28 @@ declare function CanShowResetInstances(): boolean
 declare function CanShowRightUIPanel(...: unknown): (...unknown)
 declare function CanShowSetRoleButton(): boolean
 declare function CanShowUIPanels(...: unknown): (...unknown)
-declare function CanSignPetition(): ()
+declare function CanSignPetition(...: unknown): (...unknown)
 declare function CanSolveArtifact(): boolean
 declare function CanSwitchVehicleSeat(): boolean
 declare function CanSwitchVehicleSeats(): boolean
 declare function CanUpgradeToCurrentExpansion(): boolean
 declare function CanViewGuildRecipes(skillID: number): boolean
-declare function CanWithdrawGuildBankMoney(): ()
+declare function CanWithdrawGuildBankMoney(...: unknown): (...unknown)
 declare function CancelAnimations(...: unknown): (...unknown)
 declare function CancelAreaSpiritHeal(): ()
-declare function CancelDuel(): ()
+declare function CancelDuel(...: unknown): (...unknown)
 declare function CancelLogout(): ()
-declare function CancelMasterLootRoll(slot: unknown): ()
+declare function CancelMasterLootRoll(...: unknown): (...unknown)
 declare function CancelPendingEquip(index: number): ()
-declare function CancelPetPossess(): ()
+declare function CancelPetPossess(...: unknown): (...unknown)
 declare function CancelPreloadingMovie(movieId: number): ()
-declare function CancelScene(): ()
-declare function CancelShapeshiftForm(): ()
-declare function CancelSpellByName(name: unknown): ()
+declare function CancelScene(...: unknown): (...unknown)
+declare function CancelShapeshiftForm(...: unknown): (...unknown)
+declare function CancelSpellByName(...: unknown): (...unknown)
 declare function CancelTrade(): ()
-declare function CancelTradeAccept(): ()
+declare function CancelTradeAccept(...: unknown): (...unknown)
 declare function CancelUnitBuff(unit: UnitToken, buffIndex: number, filter: string?): ()
-declare function CannotBeResurrected(): ()
+declare function CannotBeResurrected(...: unknown): (...unknown)
 declare function CapProgressBar_SetNotches(...: unknown): (...unknown)
 declare function CapProgressBar_Update(...: unknown): (...unknown)
 declare function CarouselLeftButton_OnClick(...: unknown): (...unknown)
@@ -18813,7 +18917,7 @@ declare function CaseAccentInsensitiveParse(name: string): string
 declare function CastPetAction(index: number, target: UnitToken?): ()
 declare function CastShapeshiftForm(index: number): ()
 declare function CastSpell(spellIndex: number, spellbookType: string): ()
-declare function CastSpellByID(spellID: unknown, target: unknown): ()
+declare function CastSpellByID(...: unknown): (...unknown)
 declare function CastSpellByName(name: string, target: UnitToken?): ()
 declare function CastingBarAnim_OnFadeOutFinish(...: unknown): (...unknown)
 declare function CastingBarAnim_OnInterruptSparkAnimFinish(...: unknown): (...unknown)
@@ -18872,7 +18976,7 @@ declare function CatmullRom_Calculate2DPointOnCurve(...: unknown): (...unknown)
 declare function CatmullRom_Calculate3DPointOnCurve(...: unknown): (...unknown)
 declare function CatmullRom_Calculate4DPointOnCurve(...: unknown): (...unknown)
 declare function CatmullRom_CalculatePointOnCurve(...: unknown): (...unknown)
-declare function CenterCamera(): ()
+declare function CenterCamera(...: unknown): (...unknown)
 declare function ChangeChatColor(channelName: string, red: number, green: number, blue: number): ()
 declare function ChangeMultiCastActionPage(...: unknown): (...unknown)
 declare function ChannelBan(channelName: string, playerName: string): ()
@@ -18885,8 +18989,8 @@ declare function ChannelFrame_IsCategoryGroup(...: unknown): (...unknown)
 declare function ChannelInvite(channelName: string, playerName: string): ()
 declare function ChannelKick(channelName: string, playerName: string): ()
 declare function ChannelModerator(channelName: string, playerName: string): ()
-declare function ChannelSetAllSilent(): ()
-declare function ChannelSetPartyMemberSilent(partyMemberName: unknown, silenceOn: unknown): ()
+declare function ChannelSetAllSilent(...: unknown): (...unknown)
+declare function ChannelSetPartyMemberSilent(...: unknown): (...unknown)
 declare function ChannelToggleAnnouncements(channelName: string, playerName: string): ()
 declare function ChannelUnban(channelName: string, playerName: string): ()
 declare function ChannelUnmoderator(channelName: string, playerName: string): ()
@@ -19109,7 +19213,7 @@ declare function ChatUnitColor_OpenColorPicker(...: unknown): (...unknown)
 declare function CheckActiveStoreForFree(...: unknown): (...unknown)
 declare function CheckColorOverrideForPVPInactive(...: unknown): (...unknown)
 declare function CheckHardcoreGuildLeadStatus(...: unknown): (...unknown)
-declare function CheckInbox(): ()
+declare function CheckInbox(...: unknown): (...unknown)
 declare function CheckInteractDistance(unitGUID: UnitToken, distIndex: number): boolean
 declare function CheckSetAtlas(...: unknown): (...unknown)
 declare function CheckTalentMasterDist(): boolean
@@ -19166,42 +19270,42 @@ declare function ClassTrainer_SelectNearestLearnableSkill(...: unknown): (...unk
 declare function ClassTrainer_SetSelection(...: unknown): (...unknown)
 declare function ClassicExpansionAtLeast(expansionLevel: number): boolean
 declare function ClassicExpansionAtMost(expansionLevel: number): boolean
-declare function ClearAchievementComparisonUnit(): ()
-declare function ClearAchievementSearchString(): ()
+declare function ClearAchievementComparisonUnit(...: unknown): (...unknown)
+declare function ClearAchievementSearchString(...: unknown): (...unknown)
 declare function ClearActionButtonCooldowns(...: unknown): (...unknown)
-declare function ClearAllLFGDungeons(category: unknown): ()
+declare function ClearAllLFGDungeons(...: unknown): (...unknown)
 declare function ClearAlternateTopLevelParent(...: unknown): (...unknown)
-declare function ClearAutoAcceptQuestSound(): ()
-declare function ClearBattlemaster(): ()
+declare function ClearAutoAcceptQuestSound(...: unknown): (...unknown)
+declare function ClearBattlemaster(...: unknown): (...unknown)
 declare function ClearCachedActivitiesForPlayer(...: unknown): (...unknown)
 declare function ClearCachedAreaPOIsForPlayer(...: unknown): (...unknown)
 declare function ClearCachedQuestsForPlayer(...: unknown): (...unknown)
 declare function ClearClampedTextureRotation(texture: Texture): ()
 declare function ClearCursor(): ()
 declare function ClearCursorHoveredItem(): ()
-declare function ClearFailedPVPTalentIDs(): ()
-declare function ClearFailedTalentIDs(): ()
+declare function ClearFailedPVPTalentIDs(...: unknown): (...unknown)
+declare function ClearFailedTalentIDs(...: unknown): (...unknown)
 declare function ClearFocus(): ()
-declare function ClearInspectPlayer(): ()
+declare function ClearInspectPlayer(...: unknown): (...unknown)
 declare function ClearItemButtonOverlay(...: unknown): (...unknown)
 declare function ClearItemCraftingQualityOverlay(...: unknown): (...unknown)
 declare function ClearNewActionHighlight(...: unknown): (...unknown)
 declare function ClearOnBarHighlightMarks(...: unknown): (...unknown)
 declare function ClearOutage(): ()
 declare function ClearOverrideBindings(owner: Frame): ()
-declare function ClearPartyAssignment(): ()
+declare function ClearPartyAssignment(...: unknown): (...unknown)
 declare function ClearPendingBindConversionItem(): ()
 declare function ClearRaidMarker(raidMarkerIndex: number?): ()
-declare function ClearSendMail(): ()
+declare function ClearSendMail(...: unknown): (...unknown)
 declare function ClearTarget(): boolean
-declare function ClearTutorials(): ()
+declare function ClearTutorials(...: unknown): (...unknown)
 declare ClickBindingFrame: Frame
 declare function ClickBindingFrame_LoadUI(...: unknown): (...unknown)
 declare function ClickBindingFrame_Toggle(...: unknown): (...unknown)
 declare function ClickSendMailItemButton(itemIndex: number?, clearItem: boolean?): ()
-declare function ClickTargetTradeButton(index: unknown): ()
-declare function ClickTradeButton(index: unknown): ()
-declare function ClickWorldMapActionButton(): ()
+declare function ClickTargetTradeButton(...: unknown): (...unknown)
+declare function ClickTradeButton(...: unknown): (...unknown)
+declare function ClickWorldMapActionButton(...: unknown): (...unknown)
 declare ClientSceneVisManager: Frame
 declare function CloseAllBags(...: unknown): (...unknown)
 declare function CloseAllWindows(...: unknown): (...unknown)
@@ -19211,24 +19315,24 @@ declare function CloseBag(...: unknown): (...unknown)
 declare function CloseChildWindows(...: unknown): (...unknown)
 declare function CloseCommunitiesSettingsDialog(...: unknown): (...unknown)
 declare function CloseDropDownMenus(...: unknown): (...unknown)
-declare function CloseGuildBankFrame(): ()
-declare function CloseGuildRegistrar(): ()
-declare function CloseGuildRoster(): ()
-declare function CloseItemText(): ()
+declare function CloseGuildBankFrame(...: unknown): (...unknown)
+declare function CloseGuildRegistrar(...: unknown): (...unknown)
+declare function CloseGuildRoster(...: unknown): (...unknown)
+declare function CloseItemText(...: unknown): (...unknown)
 declare function CloseLoot(showUnopenableError: boolean?): ()
-declare function CloseMail(): ()
+declare function CloseMail(...: unknown): (...unknown)
 declare function CloseMenus(...: unknown): (...unknown)
-declare function CloseMerchant(): ()
-declare function ClosePetition(): ()
+declare function CloseMerchant(...: unknown): (...unknown)
+declare function ClosePetition(...: unknown): (...unknown)
 declare function CloseProfessionsItemFlyout(...: unknown): (...unknown)
-declare function CloseQuest(): ()
-declare function CloseResearch(): ()
+declare function CloseQuest(...: unknown): (...unknown)
+declare function CloseResearch(...: unknown): (...unknown)
 declare function CloseSideDressUpFrame(...: unknown): (...unknown)
 declare function CloseSpecialWindows(...: unknown): (...unknown)
-declare function CloseTabardCreation(): ()
-declare function CloseTaxiMap(): ()
-declare function CloseTrade(): ()
-declare function CloseTrainer(): ()
+declare function CloseTabardCreation(...: unknown): (...unknown)
+declare function CloseTaxiMap(...: unknown): (...unknown)
+declare function CloseTrade(...: unknown): (...unknown)
+declare function CloseTrainer(...: unknown): (...unknown)
 declare function CloseWindows(...: unknown): (...unknown)
 declare function ClosestGameObjectPosition(gameObjectID: number): (number?, number?, number?)
 declare function ClosestUnitPosition(creatureID: number): (number?, number?, number?)
@@ -19264,9 +19368,9 @@ declare function CoinPickupFrame_OnChar(...: unknown): (...unknown)
 declare function CoinPickupFrame_OnHide(...: unknown): (...unknown)
 declare function CoinPickupFrame_OnKeyDown(...: unknown): (...unknown)
 declare function CoinPickupFrame_OnKeyUp(...: unknown): (...unknown)
-declare function CollapseGuildTradeSkillHeader(tradeSkillID: unknown): ()
+declare function CollapseGuildTradeSkillHeader(...: unknown): (...unknown)
 declare function CollapseQuestHeader(index: number, isAuto: boolean): ()
-declare function CollapseWarGameHeader(index: unknown): ()
+declare function CollapseWarGameHeader(...: unknown): (...unknown)
 declare function CollectTableDifferences(...: unknown): (...unknown)
 declare function CollectionItemListButton_SetRedOverlayShown(...: unknown): (...unknown)
 declare CollectionWardrobeUtil: {
@@ -19671,12 +19775,12 @@ declare function CompactUnitFrame_UpdateUnitEvents(...: unknown): (...unknown)
 declare function CompactUnitFrame_UpdateVisible(...: unknown): (...unknown)
 declare function CompactUnitFrame_UpdateWidgetSet(...: unknown): (...unknown)
 declare function CompareFunctionReturns(...: unknown): (...unknown)
-declare function CompleteLFGReadyCheck(isReady: unknown): ()
-declare function CompleteLFGRoleCheck(isReady: unknown): ()
-declare function CompleteQuest(): ()
+declare function CompleteLFGReadyCheck(...: unknown): (...unknown)
+declare function CompleteLFGRoleCheck(...: unknown): (...unknown)
+declare function CompleteQuest(...: unknown): (...unknown)
 declare function ComputePetBonus(...: unknown): (...unknown)
 declare function ConcatinateServerNameToPlayerName(...: unknown): (...unknown)
-declare function ConfirmAcceptQuest(): ()
+declare function ConfirmAcceptQuest(...: unknown): (...unknown)
 declare function ConfirmBNRequestInviteFriend(presenceID: number, tank: boolean?, healer: boolean?, dps: boolean?): ()
 declare function ConfirmDisenchantRollDialog_Show(...: unknown): (...unknown)
 declare function ConfirmLootRoll(rollID: number, roll: number): ()
@@ -20366,7 +20470,7 @@ declare function CreateFrameFactory(...: unknown): (...unknown)
 declare function CreateFramePool(...: unknown): (...unknown)
 declare function CreateFramePoolCollection(...: unknown): (...unknown)
 declare function CreateFrameWithOptions(options: CreateFrameOptions): Frame
-declare function CreateFromMixins(...: LuaValueVariant): LuaValueVariant
+declare function CreateFromMixins(...: unknown): unknown
 declare function CreateHDSDToggleOptions(...: unknown): (...unknown)
 declare function CreateIndexRangeDataProvider(...: unknown): (...unknown)
 declare function CreateInterpolator(...: unknown): (...unknown)
@@ -20379,7 +20483,7 @@ declare function CreateLoopingSoundEffectEmitter(...: unknown): (...unknown)
 declare function CreateMacro(name: string, iconFileID: number | string, body: string?, perCharacter: boolean?): number
 declare function CreateMaskTexturePool(...: unknown): (...unknown)
 declare function CreateMinimalSliderFormatter(...: unknown): (...unknown)
-declare function CreateNewRaidProfile(name: unknown, baseOnProfile: unknown): ()
+declare function CreateNewRaidProfile(...: unknown): (...unknown)
 declare function CreateObjectPool(...: unknown): (...unknown)
 declare function CreateObjectUpdater(...: unknown): (...unknown)
 declare function CreatePendingInviteConfirmationNames(...: unknown): (...unknown)
@@ -20487,10 +20591,10 @@ declare function DebugTools_LoadUI(...: unknown): (...unknown)
 declare function DebugTooltip_OnLoad(...: unknown): (...unknown)
 declare function DebugTutorials(...: unknown): (...unknown)
 declare function DeclineChannelInvite(channel: string): ()
-declare function DeclineGroup(): ()
+declare function DeclineGroup(...: unknown): (...unknown)
 declare function DeclineGuild(): ()
 declare function DeclineName(name: string, gender: Enum_UnitSex?, declensionSet: number, namePartType: Enum_NamePartType?): (...string)
-declare function DeclineQuest(): ()
+declare function DeclineQuest(...: unknown): (...unknown)
 declare function DeclineResurrect(): ()
 declare function DeclineSpellConfirmationPrompt(spellID: number): ()
 declare function DefaultCompactMiniFrameSetup(...: unknown): (...unknown)
@@ -20499,20 +20603,20 @@ declare function DefaultWidgetLayout(...: unknown): (...unknown)
 declare function DefineGameSettingsMacOpenInputMonitoringDialog(...: unknown): (...unknown)
 declare function DefineGameSettingsMacOpenUniversalAccessDialog(...: unknown): (...unknown)
 declare function DeleteCursorItem(): ()
-declare function DeleteGMTicket(): ()
+declare function DeleteGMTicket(...: unknown): (...unknown)
 declare function DeleteInboxItem(index: number): ()
 declare function DeleteMacro(indexOrName: number | string): ()
-declare function DeleteRaidProfile(profile: unknown): ()
+declare function DeleteRaidProfile(...: unknown): (...unknown)
 declare function DeltaLerp(...: unknown): (...unknown)
 declare DelvesCompanionAbilityListFrame: Frame
 declare DelvesCompanionConfigurationFrame: Frame
-declare function DepositGuildBankMoney(money: unknown): ()
-declare function DescendStop(): ()
+declare function DepositGuildBankMoney(...: unknown): (...unknown)
+declare function DescendStop(...: unknown): (...unknown)
 declare DestinyFrame: Frame
 declare function DestinyFrame_OnEvent(...: unknown): (...unknown)
 declare function DestinyFrame_UpdateRecruitInfo(...: unknown): (...unknown)
 declare function DestroyTotem(slot: number): ()
-declare function DetectWowMouse(): ()
+declare function DetectWowMouse(...: unknown): (...unknown)
 declare function DevTools_AddMessageHandler(...: unknown): (...unknown)
 declare function DevTools_CreateDumpContext(...: unknown): (...unknown)
 declare function DevTools_Dump(value: unknown, startKey: string?): ()
@@ -20550,13 +20654,13 @@ declare function DisplayPvpRatingLink(...: unknown): (...unknown)
 declare function DisplayTableInspectorWindow(...: unknown): (...unknown)
 declare function DisplayUnitPopupTooltip(...: unknown): (...unknown)
 declare function DisplayUniversalAccessDialogIfRequiredForVoiceChatKeybind(...: unknown): (...unknown)
-declare function DoMasterLootRoll(slot: unknown): ()
+declare function DoMasterLootRoll(...: unknown): (...unknown)
 declare function DoesActivePlayerHaveMentorStatus(...: unknown): (...unknown)
 declare function DoesAncestryInclude(...: unknown): (...unknown)
 declare function DoesAncestryIncludeAny(...: unknown): (...unknown)
 declare function DoesCurrentLocaleSellExpansionLevels(): boolean
 declare function DoesFollowerMatchCurrentGarrisonType(...: unknown): (...unknown)
-declare function DoesTemplateExist(template: unknown): ()
+declare function DoesTemplateExist(...: unknown): (...unknown)
 declare DragonridingUtil: {
 	CanSpendDragonridingGlyphs: (...unknown) -> (...unknown),
 	IsDragonridingTreeOpen: (...unknown) -> (...unknown),
@@ -20590,7 +20694,7 @@ declare DropDownList3: Frame
 declare DropdownButtonMixin: DropdownButtonMixin
 declare function DumpGamepadBindingsToClipboard(...: unknown): (...unknown)
 declare function DumpGamepadBindingsToWindow(...: unknown): (...unknown)
-declare function DungeonAppearsInRandomLFD(dungeonID: unknown): ()
+declare function DungeonAppearsInRandomLFD(...: unknown): (...unknown)
 declare function DungeonCompletionAlertFrameReward_OnEnter(...: unknown): (...unknown)
 declare function DungeonCompletionAlertFrameReward_OnLeave(...: unknown): (...unknown)
 declare function DungeonCompletionAlertFrameReward_SetReward(...: unknown): (...unknown)
@@ -20603,8 +20707,8 @@ declare function DungeonScoreLinkAddDungeonsToTable(...: unknown): (...unknown)
 declare DurabilityFrame: Frame
 declare function DynamicResizeButton_Resize(...: unknown): (...unknown)
 declare EJMicroButton: Frame
-declare function EJ_ClearSearch(): ()
-declare function EJ_EndSearch(): ()
+declare function EJ_ClearSearch(...: unknown): (...unknown)
+declare function EJ_EndSearch(...: unknown): (...unknown)
 declare function EJ_GetContentTuningID(): number
 declare function EJ_GetCreatureInfo(index: number, encounterID: number?): (number, string, string, number, number, number)
 declare function EJ_GetCurrentTier(): number
@@ -20631,7 +20735,7 @@ declare function EJ_InstanceIsRaid(): boolean
 declare function EJ_IsLootListOutOfDate(): boolean
 declare function EJ_IsSearchFinished(): boolean
 declare function EJ_IsValidInstanceDifficulty(difficultyID: number): boolean
-declare function EJ_ResetLootFilter(): ()
+declare function EJ_ResetLootFilter(...: unknown): (...unknown)
 declare function EJ_SelectEncounter(encounterID: number): ()
 declare function EJ_SelectInstance(journalInstanceID: number): ()
 declare function EJ_SelectTier(index: number): ()
@@ -30256,9 +30360,9 @@ declare EventUtil: {
 	TriggerOnVariablesLoaded: (...unknown) -> (...unknown),
 }
 declare function ExecuteFrameScript(...: unknown): (...unknown)
-declare function ExpandGuildTradeSkillHeader(tradeSkillID: unknown): ()
+declare function ExpandGuildTradeSkillHeader(...: unknown): (...unknown)
 declare function ExpandQuestHeader(index: number, isAuto: boolean): ()
-declare function ExpandWarGameHeader(index: unknown): ()
+declare function ExpandWarGameHeader(...: unknown): (...unknown)
 declare function ExpectedSpellResistance(...: unknown): (...unknown)
 declare function Expertise_OnEnter(...: unknown): (...unknown)
 declare ExportUtil: {
@@ -30420,10 +30524,10 @@ declare function FauxScrollFrame_Update(...: unknown): (...unknown)
 declare function FindInTable(...: unknown): (...unknown)
 declare function FindInTableIf(tbl: { [any]: any }, pred: (...any) -> ...any): (string | number, unknown)
 declare function FindSortedIndex(...: unknown): (...unknown)
-declare function FindSpellBookSlotBySpellID(spellID: unknown, isPet: unknown): ()
+declare function FindSpellBookSlotBySpellID(...: unknown): (...unknown)
 declare function FindValueInTableIf(...: unknown): (...unknown)
 declare function FitToParent(...: unknown): (...unknown)
-declare function FlagTutorial(tutorial: unknown): ()
+declare function FlagTutorial(...: unknown): (...unknown)
 declare FlagsUtil: {
 	Combine: (...unknown) -> (...unknown),
 	IsAnySet: (...unknown) -> (...unknown),
@@ -30487,7 +30591,7 @@ declare function FocusUnit(name: string?): ()
 declare function FollowUnit(name: string?, exactMatch: boolean?): ()
 declare function ForceLogout(): ()
 declare function ForceQuit(): ()
-declare function ForfeitDuel(): ()
+declare function ForfeitDuel(...: unknown): (...unknown)
 declare function FormatBindingKeyIntoText(...: unknown): (...unknown)
 declare function FormatDisplayCopper(...: unknown): (...unknown)
 declare function FormatFraction(numerator: number, denominator: number): string
@@ -30668,22 +30772,22 @@ declare function GMChatFrame_OnWhisperFromGM(...: unknown): (...unknown)
 declare function GMChatFrame_Show(...: unknown): (...unknown)
 declare GMChatStatusFrame: Frame
 declare function GMError(...: unknown): (...unknown)
-declare function GMEuropaBugsEnabled(): ()
-declare function GMEuropaComplaintsEnabled(): ()
-declare function GMEuropaSuggestionsEnabled(): ()
-declare function GMEuropaTicketsEnabled(): ()
-declare function GMItemRestorationButtonEnabled(): ()
-declare function GMQuickTicketSystemEnabled(): ()
-declare function GMQuickTicketSystemThrottled(): ()
-declare function GMReportLag(): ()
-declare function GMRequestPlayerInfo(): ()
-declare function GMResponseResolve(): ()
-declare function GMSurveyAnswer(): ()
-declare function GMSurveyAnswerSubmit(question: unknown, rank: unknown, comment: unknown): ()
-declare function GMSurveyCommentSubmit(comment: unknown): ()
-declare function GMSurveyNumAnswers(): ()
+declare function GMEuropaBugsEnabled(...: unknown): (...unknown)
+declare function GMEuropaComplaintsEnabled(...: unknown): (...unknown)
+declare function GMEuropaSuggestionsEnabled(...: unknown): (...unknown)
+declare function GMEuropaTicketsEnabled(...: unknown): (...unknown)
+declare function GMItemRestorationButtonEnabled(...: unknown): (...unknown)
+declare function GMQuickTicketSystemEnabled(...: unknown): (...unknown)
+declare function GMQuickTicketSystemThrottled(...: unknown): (...unknown)
+declare function GMReportLag(...: unknown): (...unknown)
+declare function GMRequestPlayerInfo(...: unknown): (...unknown)
+declare function GMResponseResolve(...: unknown): (...unknown)
+declare function GMSurveyAnswer(...: unknown): (...unknown)
+declare function GMSurveyAnswerSubmit(...: unknown): (...unknown)
+declare function GMSurveyCommentSubmit(...: unknown): (...unknown)
+declare function GMSurveyNumAnswers(...: unknown): (...unknown)
 declare function GMSurveyQuestion(index: number): ()
-declare function GMSurveySubmit(): ()
+declare function GMSurveySubmit(...: unknown): (...unknown)
 declare GameDialogDefsUtil: {
 	GetDefaultExpirationText: (...unknown) -> (...unknown),
 	GetSelfResurrectDialogOptions: (...unknown) -> (...unknown),
@@ -31020,23 +31124,23 @@ declare GetAchievementInfo: ((achievementID: number) -> (number, string, number,
 declare function GetAchievementInfoFromHyperlink(...: unknown): (...unknown)
 declare function GetAchievementLink(id: number): string
 declare function GetAchievementNumCriteria(achievementID: number): number
-declare function GetAchievementNumRewards(achievementID: unknown): ()
-declare function GetAchievementReward(achievementID: unknown, rewardIndex: unknown): ()
-declare function GetAchievementSearchProgress(): ()
-declare function GetAchievementSearchSize(): ()
+declare function GetAchievementNumRewards(...: unknown): (...unknown)
+declare function GetAchievementReward(...: unknown): (...unknown)
+declare function GetAchievementSearchProgress(...: unknown): (...unknown)
+declare function GetAchievementSearchSize(...: unknown): (...unknown)
 declare function GetActionBarToggles(): (boolean, boolean, boolean, boolean, boolean, boolean, boolean)
 declare function GetActionButtonForID(...: unknown): (...unknown)
 declare function GetActionInfo(slot: number): (string, number | string, string)
 declare function GetActiveArtifactByRace(branchIndex: number, artifactIndex: number): (string, string, string, string, string, number, string)
-declare function GetActiveLevel(index: unknown): ()
-declare function GetActiveLootRollIDs(): ()
-declare function GetActiveQuestID(index: unknown): ()
-declare function GetActiveTitle(index: unknown): ()
+declare function GetActiveLevel(...: unknown): (...unknown)
+declare function GetActiveLootRollIDs(...: unknown): (...unknown)
+declare function GetActiveQuestID(...: unknown): (...unknown)
+declare function GetActiveTitle(...: unknown): (...unknown)
 declare function GetAddOnCPUUsage(name: uiAddon): number
 declare function GetAddOnMemoryUsage(name: uiAddon): number
 declare function GetAllowLowLevelRaid(): boolean
 declare function GetAllowRecentAlliesSeeLocation(): boolean
-declare function GetAlternativeDefaultLanguage(): ()
+declare function GetAlternativeDefaultLanguage(...: unknown): (...unknown)
 declare function GetAppropriateTooltip(...: unknown): (...unknown)
 declare function GetAppropriateTopLevelParent(...: unknown): (...unknown)
 declare function GetArchaeologyInfo(): string
@@ -31055,11 +31159,11 @@ declare function GetAutoDeclineGuildInvites(): boolean
 declare function GetAutoDeclineNeighborhoodInvites(): boolean
 declare function GetAutoQuestPopUp(index: number): (number, string)
 declare function GetAvailableBandwidth(): number
-declare function GetAvailableLevel(index: unknown): ()
+declare function GetAvailableLevel(...: unknown): (...unknown)
 declare function GetAvailableLocaleInfo(ignoreLocaleRestrictions: boolean?): { LocaleInfo }
 declare function GetAvailableLocales(ignoreLocaleRestrictions: boolean?): (...string)
 declare function GetAvailableQuestInfo(index: number): (boolean, number, boolean, boolean, number, boolean)
-declare function GetAvailableTitle(index: unknown): ()
+declare function GetAvailableTitle(...: unknown): (...unknown)
 declare function GetAverageItemLevel(): (number, number, number)
 declare function GetAvoidance(): number
 declare function GetBNPlayerCommunityLink(...: unknown): (...unknown)
@@ -31076,7 +31180,7 @@ declare function GetBattlefieldArenaFaction(): number
 declare function GetBattlefieldEstimatedWaitTime(): number
 declare function GetBattlefieldInstanceExpiration(): number
 declare function GetBattlefieldInstanceRunTime(): number
-declare function GetBattlefieldMapIconScale(): ()
+declare function GetBattlefieldMapIconScale(...: unknown): (...unknown)
 declare function GetBattlefieldPortExpiration(index: number): number
 declare function GetBattlefieldStatus(index: number): (string, string?, number, boolean, boolean, string?, string?, string?, boolean?, string?, string?, boolean)
 declare function GetBattlefieldTeamInfo(index: number): (string, number, number, number)
@@ -31106,7 +31210,7 @@ declare function GetBuildInfo(): (string, string, string, number, string, string
 declare function GetBuildOption(name: string): boolean?
 declare function GetButtonMetatable(): { [any]: any }
 declare function GetBuybackItemInfo(slotIndex: number): (string?, fileID?, number, number, number, boolean, boolean?)
-declare function GetBuybackItemLink(index: unknown): ()
+declare function GetBuybackItemLink(...: unknown): (...unknown)
 declare function GetCVar(name: CVar): string?
 declare function GetCVarBitfield(name: CVar, index: number): boolean?
 declare function GetCVarBool(name: CVar): boolean?
@@ -31115,11 +31219,11 @@ declare function GetCVarNumberOrDefault(...: unknown): (...unknown)
 declare function GetCVarTable(...: unknown): (...unknown)
 declare function GetCVarTableValue(...: unknown): (...unknown)
 declare function GetCalendarEventLink(...: unknown): (...unknown)
-declare function GetCallPetSpellInfo(spellID: unknown): ()
+declare function GetCallPetSpellInfo(...: unknown): (...unknown)
 declare function GetCallstackHeight(): number
 declare function GetCameraFOVDefaults(): (number, number, number)
 declare function GetCameraZoom(): number
-declare function GetCategoryAchievementPoints(categoryID: unknown, includeSubCategories: unknown): ()
+declare function GetCategoryAchievementPoints(...: unknown): (...unknown)
 declare function GetCategoryInfo(categoryID: number): (string, number, number)
 declare function GetCategoryList(): { number }
 declare function GetCategoryNumAchievements(categoryId: number, includeAll: boolean?): (number, number, number)
@@ -31134,8 +31238,8 @@ declare function GetChatUnitColor(...: unknown): (...unknown)
 declare function GetChatWindowChannels(frameId: number): (string, number, ...unknown)
 declare function GetChatWindowInfo(frameIndex: number): (string, number, number, number, number, number, boolean, boolean, number, boolean)
 declare function GetChatWindowMessages(index: number): (...string)
-declare function GetChatWindowSavedDimensions(index: unknown): ()
-declare function GetChatWindowSavedPosition(index: unknown): ()
+declare function GetChatWindowSavedDimensions(...: unknown): (...unknown)
+declare function GetChatWindowSavedPosition(...: unknown): (...unknown)
 declare function GetClampedCurrentExpansionLevel(...: unknown): (...unknown)
 declare function GetClassAtlas(...: unknown): (...unknown)
 declare function GetClassColor(classFilename: ClassFile): (number, number, number, string)
@@ -31157,8 +31261,8 @@ declare function GetCommunitiesChatPermissionOptions(...: unknown): (...unknown)
 declare function GetCommunitiesErrorString(...: unknown): (...unknown)
 declare function GetCommunityLink(...: unknown): (...unknown)
 declare function GetCompanionInfo(type: string, id: number): (number, string, number, string, boolean, number)
-declare function GetComparisonAchievementPoints(): ()
-declare function GetComparisonCategoryNumAchievements(achievementID: unknown): ()
+declare function GetComparisonAchievementPoints(...: unknown): (...unknown)
+declare function GetComparisonCategoryNumAchievements(...: unknown): (...unknown)
 declare function GetComparisonStatistic(achievementID: number): string
 declare function GetConvertedKeyOrButton(...: unknown): (...unknown)
 declare function GetCorpseRecoveryDelay(): number
@@ -31169,23 +31273,23 @@ declare function GetCreditsDisplayInfo(): { CreditsDisplayInfo }
 declare function GetCritChance(): number
 declare function GetCritChanceFromStat(stat: number, value: number): number
 declare function GetCritChanceProvidesParryEffect(): boolean
-declare function GetCriteriaSpell(): ()
+declare function GetCriteriaSpell(...: unknown): (...unknown)
 declare function GetCurrenciesString(currencies: { number } | { { [any]: any } }): string
 declare function GetCurrencyString(currencyID: number, overrideAmount: number?, colorCode: string?, abbreviate: boolean?): string
 declare function GetCurrentArenaSeason(): number
 declare function GetCurrentBindingSet(): number
 declare function GetCurrentCinematicSummary(): string
-declare function GetCurrentEnvironment(): ()
+declare function GetCurrentEnvironment(...: unknown): (...unknown)
 declare function GetCurrentEventID(): number?
-declare function GetCurrentGlyphNameForSpell(spellID: unknown): ()
+declare function GetCurrentGlyphNameForSpell(...: unknown): (...unknown)
 declare function GetCurrentGraphicsAPI(): string
-declare function GetCurrentGraphicsSetting(): ()
-declare function GetCurrentGuildBankTab(): ()
-declare function GetCurrentKeyBoardFocus(): ()
-declare function GetCurrentLevelFeatures(level: unknown): ()
+declare function GetCurrentGraphicsSetting(...: unknown): (...unknown)
+declare function GetCurrentGuildBankTab(...: unknown): (...unknown)
+declare function GetCurrentKeyBoardFocus(...: unknown): (...unknown)
+declare function GetCurrentLevelFeatures(...: unknown): (...unknown)
 declare function GetCurrentRegion(): number
 declare function GetCurrentRegionName(): string
-declare function GetCurrentScaledResolution(): ()
+declare function GetCurrentScaledResolution(...: unknown): (...unknown)
 declare function GetCurrentScenarioType(...: unknown): (...unknown)
 declare function GetCurrentTitle(): number
 declare function GetCursorCenterPosition(): (number, number)
@@ -31193,11 +31297,11 @@ declare function GetCursorDelta(): (number, number)
 declare function GetCursorInfo(): ()
 declare function GetCursorMoney(): number
 declare function GetCursorPosition(): (number, number)
-declare function GetDailyQuestsCompleted(): ()
+declare function GetDailyQuestsCompleted(...: unknown): (...unknown)
 declare function GetDeathStaticPopup(...: unknown): (...unknown)
 declare function GetDefaultLanguage(): (string, number)
 declare function GetDefaultScale(): number
-declare function GetDemotionRank(index: unknown): ()
+declare function GetDemotionRank(...: unknown): (...unknown)
 declare function GetDenominationsFromCopper(...: unknown): (...unknown)
 declare function GetDifficultyColor(...: unknown): (...unknown)
 declare function GetDifficultyInfo(difficultyID: number): (string, string, boolean, boolean, boolean, boolean, number?, boolean, number?, number?, boolean)
@@ -31208,13 +31312,13 @@ declare function GetDodgeChance(): number
 declare function GetDodgeChanceFromAttribute(): number
 declare function GetDownloadedPercentage(): number
 declare function GetDungeonDifficultyID(): number
-declare function GetDungeonForRandomSlot(randomID: unknown, index: unknown): ()
+declare function GetDungeonForRandomSlot(...: unknown): (...unknown)
 declare function GetDungeonScoreLink(...: unknown): (...unknown)
 declare function GetEditBoxMetatable(): { [any]: any }
 declare function GetEditModeAuraDataProvider(...: unknown): (...unknown)
 declare function GetEnemyDodgeChance(...: unknown): (...unknown)
 declare function GetEnemyParryChance(...: unknown): (...unknown)
-declare function GetEquipmentNameFromSpell(): ()
+declare function GetEquipmentNameFromSpell(...: unknown): (...unknown)
 declare function GetErrorCallstackHeight(): number?
 declare function GetEventCPUUsage(): (number, number)
 declare function GetEventTime(eventProfileIndex: number): (number?, number?, string?, number?)
@@ -31227,19 +31331,19 @@ declare function GetExpansionTrialInfo(): (boolean, time_t?)
 declare function GetExpertise(): (number, number, number)
 declare function GetExpertisePercent(): (number, number, number)
 declare function GetFactionColor(factionGroupTag: string): colorRGBA
-declare function GetFailedPVPTalentIDs(): ()
-declare function GetFailedTalentIDs(): ()
+declare function GetFailedPVPTalentIDs(...: unknown): (...unknown)
+declare function GetFailedTalentIDs(...: unknown): (...unknown)
 declare function GetFileIDFromPath(filePath: string): fileID
 declare function GetFileStreamingStatus(): number
 declare function GetFilteredAchievementID(index: number): number
 declare function GetFinalAtlasFromTextureKitIfExists(texture: string, textureKit: string | { [any]: any }): string?
 declare function GetFinalNameFromTextureKit(fmt: string, textureKits: string | { [any]: any }): string
 declare function GetFixedLink(...: unknown): (...unknown)
-declare function GetFlexRaidDungeonInfo(index: unknown): ()
-declare function GetFlyoutID(index: unknown): ()
+declare function GetFlexRaidDungeonInfo(...: unknown): (...unknown)
+declare function GetFlyoutID(...: unknown): (...unknown)
 declare function GetFlyoutInfo(flyoutID: number): (string, string, number, boolean)
 declare function GetFlyoutSlotInfo(flyoutID: number, slot: number): (number, number, boolean, string, number)
-declare function GetFollowerTypeIDFromSpell(): ()
+declare function GetFollowerTypeIDFromSpell(...: unknown): (...unknown)
 declare function GetFontInfo(fontObject: Font): FontScriptInfo?
 declare function GetFontStringMetatable(): { [any]: any }
 declare function GetFonts(): { string }
@@ -31252,8 +31356,8 @@ declare function GetFramerate(): number
 declare function GetFramesRegisteredForEvent(event: FrameEvent): (...Frame)
 declare function GetFunctionCPUUsage(): (number, number)
 declare function GetGMLink(...: unknown): (...unknown)
-declare function GetGMStatus(): ()
-declare function GetGMTicket(): ()
+declare function GetGMStatus(...: unknown): (...unknown)
+declare function GetGMTicket(...: unknown): (...unknown)
 declare function GetGameMessageInfo(gameErrorIndex: number): (string?, number?, number?)
 declare function GetGameTime(): (number, number)
 declare function GetGarrisonFollowerQualityDescription(...: unknown): (...unknown)
@@ -31263,45 +31367,45 @@ declare function GetGarrisonTypeForFollowerType(...: unknown): (...unknown)
 declare function GetGeneralPlaystyleString(...: unknown): (...unknown)
 declare function GetGlancingBlowChance(playerWeaponSkill: number?, targetDefenseSkill: number): number
 declare function GetGlancingBlowPenalty(playerWeaponSkill: number?, targetDefenseSkill: number): number
-declare function GetGlobalEnvironment(): ()
+declare function GetGlobalEnvironment(...: unknown): (...unknown)
 declare function GetGraphicsAPIs(): string
-declare function GetGraphicsCVarValueForQualityLevel(): ()
-declare function GetGreetingText(): ()
-declare function GetGroupMemberCounts(): ()
+declare function GetGraphicsCVarValueForQualityLevel(...: unknown): (...unknown)
+declare function GetGreetingText(...: unknown): (...unknown)
+declare function GetGroupMemberCounts(...: unknown): (...unknown)
 declare function GetGroupMemberCountsForDisplay(...: unknown): (...unknown)
 declare function GetGuildAchievementMemberInfo(achievementID: number, index: number): string?
 declare function GetGuildAchievementMembers(achievementID: number): ()
 declare function GetGuildAchievementNumMembers(achievementID: number): number
-declare function GetGuildBankBonusDepositMoney(): ()
+declare function GetGuildBankBonusDepositMoney(...: unknown): (...unknown)
 declare function GetGuildBankItemInfo(tab: number, slot: number): (number, number, boolean, boolean, number)
 declare function GetGuildBankItemLink(tab: number, slot: number): string
 declare function GetGuildBankMoney(): number
 declare function GetGuildBankMoneyTransaction(index: number): (string, string, number, number, number, number, number)
-declare function GetGuildBankTabCost(): ()
+declare function GetGuildBankTabCost(...: unknown): (...unknown)
 declare function GetGuildBankTabInfo(tab: number): (string, string, boolean, boolean, number, number, boolean)
 declare function GetGuildBankTabPermissions(tab: number): (boolean, boolean, boolean, number)
-declare function GetGuildBankText(tab: unknown): ()
+declare function GetGuildBankText(...: unknown): (...unknown)
 declare function GetGuildBankTransaction(tab: number, index: number): (string, string, string, number, number, number, number, number, number, number)
 declare function GetGuildBankWithdrawGoldLimit(): number
 declare function GetGuildBankWithdrawMoney(): number
-declare function GetGuildCategoryList(): ()
-declare function GetGuildChallengeInfo(index: unknown): ()
-declare function GetGuildCharterCost(): ()
-declare function GetGuildEventInfo(index: unknown): ()
-declare function GetGuildFactionGroup(): ()
+declare function GetGuildCategoryList(...: unknown): (...unknown)
+declare function GetGuildChallengeInfo(...: unknown): (...unknown)
+declare function GetGuildCharterCost(...: unknown): (...unknown)
+declare function GetGuildEventInfo(...: unknown): (...unknown)
+declare function GetGuildFactionGroup(...: unknown): (...unknown)
 declare function GetGuildInfo(unit: UnitToken): (string, string, number, string?)
-declare function GetGuildLogoInfo(): ()
-declare function GetGuildMemberRecipes(name: unknown, skillLineID: unknown): ()
-declare function GetGuildNewsFilters(): ()
-declare function GetGuildNewsMemberName(index: unknown, nameIndex: unknown): ()
-declare function GetGuildNewsSort(): ()
-declare function GetGuildPerkInfo(): ()
+declare function GetGuildLogoInfo(...: unknown): (...unknown)
+declare function GetGuildMemberRecipes(...: unknown): (...unknown)
+declare function GetGuildNewsFilters(...: unknown): (...unknown)
+declare function GetGuildNewsMemberName(...: unknown): (...unknown)
+declare function GetGuildNewsSort(...: unknown): (...unknown)
+declare function GetGuildPerkInfo(...: unknown): (...unknown)
 declare function GetGuildRecipeInfoPostQuery(): (number, number, number)
 declare function GetGuildRecipeMember(index: number): (string, boolean)
-declare function GetGuildRenameRequired(): ()
-declare function GetGuildRewardInfo(index: unknown): ()
+declare function GetGuildRenameRequired(...: unknown): (...unknown)
+declare function GetGuildRewardInfo(...: unknown): (...unknown)
 declare function GetGuildRosterInfo(index: number): (string, string, number, number, string, string, string, string, boolean, number, string, number, number, boolean, boolean, number, string)
-declare function GetGuildRosterLargestAchievementPoints(): ()
+declare function GetGuildRosterLargestAchievementPoints(...: unknown): (...unknown)
 declare function GetGuildRosterLastOnline(index: number): (number, number, number, number)
 declare function GetGuildRosterSelection(): number
 declare function GetGuildRosterShowOffline(): boolean
@@ -31324,7 +31428,7 @@ declare function GetInboxNumItems(): (number, number)
 declare function GetInboxText(index: number): (string, string, string, boolean, boolean, boolean)
 declare function GetInspectArenaData(bracketId: number): (number, number, number, number, number)
 declare function GetInspectHonorData(): (number, number, number, number, number, number)
-declare function GetInspectTalent(): ()
+declare function GetInspectTalent(...: unknown): (...unknown)
 declare function GetInstanceBootTimeRemaining(): number
 declare function GetInstanceInfo(): (string, string, number, string, number, number, boolean?, number, number, number?, boolean)
 declare function GetInstanceLockTimeRemaining(): (number, boolean, number, number)
@@ -31334,7 +31438,7 @@ declare function GetInventoryItemBroken(unit: UnitToken, invSlotId: number): boo
 declare function GetInventoryItemCooldown(unit: UnitToken, invSlotId: number): (number, number, number)
 declare function GetInventoryItemCount(unit: UnitToken, invSlotId: number): number
 declare function GetInventoryItemDurability(invSlotId: number): (number, number)
-declare function GetInventoryItemEquippedUnusable(unit: unknown, slot: unknown): ()
+declare function GetInventoryItemEquippedUnusable(...: unknown): (...unknown)
 declare function GetInventoryItemID(unit: UnitToken, invSlotId: number): (number, number)
 declare function GetInventoryItemLink(unit: UnitToken, invSlotId: number): string?
 declare function GetInventoryItemQuality(unit: UnitToken, invSlotId: number): Enum_ItemQuality
@@ -31348,67 +31452,67 @@ declare function GetItemButtonIconTexture(...: unknown): (...unknown)
 declare function GetItemInfoFromHyperlink(...: unknown): (...unknown)
 declare function GetItemLevelColor(): (number, number, number)
 declare function GetJailersTowerLevel(): number
-declare function GetJournalInfoForSpellConfirmation(spellID: unknown): ()
+declare function GetJournalInfoForSpellConfirmation(...: unknown): (...unknown)
 declare function GetKeyRingSize(...: unknown): (...unknown)
 declare function GetKeysArray(...: unknown): (...unknown)
 declare function GetKeysArraySortedByValue(...: unknown): (...unknown)
 declare function GetKnownTitles(...: unknown): (...unknown)
-declare function GetLFDChoiceCollapseState(LFGCollapseList: unknown): ()
-declare function GetLFDChoiceEnabledState(LFGEnabledList: unknown): ()
-declare function GetLFDChoiceOrder(LFDDungeonList: unknown): ()
-declare function GetLFDLockInfo(dungeonID: unknown, playerIndex: unknown): ()
-declare function GetLFDLockPlayerCount(): ()
-declare function GetLFDRoleLockInfo(dungeonID: unknown, roleID: unknown): ()
-declare function GetLFDRoleRestrictions(dungeonID: unknown): ()
+declare function GetLFDChoiceCollapseState(...: unknown): (...unknown)
+declare function GetLFDChoiceEnabledState(...: unknown): (...unknown)
+declare function GetLFDChoiceOrder(...: unknown): (...unknown)
+declare function GetLFDLockInfo(...: unknown): (...unknown)
+declare function GetLFDLockPlayerCount(...: unknown): (...unknown)
+declare function GetLFDRoleLockInfo(...: unknown): (...unknown)
+declare function GetLFDRoleRestrictions(...: unknown): (...unknown)
 declare function GetLFGBootProposal(): (boolean, boolean, boolean, string, number, number, number, string)
-declare function GetLFGCategoryForID(partySlot: unknown): ()
-declare function GetLFGCompletionReward(): ()
-declare function GetLFGCompletionRewardItem(rewardIndex: unknown): ()
-declare function GetLFGCompletionRewardItemLink(rewardIndex: unknown): ()
+declare function GetLFGCategoryForID(...: unknown): (...unknown)
+declare function GetLFGCompletionReward(...: unknown): (...unknown)
+declare function GetLFGCompletionRewardItem(...: unknown): (...unknown)
+declare function GetLFGCompletionRewardItemLink(...: unknown): (...unknown)
 declare function GetLFGDeserterExpiration(): number?
 declare function GetLFGDungeonEncounterInfo(dungeonID: number, encounterIndex: number): (string, string, boolean, boolean)
 declare function GetLFGDungeonInfo(dungeonID: number): (string, number, number, number, number, number, number, number, number, number, string, number, number, string, boolean, number, number, boolean, string, number, boolean, number)
 declare function GetLFGDungeonNumEncounters(dungeonID: number): (number, number)
 declare function GetLFGDungeonRewardCapBarInfo(dungeonID: number): (number, number, number, number, number, number, number, number, number, number)
-declare function GetLFGDungeonRewardCapInfo(dungeonID: unknown): ()
-declare function GetLFGDungeonRewardInfo(dungeonID: unknown, rewardIndex: unknown): ()
-declare function GetLFGDungeonRewardLink(dungeonID: unknown, rewardIndex: unknown): ()
-declare function GetLFGDungeonRewards(dungeonID: unknown): ()
-declare function GetLFGDungeonShortageRewardInfo(dungeonID: unknown, shortageIndex: unknown, rewardIndex: unknown): ()
-declare function GetLFGDungeonShortageRewardLink(dungeonID: unknown, shortageIndex: unknown, rewardIndex: unknown): ()
-declare function GetLFGInfoServer(category: unknown, lfgID: unknown): ()
-declare function GetLFGInviteRoleAvailability(roleID: unknown): ()
-declare function GetLFGInviteRoleRestrictions(roleID: unknown): ()
+declare function GetLFGDungeonRewardCapInfo(...: unknown): (...unknown)
+declare function GetLFGDungeonRewardInfo(...: unknown): (...unknown)
+declare function GetLFGDungeonRewardLink(...: unknown): (...unknown)
+declare function GetLFGDungeonRewards(...: unknown): (...unknown)
+declare function GetLFGDungeonShortageRewardInfo(...: unknown): (...unknown)
+declare function GetLFGDungeonShortageRewardLink(...: unknown): (...unknown)
+declare function GetLFGInfoServer(...: unknown): (...unknown)
+declare function GetLFGInviteRoleAvailability(...: unknown): (...unknown)
+declare function GetLFGInviteRoleRestrictions(...: unknown): (...unknown)
 declare function GetLFGMode(...: unknown): (...unknown)
 declare function GetLFGProposal(): (boolean, number, number, number, string, string, string, boolean, number, number, number, boolean, boolean, number)
-declare function GetLFGProposalEncounter(encounterIndex: unknown): ()
-declare function GetLFGProposalMember(memberIndex: unknown): ()
+declare function GetLFGProposalEncounter(...: unknown): (...unknown)
+declare function GetLFGProposalMember(...: unknown): (...unknown)
 declare function GetLFGQueueStats(category: number, activeID: number?): (boolean, boolean, boolean, boolean, boolean, number, number, number, number, number, string, number, number, number, number, number, number, number)
-declare function GetLFGQueuedList(category: unknown, table: unknown): ()
+declare function GetLFGQueuedList(...: unknown): (...unknown)
 declare function GetLFGRandomCooldownExpiration(): number?
 declare function GetLFGRandomDungeonInfo(index: number): (number, string, number, number, number, number, number, number, number, number, number, string, number, number, string, boolean, number, number, boolean, string, number, boolean)
-declare function GetLFGReadyCheckUpdate(): ()
-declare function GetLFGReadyCheckUpdateBattlegroundInfo(): ()
+declare function GetLFGReadyCheckUpdate(...: unknown): (...unknown)
+declare function GetLFGReadyCheckUpdateBattlegroundInfo(...: unknown): (...unknown)
 declare function GetLFGRoleShortageRewards(dungeonID: number, shortageSeverity: number): (boolean, boolean, boolean, boolean, number, number, number)
-declare function GetLFGRoleUpdate(): ()
+declare function GetLFGRoleUpdate(...: unknown): (...unknown)
 declare function GetLFGRoleUpdateBattlegroundInfo(): string
-declare function GetLFGRoleUpdateMember(memberIndex: unknown): ()
+declare function GetLFGRoleUpdateMember(...: unknown): (...unknown)
 declare function GetLFGRoleUpdateSlot(index: number): (number, number, number)
 declare function GetLFGRoles(): (boolean, boolean, boolean, boolean)
-declare function GetLFGSuspendedPlayers(category: unknown): ()
+declare function GetLFGSuspendedPlayers(...: unknown): (...unknown)
 declare function GetLFRChoiceOrder(LFRRaidList: { [any]: any }): { [any]: any }
 declare function GetLanguageByIndex(index: number): (string, number)
-declare function GetLatestCompletedAchievements(): ()
-declare function GetLatestCompletedComparisonAchievements(): ()
+declare function GetLatestCompletedAchievements(...: unknown): (...unknown)
+declare function GetLatestCompletedComparisonAchievements(...: unknown): (...unknown)
 declare function GetLatestThreeSenders(): (string?, string?, string?)
-declare function GetLatestUpdatedComparisonStats(): ()
-declare function GetLatestUpdatedStats(): ()
+declare function GetLatestUpdatedComparisonStats(...: unknown): (...unknown)
+declare function GetLatestUpdatedStats(...: unknown): (...unknown)
 declare function GetLegacyRaidDifficultyID(): number?
 declare function GetLifesteal(): number
 declare function GetLocalGameTime(): (number, number)
 declare function GetLocale(): string
-declare function GetLooseMacroIcons(): ()
-declare function GetLooseMacroItemIcons(): ()
+declare function GetLooseMacroIcons(...: unknown): (...unknown)
+declare function GetLooseMacroItemIcons(...: unknown): (...unknown)
 declare function GetLootInfo(): { { [any]: any } }
 declare function GetLootRollItemInfo(rollID: number): (string, string, number, number, boolean, boolean, boolean, boolean, number, number, number, number, boolean)
 declare function GetLootRollItemLink(id: number): string
@@ -31420,11 +31524,11 @@ declare function GetLootSourceInfo(lootSlot: number): (string, number)
 declare function GetLootSpecialization(): number
 declare function GetLootThreshold(): number
 declare function GetMacroBody(macro: number | string): string?
-declare function GetMacroIcons(table: unknown): ()
+declare function GetMacroIcons(...: unknown): (...unknown)
 declare function GetMacroIndexByName(name: string): number
 declare function GetMacroInfo(macro: number | string): (string, fileID, string)
 declare function GetMacroItem(name: number | string): (string, string)
-declare function GetMacroItemIcons(table: unknown): ()
+declare function GetMacroItemIcons(...: unknown): (...unknown)
 declare function GetMacroSpell(name: number | string): number
 declare function GetManaRegen(): (number, number)
 declare function GetManaRegenFromSpirit(): (number, number)
@@ -31437,15 +31541,15 @@ declare function GetMaxBattlefieldID(): number
 declare function GetMaxLevelForExpansionLevel(expansionLevel: number): number
 declare function GetMaxLevelForLatestExpansion(): number
 declare function GetMaxLevelForPlayerExpansion(): number
-declare function GetMaxNumCUFProfiles(): ()
+declare function GetMaxNumCUFProfiles(...: unknown): (...unknown)
 declare function GetMaxPlayerLevel(): number
-declare function GetMaxRenderScale(): ()
-declare function GetMaxRewardCurrencies(): ()
+declare function GetMaxRenderScale(...: unknown): (...unknown)
+declare function GetMaxRewardCurrencies(...: unknown): (...unknown)
 declare function GetMaxTalentTier(): number
 declare function GetMaxUIPanelsWidth(...: unknown): (...unknown)
 declare function GetMaximumExpansionLevel(): number
 declare function GetMeleeHaste(): number
-declare function GetMerchantFilter(): ()
+declare function GetMerchantFilter(...: unknown): (...unknown)
 declare function GetMerchantItemCostInfo(index: number): number
 declare function GetMerchantItemCostItem(index: number, itemIndex: number): (string, number, string, string)
 declare function GetMerchantItemID(index: number): number
@@ -31456,21 +31560,21 @@ declare function GetMessageTypeColor(...: unknown): (...unknown)
 declare function GetMessageTypeState(...: unknown): (...unknown)
 declare function GetMicroIconForRole(role: string): string
 declare function GetMicroIconForRoleEnum(...: unknown): (...unknown)
-declare function GetMinRenderScale(): ()
+declare function GetMinRenderScale(...: unknown): (...unknown)
 declare function GetMinimapZoneText(): string
 declare function GetMinimumExpansionLevel(): number
 declare function GetMirrorTimerInfo(timerIndex: number): (string?, number?, number?, number?, number?, string?, number?)
 declare function GetMirrorTimerProgress(timerName: string): number?
 declare function GetModResilienceDamageReduction(): number
 declare function GetModifiedClick(action: string): string
-declare function GetModifiedClickAction(index: unknown): ()
+declare function GetModifiedClickAction(...: unknown): (...unknown)
 declare function GetMoney(): number
 declare function GetMoneyFrame(...: unknown): (...unknown)
 declare function GetMoneyString(money: number, separateThousands: boolean?): string
 declare function GetMoneyTypeInfoField(...: unknown): (...unknown)
-declare function GetMonitorAspectRatio(): ()
-declare function GetMonitorCount(): ()
-declare function GetMonitorName(): ()
+declare function GetMonitorAspectRatio(...: unknown): (...unknown)
+declare function GetMonitorCount(...: unknown): (...unknown)
+declare function GetMonitorName(...: unknown): (...unknown)
 declare function GetMouseButtonClicked(): string
 declare function GetMouseButtonName(button: mouseButton): string
 declare function GetMouseFoci(): { ScriptRegion }
@@ -31484,72 +31588,72 @@ declare function GetNetStats(): (number, number, ...number)
 declare function GetNewActionHighlightMark(...: unknown): (...unknown)
 declare function GetNextAchievement(achievementID: number): (number?, boolean?)
 declare function GetNextAvailableRaidTargetMarkerIndex(startIndex: number, reverseSearch: boolean?, wrapSearch: boolean?, treatDeadNonFriendlyAsAvailable: boolean?): number
-declare function GetNextCompleatedTutorial(tutorial: unknown): ()
+declare function GetNextCompleatedTutorial(...: unknown): (...unknown)
 declare function GetNextFriendlyRaidTargetMarkerIndex(...: unknown): (...unknown)
 declare function GetNextHostileRaidTargetMarkerIndex(...: unknown): (...unknown)
-declare function GetNextPendingInviteConfirmation(): ()
+declare function GetNextPendingInviteConfirmation(...: unknown): (...unknown)
 declare function GetNormalizedRealmName(): string
 declare function GetNumActiveQuests(): number
 declare function GetNumArchaeologyRaces(): number
-declare function GetNumArenaOpponentSpecs(): ()
-declare function GetNumArenaOpponents(): ()
+declare function GetNumArenaOpponentSpecs(...: unknown): (...unknown)
+declare function GetNumArenaOpponents(...: unknown): (...unknown)
 declare function GetNumArtifactsByRace(raceIndex: number): number
 declare function GetNumAutoQuestPopUps(): number
 declare function GetNumAvailableQuests(): number
-declare function GetNumBattlefieldFlagPositions(): ()
+declare function GetNumBattlefieldFlagPositions(...: unknown): (...unknown)
 declare function GetNumBattlefieldScores(): number
-declare function GetNumBattlefieldVehicles(index: unknown): ()
+declare function GetNumBattlefieldVehicles(...: unknown): (...unknown)
 declare function GetNumBattlegroundTypes(): number
 declare function GetNumBindings(): number
 declare function GetNumBuybackItems(): number
-declare function GetNumChannelMembers(): ()
+declare function GetNumChannelMembers(...: unknown): (...unknown)
 declare function GetNumClasses(): number
 declare function GetNumCompanions(type: string): number
 declare function GetNumComparisonCompletedAchievements(achievementID: number): (number, number)
 declare function GetNumCompletedAchievements(): (number, number)
 declare function GetNumDeclensionSets(name: string, gender: Enum_UnitSex?, namePartType: Enum_NamePartType?): number
 declare function GetNumDisplayChannels(): number
-declare function GetNumDungeonForRandomSlot(randomID: unknown): ()
+declare function GetNumDungeonForRandomSlot(...: unknown): (...unknown)
 declare function GetNumExpansions(): number
 declare function GetNumFilteredAchievements(): number
 declare function GetNumFlexRaidDungeons(): number
-declare function GetNumFlyouts(): ()
-declare function GetNumGroupChannels(): ()
+declare function GetNumFlyouts(...: unknown): (...unknown)
+declare function GetNumGroupChannels(...: unknown): (...unknown)
 declare function GetNumGroupMembers(groupType: number?): number
-declare function GetNumGuildBankMoneyTransactions(): ()
-declare function GetNumGuildBankTabs(): ()
-declare function GetNumGuildBankTransactions(tab: unknown): ()
-declare function GetNumGuildChallenges(): ()
-declare function GetNumGuildEvents(): ()
+declare function GetNumGuildBankMoneyTransactions(...: unknown): (...unknown)
+declare function GetNumGuildBankTabs(...: unknown): (...unknown)
+declare function GetNumGuildBankTransactions(...: unknown): (...unknown)
+declare function GetNumGuildChallenges(...: unknown): (...unknown)
+declare function GetNumGuildEvents(...: unknown): (...unknown)
 declare function GetNumGuildMembers(): (number, number)
-declare function GetNumGuildNews(): ()
-declare function GetNumGuildPerks(): ()
-declare function GetNumGuildRewards(): ()
-declare function GetNumGuildTradeSkill(): ()
+declare function GetNumGuildNews(...: unknown): (...unknown)
+declare function GetNumGuildPerks(...: unknown): (...unknown)
+declare function GetNumGuildRewards(...: unknown): (...unknown)
+declare function GetNumGuildTradeSkill(...: unknown): (...unknown)
 declare function GetNumLanguages(): number
 declare function GetNumLootItems(): number
 declare function GetNumMacros(): (number, number)
-declare function GetNumMembersInRank(index: unknown): ()
-declare function GetNumModifiedClickActions(): ()
+declare function GetNumMembersInRank(...: unknown): (...unknown)
+declare function GetNumModifiedClickActions(...: unknown): (...unknown)
 declare function GetNumPetitionNames(): number
 declare function GetNumQuestChoices(): number
-declare function GetNumQuestCurrencies(): ()
-declare function GetNumQuestItemDrops(): ()
+declare function GetNumQuestCurrencies(...: unknown): (...unknown)
+declare function GetNumQuestItemDrops(...: unknown): (...unknown)
 declare function GetNumQuestItems(): number
 declare function GetNumQuestLeaderBoards(questID: number?): number
 declare function GetNumQuestLogChoices(questID: number, includeCurrencies: boolean?): number
-declare function GetNumQuestLogRewardFactions(): ()
+declare function GetNumQuestLogRewardFactions(...: unknown): (...unknown)
 declare function GetNumQuestLogRewards(questID: number?): number
-declare function GetNumQuestLogTasks(): ()
+declare function GetNumQuestLogTasks(...: unknown): (...unknown)
 declare function GetNumQuestRewards(): number
 declare function GetNumRFDungeons(): number
-declare function GetNumRaidProfiles(): ()
+declare function GetNumRaidProfiles(...: unknown): (...unknown)
 declare function GetNumRandomDungeons(): number
-declare function GetNumRandomScenarios(): ()
-declare function GetNumRoutes(slot: unknown): ()
+declare function GetNumRandomScenarios(...: unknown): (...unknown)
+declare function GetNumRoutes(...: unknown): (...unknown)
 declare function GetNumSavedInstances(): number
 declare function GetNumSavedWorldBosses(): number
-declare function GetNumScenarios(): ()
+declare function GetNumScenarios(...: unknown): (...unknown)
 declare function GetNumShapeshiftForms(): number
 declare function GetNumSpecGroups(b: boolean): number
 declare function GetNumSpecializations(isInspect: boolean?, isPet: boolean?): number
@@ -31557,13 +31661,13 @@ declare function GetNumSubgroupMembers(groupType: number?): number
 declare function GetNumTitles(): number
 declare function GetNumTotemSlots(): number
 declare function GetNumTrainerServices(): number
-declare function GetNumTreasurePickerItems(): ()
-declare function GetNumUnspentPvpTalents(): ()
+declare function GetNumTreasurePickerItems(...: unknown): (...unknown)
+declare function GetNumUnspentPvpTalents(...: unknown): (...unknown)
 declare function GetNumUnspentTalents(): number
-declare function GetNumWarGameTypes(): ()
+declare function GetNumWarGameTypes(...: unknown): (...unknown)
 declare function GetNumWatchedTokens(...: unknown): (...unknown)
 declare function GetOSLocale(): string
-declare function GetObjectiveText(): ()
+declare function GetObjectiveText(...: unknown): (...unknown)
 declare function GetOffhandHitModifier(): number
 declare function GetOnBarHighlightMark(...: unknown): (...unknown)
 declare function GetOptOutOfLoot(): boolean
@@ -31586,27 +31690,27 @@ declare function GetParryChanceFromAttribute(): number
 declare function GetPartyAssignment(assignment: string, raidmember: UnitToken?, exactMatch: boolean?): boolean
 declare function GetPartyCategoryFromChannelType(...: unknown): (...unknown)
 declare function GetPartyInviteString(...: unknown): (...unknown)
-declare function GetPartyLFGBackfillInfo(): ()
-declare function GetPartyLFGID(): ()
-declare function GetPendingGlyphName(): ()
-declare function GetPendingInviteConfirmations(): ()
+declare function GetPartyLFGBackfillInfo(...: unknown): (...unknown)
+declare function GetPartyLFGID(...: unknown): (...unknown)
+declare function GetPendingGlyphName(...: unknown): (...unknown)
+declare function GetPendingInviteConfirmations(...: unknown): (...unknown)
 declare function GetPersonalRatedInfo(index: number): (number, number, number, number, number, number, number, number)
 declare function GetPetActionCooldown(index: number): (number, number, number)
 declare function GetPetActionInfo(index: number): (string, string, boolean, boolean, boolean, boolean, number, boolean, boolean)
 declare function GetPetActionSlotUsable(index: number): boolean
-declare function GetPetActionsUsable(): ()
+declare function GetPetActionsUsable(...: unknown): (...unknown)
 declare function GetPetCritChance(): (number, number)
 declare function GetPetDodgeChance(): number
 declare function GetPetExperience(): (number, number)
 declare function GetPetHitChanceModifier(): number
-declare function GetPetIcon(): ()
+declare function GetPetIcon(...: unknown): (...unknown)
 declare function GetPetMeleeHaste(): number
 declare function GetPetSpellBonusDamage(): number
 declare function GetPetSpellHitChanceModifier(): number
-declare function GetPetTimeRemaining(): ()
+declare function GetPetTimeRemaining(...: unknown): (...unknown)
 declare function GetPetTypeTexture(...: unknown): (...unknown)
 declare function GetPetitionInfo(): (string, string, string, number, string, boolean, number)
-declare function GetPetitionNameInfo(index: unknown): ()
+declare function GetPetitionNameInfo(...: unknown): (...unknown)
 declare function GetPhysicalScreenSize(): (number, number)
 declare function GetPlayerActorLabelTag(...: unknown): (...unknown)
 declare function GetPlayerBottomManagedFrameContainer(...: unknown): (...unknown)
@@ -31616,96 +31720,96 @@ declare function GetPlayerFactionGroup(...: unknown): (...unknown)
 declare function GetPlayerGuid(...: unknown): (...unknown)
 declare function GetPlayerInfoByGUID(guid: WOWGUID): (string?, string?, string?, string?, number?, string?, string?, number?)
 declare function GetPlayerLink(...: unknown): (...unknown)
-declare function GetPlayerTradeCurrency(): ()
+declare function GetPlayerTradeCurrency(...: unknown): (...unknown)
 declare function GetPlayerTradeMoney(): number
 declare function GetPossessInfo(index: number): (string, number, boolean)
 declare function GetPowerBarColor(...: unknown): (...unknown)
 declare function GetPowerRegen(): (number, number)
 declare function GetPowerRegenForPowerType(powerType: number): (number, number)
-declare function GetPrevCompleatedTutorial(tutorial: unknown): ()
+declare function GetPrevCompleatedTutorial(...: unknown): (...unknown)
 declare function GetPreviousAchievement(achievementID: number): number
-declare function GetPreviousArenaSeason(): ()
+declare function GetPreviousArenaSeason(...: unknown): (...unknown)
 declare function GetPrimaryGarrisonFollowerType(...: unknown): (...unknown)
-declare function GetPrimarySpecialization(): ()
+declare function GetPrimarySpecialization(...: unknown): (...unknown)
 declare function GetProfessionInfo(index: number): (string, fileID, number, number, number, number, number, number, number, number, string)
 declare function GetProfessions(): (number, number, number, number, number)
 declare function GetProgressText(): string
-declare function GetPromotionRank(index: unknown): ()
+declare function GetPromotionRank(...: unknown): (...unknown)
 declare function GetProtocolTypes(): (...unknown)
 declare function GetPvpPowerDamage(): number
 declare function GetPvpPowerHealing(): number
 declare function GetPvpRatingLink(...: unknown): (...unknown)
 declare function GetPvpTalentInfoByID(talentID: number, specGroupIndex: number?, isInspect: boolean?, inspectedUnit: string?): (number, string, number, boolean, boolean, number, boolean, number, number, boolean, boolean)
-declare function GetPvpTalentInfoBySpecialization(): ()
-declare function GetPvpTalentLink(): ()
+declare function GetPvpTalentInfoBySpecialization(...: unknown): (...unknown)
+declare function GetPvpTalentLink(...: unknown): (...unknown)
 declare function GetQuestBackgroundMaterial(): string?
-declare function GetQuestCurrencyID(type: unknown, index: unknown): ()
+declare function GetQuestCurrencyID(...: unknown): (...unknown)
 declare function GetQuestDifficultyColor(...: unknown): (...unknown)
-declare function GetQuestExpansion(questID: unknown): ()
+declare function GetQuestExpansion(...: unknown): (...unknown)
 declare function GetQuestFactionGroup(questID: number): number
 declare function GetQuestID(): number
 declare function GetQuestItemInfo(type: string, index: number): (string, number, number, Enum_ItemQuality, boolean, number)
-declare function GetQuestItemInfoLootType(type: unknown, index: unknown): ()
+declare function GetQuestItemInfoLootType(...: unknown): (...unknown)
 declare function GetQuestItemLink(type: string, index: number): string
 declare function GetQuestLink(questID: number): string
 declare function GetQuestLogChoiceInfo(index: number, questID: number?): (string, fileID, number, Enum_ItemQuality, boolean, number)
-declare function GetQuestLogChoiceInfoLootType(index: unknown): ()
-declare function GetQuestLogCompletionText(): ()
-declare function GetQuestLogCriteriaSpell(): ()
-declare function GetQuestLogItemDrop(index: unknown): ()
+declare function GetQuestLogChoiceInfoLootType(...: unknown): (...unknown)
+declare function GetQuestLogCompletionText(...: unknown): (...unknown)
+declare function GetQuestLogCriteriaSpell(...: unknown): (...unknown)
+declare function GetQuestLogItemDrop(...: unknown): (...unknown)
 declare function GetQuestLogItemLink(type: string, index: number, questID: number?): string
 declare function GetQuestLogLeaderBoard(objIndex: number, questIndex: number?): (string, string, boolean)
-declare function GetQuestLogPortraitTurnIn(): ()
+declare function GetQuestLogPortraitTurnIn(...: unknown): (...unknown)
 declare function GetQuestLogQuestText(questLogIndex: number?): (string, string)
-declare function GetQuestLogQuestType(): ()
-declare function GetQuestLogRewardArtifactXP(): ()
-declare function GetQuestLogRewardFactionInfo(questIndex: unknown): ()
-declare function GetQuestLogRewardHonor(questID: unknown): ()
+declare function GetQuestLogQuestType(...: unknown): (...unknown)
+declare function GetQuestLogRewardArtifactXP(...: unknown): (...unknown)
+declare function GetQuestLogRewardFactionInfo(...: unknown): (...unknown)
+declare function GetQuestLogRewardHonor(...: unknown): (...unknown)
 declare function GetQuestLogRewardInfo(itemIndex: number, questID: number?): (string, string, number, number, boolean, number, number)
 declare function GetQuestLogRewardMoney(questID: number?): number
-declare function GetQuestLogRewardSkillPoints(): ()
-declare function GetQuestLogRewardTitle(): ()
-declare function GetQuestLogRewardXP(questID: unknown): ()
+declare function GetQuestLogRewardSkillPoints(...: unknown): (...unknown)
+declare function GetQuestLogRewardTitle(...: unknown): (...unknown)
+declare function GetQuestLogRewardXP(...: unknown): (...unknown)
 declare function GetQuestLogSpecialItemCooldown(questLogIndex: number): (number, number, number)
 declare function GetQuestLogSpecialItemInfo(questLogIndex: number): (string?, number, number, boolean)
 declare function GetQuestLogTimeLeft(): number
-declare function GetQuestMoneyToGet(): ()
+declare function GetQuestMoneyToGet(...: unknown): (...unknown)
 declare function GetQuestObjectiveInfo(questID: number, objectiveIndex: number, displayComplete: boolean): (string, string, boolean, number, number)
-declare function GetQuestPOIBlobCount(questID: unknown): ()
-declare function GetQuestPOILeaderBoard(index: unknown): ()
-declare function GetQuestPOIs(): ()
-declare function GetQuestPortraitGiver(): ()
-declare function GetQuestPortraitTurnIn(): ()
+declare function GetQuestPOIBlobCount(...: unknown): (...unknown)
+declare function GetQuestPOILeaderBoard(...: unknown): (...unknown)
+declare function GetQuestPOIs(...: unknown): (...unknown)
+declare function GetQuestPortraitGiver(...: unknown): (...unknown)
+declare function GetQuestPortraitTurnIn(...: unknown): (...unknown)
 declare function GetQuestProgressBarPercent(questID: number): number
 declare function GetQuestResetTime(): number
 declare function GetQuestReward(itemChoice: number): ()
 declare function GetQuestSortIndex(questLogIndex: number): number
-declare function GetQuestText(): ()
-declare function GetQuestUiMapID(): ()
+declare function GetQuestText(...: unknown): (...unknown)
+declare function GetQuestUiMapID(...: unknown): (...unknown)
 declare function GetQuestsOnMapCached(...: unknown): (...unknown)
 declare function GetRFDungeonInfo(index: number): (number, string, number, number, number, number, number, number, number, number, number, string, number, number, string, boolean, number, number, boolean, string, number, boolean, number)
 declare function GetRaceAtlas(...: unknown): (...unknown)
 declare function GetRaidDifficultyID(): number?
-declare function GetRaidProfileFlattenedOptions(profile: unknown): ()
-declare function GetRaidProfileName(index: unknown): ()
-declare function GetRaidProfileOption(profile: unknown, optionName: unknown): ()
-declare function GetRaidProfileSavedPosition(profile: unknown): ()
+declare function GetRaidProfileFlattenedOptions(...: unknown): (...unknown)
+declare function GetRaidProfileName(...: unknown): (...unknown)
+declare function GetRaidProfileOption(...: unknown): (...unknown)
+declare function GetRaidProfileSavedPosition(...: unknown): (...unknown)
 declare function GetRaidRosterInfo(raidIndex: number): (string, number, number, number, string, string, string?, boolean, boolean, string, boolean, string)
 declare function GetRaidTargetIndex(target: UnitToken): number?
 declare function GetRandomArgument(...: unknown): (...unknown)
 declare function GetRandomArrayEntry(...: unknown): (...unknown)
-declare function GetRandomDungeonBestChoice(): ()
-declare function GetRandomScenarioBestChoice(): ()
-declare function GetRandomScenarioInfo(index: unknown): ()
+declare function GetRandomDungeonBestChoice(...: unknown): (...unknown)
+declare function GetRandomScenarioBestChoice(...: unknown): (...unknown)
+declare function GetRandomScenarioInfo(...: unknown): (...unknown)
 declare function GetRandomTableValue(...: unknown): (...unknown)
 declare function GetRangedAttackPowerForStat(stat: number, value: number): number
 declare function GetRangedCritChance(): number
 declare function GetRangedHaste(): (number, number)
 declare function GetRangedHitModifier(): number
-declare function GetRatedBattleGroundInfo(): ()
+declare function GetRatedBattleGroundInfo(...: unknown): (...unknown)
 declare function GetReadonlyRestrictedTable(...: unknown): (...unknown)
-declare function GetReadyCheckStatus(unit: unknown): ()
-declare function GetReadyCheckTimeLeft(): ()
+declare function GetReadyCheckStatus(...: unknown): (...unknown)
+declare function GetReadyCheckTimeLeft(...: unknown): (...unknown)
 declare function GetRealZoneText(mapID: number?): string
 declare function GetRealmID(): number
 declare function GetRealmName(): string
@@ -31715,26 +31819,26 @@ declare function GetRepairAllCost(): (number, boolean?)
 declare function GetResSicknessDuration(): string?
 declare function GetRestState(): (number?, string?, number?)
 declare function GetRestrictedAccountData(): (number, WOWMONEY, number)
-declare function GetRewardArtifactXP(): ()
-declare function GetRewardHonor(): ()
-declare function GetRewardMoney(): ()
-declare function GetRewardNumSkillUps(): ()
-declare function GetRewardPackArtifactPower(rewardPackID: unknown): ()
-declare function GetRewardPackCurrencies(rewardPackID: unknown): ()
-declare function GetRewardPackItems(rewardPackID: unknown): ()
-declare function GetRewardPackMoney(rewardPackID: unknown): ()
-declare function GetRewardPackTitle(rewardPackID: unknown): ()
-declare function GetRewardPackTitleName(titleID: unknown): ()
-declare function GetRewardSkillLineID(): ()
-declare function GetRewardSkillPoints(): ()
+declare function GetRewardArtifactXP(...: unknown): (...unknown)
+declare function GetRewardHonor(...: unknown): (...unknown)
+declare function GetRewardMoney(...: unknown): (...unknown)
+declare function GetRewardNumSkillUps(...: unknown): (...unknown)
+declare function GetRewardPackArtifactPower(...: unknown): (...unknown)
+declare function GetRewardPackCurrencies(...: unknown): (...unknown)
+declare function GetRewardPackItems(...: unknown): (...unknown)
+declare function GetRewardPackMoney(...: unknown): (...unknown)
+declare function GetRewardPackTitle(...: unknown): (...unknown)
+declare function GetRewardPackTitleName(...: unknown): (...unknown)
+declare function GetRewardSkillLineID(...: unknown): (...unknown)
+declare function GetRewardSkillPoints(...: unknown): (...unknown)
 declare function GetRewardText(): string
-declare function GetRewardTitle(): ()
+declare function GetRewardTitle(...: unknown): (...unknown)
 declare function GetRewardXP(): number
 declare function GetRightManagedFrameContainer(...: unknown): (...unknown)
 declare function GetRuneCooldown(runeIndex: number): (number?, number?, boolean?)
 declare function GetRuneCount(runeIndex: number): number?
-declare function GetRunningMacro(): ()
-declare function GetRunningMacroButton(): ()
+declare function GetRunningMacro(...: unknown): (...unknown)
+declare function GetRunningMacroButton(...: unknown): (...unknown)
 declare function GetSavedInstanceChatLink(index: number): string
 declare function GetSavedInstanceEncounterInfo(instanceIndex: number, encounterIndex: number): (string, number, boolean, boolean)
 declare function GetSavedInstanceInfo(index: number): (string, number, number, number, boolean, boolean, number, boolean, number, string, number, number, boolean, number)
@@ -31749,12 +31853,12 @@ declare function GetScriptBucketThrottleLimits(): ScriptBucketThrottleLimits
 declare function GetScriptCPUUsage(): number
 declare function GetSecondsUntilParentalControlsKick(): number?
 declare function GetSelectedArtifactInfo(): (string, string, number, number, string, number, number, number)
-declare function GetSelectedDisplayChannel(): ()
-declare function GetSelectedWarGameType(): ()
+declare function GetSelectedDisplayChannel(...: unknown): (...unknown)
+declare function GetSelectedWarGameType(...: unknown): (...unknown)
 declare function GetSendMailCOD(): number
 declare function GetSendMailItem(index: number): (string, number, fileID, number, Enum_ItemQuality)
 declare function GetSendMailItemLink(attachment: number): string
-declare function GetSendMailMoney(): ()
+declare function GetSendMailMoney(...: unknown): (...unknown)
 declare function GetSendMailPrice(): number
 declare function GetServerExpansionLevel(): number
 declare function GetServerTime(): number
@@ -31773,41 +31877,41 @@ declare function GetSpecializationInfoForSpecID(specID: number, gender: Enum_Uni
 declare function GetSpecializationNameForSpecID(specID: number, gender: Enum_UnitSex?): string?
 declare function GetSpecializationRole(specIndex: number, isInspect: boolean?, isPet: boolean?): string
 declare function GetSpecializationRoleByID(specID: number): string
-declare function GetSpecializationRoleEnum(): ()
-declare function GetSpecializationRoleEnumByID(): ()
+declare function GetSpecializationRoleEnum(...: unknown): (...unknown)
+declare function GetSpecializationRoleEnumByID(...: unknown): (...unknown)
 declare function GetSpecializationSpells(specIndex: number, isInspect: boolean?, isPet: boolean?): (number, number, ...number)
 declare function GetSpecializationSystem(): Enum_SpecializationSystem
-declare function GetSpecsForSpell(): ()
+declare function GetSpecsForSpell(...: unknown): (...unknown)
 declare function GetSpeed(): number
 declare function GetSpellBaseCooldown(spellid: number): (number, number)
 declare function GetSpellBonusDamage(school: number): number?
 declare function GetSpellBonusHealing(): number
-declare function GetSpellConfirmationPromptsInfo(): ()
+declare function GetSpellConfirmationPromptsInfo(...: unknown): (...unknown)
 declare function GetSpellCritChance(): number
 declare function GetSpellCritChanceFromStat(stat: number, value: number): number
 declare function GetSpellHitModifier(): number
 declare function GetSpellNameColor(...: unknown): (...unknown)
 declare function GetSpellPenetration(): number
-declare function GetSpellsForCharacterUpgradeTier(tierIndex: unknown): ()
+declare function GetSpellsForCharacterUpgradeTier(...: unknown): (...unknown)
 declare function GetStatistic(category: number, index: number?): (string, boolean, string)
 declare function GetStatisticsCategoryList(): { [any]: any }
 declare function GetStringFromModifiers(modifiers: number): string
 declare function GetSturdiness(): number
 declare function GetSubZoneText(): string
-declare function GetSuggestedGroupSize(): ()
-declare function GetTabardCreationCost(): ()
-declare function GetTabardInfo(): ()
+declare function GetSuggestedGroupSize(...: unknown): (...unknown)
+declare function GetTabardCreationCost(...: unknown): (...unknown)
+declare function GetTabardInfo(...: unknown): (...unknown)
 declare function GetTableColor(...: unknown): (...unknown)
-declare function GetTalentInfoByID(talentID: unknown, specGroupIndex: unknown, isInspect: unknown, inspectUnit: unknown): ()
-declare function GetTalentInfoBySpecialization(specIndex: unknown, tier: unknown, column: unknown): ()
-declare function GetTalentLink(talentID: unknown, isInspect: unknown, specGroup: unknown, inspectID: unknown, classID: unknown): ()
+declare function GetTalentInfoByID(...: unknown): (...unknown)
+declare function GetTalentInfoBySpecialization(...: unknown): (...unknown)
+declare function GetTalentLink(...: unknown): (...unknown)
 declare function GetTalentTierInfo(tier: number, specGroupIndex: number, isInspect: boolean?, inspectUnit: string?): (boolean, number, number)
-declare function GetTargetTradeCurrency(): ()
+declare function GetTargetTradeCurrency(...: unknown): (...unknown)
 declare function GetTargetTradeMoney(): number
 declare function GetTaskInfo(questID: number): (boolean, boolean, number)
-declare function GetTaskPOIs(): ()
+declare function GetTaskPOIs(...: unknown): (...unknown)
 declare function GetTasksOnMapCached(...: unknown): (...unknown)
-declare function GetTasksTable(): ()
+declare function GetTasksTable(...: unknown): (...unknown)
 declare function GetTaxiBenchmarkMode(): boolean
 declare function GetTaxiMapID(): number
 declare function GetTexCoordsByGrid(xOffset: number, yOffset: number, textureWidth: number, textureHeight: number, gridWidth: number, gridHeight: number): (number, number, number, number)
@@ -31844,14 +31948,14 @@ declare function GetTrainerServiceIcon(index: number): fileID
 declare function GetTrainerServiceInfo(index: number): (string, string, string, number)
 declare function GetTrainerServiceItemLink(index: number): string
 declare function GetTrainerServiceLevelReq(id: number): number
-declare function GetTrainerServiceNumAbilityReq(): ()
+declare function GetTrainerServiceNumAbilityReq(...: unknown): (...unknown)
 declare function GetTrainerServiceSkillLine(index: number): string
 declare function GetTrainerServiceSkillReq(index: number): (string?, number, boolean)
-declare function GetTrainerServiceStepIndex(): ()
+declare function GetTrainerServiceStepIndex(...: unknown): (...unknown)
 declare function GetTrainerServiceTypeFilter(type: string): boolean
-declare function GetTrainerTradeskillRankValues(): ()
-declare function GetTreasurePickerItemInfo(index: unknown, questID: unknown): ()
-declare function GetTutorialsEnabled(): ()
+declare function GetTrainerTradeskillRankValues(...: unknown): (...unknown)
+declare function GetTreasurePickerItemInfo(...: unknown): (...unknown)
+declare function GetTutorialsEnabled(...: unknown): (...unknown)
 declare function GetUICameraInfo(uiCameraID: number): (number, number, number, number, number, number, number, number, number, boolean)
 declare function GetUIPanel(...: unknown): (...unknown)
 declare function GetUIPanelHeight(...: unknown): (...unknown)
@@ -31886,13 +31990,13 @@ declare function GetValuesArray(...: unknown): (...unknown)
 declare function GetVehicleUIIndicator(vehicleIndicatorID: number): (fileID?, number?)
 declare function GetVehicleUIIndicatorSeat(vehicleIndicatorID: number, indicatorSeatIndex: number): (number?, number?, number?)
 declare function GetVersatilityBonus(combatRating: number): number
-declare function GetVideoCaps(): ()
-declare function GetWarGameQueueStatus(): ()
-declare function GetWarGameTypeInfo(index: unknown): ()
-declare function GetWebTicket(): ()
+declare function GetVideoCaps(...: unknown): (...unknown)
+declare function GetWarGameQueueStatus(...: unknown): (...unknown)
+declare function GetWarGameTypeInfo(...: unknown): (...unknown)
+declare function GetWebTicket(...: unknown): (...unknown)
 declare function GetWorldElapsedTime(timerID: number): (string, number, number)
-declare function GetWorldElapsedTimers(): ()
-declare function GetWorldMapActionButtonSpellInfo(): ()
+declare function GetWorldElapsedTimers(...: unknown): (...unknown)
+declare function GetWorldMapActionButtonSpellInfo(...: unknown): (...unknown)
 declare function GetWorldPVPQueueStatus(index: number): (string, string?, number, number, number, number, boolean)
 declare function GetWowStyle1ArrowButtonShadowlessState(...: unknown): (...unknown)
 declare function GetWowStyle1ArrowButtonState(...: unknown): (...unknown)
@@ -31917,7 +32021,7 @@ declare GridLayoutUtil: {
 	GridLayoutRegions: (...unknown) -> (...unknown),
 }
 declare function GroupFinderVanillaStyle_LoadUI(...: unknown): (...unknown)
-declare function GroupHasOfflineMember(): ()
+declare function GroupHasOfflineMember(...: unknown): (...unknown)
 declare GroupLootContainer: Frame
 declare function GroupLootContainer_AddFrame(...: unknown): (...unknown)
 declare function GroupLootContainer_AddRoll(...: unknown): (...unknown)
@@ -31955,14 +32059,14 @@ declare function GuildBankFrame_UpdateLog(...: unknown): (...unknown)
 declare function GuildBankFrame_UpdateMoneyLog(...: unknown): (...unknown)
 declare function GuildChallengeAlertFrame_OnClick(...: unknown): (...unknown)
 declare function GuildChallengeAlertFrame_SetUp(...: unknown): (...unknown)
-declare function GuildControlAddRank(name: unknown): ()
+declare function GuildControlAddRank(...: unknown): (...unknown)
 declare function GuildControlDelRank(index: number): ()
 declare function GuildControlDiscord_Loaded_OnEvent(...: unknown): (...unknown)
 declare function GuildControlDiscord_Loaded_OnLoad(...: unknown): (...unknown)
 declare function GuildControlDiscord_SetGuildSettingsCheckboxes(...: unknown): (...unknown)
-declare function GuildControlGetAllowedShifts(rankOrder: unknown): ()
-declare function GuildControlGetNumRanks(): ()
-declare function GuildControlGetRank(): ()
+declare function GuildControlGetAllowedShifts(...: unknown): (...unknown)
+declare function GuildControlGetNumRanks(...: unknown): (...unknown)
+declare function GuildControlGetRank(...: unknown): (...unknown)
 declare function GuildControlGetRankName(index: number): string
 declare function GuildControlRankBank_OnLoad(...: unknown): (...unknown)
 declare function GuildControlRankDiscord_OnLoad(...: unknown): (...unknown)
@@ -31970,8 +32074,8 @@ declare function GuildControlRankSettings_OnLoad(...: unknown): (...unknown)
 declare function GuildControlSaveRank(name: string): ()
 declare function GuildControlSetRank(rankOrder: number): ()
 declare function GuildControlSetRankFlag(index: number, enabled: boolean): ()
-declare function GuildControlShiftRankDown(rankOrder: unknown): ()
-declare function GuildControlShiftRankUp(rankOrder: unknown): ()
+declare function GuildControlShiftRankDown(...: unknown): (...unknown)
+declare function GuildControlShiftRankUp(...: unknown): (...unknown)
 declare GuildControlUI: Frame
 declare function GuildControlUIRankDropdown_OnClick(...: unknown): (...unknown)
 declare function GuildControlUIRankPermissions_HideGuildBankOptions(...: unknown): (...unknown)
@@ -32000,7 +32104,7 @@ declare function GuildControlUI_ShiftRankUpButton_OnClick(...: unknown): (...unk
 declare function GuildControlUI_Show(...: unknown): (...unknown)
 declare function GuildControlUI_SubmitChanges(...: unknown): (...unknown)
 declare function GuildControlUI_UnlinkDiscord(...: unknown): (...unknown)
-declare function GuildInfo(): ()
+declare function GuildInfo(...: unknown): (...unknown)
 declare GuildInviteFrame: Frame
 declare function GuildInviteFrame_OnEnter(...: unknown): (...unknown)
 declare function GuildInviteFrame_OnEvent(...: unknown): (...unknown)
@@ -32010,53 +32114,53 @@ declare function GuildInviteFrame_OnLoad(...: unknown): (...unknown)
 declare function GuildInviteFrame_OnUpdate(...: unknown): (...unknown)
 declare function GuildInviteFrame_RegisterForTransitions(...: unknown): (...unknown)
 declare function GuildInviteFrame_SetupGamepad(...: unknown): (...unknown)
-declare function GuildMasterAbsent(): ()
+declare function GuildMasterAbsent(...: unknown): (...unknown)
 declare function GuildNewsButton_SetIcon(...: unknown): (...unknown)
 declare function GuildNewsButton_SetMOTD(...: unknown): (...unknown)
 declare function GuildNewsButton_SetNews(...: unknown): (...unknown)
 declare function GuildNewsButton_SetText(...: unknown): (...unknown)
-declare function GuildNewsSetSticky(index: unknown, bool: unknown): ()
-declare function GuildNewsSort(byDate: unknown): ()
+declare function GuildNewsSetSticky(...: unknown): (...unknown)
+declare function GuildNewsSort(...: unknown): (...unknown)
 declare GuildRegistrarFrame: Frame
 declare function GuildRegistrar_OnShow(...: unknown): (...unknown)
 declare function GuildRegistrar_PurchaseCharter(...: unknown): (...unknown)
 declare function GuildRegistrar_ShowPurchaseFrame(...: unknown): (...unknown)
 declare function GuildRenameAlertFrame_SetUp(...: unknown): (...unknown)
 declare GuildRenameFrame: Frame
-declare function HandleAtlasMemberCommand(): ()
+declare function HandleAtlasMemberCommand(...: unknown): (...unknown)
 declare function HandleModifiedItemClick(...: unknown): (...unknown)
 declare function HandlePendingInviteConfirmation(...: unknown): (...unknown)
 declare function HandlePendingInviteConfirmation_QuestSession(...: unknown): (...unknown)
 declare function HandlePendingInviteConfirmation_StaticPopup(...: unknown): (...unknown)
 declare function HandleQuestSessionInviteToPartyConfirmation(...: unknown): (...unknown)
 declare function HasAPEffectsSpellPower(): boolean
-declare function HasArtifactEquipped(): ()
-declare function HasAttachedGlyph(spellID: unknown): ()
-declare function HasCompletedAnyAchievement(achievementID: unknown): ()
+declare function HasArtifactEquipped(...: unknown): (...unknown)
+declare function HasAttachedGlyph(...: unknown): (...unknown)
+declare function HasCompletedAnyAchievement(...: unknown): (...unknown)
 declare function HasDualWieldPenalty(): boolean
 declare function HasFullControl(): boolean
 declare function HasIgnoreDualWieldWeapon(): boolean
-declare function HasInboxItem(): ()
+declare function HasInboxItem(...: unknown): (...unknown)
 declare function HasKey(): boolean
 declare function HasLFGRestrictions(): boolean
-declare function HasLoadedCUFProfiles(): ()
+declare function HasLoadedCUFProfiles(...: unknown): (...unknown)
 declare function HasLootSpecializations(): boolean
 declare function HasMessageType(...: unknown): (...unknown)
 declare function HasMessageTypeGroup(...: unknown): (...unknown)
 declare function HasMultiCastActionBar(...: unknown): (...unknown)
 declare function HasMultiCastActionPage(...: unknown): (...unknown)
-declare function HasNewMail(): ()
+declare function HasNewMail(...: unknown): (...unknown)
 declare function HasNoReleaseAura(): (boolean, number, boolean)
-declare function HasPendingGlyphCast(): ()
+declare function HasPendingGlyphCast(...: unknown): (...unknown)
 declare function HasPetUI(): (boolean, boolean)
 declare function HasSPEffectsAttackPower(): boolean
-declare function HasSendMailItem(index: unknown): ()
+declare function HasSendMailItem(...: unknown): (...unknown)
 declare function HasTimePassed(testTime: number, amountOfTime: number): boolean
 declare function HasWandEquipped(): boolean
-declare function HaveQuestData(questID: unknown): ()
-declare function HaveQuestRewardData(questID: unknown): ()
+declare function HaveQuestData(...: unknown): (...unknown)
+declare function HaveQuestRewardData(...: unknown): (...unknown)
 declare function HealthBar_OnValueChanged(...: unknown): (...unknown)
-declare function HearthAndResurrectFromArea(): ()
+declare function HearthAndResurrectFromArea(...: unknown): (...unknown)
 declare function HeirloomsJournalSearchBox_OnTextChanged(...: unknown): (...unknown)
 declare function HeirloomsJournalSpellButton_OnClick(...: unknown): (...unknown)
 declare function HeirloomsJournalSpellButton_OnEnter(...: unknown): (...unknown)
@@ -32089,7 +32193,7 @@ declare function HideItemUpgradeFrame(...: unknown): (...unknown)
 declare function HideParentPanel(...: unknown): (...unknown)
 declare function HidePreviewFrame(...: unknown): (...unknown)
 declare function HideProfessionsCustomerOrdersFrame(...: unknown): (...unknown)
-declare function HideRepairCursor(): ()
+declare function HideRepairCursor(...: unknown): (...unknown)
 declare function HideSummonConfirmationDialogs(...: unknown): (...unknown)
 declare function HideUIPanel(frame: Frame, skipSetPoint: boolean?): ()
 declare function HonorAwardedAlertFrame_SetUp(...: unknown): (...unknown)
@@ -32226,45 +32330,45 @@ declare function IsAchievementEligible(achievementID: number): boolean
 declare function IsActiveBattlefieldArena(): (boolean, boolean)
 declare function IsActivePlayerGuide(...: unknown): (...unknown)
 declare function IsActivePlayerNewcomer(...: unknown): (...unknown)
-declare function IsActiveQuestTrivial(index: unknown): ()
+declare function IsActiveQuestTrivial(...: unknown): (...unknown)
 declare function IsAdvancedFlyableArea(): boolean
 declare function IsAllowedToUserTeleport(): boolean
 declare function IsAltKeyDown(): boolean
 declare function IsAnyBagOpen(...: unknown): (...unknown)
 declare function IsAnyIconSelectorPopupFrameShown(...: unknown): (...unknown)
 declare function IsAnyStandardHeldBagOpen(...: unknown): (...unknown)
-declare function IsArenaSkirmish(): ()
+declare function IsArenaSkirmish(...: unknown): (...unknown)
 declare function IsArtifactCompletionHistoryAvailable(): boolean
-declare function IsAvailableQuestTrivial(index: unknown): ()
-declare function IsBNLogin(): ()
+declare function IsAvailableQuestTrivial(...: unknown): (...unknown)
+declare function IsBNLogin(...: unknown): (...unknown)
 declare function IsBagOpen(...: unknown): (...unknown)
 declare function IsBetaBuild(): boolean
-declare function IsBindingForGamePad(KEY: unknown): ()
+declare function IsBindingForGamePad(...: unknown): (...unknown)
 declare function IsBoostTutorialScenario(...: unknown): (...unknown)
-declare function IsBreadcrumbQuest(questID: unknown): ()
+declare function IsBreadcrumbQuest(...: unknown): (...unknown)
 declare function IsBuiltinChatWindow(...: unknown): (...unknown)
-declare function IsCastingGlyph(): ()
+declare function IsCastingGlyph(...: unknown): (...unknown)
 declare function IsCemeterySelectionAvailable(): boolean
 declare function IsCharacterNewlyBoosted(): boolean
-declare function IsChatAFK(): ()
-declare function IsChatChannelRaid(): ()
-declare function IsChatDND(): ()
+declare function IsChatAFK(...: unknown): (...unknown)
+declare function IsChatChannelRaid(...: unknown): (...unknown)
+declare function IsChatDND(...: unknown): (...unknown)
 declare function IsClassColoringMessageType(...: unknown): (...unknown)
 declare function IsCombatLog(...: unknown): (...unknown)
 declare function IsCommunitiesUIDisabledByTrialAccount(...: unknown): (...unknown)
 declare function IsControlKeyDown(): boolean
 declare function IsCpuBound(): boolean?
-declare function IsCurrentQuestFailed(): ()
+declare function IsCurrentQuestFailed(...: unknown): (...unknown)
 declare function IsCursorVisible(): boolean
 declare function IsDebugBuild(): boolean
 declare function IsDemonHunterAvailable(): boolean
-declare function IsDisplayChannelModerator(): ()
-declare function IsDisplayChannelOwner(): ()
+declare function IsDisplayChannelModerator(...: unknown): (...unknown)
+declare function IsDisplayChannelOwner(...: unknown): (...unknown)
 declare function IsDrivableArea(): boolean
 declare function IsDropdownButtonIntrinsic(...: unknown): (...unknown)
 declare function IsDualWielding(): boolean
 declare function IsEuropeanNumbers(): boolean
-declare function IsEveryoneAssistant(): ()
+declare function IsEveryoneAssistant(...: unknown): (...unknown)
 declare function IsExpansionTrial(): boolean
 declare function IsFalling(unit: UnitToken?): boolean
 declare function IsFishingLoot(): boolean
@@ -32272,18 +32376,18 @@ declare function IsFlyableArea(): boolean
 declare function IsFlying(unit: UnitToken?): boolean
 declare function IsFrameHandle(...: unknown): (...unknown)
 declare function IsGMClient(): boolean
-declare function IsGamePadCursorControlEnabled(): ()
-declare function IsGamePadFreelookEnabled(): ()
+declare function IsGamePadCursorControlEnabled(...: unknown): (...unknown)
+declare function IsGamePadFreelookEnabled(...: unknown): (...unknown)
 declare function IsGarrisonLandingPageFeatured(...: unknown): (...unknown)
-declare function IsGraphicsCVarValueSupported(): ()
-declare function IsGraphicsSettingValueSupported(): ()
+declare function IsGraphicsCVarValueSupported(...: unknown): (...unknown)
+declare function IsGraphicsSettingValueSupported(...: unknown): (...unknown)
 declare function IsGuildLeader(): boolean
 declare function IsGuildMember(player: string): boolean
-declare function IsGuildRankAssignmentAllowed(playerIndex: unknown, rankIndex: unknown): ()
-declare function IsInActiveWorldPVP(): ()
-declare function IsInAuthenticatedRank(): ()
+declare function IsGuildRankAssignmentAllowed(...: unknown): (...unknown)
+declare function IsInActiveWorldPVP(...: unknown): (...unknown)
+declare function IsInAuthenticatedRank(...: unknown): (...unknown)
 declare function IsInCinematicScene(): boolean
-declare function IsInGlobalEnvironment(): ()
+declare function IsInGlobalEnvironment(...: unknown): (...unknown)
 declare function IsInGroup(groupType: number?): boolean
 declare function IsInGuild(): boolean
 declare function IsInGuildGroup(): boolean
@@ -32292,12 +32396,12 @@ declare function IsInJailersTower(): boolean
 declare function IsInLFDBattlefield(...: unknown): (...unknown)
 declare function IsInLFGDungeon(): boolean
 declare function IsInRaid(groupType: number?): boolean
-declare function IsInScenarioGroup(): ()
+declare function IsInScenarioGroup(...: unknown): (...unknown)
 declare function IsIndoors(): boolean
 declare function IsInitialSpec(...: unknown): (...unknown)
 declare function IsInsane(): boolean
 declare function IsInventoryItemLocked(slotId: number): boolean
-declare function IsInventoryItemProfessionBag(unit: unknown, slot: unknown): ()
+declare function IsInventoryItemProfessionBag(...: unknown): (...unknown)
 declare function IsItemPreferredArmorType(itemLocation: ItemLocationMixin): boolean
 declare function IsJailersTowerLayerTimeLocked(layerLevel: number): string
 declare function IsKeyDown(keyOrMouseName: string, excludeBindingState: boolean?): boolean?
@@ -32315,7 +32419,7 @@ declare function IsLinuxClient(): boolean
 declare function IsListeningForMessageType(...: unknown): (...unknown)
 declare function IsLoggedIn(): boolean
 declare function IsMacClient(): boolean
-declare function IsMasterLooter(): ()
+declare function IsMasterLooter(...: unknown): (...unknown)
 declare function IsMessageDoneBy(...: unknown): (...unknown)
 declare function IsMessageDoneTo(...: unknown): (...unknown)
 declare function IsMetaKey(...: unknown): (...unknown)
@@ -32338,13 +32442,13 @@ declare function IsOnTournamentRealm(): boolean
 declare function IsOptionFrameOpen(...: unknown): (...unknown)
 declare function IsOutOfBounds(): boolean
 declare function IsOutdoors(): boolean
-declare function IsOutlineModeSupported(): ()
+declare function IsOutlineModeSupported(...: unknown): (...unknown)
 declare function IsPVPTimerRunning(): boolean
-declare function IsPartyLFG(): ()
-declare function IsPartyWorldPVP(): ()
-declare function IsPendingGlyphRemoval(): ()
-declare function IsPetActive(): ()
-declare function IsPetAttackAction(index: unknown): ()
+declare function IsPartyLFG(...: unknown): (...unknown)
+declare function IsPartyWorldPVP(...: unknown): (...unknown)
+declare function IsPendingGlyphRemoval(...: unknown): (...unknown)
+declare function IsPetActive(...: unknown): (...unknown)
+declare function IsPetAttackAction(...: unknown): (...unknown)
 declare function IsPetAttackActive(): boolean
 declare function IsPlayerGuid(...: unknown): (...unknown)
 declare function IsPlayerInGuildFromGUID(playerGUID: WOWGUID): boolean
@@ -32357,10 +32461,10 @@ declare function IsPublicBuild(): boolean
 declare function IsPublicTestClient(): boolean
 declare function IsPublicVoiceChannel(...: unknown): (...unknown)
 declare function IsQuestCompletable(): boolean
-declare function IsQuestIDValidSpellTarget(questID: unknown): ()
-declare function IsQuestItemHidden(index: unknown): ()
-declare function IsQuestLogSpecialItemInRange(index: unknown, target: unknown): ()
-declare function IsQuestSequenced(questID: unknown): ()
+declare function IsQuestIDValidSpellTarget(...: unknown): (...unknown)
+declare function IsQuestItemHidden(...: unknown): (...unknown)
+declare function IsQuestLogSpecialItemInRange(...: unknown): (...unknown)
+declare function IsQuestSequenced(...: unknown): (...unknown)
 declare function IsRGBAEqualToColor(...: unknown): (...unknown)
 declare function IsRaidMarkerActive(index: number): boolean
 declare function IsRaidMarkerSystemEnabled(): boolean
@@ -32375,14 +32479,14 @@ declare function IsRightShiftKeyDown(): boolean
 declare function IsScrollController(...: unknown): (...unknown)
 declare function IsScrollingMessageFrame(...: unknown): (...unknown)
 declare function IsSecureCmd(...: unknown): (...unknown)
-declare function IsSelectedSpellBookItem(spellSlot: unknown): ()
-declare function IsServerControlledBackfill(): ()
+declare function IsSelectedSpellBookItem(...: unknown): (...unknown)
+declare function IsServerControlledBackfill(...: unknown): (...unknown)
 declare function IsShiftKeyDown(): boolean
-declare function IsSpecializationActivateSpell(): ()
+declare function IsSpecializationActivateSpell(...: unknown): (...unknown)
 declare IsSpellClassOrSpec: ((spellName: string) -> (string?, string)) & ((spellIndex: number, bookType: string) -> ())
-declare function IsSpellValidForPendingGlyph(spellID: unknown): ()
+declare function IsSpellValidForPendingGlyph(...: unknown): (...unknown)
 declare function IsStealthed(): boolean
-declare function IsStoryQuest(questID: unknown): ()
+declare function IsStoryQuest(...: unknown): (...unknown)
 declare function IsSubmerged(unit: UnitToken?): boolean
 declare function IsSummonConfirmationDialogVisible(...: unknown): (...unknown)
 declare function IsSwimming(unit: UnitToken?): boolean
@@ -32392,14 +32496,14 @@ declare function IsThreatWarningEnabled(): boolean
 declare function IsTitleKnown(titleMaskID: number): boolean
 declare function IsTradeskillTrainer(): boolean
 declare function IsTrialAccount(): boolean
-declare function IsTutorialFlagged(tutorial: unknown): ()
+declare function IsTutorialFlagged(...: unknown): (...unknown)
 declare function IsTypeAdditionalChatColor(...: unknown): (...unknown)
 declare function IsUnitModelReadyForUI(unitToken: UnitToken): boolean
 declare function IsUnseenNewSettingInCurrentVersion(...: unknown): (...unknown)
 declare function IsUsingFixedTimeStep(): boolean
 declare function IsUsingGamepad(): boolean
 declare function IsUsingMouse(): boolean
-declare function IsUsingVehicleControls(): ()
+declare function IsUsingVehicleControls(...: unknown): (...unknown)
 declare function IsValidBattlenetName(...: unknown): (...unknown)
 declare function IsValidEmailAddress(...: unknown): (...unknown)
 declare function IsVehicleAimAngleAdjustable(): boolean
@@ -32438,7 +32542,7 @@ declare ItemButtonUtil: {
 	TriggerEvent: (...unknown) -> (...unknown),
 	UnregisterCallback: (...unknown) -> (...unknown),
 }
-declare function ItemCanTargetGarrisonFollowerAbility(): ()
+declare function ItemCanTargetGarrisonFollowerAbility(...: unknown): (...unknown)
 declare ItemInteractionFrame: Frame
 declare function ItemInteraction_LoadUI(...: unknown): (...unknown)
 declare ItemLocationMixin: ItemLocationMixin
@@ -32461,9 +32565,9 @@ declare function ItemTextGetMaterial(): string
 declare function ItemTextGetPage(): number
 declare function ItemTextGetText(): string
 declare function ItemTextHasNextPage(): boolean
-declare function ItemTextIsFullPage(): ()
-declare function ItemTextNextPage(): ()
-declare function ItemTextPrevPage(): ()
+declare function ItemTextIsFullPage(...: unknown): (...unknown)
+declare function ItemTextNextPage(...: unknown): (...unknown)
+declare function ItemTextPrevPage(...: unknown): (...unknown)
 declare ItemTransmogInfoMixin: ItemTransmogInfoMixin
 declare ItemUpgradeFrame: Frame
 declare function ItemUpgradeFrame_Hide(...: unknown): (...unknown)
@@ -32493,16 +32597,16 @@ declare ItemUtil: {
 }
 declare function IteratePools(...: unknown): (...unknown)
 declare function IterateTables(...: unknown): (...unknown)
-declare function JoinArena(): ()
+declare function JoinArena(...: unknown): (...unknown)
 declare function JoinChannelByName(channelName: string, password: string?, frameID: number?, hasVoice: boolean): (number, string?)
-declare function JoinLFG(category: unknown): ()
+declare function JoinLFG(...: unknown): (...unknown)
 declare function JoinPermanentChannel(channelName: string, password: string?, frameID: number?, hasVoice: boolean?): (number, string)
-declare function JoinRatedBattlefield(): ()
-declare function JoinRatedSoloShuffle(): ()
-declare function JoinSingleLFG(category: unknown, lfgID: unknown): ()
+declare function JoinRatedBattlefield(...: unknown): (...unknown)
+declare function JoinRatedSoloShuffle(...: unknown): (...unknown)
+declare function JoinSingleLFG(...: unknown): (...unknown)
 declare function JoinSkirmish(arenaID: number, joinAsGroup: boolean?): ()
 declare function JoinTemporaryChannel(channelName: string, password: string?, frameID: number?, hasVoice: boolean?): (number, string)
-declare function JumpOrAscendStart(): ()
+declare function JumpOrAscendStart(...: unknown): (...unknown)
 declare function KeyCommand_Create(...: unknown): (...unknown)
 declare function KeyCommand_CreateKey(...: unknown): (...unknown)
 declare function KeyCommand_Update(...: unknown): (...unknown)
@@ -32941,15 +33045,15 @@ declare function LandingSoulbinds_LoadUI(...: unknown): (...unknown)
 declare function LaunchURL(url: string): ()
 declare function LayoutIndexComparator(...: unknown): (...unknown)
 declare function LearnPvpTalent(talentID: number, slotIndex: number): ()
-declare function LearnPvpTalents(): ()
+declare function LearnPvpTalents(...: unknown): (...unknown)
 declare function LearnTalent(talentID: number): boolean
-declare function LearnTalents(): ()
-declare function LeaveBattlefield(): ()
-declare function LeaveChannelByLocalID(localID: unknown): ()
+declare function LearnTalents(...: unknown): (...unknown)
+declare function LeaveBattlefield(...: unknown): (...unknown)
+declare function LeaveChannelByLocalID(...: unknown): (...unknown)
 declare function LeaveChannelByName(channelName: string): ()
 declare function LeaveInstanceParty(...: unknown): (...unknown)
-declare function LeaveLFG(category: unknown): ()
-declare function LeaveSingleLFG(category: unknown, lfgID: unknown): ()
+declare function LeaveLFG(...: unknown): (...unknown)
+declare function LeaveSingleLFG(...: unknown): (...unknown)
 declare function LeaveWalkInParty(...: unknown): (...unknown)
 declare LegacyChallengeViewedUtil: {
 	CategoryHasUnviewedChallenges: (...unknown) -> (...unknown),
@@ -32976,7 +33080,7 @@ declare LinkUtil: {
 	SplitLinkOptions: (...unknown) -> (...unknown),
 }
 declare function ListChannelByName(channel: number | string): ()
-declare function ListChannels(): ()
+declare function ListChannels(...: unknown): (...unknown)
 declare function LoadAddOnWithErrorHandling(...: unknown): (...unknown)
 declare function LoadBindings(bindingSet: number): ()
 declare function LoadMicroButtonTextures(...: unknown): (...unknown)
@@ -32990,7 +33094,7 @@ declare function LocalizeFrames(...: unknown): (...unknown)
 declare function LocalizeGarrisonAlerts_zh(...: unknown): (...unknown)
 declare function LocalizePlayerFrame_zhCN(...: unknown): (...unknown)
 declare function LocalizePlayerFrame_zhTW(...: unknown): (...unknown)
-declare function LocalizedClassList(isFemale: boolean?): LuaValueVariant
+declare function LocalizedClassList(isFemale: boolean?): unknown
 declare function LoggingChat(newState: boolean?): boolean?
 declare function LoggingCombat(newState: boolean?): boolean?
 declare function Logout(): ()
@@ -32998,7 +33102,7 @@ declare function LootAlertFrame_OnEnter(...: unknown): (...unknown)
 declare LootFrame: Frame
 declare function LootFrame_EscapePressed(...: unknown): (...unknown)
 declare LootHistoryExtraTooltip: Frame
-declare function LootMoneyNotify(money: unknown, soleLooter: unknown): ()
+declare function LootMoneyNotify(...: unknown): (...unknown)
 declare function LootSlot(slot: number): ()
 declare function LootSlotHasItem(lootSlot: number): boolean
 declare function LootUpgradeFrame_AnimDone(...: unknown): (...unknown)
@@ -33204,7 +33308,7 @@ declare function MissionCompletePreload_LoadMission(...: unknown): (...unknown)
 declare function MissionCompletePreload_OnModelLoaded(...: unknown): (...unknown)
 declare function MissionCompletePreload_OnUpdate(...: unknown): (...unknown)
 declare function MissionCompletePreload_StartTimeout(...: unknown): (...unknown)
-declare function Mixin(object: LuaValueVariant, ...: LuaValueVariant): LuaValueVariant
+declare function Mixin(object: unknown, ...: unknown): unknown
 declare MixinUtil: {
 	CallMethodOnAllSafe: (...unknown) -> (...unknown),
 	CallMethodSafe: (...unknown) -> (...unknown),
@@ -33345,28 +33449,28 @@ declare function MountJournal_ValidateCursorDragSourceCompatible(...: unknown): 
 declare function MountListDragButton_OnClick(...: unknown): (...unknown)
 declare function MountListItem_OnClick(...: unknown): (...unknown)
 declare function MouseOverrideCinematicDisable(doOverride: boolean?): ()
-declare function MouselookStart(): ()
-declare function MouselookStop(): ()
-declare function MoveAndSteerStart(): ()
-declare function MoveAndSteerStop(): ()
+declare function MouselookStart(...: unknown): (...unknown)
+declare function MouselookStop(...: unknown): (...unknown)
+declare function MoveAndSteerStart(...: unknown): (...unknown)
+declare function MoveAndSteerStop(...: unknown): (...unknown)
 declare function MoveBackwardStart(startTime: number): ()
-declare function MoveBackwardStop(): ()
+declare function MoveBackwardStop(...: unknown): (...unknown)
 declare function MoveForwardStart(startTime: number): ()
-declare function MoveForwardStop(): ()
+declare function MoveForwardStop(...: unknown): (...unknown)
 declare MovePadFrame: Frame
 declare function MovePad_LoadUI(...: unknown): (...unknown)
 declare function MoveViewDownStart(speed: number): ()
-declare function MoveViewDownStop(): ()
+declare function MoveViewDownStop(...: unknown): (...unknown)
 declare function MoveViewInStart(speed: number): ()
-declare function MoveViewInStop(): ()
+declare function MoveViewInStop(...: unknown): (...unknown)
 declare function MoveViewLeftStart(speed: number): ()
-declare function MoveViewLeftStop(): ()
+declare function MoveViewLeftStop(...: unknown): (...unknown)
 declare function MoveViewOutStart(speed: number): ()
-declare function MoveViewOutStop(): ()
+declare function MoveViewOutStop(...: unknown): (...unknown)
 declare function MoveViewRightStart(speed: number): ()
-declare function MoveViewRightStop(): ()
+declare function MoveViewRightStop(...: unknown): (...unknown)
 declare function MoveViewUpStart(speed: number): ()
-declare function MoveViewUpStop(): ()
+declare function MoveViewUpStop(...: unknown): (...unknown)
 declare function MovementSpeed_OnEnter(...: unknown): (...unknown)
 declare function MovementSpeed_OnUpdate(...: unknown): (...unknown)
 declare MovieFrame: Frame
@@ -33448,7 +33552,7 @@ declare function MultiCastSummonSpellButton_OnEvent(...: unknown): (...unknown)
 declare function MultiCastSummonSpellButton_OnLeave(...: unknown): (...unknown)
 declare function MultiCastSummonSpellButton_OnLoad(...: unknown): (...unknown)
 declare function MultiCastSummonSpellButton_Update(...: unknown): (...unknown)
-declare function MultiSampleAntiAliasingSupported(): ()
+declare function MultiSampleAntiAliasingSupported(...: unknown): (...unknown)
 declare function Multibar_EmptyFunc(...: unknown): (...unknown)
 declare function MuteSoundFile(sound: number | string): ()
 declare function NPE_InitializeIfLoaded(...: unknown): (...unknown)
@@ -33536,7 +33640,7 @@ declare function NewRecipeLearnedAlertFrame_SetUp(...: unknown): (...unknown)
 declare function NewRuneforgePowerAlertSystem_SetUp(...: unknown): (...unknown)
 declare function NewToyAlertFrame_SetUp(...: unknown): (...unknown)
 declare function NewWarbandSceneAlertFrame_SetUp(...: unknown): (...unknown)
-declare function NextView(): ()
+declare function NextView(...: unknown): (...unknown)
 declare NineSliceUtil: {
 	AddLayout: (...unknown) -> (...unknown),
 	ApplyIdenticalCornersLayout: (...unknown) -> (...unknown),
@@ -33568,7 +33672,7 @@ declare ObjectiveTrackerTopBannerFrame: Frame
 declare ObjectiveTrackerUIWidgetContainer: Frame
 declare ObliterumForgeFrame: Frame
 declare function ObliterumForgeFrame_LoadUI(...: unknown): (...unknown)
-declare function OfferPetition(): ()
+declare function OfferPetition(...: unknown): (...unknown)
 declare function OnExcessiveErrors(...: unknown): (...unknown)
 declare function OnInviteToPartyConfirmation(...: unknown): (...unknown)
 declare function OnPooledAlertFrameQueueHide(...: unknown): (...unknown)
@@ -33597,7 +33701,7 @@ declare function OpenPlayerSpellsToGlyphTarget(...: unknown): (...unknown)
 declare function OpenProfessionUIToSkillLine(...: unknown): (...unknown)
 declare function OpenProfessionsItemFlyout(...: unknown): (...unknown)
 declare function OpenQuestLog(...: unknown): (...unknown)
-declare function OpenTrainer(): ()
+declare function OpenTrainer(...: unknown): (...unknown)
 declare function OpenWorldMap(...: unknown): (...unknown)
 declare function OpeningCinematic(): ()
 declare function OptionsListButtonToggle_OnClick(...: unknown): (...unknown)
@@ -33825,7 +33929,7 @@ declare function PaperDollTitlesPane_UpdateScrollBox(...: unknown): (...unknown)
 declare function PaperDoll_IsEquippedSlot(...: unknown): (...unknown)
 declare function PartialPlayTime(): boolean?
 declare PartyFrame: Frame
-declare function PartyLFGStartBackfill(): ()
+declare function PartyLFGStartBackfill(...: unknown): (...unknown)
 declare PartyMemberBuffTooltip: Frame
 declare PartyPoseUtil: {
 	AddDismissClickHandler: (...unknown) -> (...unknown),
@@ -33840,8 +33944,8 @@ declare function PassClickToParent(...: unknown): (...unknown)
 declare function PercentageBetween(...: unknown): (...unknown)
 declare PersonalResourceDisplayFrame: Frame
 declare PetActionBar: Frame
-declare function PetAggressiveMode(): ()
-declare function PetAttack(): ()
+declare function PetAggressiveMode(...: unknown): (...unknown)
+declare function PetAttack(...: unknown): (...unknown)
 declare function PetBattleAbilityButton_OnClick(...: unknown): (...unknown)
 declare function PetBattleAbilityButton_OnEnter(...: unknown): (...unknown)
 declare function PetBattleAbilityButton_OnLeave(...: unknown): (...unknown)
@@ -33917,14 +34021,14 @@ declare function PetBattleXPBar_OnEnter(...: unknown): (...unknown)
 declare function PetBattleXPBar_OnLeave(...: unknown): (...unknown)
 declare function PetBattleXPBar_OnLoad(...: unknown): (...unknown)
 declare function PetCanBeAbandoned(): boolean
-declare function PetCanBeDismissed(): ()
+declare function PetCanBeDismissed(...: unknown): (...unknown)
 declare PetCastingBarFrame: Frame
-declare function PetDefensiveAssistMode(): ()
-declare function PetDefensiveMode(): ()
-declare function PetDismiss(): ()
-declare function PetFollow(): ()
+declare function PetDefensiveAssistMode(...: unknown): (...unknown)
+declare function PetDefensiveMode(...: unknown): (...unknown)
+declare function PetDismiss(...: unknown): (...unknown)
+declare function PetFollow(...: unknown): (...unknown)
 declare function PetHasActionBar(): boolean
-declare function PetHasSpellbook(): ()
+declare function PetHasSpellbook(...: unknown): (...unknown)
 declare function PetJournalDragButton_OnClick(...: unknown): (...unknown)
 declare function PetJournalDragButton_OnDragStart(...: unknown): (...unknown)
 declare function PetJournalDragButton_OnEnter(...: unknown): (...unknown)
@@ -33963,38 +34067,38 @@ declare function PetJournal_UpdateAll(...: unknown): (...unknown)
 declare function PetJournal_UpdatePetCard(...: unknown): (...unknown)
 declare function PetJournal_UpdatePetList(...: unknown): (...unknown)
 declare function PetJournal_UpdateSummonButtonState(...: unknown): (...unknown)
-declare function PetMoveTo(target: unknown): ()
-declare function PetPassiveMode(): ()
+declare function PetMoveTo(...: unknown): (...unknown)
+declare function PetPassiveMode(...: unknown): (...unknown)
 declare PetStableFrame: Frame
-declare function PetStopAttack(): ()
-declare function PetUsesPetFrame(): ()
-declare function PetWait(): ()
+declare function PetStopAttack(...: unknown): (...unknown)
+declare function PetUsesPetFrame(...: unknown): (...unknown)
+declare function PetWait(...: unknown): (...unknown)
 declare PetitionFrame: Frame
 declare function PetitionFrameSignButton_OnClick(...: unknown): (...unknown)
 declare function PetitionFrame_Update(...: unknown): (...unknown)
 declare function PickupAction(slot: number): ()
 declare function PickupBagFromSlot(slot: number): ()
 declare function PickupCompanion(type: string, index: number): ()
-declare function PickupGuildBankItem(tab: unknown, slot: unknown): ()
-declare function PickupGuildBankMoney(money: unknown): ()
+declare function PickupGuildBankItem(...: unknown): (...unknown)
+declare function PickupGuildBankMoney(...: unknown): (...unknown)
 declare function PickupInventoryItem(slotId: number): ()
 declare function PickupMacro(name: number | string): ()
 declare function PickupMerchantItem(index: number): ()
 declare function PickupPetAction(petActionSlot: number): ()
 declare function PickupPetSpell(spellID: number): ()
 declare function PickupPlayerMoney(amount: WOWMONEY): ()
-declare function PickupPvpTalent(): ()
-declare function PickupTalent(talentID: unknown): ()
+declare function PickupPvpTalent(...: unknown): (...unknown)
+declare function PickupTalent(...: unknown): (...unknown)
 declare function PingSystemInitializer(...: unknown): (...unknown)
 declare PingSystemTutorial: Frame
 declare PingUtil: {
 	SendMacroPing: (...unknown) -> (...unknown),
 	TogglePingTarget: (...unknown) -> (...unknown),
 }
-declare function PitchDownStart(): ()
-declare function PitchDownStop(): ()
-declare function PitchUpStart(): ()
-declare function PitchUpStop(): ()
+declare function PitchDownStart(...: unknown): (...unknown)
+declare function PitchDownStop(...: unknown): (...unknown)
+declare function PitchUpStart(...: unknown): (...unknown)
+declare function PitchUpStop(...: unknown): (...unknown)
 declare PixelUtil: {
 	ConvertPixelsToUI: (...unknown) -> (...unknown),
 	ConvertPixelsToUIForRegion: (...unknown) -> (...unknown),
@@ -34011,7 +34115,7 @@ declare function PlaceRaidMarker(index: number, token: string?): ()
 declare function PlatformIsHandheld(): boolean
 declare function PlayActivitySoundWhenNotFocusedCheckButton_OnClick(...: unknown): (...unknown)
 declare function PlayActivitySoundWhenNotFocusedCheckButton_OnLoad(...: unknown): (...unknown)
-declare function PlayAutoAcceptQuestSound(): ()
+declare function PlayAutoAcceptQuestSound(...: unknown): (...unknown)
 declare function PlayMusic(sound: number | string): boolean
 declare function PlaySound(soundKitID: number, channel: string?, forceNoDuplicates: boolean?, runFinishCallback: boolean?): (boolean, number)
 declare function PlaySoundFile(sound: number | string, channel: string?): (boolean, number)
@@ -34129,12 +34233,12 @@ declare function PortGraveyard(): ()
 declare PossessActionBar: Frame
 declare function PreloadMovie(movieId: number): ()
 declare PrestigeLevelUpBanner: Frame
-declare function PrevView(): ()
+declare function PrevView(...: unknown): (...unknown)
 declare function PrintLootSpecialization(...: unknown): (...unknown)
 declare function PrintToDebugWindow(...: unknown): (...unknown)
 declare PrivateRaidBossEmoteFrameAnchor: Frame
 declare function ProcessExceptionClient(description: string): ()
-declare function ProcessQuestLogRewardFactions(): ()
+declare function ProcessQuestLogRewardFactions(...: unknown): (...unknown)
 declare function ProfessionDial_GetRelativeRotation(...: unknown): (...unknown)
 declare function ProfessionsBook_GetSpellBookItemSlot(...: unknown): (...unknown)
 declare function ProfessionsBook_LoadUI(...: unknown): (...unknown)
@@ -34167,7 +34271,7 @@ declare ProxyUtil: {
 	ReleasePrivateReference: (...unknown) -> (...unknown),
 	SetPrivateReference: (...unknown) -> (...unknown),
 }
-declare function PutItemInBackpack(): ()
+declare function PutItemInBackpack(...: unknown): (...unknown)
 declare function PutItemInBag(inventoryID: number?): boolean?
 declare function PutKeyInKeyRing(...: unknown): (...unknown)
 declare PvPObjectiveBannerFrame: Frame
@@ -34175,16 +34279,16 @@ declare function PvPObjectiveBannerFrame_OnAnimFinished(...: unknown): (...unkno
 declare function PvPObjectiveBannerFrame_PlayBanner(...: unknown): (...unknown)
 declare function PvPObjectiveBannerFrame_StopBanner(...: unknown): (...unknown)
 declare function QueryCastSequence(...: unknown): (...unknown)
-declare function QueryGuildBankLog(tab: unknown): ()
-declare function QueryGuildBankTab(tab: unknown): ()
-declare function QueryGuildBankText(): ()
-declare function QueryGuildEventLog(): ()
-declare function QueryGuildNews(): ()
-declare function QueryGuildRecipes(): ()
-declare function QuestChooseRewardError(): ()
+declare function QueryGuildBankLog(...: unknown): (...unknown)
+declare function QueryGuildBankTab(...: unknown): (...unknown)
+declare function QueryGuildBankText(...: unknown): (...unknown)
+declare function QueryGuildEventLog(...: unknown): (...unknown)
+declare function QueryGuildNews(...: unknown): (...unknown)
+declare function QueryGuildRecipes(...: unknown): (...unknown)
+declare function QuestChooseRewardError(...: unknown): (...unknown)
 declare function QuestDetailAcceptButton_OnClick(...: unknown): (...unknown)
 declare function QuestDetailDeclineButton_OnClick(...: unknown): (...unknown)
-declare function QuestFlagsPVP(): ()
+declare function QuestFlagsPVP(...: unknown): (...unknown)
 declare QuestFrame: Frame
 declare function QuestFrameDetailPanel_OnHide(...: unknown): (...unknown)
 declare function QuestFrameDetailPanel_OnShow(...: unknown): (...unknown)
@@ -34214,9 +34318,9 @@ declare function QuestFrame_ShowQuestPortrait(...: unknown): (...unknown)
 declare function QuestFrame_UninitializeGamepad(...: unknown): (...unknown)
 declare function QuestFrame_UpdatePortraitText(...: unknown): (...unknown)
 declare function QuestGetAutoAccept(): boolean
-declare function QuestGetAutoLaunched(): ()
+declare function QuestGetAutoLaunched(...: unknown): (...unknown)
 declare function QuestGoodbyeButton_OnClick(...: unknown): (...unknown)
-declare function QuestHasPOIInfo(questID: unknown): ()
+declare function QuestHasPOIInfo(...: unknown): (...unknown)
 declare QuestInfoFrame: Frame
 declare function QuestInfoItem_IsSelected(...: unknown): (...unknown)
 declare function QuestInfoItem_OnClick(...: unknown): (...unknown)
@@ -34253,16 +34357,16 @@ declare function QuestInfo_ShowTimer(...: unknown): (...unknown)
 declare function QuestInfo_ShowTitle(...: unknown): (...unknown)
 declare function QuestInfo_ShowType(...: unknown): (...unknown)
 declare function QuestIsDaily(): boolean
-declare function QuestIsFromAdventureMap(): ()
+declare function QuestIsFromAdventureMap(...: unknown): (...unknown)
 declare function QuestIsFromAreaTrigger(): boolean
 declare function QuestIsWeekly(): boolean
 declare QuestLogPopupDetailFrame: Frame
-declare function QuestLogPushQuest(): ()
+declare function QuestLogPushQuest(...: unknown): (...unknown)
 declare function QuestLogQuests_GetQuestButton(...: unknown): (...unknown)
 declare function QuestLogQuests_ShowQuestCount(...: unknown): (...unknown)
 declare function QuestLogQuests_Update(...: unknown): (...unknown)
-declare function QuestLogRewardHasTreasurePicker(): ()
-declare function QuestLogShouldShowPortrait(): ()
+declare function QuestLogRewardHasTreasurePicker(...: unknown): (...unknown)
+declare function QuestLogShouldShowPortrait(...: unknown): (...unknown)
 declare function QuestMapFrame_AdjustPathButtons(...: unknown): (...unknown)
 declare function QuestMapFrame_CheckQuestCriteria(...: unknown): (...unknown)
 declare function QuestMapFrame_CheckTutorials(...: unknown): (...unknown)
@@ -34300,11 +34404,11 @@ declare function QuestMapLog_GetStoryTooltip(...: unknown): (...unknown)
 declare function QuestMapQuestOptions_AbandonQuest(...: unknown): (...unknown)
 declare function QuestMapQuestOptions_ShareQuest(...: unknown): (...unknown)
 declare function QuestMapQuestOptions_TrackQuest(...: unknown): (...unknown)
-declare function QuestMapUpdateAllQuests(): ()
+declare function QuestMapUpdateAllQuests(...: unknown): (...unknown)
 declare function QuestMapWaypoint_CreateContextMenu(...: unknown): (...unknown)
 declare QuestModelScene: Frame
 declare QuestObjectiveTracker: Frame
-declare function QuestPOIUpdateIcons(): ()
+declare function QuestPOIUpdateIcons(...: unknown): (...unknown)
 declare function QuestProgressCompleteButton_OnClick(...: unknown): (...unknown)
 declare function QuestRewardCancelButton_OnClick(...: unknown): (...unknown)
 declare function QuestRewardCompleteButton_OnClick(...: unknown): (...unknown)
@@ -34462,8 +34566,8 @@ declare function RaidInfoInstance_OnMouseUp(...: unknown): (...unknown)
 declare RaidParentFrame: Frame
 declare function RaidParentFrame_OnLoad(...: unknown): (...unknown)
 declare function RaidParentFrame_SetView(...: unknown): (...unknown)
-declare function RaidProfileExists(profile: unknown): ()
-declare function RaidProfileHasUnsavedChanges(): ()
+declare function RaidProfileExists(...: unknown): (...unknown)
+declare function RaidProfileHasUnsavedChanges(...: unknown): (...unknown)
 declare function RaidPulloutButton_OnDragStart(...: unknown): (...unknown)
 declare function RaidPulloutButton_OnEvent(...: unknown): (...unknown)
 declare function RaidPulloutButton_OnLoad(...: unknown): (...unknown)
@@ -34518,8 +34622,8 @@ declare RecruitAFriendRewardsFrame: Frame
 declare function RecruitAFriend_TryCancelAutoClaim(...: unknown): (...unknown)
 declare function RecruitAFriend_TryPlayClaimRewardFanfare(...: unknown): (...unknown)
 declare function RedeemFailed(...: unknown): (...unknown)
-declare function RedockChatWindows(): ()
-declare function RefreshLFGList(): ()
+declare function RedockChatWindows(...: unknown): (...unknown)
+declare function RefreshLFGList(...: unknown): (...unknown)
 declare RegionUtil: {
 	ApplyRegionPoints: (...unknown) -> (...unknown),
 	CalculateAngleBetween: (...unknown) -> (...unknown),
@@ -34547,22 +34651,22 @@ declare function RegisterMacSettings(...: unknown): (...unknown)
 declare function RegisterNewSlashCommand(...: unknown): (...unknown)
 declare function RegisterPlayerInteraction(...: unknown): (...unknown)
 declare function RegisterStateDriver(...: unknown): (...unknown)
-declare function RegisterStaticConstants(table: unknown): ()
+declare function RegisterStaticConstants(...: unknown): (...unknown)
 declare function RegisterUIPanel(...: unknown): (...unknown)
 declare function RegisterUnitEventCallback(eventName: string, callback: EventCallbackType, unit: UnitToken): ()
 declare function RegisterUnitWatch(...: unknown): (...unknown)
-declare function RejectProposal(): ()
-declare function ReleaseAction(): ()
+declare function RejectProposal(...: unknown): (...unknown)
+declare function ReleaseAction(...: unknown): (...unknown)
 declare function ReloadUI(...: unknown): (...unknown)
-declare function RemoveAutoQuestPopUp(): ()
+declare function RemoveAutoQuestPopUp(...: unknown): (...unknown)
 declare function RemoveChatWindowChannel(windowId: number, channelName: string): ()
 declare function RemoveChatWindowMessages(index: number, messageGroup: string): ()
 declare function RemoveExtraSpaces(...: unknown): (...unknown)
 declare function RemoveItemFromArtifact(): boolean
 declare function RemoveNewlines(...: unknown): (...unknown)
-declare function RemovePvpTalent(): ()
+declare function RemovePvpTalent(...: unknown): (...unknown)
 declare function RemoveRaidTargets(): ()
-declare function RemoveTalent(talentID: unknown): ()
+declare function RemoveTalent(...: unknown): (...unknown)
 declare function RenamePetition(name: string): ()
 declare RenownRewardUtil: {
 	AddMajorFactionLandingPageSummaryToTooltip: (...unknown) -> (...unknown),
@@ -34574,7 +34678,7 @@ declare RenownRewardUtil: {
 }
 declare function RepairAllItems(guildBankRepair: boolean?): ()
 declare function ReplaceGenderTokens(string: string, gender: string): string
-declare function ReplaceGuildMaster(): ()
+declare function ReplaceGuildMaster(...: unknown): (...unknown)
 declare function RepopMe(): ()
 declare function ReportBug(description: string): ()
 declare ReportCheatingDialog: Frame
@@ -34591,45 +34695,45 @@ declare ReputationUtil: {
 	AddParagonRewardsToTooltip: (...unknown) -> (...unknown),
 	TryAppendAccountReputationLineToTooltip: (...unknown) -> (...unknown),
 }
-declare function RequestBattlefieldScoreData(): ()
+declare function RequestBattlefieldScoreData(...: unknown): (...unknown)
 declare function RequestBattlegroundInstanceInfo(index: number): ()
-declare function RequestBottomLeftActionBar(): ()
-declare function RequestGuildChallengeInfo(): ()
-declare function RequestGuildPartyState(): ()
-declare function RequestGuildRewards(): ()
-declare function RequestLFDPartyLockInfo(): ()
-declare function RequestLFDPlayerLockInfo(): ()
-declare function RequestPVPOptionsEnabled(): ()
-declare function RequestPVPRewards(): ()
-declare function RequestRaidInfo(): ()
-declare function RequestRandomBattlegroundInstanceInfo(): ()
-declare function RequestRatedInfo(): ()
+declare function RequestBottomLeftActionBar(...: unknown): (...unknown)
+declare function RequestGuildChallengeInfo(...: unknown): (...unknown)
+declare function RequestGuildPartyState(...: unknown): (...unknown)
+declare function RequestGuildRewards(...: unknown): (...unknown)
+declare function RequestLFDPartyLockInfo(...: unknown): (...unknown)
+declare function RequestLFDPlayerLockInfo(...: unknown): (...unknown)
+declare function RequestPVPOptionsEnabled(...: unknown): (...unknown)
+declare function RequestPVPRewards(...: unknown): (...unknown)
+declare function RequestRaidInfo(...: unknown): (...unknown)
+declare function RequestRandomBattlegroundInstanceInfo(...: unknown): (...unknown)
+declare function RequestRatedInfo(...: unknown): (...unknown)
 declare function RequestTimePlayed(): ()
-declare function RequeueSkirmish(): ()
+declare function RequeueSkirmish(...: unknown): (...unknown)
 declare function ResetCPUUsage(): ()
-declare function ResetChatColors(): ()
-declare function ResetChatWindows(): ()
+declare function ResetChatColors(...: unknown): (...unknown)
+declare function ResetChatWindows(...: unknown): (...unknown)
 declare function ResetCursor(): ()
 declare function ResetDiscordSettings(...: unknown): (...unknown)
 declare function ResetInstances(): ()
-declare function ResetSetMerchantFilter(): ()
-declare function ResetTestCvars(): ()
-declare function ResetTutorials(): ()
-declare function ResetView(index: unknown): ()
+declare function ResetSetMerchantFilter(...: unknown): (...unknown)
+declare function ResetTestCvars(...: unknown): (...unknown)
+declare function ResetTutorials(...: unknown): (...unknown)
+declare function ResetView(...: unknown): (...unknown)
 declare function ResistancePercent(resistance: number, casterLevel: number): number
 declare function ResolveAnchor(...: unknown): (...unknown)
 declare function RespondInstanceLock(acceptLock: boolean): ()
-declare function RespondMailLockSendItem(slot: unknown, keepItem: unknown): ()
-declare function RespondToInviteConfirmation(guid: unknown, accept: unknown): ()
+declare function RespondMailLockSendItem(...: unknown): (...unknown)
+declare function RespondToInviteConfirmation(...: unknown): (...unknown)
 declare function RestartGx(): ()
 declare function RestoreGMChatFrameSession(...: unknown): (...unknown)
-declare function RestoreRaidProfileFromCopy(): ()
+declare function RestoreRaidProfileFromCopy(...: unknown): (...unknown)
 declare function RestoreUIPanelArea(...: unknown): (...unknown)
 declare function ResurrectGetOfferer(): string
 declare function ResurrectHasSickness(): boolean
 declare function ResurrectHasTimer(): boolean
 declare function RetrieveCorpse(): ()
-declare function ReturnInboxItem(index: unknown): ()
+declare function ReturnInboxItem(...: unknown): (...unknown)
 declare RightManagedFrameContainer: Frame
 declare RoleChangedFrame: Frame
 declare function RoleChangedFrame_OnEvent(...: unknown): (...unknown)
@@ -34670,7 +34774,7 @@ declare function SafeUnpack(tbl: { [any]: any }): (...unknown)
 declare function Saturate(...: unknown): (...unknown)
 declare function SaveAllCustomBindings(...: unknown): (...unknown)
 declare function SaveBindings(which: number): ()
-declare function SaveRaidProfileCopy(profile: unknown): ()
+declare function SaveRaidProfileCopy(...: unknown): (...unknown)
 declare function SaveView(viewIndex: number): ()
 declare function SavedSet_Check(...: unknown): (...unknown)
 declare function SavedSet_HasAny(...: unknown): (...unknown)
@@ -34776,14 +34880,14 @@ declare function SearchBoxTemplate_OnEditFocusGained(...: unknown): (...unknown)
 declare function SearchBoxTemplate_OnEditFocusLost(...: unknown): (...unknown)
 declare function SearchBoxTemplate_OnLoad(...: unknown): (...unknown)
 declare function SearchBoxTemplate_OnTextChanged(...: unknown): (...unknown)
-declare function SearchLFGGetEncounterResults(index: unknown, encounterIndex: unknown): ()
-declare function SearchLFGGetJoinedID(): ()
+declare function SearchLFGGetEncounterResults(...: unknown): (...unknown)
+declare function SearchLFGGetJoinedID(...: unknown): (...unknown)
 declare function SearchLFGGetNumResults(): (number, number)
 declare function SearchLFGGetPartyResults(index: number, partyIndex: number): (...unknown)
 declare function SearchLFGGetResults(index: number): (...unknown)
 declare function SearchLFGJoin(typeID: number, lfgID: number): ()
-declare function SearchLFGLeave(): ()
-declare function SearchLFGSort(type: unknown): ()
+declare function SearchLFGLeave(...: unknown): (...unknown)
+declare function SearchLFGSort(...: unknown): (...unknown)
 declare function SecondsToClock(seconds: number, displayZeroHours: boolean?): string
 declare function SecondsToMinutes(seconds: number): number
 declare function SecondsToTime(seconds: number, noSeconds: boolean?, notAbbreviated: boolean?, maxCount: number?, roundUp: boolean?): string
@@ -34827,8 +34931,8 @@ declare function SecureOutboundUtil_TriggerEvent(...: unknown): (...unknown)
 declare SecureStateDriverManager: Frame
 declare function SecureUnitButton_OnClick(...: unknown): (...unknown)
 declare function SecureUnitButton_OnLoad(...: unknown): (...unknown)
-declare function SelectActiveQuest(): ()
-declare function SelectAvailableQuest(): ()
+declare function SelectActiveQuest(...: unknown): (...unknown)
+declare function SelectAvailableQuest(...: unknown): (...unknown)
 declare function SelectGossipOption(...: unknown): (...unknown)
 declare function SelectTrainerService(index: number): ()
 declare function SelectedRealmName(): string
@@ -34874,25 +34978,25 @@ declare function SetCVarToDefault(...: unknown): (...unknown)
 declare function SetCemeteryPreference(cemetaryID: number): ()
 declare function SetChannelOwner(channel: string, newowner: string): ()
 declare function SetChannelPassword(channelName: string, password: string): ()
-declare function SetChatColorNameByClass(chatType: unknown, colorNameByClass: unknown): ()
+declare function SetChatColorNameByClass(...: unknown): (...unknown)
 declare function SetChatMouseOverDelay(...: unknown): (...unknown)
 declare function SetChatUnitColor(...: unknown): (...unknown)
-declare function SetChatWindowAlpha(index: unknown, alpha: unknown): ()
-declare function SetChatWindowColor(index: unknown, r: unknown, g: unknown, b: unknown): ()
-declare function SetChatWindowDocked(index: unknown, docked: unknown): ()
-declare function SetChatWindowLocked(index: unknown, locked: unknown): ()
-declare function SetChatWindowName(index: unknown, name: unknown): ()
-declare function SetChatWindowSavedDimensions(index: unknown, width: unknown, height: unknown): ()
-declare function SetChatWindowSavedPosition(index: unknown, point: unknown, xOffsetRatio: unknown, yOffsetRatio: unknown): ()
-declare function SetChatWindowShown(index: unknown, shown: unknown): ()
-declare function SetChatWindowSize(index: unknown, size: unknown): ()
-declare function SetChatWindowUninteractable(id: unknown, isUninteractable: unknown): ()
+declare function SetChatWindowAlpha(...: unknown): (...unknown)
+declare function SetChatWindowColor(...: unknown): (...unknown)
+declare function SetChatWindowDocked(...: unknown): (...unknown)
+declare function SetChatWindowLocked(...: unknown): (...unknown)
+declare function SetChatWindowName(...: unknown): (...unknown)
+declare function SetChatWindowSavedDimensions(...: unknown): (...unknown)
+declare function SetChatWindowSavedPosition(...: unknown): (...unknown)
+declare function SetChatWindowShown(...: unknown): (...unknown)
+declare function SetChatWindowSize(...: unknown): (...unknown)
+declare function SetChatWindowUninteractable(...: unknown): (...unknown)
 declare function SetCheckButtonIsRadio(...: unknown): (...unknown)
 declare function SetClampedTextureRotation(texture: Texture, rotationDegrees: number): ()
 declare function SetCollectionsJournalShown(...: unknown): (...unknown)
 declare function SetConsoleKey(keystring: string): ()
-declare function SetCurrentGraphicsSetting(): ()
-declare function SetCurrentGuildBankTab(tab: unknown): ()
+declare function SetCurrentGraphicsSetting(...: unknown): (...unknown)
+declare function SetCurrentGuildBankTab(...: unknown): (...unknown)
 declare function SetCurrentTitle(titleMaskID: number): ()
 declare function SetCursor(name: string?): boolean
 declare function SetCursorByMode(mode: Enum_Cursormode): boolean
@@ -34907,22 +35011,22 @@ declare function SetErrorCallstackHeight(height: number?): ()
 declare function SetEuropeanNumbers(enabled: boolean): ()
 declare function SetFocusedAchievement(id: number?): ()
 declare function SetFollowCameraTransitionPreset(...: unknown): (...unknown)
-declare function SetGamePadCursorControl(): ()
-declare function SetGamePadFreeLook(): ()
+declare function SetGamePadCursorControl(...: unknown): (...unknown)
+declare function SetGamePadFreeLook(...: unknown): (...unknown)
 declare function SetGamepadBindingStrings(...: unknown): (...unknown)
 declare function SetGhostFrameShown(...: unknown): (...unknown)
 declare function SetGuildBankTabInfo(tab: number, name: string, icon: number): ()
-declare function SetGuildBankTabItemWithdraw(): ()
+declare function SetGuildBankTabItemWithdraw(...: unknown): (...unknown)
 declare function SetGuildBankTabPermissions(tab: number, index: number, enabled: boolean): ()
 declare function SetGuildBankText(tab: number, infoText: string): ()
 declare function SetGuildBankWithdrawGoldLimit(amount: number): ()
-declare function SetGuildMemberRank(playerIndex: unknown, rankIndex: unknown): ()
-declare function SetGuildNewsFilter(index: unknown, bool: unknown): ()
+declare function SetGuildMemberRank(...: unknown): (...unknown)
+declare function SetGuildNewsFilter(...: unknown): (...unknown)
 declare function SetGuildRosterSelection(index: number): ()
 declare function SetGuildRosterShowOffline(enabled: boolean): ()
 declare function SetGuildTabardTextures(...: unknown): (...unknown)
-declare function SetGuildTradeSkillCategoryFilter(tradeSkillID: unknown): ()
-declare function SetGuildTradeSkillItemNameFilter(itemName: unknown): ()
+declare function SetGuildTradeSkillCategoryFilter(...: unknown): (...unknown)
+declare function SetGuildTradeSkillItemNameFilter(...: unknown): (...unknown)
 declare function SetHideErrorFramePredicate(...: unknown): (...unknown)
 declare function SetInWorldUIVisibility(visible: boolean): ()
 declare function SetItemButtonBorder(...: unknown): (...unknown)
@@ -34943,27 +35047,27 @@ declare function SetItemCraftingQualityOverlay(...: unknown): (...unknown)
 declare function SetItemCraftingQualityOverlayOverride(...: unknown): (...unknown)
 declare function SetItemRef(...: unknown): (...unknown)
 declare function SetKioskTooltip(...: unknown): (...unknown)
-declare function SetLFGBootVote(shouldKick: unknown): ()
+declare function SetLFGBootVote(...: unknown): (...unknown)
 declare function SetLFGComment(comment: string): ()
-declare function SetLFGDungeon(LE_LFG_CATEGORY: unknown, type: unknown): ()
-declare function SetLFGDungeonEnabled(dungeonID: unknown, isEnabled: unknown): ()
-declare function SetLFGHeaderCollapsed(headerID: unknown, isCollapsed: unknown): ()
-declare function SetLFGRoles(leader: unknown, tank: unknown, healer: unknown, dps: unknown): ()
+declare function SetLFGDungeon(...: unknown): (...unknown)
+declare function SetLFGDungeonEnabled(...: unknown): (...unknown)
+declare function SetLFGHeaderCollapsed(...: unknown): (...unknown)
+declare function SetLFGRoles(...: unknown): (...unknown)
 declare function SetLargeGuildTabardTextures(...: unknown): (...unknown)
 declare function SetLegacyRaidDifficultyID(difficultyID: number, force: boolean?): ()
 declare function SetLookingForGroupUIAvailable(...: unknown): (...unknown)
 declare function SetLootHistoryFrameToEncounter(...: unknown): (...unknown)
-declare function SetLootPortrait(): ()
+declare function SetLootPortrait(...: unknown): (...unknown)
 declare function SetLootSpecialization(specializationID: number): ()
 declare function SetLootThreshold(threshold: number): ()
-declare function SetMacroItem(macro: unknown, item: unknown, target: unknown): ()
+declare function SetMacroItem(...: unknown): (...unknown)
 declare function SetMacroSpell(name: number | string, spell: string, target: UnitToken): ()
-declare function SetMerchantFilter(): ()
+declare function SetMerchantFilter(...: unknown): (...unknown)
 declare function SetModifiedClick(action: string, key: string): ()
 declare function SetMoneyFrameColor(...: unknown): (...unknown)
 declare function SetMoneyFrameColorByFrame(...: unknown): (...unknown)
-declare function SetMouselookOverrideBinding(key: unknown, command: unknown): ()
-declare function SetMoveEnabled(): ()
+declare function SetMouselookOverrideBinding(...: unknown): (...unknown)
+declare function SetMoveEnabled(...: unknown): (...unknown)
 declare function SetMultiCastSpell(actionID: number, spellID: number): ()
 declare function SetOptOutOfLoot(optOut: boolean): ()
 declare function SetOverrideBinding(owner: Frame, isPriority: boolean, key: string, command: string): ()
@@ -34971,13 +35075,13 @@ declare function SetOverrideBindingClick(owner: Frame, isPriority: boolean, key:
 declare function SetOverrideBindingItem(owner: Frame, isPriority: boolean, key: string, item: string): ()
 declare function SetOverrideBindingMacro(owner: Frame, isPriority: boolean, key: string, macro: string): ()
 declare function SetOverrideBindingSpell(owner: Frame, isPriority: boolean, key: string, spell: string): ()
-declare function SetPOIIconOverlapDistance(index: unknown): ()
-declare function SetPOIIconOverlapPushDistance(index: unknown): ()
+declare function SetPOIIconOverlapDistance(...: unknown): (...unknown)
+declare function SetPOIIconOverlapPushDistance(...: unknown): (...unknown)
 declare function SetPVPAFKQueryDelaySeconds(...: unknown): (...unknown)
 declare function SetPVPRoles(tank: boolean, healer: boolean, dps: boolean): ()
 declare function SetPaperDollBackground(...: unknown): (...unknown)
 declare function SetPaperDollBackgroundOverlayAlpha(...: unknown): (...unknown)
-declare function SetPartyAssignment(assignment: unknown, player: unknown): ()
+declare function SetPartyAssignment(...: unknown): (...unknown)
 declare function SetPlayerInteractionConditions(...: unknown): (...unknown)
 declare function SetPortraitTexture(textureObject: Texture, unitToken: UnitToken, disableMasking: boolean?): ()
 declare function SetPortraitTextureFromCreatureDisplayID(textureObject: Texture, creatureDisplayID: number): ()
@@ -34985,23 +35089,23 @@ declare function SetPreferredGamepadInteractTarget(unit: UnitToken?): ()
 declare function SetQuestTitleLevelAndDifficultyColor(...: unknown): (...unknown)
 declare function SetRaidDifficulties(...: unknown): (...unknown)
 declare function SetRaidDifficultyID(difficultyID: number, force: boolean?): ()
-declare function SetRaidProfileOption(profile: unknown, optionName: unknown, value: unknown): ()
-declare function SetRaidProfileSavedPosition(profile: unknown, isDynamic: unknown, topPoint: unknown, topOffset: unknown, bottomPoint: unknown, bottomOffset: unknown, leftPoint: unknown, leftOffset: unknown): ()
+declare function SetRaidProfileOption(...: unknown): (...unknown)
+declare function SetRaidProfileSavedPosition(...: unknown): (...unknown)
 declare function SetRaidSubgroup(index: number, subgroup: number): ()
 declare function SetRaidTarget(target: UnitToken, userIndex: number): ()
 declare function SetRaidTargetIcon(...: unknown): (...unknown)
 declare function SetRaidTargetIconTexture(...: unknown): (...unknown)
-declare function SetSavedInstanceExtend(index: unknown, extend: unknown): ()
+declare function SetSavedInstanceExtend(...: unknown): (...unknown)
 declare function SetSelectedArtifact(raceIndex: number, index: number?): ()
-declare function SetSelectedDisplayChannel(channelID: unknown): ()
-declare function SetSelectedScreenResolutionIndex(integerIndex: unknown): ()
-declare function SetSelectedWarGameType(index: unknown): ()
-declare function SetSendMailCOD(amount: unknown): ()
-declare function SetSendMailMoney(amount: unknown): ()
+declare function SetSelectedDisplayChannel(...: unknown): (...unknown)
+declare function SetSelectedScreenResolutionIndex(...: unknown): (...unknown)
+declare function SetSelectedWarGameType(...: unknown): (...unknown)
+declare function SetSendMailCOD(...: unknown): (...unknown)
+declare function SetSendMailMoney(...: unknown): (...unknown)
 declare function SetSendMailShowing(shown: boolean): ()
 declare function SetSmallGuildTabardTextures(...: unknown): (...unknown)
 declare function SetSpellNameColor(...: unknown): (...unknown)
-declare function SetSpellbookPetAction(slot: unknown, target: unknown): ()
+declare function SetSpellbookPetAction(...: unknown): (...unknown)
 declare function SetStoreUIShown(...: unknown): (...unknown)
 declare function SetTableColor(...: unknown): (...unknown)
 declare function SetTablePairsToTable(...: unknown): (...unknown)
@@ -35010,9 +35114,9 @@ declare function SetTaxiMap(texture: string): ()
 declare function SetTextureWithAddressModeOptions(...: unknown): (...unknown)
 declare function SetTitleByName(...: unknown): (...unknown)
 declare function SetTooltipMoney(...: unknown): (...unknown)
-declare function SetTradeCurrency(type: unknown, amount: unknown): ()
+declare function SetTradeCurrency(...: unknown): (...unknown)
 declare function SetTrainerServiceTypeFilter(type: string, enable: boolean, exclusive: boolean): ()
-declare function SetTurnEnabled(): ()
+declare function SetTurnEnabled(...: unknown): (...unknown)
 declare function SetUIPanelAttribute(...: unknown): (...unknown)
 declare function SetUIPanelLayoutAttribute(...: unknown): (...unknown)
 declare function SetUIPanelShown(...: unknown): (...unknown)
@@ -35082,7 +35186,7 @@ declare function ShowArtifactRelicForgeFrame(...: unknown): (...unknown)
 declare function ShowAuctionHouseFrame(...: unknown): (...unknown)
 declare function ShowBarberShopFrame(...: unknown): (...unknown)
 declare function ShowBlackMarketFrame(...: unknown): (...unknown)
-declare function ShowBuybackSellCursor(index: unknown): ()
+declare function ShowBuybackSellCursor(...: unknown): (...unknown)
 declare function ShowCharacterFrameIfMatchesContext(...: unknown): (...unknown)
 declare function ShowCloak(show: boolean): ()
 declare function ShowFlightMapFrame(...: unknown): (...unknown)
@@ -35108,12 +35212,12 @@ declare function ShowProfessionEquipmentHelpTip(...: unknown): (...unknown)
 declare function ShowProfessionsCustomerOrdersFrame(...: unknown): (...unknown)
 declare function ShowProfessionsFrame(...: unknown): (...unknown)
 declare function ShowQuestComplete(questID: number): ()
-declare function ShowQuestOffer(index: unknown): ()
+declare function ShowQuestOffer(...: unknown): (...unknown)
 declare function ShowQuestSessionGroupInviteConfirmation(...: unknown): (...unknown)
 declare function ShowQuestSessionGroupInviteReceivedConfirmation(...: unknown): (...unknown)
 declare function ShowQuickButton(...: unknown): (...unknown)
 declare function ShowReadyCheck(...: unknown): (...unknown)
-declare function ShowRepairCursor(): ()
+declare function ShowRepairCursor(...: unknown): (...unknown)
 declare function ShowRuneforgeFrame(...: unknown): (...unknown)
 declare function ShowSummonConfirmationDialog(...: unknown): (...unknown)
 declare function ShowTaxiMapFrame(...: unknown): (...unknown)
@@ -35123,7 +35227,7 @@ declare function ShowingCloak(): boolean
 declare function ShowingHelm(): boolean
 declare SideDressUpFrame: Frame
 declare function Sign(...: unknown): (...unknown)
-declare function SignPetition(): ()
+declare function SignPetition(...: unknown): (...unknown)
 declare function SimpleCheckout_EscapePressed(...: unknown): (...unknown)
 declare function SimulateMouseClick(button: mouseButton): ()
 declare function SimulateMouseDown(button: mouseButton): ()
@@ -35200,19 +35304,19 @@ declare SocialUIUtil: {
 	InitializeUserScaledDropdownTitle: (...unknown) -> (...unknown),
 	SetBattleNetPresenceFromSocialUIPresence: (...unknown) -> (...unknown),
 }
-declare function SocketInventoryItem(slot: unknown): ()
+declare function SocketInventoryItem(...: unknown): (...unknown)
 declare function SocketItemToArtifact(): boolean
 declare SoftCursor: Frame
 declare function SoftCursor_CreateCircleBounds(...: unknown): (...unknown)
 declare function SoftCursor_CreateRectBounds(...: unknown): (...unknown)
-declare function SolveArtifact(): ()
+declare function SolveArtifact(...: unknown): (...unknown)
 declare function SortBGList(): boolean
-declare function SortBattlefieldScoreData(type: unknown): ()
+declare function SortBattlefieldScoreData(...: unknown): (...unknown)
 declare function SortEquipmentSetIDs(...: unknown): (...unknown)
 declare function SortGuildRoster(sortType: string): ()
-declare function SortGuildTradeSkill(type: unknown): ()
-declare function SortQuestSortTypes(): ()
-declare function SortQuests(): ()
+declare function SortGuildTradeSkill(...: unknown): (...unknown)
+declare function SortQuestSortTypes(...: unknown): (...unknown)
+declare function SortQuests(...: unknown): (...unknown)
 declare SortUtil: {
 	CompareNumeric: (...unknown) -> (...unknown),
 	CompareUtf8i: (...unknown) -> (...unknown),
@@ -35221,29 +35325,29 @@ declare SortUtil: {
 declare function SoulbindConduitMixin_Create(...: unknown): (...unknown)
 declare SoulbindViewer: Frame
 declare function SoulbindViewer_LoadUI(...: unknown): (...unknown)
-declare function Sound_ChatSystem_GetInputDriverNameByIndex(InputDriverIndex: unknown): ()
-declare function Sound_ChatSystem_GetNumInputDrivers(): ()
-declare function Sound_ChatSystem_GetNumOutputDrivers(): ()
-declare function Sound_ChatSystem_GetOutputDriverNameByIndex(OutputDriverIndex: unknown): ()
-declare function Sound_GameSystem_GetInputDriverNameByIndex(InputDriverIndex: unknown): ()
-declare function Sound_GameSystem_GetNumInputDrivers(): ()
-declare function Sound_GameSystem_GetNumOutputDrivers(): ()
-declare function Sound_GameSystem_GetOutputDriverNameByIndex(OutputDriverIndex: unknown): ()
-declare function Sound_GameSystem_RestartSoundSystem(): ()
+declare function Sound_ChatSystem_GetInputDriverNameByIndex(...: unknown): (...unknown)
+declare function Sound_ChatSystem_GetNumInputDrivers(...: unknown): (...unknown)
+declare function Sound_ChatSystem_GetNumOutputDrivers(...: unknown): (...unknown)
+declare function Sound_ChatSystem_GetOutputDriverNameByIndex(...: unknown): (...unknown)
+declare function Sound_GameSystem_GetInputDriverNameByIndex(...: unknown): (...unknown)
+declare function Sound_GameSystem_GetNumInputDrivers(...: unknown): (...unknown)
+declare function Sound_GameSystem_GetNumOutputDrivers(...: unknown): (...unknown)
+declare function Sound_GameSystem_GetOutputDriverNameByIndex(...: unknown): (...unknown)
+declare function Sound_GameSystem_RestartSoundSystem(...: unknown): (...unknown)
 declare function Sound_MasterVolumeDown(...: unknown): (...unknown)
 declare function Sound_MasterVolumeUp(...: unknown): (...unknown)
 declare function Sound_ToggleAmbience(...: unknown): (...unknown)
 declare function Sound_ToggleMusic(...: unknown): (...unknown)
 declare function Sound_ToggleSound(...: unknown): (...unknown)
 declare SpellActivationOverlayFrame: Frame
-declare function SpellCanTargetGarrisonFollower(): ()
-declare function SpellCanTargetGarrisonFollowerAbility(): ()
-declare function SpellCanTargetGarrisonMission(): ()
-declare function SpellCanTargetItem(): ()
-declare function SpellCanTargetItemID(): ()
-declare function SpellCanTargetQuest(): ()
+declare function SpellCanTargetGarrisonFollower(...: unknown): (...unknown)
+declare function SpellCanTargetGarrisonFollowerAbility(...: unknown): (...unknown)
+declare function SpellCanTargetGarrisonMission(...: unknown): (...unknown)
+declare function SpellCanTargetItem(...: unknown): (...unknown)
+declare function SpellCanTargetItemID(...: unknown): (...unknown)
+declare function SpellCanTargetQuest(...: unknown): (...unknown)
 declare function SpellCanTargetUnit(unit: UnitToken): boolean
-declare function SpellCancelQueuedSpell(): ()
+declare function SpellCancelQueuedSpell(...: unknown): (...unknown)
 declare function SpellColor_OpenColorPicker(...: unknown): (...unknown)
 declare SpellFlyout: Frame
 declare function SpellFlyout_EscapePressed(...: unknown): (...unknown)
@@ -35261,13 +35365,13 @@ declare SpellSearchUtil: {
 	IsActionBarMatchType: (...unknown) -> (...unknown),
 }
 declare function SpellStopCasting(): boolean
-declare function SpellStopTargeting(): ()
-declare function SpellTargetItem(item: unknown): ()
+declare function SpellStopTargeting(...: unknown): (...unknown)
+declare function SpellTargetItem(...: unknown): (...unknown)
 declare function SpellTargetUnit(unit: UnitToken): ()
 declare SplashFrame: Frame
 declare function SplashFrameCanBeShown(): boolean
 declare function SplashFrame_EscapePressed(...: unknown): (...unknown)
-declare function SplitGuildBankItem(tab: unknown, slot: unknown, amount: unknown): ()
+declare function SplitGuildBankItem(...: unknown): (...unknown)
 declare function SplitTextIntoHeaderAndNonHeader(text: string): (string?, string?)
 declare function SplitTextIntoLines(text: string, delimiter: string): { string }
 declare function Square(...: unknown): (...unknown)
@@ -35282,11 +35386,11 @@ declare StanceBar: Frame
 declare function StandardRewardAlertFrame_AdjustRewardAnchors(...: unknown): (...unknown)
 declare function StandardRewardAlertFrame_OnEnter(...: unknown): (...unknown)
 declare function StartAttack(name: string?, exactMatch: boolean?): ()
-declare function StartAutoRun(): ()
+declare function StartAutoRun(...: unknown): (...unknown)
 declare function StartDuel(unit: string, exactMatch: boolean?): ()
-declare function StartSoloShuffleWarGameByName(): ()
-declare function StartSpectatorSoloShuffleWarGame(): ()
-declare function StartSpectatorWarGame(target1: unknown, target2: unknown, size: unknown, area: unknown, isTournamentMode: unknown): ()
+declare function StartSoloShuffleWarGameByName(...: unknown): (...unknown)
+declare function StartSpectatorSoloShuffleWarGame(...: unknown): (...unknown)
+declare function StartSpectatorWarGame(...: unknown): (...unknown)
 declare StartSplash: Frame
 declare function StartTimer_BarOnlyOnUpdate(...: unknown): (...unknown)
 declare function StartTimer_BigNumberOnUpdate(...: unknown): (...unknown)
@@ -35295,8 +35399,8 @@ declare function StartTimer_OnShow(...: unknown): (...unknown)
 declare function StartTimer_SetGoTexture(...: unknown): (...unknown)
 declare function StartTimer_SetTexNumbers(...: unknown): (...unknown)
 declare function StartTimer_SwitchToLargeDisplay(...: unknown): (...unknown)
-declare function StartWarGame(target: unknown, name: unknown, isTournament: unknown): ()
-declare function StartWarGameByName(msg: unknown): ()
+declare function StartWarGame(...: unknown): (...unknown)
+declare function StartWarGameByName(...: unknown): (...unknown)
 declare StaticPopup1: Frame
 declare StaticPopup2: Frame
 declare StaticPopup3: Frame
@@ -35354,10 +35458,10 @@ declare function StaticPopup_UpdateSubText(...: unknown): (...unknown)
 declare function StaticPopup_Visible(...: unknown): (...unknown)
 declare StatusTrackingBarManager: Frame
 declare function StopAttack(): ()
-declare function StopAutoRun(): ()
+declare function StopAutoRun(...: unknown): (...unknown)
 declare function StopCinematic(): ()
-declare function StopMacro(): ()
-declare function StopMusic(): ()
+declare function StopMacro(...: unknown): (...unknown)
+declare function StopMusic(...: unknown): (...unknown)
 declare function StopSound(soundHandle: number, fadeoutTime: number?): ()
 declare function StopwatchCloseButton_OnClick(...: unknown): (...unknown)
 declare StopwatchFrame: Frame
@@ -35400,13 +35504,13 @@ declare StoreInterfaceUtil: {
 }
 declare function StorePreviewFrame_OnHide(...: unknown): (...unknown)
 declare function StorePreviewFrame_OnShow(...: unknown): (...unknown)
-declare function StoreSecureReference(name: unknown, obj: unknown): ()
+declare function StoreSecureReference(...: unknown): (...unknown)
 declare function StoreSetItemTooltip(...: unknown): (...unknown)
 declare function StoreShowPreviews(...: unknown): (...unknown)
-declare function StrafeLeftStart(): ()
-declare function StrafeLeftStop(): ()
-declare function StrafeRightStart(): ()
-declare function StrafeRightStop(): ()
+declare function StrafeLeftStart(...: unknown): (...unknown)
+declare function StrafeLeftStop(...: unknown): (...unknown)
+declare function StrafeRightStart(...: unknown): (...unknown)
+declare function StrafeRightStop(...: unknown): (...unknown)
 declare function StreamingFrame_FadeIN_OnFinished(...: unknown): (...unknown)
 declare function StreamingFrame_FadeOUT_OnFinished(...: unknown): (...unknown)
 declare StreamingIcon: Frame
@@ -35422,23 +35526,23 @@ declare StringUtil: {
 declare function Stuck(): ()
 declare SubZoneTextFrame: Frame
 declare function SubZoneText_OnLoad(...: unknown): (...unknown)
-declare function SubmitRequiredGuildRename(): ()
+declare function SubmitRequiredGuildRename(...: unknown): (...unknown)
 declare SubscriptionInterstitialFrame: Frame
 declare function SubscriptionInterstitial_LoadUI(...: unknown): (...unknown)
 declare function SubscriptionInterstitial_ShowSubscriptionPeriod(...: unknown): (...unknown)
 declare SubtitlesFrame: Frame
-declare function SummonRandomCritter(): ()
+declare function SummonRandomCritter(...: unknown): (...unknown)
 declare SuperTrackedFrame: Frame
 declare function SupportsClipCursor(): boolean
-declare function SurrenderArena(): ()
+declare function SurrenderArena(...: unknown): (...unknown)
 declare function SwapRaidSubgroup(index1: number, index2: number): ()
 declare function SwapTableEntries(...: unknown): (...unknown)
-declare function SwapToGlobalEnvironment(): ()
+declare function SwapToGlobalEnvironment(...: unknown): (...unknown)
 declare SwingTimerMainHandFrame: Frame
 declare SwingTimerManagerFrame: Frame
 declare SwingTimerOffHandFrame: Frame
 declare SwingTimerRangedFrame: Frame
-declare function SwitchAchievementSearchTab(index: unknown): ()
+declare function SwitchAchievementSearchTab(...: unknown): (...unknown)
 declare function TabardCustomization_Left(...: unknown): (...unknown)
 declare function TabardCustomization_Right(...: unknown): (...unknown)
 declare TabardFrame: Frame
@@ -35481,7 +35585,7 @@ declare TableUtil: {
 }
 declare function TakeInboxItem(messageIndex: number, attachIndex: number): ()
 declare function TakeInboxMoney(index: number): ()
-declare function TakeInboxTextItem(index: unknown): ()
+declare function TakeInboxTextItem(...: unknown): (...unknown)
 declare function TakeTaxiNode(index: number): ()
 declare TalentButtonAnimUtil: {
 	TalentButtonAnimationReset: (...unknown) -> (...unknown),
@@ -35567,17 +35671,17 @@ declare function TaxiFrame_OnLoad(...: unknown): (...unknown)
 declare function TaxiFrame_OnShow(...: unknown): (...unknown)
 declare function TaxiGetDestX(destinationIndex: number?, routeIndex: number?): number
 declare function TaxiGetDestY(destinationIndex: number?, routeIndex: number?): number
-declare function TaxiGetNodeSlot(): ()
+declare function TaxiGetNodeSlot(...: unknown): (...unknown)
 declare function TaxiGetSrcX(destinationIndex: number?, routeIndex: number?): number
 declare function TaxiGetSrcY(destinationIndex: number?, routeIndex: number?): number
-declare function TaxiIsDirectFlight(): ()
+declare function TaxiIsDirectFlight(...: unknown): (...unknown)
 declare function TaxiNodeCost(slot: number): number
 declare function TaxiNodeGetType(index: number): string
 declare function TaxiNodeName(index: number): string
 declare function TaxiNodeOnButtonEnter(...: unknown): (...unknown)
 declare function TaxiNodeOnButtonLeave(...: unknown): (...unknown)
 declare function TaxiNodePosition(index: number): (number, number)
-declare function TaxiRequestEarlyLanding(): ()
+declare function TaxiRequestEarlyLanding(...: unknown): (...unknown)
 declare function TextEditButton_OnClick(...: unknown): (...unknown)
 declare TextToSpeechButtonFrame: Frame
 declare function TextToSpeechButtonFrame_OnLoad(...: unknown): (...unknown)
@@ -35702,7 +35806,7 @@ declare TitleUtil: {
 }
 declare function ToggleAchievementFrame(...: unknown): (...unknown)
 declare function ToggleAllBags(...: unknown): (...unknown)
-declare function ToggleAutoRun(): ()
+declare function ToggleAutoRun(...: unknown): (...unknown)
 declare function ToggleBackpack(...: unknown): (...unknown)
 declare function ToggleBackpack_Combined(...: unknown): (...unknown)
 declare function ToggleBackpack_Individual(...: unknown): (...unknown)
@@ -35744,7 +35848,7 @@ declare function ToggleMessageTypeGroup(...: unknown): (...unknown)
 declare function ToggleMinimap(...: unknown): (...unknown)
 declare function ToggleOrderHallTalentUI(...: unknown): (...unknown)
 declare function TogglePVPScoreboardOrResults(...: unknown): (...unknown)
-declare function TogglePetAutocast(index: unknown): ()
+declare function TogglePetAutocast(...: unknown): (...unknown)
 declare function TogglePlayerSpellsFrame(...: unknown): (...unknown)
 declare function ToggleProfessionsBook(...: unknown): (...unknown)
 declare function ToggleQuestLog(...: unknown): (...unknown)
@@ -35752,7 +35856,7 @@ declare function ToggleQuickJoinPanel(...: unknown): (...unknown)
 declare function ToggleRAFPanel(...: unknown): (...unknown)
 declare function ToggleRaidFrame(...: unknown): (...unknown)
 declare function ToggleRecentAlliesPanel(...: unknown): (...unknown)
-declare function ToggleRun(): ()
+declare function ToggleRun(...: unknown): (...unknown)
 declare function ToggleSelfHighlight(): boolean
 declare function ToggleSheath(): ()
 declare function ToggleSit(): ()
@@ -35762,7 +35866,7 @@ declare function ToggleTextToSpeechFrame(...: unknown): (...unknown)
 declare function ToggleTimeManager(...: unknown): (...unknown)
 declare function ToggleToyCollection(...: unknown): (...unknown)
 declare function ToggleUIPanel(...: unknown): (...unknown)
-declare function ToggleWindowed(): ()
+declare function ToggleWindowed(...: unknown): (...unknown)
 declare function ToggleWorldMap(...: unknown): (...unknown)
 declare function TooltipSetLFGCompletionReward(...: unknown): (...unknown)
 declare TooltipUtil: {
@@ -35862,7 +35966,7 @@ declare TransmogUtil: {
 }
 declare function Transmog_LoadUI(...: unknown): (...unknown)
 declare function TravelPassButton_OnEnter(...: unknown): (...unknown)
-declare function TriggerTutorial(tutorial: unknown): ()
+declare function TriggerTutorial(...: unknown): (...unknown)
 declare function TruncatedButton_OnEnter(...: unknown): (...unknown)
 declare function TruncatedButton_OnLeave(...: unknown): (...unknown)
 declare function TruncatedButton_OnSizeChanged(...: unknown): (...unknown)
@@ -35872,13 +35976,13 @@ declare function TryAddHonorColumn(...: unknown): (...unknown)
 declare function TryShowAnimaDiversionFrame(...: unknown): (...unknown)
 declare function TryShowCovenantPreviewFrame(...: unknown): (...unknown)
 declare function TryUseActionButton(...: unknown): (...unknown)
-declare function TurnInGuildCharter(): ()
+declare function TurnInGuildCharter(...: unknown): (...unknown)
 declare function TurnLeftStart(startTime: number): ()
-declare function TurnLeftStop(): ()
-declare function TurnOrActionStart(): ()
-declare function TurnOrActionStop(): ()
+declare function TurnLeftStop(...: unknown): (...unknown)
+declare function TurnOrActionStart(...: unknown): (...unknown)
+declare function TurnOrActionStop(...: unknown): (...unknown)
 declare function TurnRightStart(startTime: number): ()
-declare function TurnRightStop(): ()
+declare function TurnRightStop(...: unknown): (...unknown)
 declare TutorialDoubleKey_Frame: Frame
 declare TutorialDragAnimationFrame: Frame
 declare TutorialDragOriginFrame: Frame
@@ -36028,9 +36132,9 @@ declare function UnitCanAttack(unit: UnitToken, target: UnitToken): boolean
 declare function UnitCanCooperate(unit: UnitToken, target: UnitToken): boolean
 declare function UnitCanPetBattle(unit: UnitToken, target: UnitToken): boolean
 declare function UnitCastingDuration(unit: UnitTokenPvPRestrictedForAddOns): LuaDurationObject?
-declare function UnitCastingInfo(unit: UnitTokenPvPRestrictedForAddOns): (string, string, fileID, number, number, boolean, WOWGUID, boolean?, number, unknown, number)
+declare function UnitCastingInfo(unit: UnitTokenPvPRestrictedForAddOns): (string, string, fileID, number, number, boolean, WOWGUID, boolean?, number, number?, number)
 declare function UnitChannelDuration(unit: UnitTokenPvPRestrictedForAddOns): LuaDurationObject?
-declare function UnitChannelInfo(unit: UnitTokenPvPRestrictedForAddOns): (string, string, fileID, number, number, boolean, boolean?, number, boolean, number, unknown)
+declare function UnitChannelInfo(unit: UnitTokenPvPRestrictedForAddOns): (string, string, fileID, number, number, boolean, boolean?, number, boolean, number, number?)
 declare function UnitChromieTimeID(unit: UnitToken): number
 declare function UnitClass(unit: UnitToken): (string?, string?, number?)
 declare function UnitClassBase(unit: UnitToken): (string?, number?)
@@ -36303,7 +36407,7 @@ declare function UnitWeaponAttackPower(unit: UnitToken): (number, number, number
 declare function UnitWidgetSet(unit: UnitToken): number?
 declare function UnitXP(unit: UnitToken): number
 declare function UnitXPMax(unit: UnitToken): number
-declare function UnlearnSpecialization(specIndex: unknown, isPet: unknown): ()
+declare function UnlearnSpecialization(...: unknown): (...unknown)
 declare function UnmuteSoundFile(sound: number | string): ()
 declare function UnregisterAttributeDriver(...: unknown): (...unknown)
 declare function UnregisterAutoHide(...: unknown): (...unknown)
@@ -36317,7 +36421,7 @@ declare function UpdateCoinPickupFrame(...: unknown): (...unknown)
 declare function UpdateContainerFrameAnchors(...: unknown): (...unknown)
 declare function UpdateCursorAfterBuyBack(...: unknown): (...unknown)
 declare function UpdateFloatingCombatTextSafe(...: unknown): (...unknown)
-declare function UpdateInventoryAlertStatus(): ()
+declare function UpdateInventoryAlertStatus(...: unknown): (...unknown)
 declare function UpdateInviteConfirmationDialogs(...: unknown): (...unknown)
 declare function UpdateMicroButtons(...: unknown): (...unknown)
 declare function UpdateNewItemList(...: unknown): (...unknown)
@@ -36328,14 +36432,14 @@ declare function UpdateQuestAcceptLogFullDialog(...: unknown): (...unknown)
 declare function UpdateRaidAndPartyFrames(...: unknown): (...unknown)
 declare function UpdateScaleForFitForOpenPanels(...: unknown): (...unknown)
 declare function UpdateUIPanelPositions(...: unknown): (...unknown)
-declare function UpdateWarGamesList(): ()
+declare function UpdateWarGamesList(...: unknown): (...unknown)
 declare function UpdateWindow(): ()
 declare function UseAction(slot: number, checkCursor: number?, onSelf: number?): ()
 declare function UseInventoryItem(slot: number): ()
-declare function UseQuestLogSpecialItem(index: unknown): ()
+declare function UseQuestLogSpecialItem(...: unknown): (...unknown)
 declare function UseToy(itemId: number): ()
 declare function UseToyByName(name: string): ()
-declare function UseWorldMapActionButtonSpellOnQuest(): ()
+declare function UseWorldMapActionButtonSpellOnQuest(...: unknown): (...unknown)
 declare function UserEditBoxNonEmpty(...: unknown): (...unknown)
 declare function UserInputNonEmpty(...: unknown): (...unknown)
 declare function UsesGUID(...: unknown): (...unknown)
@@ -36391,20 +36495,20 @@ declare function Vector4D_ScaleBy(...: unknown): (...unknown)
 declare function Vector4D_ScaleVector(...: unknown): (...unknown)
 declare function Vector4D_Subtract(...: unknown): (...unknown)
 declare function Vector4D_SubtractVector(...: unknown): (...unknown)
-declare function VehicleAimDecrement(): ()
-declare function VehicleAimDownStart(): ()
-declare function VehicleAimDownStop(): ()
-declare function VehicleAimGetNormPower(): ()
-declare function VehicleAimIncrement(): ()
-declare function VehicleAimRequestAngle(): ()
-declare function VehicleAimSetNormPower(): ()
-declare function VehicleAimUpStart(): ()
-declare function VehicleAimUpStop(): ()
-declare function VehicleExit(): ()
-declare function VehicleNextSeat(): ()
-declare function VehiclePrevSeat(): ()
+declare function VehicleAimDecrement(...: unknown): (...unknown)
+declare function VehicleAimDownStart(...: unknown): (...unknown)
+declare function VehicleAimDownStop(...: unknown): (...unknown)
+declare function VehicleAimGetNormPower(...: unknown): (...unknown)
+declare function VehicleAimIncrement(...: unknown): (...unknown)
+declare function VehicleAimRequestAngle(...: unknown): (...unknown)
+declare function VehicleAimSetNormPower(...: unknown): (...unknown)
+declare function VehicleAimUpStart(...: unknown): (...unknown)
+declare function VehicleAimUpStop(...: unknown): (...unknown)
+declare function VehicleExit(...: unknown): (...unknown)
+declare function VehicleNextSeat(...: unknown): (...unknown)
+declare function VehiclePrevSeat(...: unknown): (...unknown)
 declare VehicleSeatIndicator: Frame
-declare function ViewGuildRecipes(skillLineID: unknown): ()
+declare function ViewGuildRecipes(...: unknown): (...unknown)
 declare function ViewInDebugWindow(...: unknown): (...unknown)
 declare function VisualAlertData_ForEach(...: unknown): (...unknown)
 declare function VisualAlert_GetTypeTemplate(...: unknown): (...unknown)
@@ -36442,7 +36546,7 @@ declare WOW_PROJECT_ID: number
 declare WOW_PROJECT_MAINLINE: number
 declare WOW_PROJECT_MISTS_CLASSIC: number
 declare WOW_PROJECT_WRATH_CLASSIC: number
-declare function WarGameRespond(accept: unknown): ()
+declare function WarGameRespond(...: unknown): (...unknown)
 declare WardrobeCustomSetCheckAppearancesFrame: Frame
 declare WardrobeCustomSetEditFrame: Frame
 declare WarfrontsPartyPoseFrame: Frame
@@ -36467,7 +36571,7 @@ declare WidgetUtil: {
 }
 declare function WillAcceptInviteRemoveQueues(...: unknown): (...unknown)
 declare function WillCurrencyRewardOverflow(...: unknown): (...unknown)
-declare function WithdrawGuildBankMoney(money: unknown): ()
+declare function WithdrawGuildBankMoney(...: unknown): (...unknown)
 declare function WithinRange(...: unknown): (...unknown)
 declare function WithinRangeExclusive(...: unknown): (...unknown)
 declare function WoWTokenGameTimeTutorial_OnLoad(...: unknown): (...unknown)
@@ -36539,7 +36643,7 @@ declare function enumerate_regions(...: unknown): (...unknown)
 declare function exp(x: number): number
 declare function fastrandom(lower: number?, upper: number?): number
 declare function floor(x: number): number
-declare function forceinsecure(): ()
+declare function forceinsecure(...: unknown): (...unknown)
 declare foreach: <T>(list: unknown, callback: (key: string, value: unknown) -> T?) -> T?
 declare foreachi: <T>(list: unknown, callback: (key: string, value: unknown) -> T?) -> T?
 declare function format(s: string | number, ...: unknown): string
@@ -36582,8 +36686,8 @@ declare function securecopy(value: LuaValueReference?, options: SecureCopyOption
 declare function secureexecuterange(tbl: { [any]: any }, func: (...any) -> ...any, ...: unknown): ()
 declare function seterrorhandler(errFunc: (...any) -> ...any): ()
 declare function setprinthandler(...: unknown): (...unknown)
-declare function setsecurehookforbidden(): ()
-declare function settablesecurity(table: LuaValueVariant, option: Enum_TableSecurityOption): ()
+declare function setsecurehookforbidden(...: unknown): (...unknown)
+declare function settablesecurity(table: unknown, option: Enum_TableSecurityOption): ()
 declare function sin(...: unknown): (...unknown)
 declare sort: <T>(list: { T }, comp: ((a: T, b: T) -> boolean)?) -> ()
 declare function sqrt(x: number): number

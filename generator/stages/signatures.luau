@@ -179,7 +179,7 @@ local function reconcileSources(ctx: Context, doc: Signature, ann: { Signature }
 	for i, p in doc.params do
 		local ap = a.params[i]
 		local sameSlot = ap ~= nil and (ap.name == p.name or #a.params == #doc.params)
-		if sameSlot and (ap :: Param).optional and not p.optional then
+		if sameSlot and (ap :: Param).optional and not (ap :: Param).implicit and not p.optional then
 			table.insert(params, { name = p.name, type = p.type, optional = true })
 			usedAnnotations = true
 		else
@@ -235,7 +235,8 @@ end
 -- Reconciling Blizzard's documentation with the annotations, for an API both describe:
 --   1. Types come from the documentation.
 --   2. An argument is optional if either source says so: the documentation marks some arguments
---      required that the game treats as optional (MessageFrame:AddMessage's colours).
+--      required that the game treats as optional (MessageFrame:AddMessage's colours). Only an
+--      annotated parameter counts: a parameter the annotations name but do not annotate says nothing.
 --   3. The annotations' extra call shapes (`---@overload`) are kept: the documentation lists one
 --      signature per function (ScriptRegion:SetPoint(point, x, y) is real).
 --   4. A documented result typed as a callback (C_Timer.NewTicker's ticker handle) takes the

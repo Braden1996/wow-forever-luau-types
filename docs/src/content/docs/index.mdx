@@ -45,20 +45,20 @@ exists there, `GetQuestLogTitle` does not.
 ## What is inside
 
 <CardGrid>
-  <Card title="C API, 99.8% typed" icon="approve-check">
-    6,892 of the client's 6,904 native functions (global and `C_*`) have argument and result types, mostly from
-    Blizzard's own API documentation.
+  <Card title="C API, 83% typed" icon="approve-check">
+    5,757 of the client's 6,904 native functions (global and `C_*`) have argument and result types, mostly from
+    Blizzard's own API documentation. The rest are declared, with `unknown` results.
   </Card>
   <Card title="Widgets in their real hierarchy" icon="puzzle">
-    57 widget types as extern types, from <Sym type="FrameScriptObject" /> down to <Sym type="CheckButton" />. 1,660
-    methods, all typed. Script names are per widget.
+    57 widget types as extern types, from <Sym type="FrameScriptObject" /> down to <Sym type="CheckButton" />. 1,650 of
+    1,660 methods typed. Script names are per widget.
   </Card>
   <Card title="Every event, with its payload" icon="rocket">
     1,816 events form a closed union, and `EventHandler<E>` gives each handler its documented payload, such as
     <Sym event="PLAYER_LEVEL_UP" />.
   </Card>
   <Card title="Structures and enums" icon="list-format">
-    821 structures and mixins (some derived as `Base & { ... }`) and 954 enums from the client, with nil-safety on
+    840 structures and mixins (some derived as `Base & { ... }`) and 954 enums from the client, with nil-safety on
     every optional field.
   </Card>
 </CardGrid>

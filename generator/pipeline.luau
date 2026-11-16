@@ -160,7 +160,7 @@ function Pipeline.run(): Result
 	})
 	if #report.unusedOverrides > 0 then
 		error(
-			"generator/rules/widgets.luau: these paramTypeOverrides match no typed function or method: "
+			"generator/rules/widgets.luau: these paramTypeOverrides or scriptObjectParents match nothing: "
 				.. table.concat(report.unusedOverrides, ", ")
 		)
 	end

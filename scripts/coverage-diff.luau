@@ -4,7 +4,8 @@
 --                                                           $COVERAGE_BASE (default origin/main)
 --   lune run scripts/coverage-diff -- <base.json> [current.json]
 -- Fails if definitions/api-shapes.json does not shape exactly the functions and widget methods listed, or if
--- an API that the base typed is untyped now (a coverage regression). APIs that left the
+-- an API that the base typed is untyped now (a coverage regression), unless scripts/coverage-accepted.json
+-- lists it: a reviewed list of regressions the maintainer accepted, with the reason (emptied once merged). APIs that left the
 -- client, newly typed APIs and new untyped APIs are reported, not failed. Writes a Markdown summary
 -- to $GITHUB_STEP_SUMMARY when set.
 
@@ -92,6 +93,20 @@ else
 end
 local base = serde.decode("json", baseText) :: Coverage
 
+-- Regressions the maintainer accepted, by category: { reason: string, [category]: { name } }.
+local ACCEPTED_PATH = "scripts/coverage-accepted.json"
+local acceptedFile = serde.decode("json", fs.readFile(ACCEPTED_PATH)) :: { [string]: any }
+local accepted: { [string]: { [string]: boolean } } = {}
+for key, names in acceptedFile do
+	if key ~= "reason" then
+		local set: { [string]: boolean } = {}
+		for _, name in names :: { string } do
+			set[name] = true
+		end
+		accepted[key] = set
+	end
+end
+
 local function sortedKeys<V>(t: { [string]: V }): { string }
 	local keys = {}
 	for k in t do
@@ -108,6 +123,7 @@ local lines = {
 	"| --- | --- | ---: | ---: | ---: |",
 }
 local regressions: { string } = {}
+local acceptedCount = 0
 for _, category in sortedKeys(current) do
 	local now = current[category]
 	local before = base[category] or {}
@@ -133,7 +149,11 @@ for _, category in sortedKeys(current) do
 				gone += 1
 			elseif n.status == "untyped" then
 				lost += 1
-				table.insert(regressions, category .. ": " .. name .. " (was " .. (b.source or "?") .. ")")
+				if (accepted[category] or {})[name] then
+					acceptedCount += 1
+				else
+					table.insert(regressions, category .. ": " .. name .. " (was " .. (b.source or "?") .. ")")
+				end
 			end
 		end
 	end
@@ -143,6 +163,13 @@ for _, category in sortedKeys(current) do
 	)
 end
 
+if acceptedCount > 0 then
+	table.insert(lines, "")
+	table.insert(
+		lines,
+		string.format("%d regression(s) accepted by %s: %s", acceptedCount, ACCEPTED_PATH, acceptedFile.reason)
+	)
+end
 if #regressions > 0 then
 	table.insert(lines, "")
 	table.insert(lines, "### Regressions (typed before, untyped now)")
@@ -160,6 +187,11 @@ if stepSummary then
 	fs.writeFile(stepSummary, existing .. summary)
 end
 if #regressions > 0 then
-	print(#regressions .. " API(s) lost their types. Fix the cause, or explain the loss in the pull request.")
+	print(
+		#regressions
+			.. " API(s) lost their types. Fix the cause, or, if the maintainer accepts the loss, list them in "
+			.. ACCEPTED_PATH
+			.. " with the reason."
+	)
 	process.exit(1)
 end

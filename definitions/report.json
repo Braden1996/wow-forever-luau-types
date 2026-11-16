@@ -33,24 +33,24 @@
   "counts": {
     "annotationFiles": 467,
     "anyOccurrences": 384,
-    "derivedStructures": 35,
+    "derivedStructures": 39,
     "globalFunctions": 6587,
     "globalTables": 402,
     "globalValues": 839,
     "scriptObjects": 16,
-    "structures": 821,
+    "structures": 840,
     "widgets": 57
   },
   "functionsByClientList": {
     "C API": {
       "excluded": 0,
-      "typed": 6892,
-      "untyped": 12
+      "typed": 5757,
+      "untyped": 1147
     },
     "FrameXML": {
       "excluded": 1,
-      "typed": 102,
-      "untyped": 5690
+      "typed": 101,
+      "untyped": 5691
     },
     "Lua": {
       "excluded": 112,
@@ -69,19 +69,20 @@
       "overloaded": 5,
       "protected": 1,
       "record": 572,
-      "untyped": 5719,
+      "untyped": 6855,
       "value": 2720,
       "variadic": 39,
-      "void": 2545
+      "void": 1409
     },
     "widgetMethods": {
       "maybe": 64,
       "opaque": 200,
       "protected": 65,
       "record": 103,
+      "untyped": 10,
       "value": 542,
       "variadic": 8,
-      "void": 678
+      "void": 668
     }
   },
   "summary": {
@@ -97,18 +98,18 @@
     },
     "functions": {
       "excluded": 393,
-      "typed": 7053,
-      "untyped": 5719
+      "typed": 5917,
+      "untyped": 6855
     },
     "structures": {
       "excluded": 0,
-      "typed": 821,
+      "typed": 840,
       "untyped": 0
     },
     "widgetMethods": {
       "excluded": 0,
-      "typed": 1660,
-      "untyped": 0
+      "typed": 1650,
+      "untyped": 10
     },
     "widgets": {
       "excluded": 0,
@@ -122,56 +123,12 @@
       "uses": 1
     },
     {
-      "name": "CharacterProperties",
-      "uses": 1
-    },
-    {
-      "name": "ClubMemberOpaqueId",
-      "uses": 17
-    },
-    {
       "name": "ConnectionProtocol",
       "uses": 1
     },
     {
-      "name": "CurrencyParseResult",
-      "uses": 2
-    },
-    {
-      "name": "DiscordChatInfo",
-      "uses": 70
-    },
-    {
       "name": "DiscordMemberOpaqueID",
-      "uses": 2
-    },
-    {
-      "name": "DurationTextBinding",
-      "uses": 4
-    },
-    {
-      "name": "DurationTextBindingColorOptions",
-      "uses": 1
-    },
-    {
-      "name": "DurationTextBindingFormatComponent",
-      "uses": 1
-    },
-    {
-      "name": "DurationTextBindingFormatOptions",
-      "uses": 1
-    },
-    {
-      "name": "GroupBuffVisualAlertInfo",
       "uses": 3
-    },
-    {
-      "name": "HousingBlueprintCollection",
-      "uses": 1
-    },
-    {
-      "name": "HousingBlueprintContentInfo",
-      "uses": 1
     },
     {
       "name": "LuaDurationClock",
@@ -182,32 +139,8 @@
       "uses": 2
     },
     {
-      "name": "PingMacroInfo",
-      "uses": 2
-    },
-    {
       "name": "PreferredPlaySettingsStatus",
       "uses": 1
-    },
-    {
-      "name": "TimedSignalMapCallback",
-      "uses": 1
-    },
-    {
-      "name": "UITextureSliceMargins",
-      "uses": 1
-    },
-    {
-      "name": "UnitAuraSoundInfo",
-      "uses": 1
-    },
-    {
-      "name": "UnitCastBarID",
-      "uses": 17
-    },
-    {
-      "name": "VoiceChatID",
-      "uses": 59
     },
     {
       "name": "uiRect",

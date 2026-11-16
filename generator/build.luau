@@ -139,6 +139,13 @@ function Build.run(input: Input): (string, Report, Coverage, ShapeSet)
 			table.insert(unusedOverrides, key)
 		end
 	end
+	-- Likewise for config.scriptObjectParents: both ends must be documented script objects.
+	for _, name in Common.sortedKeys(config.scriptObjectParents) do
+		local parent = config.scriptObjectParents[name]
+		if ctx.widgets.objectTypes[name] == nil or ctx.widgets.objectTypes[parent] == nil then
+			table.insert(unusedOverrides, "scriptObjectParents." .. name)
+		end
+	end
 
 	local summary: { [Common.Category]: Common.StatusCounts } = Json.object({})
 	for _, category in CATEGORIES do

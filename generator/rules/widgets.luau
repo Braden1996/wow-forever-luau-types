@@ -96,6 +96,13 @@ local docWidgetAliases: { [string]: string } = {
 local widgetParentOverrides: { [string]: { string } } = {
 	Region = { "ScriptRegion" },
 }
+-- Documented script objects that are not widgets but share a documented base: Blizzard documents
+-- LuaCurveObjectBase separately, and the functions that take any curve (`LuaDurationObject:EvaluateRemainingPercent`)
+-- take the base. The annotations declare `CurveObject : CurveObjectBase` and `ColorCurveObject : CurveObjectBase`.
+local scriptObjectParents: { [string]: string } = {
+	LuaColorCurveObject = "LuaCurveObjectBase",
+	LuaCurveObject = "LuaCurveObjectBase",
+}
 -- Parameters both sources type too loosely (Blizzard documents event names as plain strings), keyed
 -- "Widget:Method" or a qualified function name. A key that matches nothing is an error.
 local paramTypeOverrides: { [string]: { [string]: string } } = {
@@ -112,6 +119,7 @@ return {
 	ignoredScriptObjects = ignoredScriptObjects,
 	docWidgetAliases = docWidgetAliases,
 	widgetParentOverrides = widgetParentOverrides,
+	scriptObjectParents = scriptObjectParents,
 	paramTypeOverrides = paramTypeOverrides,
 	scriptMethods = scriptMethods,
 }
