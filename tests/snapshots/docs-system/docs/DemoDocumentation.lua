@@ -99,6 +99,28 @@ local Demo =
 			},
 		},
 		{
+			Name = "DemoBarVisualizationInfo",
+			Type = "Structure",
+			Fields =
+			{
+				{ Name = "widgetTag", Type = "cstring", Nilable = false },
+				{ Name = "orderIndex", Type = "number", Nilable = false },
+				{ Name = "barValue", Type = "number", Nilable = false },
+				{ Name = "textureKit", Type = "cstring", Nilable = false },
+			},
+		},
+		{
+			Name = "DemoTextVisualizationInfo",
+			Type = "Structure",
+			Fields =
+			{
+				{ Name = "widgetTag", Type = "cstring", Nilable = false },
+				{ Name = "orderIndex", Type = "number", Nilable = false },
+				{ Name = "text", Type = "cstring", Nilable = false },
+				{ Name = "textureKit", Type = "cstring", Nilable = false },
+			},
+		},
+		{
 			Name = "DemoConstants",
 			Type = "Constants",
 			Values =

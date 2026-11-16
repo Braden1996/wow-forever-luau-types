@@ -5,6 +5,13 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- Structures are no longer declared as another, unrelated structure plus extra fields just because they happen to
+  contain its fields: `SpecializationInfoResult` was `AlliedRaceRacialAbility & { ... }`. They are written out in
+  full. The 32 UI widget visualization infos instead share a new `UIWidgetVisualizationInfoBase` with the 12 layout
+  and animation fields they all carry.
+
 ### Fixed
 
 - A structure the addon only passes in leaves out the fields the documentation gives a default:

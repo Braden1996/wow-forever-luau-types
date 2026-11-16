@@ -21,13 +21,28 @@ export type EventHandler<E> = index<EventPayloads, E>
 export type Enum_DemoKind = number
 
 -- Structures and mixins ----------------------------------------------------------------------
+-- The fields every structure matching `VisualizationInfo$` has in common.
+export type UIWidgetVisualizationInfoBase = {
+	orderIndex: number,
+	textureKit: string,
+	widgetTag: string,
+}
+export type DemoBarVisualizationInfo = UIWidgetVisualizationInfoBase & {
+	barValue: number,
+}
 export type DemoInfo = {
 	demoID: number,
 	kind: Enum_DemoKind,
 	name: string,
 }
-export type DemoInfoExtended = DemoInfo & {
+export type DemoInfoExtended = {
+	demoID: number,
+	kind: Enum_DemoKind,
+	name: string,
 	owner: string?,
+}
+export type DemoTextVisualizationInfo = UIWidgetVisualizationInfoBase & {
+	text: string,
 }
 
 -- Widgets (the client's own hierarchy) ---------------------------------------------------------

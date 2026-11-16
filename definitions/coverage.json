@@ -64124,7 +64124,6 @@
       "status": "typed"
     },
     "AreaPOIInfo": {
-      "note": "derived: PetTamerMapInfo & { 15 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -64137,12 +64136,10 @@
       "status": "typed"
     },
     "ArtifactArtInfo": {
-      "note": "derived: RemixArtifactArtInfo & { 3 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "ArtifactInfo": {
-      "note": "derived: RemixArtifactInfo & { 6 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -64191,7 +64188,6 @@
       "status": "typed"
     },
     "AuraContainerTooltipBackdropInsets": {
-      "note": "same fields as AuraContainerTooltipAnchorOffsets",
       "source": "docs",
       "status": "typed"
     },
@@ -64224,7 +64220,6 @@
       "status": "typed"
     },
     "AutoCombatSpellInfo": {
-      "note": "derived: AlliedRaceRacialAbility & { 7 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -64353,11 +64348,12 @@
       "status": "typed"
     },
     "BulletTextListWidgetVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 3 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "ButtonHeaderWidgetVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 2 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 5 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -64398,7 +64394,6 @@
       "status": "typed"
     },
     "CalendarGuildEventInfo": {
-      "note": "derived: CalendarTime & { 7 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -64439,11 +64434,12 @@
       "status": "typed"
     },
     "CaptureBarWidgetVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 7 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 10 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "CaptureZoneVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 6 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65000,7 +64996,6 @@
       "status": "typed"
     },
     "CustomAuraButtonDispelTypeTextureTexCoords": {
-      "note": "same fields as AuraContainerTooltipAnchorOffsets",
       "source": "docs",
       "status": "typed"
     },
@@ -65069,7 +65064,7 @@
       "status": "typed"
     },
     "DiscreteProgressStepsVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 4 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 7 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65082,15 +65077,17 @@
       "status": "typed"
     },
     "DoubleIconAndTextWidgetVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 7 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "DoubleStateIconRowVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 4 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "DoubleStatusBarWidgetVisualizationInfo": {
-      "note": "derived: IconTextAndBackgroundWidgetVisualizationInfo & { 12 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 14 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65247,7 +65244,7 @@
       "status": "typed"
     },
     "FillUpFramesWidgetVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 6 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 9 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65324,7 +65321,6 @@
       "status": "typed"
     },
     "GamePadRawButtonMapping": {
-      "note": "derived: GamePadRawAxisMapping & { 2 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65345,7 +65341,6 @@
       "status": "typed"
     },
     "GarrisonAbilityCounterInfo": {
-      "note": "derived: AlliedRaceRacialAbility & { 2 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65354,7 +65349,6 @@
       "status": "typed"
     },
     "GarrisonAbilityInfo": {
-      "note": "derived: AlliedRaceRacialAbility & { 7 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65371,7 +65365,6 @@
       "status": "typed"
     },
     "GarrisonMechanicInfo": {
-      "note": "derived: AlliedRaceRacialAbility & { 3 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65396,7 +65389,6 @@
       "status": "typed"
     },
     "GatheringOperationBonusStatInfo": {
-      "note": "same fields as CraftingOperationBonusStatInfo",
       "source": "docs",
       "status": "typed"
     },
@@ -65473,6 +65465,7 @@
       "status": "typed"
     },
     "HorizontalCurrenciesWidgetVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 3 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65641,15 +65634,17 @@
       "status": "typed"
     },
     "IconAndTextWidgetVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 6 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "IconTextAndBackgroundWidgetVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 2 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "IconTextAndCurrenciesWidgetVisualizationInfo": {
-      "note": "derived: HorizontalCurrenciesWidgetVisualizationInfo & { 5 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 8 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65710,6 +65705,7 @@
       "status": "typed"
     },
     "ItemDisplayVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 3 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65766,7 +65762,6 @@
       "status": "typed"
     },
     "ItemSearchResultInfo": {
-      "note": "derived: BidInfo & { 7 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65895,12 +65890,10 @@
       "status": "typed"
     },
     "MajorFactionData": {
-      "note": "derived: MajorFactionRenownInfo & { 18 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "MajorFactionProgressionInfo": {
-      "note": "derived: MajorFactionRenownInfo & { 4 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65909,7 +65902,6 @@
       "status": "typed"
     },
     "MajorFactionRenownLevelInfo": {
-      "note": "derived: CovenantSanctumRenownLevelInfo & { 1 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -65926,6 +65918,7 @@
       "status": "typed"
     },
     "MapPinAnimationWidgetVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 2 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66078,7 +66071,6 @@
       "status": "typed"
     },
     "NeighborhoodRosterMemberInfo": {
-      "note": "derived: NeighborhoodRosterMemberUpdateInfo & { 3 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66183,7 +66175,6 @@
       "status": "typed"
     },
     "PerksVendorItemInfo": {
-      "note": "derived: PerksVendorSubItemInfo & { 19 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66296,7 +66287,7 @@
       "status": "typed"
     },
     "PreyHuntProgressWidgetVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 1 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 4 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66341,7 +66332,6 @@
       "status": "typed"
     },
     "PvpTalentInfo": {
-      "note": "derived: ScenarioStepSpellInfo & { 8 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66586,15 +66576,17 @@
       "status": "typed"
     },
     "ScenarioHeaderCurrenciesAndBackgroundWidgetVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 3 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "ScenarioHeaderDelvesWidgetVisualizationInfo": {
-      "note": "derived: HorizontalCurrenciesWidgetVisualizationInfo & { 6 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 9 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "ScenarioHeaderTimerWidgetVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 6 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66615,7 +66607,6 @@
       "status": "typed"
     },
     "ScheduledEventInfo": {
-      "note": "derived: OngoingEventInfo & { 6 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66708,6 +66699,7 @@
       "status": "typed"
     },
     "SpacerVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 3 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66728,7 +66720,6 @@
       "status": "typed"
     },
     "SpecializationInfoResult": {
-      "note": "derived: AlliedRaceRacialAbility & { 6 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66761,6 +66752,7 @@
       "status": "typed"
     },
     "SpellDisplayVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 2 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66785,11 +66777,12 @@
       "status": "typed"
     },
     "StackedResourceTrackerWidgetVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 3 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "StatusBarWidgetVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 20 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 23 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66822,17 +66815,17 @@
       "status": "typed"
     },
     "TextColumnRowVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 4 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 7 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "TextWithStateWidgetVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 6 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 9 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "TextWithSubtextWidgetVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 12 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 15 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66841,11 +66834,12 @@
       "status": "typed"
     },
     "TextureAndTextRowVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 6 more fields }",
       "source": "docs",
       "status": "typed"
     },
     "TextureAndTextVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 4 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 7 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66858,6 +66852,7 @@
       "status": "typed"
     },
     "TextureWithAnimationVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 3 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -66982,7 +66977,6 @@
       "status": "typed"
     },
     "TransmogCategoryInfo": {
-      "note": "derived: TransmogOutfitCollectionInfo & { 3 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -67083,7 +67077,7 @@
       "status": "typed"
     },
     "TugOfWarWidgetVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 10 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 13 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -67116,7 +67110,6 @@
       "status": "typed"
     },
     "UITextureSliceMargins": {
-      "note": "same fields as AuraContainerTooltipAnchorOffsets",
       "source": "docs",
       "status": "typed"
     },
@@ -67165,7 +67158,6 @@
       "status": "typed"
     },
     "UiMapExplorationHitRect": {
-      "note": "same fields as AuraContainerTooltipAnchorOffsets",
       "source": "docs",
       "status": "typed"
     },
@@ -67234,7 +67226,7 @@
       "status": "typed"
     },
     "UnitPowerBarWidgetVisualizationInfo": {
-      "note": "derived: TextureWithAnimationVisualizationInfo & { 10 more fields }",
+      "note": "derived: UIWidgetVisualizationInfoBase & { 13 more fields }",
       "source": "docs",
       "status": "typed"
     },
@@ -67371,6 +67363,7 @@
       "status": "typed"
     },
     "ZoneControlVisualizationInfo": {
+      "note": "derived: UIWidgetVisualizationInfoBase & { 6 more fields }",
       "source": "docs",
       "status": "typed"
     },

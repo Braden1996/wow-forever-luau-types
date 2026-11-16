@@ -182,7 +182,7 @@ function Coverage.markdown(report: Build.Report, coverage: Build.Coverage): stri
 	table.insert(
 		lines,
 		string.format(
-			"%d documented structures are derived from another (`Base & { ... }`). %d type names used by upstream "
+			"%d documented structures extend a shared base (`Base & { ... }`). %d type names used by upstream "
 				.. "could not be resolved and are `unknown`; see `report.json`.",
 			report.counts.derivedStructures,
 			#report.unresolvedTypes

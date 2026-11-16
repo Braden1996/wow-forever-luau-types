@@ -1,9 +1,16 @@
 --!strict
 -- Type-name rules: basic types the documentation leaves undefined, which string aliases are closed unions,
--- and when a structure is derived from another. Part of generator/config.luau (assembled there).
+-- and which structures share a base. Part of generator/config.luau (assembled there).
 
--- A documented structure is declared as `Base & { ... }` when it contains every field of another
--- documented structure with at least this many fields.
+-- Shared bases for documented structures: base name -> a pattern on structure names. The base holds the fields
+-- that every matching structure has in common, and each one is declared as `Base & { its own fields }`. Only
+-- families the documentation treats as one belong here; two structures that happen to share fields stay flat.
+-- The UI widget visualization infos all carry the same layout and animation fields (UIWidgetManager reads them
+-- from any widget type).
+local structBases: { [string]: string } = {
+	UIWidgetVisualizationInfoBase = "VisualizationInfo$",
+}
+-- A base needs at least this many shared fields; a rule with fewer is reported as matching nothing.
 local derivedMinFields: number = 3
 
 -- Basic types Blizzard's documentation uses without defining (after annotation aliases are tried).
@@ -85,6 +92,7 @@ local closedAliases: { [string]: boolean } = {
 local closedAliasPattern: string = "^Script"
 
 return {
+	structBases = structBases,
 	derivedMinFields = derivedMinFields,
 	basicTypes = basicTypes,
 	docTypeOverrides = docTypeOverrides,
