@@ -1,7 +1,7 @@
 -- World of Warcraft: Forever API definitions for luau-lsp (requires Luau's new type solver).
 -- GENERATED FILE: do not edit. Regenerate with `moon run generator:generate`.
 -- Existence: Ketho/BlizzardInterfaceResources@e230342a476eb4ef484ba7b34adc0da6ecc6acc1
--- Types:     Gethe/wow-ui-source@bebcb6bf309cf41b41bd74f8ca651e6a105b2676 (Blizzard_APIDocumentationGenerated)
+-- Types:     Gethe/wow-ui-source@734f065329cff4992835b01a84f210a297db91b6 (Blizzard_APIDocumentationGenerated)
 --            Ketho/vscode-wow-api@d0b5b51fac4c52c493371b9b18e66ce604ea4326 (MIT licence)
 
 -- Events -------------------------------------------------------------------------------------
@@ -6050,6 +6050,7 @@ export type BNetGameAccountInfo = {
 	factionName: string?,
 	gameAccountID: number,
 	hasFocus: boolean,
+	hasRealmInfo: boolean,
 	isAppearOffline: boolean,
 	isGameAFK: boolean,
 	isGameBusy: boolean,

@@ -6,7 +6,7 @@ CI fails if an API that was typed becomes untyped.
 
 | Category | Typed | Untyped | Excluded | Typed share |
 | --- | ---: | ---: | ---: | ---: |
-| Functions (global and `C_*` namespaces) | 5917 | 6855 | 393 | 46.3% |
+| Functions (global and `C_*` namespaces) | 5917 | 6855 | 395 | 46.3% |
 | Widget and script-object methods | 1720 | 13 | 0 | 99.2% |
 | Events (payload types) | 1816 | 0 | 0 | 100.0% |
 | Structures and mixins | 840 | 0 | 0 | 100.0% |
@@ -53,7 +53,7 @@ CI fails if an API that was typed becomes untyped.
 | functions | excluded | a WoW extension of Luau's math library; a definitions file cannot add to it | 4 |
 | functions | excluded | a WoW extension of Luau's string library; a definitions file cannot add to it | 9 |
 | functions | excluded | a WoW extension of Luau's table library; a definitions file cannot add to it | 12 |
-| functions | excluded | documented, but absent from the client's API dump | 18 |
+| functions | excluded | documented, but absent from the client's API dump | 20 |
 | functions | excluded | not in the WoW: Forever client | 262 |
 | functions | excluded | provided by Luau's standard library | 87 |
 | widgetMethods | untyped | no type source | 13 |
@@ -65,7 +65,7 @@ libraries that wrap the API (`maybe`: one nilable result; `record`: several name
 
 | Shape | Functions | Widget methods |
 | --- | ---: | ---: |
-| `excluded` | 393 | 0 |
+| `excluded` | 395 | 0 |
 | `generic` | 13 | 0 |
 | `maybe` | 1155 | 64 |
 | `opaque` | 3 | 200 |

@@ -63,7 +63,7 @@
   "parseErrors": [],
   "shapes": {
     "functions": {
-      "excluded": 393,
+      "excluded": 395,
       "generic": 13,
       "maybe": 1155,
       "opaque": 3,
@@ -98,7 +98,7 @@
       "untyped": 0
     },
     "functions": {
-      "excluded": 393,
+      "excluded": 395,
       "typed": 5917,
       "untyped": 6855
     },
@@ -155,7 +155,7 @@
       "repository": "Ketho/vscode-wow-api"
     },
     "docs": {
-      "commit": "bebcb6bf309cf41b41bd74f8ca651e6a105b2676",
+      "commit": "734f065329cff4992835b01a84f210a297db91b6",
       "repository": "Gethe/wow-ui-source",
       "sparse": "Interface/AddOns/Blizzard_APIDocumentationGenerated"
     },

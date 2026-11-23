@@ -10884,6 +10884,9 @@
         }
       ]
     },
+    "C_BattleNet.IsGameAccountOnSameRealm": {
+      "kind": "excluded"
+    },
     "C_BattleNet.SearchFriends": {
       "absent": [
         "HasRestrictions"
@@ -46429,6 +46432,9 @@
           "type": "boolean"
         }
       ]
+    },
+    "C_Mail.IsCODEnabled": {
+      "kind": "excluded"
     },
     "C_Mail.IsCommandPending": {
       "kind": "value",

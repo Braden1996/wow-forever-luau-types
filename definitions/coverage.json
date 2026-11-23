@@ -15869,6 +15869,11 @@
       "source": "docs",
       "status": "typed"
     },
+    "C_BattleNet.IsGameAccountOnSameRealm": {
+      "note": "documented, but absent from the client's API dump",
+      "source": "docs",
+      "status": "excluded"
+    },
     "C_BattleNet.SearchFriends": {
       "source": "docs",
       "status": "typed"
@@ -25179,6 +25184,11 @@
     "C_Mail.HasInboxMoney": {
       "source": "docs",
       "status": "typed"
+    },
+    "C_Mail.IsCODEnabled": {
+      "note": "documented, but absent from the client's API dump",
+      "source": "docs",
+      "status": "excluded"
     },
     "C_Mail.IsCommandPending": {
       "source": "docs",
