@@ -1,21 +1,14 @@
 {
-  // luau-lsp: the standard (non-Roblox) platform and the new type solver, which the definitions require. FFlags match
-  // `luau-lsp analyze` (all enabled, none synced from Roblox), so the editor shows what CI shows.
   "luau-lsp.platform.type": "standard",
   "luau-lsp.sourcemap.enabled": false,
   "luau-lsp.fflags.enableNewSolver": true,
   "luau-lsp.fflags.enableByDefault": true,
   "luau-lsp.fflags.sync": false,
-  // The generated definitions, plus the SavedVariables/namespace definitions of the sample addon and the template,
-  // so editing tests/ and templates/ shows the same diagnostics CI does. They are global: in generator/ and scripts/
-  // (Lune code, checked by `moon run generator:typecheck` without them) WoW names are in scope too.
   "luau-lsp.types.definitionFiles": {
     "@wow": "definitions/wow-forever.d.luau",
     "@sample": "tests/pass/sample-addon/addon.d.luau",
     "@template": "templates/addon/types/addon.d.luau"
   },
-  // Luau standard-library names WoW (Lua 5.1) lacks; kept equal to definitions/luau-lsp.settings.json by
-  // `moon run tests:editors` (rewrite with `lune run scripts/editor-settings -- --write`).
   "luau-lsp.types.disabledGlobals": [
     "bit32",
     "buffer",
@@ -46,10 +39,15 @@
     "utf8",
     "vector"
   ],
-  // Generated or upstream-format files: no diagnostics unless opened.
   "luau-lsp.ignoreGlobs": [".upstream/**", "definitions/**", "tests/snapshots/**", "tests/fail/**"],
-  "files.exclude": { ".moon/cache": true },
-  "search.exclude": { ".upstream": true, "definitions/wow-forever.d.luau": true, "mise.lock": true },
+  "files.exclude": {
+    ".moon/cache": true
+  },
+  "search.exclude": {
+    ".upstream": true,
+    "definitions/wow-forever.d.luau": true,
+    "mise.lock": true
+  },
   "editor.rulers": [120],
   "[luau]": {
     "editor.defaultFormatter": "JohnnyMorganz.stylua",
@@ -59,5 +57,24 @@
   "[markdown][json][jsonc][yaml][toml]": {
     "editor.defaultFormatter": "dprint.dprint",
     "editor.formatOnSave": true
-  }
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["/sergeant.jsonc", "/sergeant.json"],
+      "url": "./.sergeant/schema.json"
+    },
+    {
+      "fileMatch": [
+        "/**/sergeant.jsonc",
+        "/**/sergeant.json",
+        "!/sergeant.jsonc",
+        "!/sergeant.json"
+      ],
+      "url": "./.sergeant/schema.unit.json"
+    },
+    {
+      "fileMatch": ["/sergeant.allow.jsonc", "/sergeant.allow.json"],
+      "url": "./.sergeant/schema.allow.json"
+    }
+  ]
 }

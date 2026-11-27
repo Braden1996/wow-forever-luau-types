@@ -1,13 +1,13 @@
 --!strict
--- Reconciling the documentation with the annotations (generator/stages/signatures.luau), and why a documented call may
--- return nothing at all (generator/apidocs.luau): such a call has every result optional, in every call shape.
+-- Reconciling the documentation with the annotations (stages/signatures.luau), and why a documented call may
+-- return nothing at all (apidocs.luau): such a call has every result optional, in every call shape.
 
-local ApiDocs = require("../../generator/apidocs")
-local Case = require("./case")
-local Common = require("../../generator/stages/common")
-local Decls = require("../../generator/luacats/decls")
-local Signatures = require("../../generator/stages/signatures")
-local TypeExpr = require("../../generator/typeexpr")
+local ApiDocs = require("./apidocs")
+local Common = require("./stages/common")
+local Decls = require("./luacats/decls")
+local Signatures = require("./stages/signatures")
+local SpecCase = require("./spec-case")
+local TypeExpr = require("./typeexpr")
 
 type Type = TypeExpr.Type
 type Param = TypeExpr.Param
@@ -50,7 +50,6 @@ local function docFunction(signature: Signature, mayReturnNothing: boolean, pred
 	}
 end
 
--- The parts of the build context that reconciling and the report summary read; the rest is never touched.
 local function context(apis: Common.ApiRecords?): Common.Context
 	local docs = {
 		functions = {},
@@ -70,7 +69,6 @@ local function resolve(name: string, _args: { Type }): string
 	return name
 end
 
--- Each reconciled call shape as `(params) -> results`, and the source.
 local function reconciled(doc: ApiDocs.DocFunction, ann: { Signature }?): ({ string }, string)
 	local sigs, source = Signatures.reconcile(context(), doc, ann)
 	local printed: { string } = {}
@@ -89,7 +87,7 @@ local function reconcileCase(
 	doc: ApiDocs.DocFunction,
 	ann: { Signature }?,
 	expected: { shapes: { string }, source: string }
-): Case.Case
+): SpecCase.Case
 	return {
 		name = name,
 		run = function()
@@ -101,7 +99,7 @@ end
 
 local slot = { param("slot", named("number")) }
 
-local cases: { Case.Case } = {
+local cases: { SpecCase.Case } = {
 	{
 		name = "absentReasons: MayReturnNothing first, then each ReturnNothing precondition in order",
 		run = function()
@@ -194,4 +192,4 @@ local cases: { Case.Case } = {
 	},
 }
 
-return cases
+return SpecCase.specs(cases)

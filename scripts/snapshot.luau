@@ -10,12 +10,12 @@
 local fs = require("@lune/fs")
 local process = require("@lune/process")
 
-local ApiDocs = require("../generator/apidocs")
-local Build = require("../generator/build")
-local Resources = require("../generator/resources")
-local TextFile = require("../generator/textfile")
-local config = require("../generator/config")
-local json = require("../generator/json")
+local ApiDocs = require("../packages/generator/src/apidocs")
+local Build = require("../packages/generator/src/build")
+local Resources = require("../packages/generator/src/resources")
+local TextFile = require("./textfile")
+local config = require("../packages/generator/src/config")
+local json = require("../packages/generator/src/json")
 
 local update = table.find(process.args, "--update") ~= nil
 local ROOT = "tests/snapshots"

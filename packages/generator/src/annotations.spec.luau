@@ -1,15 +1,15 @@
 --!strict
--- LuaCATS annotation files read into declarations (generator/luacats/file.luau and its tags and statements).
+-- LuaCATS annotation files read into declarations (luacats/file.luau and its tags and statements).
 
-local Case = require("./case")
-local File = require("../../generator/luacats/file")
-local TypeExpr = require("../../generator/typeexpr")
+local File = require("./luacats/file")
+local SpecCase = require("./spec-case")
+local TypeExpr = require("./typeexpr")
 
 local function resolve(name: string, _args: { TypeExpr.Type }): string
 	return name
 end
 
-local function failing(name: string, source: string, expected: { string }): Case.Case
+local function failing(name: string, source: string, expected: { string }): SpecCase.Case
 	return {
 		name = name,
 		run = function()
@@ -18,7 +18,7 @@ local function failing(name: string, source: string, expected: { string }): Case
 	}
 end
 
-local cases: { Case.Case } = {
+local cases: { SpecCase.Case } = {
 	{
 		name = "a function's signature",
 		run = function()
@@ -109,4 +109,4 @@ local cases: { Case.Case } = {
 	failing("an unknown tag", "---@frobnicate x\nlocal y = 1\n", { "t.lua:1: unknown tag @frobnicate" }),
 }
 
-return cases
+return SpecCase.specs(cases)

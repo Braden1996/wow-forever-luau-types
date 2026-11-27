@@ -4,48 +4,47 @@ Thanks for helping. Issues and pull requests are welcome, from one-line fixes to
 
 ## Where does the fix belong?
 
-| Problem                                                                                    | Where to fix it                                                                                                         |
-| ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| A wrong type for a documented C API (most `C_*` functions, widget methods, event payloads) | Blizzard's documentation is authoritative; if it is wrong, add a narrow rule in `generator/` (see "Merge rules")        |
-| A wrong or missing type for an undocumented global, FrameXML mixin or Lua extension        | Upstream annotations: [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api)                                   |
-| An API Forever has but the definitions lack (or the reverse)                               | Client dump: [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources) (`forever` branch) |
-| A construct converted wrongly, or invalid Luau                                             | Here: `generator/`, with a snapshot case                                                                                |
-| A FrameXML table or frame global no source declares                                        | Here: `supplements/framexml.d.luau`                                                                                     |
-| A false or missed error in real addon code                                                 | Here: a sample under `tests/`, then fix the cause                                                                       |
-| The addon template                                                                         | Here: `templates/addon/` (CI type-checks and builds it)                                                                 |
+| Problem                                                                                    | Where to fix it                                                                                                               |
+| ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| A wrong type for a documented C API (most `C_*` functions, widget methods, event payloads) | Blizzard's documentation is authoritative; if it is wrong, add a narrow rule in `packages/generator/src/` (see "Merge rules") |
+| A wrong or missing type for an undocumented global, FrameXML mixin or Lua extension        | Upstream annotations: [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api)                                         |
+| An API Forever has but the definitions lack (or the reverse)                               | Client dump: [Ketho/BlizzardInterfaceResources](https://github.com/Ketho/BlizzardInterfaceResources) (`forever` branch)       |
+| A construct converted wrongly, or invalid Luau                                             | Here: `packages/generator/src/`, with a snapshot case                                                                         |
+| A FrameXML table or frame global no source declares                                        | Here: `supplements/framexml.d.luau`                                                                                           |
+| A false or missed error in real addon code                                                 | Here: a sample under `tests/`, then fix the cause                                                                             |
+| The addon template                                                                         | Here: `templates/addon/` (CI type-checks and builds it)                                                                       |
 
-Never edit generated files by hand: `definitions/` and `.github/banner.svg` come from `moon run generator:generate`,
+Never edit generated files by hand: `definitions/` and `.github/banner.svg` come from `sgt run generate`,
 and CI fails if they differ from a fresh generation.
 
 ## Setup
 
-1. Install [mise](https://mise.jdx.dev). `mise install` installs every pinned tool: moon, Lune, luau-lsp, StyLua,
-   selene, darklua, typos, actionlint, dprint, lychee, lefthook, and Bun and Node for the docs site (versions in `mise.toml`, checksums in
+1. Install [mise](https://mise.jdx.dev). `mise install` installs every pinned tool: Sergeant (`sgt`), `woof`, Lune, luau-lsp, StyLua,
+   selene, darklua, typos, actionlint, zizmor, lychee, lefthook, and Bun and Node for the docs site (versions in `mise.toml`, checksums in
    `mise.lock`).
-2. `mise exec -- lefthook install` installs the git hooks: formatting and spelling on commit, `moon run :check` for
-   the changed projects on push. Never bypass them with `--no-verify`.
-3. Open the folder in **VS Code** (install the recommended extensions; `.vscode/tasks.json` runs the moon targets)
+2. `mise exec -- lefthook install` installs the git hooks: formatting and spelling on commit, `sgt check && sgt test` on push. Never bypass them with `--no-verify`.
+3. Open the folder in **VS Code** (install the recommended extensions; `.vscode/tasks.json` runs the Sergeant targets)
    or **Zed** (install the "Luau" extension). Both are set up for luau-lsp with the new type solver and the
    generated definitions, so `tests/` and `templates/` show the diagnostics CI does. Run
-   `mise exec -- moon run generator:lune-types` once so the generator's `@lune/*` requires resolve.
+   `mise exec -- lune setup` once so the scripts' `@lune/*` requires resolve.
 
 ## Tasks
 
-[moon](https://moonrepo.dev) runs every task; `moon run :check` is what CI runs (CI also checks the pull request title).
+[Sergeant](https://github.com/Braden1996/sergeant) (`sgt`) orchestrates checks, tests, and commands:
 
-| Command                                                  | What it does                                                                     |
-| -------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `mise exec -- moon run :check`                           | Every check CI runs on the code                                                  |
-| `mise exec -- moon run generator:generate`               | Fetch the pinned upstreams into `.upstream/` and regenerate every generated file |
-| `mise exec -- moon run tests:samples`                    | Type-check the samples, the template and the negative fixtures                   |
-| `mise exec -- moon run tests:snapshots`                  | Run the converter snapshot cases                                                 |
-| `mise exec -- moon run repo:fmt generator:fmt tests:fmt` | Format Markdown/JSON/YAML/TOML (dprint) and Luau (StyLua)                        |
-| `mise exec -- moon run docs:check`                       | The docs site: lint and type check, astro check, format, tests, build and links  |
-| `mise exec -- moon run docs:dev`                         | Serve the docs site locally                                                      |
-| `mise exec -- lune run scripts/test -- --update`         | Rewrite the negative fixtures' `.expected` files after an intended change        |
-| `mise exec -- lune run scripts/snapshot -- --update`     | Rewrite the snapshot cases' expected files after an intended change              |
+| Command                                              | What it does                                                                      |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `mise exec -- sgt check`                             | Format, lint, typecheck, boundaries, and hermetic sample/snapshot/template checks |
+| `mise exec -- sgt test`                              | Run all colocated converter `*.spec.luau` unit suites with caching                |
+| `mise exec -- sgt doctor`                            | Verify toolchain, workspace config, and `woof` state                              |
+| `mise exec -- sgt run generate`                      | Fetch the pinned upstreams into `.upstream/` and regenerate every generated file  |
+| `mise exec -- sgt fmt`                               | Format Markdown/JSON/YAML/TOML and Luau                                           |
+| `mise exec -- sgt run docs-check`                    | The docs site: lint and type check, astro check, format, tests, build and links   |
+| `mise exec -- sgt run docs-dev`                      | Serve the docs site locally                                                       |
+| `mise exec -- lune run scripts/test -- --update`     | Rewrite the negative fixtures' `.expected` files after an intended change         |
+| `mise exec -- lune run scripts/snapshot -- --update` | Rewrite the snapshot cases' expected files after an intended change               |
 
-`generator:coverage` compares `definitions/coverage.json` with the same file at `$COVERAGE_BASE` (default
+`sgt run coverage-diff` compares `definitions/coverage.json` with the same file at `$COVERAGE_BASE` (default
 `origin/main`) and fails if an API that was typed there is untyped now. It also fails unless
 `definitions/api-shapes.json` shapes exactly the functions and widget methods `coverage.json` lists.
 
@@ -75,11 +74,11 @@ The `pages` workflow deploys `main` to GitHub Pages.
 
 ## Merge rules
 
-[`generator/build.luau`](generator/build.luau) runs the stages in [`generator/stages/`](generator/stages); the merge rules are
-documented at `Signatures.reconcile` in [`generator/stages/signatures.luau`](generator/stages/signatures.luau). In short: the client decides what
+[`packages/generator/src/build.luau`](packages/generator/src/build.luau) runs the stages in [`packages/generator/src/stages/`](packages/generator/src/stages); the merge rules are
+documented at `Signatures.reconcile` in [`packages/generator/src/stages/signatures.luau`](packages/generator/src/stages/signatures.luau). In short: the client decides what
 exists; Blizzard's documentation gives types first; an argument is optional if either source says so; the
 annotations' extra call shapes are kept; a documented result typed as a callback takes the annotation's type.
-[`generator/config.luau`](generator/config.luau) and [`generator/rules/`](generator/rules) hold the data-only rules (which documented script object describes which widget, basic types,
+[`packages/generator/src/config.luau`](packages/generator/src/config.luau) and [`packages/generator/src/rules/`](packages/generator/src/rules) hold the data-only rules (which documented script object describes which widget, basic types,
 closed string unions, parameter overrides). Every rule needs a comment saying why, and a snapshot case.
 
 ## Dependencies
@@ -88,10 +87,10 @@ closed string unions, parameter overrides). Every rule needs a comment saying wh
   heads, regenerates, and opens a pull request (`feat(upstream): …`). Review `definitions/COVERAGE.md` and
   `definitions/report.json` in its diff. If `tests` fails, update the fixtures or fix the generator on that branch;
   the workflow will not overwrite a branch that has your commits.
-  To bump by hand: `mise exec -- lune run scripts/bump-upstream`, then `mise exec -- moon run generator:generate`.
+  To bump by hand: `mise exec -- lune run scripts/bump-upstream`, then `mise exec -- sgt run generate`.
 - **GitHub Actions:** Dependabot opens grouped pull requests for the SHA-pinned actions.
 - **The docs site's npm packages:** Dependabot (Bun ecosystem, `docs/`), grouped, after a seven-day cooldown.
-- **Tools:** edit the version in `mise.toml`, then `mise lock` and `moon run :check`.
+- **Tools:** edit the version in `mise.toml`, then `mise lock` and `sgt check`.
 
 ## Pull requests
 
@@ -102,9 +101,10 @@ closed string unions, parameter overrides). Every rule needs a comment saying wh
 
 ## Releases
 
-Maintainers move the "Unreleased" notes in `CHANGELOG.md` under a version heading, then tag `vX.Y.Z` on `main`. The
-release workflow re-runs `moon run :check` from a cold start and publishes `wow-forever.d.luau`, `report.json`,
-`coverage.json`, `api-shapes.json`, `COVERAGE.md` and `SHA256SUMS`. Versioning: a minor version for an upstream bump or any change that
+Maintainers move the "Unreleased" notes in `CHANGELOG.md` under a version heading, update `version` in `woof.toml`,
+then tag `vX.Y.Z` on `main`. The release workflow re-runs the full Sergeant gate from a cold start and publishes
+`wow-forever.d.luau`, `report.json`, `coverage.json`, `api-shapes.json`, `COVERAGE.md`, `luau-lsp.settings.json`,
+a `woof`-native `.zip` archive, and `SHA256SUMS`. Versioning: a minor version for an upstream bump or any change that
 can break existing code (types only get stricter or move), a patch for fixes that only remove false errors.
 
 ## Conduct

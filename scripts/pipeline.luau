@@ -5,15 +5,15 @@ local fs = require("@lune/fs")
 local process = require("@lune/process")
 local serde = require("@lune/serde")
 
-local ApiDocs = require("./apidocs")
-local Banner = require("./banner")
-local Build = require("./build")
-local CoverageReport = require("./coverage")
-local Resources = require("./resources")
-local Settings = require("./stages/settings")
+local ApiDocs = require("../packages/generator/src/apidocs")
+local Banner = require("../packages/generator/src/banner")
+local Build = require("../packages/generator/src/build")
+local CoverageReport = require("../packages/generator/src/coverage")
+local Resources = require("../packages/generator/src/resources")
+local Settings = require("../packages/generator/src/stages/settings")
 local TextFile = require("./textfile")
-local config = require("./config")
-local json = require("./json")
+local config = require("../packages/generator/src/config")
+local json = require("../packages/generator/src/json")
 
 export type Pin = { repository: string, commit: string, sparse: string? }
 export type Pins = { annotations: Pin, docs: Pin, resources: Pin }

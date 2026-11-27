@@ -1,7 +1,7 @@
 # The required gate. `ci-ok` is the one status check the branch ruleset requires (with `pr-title`), so jobs can
-# change without editing the ruleset. `check` runs the FULL `moon run :check` cold: .moon/cache is never restored
-# and MOON_CACHE=write disables cache reads, so narrowing task inputs cannot skip a check. Every action is pinned by
-# commit SHA (Dependabot bumps them; zizmor, part of the gate, checks); every tool comes from mise.toml with
+# change without editing the ruleset. `check` runs Sergeant (`sgt doctor`, `sgt check`, `sgt test`) plus the live
+# repo checks (`luaurc-pin`, `scripts-typecheck`, `generator-fresh`, `coverage-diff`, `docs-check`).
+# Every action is pinned by commit SHA (Dependabot bumps them; zizmor checks); every tool comes from mise.toml with
 # mise.lock checksums.
 name: ci
 
@@ -27,7 +27,6 @@ jobs:
     timeout-minutes: 30
     env:
       CI: "true"
-      MOON_CACHE: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -47,8 +46,21 @@ jobs:
           elif [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then base="$BEFORE"
           else base="origin/main"; fi
           echo "COVERAGE_BASE=$base" >> "$GITHUB_ENV"
+      - name: setup lune typedefs and install dependencies
+        run: |
+          mise exec -- lune setup
+          mise exec -- sgt --no-daemon install --frozen
+          mise exec -- bun install --cwd docs --frozen-lockfile
       - name: gate
-        run: mise exec -- moon run :check
+        run: |
+          mise exec -- sgt --no-daemon doctor
+          mise exec -- sgt --no-daemon check
+          mise exec -- sgt --no-daemon test
+          mise exec -- sgt --no-daemon run luaurc-pin
+          mise exec -- sgt --no-daemon run scripts-typecheck
+          mise exec -- sgt --no-daemon run generator-fresh
+          mise exec -- sgt --no-daemon run coverage-diff
+          mise exec -- sgt --no-daemon run docs-check
 
   ci-ok:
     if: always()
@@ -60,4 +72,4 @@ jobs:
         if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
         run: exit 1
       - name: ok
-        run: echo "moon run :check passed"
+        run: echo "sgt gate passed"

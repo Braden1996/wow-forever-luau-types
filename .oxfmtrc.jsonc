@@ -1,0 +1,11 @@
+{
+  "ignorePatterns": [
+    ".upstream/**",
+    ".sergeant/**",
+    "luau_packages/**",
+    "definitions/**",
+    "tests/snapshots/**",
+    "mise.lock",
+    "docs/**",
+  ],
+}

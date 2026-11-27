@@ -8,7 +8,7 @@ local fs = require("@lune/fs")
 local process = require("@lune/process")
 local serde = require("@lune/serde")
 
-local config = require("../generator/config")
+local config = require("../packages/generator/src/config")
 
 -- Each editor config, the key its list sits under, and the indentation of the list's entries.
 local TARGETS: { { path: string, key: string } } = {

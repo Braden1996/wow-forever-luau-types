@@ -8,7 +8,7 @@
 local fs = require("@lune/fs")
 local process = require("@lune/process")
 
-local Pipeline = require("../generator/pipeline")
+local Pipeline = require("./pipeline")
 
 local check = table.find(process.args, "--check") ~= nil
 local result = Pipeline.run()

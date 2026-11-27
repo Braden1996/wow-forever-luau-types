@@ -1,0 +1,150 @@
+{
+  "$schema": "./.sergeant/schema.json",
+  "plugins": ["luau", "lune", "woof", "actionlint", "zizmor", "lychee"],
+  "packages": ["packages/*"],
+  "cache": {
+    "untrackable": "degrade",
+  },
+  "boundaries": {
+    "noUnitCycles": true,
+  },
+  "check": {
+    "woof-lint": {
+      "description": "Audit woof.toml manifest hygiene",
+      "cache": true,
+      "inputs": ["woof.toml", "definitions/wow-forever.d.luau"],
+      "env": ["WOOF_STORE_DIR=.woof-store"],
+      "run": ["woof", "lint"],
+    },
+    "scripts-lint": {
+      "description": "Lint CLI scripts with Selene",
+      "cache": true,
+      "inputs": ["scripts/**/*.luau", "selene.toml"],
+      "run": ["selene", "scripts"],
+    },
+    "scripts-fmt": {
+      "description": "Check CLI scripts formatting with StyLua",
+      "cache": true,
+      "inputs": ["scripts/**/*.luau", "stylua.toml"],
+      "run": ["stylua", "--check", "scripts"],
+    },
+    "editor-settings": {
+      "description": "Verify editor disabledGlobals lists match definitions/luau-lsp.settings.json",
+      "cache": true,
+      "inputs": [
+        "definitions/luau-lsp.settings.json",
+        ".vscode/settings.json",
+        ".zed/settings.json",
+        "templates/addon/.vscode/settings.json",
+        "templates/addon/.zed/settings.json",
+        "packages/generator/src/**/*.luau",
+        "scripts/editor-settings.luau",
+      ],
+      "run": ["lune", "run", "scripts/editor-settings"],
+    },
+    "samples": {
+      "description": "Type-check passing samples, addon template, and exact failing-sample diagnostics",
+      "cache": true,
+      "inputs": [
+        "tests/pass/**/*",
+        "tests/fail/**/*",
+        "templates/**/*",
+        "definitions/wow-forever.d.luau",
+        "definitions/luau-lsp.settings.json",
+        "packages/generator/src/**/*.luau",
+        "scripts/test.luau",
+      ],
+      "run": ["lune", "run", "scripts/test"],
+    },
+    "snapshots": {
+      "description": "Verify converter snapshot outputs and confirm each loads in luau-lsp",
+      "cache": true,
+      "inputs": [
+        "tests/snapshots/**/*",
+        "packages/generator/src/**/*.luau",
+        "scripts/snapshot.luau",
+        "scripts/textfile.luau",
+      ],
+      "run": ["lune", "run", "scripts/snapshot"],
+    },
+    "template-build": {
+      "description": "Verify addon templates compile to valid Lua 5.1 matching their .toc",
+      "cache": true,
+      "inputs": ["templates/**/*", "scripts/template-build.luau"],
+      "run": ["lune", "run", "scripts/template-build"],
+    },
+    "samples-fmt": {
+      "description": "Verify StyLua formatting on samples and addon templates",
+      "cache": true,
+      "inputs": [
+        "tests/pass/**/*.luau",
+        "tests/fail/**/*.luau",
+        "templates/**/*.luau",
+        "stylua.toml",
+        ".styluaignore",
+      ],
+      "run": ["stylua", "--check", "tests/pass", "tests/fail", "templates"],
+    },
+    "template-workflows": {
+      "description": "Lint addon template GitHub Actions workflow with actionlint",
+      "cache": true,
+      "inputs": ["templates/addon/.github/**/*"],
+      "run": ["actionlint", "templates/addon/.github/workflows/check.yml"],
+    },
+    "template-zizmor": {
+      "description": "Security-audit addon template GitHub Actions workflow with zizmor",
+      "cache": true,
+      "inputs": ["templates/addon/.github/**/*"],
+      "run": ["zizmor", "--offline", "--min-severity", "low", "templates/addon/.github"],
+    },
+  },
+  "commands": {
+    "luaurc-pin": {
+      "description": "Verify .luaurc @lune alias matches the pinned Lune version",
+      "run": ["lune", "run", "scripts/check-luaurc"],
+    },
+    "scripts-typecheck": {
+      "description": "Type-check CLI scripts under --!strict on Luau's new solver",
+      "run": [
+        "luau-lsp",
+        "analyze",
+        "--platform=standard",
+        "--flag:LuauSolverV2=true",
+        "--base-luaurc=.luaurc",
+        "scripts/",
+      ],
+    },
+    "generator-fresh": {
+      "description": "Verify generated definitions, coverage, and banner match upstream.toml",
+      "run": ["lune", "run", "scripts/generate", "--", "--check"],
+    },
+    "coverage-diff": {
+      "description": "Fail on unaccepted API typing coverage regressions against COVERAGE_BASE",
+      "run": ["lune", "run", "scripts/coverage-diff"],
+    },
+    "generate": {
+      "description": "Regenerate definitions/, coverage reports, and banner from upstream.toml",
+      "run": ["lune", "run", "scripts/generate"],
+    },
+    "editor-settings-write": {
+      "description": "Rewrite editor disabledGlobals lists to match definitions/luau-lsp.settings.json",
+      "run": ["lune", "run", "scripts/editor-settings", "--", "--write"],
+    },
+    "docs-install": {
+      "description": "Install docs site dependencies from docs/bun.lock",
+      "run": ["bun", "install", "--cwd", "docs", "--frozen-lockfile"],
+    },
+    "docs-check": {
+      "description": "Run docs site lint, formatting, astro typecheck, tests, build, and link checks",
+      "run": "bun run --cwd docs lint && bun run --cwd docs fmt:check && bun run --cwd docs typecheck:astro && bun run --cwd docs test && bun run --cwd docs build && bun run --cwd docs links",
+    },
+    "docs-build": {
+      "description": "Build the static docs site into docs/dist",
+      "run": ["bun", "run", "--cwd", "docs", "build"],
+    },
+    "docs-dev": {
+      "description": "Run the local Astro docs dev server",
+      "run": ["bun", "run", "--cwd", "docs", "dev"],
+    },
+  },
+}

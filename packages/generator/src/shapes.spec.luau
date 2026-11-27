@@ -1,11 +1,11 @@
 --!strict
--- Result shapes (generator/stages/shapes.luau): how each signature is classified for wrapping libraries.
+-- Result shapes (stages/shapes.luau): how each signature is classified for wrapping libraries.
 
-local ApiDocs = require("../../generator/apidocs")
-local Case = require("./case")
-local Decls = require("../../generator/luacats/decls")
-local Shapes = require("../../generator/stages/shapes")
-local TypeExpr = require("../../generator/typeexpr")
+local ApiDocs = require("./apidocs")
+local Decls = require("./luacats/decls")
+local Shapes = require("./stages/shapes")
+local SpecCase = require("./spec-case")
+local TypeExpr = require("./typeexpr")
 
 type Type = TypeExpr.Type
 type Signature = Decls.Signature
@@ -52,7 +52,6 @@ local function sig(returns: { Type }, returnNames: { string }?, params: { TypeEx
 	return { params = params or {}, returns = returns, returnNames = returnNames, generics = {} }
 end
 
--- A documentation entry whose results carry the given nilability.
 local function doc(nilable: { boolean }, mayReturnNothing: boolean, predicates: { string }): ApiDocs.DocFunction
 	local returns: { ApiDocs.DocReturn } = {}
 	for i, n in nilable do
@@ -67,8 +66,7 @@ local function doc(nilable: { boolean }, mayReturnNothing: boolean, predicates: 
 	}
 end
 
--- A case compares `parameters` only when it expects them; most cases are about results.
-local function case(name: string, actual: () -> Shapes.Shape, expected: Shapes.Shape): Case.Case
+local function case(name: string, actual: () -> Shapes.Shape, expected: Shapes.Shape): SpecCase.Case
 	return {
 		name = name,
 		run = function()
@@ -81,7 +79,7 @@ local function case(name: string, actual: () -> Shapes.Shape, expected: Shapes.S
 	}
 end
 
-local cases: { Case.Case } = {
+local cases: { SpecCase.Case } = {
 	case("no results is void", function()
 		return Shapes.classify({ sig({}) }, nil, lens)
 	end, { kind = "void" }),
@@ -175,4 +173,4 @@ local cases: { Case.Case } = {
 	end, { kind = "generic" }),
 }
 
-return cases
+return SpecCase.specs(cases)

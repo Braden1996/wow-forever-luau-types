@@ -1,8 +1,7 @@
-# Publishes a release when a `v*.*.*` tag is pushed on a commit of main. `verify` re-runs the full
-# `moon run :check` from a cold start with read-only permissions (no tool or moon cache, so nothing a pull request
-# wrote can reach a release); `publish` holds the write permission, rebuilds nothing, and attaches the committed
-# definitions, report and coverage with checksums. A tag with a pre-release suffix (`v1.2.0-rc.1`) publishes a
-# pre-release.
+# Publishes a release when a `v*.*.*` tag is pushed on a commit of main. `verify` re-runs the full Sergeant gate
+# from a cold start with read-only permissions (no tool cache, so nothing a pull request wrote can reach a release);
+# `publish` holds the write permission, rebuilds nothing, and attaches both the raw definition assets and a
+# woof-native `.zip` archive (with `woof.toml` at archive root) plus `SHA256SUMS`.
 name: release
 
 on:
@@ -22,7 +21,6 @@ jobs:
     timeout-minutes: 30
     env:
       CI: "true"
-      MOON_CACHE: write
       COVERAGE_BASE: origin/main
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -33,11 +31,32 @@ jobs:
         run: |
           git merge-base --is-ancestor "$GITHUB_SHA" origin/main \
             || { echo "::error::$GITHUB_REF_NAME is not on main; tag a commit of main."; exit 1; }
+      - name: woof.toml version matches tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          if ! grep -q "^version = \"${TAG#v}\"$" woof.toml; then
+            echo "::error file=woof.toml::version is not ${TAG#v}"
+            exit 1
+          fi
       - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
         with:
           cache: false
+      - name: setup and install
+        run: |
+          mise exec -- lune setup
+          mise exec -- sgt --no-daemon install --frozen
+          mise exec -- bun install --cwd docs --frozen-lockfile
       - name: gate
-        run: mise exec -- moon run :check
+        run: |
+          mise exec -- sgt --no-daemon doctor
+          mise exec -- sgt --no-daemon check
+          mise exec -- sgt --no-daemon test
+          mise exec -- sgt --no-daemon run luaurc-pin
+          mise exec -- sgt --no-daemon run scripts-typecheck
+          mise exec -- sgt --no-daemon run generator-fresh
+          mise exec -- sgt --no-daemon run coverage-diff
+          mise exec -- sgt --no-daemon run docs-check
 
   publish:
     needs: [verify]
@@ -69,13 +88,29 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         run: |
+          ver="${TAG#v}"
+          zip_name="wow-forever-luau-types-${ver}.zip"
           files="wow-forever.d.luau report.json coverage.json api-shapes.json COVERAGE.md"
           [ -f definitions/luau-lsp.settings.json ] && files="$files luau-lsp.settings.json"
-          for f in $files; do cp "definitions/$f" .; done
+          mkdir -p pkg
+          for f in $files; do
+            cp "definitions/$f" .
+            cp "definitions/$f" "pkg/$f"
+          done
+          cp LICENSE README.md CHANGELOG.md pkg/
+          cat > pkg/woof.toml <<EOF
+          [package]
+          name = "wow-forever-luau-types"
+          version = "${ver}"
+          kind = "types"
+          target = "wow"
+          definitions = ["wow-forever.d.luau"]
+          EOF
+          (cd pkg && zip -qr "../${zip_name}" .)
           # shellcheck disable=SC2086 # $files is a space-separated list of known names
-          sha256sum $files > SHA256SUMS
+          sha256sum $files "$zip_name" > SHA256SUMS
           prerelease=""
           case "$TAG" in *-*) prerelease="--prerelease" ;; esac
           # shellcheck disable=SC2086
-          gh release create "$TAG" $files SHA256SUMS $prerelease \
+          gh release create "$TAG" $files "$zip_name" SHA256SUMS $prerelease \
             --repo "$GITHUB_REPOSITORY" --title "$TAG" --notes-file notes.md --verify-tag

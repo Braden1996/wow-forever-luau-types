@@ -1,16 +1,15 @@
 --!strict
--- Lua table literals read as data (generator/luatable.luau).
+-- Lua table literals read as data (luatable.luau).
 
-local Case = require("./case")
-local LuaTable = require("../../generator/luatable")
+local LuaTable = require("./luatable")
+local SpecCase = require("./spec-case")
 
--- The parsed table, or the parse error.
 local function parse(text: string): unknown
 	local ok, result = pcall(LuaTable.parseTableText, text)
 	return if ok then result else { error = tostring(result) }
 end
 
-local function case(name: string, text: string, expected: unknown): Case.Case
+local function case(name: string, text: string, expected: unknown): SpecCase.Case
 	return {
 		name = name,
 		run = function()
@@ -27,7 +26,7 @@ local function ref(text: string): unknown
 	return { kind = "ref", ref = text }
 end
 
-local cases: { Case.Case } = {
+local cases: { SpecCase.Case } = {
 	case("one-line table", '{ A = 1, B = "x", C = true }', tbl({}, { A = 1, B = "x", C = true })),
 	case("positional values", "{ 1, 2; 3, }", tbl({ 1, 2, 3 }, {})),
 	case(
@@ -61,4 +60,4 @@ local cases: { Case.Case } = {
 	},
 }
 
-return cases
+return SpecCase.specs(cases)

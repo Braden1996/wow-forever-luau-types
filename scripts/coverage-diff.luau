@@ -13,7 +13,7 @@ local fs = require("@lune/fs")
 local process = require("@lune/process")
 local serde = require("@lune/serde")
 
-local config = require("../generator/config")
+local config = require("../packages/generator/src/config")
 
 type Entry = { status: string, source: string?, note: string? }
 type Coverage = { [string]: { [string]: Entry } }

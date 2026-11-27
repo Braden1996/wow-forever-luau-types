@@ -5,8 +5,17 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-11-27
+
+### Added
+
+- `woof.toml` package manifest and a `woof`-native release archive (`wow-forever-luau-types-0.7.0.zip`, with `woof.toml` at archive root alongside `wow-forever.d.luau` and metadata) attached to every GitHub release alongside the raw definition assets and `SHA256SUMS`.
+
 ### Changed
 
+- Migrated workspace orchestration, formatting, linting, strict typechecking, and unit tests from `moon` and `dprint` to [Sergeant](https://github.com/Braden1996/sergeant) (`v0.14.0`) with the `woof`, `luau`, `lune`, `actionlint`, `zizmor`, and `lychee` plugins.
+- Moved the pure converter core and its colocated `*.spec.luau` suites into `packages/generator/src/` (`@wow-forever-luau-types/generator`) for symbol-cached `sgt check` and `sgt test`.
+- Updated CI and release workflows to verify cold via `sgt doctor`, `sgt check`, `sgt test`, and `woof.toml` tag validation.
 - The addon template pins the v0.6.0 definitions.
 
 ## [0.6.0] - 2026-11-16

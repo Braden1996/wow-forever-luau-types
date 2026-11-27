@@ -11,7 +11,7 @@
 local fs = require("@lune/fs")
 local process = require("@lune/process")
 
-local config = require("../generator/config")
+local config = require("../packages/generator/src/config")
 
 local update = table.find(process.args, "--update") ~= nil
 

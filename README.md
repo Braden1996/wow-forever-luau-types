@@ -37,7 +37,14 @@ GetQuestLogTitle(1)                            -- error: Forever replaced it wit
 
 ## Quick start
 
-**Fastest:** copy the [addon template](templates/addon). It has the editor settings (VS Code and Zed), a pinned type
+**With [woof](https://github.com/Braden1996/woof) (recommended):** add to `woof.toml` and run `woof install` (or `sgt install` with [Sergeant](https://github.com/Braden1996/sergeant)'s `"woof"` plugin):
+
+```toml
+[dependencies]
+wow-types = { github = "Braden1996/wow-forever-luau-types", tag = "v0.7.0", asset = "wow-forever-luau-types-0.7.0.zip" }
+```
+
+**Or copy the [addon template](templates/addon):** it has the editor settings (VS Code and Zed), a pinned type
 checker and Luau-to-Lua-5.1 build (mise, luau-lsp, darklua), a typed shared namespace, SavedVariables and typed event
 handlers. CI type-checks and builds it on every change here.
 
@@ -190,19 +197,16 @@ flowchart LR
   G --> C["coverage.json · api-shapes.json · COVERAGE.md · report.json · banner.svg"]
 ```
 
-[moon](https://moonrepo.dev) orchestrates every task and [mise](https://mise.jdx.dev) pins every tool (versions in
-`mise.toml`, checksums in `mise.lock`). `moon run :check` is the gate; CI runs it cold on every pull request, and
-the pre-push hook runs it for what changed.
+[Sergeant](https://github.com/Braden1996/sergeant) (`sgt`) orchestrates checks, tests, and commands, and [mise](https://mise.jdx.dev) pins every tool (versions in
+`mise.toml`, checksums in `mise.lock`). `sgt check` and `sgt test` form the core gate; CI runs them alongside the live repo and docs checks on every pull request.
 
-| Task                                       | What it proves                                                                                                      |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| `generator:fresh`                          | Every generated file, including the banner, matches a regeneration from the pinned commits                          |
-| `generator:coverage`                       | No API that was typed on the base branch lost its types                                                             |
-| `generator:typecheck`, `lint`, `fmt-check` | The generator is `--!strict` clean, selene-clean and StyLua-formatted                                               |
-| `tests:samples`                            | The sample addon and the template have zero diagnostics; each negative fixture produces exactly its expected errors |
-| `tests:snapshots`                          | The converter reproduces every snapshot case, and each expected file loads in luau-lsp                              |
-| `tests:template-build`                     | The template compiles with darklua to valid Lua 5.1 covering every file its `.toc` loads                            |
-| `repo:check`                               | typos, actionlint, zizmor, offline link check, dprint formatting                                                    |
+| Command                   | What it proves                                                                                                     |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `sgt check`               | Format, lint, strict types, boundaries, `woof lint`, samples, snapshots, addon template build, and workflow audits |
+| `sgt test`                | Colocated converter `*.spec.luau` unit suites with symbol-level caching                                            |
+| `sgt run generator-fresh` | Every generated file, including the banner, matches a regeneration from the pinned commits                         |
+| `sgt run coverage-diff`   | No API that was typed on the base branch lost its types                                                            |
+| `sgt run docs-check`      | Docs site lint, typecheck, format, tests, static build, and internal link verification                             |
 
 CI also checks Conventional Commit pull request titles. Dependabot bumps the SHA-pinned actions; a weekly workflow
 moves the upstream pins and opens a pull request with the regenerated files.
@@ -210,8 +214,9 @@ moves the upstream pins and opens a pull request with the regenerated files.
 ```bash
 mise install                        # the pinned tools
 mise exec -- lefthook install       # git hooks
-mise exec -- moon run :check        # everything CI runs
-mise exec -- moon run generator:generate
+mise exec -- sgt check              # format, lint, typecheck, samples, snapshots, templates
+mise exec -- sgt test               # converter unit specs
+mise exec -- sgt run generate       # regenerate definitions from upstream.toml
 ```
 
 ## Editors

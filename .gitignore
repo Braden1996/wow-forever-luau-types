@@ -1,3 +1,3 @@
 .upstream/
-.moon/cache/
-.moon/docker/
+.sergeant/
+luau_packages/

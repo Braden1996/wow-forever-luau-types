@@ -1,0 +1,9 @@
+[package]
+name = "wow-forever-luau-types"
+version = "0.7.0"
+kind = "types"
+target = "wow"
+definitions = ["definitions/wow-forever.d.luau"]
+
+[luaurc]
+sync = false

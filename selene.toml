@@ -1,4 +1,12 @@
-# Lints the repository's own Luau (the generator and scripts). The WoW samples under tests/ use game
+# Lints the repository's own Luau (packages/generator). The WoW samples under tests/ use game
 # globals selene does not know; luau-lsp checks them against the generated definitions instead.
 std = "luau"
-exclude = [".upstream/*", "definitions/*", "supplements/*", "tests/*"]
+exclude = [
+  ".upstream/*",
+  ".sergeant/*",
+  "luau_packages/*",
+  "definitions/*",
+  "supplements/*",
+  "tests/*",
+  "templates/*",
+]

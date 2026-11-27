@@ -1,8 +1,8 @@
 --!strict
--- BlizzardInterfaceResources dumps (generator/resources.luau).
+-- BlizzardInterfaceResources dumps (resources.luau).
 
-local Case = require("./case")
-local Resources = require("../../generator/resources")
+local Resources = require("./resources")
+local SpecCase = require("./spec-case")
 
 local GLOBAL_API = 'local GlobalAPI = {\n\t"CreateFrame",\n\t"C_Timer.After",\n}\n\n'
 	.. 'local LuaAPI = {\n\t"strsplit",\n}\n\nreturn {GlobalAPI, LuaAPI}\n'
@@ -11,7 +11,7 @@ local WIDGET_API = 'local WidgetAPI = {\n\tFrame = {\n\t\tinherits = {"Region"},
 local LUA_ENUM = "Enum = {\n\tAccountData = {\n\t\tConfig = 0,\n\t\tBindings = 2,\n\t},\n}\n\n"
 	.. "Constants = {\n\tLevels = {\n\t\tMax = 60,\n\t},\n}\n"
 
-local cases: { Case.Case } = {
+local cases: { SpecCase.Case } = {
 	{
 		name = "a full set of dumps parses without errors",
 		run = function()
@@ -56,7 +56,6 @@ local cases: { Case.Case } = {
 		end,
 	},
 	{
-		-- A dump that is present but has lost its expected section is an error, not an empty API.
 		name = "a dump without its section is reported",
 		run = function()
 			local r = Resources.parse({
@@ -74,4 +73,4 @@ local cases: { Case.Case } = {
 	},
 }
 
-return cases
+return SpecCase.specs(cases)

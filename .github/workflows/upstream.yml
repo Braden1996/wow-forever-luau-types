@@ -55,7 +55,7 @@ jobs:
         run: mise exec -- lune run scripts/bump-upstream
       - name: regenerate
         if: steps.bump.outputs.changed == 'true'
-        run: mise exec -- moon run generator:generate
+        run: mise exec -- sgt --no-daemon run generate
       - name: push and open the pull request
         if: steps.bump.outputs.changed == 'true'
         env:
