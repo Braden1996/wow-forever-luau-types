@@ -22,7 +22,7 @@ experimental = true
 "node" = "26.13.1" # the docs site: runs Astro (active LTS)
 
 [tools."http:sgt"]
-version = "0.14.0"
+version = "0.14.3"
 bin_path = "."
 
 [tools."http:sgt".platforms]
