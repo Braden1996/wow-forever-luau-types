@@ -59,6 +59,9 @@ jobs:
           mise exec -- sgt --no-daemon test
           mise exec -- sgt --no-daemon run luaurc-pin
           mise exec -- sgt --no-daemon run scripts-typecheck
+          mise exec -- sgt --no-daemon run samples
+          mise exec -- sgt --no-daemon run snapshots
+          mise exec -- sgt --no-daemon run template-build
           mise exec -- sgt --no-daemon run generator-fresh
           mise exec -- sgt --no-daemon run coverage-diff
           mise exec -- sgt --no-daemon run docs-check
