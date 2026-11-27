@@ -46,8 +46,9 @@ jobs:
           elif [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then base="$BEFORE"
           else base="origin/main"; fi
           echo "COVERAGE_BASE=$base" >> "$GITHUB_ENV"
-      - name: setup lune typedefs and install dependencies
+      - name: setup lune typedefs, sealing, and dependencies
         run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
           mise exec -- lune setup
           mise exec -- sgt --no-daemon install --frozen
           mise exec -- bun install --cwd docs --frozen-lockfile

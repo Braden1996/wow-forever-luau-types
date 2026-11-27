@@ -42,8 +42,9 @@ jobs:
       - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
         with:
           cache: false
-      - name: setup and install
+      - name: setup sealing and install
         run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
           mise exec -- lune setup
           mise exec -- sgt --no-daemon install --frozen
           mise exec -- bun install --cwd docs --frozen-lockfile
