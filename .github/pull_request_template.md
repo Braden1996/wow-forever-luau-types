@@ -4,8 +4,8 @@
 
 ## Checklist
 
-- [ ] `mise exec -- moon run :check` passes locally
-- [ ] Generated files were regenerated with `mise exec -- moon run generator:generate`, not edited by hand
+- [ ] `mise exec -- sgt check` passes locally
+- [ ] Generated files were regenerated with `mise exec -- sgt run generate`, not edited by hand
 - [ ] A new fixture, snapshot case or template change covers any behaviour change
-- [ ] No API lost its types (`generator:coverage`), or the pull request explains why
+- [ ] The `coverage-diff` check passes, or the pull request explains the proposed exception
 - [ ] `CHANGELOG.md` has a line under "Unreleased" if users will notice the change

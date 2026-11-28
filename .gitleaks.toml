@@ -1,0 +1,6 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Local worktrees, tool caches, installed dependencies, and generated build output"
+paths = ['''(^|[\\/])(?:\.claude|\.sergeant|\.upstream|\.astro|node_modules|luau_packages|dist)(?:[\\/]|$)''']

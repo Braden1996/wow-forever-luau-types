@@ -1,0 +1,61 @@
+---
+title: Checked examples
+description: How every Luau example on this site is type-checked at build time by Luau's own checker, and where its hover types come from.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+Every Luau example on this site is type-checked when the site is built. The checker is the one luau-lsp runs: Luau's
+own analyser with the **new type solver**, the generated definitions, and the editor settings from
+`definitions/luau-lsp.settings.json`. If an example stops type-checking, the site does not build.
+
+The same pass records the type of every identifier. Hover over one in an example:
+
+- An API symbol, such as `CreateFrame`, `C_Item`, `C_Item.GetItemInfo` or a widget type, opens its card from the
+  [API reference](/wow-forever-luau-types/api/).
+- A local, a parameter or a field shows the type the checker inferred. A type function shows what it resolves to:
+  `EventHandler<"PLAYER_LEVEL_UP">` shows the event's handler type, with its parameter names.
+- An underlined line marked `-- error` shows the checker's error message.
+
+This is the idea behind TypeScript's [Twoslash](https://twoslash.netlify.app/), done for Luau. The work happens
+during the build, so the pages stay static HTML and the browser downloads no checker.
+
+## The checker: luau-web-checker
+
+[luau-web-checker](https://github.com/Braden1996/luau-web-checker) is Luau's C++ analysis library compiled to
+WebAssembly with Emscripten. It is pinned to the Luau release that luau-lsp 1.70.1 uses (0.740).
+
+Two tests keep it honest:
+
+- Its own repository runs every test fixture through both the WebAssembly build and `luau-lsp analyze`. Both must
+  report the same diagnostics.
+- This repository runs the checker over `tests/pass`, `templates/` and `tests/fail`
+  (`packages/runtimes/docs/src/lib/luau/agreement.test.ts`). The samples must have no diagnostics, and each failing sample must match
+  its `.expected` file exactly, as `packages/runtimes/cli/src/test.effect.luau` requires of luau-lsp.
+
+<Aside type="note" title="Why not @luau-rs/luau?">
+  [@luau-rs/luau](https://github.com/luau-rs/luau) is a Rust port of Luau with a WebAssembly build. Its analysis ports
+  only the new solver, but version 0.739 reports "Code is too complex to typecheck" when it loads `wow-forever.d.luau`.
+  Luau's own C++ does not report that error at the same version. Compiling the C++ avoids the difference.
+</Aside>
+
+## Writing examples
+
+A ` ```luau ` block is checked in strict mode, as its own module, against the generated definitions and the guides'
+example addon (`packages/runtimes/docs/src/lib/luau/example-addon.d.luau`, which declares `MyAddonDB` and `MyAddonNamespace`).
+
+- **Mark expected errors.** End the line with `-- error` or `-- error: why`. That line must have a type error or a
+  syntax error, and no other line may have one.
+- **Hide the setup.** Lines above a `-- ---cut---` line are checked but not shown. Use them for the locals an example
+  assumes, such as `local frame = CreateFrame("Frame")`.
+- **Definitions files are shown as written.** A block with a top-level `declare` is an addon's `addon.d.luau`. It
+  cannot be checked as a module. `tests/pass` covers real ones.
+- **Opt out** with ` ```luau nocheck `, for pseudo-code only.
+
+Lint warnings, such as unused locals, are ignored, because examples are fragments.
+
+## No playground
+
+An editable playground could run the same WebAssembly in a Web Worker, so it would need no server. It is not part
+of the site: luau-lsp in your editor does that job better. The
+[addon template](/wow-forever-luau-types/start/addon-template/) sets it up.

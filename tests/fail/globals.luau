@@ -1,6 +1,6 @@
 --!strict
 -- Global functions: existence follows the WoW: Forever client, types follow Blizzard's documentation.
--- Every marked line must error (see scripts/test.luau); globals.expected holds the exact diagnostics.
+-- Every marked line must error (see packages/runtimes/cli/src/test.luau); globals.expected holds the exact diagnostics.
 
 -- Classic Era globals that the Forever client replaced with C_ namespaces.
 GetQuestLogTitle(1) -- expect-error: Unknown global 'GetQuestLogTitle'

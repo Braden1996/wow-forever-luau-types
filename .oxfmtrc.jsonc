@@ -1,11 +1,13 @@
 {
   "ignorePatterns": [
+    // Frozen install expects the root Bun manifest in Sergeant 0.15.0's generated format.
+    "package.json",
     ".upstream/**",
     ".sergeant/**",
     "luau_packages/**",
     "definitions/**",
     "tests/snapshots/**",
+    "templates/addon/mise.lock",
     "mise.lock",
-    "docs/**",
   ],
 }

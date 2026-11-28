@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "name": "@wow-forever-luau-types/docs",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "The documentation site for wow-forever-luau-types (Astro + Starlight, static for GitHub Pages).",
+  "engines": {
+    "bun": "\u003e=1.4.4",
+    "node": "\u003e=26.13.1"
+  },
+  "packageManager": "bun@1.4.4",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check --tsconfig tsconfig.src.json",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@astrojs/react": "catalog:",
+    "@astrojs/starlight": "catalog:",
+    "astro": "catalog:",
+    "luau-web-checker": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "starlight-warcraft": "catalog:"
+  },
+  "devDependencies": {
+    "@astrojs/check": "catalog:",
+    "@types/bun": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:"
+  }
+}

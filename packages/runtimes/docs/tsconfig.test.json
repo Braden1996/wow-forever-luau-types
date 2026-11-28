@@ -1,0 +1,6 @@
+{
+  "extends": ["../../../tsconfig.base.json", "@sgt-build/tsconfig/bun-test"],
+  "compilerOptions": {
+    "types": ["astro/client", "bun", "node"]
+  }
+}

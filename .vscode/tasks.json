@@ -25,7 +25,7 @@
     {
       "label": "update negative-fixture expectations",
       "type": "shell",
-      "command": "mise exec -- lune run scripts/test -- --update",
+      "command": "mise exec -- lune run packages/runtimes/cli/src/test.effect.luau -- --update",
       "problemMatcher": []
     },
     {

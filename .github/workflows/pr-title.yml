@@ -1,16 +1,13 @@
-# Pull request titles become squash-commit messages, so they follow Conventional Commits:
-# `type(scope)!: summary`. Required by the branch ruleset as the `pr-title` check.
 name: pr-title
 
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
-  # The scheduled `upstream` workflow opens its pull request with GITHUB_TOKEN, which fires no `pull_request`
-  # events; it dispatches this on its branch with the title it used, so the check reports on the head commit.
+  # GITHUB_TOKEN does not trigger the normal pull_request event for the automated upstream bump.
   workflow_dispatch:
     inputs:
       title:
-        description: "The pull request title to check"
+        description: The automated upstream pull request title
         required: true
         type: string
 
@@ -22,16 +19,13 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - name: conventional commit title
+      - if: github.event_name == 'pull_request'
+        uses: Braden1996/sergeant-releases/actions/pr-title@v0.15.0 # zizmor: ignore[unpinned-uses]
+        with:
+          scopes: generator,definitions,upstream,supplements,template,tests,ci,docs,deps,repo,tools
+      - name: Validate the automated upstream title
+        if: github.event_name == 'workflow_dispatch'
         env:
-          TITLE: ${{ github.event.pull_request.title || inputs.title }}
+          TITLE: ${{ inputs.title }}
         run: |
-          pattern='^(feat|fix|perf|refactor|test|docs|build|ci|chore|style|revert)(\((generator|definitions|upstream|supplements|template|tests|ci|docs|deps|repo)\))?!?: [a-z0-9`].{0,98}[^.]$'
-          if printf '%s' "$TITLE" | grep -Eq "$pattern"; then
-            echo "ok: $TITLE"
-          else
-            echo "::error::Title must look like 'type(scope): summary' (lower-case start, no trailing period)."
-            echo "Types: feat fix perf refactor test docs build ci chore style revert."
-            echo "Scopes: generator definitions upstream supplements template tests ci docs deps repo."
-            exit 1
-          fi
+          test "$TITLE" = 'feat(upstream): move upstream pins to their branch heads'

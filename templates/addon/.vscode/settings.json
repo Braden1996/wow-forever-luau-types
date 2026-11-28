@@ -8,7 +8,7 @@
   "luau-lsp.fflags.enableByDefault": true,
   "luau-lsp.fflags.sync": false,
   // Luau standard-library names WoW (Lua 5.1) lacks; kept equal to definitions/luau-lsp.settings.json by
-  // `moon run tests:editors` (rewrite with `lune run scripts/editor-settings -- --write`).
+  // `sgt check` (rewrite with `lune run packages/runtimes/cli/src/editor-settings -- --write`).
   "luau-lsp.types.disabledGlobals": [
     "bit32",
     "buffer",

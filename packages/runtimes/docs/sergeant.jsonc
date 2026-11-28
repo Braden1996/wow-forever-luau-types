@@ -1,0 +1,8 @@
+{
+  "name": "@wow-forever-luau-types/docs",
+  "kind": "astro:app",
+  "reads": ["definitions/**", "README.md", "CHANGELOG.md"],
+  "test": {
+    "reads": ["definitions/**", "tests/pass/**", "tests/fail/**", "templates/addon/**"],
+  },
+}

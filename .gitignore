@@ -1,3 +1,4 @@
 .upstream/
 .sergeant/
 luau_packages/
+node_modules/

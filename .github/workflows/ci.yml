@@ -1,16 +1,10 @@
-# The required gate. `ci-ok` is the one status check the branch ruleset requires (with `pr-title`), so jobs can
-# change without editing the ruleset. `check` runs Sergeant (`sgt doctor`, `sgt check`, `sgt test`) plus the live
-# repo checks (`luaurc-pin`, `scripts-typecheck`, `generator-fresh`, `coverage-diff`, `docs-check`).
-# Every action is pinned by commit SHA (Dependabot bumps them; zizmor checks); every tool comes from mise.toml with
-# mise.lock checksums.
 name: ci
 
 on:
   pull_request: {}
   push:
     branches: [main]
-  # The scheduled `upstream` workflow dispatches this on its branch: pull requests opened with GITHUB_TOKEN do not
-  # trigger `pull_request` runs, but dispatched runs report their checks on the same commit.
+  # The upstream workflow dispatches this against its automated pull request branch.
   workflow_dispatch: {}
 
 permissions:
@@ -18,53 +12,32 @@ permissions:
 
 concurrency:
   group: ci-${{ github.ref }}
-  # A newer push to a pull request supersedes the older run; every commit on main keeps its own completed run.
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   check:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
-    env:
-      CI: "true"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0 # the coverage check reads definitions/coverage.json at the base ref
+          fetch-depth: 0
           persist-credentials: false
-      - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+      - uses: Braden1996/sergeant-releases/actions/setup@v0.15.0 # zizmor: ignore[unpinned-uses]
         with:
-          cache: true
-      - name: coverage base
+          seal-sysctl: true
+      - uses: Braden1996/sergeant-releases/actions/setup-luau@v0.15.0 # zizmor: ignore[unpinned-uses]
+      - uses: ./.github/actions/setup-workspace # zizmor: ignore[self-repository]
+      - name: Set the coverage comparison base
         env:
           BASE_REF: ${{ github.base_ref }}
           BEFORE: ${{ github.event.before }}
         run: |
-          # A pull request compares with its base branch, a push with the previous commit, a dispatch with main.
-          # A push that created the branch has an all-zero `before`; main is the base then.
           if [ -n "$BASE_REF" ]; then base="origin/$BASE_REF"
           elif [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then base="$BEFORE"
           else base="origin/main"; fi
           echo "COVERAGE_BASE=$base" >> "$GITHUB_ENV"
-      - name: setup lune typedefs, sealing, and dependencies
-        run: |
-          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
-          mise exec -- lune setup
-          mise exec -- sgt --no-daemon install --frozen
-          mise exec -- bun install --cwd docs --frozen-lockfile
-      - name: gate
-        run: |
-          mise exec -- sgt --no-daemon doctor
-          mise exec -- sgt --no-daemon check
-          mise exec -- sgt --no-daemon test
-          mise exec -- sgt --no-daemon run luaurc-pin
-          mise exec -- sgt --no-daemon run scripts-typecheck
-          mise exec -- sgt --no-daemon run samples
-          mise exec -- sgt --no-daemon run snapshots
-          mise exec -- sgt --no-daemon run template-build
-          mise exec -- sgt --no-daemon run generator-fresh
-          mise exec -- sgt --no-daemon run coverage-diff
-          mise exec -- sgt --no-daemon run docs-check
+      - uses: Braden1996/sergeant-releases/actions/ci@v0.15.0 # zizmor: ignore[unpinned-uses]
 
   ci-ok:
     if: always()
@@ -72,8 +45,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - name: all required jobs passed
-        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
+      - name: Require all checks to pass
+        if: needs.check.result != 'success'
         run: exit 1
-      - name: ok
+      - name: Sergeant gate passed
         run: echo "sgt gate passed"

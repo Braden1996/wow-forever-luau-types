@@ -15,7 +15,7 @@ lockfile = true
 [tasks.types]
 description = "Download the pinned WoW: Forever definitions release into types/ and verify its SHA-256"
 # To upgrade, set the release tag and the sha256 of its wow-forever.d.luau (listed in that release's SHA256SUMS).
-env = { WOW_TYPES_VERSION = "v0.6.0", WOW_TYPES_SHA256 = "d390010580ea6549b215888859045cc781a9552dd9a86569eed646fddbcaa213" }
+env = { WOW_TYPES_VERSION = "v0.7.0", WOW_TYPES_SHA256 = "d390010580ea6549b215888859045cc781a9552dd9a86569eed646fddbcaa213" }
 run = "lune run types"
 
 [tasks.check]
@@ -32,7 +32,4 @@ run = "stylua src"
 
 [tasks.build]
 description = "Compile each src/*.luau to Lua 5.1 as build/*.lua, the files MyAddon.toc loads (add a line per file)"
-run = [
-  "darklua process src/Core.luau build/Core.lua",
-  "darklua process src/Events.luau build/Events.lua",
-]
+run = ["darklua process src/Core.luau build/Core.lua", "darklua process src/Events.luau build/Events.lua"]

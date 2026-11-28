@@ -1,0 +1,6 @@
+{
+  "extends": ["../../../tsconfig.base.json", "@sgt-build/tsconfig/astro", "@sgt-build/tsconfig/src"],
+  "compilerOptions": {
+    "types": ["astro/client", "node"]
+  }
+}

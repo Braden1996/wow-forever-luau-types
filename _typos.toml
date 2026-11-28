@@ -1,9 +1,0 @@
-[files]
-extend-exclude = [
-  # Generated from the game client: Blizzard's identifiers keep their own spelling.
-  "definitions/",
-  # Negative fixtures misspell API names on purpose; luau-lsp must reject each one.
-  "tests/fail/",
-  # Lists Blizzard's API names, which keep their own spelling.
-  "scripts/coverage-accepted.json",
-]

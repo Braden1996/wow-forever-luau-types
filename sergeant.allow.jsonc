@@ -1,0 +1,65 @@
+{
+    "$schema":  "./.sergeant/schema.allow.json",
+    "allow":  [
+                  {
+                      "rule":  "boundaries/missing",
+                      "file":  "packages/runtimes/cli/src/bump-upstream.effect.luau",
+                      "count":  3,
+                      "reason":  "Lune supplies the @lune modules at runtime. luau-lsp checks their pinned typedefs."
+                  },
+                  {
+                      "rule":  "boundaries/missing",
+                      "file":  "packages/runtimes/cli/src/check-luaurc.effect.luau",
+                      "count":  2,
+                      "reason":  "Lune supplies the @lune modules at runtime. luau-lsp checks their pinned typedefs."
+                  },
+                  {
+                      "rule":  "boundaries/missing",
+                      "file":  "packages/runtimes/cli/src/coverage-diff.effect.luau",
+                      "count":  3,
+                      "reason":  "Lune supplies the @lune modules at runtime. luau-lsp checks their pinned typedefs."
+                  },
+                  {
+                      "rule":  "boundaries/missing",
+                      "file":  "packages/runtimes/cli/src/editor-settings.effect.luau",
+                      "count":  3,
+                      "reason":  "Lune supplies the @lune modules at runtime. luau-lsp checks their pinned typedefs."
+                  },
+                  {
+                      "rule":  "boundaries/missing",
+                      "file":  "packages/runtimes/cli/src/main.luau",
+                      "count":  2,
+                      "reason":  "Lune supplies the @lune modules at runtime. luau-lsp checks their pinned typedefs."
+                  },
+                  {
+                      "rule":  "boundaries/missing",
+                      "file":  "packages/runtimes/cli/src/pipeline.luau",
+                      "count":  3,
+                      "reason":  "Lune supplies the @lune modules at runtime. luau-lsp checks their pinned typedefs."
+                  },
+                  {
+                      "rule":  "boundaries/missing",
+                      "file":  "packages/runtimes/cli/src/snapshot.effect.luau",
+                      "count":  2,
+                      "reason":  "Lune supplies the @lune modules at runtime. luau-lsp checks their pinned typedefs."
+                  },
+                  {
+                      "rule":  "boundaries/missing",
+                      "file":  "packages/runtimes/cli/src/template-build.effect.luau",
+                      "count":  3,
+                      "reason":  "Lune supplies the @lune modules at runtime. luau-lsp checks their pinned typedefs."
+                  },
+                  {
+                      "rule":  "boundaries/missing",
+                      "file":  "packages/runtimes/cli/src/test.effect.luau",
+                      "count":  2,
+                      "reason":  "Lune supplies the @lune modules at runtime. luau-lsp checks their pinned typedefs."
+                  },
+                  {
+                      "rule":  "boundaries/missing",
+                      "file":  "packages/runtimes/cli/src/textfile.luau",
+                      "count":  1,
+                      "reason":  "Lune supplies the @lune modules at runtime. luau-lsp checks their pinned typedefs."
+                  }
+              ]
+}

@@ -1,0 +1,16 @@
+---
+title: Contributing
+description: Where to report incorrect types and how to verify changes.
+---
+
+Follow the repository's [contributing guide](https://github.com/Braden1996/wow-forever-luau-types/blob/main/CONTRIBUTING.md)
+and the [Sergeant playbook](https://github.com/Braden1996/sergeant#readme) to set up the workspace.
+
+- Adjust documented C API types in the generator. Report incorrect undocumented global, FrameXML mixin, and Lua
+  extension types to [Ketho/vscode-wow-api](https://github.com/Ketho/vscode-wow-api).
+- Reproduce converter bugs in `tests/snapshots/` and addon type errors in `tests/pass/` or `tests/fail/`.
+- Run `sgt run generate` to regenerate the definitions, reports, and banner after changing generator inputs.
+- Edit site guides in `packages/runtimes/docs/src/content/docs/`. Run `sgt dev docs` for a local preview.
+
+Run `sgt check`, `sgt test`, and `sgt build` before opening a pull request. The build checks the Luau examples
+in the guides as well as the internal links on the site.

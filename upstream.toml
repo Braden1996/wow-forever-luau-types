@@ -1,4 +1,4 @@
-# The three upstream inputs, pinned by commit. The scheduled `upstream` workflow (scripts/bump-upstream.luau)
+# The three upstream inputs, pinned by commit. The scheduled `upstream` workflow (packages/runtimes/cli/src/bump-upstream.luau)
 # moves each `commit` to the head of its `branch`, regenerates, and opens a pull request.
 
 # Types: LuaCATS annotations for the WoW API (MIT licence).

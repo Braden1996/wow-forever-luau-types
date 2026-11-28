@@ -40,9 +40,6 @@
     "vector"
   ],
   "luau-lsp.ignoreGlobs": [".upstream/**", "definitions/**", "tests/snapshots/**", "tests/fail/**"],
-  "files.exclude": {
-    ".moon/cache": true
-  },
   "search.exclude": {
     ".upstream": true,
     "definitions/wow-forever.d.luau": true,
@@ -54,22 +51,13 @@
     "editor.formatOnSave": true,
     "editor.insertSpaces": false
   },
-  "[markdown][json][jsonc][yaml][toml]": {
-    "editor.defaultFormatter": "dprint.dprint",
-    "editor.formatOnSave": true
-  },
   "json.schemas": [
     {
       "fileMatch": ["/sergeant.jsonc", "/sergeant.json"],
       "url": "./.sergeant/schema.json"
     },
     {
-      "fileMatch": [
-        "/**/sergeant.jsonc",
-        "/**/sergeant.json",
-        "!/sergeant.jsonc",
-        "!/sergeant.json"
-      ],
+      "fileMatch": ["/**/sergeant.jsonc", "/**/sergeant.json", "!/sergeant.jsonc", "!/sergeant.json"],
       "url": "./.sergeant/schema.unit.json"
     },
     {

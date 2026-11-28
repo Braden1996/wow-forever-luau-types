@@ -31,9 +31,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
-        with:
-          cache: false
+      - uses: Braden1996/sergeant-releases/actions/setup@v0.15.0 # zizmor: ignore[unpinned-uses]
+      - uses: Braden1996/sergeant-releases/actions/setup-luau@v0.15.0 # zizmor: ignore[unpinned-uses]
       - name: an open bump pull request a maintainer has worked on is left alone
         id: existing
         env:
@@ -52,10 +51,12 @@ jobs:
       - name: bump pins
         id: bump
         if: steps.existing.outputs.skip != 'true'
-        run: mise exec -- lune run scripts/bump-upstream
+        run: sgt --no-daemon run upstream-bump
       - name: regenerate
         if: steps.bump.outputs.changed == 'true'
-        run: mise exec -- sgt --no-daemon run generate
+        run: |
+          sgt --no-daemon run generate
+          sgt --no-daemon run editor-settings-write
       - name: push and open the pull request
         if: steps.bump.outputs.changed == 'true'
         env:
@@ -71,7 +72,7 @@ jobs:
           git commit -m "$TITLE" -m "$SUMMARY"
           git push --force "https://github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$BRANCH"
           # shellcheck disable=SC2016 # the backticks are literal Markdown in the pull request body
-          body="$(printf 'Moves the pins in `upstream.toml` and regenerates.\n\n%s\n\nReview `definitions/COVERAGE.md` and `definitions/report.json` first. If `tests` fails, update the fixtures (`lune run scripts/test -- --update`) or fix the generator on this branch; this workflow will not overwrite your commits.' "$SUMMARY")"
+          body="$(printf 'Moves the pins in `upstream.toml` and regenerates.\n\n%s\n\nReview `definitions/COVERAGE.md` and `definitions/report.json` first. If the sample check fails, update the fixtures (`lune run packages/runtimes/cli/src/test.effect.luau -- --update`) or fix the generator on this branch; this workflow will not overwrite your commits.' "$SUMMARY")"
           if [ -n "$NUMBER" ]; then
             gh pr edit "$NUMBER" --repo "$GITHUB_REPOSITORY" --body "$body"
           else

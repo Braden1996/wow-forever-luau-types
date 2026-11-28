@@ -1,7 +1,3 @@
-# Publishes a release when a `v*.*.*` tag is pushed on a commit of main. `verify` re-runs the full Sergeant gate
-# from a cold start with read-only permissions (no tool cache, so nothing a pull request wrote can reach a release);
-# `publish` holds the write permission, rebuilds nothing, and attaches both the raw definition assets and a
-# woof-native `.zip` archive (with `woof.toml` at archive root) plus `SHA256SUMS`.
 name: release
 
 on:
@@ -20,101 +16,52 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      CI: "true"
       COVERAGE_BASE: origin/main
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0 # the main-ancestry and coverage checks need history
+          fetch-depth: 0
           persist-credentials: false
-      - name: the tag is on main
-        run: |
-          git merge-base --is-ancestor "$GITHUB_SHA" origin/main \
-            || { echo "::error::$GITHUB_REF_NAME is not on main; tag a commit of main."; exit 1; }
-      - name: woof.toml version matches tag
-        env:
-          TAG: ${{ github.ref_name }}
-        run: |
-          if ! grep -q "^version = \"${TAG#v}\"$" woof.toml; then
-            echo "::error file=woof.toml::version is not ${TAG#v}"
-            exit 1
-          fi
-      - uses: jdx/mise-action@d5574b52816a478f9d4e6529a3f6ff17a8a36785 # v5.2.8
+      - name: Verify the tag is on main
+        run: git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+      - uses: Braden1996/sergeant-releases/actions/setup@v0.15.0 # zizmor: ignore[unpinned-uses]
         with:
-          cache: false
-      - name: setup sealing and install
-        run: |
-          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
-          mise exec -- lune setup
-          mise exec -- sgt --no-daemon install --frozen
-          mise exec -- bun install --cwd docs --frozen-lockfile
-      - name: gate
-        run: |
-          mise exec -- sgt --no-daemon doctor
-          mise exec -- sgt --no-daemon check
-          mise exec -- sgt --no-daemon test
-          mise exec -- sgt --no-daemon run luaurc-pin
-          mise exec -- sgt --no-daemon run scripts-typecheck
-          mise exec -- sgt --no-daemon run samples
-          mise exec -- sgt --no-daemon run snapshots
-          mise exec -- sgt --no-daemon run template-build
-          mise exec -- sgt --no-daemon run generator-fresh
-          mise exec -- sgt --no-daemon run coverage-diff
-          mise exec -- sgt --no-daemon run docs-check
+          seal-sysctl: true
+      - uses: Braden1996/sergeant-releases/actions/setup-luau@v0.15.0 # zizmor: ignore[unpinned-uses]
+      - uses: ./.github/actions/setup-workspace # zizmor: ignore[self-repository]
+      - uses: Braden1996/sergeant-releases/actions/ci@v0.15.0 # zizmor: ignore[unpinned-uses]
 
   publish:
-    needs: [verify]
+    needs: verify
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
-      contents: write # create the release
+      contents: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: release notes
-        env:
-          TAG: ${{ github.ref_name }}
+      - uses: Braden1996/sergeant-releases/actions/setup@v0.15.0 # zizmor: ignore[unpinned-uses]
+      - uses: Braden1996/sergeant-releases/actions/setup-luau@v0.15.0 # zizmor: ignore[unpinned-uses]
+      - name: Pack the definitions and metadata
+        id: pack
         run: |
-          # The CHANGELOG.md section for this version, without its heading.
-          awk -v v="${TAG#v}" 'index($0, "## [" v "]") == 1 {on=1; next} /^## / && on {exit} on && !/^\[.*\]: http/' CHANGELOG.md > notes.md
-          if ! grep -q '[^[:space:]]' notes.md; then echo "::error file=CHANGELOG.md::no section for ${TAG#v}"; exit 1; fi
-          {
-            echo
-            echo "Generated from (see \`upstream.toml\`):"
-            echo
-            grep -E '^(repository|commit) = ' upstream.toml | paste - - \
-              | sed -E 's|repository = "([^"]+)"\tcommit = "([0-9a-f]{12})[0-9a-f]*"|- [\1@\2](https://github.com/\1/tree/\2)|'
-          } >> notes.md
-          cat notes.md
-      - name: publish
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.ref_name }}
-        run: |
-          ver="${TAG#v}"
-          zip_name="wow-forever-luau-types-${ver}.zip"
-          files="wow-forever.d.luau report.json coverage.json api-shapes.json COVERAGE.md"
-          [ -f definitions/luau-lsp.settings.json ] && files="$files luau-lsp.settings.json"
-          mkdir -p pkg
-          for f in $files; do
-            cp "definitions/$f" .
-            cp "definitions/$f" "pkg/$f"
-          done
-          cp LICENSE README.md CHANGELOG.md pkg/
-          cat > pkg/woof.toml <<EOF
-          [package]
-          name = "wow-forever-luau-types"
-          version = "${ver}"
-          kind = "types"
-          target = "wow"
-          definitions = ["wow-forever.d.luau"]
-          EOF
-          (cd pkg && zip -qr "../${zip_name}" .)
-          # shellcheck disable=SC2086 # $files is a space-separated list of known names
-          sha256sum $files "$zip_name" > SHA256SUMS
-          prerelease=""
-          case "$TAG" in *-*) prerelease="--prerelease" ;; esac
-          # shellcheck disable=SC2086
-          gh release create "$TAG" $files "$zip_name" SHA256SUMS $prerelease \
-            --repo "$GITHUB_REPOSITORY" --title "$TAG" --notes-file notes.md --verify-tag
+          archive=".sergeant/release/wow-forever-luau-types-${GITHUB_REF_NAME#v}.zip"
+          woof pack --out "$archive" \
+            --include definitions/api-shapes.json \
+            --include definitions/luau-lsp.settings.json \
+            --include definitions/report.json \
+            --include definitions/coverage.json \
+            --include definitions/COVERAGE.md \
+            --include LICENSE --include README.md --include CHANGELOG.md
+          echo "archive=$archive" >> "$GITHUB_OUTPUT"
+      - uses: Braden1996/sergeant-releases/actions/release-woof@v0.15.0 # zizmor: ignore[unpinned-uses]
+        with:
+          archive-path: ${{ steps.pack.outputs.archive }}
+          extra-artifacts: |
+            definitions/wow-forever.d.luau
+            definitions/report.json
+            definitions/coverage.json
+            definitions/api-shapes.json
+            definitions/COVERAGE.md
+            definitions/luau-lsp.settings.json
